@@ -1,0 +1,36 @@
+00 05 * * * cd /home/pim/data_source/IcecatToPIMImport; perl ./import.pl
+0 1 * * * perl /home/pim/bin/artificial_foreign_keys  
+0 2 * * * perl /home/pim/bin/complete_product_locals  
+0 3 * * * perl /home/pim/bin/complete_summary_descriptions  
+0 4 * * * perl /home/pim/bin/complete_supplier_prod_id_regexp_unmathched_products  
+0 * * * * perl /home/pim/bin/drop_filter_cache_tables.pl  
+0 5 * * * perl /home/pim/bin/drop_nomarket_nobody_products  
+0 6 * * * perl /home/pim/bin/fullfill_prod_stat  
+0 0,4,8,16 * * * perl /home/pim/bin/generate_xml  
+0 7 * * * perl /home/pim/bin/generate_xml_vendors  
+0 8 * * * perl /home/pim/bin/generate_xml_free  
+0 */4 * * * perl /home/pim/bin/make_product_index_cache.pl  
+0 */60 * * * perl /home/pim/bin/process_manager  
+0 9 * * * perl /home/pim/bin/refresh_categoryfeature_intervals.pl  
+0 10 * * * perl /home/pim/bin/regenerate_nestedsets.pl  
+0 11 * * * perl /home/pim/bin/remove_empty_feature_values  
+0 */2 * * * perl /home/pim/bin/rotate_memory_product_table  
+0 * * * * perl /home/pim/bin/update_actual_product.pl  
+0 12 * * * perl /home/pim/bin/update_map_product_id_product_deleted.pl  
+0 13 * * * perl /home/pim/bin/update_feature_chunk.all  
+0 15 * * *  perl /home/pim/bin/dir_clean.pl  
+0 0,4,8,16 * * * perl /home/pim/bin/update_product_date_and_features  
+0 0,4,8,16 * * * perl /home/pim/bin/update_product_xml_scheduler  
+0 14 * * * perl /home/pim/data_export/dump_all_categories > /home/pim/www/export/categories.xml.gz; cat /home/pim/www/export/categories.xml.gz | gzip -cd > /home/pim/www/export/categories.xml  
+0 15 * * * perl /home/pim/data_export/dump_all_data_csv  
+0 16 * * * perl /home/pim/data_export/dump_all_features  
+0 17 * * * perl /home/pim/data_export/dump_all_measures > /home/pim/www/export/measures.xml.gz; cat /home/pim/www/export/measures.xml.gz | gzip -cd > /home/pim/www/export/measures.xml  
+0 18 * * * nice -1 perl /home/pim/data_export/dump_all_refs  
+0 19 * * * perl /home/pim/data_export/dump_relations > /home/pim/xml/level4/refs/RelationsList.xml  
+0 20 * * * perl /home/pim/data_export/export_categoryfeatureintervals.pl  
+0 21 * * * perl /home/pim/data_export/export_prodid.pl  
+#0 22 * * * perl /home/pim/data_export/export_short_desc.pl  
+0 23 * * * perl /home/pim/data_export/export_sponsors_repositories  
+0 1 * * * perl /home/pim/data_export/dump_product_cats  
+0 2 * * * perl /home/pim/data_export/export_products_overview
+00 05 * * * cd /home/pim/data_source/IcecatToPIMImport; perl ./import.pl

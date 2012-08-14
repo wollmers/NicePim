@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="124616" Prod_id="970114-0914" ThumbPic="http://www.icecat.biz/thumbs/124616.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/124616-1589.jpg" Name="LOGITECH X-530" LowPic="http://www.icecat.biz/img/low_pic/124616-7450.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="308" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1373" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="817" No="0">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1089" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1372" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1090" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="143784" URL="" ShortDesc="X-530, 5.1 surround speaker system" langid="2" LongDesc="- Stereoluidsprekers van 70 watt RMS met FDD2-technologie voor games, muziek of films op de pc \n- FDD2-satelliettechnologie met twee drivers produceert een gelijkmatig geluidsveld voor vol, rijk geluid \n- Bijpassende voor- en achtersatellieten bieden gebalanceerde surround sound \n- Toegewezen middenkanaal maakt gesprekken helder en verstaanbaar \n- Dynamische, realtime-bastoonregeling maximaliseert basweergave terwijl vervorming geminimaliseerd wordt \n- Gepoort subwooferontwerp verplaatst meer lucht voor diepere bas \n- Koptelefoonaansluiting voor ongestoord luistergenot \n- Gemakkelijk bereikbare regeling voor hoofdvolume en subwooferniveau \n- Voetstukken van satellietluidspreker roteren, voor gemakkelijke bevestiging aan de wand \n- Windows® of Macintosh®\n- 2 jaar garantie \n- Volledige productondersteuning \n\nGeef uw pc-geluid een opkikker met Logitechs X-530-luidsprekersysteem. Satellieten met twee drivers gebruiken FDD2-technologie om de ongelijkmatige reacties te elimineren die bij conventionele ontwerpen met twee drivers ontstaan. De gepoorte subwoofer heeft een dynamische realtime-equalizer die prestaties maximaliseert en vervorming minimaliseert voor een denderende bas. Bijpassende voor- en achtersatellieten bieden gebalanceerde surround sound. Het X-530-luidsprekersysteem heeft ook handige regelaars voor het volume- en subwooferniveau. Gebruik de koptelefoonaansluiting voor ongestoord luistergenot. Satellieten kunnen aan de wand bevestigd worden. \n" WarrantyInfo="2 jaar garantie. Volledige productondersteuning.\n" PDFURL=""/>
+        <ProductDescription ID="151296" URL="" ShortDesc="X-530, 5.1 surround speaker system" langid="1" LongDesc="- 70-watt RMS stereo speakers with FDD2 technology for PC games, music or movies \n- FDD2 dual driver satellite technology produces a uniform soundfield for full, rich sound \n- Matching front &amp; rear satellites deliver balanced surround sound \n- Dedicated centre channel makes dialogues clear and intelligible \n- Dynamic, real-time bass equalisation maximises bass response while minimising distortion \n- Ported subwoofer design displaces more air for deeper bass \n- Headphone jack enables private listening \n- Master volume &amp; subwoofer level controls placed for quick, convenient access \n- Satellite speaker stands rotate for easy wall-mounting \n- Windows® or Macintosh® \n- 2-year guarantee \n- Full product support \n\nPump up your PC audio with Logitechs X-530 speaker system. Dual driver satellites use FDD2 technology to eliminate uneven response created by conventional dual driver designs. The ported subwoofer features a dynamic, real-time equaliser that maximises punch while minimising distortion for pounding bass. Matching front and rear satellites deliver balanced surround sound. The X-530 speaker system also has convenient volume and subwoofer level controls. Use the headphone jack for private listening. Satellites are wall-mountable. " WarrantyInfo="2-year guarantee. Full product support.\n" PDFURL=""/>
+        <ProductFeature ID="9787543" Value="" No="1" CategoryFeatureGroup_ID="308">
+         <Feature ID="477">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2485" Value="Media types supported" langid="1"/>
+           <Name ID="2486" Value="Media" langid="2"/>
+           <Name ID="7239" Value="Media types supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787542" Value="" No="3" CategoryFeatureGroup_ID="308">
+         <Feature ID="1279">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4099" Value="Type of material" langid="1"/>
+           <Name ID="4100" Value="Type of material" langid="2"/>
+           <Name ID="8032" Value="Type of material" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787541" Value="" No="7" CategoryFeatureGroup_ID="308">
+         <Feature ID="1496">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4689" Value="Connector" langid="1"/>
+           <Name ID="4690" Value="Connector" langid="2"/>
+           <Name ID="8293" Value="Connector" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787529" Value="" No="100050" CategoryFeatureGroup_ID="308">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787530" Value="Satellites: (2) 2&amp;quot; drivers per satellite \nSubwoofer: 5.25&amp;quot; ported driver" No="100005" CategoryFeatureGroup_ID="308">
+         <Feature ID="1853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5707" Value="Driver details" langid="1"/>
+           <Name ID="5708" Value="Driver details" langid="2"/>
+           <Name ID="8644" Value="Driver details" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787531" Value="" No="100002" CategoryFeatureGroup_ID="308">
+         <Feature ID="1655">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5169" Value="Connectivity technology" langid="1"/>
+           <Name ID="5170" Value="Connectiviteit-technologie" langid="2"/>
+           <Name ID="8388" Value="Connectivity technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787532" Value="Color-coded audio" No="100001" CategoryFeatureGroup_ID="308">
+         <Feature ID="1830">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5653" Value="Cables included" langid="1"/>
+           <Name ID="5654" Value="Cables included" langid="2"/>
+           <Name ID="8617" Value="Cables included" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787533" Value="" No="100100" CategoryFeatureGroup_ID="1372">
+         <Feature ID="1660">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5185" Value="Speaker power" langid="1"/>
+           <Name ID="5186" Value="Speaker power" langid="2"/>
+           <Name ID="8396" Value="Speaker power" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787534" Value="" No="100009" CategoryFeatureGroup_ID="817">
+         <Feature ID="1855">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5711" Value="Signal-to Noise Ratio" langid="1"/>
+           <Name ID="5712" Value="Signal-to Noise Ratio" langid="2"/>
+           <Name ID="8646" Value="Signal-to Noise Ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787535" Value="70" No="100008" CategoryFeatureGroup_ID="1372">
+         <Feature ID="1854">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="5709" Value="RMS rated power" langid="1"/>
+           <Name ID="5710" Value="RMS rated power" langid="2"/>
+           <Name ID="8645" Value="RMS rated power" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787536" Value="" No="100004" CategoryFeatureGroup_ID="817">
+         <Feature ID="1850">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5701" Value="Speaker type" langid="1"/>
+           <Name ID="5702" Value="Speaker type" langid="2"/>
+           <Name ID="8641" Value="Speaker type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787537" Value="" No="100004" CategoryFeatureGroup_ID="817">
+         <Feature ID="1852">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5705" Value="Built-in decoders" langid="1"/>
+           <Name ID="5706" Value="Built-in decoders" langid="2"/>
+           <Name ID="8643" Value="Built-in decoders" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787538" Value="" No="100003" CategoryFeatureGroup_ID="817">
+         <Feature ID="1849">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5699" Value="Audio amplifier" langid="1"/>
+           <Name ID="5700" Value="Audio amplifier" langid="2"/>
+           <Name ID="8640" Value="Audio amplifier" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787539" Value="" No="45" CategoryFeatureGroup_ID="308">
+         <Feature ID="250">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1867" Value="Bundled hardware" langid="1"/>
+           <Name ID="1868" Value="Gebundelde hardware" langid="2"/>
+           <Name ID="6942" Value="Bundled hardware" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787540" Value="" No="7" CategoryFeatureGroup_ID="308">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787527" Value="" No="100001" CategoryFeatureGroup_ID="1089">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787577" Value="45" No="100002" CategoryFeatureGroup_ID="1372">
+         <Feature ID="2166">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="9690" Value="Satellites RMS power" langid="1"/>
+           <Name ID="9691" Value="Satellites RMS power" langid="3"/>
+           <Name ID="9692" Value="Satellites RMS power" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787544" Value="" No="3" CategoryFeatureGroup_ID="1090">
+         <Feature ID="1383">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="4307" Value="Storage humidity" langid="1"/>
+           <Name ID="4308" Value="Storage humidity" langid="2"/>
+           <Name ID="8134" Value="Storage humidity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787545" Value="" No="2" CategoryFeatureGroup_ID="1090">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787546" Value="" No="1" CategoryFeatureGroup_ID="1090">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787547" Value="40Hz - 20kHz" No="70" CategoryFeatureGroup_ID="817">
+         <Feature ID="1498">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4693" Value="Frequency range" langid="1"/>
+           <Name ID="4694" Value="Frequentiebereik" langid="2"/>
+           <Name ID="8295" Value="Frequency range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787548" Value="96" No="25" CategoryFeatureGroup_ID="817">
+         <Feature ID="1573">
+          <Measure ID="76" Sign="dBA"/>
+           <Name ID="4897" Value="Signal-to Noise Ratio" langid="1"/>
+           <Name ID="4898" Value="Signaal/ruis-verhouding" langid="2"/>
+           <Name ID="7197" Value="Signal-to Noise Ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787576" Value="25" No="100003" CategoryFeatureGroup_ID="1372">
+         <Feature ID="2167">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="9693" Value="Subwoofer RMS power" langid="1"/>
+           <Name ID="9694" Value="Subwoofer RMS power" langid="3"/>
+           <Name ID="9695" Value="Subwoofer RMS power" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787528" Value="" No="100000" CategoryFeatureGroup_ID="1089">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787578" Value="140" No="100001" CategoryFeatureGroup_ID="1372">
+         <Feature ID="2165">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="9687" Value="Peak power" langid="1"/>
+           <Name ID="9688" Value="Peak power" langid="3"/>
+           <Name ID="9689" Value="Peak power" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9787579" Value="Satellites: 8&amp;quot; x 2.5&amp;quot; x 3&amp;quot;, Subwoofer: 9&amp;quot; x 6&amp;quot; x 9.25&amp;quot;" No="1" CategoryFeatureGroup_ID="1089">
+         <Feature ID="1331">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="4203" Value="Dimensions" langid="1"/>
+           <Name ID="4204" Value="Dimensions" langid="2"/>
+           <Name ID="8082" Value="Dimensions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="91" Name="Logitech"/>
+       <Category ID="190">
+         <Name ID="381" Value="Computer speakers" langid="1"/>
+         <Name ID="382" Value="Computerspeakers" langid="2"/>
+         <Name ID="6263" Value="Computer speakers" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

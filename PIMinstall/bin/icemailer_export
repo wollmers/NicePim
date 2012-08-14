@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use publisher;
+
+&icemailer_export();

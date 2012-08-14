@@ -1,0 +1,89 @@
+#!/usr/bin/perl
+
+use strict;
+
+use lib '/home/dima/gcc_svn/lib/';
+use lib '/home/pim/lib/';
+
+use atomlog;
+use atomsql;
+use atomcfg;
+
+use Data::Dumper;
+
+$| = 1;
+
+my $fake = 0;
+
+# check if everyting is ok and we have an old state
+
+die if &do_query("select count(*) from supplier_contact_report")->[0][0];
+
+# supplier_contact -> contact
+
+print "Al ok, starting:\n";
+
+# my $supplier_contact
+
+my $olds = &do_query("select id, supplier_id, person, company, zip, /* 4 */
+city, address, telephone, fax, country_id, /* 9 */
+email, position, default_manager, use4mail, interval_id, /* 14 */
+report_lang, report_format from supplier_contact /* 16 */");
+
+my $sc = {};
+
+ds("alter table supplier_contact_category_family add column contact_id_2 int(13) not null default 0, add key (contact_id_2)");
+
+foreach my $old (@$olds) {
+
+	my $sname = &do_query("select folder_name from supplier where supplier_id = ".$old->[1])->[0][0];
+
+	next unless $sname;
+
+	$sc->{$sname}++;
+
+	my $i = $sc->{$sname} + 1;
+
+#	print $sname." (".($sc->{$sname}+1).")\n";
+
+	my $new_login = $sname.'_'.$i;
+
+#	print $new_login."\n";
+
+	ds("insert into supplier_contact_report(default_manager,use4mail,interval_id,report_lang,report_format)
+values(".str_sqlize($old->[12]).",".str_sqlize($old->[13]).",".str_sqlize($old->[14]).",".str_sqlize($old->[15]).",".str_sqlize($old->[16]).")");
+
+	my $new_supplier_contact_report_id = &do_query("select last_insert_id()")->[0][0];
+
+	ds("insert into contact(email,phone,fax,person,city,street,zip,country_id,company,position,supplier_contact_report_id,mphone)
+values(".str_sqlize($old->[10]).",".str_sqlize($old->[7]).",".str_sqlize($old->[8]).",".str_sqlize($old->[2]).",".str_sqlize($old->[5]).",".str_sqlize($old->[6]).",".str_sqlize($old->[4]).",".str_sqlize($old->[9]).",".str_sqlize($old->[3]).",".str_sqlize($old->[11]).",".$new_supplier_contact_report_id.",'')");
+
+	my $new_contact_id = &do_query("select last_insert_id()")->[0][0];
+
+	my $pass = $fake ? 'pass' : `makepasswd`;
+	chomp($pass);
+
+	ds("insert into users(login,user_group,password,pers_cid)
+values(".str_sqlize($new_login).",".str_sqlize('supplier').",".str_sqlize($pass).",".$new_contact_id.")");
+
+	my $new_user_id = &do_query("select last_insert_id()")->[0][0];
+
+	ds("insert into supplier_users(supplier_id,user_id) values(".str_sqlize($old->[1]).",".$new_user_id.")");
+
+	# update 
+
+	ds("update supplier_contact_category_family set contact_id_2 = ".$new_contact_id." where contact_id = ".$old->[0]);
+}
+
+ds("alter table supplier_contact_category_family drop column contact_id");
+ds("alter table supplier_contact_category_family change column contact_id_2 contact_id int(13) not null default 0");
+
+sub ds {
+	my ($q) = @_;
+	if ($fake) {
+		print $q."\n\n";
+	}
+	else {
+		&do_statement($q);
+	}
+} # sub ds

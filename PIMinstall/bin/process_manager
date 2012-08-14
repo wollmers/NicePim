@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib/';
+
+use strict;
+use process_manager;
+
+$SIG{CHLD} = 'IGNORE';
+
+my $cnt = &get_running_perl_processes_number('process_manager');
+	
+print $cnt." processes running\n";
+
+if ($cnt <= 1) {
+	&run_multiple_processes_managed();
+}

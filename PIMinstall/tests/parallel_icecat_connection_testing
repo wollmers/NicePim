@@ -1,0 +1,75 @@
+#!/usr/bin/perl
+
+use strict;
+
+use POSIX;
+use Parallel::ForkManager;
+use LWP::Simple;
+
+use Data::Dumper;
+
+$| = 1;
+
+# init
+
+my $pm = new Parallel::ForkManager(200);
+
+my @product_paths = qw (
+);
+
+my $tries = 5; my $delay = 3;
+
+foreach my $product_path (@product_paths) {
+	next unless $product_path;
+	my $pid = $pm->start($product_path) and next;
+
+	# This code is the child process
+
+	$0 .= ' [ Table '.$product_path.' ]';
+
+	my $res = undef;
+	my $i = 0;
+	my $try = 0;
+
+	foreach ($i=0; $i<=$tries; $i++) {
+		$res = head("http://Dmitry\%20Mitko:YwyxyW06h\@data.icecat.biz/".$product_path);
+		if ($res) {
+			$try = $i + 1;
+			last;
+		}
+
+		print Dumper($res);
+		sleep($delay);
+	}
+
+	if ($res) {
+		print $product_path."\t".$res->{_rc}." (".$try." try)\n";
+	}
+	else {
+		print $product_path."\t".&hred."failed".&def."\n";
+	}
+
+	$pm->finish($product_path); # pass an exit code to finish
+}
+
+# finishing
+
+print "Waiting for Children...\n";
+$pm->wait_all_children;
+print "Everybody is out of the pool!\n";
+
+exit(0);
+
+
+
+# subs
+
+sub red { return "\033[31m"; }
+sub yellow { return "\033[33m"; }
+sub hl { return "\033[1m"; }
+sub uhl { return "\033[0m"; }
+sub white { return "\033[37m"; }
+
+sub hred { return &hl.&red; }
+sub hyellow { return &hl.&yellow; }
+sub def { return &white.&uhl; }

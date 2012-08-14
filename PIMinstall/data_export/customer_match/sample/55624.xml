@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="55624" Prod_id="FA130A" ThumbPic="http://www.icecat.biz/thumbs/55624.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="Netadapter" LowPic="http://www.icecat.biz/img/hp/low_res/ipaq_ac_adapter.jpg">
+        <ProductRelated ID="387172">
+         <Product ID="34484" Prod_id="264493-021" ThumbPic="http://www.icecat.biz/thumbs/34484.jpg" Name="hp iPAQ Pocket pc H5450 Intel PXA250 400-MHz 64-Mb 3,8-inch TFT LCD, 240 x 320 met Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="409355">
+         <Product ID="34547" Prod_id="269808-021" ThumbPic="http://www.icecat.biz/thumbs/34547.jpg" Name="Compaq iPAQ H3950 Intel PXA250 400 MHz 32/64 Mb 3,77 TFT 240x320 SD W Pocket pc 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="409356">
+         <Product ID="34549" Prod_id="269809-021" ThumbPic="http://www.icecat.biz/thumbs/34549.jpg" Name="Compaq iPAQ H3970 Intel PXA250 400 MHz 32/64 Mb 3,77 TFT 240x320 SD Bluetooth W Pocket pc 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="386611">
+         <Product ID="35896" Prod_id="269808-031" ThumbPic="http://www.icecat.biz/thumbs/35896.jpg" Name="Compaq iPAQ H3950 Intel PXA250 400 MHz 32/64M 3.77 TFT 240*320 SD W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="386610">
+         <Product ID="35897" Prod_id="269809-031" ThumbPic="http://www.icecat.biz/thumbs/35897.jpg" Name="Compaq iPAQ H3970 Intel PXA250 400 MHz 32/64M 3.77 TFT 240*320 SD Bluetooth W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387173">
+         <Product ID="35911" Prod_id="264493-031" ThumbPic="http://www.icecat.biz/thumbs/35911.jpg" Name="hp iPAQ Pocket pc H5450 Intel PXA250 400MHz 64 M 3.8 TFT LCD 240*320 W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387171">
+         <Product ID="43857" Prod_id="FA101A" ThumbPic="http://www.icecat.biz/thumbs/43857.jpg" Name="hp iPAQ Pocket PC h1915 (200-MHz, 64-Mb, SD)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387174">
+         <Product ID="46427" Prod_id="264493-041" ThumbPic="http://www.icecat.biz/thumbs/46427.jpg" Name="hp iPAQ Pocket pc H5450 Intel PXA250 400-MHz 64-Mb 3,8-inch TFT LCD, 240 x 320 met Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387175">
+         <Product ID="46428" Prod_id="264493-051" ThumbPic="http://www.icecat.biz/thumbs/46428.jpg" Name="hp iPAQ Pocket pc H5450 Intel PXA250 400MHz 64 M 3.8&amp;quot; TFT LCD 240*320 W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387176">
+         <Product ID="46429" Prod_id="264493-061" ThumbPic="http://www.icecat.biz/thumbs/46429.jpg" Name="hp iPAQ Pocket pc H5450 Intel PXA250 400MHz 64 M 3.8&amp;quot; TFT LCD 240*320 W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387177">
+         <Product ID="46430" Prod_id="264493-071" ThumbPic="http://www.icecat.biz/thumbs/46430.jpg" Name="hp iPAQ Pocket pc H5450 Intel PXA250 400MHz 64 M 3.8&amp;quot; TFT LCD 240*320 W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="409357">
+         <Product ID="46577" Prod_id="269808-041" ThumbPic="http://www.icecat.biz/thumbs/46577.jpg" Name="Compaq iPAQ H3950 Intel PXA250 400 MHz 32/64M 3.77 TFT 240*320 SD W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387178">
+         <Product ID="46578" Prod_id="269808-051" ThumbPic="http://www.icecat.biz/thumbs/46578.jpg" Name="Compaq iPAQ H3950 Intel PXA250 400 MHz 32/64M 3.77 TFT 240*320 SD W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387179">
+         <Product ID="46579" Prod_id="269808-061" ThumbPic="http://www.icecat.biz/thumbs/46579.jpg" Name="Compaq iPAQ H3950 Intel PXA250 400 MHz 32/64M 3.77 TFT 240*320 SD W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387180">
+         <Product ID="46580" Prod_id="269809-041" ThumbPic="http://www.icecat.biz/thumbs/46580.jpg" Name="Compaq iPAQ H3970 Intel PXA250 400 MHz 32/64 Mb 3,77 TFT 240*320 SD Bluetooth W Pocket pc 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387181">
+         <Product ID="46581" Prod_id="269809-051" ThumbPic="http://www.icecat.biz/thumbs/46581.jpg" Name="Compaq iPAQ H3970 Intel PXA250 400 MHz 32/64M 3.77 TFT 240*320 SD Bluetooth W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387182">
+         <Product ID="46582" Prod_id="269809-061" ThumbPic="http://www.icecat.biz/thumbs/46582.jpg" Name="Compaq iPAQ H3970 Intel PXA250 400 MHz 32/64 Mb 3,77 TFT 240*320 SD Bluetooth W Pocket pc 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="387183">
+         <Product ID="46583" Prod_id="269809-071" ThumbPic="http://www.icecat.biz/thumbs/46583.jpg" Name="Compaq iPAQ H3970 Intel PXA250 400 MHz 32/64 Mb 3,77 TFT 240*320 SD Bluetooth W Pocket pc 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="386612">
+         <Product ID="46882" Prod_id="311324-031" ThumbPic="http://www.icecat.biz/thumbs/46882.jpg" Name="hp iPAQ Pocket PC h1910 Intel PXA250 200MHz 64 M 3.8&amp;quot; TFT LED 240*320 W Pocket PC 2002">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="350240">
+         <Product ID="49541" Prod_id="FA105A" ThumbPic="http://www.icecat.biz/thumbs/49541.jpg" Name="hp iPAQ Pocket PC h1940 Samsung 2410 266MHz 64M 3.5&amp;quot; TFT LED 240*320 Microsoft® Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="350241">
+         <Product ID="49542" Prod_id="FA107A" ThumbPic="http://www.icecat.biz/thumbs/49542.jpg" Name="hp iPAQ Pocket pc h5550 Intel PXA250 400MHz 64 M TFT LCD 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="350239">
+         <Product ID="49543" Prod_id="FA103A" ThumbPic="http://www.icecat.biz/thumbs/49543.jpg" Name="hp iPAQ Pocket pc h2210 Intel XScale 400MHz 64 M 3.5&amp;quot; TFT LED 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="350245">
+         <Product ID="51797" Prod_id="FA104A" ThumbPic="http://www.icecat.biz/thumbs/51797.jpg" Name="hp iPAQ Pocket pc h1930 Samsung (2410) 203 MHz 64 M 3.5&amp;quot; TFT LED 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="350244">
+         <Product ID="55556" Prod_id="FA103T" ThumbPic="http://www.icecat.biz/thumbs/55556.jpg" Name="hp iPAQ Pocket pc h2210 Intel XScale 400-MHz 64-Mb TFT LCD, 240 x 320 met Pocket PC 2003 PE">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="350242">
+         <Product ID="55557" Prod_id="FA104T" ThumbPic="http://www.icecat.biz/thumbs/55557.jpg" Name="HP iPAQ Pocket pc h1930 Samsung (2410) 203 MHz 64 M 3.5&amp;quot; TFT LED 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="350243">
+         <Product ID="55558" Prod_id="FA105T" ThumbPic="http://www.icecat.biz/thumbs/55558.jpg" Name="hp iPAQ Pocket PC h1940 Samsung 2410 266MHz 64M 3.5&amp;quot; TFT LED 240*320 Microsoft® Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="364914">
+         <Product ID="55752" Prod_id="FA174A" ThumbPic="http://www.icecat.biz/thumbs/55752.jpg" Name="hp iPAQ Pocket PC h4150 Intel XScale 400MHz 64 M 3.5&amp;quot; TFT 240x320 W Mobile 2003 Premium">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="419760">
+         <Product ID="70291" Prod_id="FA174T" ThumbPic="http://www.icecat.biz/thumbs/70291.jpg" Name="hp iPAQ Pocket PC h4150 Intel XScale 400MHz 64 M 3.5&amp;quot; TFT 240x320 W Mobile 2003 Premium">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565518">
+         <Product ID="124211" Prod_id="FA289T" ThumbPic="http://www.icecat.biz/thumbs/124211.jpg" Name="HP iPAQ rz1710 Samsung 203 MHz 32 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565519">
+         <Product ID="124212" Prod_id="FA289A" ThumbPic="http://www.icecat.biz/thumbs/124212.jpg" Name="HP iPAQ rz1710 Samsung 203 MHz 32 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565520">
+         <Product ID="124213" Prod_id="FA281T" ThumbPic="http://www.icecat.biz/thumbs/124213.jpg" Name="HP iPAQ rx3715 Samsung 400 MHz 64 MB 3,5-inch TFT 240 x 320 W Mobile 2003 Second">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565521">
+         <Product ID="124214" Prod_id="FA281A" ThumbPic="http://www.icecat.biz/thumbs/124214.jpg" Name="HP iPAQ rx3715 Samsung 400 MHz 64 MB 3,5-inch TFT 240 x 320 W Mobile 2003 Second">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565522">
+         <Product ID="124215" Prod_id="FA282T" ThumbPic="http://www.icecat.biz/thumbs/124215.jpg" Name="HP iPAQ hx4700 Intel X-Scale 624 MHz 64 MB 4-inch VGA TFT 480 x 640 W Mobile 2003 Second">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565523">
+         <Product ID="124216" Prod_id="FA282A" ThumbPic="http://www.icecat.biz/thumbs/124216.jpg" Name="hx4700 Intel X-Scale 624 MHz 64 MB 4-inch VGA TFT 480 x 640 W Mobile 2003 Second">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="541344">
+         <Product ID="124969" Prod_id="FA203A" ThumbPic="http://www.icecat.biz/thumbs/124969.jpg" Name="HP iPAQ h6340 TI Omap 1520 MHz 64 MB 3,5-inch TFT 240 x 320 W Mobile 2003 telefoon">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="567811">
+         <Product ID="130973" Prod_id="FA296T" ThumbPic="http://www.icecat.biz/thumbs/130973.jpg" Name="HP iPAQ hx2110 Pocket PC Intel 312 MHz 64 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568430">
+         <Product ID="130974" Prod_id="FA296A" ThumbPic="http://www.icecat.biz/thumbs/130974.jpg" Name="HP iPAQ hx2110 Pocket PC Intel 312 MHz 64 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="567810">
+         <Product ID="130975" Prod_id="FA298T" ThumbPic="http://www.icecat.biz/thumbs/130975.jpg" Name="HP iPAQ hx2410 Pocket PC Intel 520 MHz 64 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568429">
+         <Product ID="130976" Prod_id="FA298A" ThumbPic="http://www.icecat.biz/thumbs/130976.jpg" Name="HP iPAQ hx2410 Pocket PC Intel 520 MHz 64 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="567809">
+         <Product ID="130977" Prod_id="FA301T" ThumbPic="http://www.icecat.biz/thumbs/130977.jpg" Name="HP iPAQ hx2750 Pocket PC Intel 624 MHz 64 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568428">
+         <Product ID="130978" Prod_id="FA301A" ThumbPic="http://www.icecat.biz/thumbs/130978.jpg" Name="HP iPAQ hx2750 Pocket PC Intel 624 MHz 64 MB 3,5-inch QVGA TFT 240 x 320 W Mobile 2003 Professional">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="585513">
+         <Product ID="49542" Prod_id="FA107A" ThumbPic="http://www.icecat.biz/thumbs/49542.jpg" Name="hp iPAQ Pocket pc h5550 Intel PXA250 400MHz 64 M TFT LCD 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="584587">
+         <Product ID="49541" Prod_id="FA105A" ThumbPic="http://www.icecat.biz/thumbs/49541.jpg" Name="hp iPAQ Pocket PC h1940 Samsung 2410 266MHz 64M 3.5&amp;quot; TFT LED 240*320 Microsoft® Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="587596">
+         <Product ID="49543" Prod_id="FA103A" ThumbPic="http://www.icecat.biz/thumbs/49543.jpg" Name="hp iPAQ Pocket pc h2210 Intel XScale 400MHz 64 M 3.5&amp;quot; TFT LED 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="585495">
+         <Product ID="51797" Prod_id="FA104A" ThumbPic="http://www.icecat.biz/thumbs/51797.jpg" Name="hp iPAQ Pocket pc h1930 Samsung (2410) 203 MHz 64 M 3.5&amp;quot; TFT LED 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="585427">
+         <Product ID="55556" Prod_id="FA103T" ThumbPic="http://www.icecat.biz/thumbs/55556.jpg" Name="hp iPAQ Pocket pc h2210 Intel XScale 400-MHz 64-Mb TFT LCD, 240 x 320 met Pocket PC 2003 PE">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="584632">
+         <Product ID="55558" Prod_id="FA105T" ThumbPic="http://www.icecat.biz/thumbs/55558.jpg" Name="hp iPAQ Pocket PC h1940 Samsung 2410 266MHz 64M 3.5&amp;quot; TFT LED 240*320 Microsoft® Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="585259">
+         <Product ID="55557" Prod_id="FA104T" ThumbPic="http://www.icecat.biz/thumbs/55557.jpg" Name="HP iPAQ Pocket pc h1930 Samsung (2410) 203 MHz 64 M 3.5&amp;quot; TFT LED 240*320 W Pocket PC 2003">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="587915">
+         <Product ID="55752" Prod_id="FA174A" ThumbPic="http://www.icecat.biz/thumbs/55752.jpg" Name="hp iPAQ Pocket PC h4150 Intel XScale 400MHz 64 M 3.5&amp;quot; TFT 240x320 W Mobile 2003 Premium">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="587863">
+         <Product ID="70291" Prod_id="FA174T" ThumbPic="http://www.icecat.biz/thumbs/70291.jpg" Name="hp iPAQ Pocket PC h4150 Intel XScale 400MHz 64 M 3.5&amp;quot; TFT 240x320 W Mobile 2003 Premium">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="706" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1345" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="875" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1323" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1173" No="0">
+         <FeatureGroup ID="35">
+           <Name ID="5167" Value="Networking" langid="1"/>
+           <Name ID="5168" Value="Networking" langid="2"/>
+           <Name ID="8387" Value="Networking" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="63163" URL="" ShortDesc="HP Adapters" langid="1" LongDesc="An AC adapter provides rapid charging of the iPAQ Pocket PC at home, at work, or when travelling.   It also works with the Universal, USB or Serial Cradle, so your iPAQ Pocket PC can charge while youre synchronising with your desktop PC." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="78215" URL="" ShortDesc="HP Adapters" langid="2" LongDesc="Met een netadapter kunt u uw iPAQ Pocket PC snel opladen, thuis, op het werk of onderweg.   Hij werkt ook met de universele, USB of seriële dockingcradle, zodat u uw iPAQ Pocket PC kunt opladen tijdens de synchronisatie met uw desktop pc." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="121056" URL="http://www.hp.com/cgi-bin/cposupport/loc/mkSession.cgi?LC=FR&amp;CC=BE&amp;PN=FA130A" ShortDesc="" langid="3" LongDesc="L'adaptateur secteur vous permet de charger rapidement votre PC de poche iPAQ chez vous, au bureau ou sur la route. Il est également compatible avec la station d'accueil universelle, USB ou série : votre PC de poche iPAQ recharge ses batteries pendant que vous le synchronisez avec votre PC de bureau." WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="827">
+         <Name ID="4583" Value="Power adapters or inverters" langid="1"/>
+         <Name ID="4584" Value="Power adapters or inverters" langid="2"/>
+         <Name ID="8258" Value="Power adapters or inverters" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

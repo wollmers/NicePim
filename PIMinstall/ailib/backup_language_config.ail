@@ -1,0 +1,14 @@
+{
+name: backup_language_config;
+priority: 10;
+
+_resource_language: select l.langid, v.value, l.short_code, l.published, l.backup_langid from language l join vocabulary v on l.sid=v.sid and v.langid=%%langid%% order by 1;
+_mapping_language: langid, lang_value, short_code, published, backup_langid;
+
+_resource_language_type: multi;
+
+format_as_dropdown: backup_langid;
+backup_langid_dropdown_select: select l.langid, v.value from language l join vocabulary v on l.sid=v.sid and v.langid=%%langid%% order by 1;
+format_undef_values: yes;
+
+}

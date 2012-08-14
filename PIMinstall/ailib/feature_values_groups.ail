@@ -1,0 +1,20 @@
+{
+name: feature_values_groups;
+priority: 10;
+
+_resource_groups: select feature_values_group_id, name from feature_values_group where feature_values_group_id>1 %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_groups_type: multi;
+_resource_groups_def_order: name;
+_mapping_groups: feature_values_group_id, name;
+
+authorize_superuser: feature_values_group_id;
+authorize_supereditor: feature_values_group_id;
+authorize_category_manager: feature_values_group_id;
+authorize_editor: feature_values_group_id;
+authorize_supplier: feature_values_group_id;
+authorize_guest: feature_values_group_id;
+authorize_shop: feature_values_group_id;
+
+authorize_submit_superuser: feature_values_group_id;
+authorize_submit_supereditor: feature_values_group_id;
+}

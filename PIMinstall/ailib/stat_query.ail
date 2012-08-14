@@ -1,0 +1,69 @@
+{
+name: stat_query;
+priority: 11;
+
+
+verify: stat_query_id;
+verify_submit: stat_query_id;
+
+
+authorize_superuser: stat_query_id;
+authorize_supereditor: stat_query_id;
+authorize_category_manager: stat_query_id;
+
+authorize_submit_superuser: stat_query_id;
+
+verify_add: yes;
+verify_add_superuser: stat_query_id;
+
+verify_deny_guest: yes;
+
+_resource_data: select year(now()),month(now()),dayofmonth(now()), 'd', 'd', 'd', supplier_id, edit_user_id, catid, subtotal_1, subtotal_2, subtotal_3, request_user_id, period, email, code, stat_query_id, mail_class_format, request_partner_id, request_country_id, email_attachment_compression, product_distributor_id, product_country_id, product_onstock, supplier_type,include_top_product,include_top_cats,include_top_owner,include_top_supplier,include_top_request_country from stat_query where stat_query_id = %%stat_query_id%%
+_resource_data_iq: select year(now()),month(now()),dayofmonth(now()), 'd', 'd', 'd', 'd', 'd', 'd', 0, 0, 0, 0, 1, '', '', NULL, '', '', '', 'gz', 0, 0, 0, '',0,0,0,0,0;
+_resource_data_key: stat_query_id;
+_resource_data_type: single;
+_resource_data_imply_fields: yes;
+_mapping_data: to_year, to_month, to_day, from_year, from_month, from_day, search_supplier_id, search_edit_user_id, search_catid, subtotal_1, subtotal_2, subtotal_3, request_user_id, period, email, code, stat_query_id, mail_class_format, request_partner_id, request_country_id, email_attachment_compression, search_product_distributor_id, search_product_country_id, search_product_onstock, search_supplier_type,include_top_product,include_top_cats,include_top_owner,include_top_supplier,include_top_request_country;
+
+period_assorted_list_attrs: onchange="set_dates_intreval(this)";
+format_as_assorted_list: period;
+format_as_year: from_year, to_year;
+format_as_month: from_month, to_month;
+format_as_day: from_day, to_day;
+format_as_mail_class: mail_class_format;
+format_as_input_checkbox: search_product_onstock,include_top_product,include_top_cats,include_top_owner,include_top_supplier,include_top_request_country;
+format_as_sponsor: search_supplier_type;
+
+format_as_dropdown: search_supplier_id, search_edit_user_id, request_user_id, request_partner_id, request_country_id, email_attachment_compression, search_product_distributor_id, search_product_country_id;
+search_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+search_edit_user_id_dropdown_select: select user_id, login from users where user_group = 'supereditor' or user_group = 'category_manager' or user_group = 'nogroup' or user_group = 'superuser' or user_group = 'editor' or user_group = 'supplier' order by login
+request_user_id_dropdown_select: select user_id, login from users where user_group = 'shop' order by login
+request_partner_id_dropdown_select: select user_id, login from users where user_group = 'partner' order by login
+request_country_id_dropdown_select: select distinct c.country_id, v.value from country c inner join vocabulary v on c.sid=v.sid and v.langid=1 inner join contact using (country_id) order by v.value;
+search_product_country_id_dropdown_select: select distinct c.country_id, v.value from country c inner join vocabulary v on c.sid=v.sid and v.langid=1 inner join distributor d using (country_id) order by v.value;
+search_product_distributor_id_dropdown_select: select distributor_id, name from distributor order by name asc;
+email_attachment_compression_dropdown_select: select type, description from compression_types;
+
+format_as_stat_subtotal: subtotal_1, subtotal_2, subtotal_3;
+
+
+format_as_smart_dropdown: search_catid;
+search_catid_allow_pcat_choice: Y;
+search_catid_add_empty: Any category;
+
+validate_as_stat_period: period;
+validate_as_mandatory: code, email;
+validate_as_email: email;
+
+ _insert_sequence: 1;
+ 
+ _insert_table_1: stat_query;
+ _insert_key_1: stat_query_id;
+ _insert_values_1: search_supplier_id, search_edit_user_id, search_catid, subtotal_1, subtotal_2, subtotal_3, request_user_id, period, email, code, mail_class_format, request_partner_id, request_country_id, email_attachment_compression, search_product_distributor_id, search_product_country_id, search_product_onstock, search_supplier_type,include_top_product,include_top_cats,include_top_owner,include_top_supplier,include_top_request_country;
+ _insert_fields_1: supplier_id, edit_user_id, catid, subtotal_1, subtotal_2, subtotal_3, request_user_id, period, email, code, mail_class_format, request_partner_id ,request_country_id, email_attachment_compression, product_distributor_id, product_country_id, product_onstock, supplier_type,include_top_product,include_top_cats,include_top_owner,include_top_supplier,include_top_request_country;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+
+
+
+}

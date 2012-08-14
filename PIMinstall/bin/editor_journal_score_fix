@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use Data::Dumper;
+
+##
+## begin
+##
+
+my $users = &do_query('select user_id, group_concat(distinct product_id separator ",") from editor_journal where date > unix_timestamp("2010-07-02") group by user_id');
+my $table_types = [
+	'product',
+	'product_bundled',
+	'product_description',
+	'product_ean_codes',
+	'product_feature',
+	'product_gallery',
+	'product_multimedia_object',
+	'product_related'
+	];
+
+foreach my $u (@$users) {
+#	print "user is ".$u->[0].": \n";
+	my @products = split ',', $u->[1];
+
+	foreach my $p (@products) {
+#		print "\tproduct is ".$p.": ";
+		foreach my $t (@$table_types) {
+#			print $t." ";
+			my $ids = &do_query("select product_table_id, count(*) as cnt from editor_journal where user_id=".$u->[0]." and product_id=".$p." and product_table='".$t."' and score=1 group by 1 having cnt>1");
+			foreach my $id (@$ids) {
+				my $seqs = &do_query("select id, product_id, product_table, score, date from editor_journal where user_id=".$u->[0]." and product_id=".$p." and product_table='".$t."' and product_table_id=".$id->[0]." and score=1 order by date asc");
+				my $i = 0;
+				print Dumper($seqs);
+				foreach my $seq (@$seqs) {
+					my $q = "update editor_journal set score=0 where id=".$seq->[0];
+					if ($i) {
+						print $q."\n";
+						&do_statement($q);
+					}
+					$i++;
+				}
+#				die;
+			}
+		}
+#		print "\n";
+	}
+}

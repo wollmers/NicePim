@@ -1,0 +1,10 @@
+{
+name: product_html_email;
+class: html;
+
+_resource_product_details: select p.product_id, p.name, prod_id, s.name, p.low_pic from product as p, supplier as s where p.product_id = 101407 and p.supplier_id = s.supplier_id
+_resource_product_details_type: single;
+_resource_product_details_key: product_id;
+_mapping_product_details: product_id, pname, prod_id, sname, ppic;
+
+}

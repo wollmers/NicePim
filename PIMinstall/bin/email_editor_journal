@@ -1,0 +1,80 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomsql;
+use atomlog;
+use atom_misc;
+use atom_util;
+use atom_mail;
+use Data::Dumper;
+use strict;
+
+load_email_template("email_editor_journal");
+
+my $email_hash;
+my($to_d,$to_m,$to_y) = (localtime)[3,4,5];
+my($from_d,$from_m,$from_y) = (localtime(time - 60*60*24*7))[3,4,5];
+$from_m += 1; $to_m += 1;
+if(length($from_d) == 1){ $from_d = '0'.$from_d};
+if(length($to_d) == 1){ $to_d = '0'.$to_d};
+if(length($from_m) == 1){ $from_m = '0'.$from_m};
+if(length($to_m) == 1){ $to_m = '0'.$to_m};
+
+my $period = (1900+$from_y)."/".$from_m."/".$from_d." - ".(1900+$to_y)."/".$to_m."/".$to_d;
+ 
+#$email_hash->{'to'} = 'martijn@icecat.biz,sergey@icecat.biz,serzh@icecat.biz';
+$email_hash->{'to'} = 'serzh@icecat.biz';
+$email_hash->{'from'} = 'info@icecat.biz';
+$email_hash->{'subject'} = 'Editor journal report mail for '.$period;
+
+my $langs = &do_query("select value, l.langid from vocabulary as v, language as l where l.sid = v.sid and v.langid = 1");
+my ($texts, $texts4active, $texts_html, $texts4active_html);
+
+foreach my $lang(@$langs){
+
+ my $lang_text = &repl_ph($atoms->{'default'}->{'email_editor_journal'}->{'lang_text'}, {'lang' => $lang->[0]});
+ my $lang_text_html = &repl_ph($atoms->{'default'}->{'email_editor_journal'}->{'lang_text'}, {'lang' => $lang->[0]});
+ 
+ $texts .= "\n".$lang_text."\n";
+ $texts_html .= "<tr><td colspan=2 bgcolor=\"#D8D8D8\"><b>".$lang_text_html."</td></tr>";
+
+#select 'editor - texts number' for langid
+ my $texts_details = &do_query("select u.login, count(ej.product_id) from editor_journal as ej, 
+ product_description as pd, users as u where ej.product_table = 'product_description'  
+ and ej.product_table_id = pd.product_description_id and pd.langid = ".$lang->[1]." and
+  ej.user_id = u.user_id and ej.date >=(unix_timestamp() - 60*60*24*7) group by ej.user_id order by u.login");
+ foreach my $texts_detail(@$texts_details){
+	 $texts .= "\t".$texts_detail->[0]." - ".$texts_detail->[1]."\n";
+	 $texts_html .= "<tr><td width=\"\" bgcolor=\"#EBEBEB\">&nbsp;&nbsp;&nbsp;&nbsp;".$texts_detail->[0]."</td><td bgcolor=\"FFFFFF\">".$texts_detail->[1]."</td></tr>";
+ }
+
+ my $lang_text_4active =  &repl_ph($atoms->{'default'}->{'email_editor_journal'}->{'lang_text_4active'}, {'lang' => $lang->[0]});
+ my $lang_text_4active_html =  &repl_ph($atoms->{'default'}->{'email_editor_journal'}->{'lang_text_4active'}, {'lang' => $lang->[0]});
+ $texts4active .= $lang_text_4active;
+ $texts4active_html .= "<tr><td bgcolor=\"#D8D8D8\">".$lang_text_4active_html."</td>";
+
+#count summary for active products 
+ my $texts_4active = &do_query("select count(ej.product_id) from editor_journal as ej, product_description as pd, country_product as cp  where ej.product_table = 'product_description' and ej.product_table_id = pd.product_description_id and pd.langid = ".$lang->[1]. " and ej.product_id = cp.product_id and cp.active = 1 and ej.date >=(unix_timestamp() - 60*60*24*7)")->[0][0]; 
+ my $texts_4active_all = &do_query("select count(ej.product_id) from editor_journal as ej, product_description as pd where ej.product_table = 'product_description' and ej.product_table_id = pd.product_description_id and pd.langid = ".$lang->[1]." and ej.date >=(unix_timestamp() - 60*60*24*7)")->[0][0]; 
+ if($texts_4active_all != 0){
+	$texts4active .= " ".sprintf("%.2f", ($texts_4active/$texts_4active_all)*100)."%";
+	$texts4active_html .= "<td bgcolor=\"#D8D8D8\">".sprintf("%.2f", ($texts_4active/$texts_4active_all)*100)."%</td></tr>";
+ }else{
+	$texts4active .= " 0%";
+	$texts4active_html .= "<td bgcolor=\"#D8D8D8\">0%</td></tr>";
+ }
+}
+
+$email_hash->{'text_body'} = &repl_ph($atoms->{'default'}->{'email_editor_journal'}->{'email_body_text'},
+ {'period' => $period,
+	'texts' => $texts,
+	'texts4active' => $texts4active
+ });
+$email_hash->{'html_body'} = &repl_ph($atoms->{'default'}->{'email_editor_journal'}->{'email_body_html'},
+ {'period' => $period,
+	'texts' => $texts_html,
+	'texts4active' => $texts4active_html."<tr><td bgcolor=\"#FFFFFF\" colspan=2><br></td></tr>"
+ });
+
+&complex_sendmail($email_hash);
+				

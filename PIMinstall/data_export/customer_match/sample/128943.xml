@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="128943" Prod_id="TCG417" ThumbPic="http://www.icecat.biz/thumbs/128943.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/128943-4328.jpg" Name="XL Metro Notebook Case" LowPic="http://www.icecat.biz/img/norm/low/128943.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="702" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1289" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="880" No="0">
+         <FeatureGroup ID="36">
+           <Name ID="5181" Value="Color" langid="1"/>
+           <Name ID="5182" Value="Kleur" langid="2"/>
+           <Name ID="8394" Value="Color" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="163750" URL="" ShortDesc="XL Metro Notebook Case - Fits notebooks with screens up to 17&amp;quot;" langid="1" LongDesc="The new XL Metro Notebook Case supports notebooks with up to 17&amp;quot; screen. Constructed of rugged nylon, the top-loading design makes it easy to get in and out of the notebook section - a must-have feature for those busy airport checkpoints. Items included are a removable mesh accessory pouch, removable CD/DVD sleeve that hold 8 discs and a detachable mobile phone case. Other features include a padded section for your notebooks protection, a zip-down workstation with storage for business cards, media, pens, pencils and more. There is a rear document storage section and a luggage strap for easy attachment to rolling cases. &lt;p&gt;\nFeatures: &lt;br&gt;\nFits notebooks with screens up to 17&amp;quot; and includes adjustable divider to accommodate smaller notebooks &lt;br&gt;\nAdditional file storage in main compartment &lt;br&gt;\nFront zippered pocket for quick access to airline tickets or passport &lt;br&gt;\nZip-down workstation includes mobile accessory storage, pen loops, business card holders and key clip  &lt;br&gt;\nRemovable mesh accessory pouch &lt;br&gt; \nAdditional compartment includes two divided file sections &lt;br&gt;\nRear slip pocket for extra storage also includes luggage strap for easy attachment to rolling travel cases &lt;br&gt;\nRemovable CD/DVD sleeve holds up to 8 discs (Use while travelling or at your desk) &lt;br&gt;\nAdditional features include: removable mobile phone pouch, side water bottle pocket, rubberized zipper pulls, and comfortable shoulder straps with air mesh padding &lt;br&gt;\n" WarrantyInfo="Lifetime " PDFURL=""/>
+        <ProductFeature ID="9821906" Value="490 x 390 x 120 " No="100000" CategoryFeatureGroup_ID="1289">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821917" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="1454">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4605" Value="Carry cases, lining" langid="1"/>
+           <Name ID="4606" Value="Draagtassen, belijning" langid="2"/>
+           <Name ID="7297" Value="Carry cases, lining" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821918" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="1455">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4608" Value="Personalisatie" langid="2"/>
+           <Name ID="4607" Value="Personalisation" langid="1"/>
+           <Name ID="7559" Value="Personalisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821919" Value="Black &amp; Silver " No="1" CategoryFeatureGroup_ID="880">
+         <Feature ID="1228">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3997" Value="Case Colour" langid="1"/>
+           <Name ID="3998" Value="Case Colour" langid="2"/>
+           <Name ID="7982" Value="Case Colour" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821907" Value="1700" No="100000" CategoryFeatureGroup_ID="1289">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821908" Value="shoulder straps with air mesh padding " No="100031" CategoryFeatureGroup_ID="702">
+         <Feature ID="1749">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5449" Value="Carrying Strap" langid="1"/>
+           <Name ID="5450" Value="Carrying Strap" langid="2"/>
+           <Name ID="8516" Value="Carrying Strap" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821909" Value="For your notebook and accessory " No="100030" CategoryFeatureGroup_ID="702">
+         <Feature ID="31">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1375" Value="Type" langid="1"/>
+           <Name ID="1376" Value="Type" langid="2"/>
+           <Name ID="6702" Value="Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821910" Value="" No="100034" CategoryFeatureGroup_ID="880">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821911" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821912" Value="Fits notebooks with screens up to 17&amp;quot;" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821913" Value="Nylon" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="898">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3337" Value="Material" langid="1"/>
+           <Name ID="3338" Value="Material" langid="2"/>
+           <Name ID="7661" Value="Material" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821914" Value="padded section for your notebooks protection" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="899">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3339" Value="Carry cases protection" langid="1"/>
+           <Name ID="3340" Value="Carry cases protection" langid="2"/>
+           <Name ID="7662" Value="Carry cases protection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821915" Value="Notebook Compartment Dimensions 43 x 32 x 5.5 cm " No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="900">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3341" Value="Compartments" langid="1"/>
+           <Name ID="3342" Value="Compartments" langid="2"/>
+           <Name ID="7663" Value="Compartments" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9821916" Value="removable mobile phone pouch, side water bottle pocket, rubberized zipper pulls" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="901">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3343" Value="Carry cases other features" langid="1"/>
+           <Name ID="3344" Value="Carry cases other features" langid="2"/>
+           <Name ID="7664" Value="Carry cases other features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="128" Name="Targus"/>
+       <Category ID="822">
+         <Name ID="4573" Value="equipment cases" langid="1"/>
+         <Name ID="4574" Value="apparatuurtassen" langid="2"/>
+         <Name ID="8253" Value="equipment cases" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

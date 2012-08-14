@@ -1,0 +1,19 @@
+{
+name: product_description_public;
+
+priority: 10;
+
+
+_resource_description: select product_description.langid, product_description_id, product.product_id, product.user_id, short_desc, long_desc, name, low_pic, high_pic, warranty_info, official_url  from product_description, product where product.product_id = product_description.product_id and product_description.langid = %%langid%% and product_description.product_id = product.product_id and product.product_id = %%product_id%%
+_resource_description_iq: select product_description.langid, product_description_id, product.product_id, product.user_id, short_desc, long_desc, name, low_pic, high_pic, warranty_info, official_url  from product_description, product where product.product_id = product_description.product_id and product_description.langid = 1 and product_description.product_id = product.product_id and product.product_id = %%product_id%%
+_resource_description_type: single;
+_resource_description_key: product_id;
+_mapping_description: edit_langid, product_description_id,  product_id, edit_user_id, short_desc, long_desc, name, low_pic, high_pic, warranty_info, official_url;
+
+
+
+format_as_url: official_url;
+format_as_warranty_info: warranty_info;
+
+
+}

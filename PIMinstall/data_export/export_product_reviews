@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+
+#$Id: export_product_reviews 3423 2010-11-10 15:30:05Z dima $
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use atom_misc;
+use icecat_util;
+
+#use Data::Dumper;
+
+$| = 1;
+
+my $free = $ARGV[0]; # 0 - full, 1 - free
+my $activeness = $ARGV[1]; # 0 or undef - any, A - active, I - inactive
+my $langid = $ARGV[2]; # 0 - INT, >0 - langid
+
+# export reviews
+
+my $out = &xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"http://data.icecat.biz/dtd/ICECAT-product_reviews.dtd\">\n".&source_message()."\n<ICECAT-interface>\n";
+
+my $select = "SELECT pr.product_review_id, pr.product_id, pr.langid, pr.review_code, pr.score, pr.url /* 5 */,
+                                pr.logo_url, pr.value, pr.value_good, pr.value_bad, pr.postscriptum /* 10 */,
+                                pr.review_award_name, pr.high_review_award_url, pr.low_review_award_url, pr.date_added, pr.updated, /* 15 */
+                                pr.review_group /* 16 */
+                         FROM product_review pr " .
+	( $free ? " INNER JOIN product p ON pr.product_id = p.product_id INNER JOIN supplier s ON p.supplier_id = s.supplier_id AND s.is_sponsor = 'Y' " : '' ) .
+	( (uc($activeness) eq 'A') || (uc($activeness) eq 'I') ?
+		" INNER JOIN product_active pa ON pa.product_id = pr.product_id AND pa.active = " . ( uc($activeness) eq 'A' ? '1' : '0' ) : '' ) .
+	( $langid && ($langid =~ /^\d+$/) && ($langid > 0) ? " WHERE pr.langid = ".$langid : '' ) .
+	" ORDER by pr.product_id ASC, pr.product_review_id ASC";
+
+my $sth = $atomsql::dbh->prepare($select);
+lp("SQL DIRECT: ".$select);
+my $rv = $sth->execute;
+
+$out .= "<Reviews>\n";
+
+my $cpid = -1;
+my $product_tag_is_open = 0;
+my $r;
+
+while ($r = $sth->fetchrow_arrayref) {
+	
+#	print Dumper($r);
+	
+	if ($r->[1] ne $cpid) { # a new product
+		if ($cpid != -1) {
+			$out .= &t(1) . "</Product>\n";
+		}
+		$out .= &t(1) . "<Product ID=\"".$r->[1]."\" AwardName=\"".&str_xmlize($r->[11])."\" AwardHighPic=\"".&str_xmlize($r->[12])."\" AwardLowPic=\"".&str_xmlize($r->[13])."\">\n";
+		$product_tag_is_open ||= 1;
+	}
+	
+	$out .= &t(2) . "<Review ID=\"".$r->[0]."\" LangID=\"".$r->[2]."\" Group=\"".&str_xmlize($r->[16])."\" Code=\"".&str_xmlize($r->[3])."\" Score=\"".$r->[4]."\" URL=\"".&str_xmlize($r->[5])."\" LogoPic=\"".&str_xmlize($r->[6])."\" DateAdded=\"".&str_xmlize($r->[14])."\" Updated=\"".&str_xmlize($r->[15])."\">\n";
+
+	$out .= &t(3) . "<Value><![CDATA[".$r->[7]."]]></Value>\n";	
+	$out .= &t(3) . "<ValueGood><![CDATA[".$r->[8]."]]></ValueGood>\n";	
+	$out .= &t(3) . "<ValueBad><![CDATA[".$r->[9]."]]></ValueBad>\n";	
+	$out .= &t(3) . "<BottomLine><![CDATA[".$r->[10]."]]></BottomLine>\n";	
+
+	$out .= &t(2) . "</Review>\n";
+	
+	$cpid = $r->[1];
+}
+
+$out .= &t(1) . "</Product>\n" if $product_tag_is_open;
+$out .= "</Reviews>\n";
+
+binmode STDOUT, ":utf8";
+
+print STDOUT $out;
+
+# subs
+
+sub t {
+  return "\t" x shift;
+}

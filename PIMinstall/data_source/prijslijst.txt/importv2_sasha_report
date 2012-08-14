@@ -1,0 +1,41 @@
+Import: [33m[1m./import.v2[0m[37m
+
+drop nonmapped symbols... supplier category ([31m0[37m secs)
+load data source preferences for `prijslijst.txt`... ([31m1[37m sec)
+
+[32m[1mPrepare icecat pricelists: [0m[37m
+/home/dima/workspace/gcc/tmp/localhost_tbl_artbook_zip1294757700.csv ([31m3[37m secs)
+CT `tmp_distributor`, I ([31m4[37m secs)
+
+[32m[1mPrepare pricelist temporary table(-s): [0m[37mlatin1 -> utf8, CT tmp_non_mapped_products, CT pricelist, 
+L (/home/dima/workspace/gcc/tmp/localhost_tbl_artbook_zip1294757700.csv_parsed_pricelist.csv products=[33m[1m185189[0m[37m), ([31m5[37m secs)
+
+[32m[1mComplete prod_id + vendor data, using eans: [0m[37mD '-' [33m[1m185189[0m[37m updates, D (\D+) [33m[1m78103[0m[37m updates, D (length < 12) [33m[1m78116[0m[37m updates. prod_id 'null' -> ''. The number of products-to-complete is: [33m[1m1[0m[37m. Let's complete: ICEcat: CT, I, ICEcat: CT (tmp_supplier), I, [33m[1m0[0m[37m products were completed ([31m49[37m secs)
+
+[32m[1mReporting about unmapped MM products: [0m[37m([31m1[37m sec)
+
+[32m[1mDelete fake products: [0m[37mD `pricelist` (prod_id like '') - [33m[1m16[0m[37m deleted, D `pricelist` (length(prod_id) <= 1) - [33m[1m10[0m[37m deleted, D `pricelist` (prod_id is wrong, using Perl) - [33m[1m0[0m[37m deleted, D cyrillic symbols: [33m[1m0[0m[37m products removed, D HASHes: [33m[1m0[0m[37m products removed, D &nbsp;: [33m[1m0[0m[37m products removed. Total number of deleted wrong products is [33m[1m26[0m[37m ([31m9[37m secs)
+[32m[1mMore fixes: [0m[37mremove '...aankoop!' descriptions... [33m[1m0[0m[37m short descs updated, [33m[1m0[0m[37m long descs updated. remove [33m[1m*[0m[37m from vendor (it is used for mappings only)... [33m[1m0[0m[37m updated. remove [33m[1m*[0m[37m from cat (it is used for mappings only)... [33m[1m0[0m[37m updated. filter HTML entities (got [33m[1m0[0m[37m prod_ids)... [33m[1m[0m[37m updated. uppercase prod_id, cat, vendor, trim (CR & SPACE) name... [33m[1m185163[0m[37m updated. name equals prod_id, if name is void... [33m[1m185163[0m[37m updated. U `pricelist` cat = '99999999', if cat='', [33m[1m185163[0m[37m updated. pricelist EK... ([31m93[37m secs)
+
+[32m[1mTotal products: [0m[37m[33m[1m185163[0m[37m
+
+ICEcat: CT, I, 
+[32m[1mDistributor mapping: [0m[37mU ([31m65[37m secs)
+
+[32m[1mAdd undefined distributors to report: [0m[37m S, unmapped distri -> to non_mapped table, D [33m[1m0[0m[37m products removed ([31m0[37m secs)
+
+[32m[1mRefresh distributor last import dates: [0m[37mCT I U ([31m0[37m secs)
+
+[32m[1mRefresh distributor ICEimport file creation dates: [0m[37mCT L D(filter) U(=) U(like: ACN\_%=[33m[1m0[0m[37m web2biz%=[33m[1m0[0m[37m IMUK=[33m[1m0[0m[37m CGXTD%=[33m[1m0[0m[37m MyCOP%=[33m[1m0[0m[37m TMB=[33m[1m0[0m[37m US\_%=[33m[1m0[0m[37m DCB=[33m[1m0[0m[37m Lynx%=[33m[1m0[0m[37m Diode=[33m[1m0[0m[37m Soluzion%=[33m[1m0[0m[37m ) ([31m0[37m secs)
+
+[32m[1mSupplier mapping: [0m[37mCT `tmp_supplier_map`, I (exact), U (supplier, distri=*: [33m[1m0[0m[37m), U (supplier, distri=0: [33m[1m52691[0m[37m), I (pattern), U ([31;1msupplier[37;0m, distri=*: [33m[1m0[0m[37m), U ([31;1msupplier[37;0m, distri=0: [33m[1m0[0m[37m), U (exact from supplier table: [33m[1m0[0m[37m), S (Perl) all prod_ids from pricelist (truncate vendor names from prod_id) [33m[1m8[0m[37m all prod_ids with the same symptoms [33m[1m8[0m[37m - counting, [33m[1m8[0m[37m - MySQL vendor truncated product names ([31m155[37m secs)
+
+[32m[1mMove supplierless products to nonnmapped table: [0m[37m([31m4[37m secs)
+
+[32m[1mLog unmapped products & DELETE them: [0m[37mS `pricelist` (supplier_id=0 || supplier_id=157) ([31m9[37m secs)
+
+[32m[1mTotal unmapped products - `supplier missing`: [0m[37m[33m[1m132482[0m[37m
+
+D `pricelist` (supplier_id=(0 || 157))... ([31m147[37m secs)
+
+[32m[1mprod_id mapping: [0m[37mpatterns loaded, hashes completed, `pricelist` new columns/keys added (map_prod_idrev, map_supplier_id, pattern_id, K map_p_s, K p_s, K map_prev_s), `pricelist` keys enabled, cycle 1 started, 

@@ -1,0 +1,210 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+use atom_util;
+
+use Data::Dumper;
+
+
+my $filename 	=	'/tmp/report.txt'; 
+
+
+my $id 				= 4;
+my $data 					= &get_report_data();
+
+use Text::CSV;
+
+my $csv = Text::CSV->new( {sep_char => "\t"} );
+my $file = '';
+
+foreach my $line(@$data){
+				$csv->combine(@$line);    # combine columns into a string
+        $file .= $csv->string()."\n";             # get the combined string
+}
+
+my $email_hash =
+		{
+			'to' 				=> 'alena@icecat.biz',
+#			'to' 				=> 'sergey@icecat.biz',
+			'from'			=> 'info@icecat.biz',
+			'subject'		=> 'Daily stat report',
+			'text_body'	=> 'Daily stat report',
+			
+			'attachment_name'					=> 'daily_stat.tsv',
+			'attachment_content_type'	=> 'text/tab-separated-values',
+			'attachment_body'					=> $file
+		};
+
+
+&complex_sendmail($email_hash);
+
+exit();
+
+###########
+# here goes subs
+#
+
+sub get_report_data
+{
+
+&do_statement('CREATE TEMPORARY TABLE user_stat select count(*) as cnt, user_id from product group by user_id');
+&do_statement('alter table user_stat add index (user_id)');
+my $data = &do_query("select login, cnt FROM user_stat JOIN users ON user_stat.user_id = users.user_id where user_group = 'editor' order by login");
+
+my $data_transposed = [];
+
+print Dumper($data);
+
+for(my $i = 0; $i <= $#$data ; $i++){
+	for(my $j = 0; $j <= $#{$data->[$i]}; $j++){
+	  $data_transposed->[$j][$i] = $data->[$i][$j];
+	}
+}
+
+print Dumper($data_transposed);
+
+return $data_transposed;
+}
+
+
+####
+# I/O routines
+#
+sub write_out_flat_file
+{
+my ($filename, $header, $data, $options) = @_;
+
+open(FILE, ">".$filename) or &log_printf("write_out_flat_file: fatal - can't open fiel $filename: $!");
+
+if(!$options->{'delimiter'}){
+ $options->{'delimiter'} = "\t";
+}
+if(!$options->{'new_line'}){
+ $options->{'new_line'} = "\n";
+}
+
+my $file = '';
+
+if($options->{'write_header'}){
+ my $line = '';
+ foreach my $item(@$header){
+   if($line){ $line .= $options->{'delimiter'}}
+   $line .= $item;
+ }
+ $line .= $options->{'new_line'};
+ $file .= $line;
+}
+
+my $lines = [];
+
+foreach my $row(@$data){
+ my $line;
+ foreach my $item(@$header){
+   if(defined $line){ $line .= $options->{'delimiter'}}
+	 my $value = $row->{$item};
+
+	 $value =~s/\n/\\n/gsm;
+	 $value =~s/\r/\\r/gsm;
+	 $value =~s/\t/\\t/gsm;
+	 
+	 
+   if(defined $value){
+	 		$line .= $value;
+	 } else {
+	    $line .= '';
+	 }
+ }
+ $line .= $options->{'new_line'};
+ 
+ push @$lines, $line;
+}
+
+if($options->{'make_lines_unique'}){
+ my %lines = map { $_ => 1 } @$lines;
+ @$lines = sort keys %lines;
+}
+
+$file .= join('', @$lines);
+
+print FILE $file;
+
+close (FILE);
+}
+######
+# send mail sub
+#
+sub complex_sendmail
+{
+use MIME::Base64;
+
+my ($mail) = @_;
+#$mail is hash 
+# {
+#  'to', 'from', 'subject', 'reply_to', 'text_body', 'html_body', 
+#  'attachment_name', 'attachment_cotent_type', 'attachment_body'
+# }
+
+&log_printf("complex sendmail(to = $mail->{'to'}, from = $mail->{'from'}, subj = $mail->{'subject'})");
+
+open(MAIL, "|".$atomcfg{MTA_cmdline}) or log_printf("can't open mailing programm ".$atomcfg{MTA_cmdline});
+
+print MAIL "To: ".$mail->{'to'}."\n";
+if($mail->{'bcc'}){ 
+ print MAIL "Bcc:".$mail->{'bcc'}."\n";
+}
+print MAIL "From: ".$mail->{'from'}."\n";
+print MAIL "Subject: ".$mail->{'subject'}."\n";
+print MAIL "MIME-version: 1\.0 \n";
+#print MAIL "Content-Base: http://my\.com \n";
+#print MAIL "Content-Disposition: inline \n";
+if($mail->{'reply_to'}){ 
+ print MAIL "Reply-To: ".$mail->{'reply_to'}."\n";
+}
+
+#headers for attachments
+if($mail->{'attachment_name'}){
+ print MAIL "Content-Type: multipart/mixed;\n\tboundary=\"zzzboundaryzzz\"\n\n";
+ print MAIL "--zzzboundaryzzz\n";
+}
+
+#headers for html mails
+if($mail->{'html_body'}){
+ print MAIL "Content-Type: multipart/alternative;\n\tboundary=\"xxxboundaryxxx\"\n\n";
+ print MAIL "--xxxboundaryxxx\n";
+}
+
+#for plain mails
+if($mail->{'text_body'}){
+ print MAIL "Content-Type: text/plain;\tcharset=iso-8859-1\n";
+ print MAIL "Content-Transfer-Encoding: 7bit\n\n";
+ print MAIL $mail->{'text_body'}."\n\n";
+}
+
+#html mails body
+if($mail->{'html_body'}){
+ print MAIL "--xxxboundaryxxx\n";
+ print MAIL "Content-Type: text/html\n";
+ print MAIL "Content-Transfer-Encoding: 7bit\n\n";
+ print MAIL $mail->{'html_body'}."\n\n";
+ print MAIL "--xxxboundaryxxx--\n";
+}
+
+#attachment body
+if($mail->{'attachment_name'}){
+ print MAIL "--zzzboundaryzzz\n";
+ print MAIL "Content-Type: ".$mail->{'attachment_content_type'}.";\tname=\"".$mail->{'attachment_name'}."\"\n";
+ print MAIL "Content-Transfer-encoding: base64\n";
+ print MAIL "Content-Disposition: attachment;\tfilename=\"".$mail->{'attachment_name'}."\"\n\n";
+ print MAIL encode_base64($mail->{'attachment_body'})."\n\n";
+ print MAIL "--zzzboundaryzzz--\n";
+}
+
+close(MAIL);
+return 1;
+}

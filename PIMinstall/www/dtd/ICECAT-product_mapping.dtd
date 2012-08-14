@@ -1,0 +1,18 @@
+<!ELEMENT ICECAT-interface (ProductMappings)>
+
+<!ATTLIST ICECAT-interface
+                xmlns:xsi CDATA #IMPLIED
+		xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+
+<!ELEMENT ProductMappings (ProductMapping*)>
+
+<!ATTLIST ProductMappings
+		Generated			CDATA #IMPLIED>
+
+<!ELEMENT ProductMapping EMPTY>
+
+<!ATTLIST ProductMapping 	
+		product_id			CDATA #REQUIRED
+		supplier_id			CDATA #REQUIRED
+		prod_id			CDATA #REQUIRED
+		m_prod_id			CDATA #REQUIRED>

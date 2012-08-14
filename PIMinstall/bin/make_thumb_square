@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomsql;
+use atomlog;
+use GD;
+use strict;
+use Data::Dumper;
+
+my $thumbs = &do_query("select thumb_pic from product where thumb_pic != ''");
+print "thumbs selected\n";
+foreach my $thumb_url(@$thumbs){
+	my $thumb_path = $thumb_url->[0];
+	$thumb_path =~ s/http:\/\/data.icecat.biz/\/home\/gcc\/www/;
+  my $thumb = GD::Image->new($thumb_path);
+	if(!$thumb){
+	 print "$thumb_url->[0] is not valid\n"; next;
+	}
+  my ($sx,$sy) = $thumb->getBounds();
+  my ($dx, $dy);
+	if($sx==$sy){ next;}
+  if($sx>$sy){ $dx=$sx; $dy=$sx;}
+  if($sx<$sy){ $dx=$sy; $dy=$sy;}
+  my $dest = GD::Image->new($dx,$dy);
+  my $white = $dest->colorAllocate(255,255,255);
+  $dest->filledRectangle(0,0,$dx,$dy,$white);
+  $dest->copy ($thumb, 0, $dy/2-$sy/2, 0, 0, $sx, $sy);
+	print "$thumb_url->[0] $sx:$sy\n";
+	`rm $thumb_path`;
+	open (OUT, ">".$thumb_path);
+	binmode OUT;
+	print OUT $dest->jpeg(99);
+	close(OUT);
+}
+
+
+
+
+
+
+
+
+
+
+
+

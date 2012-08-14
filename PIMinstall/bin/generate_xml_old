@@ -1,0 +1,90 @@
+#!/usr/bin/perl
+
+#$Id: generate_xml_old 3135 2010-09-23 23:23:37Z dima $
+
+use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+use atomlog;
+use atomcfg;
+use icecat_server2_repository;
+use atomsql;
+use atom_util;
+use atom_misc;
+use icecat_util;
+use data_management;
+
+use Data::Dumper;
+
+$| = 1;
+
+print "Started. Create whole hash... ";
+
+my $table_name = &get_products4repository({'updated' => 1, 'public' => 1, 'table_name' => 'itmp_product' }, 'progress');
+
+# generate indexes for INT & lang repositories
+my $langs = &do_query("select langid, short_code from language where published='Y'");
+my %lang_hash = map {$_->[0] => $_->[1]} @$langs;
+$lang_hash{0} = 'INT';
+
+my $content = &create_index_files(0, {'on_market' => 1, 'table_name' => $table_name }, 'progress');
+
+&product_mapping_header_footer;
+&supplier_mapping_header_footer;
+
+&create_prodid_mapping(undef,{'table_name' => $table_name});
+&create_supplier_mapping(undef,{'table_name' => $table_name});
+
+my ($cgi_file, $cmd, $any_symbols, $xml, $restrict);
+
+foreach my $langid (sort {$a <=> $b} keys %lang_hash) {
+	print "\n\t".$lang_hash{$langid}."(".$langid."):\t";
+	$cgi_file = $atomcfg{'xml_export_path'}.'level4/'.$lang_hash{$langid}."/files.index.cgi";
+	`/bin/ln -s -f $atomcfg{'www_path'}files.index.cgi $cgi_file`;
+	
+	$restrict = [];
+	if ($lang_hash{$langid} =~ /^[GD]E$/i) { 
+		# Martijn's wish (25.02.2009)
+		push @$restrict, {'supplier_id' => &do_query("select supplier_id from supplier where name='Philips'")->[0][0]};
+		push @$restrict, {'supplier_id' => &do_query("select supplier_id from supplier where name='Pelikan'")->[0][0],
+											'prod_id_set' => '4101518,4101525,4101532,4101549,4101556,4101563,4101570,4101587,4101594,4101600,4101617,4101624,4101945,4101952,4101969,4101976,4101983,4101990,4102003,4102010,4102027,4102034,4102041,4102058,4102065,4102072,4102089,4102096,4102102,4102119,4102126,4102133,4102218,4102225,4102232,4102249,4102256,4102263,4102270,4102287,4102294,4102300,4102317,4102324,4102331,4102348,4102355,4102362,4102379,4102386,4102393,4102409,4105530,4105547,4176264,4176271,4176288,4176295,4176301,4176318,4176325,4176332,4176349,4176356,4176363,4176370,4176608,4176615,4176622,4176639,4176646,4176653,4176660,4176677,4177605,4177612,5610420,5610421,5610422,5610423,5610424,5610425,5610426,5610427,5610428,5610429,5610430,5610431,5610432,5610433,5610434,5610435,86044092,86044115,86044139,86044153,86044177,86044191,86044214,86044238,86044252,86044276'};
+	}
+
+	`/bin/mkdir -p $atomcfg{'xml_path'}level4/$lang_hash{$langid}`;
+
+	&store_index($atomcfg{'xml_path'}.'level4/'.$lang_hash{$langid}."/",$content,$restrict);
+
+	print "index, ";
+
+	&symlink($atomcfg{'xml_export_path'},$atomcfg{'xml_path'}.'level4/'.$lang_hash{$langid}.'/','categories.xml');
+
+	# make product_mapping
+	&store_product_mapping($atomcfg{'xml_path'}."/level4/".$lang_hash{$langid},'do not delete');
+
+	print "product mapping, ";
+
+	# make supplier_mapping (of prijslijst.txt data_source_supplier_mapping content)
+	&store_supplier_mapping($atomcfg{'xml_path'}."/level4/".$lang_hash{$langid},'do not delete');
+
+	print "supplier mapping";
+}
+
+&product_mapping_header_footer_end;
+&supplier_mapping_header_footer_end;
+
+&product_mapping_end;
+&supplier_mapping_end;
+
+print "\n";
+
+# remove tmps
+
+my $cmd;
+
+foreach my $hndl (values %$content) {
+	$cmd = '/bin/rm -f '.$hndl->{'draftfilename'};
+	`$cmd`;
+}
+
+print "Done.\n";

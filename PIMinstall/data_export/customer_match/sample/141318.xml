@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="141318" Prod_id="16462" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="Labelwriter 330 Turbo" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="456" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="164201" URL="" ShortDesc="&lt;BR&gt; 1 stuk." langid="2" LongDesc="&lt;BR&gt;Dymo labelwriter 330 Turbo &lt;br&gt;De labelwriter 330 Turbo is snelste en meest veelzijdige &lt;br&gt;hoge resolutie labelprinter, drukt labels af binnen &lt;br&gt;2 seconden. &lt;br&gt;Maar liefst 40 standaard labelformaten worden ondersteund &lt;br&gt;tot 59mm breedte. &lt;br&gt;In een handomdraai bedrukt/beplakt u enveloppen, hangmappen, &lt;br&gt;diskettes, video banden, ordners, barcodes etc. &lt;br&gt;Met de Dymo label software wordt de labelwriter direct &lt;br&gt;geintegreerd in MS Word, Outlook, Palm Desktop, CardScan &lt;br&gt;etc. en werkt met alle andere software via standaard printer &lt;br&gt;drivers. &lt;br&gt;300 dpi resolutie voor laser kwaliteit labels, dubbele &lt;br&gt;resolutie in vergelijking tot andere lavel printers. &lt;br&gt;Print labels tot 59mm breedt,  print labels binnen &lt;br&gt;2 seconden en 32 per minuut. &lt;br&gt;" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="339" Name="Dymo"/>
+       <Category ID="348">
+         <Name ID="697" Value="Automatic labeling systems" langid="1"/>
+         <Name ID="698" Value="Automatisch labelen-systemen" langid="2"/>
+         <Name ID="6416" Value="Automatic labeling systems" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

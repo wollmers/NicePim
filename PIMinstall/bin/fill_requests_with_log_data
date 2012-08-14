@@ -1,0 +1,181 @@
+#!/usr/bin/perl
+
+#$Id: fill_requests_with_log_data 2060 2009-12-14 15:28:14Z dima $
+
+use lib "/home/pim/lib";
+#use lib "/home/dima/gcc_svn/lib";
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use POSIX qw(time);
+
+use icecat_server2;
+
+ ########
+##      ##
+## init ##
+##      ##
+ ########
+
+$| = 1;
+
+my $bzip = 1;
+my $messages = 1;
+my $time = 0;
+
+my $logs_path = "/var/log/apache2/";
+
+my $freexml_log = "access_freexml_log"; # i don't know
+my $freexml_int_log = "access_freexml_int_log"; # only about openICEcat-urls
+my $level4_log = "access_level4_log"; # grab all info about valid connects
+
+my $request_file = "/tmp/request_".time();
+
+my $logrotate_suffix = ".1";
+
+ #########
+##       ##
+## begin ##
+##       ##
+ #########
+
+print "*** `fill_requests_with_log_data` started at ".gmtime()." ***\n";
+
+if ((!-e $logs_path.$freexml_int_log.$logrotate_suffix) && 
+		(!-e $logs_path.$level4_log.$logrotate_suffix) &&
+		(!-e $logs_path.$freexml_log.$logrotate_suffix)) {die;}
+
+# fill hash with users
+
+&start; &mprint("\tCT `tmp_request`, DK... ");
+&do_statement("create temporary table tmp_request (
+timestamp int(13)      not null default 0,
+login     varchar(255) not null default '',
+request   varchar(255) not null default '',
+status    int(13)      not null default 0,
+ip        varchar(255) not null default '',
+key (login,status),
+key (status),
+key (timestamp))");
+
+&do_statement("alter table tmp_request disable keys");
+&mprint(&done_stop);
+
+&start; &mprint("\tL `freexml_int`... ");
+&do_statement("load data local infile \"".$logs_path.$freexml_int_log.$logrotate_suffix."\"
+into table tmp_request fields terminated by '\t' lines terminated by '\n'");
+&mprint(&done_stop);
+&start; &mprint("\tL `level4`... ");
+&do_statement("load data local infile \"".$logs_path.$level4_log.$logrotate_suffix."\"
+into table tmp_request fields terminated by '\t' lines terminated by '\n'");
+&mprint(&done_stop);
+&start; &mprint("\tL `freexml`... ");
+&do_statement("load data local infile \"".$logs_path.$freexml_log.$logrotate_suffix."\"
+into table tmp_request fields terminated by '\t' lines terminated by '\n'");
+&mprint(&done_stop);
+
+&start; &mprint("\t`tmp_request` EK... ");
+&do_statement("alter table tmp_request enable keys");
+&mprint(&done_stop);
+
+if ($bzip) {
+	&start; &mprint("\tbzip2 ".$freexml_log.", ");
+	&bzip_file($logs_path.$freexml_log.$logrotate_suffix);
+	&mprint($freexml_int_log.", ");
+	&bzip_file($logs_path.$freexml_int_log.$logrotate_suffix);
+	&mprint($level4_log."`... ");
+	&bzip_file($logs_path.$level4_log.$logrotate_suffix);
+	&mprint(&done_stop);
+}
+
+&start; &mprint("\tU `tmp_request` (status = 404 and login='_multiprf' => status = 200)... ");
+&do_statement("update tmp_request set status=200 where status=404 and login='_multiprf'"); # if status = 404 and login = _multiprf -> status = 200
+&mprint(&done_stop);
+
+&start; &mprint("\tD `tmp_request` (status!=200)... ");
+&do_statement("delete from tmp_request where status!=200"); # delete wrong statuses (!= 200)
+&mprint(&done_stop);
+
+&start; &mprint("\tD `tmp_request` (login='-')... ");
+&do_statement("delete from tmp_request where login='-'"); # delete wrong users (== "-")
+&mprint(&done_stop);
+
+&start; &mprint("\tU `tmp_request` SUBSTRING x 2... ");
+&do_statement("update tmp_request set request=SUBSTRING_INDEX(SUBSTRING_INDEX(request,'\/',-2),'.',2)");
+&mprint(&done_stop);
+
+&start; &mprint("\tD `tmp_request` where date > now() [Apache logs bug...] ");
+&do_statement("delete from tmp_request where timestamp>unix_timestamp()");
+&mprint(&done_stop);
+# end of freexml_log
+
+# add key to login
+#&start; &mprint("\tAT `tmp_request` key (login)... ");
+#&do_statement("alter table tmp_request add key (login)");
+#&mprint(&done_stop);
+
+## create tmp_users
+&start; &mprint("\tCT `tmp_users`... ");
+&do_statement("create temporary table tmp_users (
+user_id int(13) not null,
+login   varchar(255) not null,
+key (login))");
+&do_statement("insert into tmp_users(user_id,login) select user_id,login from users");
+&mprint(&done_stop);
+
+## fill request_repository
+&start; &mprint("\tS `tmp_request`+`tmp_users` -> I `request_repository`... ");
+&do_statement("insert into request_repository(date,user_id,product_id)
+select tr.timestamp, tu.user_id, tr.request
+from tmp_request tr
+inner join tmp_users tu using (login)
+order by tr.timestamp asc");
+&mprint(&done_stop);
+
+exit(0);
+
+ ###############
+##             ##
+## useful subs ##
+##             ##
+ ###############
+
+sub bzip_file {
+	my ($filename) = @_;
+	my $cmd = "/usr/bin/bzip2 ".$filename;
+	`$cmd`;	
+}
+
+ ######################
+##                    ##
+## miscellaneous subs ##
+##                    ##
+ ######################
+
+sub start {
+  $time = &POSIX::time();
+} # sub start
+
+sub stop {
+  return (&POSIX::time()-$time);
+} # sub stop
+
+sub done_stop {
+  my ($pre) = @_;
+  my $secs = &stop;
+  return $pre.($pre ? " " : "")."(".$secs." sec".($secs == 1 ? "" : "s").")\n";
+} # sub done_stop
+
+sub mprint {
+  print shift if ($messages);
+} # sub mprint
+
+ #######
+##     ##
+## end ##
+##     ##
+ #######

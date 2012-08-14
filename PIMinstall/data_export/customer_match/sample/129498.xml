@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="129498" Prod_id="P8717AA#ABB" ThumbPic="http://www.icecat.biz/thumbs/129498.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP Pavilion f1904 19 LCD Monitor" LowPic="http://www.icecat.biz/img/hp/low_res/pavilion_f1904_190x170.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="340" No="4">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="100" No="10">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1207" No="6">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="98" No="1">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="907" No="7">
+         <FeatureGroup ID="23">
+           <Name ID="5041" Value="Bandwidth" langid="1"/>
+           <Name ID="5042" Value="Bandbreedte" langid="2"/>
+           <Name ID="8332" Value="Bandwidth" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="99" No="5">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1205" No="3">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1204" No="2">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="149979" URL="http://www.hp.com" ShortDesc="HP Pavilion f1904 19 LCD Monitor" langid="1" LongDesc="The HP Pavilion f1904 is a high performance large screen display with exceptional viewing19&amp;quot; LCD monitor with external speakersThe HP Pavilion f1904 is a high performance large screen display with exceptional viewing in a stylish ergonomic design." WarrantyInfo="Limited one-year part and repair labour warranty (certain restrictions and exclusions apply)" PDFURL=""/>
+        <ProductFeature ID="9534695" Value="19" No="10117404" CategoryFeatureGroup_ID="100">
+         <Feature ID="15">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="1321" Value="Display size" langid="1"/>
+           <Name ID="1322" Value="Afmetingen scherm" langid="2"/>
+           <Name ID="6678" Value="Taille de l'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534696" Value="Brightness, contrast, image control (horizontal, vertical, clock and phase), colour settings, management, video inputs selection, factory reset, 6 languages" No="117406" CategoryFeatureGroup_ID="340">
+         <Feature ID="489">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2509" Value="User controls" langid="1"/>
+           <Name ID="2510" Value="Gebruikersknoppen" langid="2"/>
+           <Name ID="7251" Value="User controls" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534697" Value="0.294 mm" No="117407" CategoryFeatureGroup_ID="340">
+         <Feature ID="32">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1377" Value="Pixel pitch" langid="1"/>
+           <Name ID="1378" Value="Pixel pitch" langid="2"/>
+           <Name ID="6703" Value="Pixel pitch" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534698" Value="Yes" No="17409" CategoryFeatureGroup_ID="340">
+         <Feature ID="775">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3081" Value="Plug and Play" langid="1"/>
+           <Name ID="3082" Value="plug-en-play" langid="2"/>
+           <Name ID="7535" Value="plug and play" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534699" Value="True color (16.7M)" No="117430" CategoryFeatureGroup_ID="100">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534700" Value="56-76Hz vertical, 30-82kHz horizontal" No="100160" CategoryFeatureGroup_ID="340">
+         <Feature ID="35">
+          <Measure ID="31" Sign="KHz"/>
+           <Name ID="1387" Value="Horizontal scan range" langid="1"/>
+           <Name ID="1388" Value="Horizontale scan range" langid="2"/>
+           <Name ID="6708" Value="Horizontal scan range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534701" Value="1280x1024 @ 60Hz (native in digital) plus all VESA modes up to 1280 x 1024 @ 75Hz (native in analogue)" No="117500" CategoryFeatureGroup_ID="100">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534702" Value="496 x 296 x 522 mm" No="27" CategoryFeatureGroup_ID="98">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534703" Value="11.8 kg" No="25" CategoryFeatureGroup_ID="98">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534704" Value="AC 100-240V, auto-ranging, 50-60Hz" No="19" CategoryFeatureGroup_ID="99">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534705" Value="Thin Film Transistor Liquid Crystal Display active matrix" No="0" CategoryFeatureGroup_ID="100">
+         <Feature ID="1520">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4760" Value="Type scherm" langid="2"/>
+           <Name ID="4759" Value="Display type" langid="1"/>
+           <Name ID="8217" Value="Type d'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534706" Value="40 watts maximum on operating mode; 2 watts max in power saving mode" No="0" CategoryFeatureGroup_ID="99">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534707" Value="5° C to 35° C, 20%-80% RH non-condensing" No="0" CategoryFeatureGroup_ID="1205">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534708" Value="Anti glare, antistatic" No="100000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1694">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5325" Value="Faceplate treatment" langid="1"/>
+           <Name ID="5326" Value="Faceplate treatment" langid="2"/>
+           <Name ID="8459" Value="Faceplate treatment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534709" Value="2 Harman Kardon satellite speakers with integrated subwoofer jack and volume control" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="1695">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5327" Value="Speakers and microphone" langid="1"/>
+           <Name ID="5328" Value="Luidprekers en microfoon" langid="2"/>
+           <Name ID="8460" Value="Haut-parleurs et micro" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534710" Value="CE, Nemko, TCO'03, Energy Star, ISO13406-2, ISO 9241" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="793">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3117" Value="Compliance Industry Standards" langid="1"/>
+           <Name ID="3118" Value="Standaard" langid="2"/>
+           <Name ID="7553" Value="Compliance Industry Standards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534711" Value="7800" No="100000" CategoryFeatureGroup_ID="98">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534712" Value="1280x1024 @ 75Hz (analogue), 1280x1024 @ 60Hz (digital)" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="1585">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="4927" Value="Display resolution" langid="1"/>
+           <Name ID="4928" Value="Display - resolutie" langid="2"/>
+           <Name ID="6605" Value="Résolution de l'affichage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9534713" Value="423 x 215 x 400 mm" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="2096">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="9284" Value="Dimensions (W x D x H) with stand" langid="1"/>
+           <Name ID="9285" Value="Dimensions (W x D x H) with stand" langid="3"/>
+           <Name ID="9286" Value="Dimensions (W x D x H) with stand" langid="2"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="222">
+         <Name ID="445" Value="flat panel displays" langid="1"/>
+         <Name ID="446" Value="monitoren TFT" langid="2"/>
+         <Name ID="6295" Value="flat panel displays" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="118455" Prod_id="N2094-010-4S" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="DVD-R 4,7Gb 4x slimline (10)" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+      <CategoryFeatureGroup/>
+        <ProductDescription ID="136345" URL="" ShortDesc="&lt;BR&gt; Doos 10 stuks." langid="2" LongDesc="&lt;BR&gt;Nashua DVD-R 4,7Gb 4x slimline &lt;br&gt;" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="102" Name="Nashua"/>
+       <Category ID="1066">
+         <Name ID="9768" Value="read write DVDs" langid="1"/>
+         <Name ID="9769" Value="read write DVDs" langid="3"/>
+         <Name ID="9770" Value="herschrijfbare DVDs" langid="2"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

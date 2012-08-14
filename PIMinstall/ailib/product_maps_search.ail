@@ -1,0 +1,11 @@
+{
+name: product_maps_search;
+priority: 10;
+
+_resource_param: select '%%search_code%%', '%%search_supplier_id%%'
+_mapping_param: search_code, search_supplier_id;
+
+_format_as_dropdown: search_supplier_id;
+search_supplier_id_dropdown_select: select supplier_id, name from supplier order by name asc;
+
+}

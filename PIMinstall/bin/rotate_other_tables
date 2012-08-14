@@ -1,0 +1,84 @@
+#!/usr/bin/perl
+
+#$Id: rotate_other_tables 3738 2011-01-18 15:44:19Z dima $
+
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+$| = 1;
+
+# begin
+
+ once_again:
+
+	print "\033[1mSTART\033[0m:\n";
+
+foreach my $i (
+	['supplier',
+	 'supplier_id, name',
+	 'supplier_id int(13) not null, name varchar(255) not null, unique key (supplier_id)',
+	 'supplier_id'
+	],
+	[
+	 'users',
+	 'user_id,user_group',
+	 'user_id int(13) not null, user_group varchar(60) not null, unique key (user_id), key (user_group, user_id)',
+	 'user_id'
+	]) {
+
+	print $i->[0]." DT ";
+
+	&do_statement("drop table if exists ".$i->[0].'_memory_new');
+
+	print "CT ";
+	&do_statement("create table ".$i->[0]."_memory_new (".$i->[2].") ENGINE = MyISAM");
+
+	print "DK ";
+	&do_statement("alter table ".$i->[0]."_memory_new disable keys");
+
+	print "I(";
+
+	my @arr = &get_primary_key_set_of_ranges('t',$i->[0],100000,$i->[3]);
+	my $query;
+	foreach my $b_cond (@arr) {
+
+		$query = " select ".$i->[1]." from ".$i->[0]." where " . $b_cond;
+
+		&log_printf(&do_query_dump("explain ".$query));	
+		&do_statement("
+	    insert into ".$i->[0]."_memory_new
+	    (
+	        ".$i->[1]."
+	    ) 
+	    " . $query );	    
+		
+		print ".";
+	}
+
+	print ") UT ";
+
+	print "EK(";
+	&do_statement("alter table ".$i->[0]."_memory_new enable keys");
+
+	if (&do_query("show tables like '".$i->[0]."_memory'")->[0][0]) {
+		print ") RT2 ";
+		&do_statement("drop table if exists ".$i->[0]."_memory_old");
+		&do_statement("rename table ".$i->[0]."_memory to ".$i->[0]."_memory_old, ".$i->[0]."_memory_new to ".$i->[0]."_memory");
+	}
+	else {
+		print ") RT ";
+		&do_statement("rename table ".$i->[0]."_memory_new to ".$i->[0]."_memory");
+	}
+
+	print "\n";
+
+	goto once_again if &do_query("select count(*) from ".$i->[0]."_memory")->[0][0] == 0;
+
+}
+
+print "\033[1mEND.\033[0m\n\n";

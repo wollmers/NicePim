@@ -1,0 +1,130 @@
+#!/usr/bin/perl
+
+#$Id: gcc_tables_list_publish 3692 2011-01-12 13:09:49Z dima $
+
+use strict;
+
+use lib "/home/pim/lib";
+
+use atomsql;
+use atomcfg;
+use atomlog;
+
+$| = 1;
+
+# read the tables list
+
+my @list;
+
+open LIST, "<./gcc_tables_list.txt";
+binmode LIST, ":utf8";
+while (<LIST>) {
+	chomp;
+	push @list, $_;
+}
+close LIST;
+
+# do show create table
+
+my $out = '';
+
+foreach (@list) {
+	next unless $_;
+	
+	my $cur = &do_query("show create table ".$_)->[0][1];
+	$cur =~ s/AUTO_INCREMENT=\d+ //s;
+	$out .= ( $cur ? $cur : "/* table ".$_." is absent in database */" ) . ";\n\n";
+}
+
+# add triggers & stored procedures
+
+my $trg = `cat ./gcc_triggers.db`;
+my $sp =  `cat ./main_relations_by_product.db`;
+
+# add constant datas: country, language etc...
+
+# langs
+
+my $l_out = '';
+
+open LANGS, "<./lang_list.csv";
+binmode LANGS, ":utf8";
+while (<LANGS>) {
+	my @lang = split /\t/, $_;
+
+	my $lang_code = $lang[0];
+	my $lang_short_code = $lang[1];
+	my $lang_name = $lang[2];
+	chomp($lang_name);
+
+	next unless $lang_code;
+	next unless $lang_short_code;	
+	next unless $lang_name;
+	next if $lang_code eq 'code';
+
+	$l_out .= "insert into sid_index(dummy) values('');\n";
+	$l_out .= "select last_insert_id() into \@list_id;\n";
+	$l_out .= "insert into language(sid,code,short_code) values(\@list_id,".&str_sqlize($lang_code).",".&str_sqlize($lang_short_code).");\n";
+	$l_out .= "insert into vocabulary(sid,value,langid) values(\@list_id,".&str_sqlize($lang_name).",1);\n\n";
+}
+close LANGS;
+
+# countries
+
+my $c_out = '';
+
+open CNTRS, "<./countrylist.csv";
+binmode CNTRS, ":utf8";
+while (<CNTRS>) {
+	my @cntr = split /,/, $_;
+
+	my $country_name = $cntr[1];
+	$country_name =~ s/^"|"$//g;
+	my $country_code = $cntr[10];
+	$country_code =~ s/^"|"$//g;
+	my $country_type = $cntr[3];
+	$country_type =~ s/^"|"$//g;
+
+	next unless $country_name;
+	next unless $country_code;
+	next if $country_name eq 'Common Name';
+	next if $country_type ne 'Independent State';
+
+	$c_out .= "insert into sid_index(dummy) values('');\n";
+	$c_out .= "select last_insert_id() into \@list_id;\n";
+	$c_out .= "insert into country(sid,code) values(\@list_id,".&str_sqlize($country_code).");\n";
+	$c_out .= "insert into vocabulary(sid,value,langid) values(\@list_id,".&str_sqlize($country_name).",1);\n\n";
+}
+close CNTRS;
+
+# add initial datas: several fake products with structures
+
+# category 1
+
+my $cat_insert_out = "insert into category(ucatid,pcatid,sid,tid) values('00000000','1','0','0');\n\n";
+
+# product_family 1
+
+my $fam_insert_out = "insert into product_family(parent_family_id,supplier_id,sid,tid,catid) values('1','0','0','0','0');\n\n";
+
+# 2 users - root & nobody
+
+my $user_insert_out = "insert into users(login,user_group,password,pers_cid,subscription_level) values('nobody','nogroup','','0','0');\n";
+$user_insert_out .=   "insert into users(login,user_group,password,pers_cid,subscription_level) values('root','superuser','root','0','4');\n\n";
+
+# out it
+
+chomp($out);
+$out .= "\n";
+
+open OUT, ">./gcc_tables_list_dump.sql";
+binmode OUT, ":utf8";
+print OUT $out;
+print OUT $trg;
+print OUT $sp;
+print OUT $l_out;
+print OUT $c_out;
+print OUT $cat_insert_out;
+print OUT $fam_insert_out;
+print OUT $user_insert_out;
+close OUT;

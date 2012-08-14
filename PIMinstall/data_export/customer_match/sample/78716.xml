@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="78716" Prod_id="5002010000033" ThumbPic="http://www.icecat.biz/thumbs/78716.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/78716-2181.jpg" Name="HEADSET HS 300" LowPic="http://www.icecat.biz/img/norm/low/78716.jpg">
+        <ProductRelated ID="507334">
+         <Product ID="69024" Prod_id="70SB031200004" ThumbPic="http://www.icecat.biz/thumbs/69024.jpg" Name="SB Audigy LS PCI 24bit Retail FR">
+          <Supplier ID="45" Name="Creative Labs"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="507337">
+         <Product ID="101425" Prod_id="30SB022900000" ThumbPic="http://www.icecat.biz/thumbs/101425.jpg" Name="SB 5.1 Live LS PCI Wave 1pkBulk">
+          <Supplier ID="45" Name="Creative Labs"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="507336">
+         <Product ID="101424" Prod_id="30SB022900000?20PK" ThumbPic="http://www.icecat.biz/thumbs/101424.jpg" Name="K SB 5.1 Live LS PCI Wave 20pkBulk">
+          <Supplier ID="45" Name="Creative Labs"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+      <CategoryFeatureGroup/>
+        <ProductDescription ID="90422" URL="http://uk.europe.creative.com/products/product.asp?category=4&amp;subcategory=30&amp;product=4939" ShortDesc="HEADSET HS 300 " langid="1" LongDesc="The plug-in solution for better on-line communications. \n\nThe Creative® Headset HS-300 makes audio interactive. It's perfect for on-line chatting, gaming and video conferencing as well as enjoying music. Thanks to its noise-cancelling microphone, the Creative Headset HS-300 gives improved speech accuracy and clear voice transmission. Its broad sound stage makes audio sound ultra-real, and this system offers more privacy than conventional speakers when users listen to personal messages or chat on line. Perfect for home or office, it's simple and reliable and comes with a flexible neckband and soft foam ear cushions for comfort. It's also easy to use - users just plug it in and start talking! The volume control also features a Mute function for extra privacy. \n\n\nPerfect for instant messaging with voice, videoconferencing and multi-player internet gaming. \nMicrophone with noise cancellation technology ensures clearer sound and speech reception. \nConvenient volume control with mute switch. \nErgonomic, lightweight neck band with soft foam cushion ear pads for stability and comfort. \nAdjustable microphone arm for perfect audio recording. \nGold-plated plugs for crystal clear audio." WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="45" Name="Creative Labs"/>
+       <Category ID="1020">
+         <Name ID="9341" Value="Headphones" langid="1"/>
+         <Name ID="9342" Value="Headphones" langid="3"/>
+         <Name ID="9343" Value="Koptelefoons" langid="2"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

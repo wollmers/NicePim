@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="126836" Prod_id="202262038" ThumbPic="http://www.icecat.biz/thumbs/126836.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/126836-1275.jpg" Name="Showcenter NL mediaplayer + PCMCIA card" LowPic="http://www.icecat.biz/img/norm/low/126836.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="307" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="151934" URL="http://www.pinnaclesys.com/ProductPage_n.asp?Product_ID=1491&amp;Langue_ID=2" ShortDesc="Connects to your PC or home network and streams your files via a wired or wireless (802.11g) connection" langid="1" LongDesc="Enjoy your PC's media files on your TV and home stereo  easily! Pinnacle ShowCenter connects to your PC or home network and streams your files via a wired or wireless (802.11g) connection. Leave the PC in the study and use the included remote control to watch your videos, photos and music and listen to Internet radio from your living room, Included PVR features let you record TV or timeshift using a Pinnacle PCTV card on your PC. ShowCenter comes with a powerful application for organizing your media files, creating playlists and burning discs. Import your entire music collection in MP3 with intergrated Audio CD ripping. \n\n" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9623036" Value="a) SCART 21-pin connector with composite, Y/C, RGB, stereo audio \nb) Component video output (&amp;quot;YPrPb&amp;quot;, 3 x RCA) \nc) Composite video output (1 x RCA) \nd) Y/C (&amp;quot;S-Video&amp;quot;) video output (1 x Hosiden) \ne) Stereo audio outputs (&amp;quot;Line-Out&amp;quot;) (2 x RCA) \nf) Additional stereo audio output (for separate connection to stereo system) (2 x RCA) \ng) Digital audio outputs, both optical (1 x Toslink) and electrical (S/PDIF 1 x RCA)" No="60" CategoryFeatureGroup_ID="307">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="31" Name="Pinnacle"/>
+       <Category ID="189">
+         <Name ID="379" Value="Multimedia kits" langid="1"/>
+         <Name ID="380" Value="Multimediakits" langid="2"/>
+         <Name ID="6262" Value="Multimedia kits" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

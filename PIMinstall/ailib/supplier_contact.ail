@@ -1,0 +1,54 @@
+{
+name: supplier_contact;
+
+verify: supplier_id;
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: supplier_id;
+verify_add_supereditor: supplier_id;
+verify_add_category_manager: supplier_id;
+
+verify_deny_guest: yes;
+
+_resource_brand: select name from supplier where supplier_id = %%supplier_id%%;
+_mapping_brand: brand_name;
+
+_resource_contact: select su.supplier_users_id, c.person, c.phone, c.country_id, c.country_id, c.email, c.position, v.value, scr.report_format, c.contact_id, u.user_id
+from supplier_users su
+inner join users u                     on su.user_id = u.user_id
+left join contact c                   on u.pers_cid = c.contact_id
+left join supplier_contact_report scr on scr.supplier_contact_report_id = c.supplier_contact_report_id
+left join language l                  on scr.report_lang = l.langid
+left join vocabulary v                on l.sid = v.sid and v.langid = 1
+where supplier_id = %%supplier_id%%;
+
+_resource_contact_type: multi;
+_mapping_contact: id, person, phone, country, c_id, email, position, language, report_format, contact_id, user_id_cur;
+
+_resource_user: select '%%user_id_new%%';
+_mapping_user: user_id_new;
+
+_format_as_dropdown: user_id_new;
+user_id_new_dropdown_select: select u.user_id, if(c.person is null or c.company is null, u.login, concat(u.login,' (',c.person,',',' ',c.company,')'))
+from users u
+inner join contact c on u.pers_cid = c.contact_id
+where (select count(*) from supplier_users su where su.supplier_id = %%supplier_id%% and su.user_id = u.user_id) = 0
+and u.user_group in ('supplier','noeditor')
+order by u.login asc;
+
+_format_as_supplier_country: country;
+
+}

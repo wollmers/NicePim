@@ -1,0 +1,56 @@
+<!ELEMENT ICECAT-interface (RelationGroup+)>
+<!ATTLIST ICECAT-interface
+					xmlns:xsi											CDATA #IMPLIED
+					xsi:noNamespaceSchemaLocation	CDATA #IMPLIED>
+
+<!ELEMENT RelationGroup (Relation*)>
+<!ATTLIST RelationGroup
+					ID														CDATA #REQUIRED
+					name													CDATA #REQUIRED
+					description										CDATA #REQUIRED>
+
+<!ELEMENT Relation (SourceIncludeRules|SourceExcludeRules|DestinationIncludeRules|DestinationExcludeRules)+>
+<!ATTLIST Relation
+					ID														CDATA #REQUIRED
+					name													CDATA #REQUIRED>
+
+<!ELEMENT SourceIncludeRules (Rule+)>
+
+<!ELEMENT SourceExcludeRules (Rule+)>
+
+<!ELEMENT DestinationIncludeRules (Rule+)>
+
+<!ELEMENT DestinationExcludeRules (Rule+)>
+
+<!ELEMENT Rule (Supplier|SupplierFamily|Category|Feature|Prod_id|Start_date|End_date)+>
+<!ATTLIST Rule
+					ID														CDATA #REQUIRED>
+
+<!ELEMENT Supplier EMPTY>
+<!ATTLIST Supplier
+					ID														CDATA #REQUIRED>
+
+<!ELEMENT SupplierFamily EMPTY>
+<!ATTLIST SupplierFamily
+					ID														CDATA #REQUIRED>
+
+<!ELEMENT Category EMPTY>
+<!ATTLIST Category
+					ID														CDATA #REQUIRED>
+
+<!ELEMENT Feature (#PCDATA)>
+<!ATTLIST Feature
+					exact													CDATA #REQUIRED
+					ID														CDATA #REQUIRED>
+
+<!ELEMENT Prod_id EMPTY>
+<!ATTLIST Prod_id
+					value													CDATA #REQUIRED>
+
+<!ELEMENT Start_date EMPTY>
+<!ATTLIST Start_date
+					value													CDATA #REQUIRED>
+
+<!ELEMENT End_date EMPTY>
+<!ATTLIST End_date
+					value													CDATA #REQUIRED>

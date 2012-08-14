@@ -1,0 +1,26 @@
+{
+name: ajax_track_product_manual_map;
+_resource_data: select tp.track_product_id,tp.map_prod_id,tp.supplier_id,tp.track_list_id,''
+				from track_product tp
+				LEFT JOIN supplier s ON s.supplier_id=tp.supplier_id 
+				LEFT JOIN product p ON tp.product_id=p.product_id
+				WHERE tp.track_product_id=%%track_product_id%%;
+_resource_data_type: single;
+_mapping_data: track_product_id,manual_map_prod_id,manual_supplier_id,track_list_id,err_msg;
+
+format_as_track_list_rule_prod_id: rule_prod_id_html,rule_prod_id_rev;
+format_as_track_list_rule_status: is_rule_confirmed_html;
+
+format_as_dropdown: manual_supplier_id;
+manual_supplier_id_dropdown_select: select supplier_id, name from supplier where 1 order by name;
+validate_as_prod_id_pair: manual_map_prod_id;
+ 
+ 
+  
+}
+_insert_sequence: 1;
+_insert_table_1:  track_product;
+_insert_values_1: track_product_id;
+_insert_fields_1: track_product_id;
+_insert_key_1: track_product_id;
+_update_sequence_1: yes;

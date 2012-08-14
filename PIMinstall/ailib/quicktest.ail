@@ -1,0 +1,17 @@
+{
+name: quicktest;
+priority: 10;
+
+verify: user_id;
+authorize_superuser: user_id;
+authorize_supereditor: user_id;
+authorize_category_manager: user_id;
+
+verify_submit: user_id;
+
+verify_add: yes;
+verify_add_superuser: user_id;
+verify_add_supereditor: user_id;
+verify_add_category_manager: user_id;
+
+}

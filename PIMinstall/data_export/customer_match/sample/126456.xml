@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="126456" Prod_id="202262073" ThumbPic="http://www.icecat.biz/thumbs/126456.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/126456-3344.jpg" Name="Studio Plus MovieBox Deluxe Version 9" LowPic="http://www.icecat.biz/img/norm/low/126456.jpg">
+      <ProductRelated/>
+        <ProductBundled ID="819">
+         <Product ID="73035" Prod_id="202261850" ThumbPic="http://www.icecat.biz/thumbs/73035.jpg" Name="HFX Plus v5 NON CD W9x">
+          <Supplier ID="31" Name="Pinnacle"/>
+         </Product>
+        </ProductBundled>
+        <ProductBundled ID="818">
+         <Product ID="126662" Prod_id="202261998" ThumbPic="http://www.icecat.biz/thumbs/126662.jpg" Name="Studio Plus v9 NL video DVD CD W9x">
+          <Supplier ID="31" Name="Pinnacle"/>
+         </Product>
+        </ProductBundled>
+        <CategoryFeatureGroup ID="1222" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1224" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1223" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="151933" URL="http://www.pinnaclesys.com/ProductPage_n.asp?Product_ID=2251&amp;Langue_ID=2" ShortDesc="Connects camcorders and VCR's to your PC and digitises and compresses video" langid="1" LongDesc="Studio MovieBox Deluxe is the best-of-class external solution from Pinnacle which makes the most of a Hi-Speed USB 2.0 port to connect almost any digital or analogue video source, such as camcorder, VCR, web cam, or TV, to your PC. Includes the full version of Studio Plus v.9, the advanced version of Studio v.9 that offers more powerful and creative capabilities while retaining the award-winning interface and workflow, complemented by Hollywood FX Plus which provides a collection of additional filters and transitions.\n\n\n\nConnect Any Camcorder Or VCR To Your PC\nDV, D8, VHS, Hi-8 Video can be captured from both analogue and digital tapes, and mixed into your production. Once your project is complete, you can then output it to either digital or analogue tape. \n\n\nDigitise And Compress All Your Videos\nMovieBox Deluxe is a plug-and-play solution: just connect it to a USB 2.0 port, available on most recent PCs, then capture video from any source. No need to install a FireWire controller to capture from DV camcorders. \n\n\nIndustrial Design By F.A. Porsche\nThe MovieBox Deluxe device has been designed to be both elegant and ergonomic. \n\n\nProduct Highlights:\nIncludes full version of Studio Plus version 9 video editing software \nIncludes full version of Pinnacle Hollywood FX Plus \nCaptures video in MPEG-1, MPEG-2 or AVI format \nConnects to your computer's Hi-Speed USB 2.0 port \nS-Video/composite input and output \n" WarrantyInfo="" PDFURL="http://www.icecat.biz/pdf/151933-8989.pdf"/>
+        <ProductFeature ID="9622790" Value="Capture directly to DVD quality MPEG-2\n120 MB of disk space for every 20 minutes of DV video captured at preview quality (4 GB for every 20 minutes of finished movie)\n\nOutput formats:\nMPEG-1, MPEG-2, and MPEG-4*  AVI  RealVideo 8  Windows Media 9  Dolby Digital Audio* \n\n\nImport formats:\nVideo: MPEG-1, MPEG-2*, AVI \nAudio: WAV, MP3 \nGraphic: BMP, JPG, PCT, TGA, TIF, WMF \n\nAdvanced Video Publishing\nShare your movies on video tape, DVD, Video CD, and the Internet \nBurn a video CD or DVD that you can play on your living room DVD player \nSupports single and dual-layer DVD burning \nOutput MPEG-1, MPEG-2 &amp; MPEG-4 \nOutput Dolby® Digital Audio \nOutput wide-screen (16:9)* or standard (4:3) video \nOutput Windows Media® 9 " No="1" CategoryFeatureGroup_ID="1222">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622789" Value="720x576" No="100002" CategoryFeatureGroup_ID="1222">
+         <Feature ID="1597">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="4958" Value="Video capture resolution" langid="2"/>
+           <Name ID="4957" Value="Video capture resolution" langid="1"/>
+           <Name ID="6593" Value="Video capture resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622788" Value="Pinnacle Hollywood FX Plus\nPinnacle Studio Plus v.9\n" No="100002" CategoryFeatureGroup_ID="1222">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622786" Value="" No="100001" CategoryFeatureGroup_ID="1223">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622787" Value="" No="100004" CategoryFeatureGroup_ID="1222">
+         <Feature ID="1830">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5653" Value="Cables included" langid="1"/>
+           <Name ID="5654" Value="Cables included" langid="2"/>
+           <Name ID="8617" Value="Cables included" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622602" Value="Intel® Pentium® 4 or AMD® Athlon® 1.6 GHz or higher" No="100005" CategoryFeatureGroup_ID="1224">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622600" Value="500" No="100005" CategoryFeatureGroup_ID="1224">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622601" Value="256" No="100006" CategoryFeatureGroup_ID="1224">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622791" Value="" No="100007" CategoryFeatureGroup_ID="1224">
+         <Feature ID="430">
+          <Measure ID="28" Sign="RPM"/>
+           <Name ID="2227" Value="Hard disk rotational speed" langid="1"/>
+           <Name ID="2228" Value="Harde schijf rotatiesnelheid" langid="2"/>
+           <Name ID="7122" Value="Hard disk rotational speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622603" Value="Windows XP SP1" No="100007" CategoryFeatureGroup_ID="1224">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9622606" Value="Hi-Speed USB2.0 port \nWindows® XP, Service Pack 1 (SP1) or higher \nDirectX® 9 or higher compatible graphics card (ATI Radeon or NVIDIA® GeForce 2 or higher recommended) \nDirectX 9 or higher compatible sound card \nCD-ROM drive \n" No="100001" CategoryFeatureGroup_ID="1224">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9624445" Value="Hi-Speed USB2.0 port\nIEEE1394 I/O connector (6-pin type)\nStereo audio (2 x RCA)\nRCA (PAL/SECAM)\nS-Video (mini-DIN, PAL/SECAM)\nRCA (PAL)\nS-Video (mini-DIN, PAL)" No="1" CategoryFeatureGroup_ID="1222">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9624444" Value="Input from MicroMV camcorders or VCRs, DV, Digital8, Output to DV or Digital8 tape (requires Camcorder with DV Input port), Video CD (VCD) or Super Video CD (SVCD) with optional CD-R or CD-RW drive " No="100002" CategoryFeatureGroup_ID="1222">
+         <Feature ID="1827">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5647" Value="Digital video format" langid="1"/>
+           <Name ID="5648" Value="Digital video format" langid="2"/>
+           <Name ID="8614" Value="Digital video format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9624442" Value="PAL/SECAM" No="100003" CategoryFeatureGroup_ID="1222">
+         <Feature ID="1823">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5637" Value="Analogue video signal" langid="1"/>
+           <Name ID="5638" Value="Analogue video signal" langid="2"/>
+           <Name ID="8609" Value="Analogue video signal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9624443" Value="Input from 8 Millimetre, (S-)VHS(-C), Hi8 or VCRs, analogue camcorders, output to analogue video tape," No="100003" CategoryFeatureGroup_ID="1222">
+         <Feature ID="1824">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5639" Value="Analogue video format" langid="1"/>
+           <Name ID="5640" Value="Analogue video format" langid="2"/>
+           <Name ID="8610" Value="Analogue video format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9624441" Value="" No="100005" CategoryFeatureGroup_ID="1222">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="31" Name="Pinnacle"/>
+       <Category ID="993">
+         <Name ID="6035" Value="Video editors" langid="1"/>
+         <Name ID="6036" Value="Video editors" langid="2"/>
+         <Name ID="8797" Value="Video editors" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

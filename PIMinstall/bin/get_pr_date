@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomsql;
+use data_management;
+use atomlog;
+use POSIX qw (strftime);
+
+my $prod_date_for_vendor_mailing  = strftime("%Y%m%d",  localtime(&get_product_date_cached_for_vendor_mailing(276689)));
+my $date = strftime("%Y%m%d", localtime(time - 2*24*60*60));
+
+		 print "\n$prod_date_for_vendor_mailing\n$date\n";

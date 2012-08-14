@@ -1,0 +1,30 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="main" height="20">
+			$$INCLUDE suppliers_menu_link.html$$
+			<img src="/img/campaign_def/arrow.gif" width="9" alt=""/>&nbsp;<a href="%%base_url%%;supplier_id=%%supplier_id%%;tmpl=supplier_edit.html">Edit brand</a>
+			<img src="/img/campaign_def/arrow.gif" width="9" alt=""/>&nbsp;<a href="%%base_url%%;supplier_id=%%supplier_id%%;tmpl=supplier_contact_edit.html;id=%%id%%">Edit contact</a>
+		</td>
+	</tr>
+</table>
+
+{
+name: errors;
+}
+
+{
+name: supplier;
+class: brief;
+}
+
+{
+name: supplier_contact_edit;
+}
+
+$$INCLUDE footer2.html$$

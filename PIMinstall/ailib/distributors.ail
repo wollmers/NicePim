@@ -1,0 +1,26 @@
+{
+name: distributors;
+priority: 10;
+
+_resource_distris: select d.distributor_id, d.code, d.name,v.value,last_import_date,direct,dp.distributor_pl_id,active,source,source,group_code,'',visible from distributor d 
+				   JOIN country c USING(country_id)
+				   JOIN vocabulary v USING(sid)
+				   LEFT JOIN distributor_pl dp ON d.group_code=dp.code
+				   WHERE %%restrict%% and %%search_clause%% and v.langid=1   
+				   %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_distris_type: multi;
+_resource_distris_def_order: name;
+_mapping_distris: distributor_id, code, name,country_name,last_import_date,direct,distributor_pl_id,active,source,source_raw,group_code,link_to_pricelist,visible;
+
+format_as_from_unixtime: last_import_date;
+format_as_yes_no_text: direct;
+format_as_link_to_distri_pricelist: link_to_pricelist;
+format_as_source_price_import: source;
+
+authorize_superuser: distributor_id,code;
+authorize_supereditor: distributor_id,code;
+
+authorize_submit_superuser: distributor_id,code;
+authorize_submit_supereditor: distributor_id,code;
+
+}

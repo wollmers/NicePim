@@ -1,0 +1,41 @@
+DATA SOURCE IMPORT REPORT
+
+
+Data source: prijslijst.txt
+
+
+Products      : 0 
+
+Added         : 0 
+
+Updated       : 0 
+
+Ignored       : 0 
+
+Already edited: 0 
+
+Attachment http://<type_your_host_here>/pub/unmapped_products.xls.gz (657 bytes) 
+
+
+Missing following structures:
+
+
+Suppliers: 
+None found
+
+
+Categories: 
+None found
+
+
+Category-feature links: 
+None found
+
+
+Features: 
+None found
+
+
+Feature value mappings: 
+None found
+

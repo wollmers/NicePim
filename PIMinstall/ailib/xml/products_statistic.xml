@@ -1,0 +1,17 @@
+{
+product_description: <ProductDescription ID="%%id%%" langid="%%langid%%" ShortDesc="%%short_desc%%"/>
+category_name: <Name ID="%%Name_id%%" Value="%%Value%%" langid="%%langid%%"/> 
+product_body: <Product ID="%%Product_id%%" Prod_id="%%Prod_id%%" ThumbPic="%%ThumbPic%%" HighPic="%%HighPic%%" Name="%%Product_name%%" LowPic="%%LowPic%%" Score="%%Score%%" Quality="%%Quality%%">
+		 %%product_description%%
+		<Category ID="%%Cat_id%%" UNCATID="%%UNCATID%%" Searchable="%%Searchable%%">
+		 %%category_names%%
+    </Category>
+		<Supplier ID="%%Sup_ID%%" Name="%%Sup_Name%%"/>
+  </Product>
+ 
+ body:
+    <ProductsStatistic>
+      %%products%%
+    </ProductsStatistic>
+ 
+}

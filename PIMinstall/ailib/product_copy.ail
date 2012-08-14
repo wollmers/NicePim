@@ -1,0 +1,57 @@
+{
+name: product_copy;
+priority: 10;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_supplier: product_id;
+
+verify_deny_guest: yes;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_supplier: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+_resource_dummy: select product_id from product where product_id = %%product_id%%
+_resource_dummy_key: dummy_product_id;
+_mapping_dummy: dummy_product_id;
+
+_resource_product: select prod_id, supplier_id, catid, launch_date, obsolence_date, '', family_id, dname, name, low_pic, high_pic, thumb_pic, topseller from product where product_id = %%source_product_id%% 
+_resource_product_key: source_product_id;
+_resource_product_type: single;
+_mapping_product: old_prod_id, supplier_id, catid, launch_date, obsolence_date, product_id, family_id, dname, name, low_pic, high_pic, thumb_pic, topseller;
+
+_resource_supplier_id: select supplier_id from product where product_id = %%source_product_id%%;
+_resource_supplier_id_key: source_product_id;
+_mapping_supplier_id: new_supplier_id;
+
+format_as_dropdown: new_supplier_id;
+new_supplier_id_dropdown_select: select supplier_id, name from supplier order by name;
+
+format_as_date: launch_date, obsolence_date;
+validate_as_mandatory: source_product_id, prod_id, new_supplier_id;
+
+validate_as_need_update: product_id;
+
+store_as_fake_user_id: edit_user_id;
+
+ _insert_sequence: 1;
+ 
+ _insert_table_1: product;
+ _insert_key_1: product_id;
+ _update_key_1: product_id;
+ _insert_values_1: new_supplier_id, prod_id, catid, launch_date, obsolence_date, edit_user_id, family_id, dname, name, low_pic, high_pic, thumb_pic, topseller;
+ _insert_fields_1: supplier_id, prod_id, catid, launch_date, obsolence_date, user_id, family_id, dname, name, low_pic, high_pic, thumb_pic, topseller;
+ _update_sequence_1: yes;
+}

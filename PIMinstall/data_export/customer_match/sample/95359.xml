@@ -1,0 +1,552 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="95359" Prod_id="PAUH212EU" ThumbPic="http://www.icecat.biz/thumbs/95359.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/13867.jpg" Name="USB 2.0.7 Port Hub w a c adapter (EUR)" LowPic="http://www.icecat.biz/img/norm/low/95359.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="361" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="784" No="25">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1286" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1285" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="785" No="10">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1151" No="0">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="783" No="20">
+         <FeatureGroup ID="34">
+           <Name ID="5139" Value="Protocols" langid="1"/>
+           <Name ID="5140" Value="Protocols" langid="2"/>
+           <Name ID="8374" Value="Protocols" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1150" No="0">
+         <FeatureGroup ID="35">
+           <Name ID="5167" Value="Networking" langid="1"/>
+           <Name ID="5168" Value="Networking" langid="2"/>
+           <Name ID="8387" Value="Networking" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="110663" URL="" ShortDesc="Targus USB 2.0 High Speed 7-Port Hub" langid="1" LongDesc="Connect up to 7 USB 2.0 or 1.1 devices (printers, digital cameras, PDAs, scanners, mice, and more) with this compact, lightweight hub. Compatible with Windows 98SE, 2000, Me, XP or Mac OS X (defaults to USB 1.1 data transmission rate on Mac). Includes AC adapter, upstream cable and user&amp;#8217;s guide. &lt;p&gt;\n- 40 times faster than USB 1.1: Supports USB 2.0 high-speed data transmissions yet is backward compatible with USB 1.1 &lt;br&gt;\n- Expand your capabilities: True plug and play &amp;#8211; connect up to 7 USB devices like mice, memory drives, keyboards, and PDAs to your desktop or notebook computer &lt;br&gt;\n- Prevent shutdowns: Overcurrent protection for each port &lt;br&gt;\n" WarrantyInfo="Limited One Year Warranty " PDFURL=""/>
+        <ProductFeature ID="7028747" Value="USB 2.0 " No="60" CategoryFeatureGroup_ID="361">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039204" Value="" No="100023" CategoryFeatureGroup_ID="784">
+         <Feature ID="47">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1431" Value="Processor" langid="1"/>
+           <Name ID="1432" Value="Processor" langid="2"/>
+           <Name ID="6728" Value="Processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039205" Value="USB Specification Version 2.0 / 1." No="100021" CategoryFeatureGroup_ID="784">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039206" Value="- Windows 98SE, 2000, Me, XP or Mac OS X (defaults to USB 1.1 data transmission rate on Mac)&lt;br&gt;  \n- USB port  &lt;br&gt;\n" No="100001" CategoryFeatureGroup_ID="784">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039207" Value="USB 2.0 high-speed data transmissions " No="100010" CategoryFeatureGroup_ID="783">
+         <Feature ID="446">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2259" Value="Data link protocol" langid="1"/>
+           <Name ID="2260" Value="Data link protocol" langid="2"/>
+           <Name ID="6734" Value="Data link protocol" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039208" Value="" No="123701" CategoryFeatureGroup_ID="361">
+         <Feature ID="747">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3025" Value="Cabling technology" langid="1"/>
+           <Name ID="3026" Value="Bekabelingstechnologie" langid="2"/>
+           <Name ID="7507" Value="Technologie de cablâge" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039209" Value="" No="123700" CategoryFeatureGroup_ID="361">
+         <Feature ID="773">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3077" Value="Memory and Processor" langid="1"/>
+           <Name ID="3078" Value="Geheugen en processor" langid="2"/>
+           <Name ID="7533" Value="Mémoire et processeur" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039210" Value="" No="123698" CategoryFeatureGroup_ID="361">
+         <Feature ID="491">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2513" Value="Latency" langid="1"/>
+           <Name ID="2514" Value="Latency" langid="2"/>
+           <Name ID="7253" Value="Temps de latence" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039211" Value="" No="123697" CategoryFeatureGroup_ID="361">
+         <Feature ID="566">
+          <Measure ID="56" Sign="entries"/>
+           <Name ID="2663" Value="Address Table size" langid="1"/>
+           <Name ID="2664" Value="Adrestabel capaciteit" langid="2"/>
+           <Name ID="7328" Value="Taille de la table d'adresses" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039212" Value="" No="123694" CategoryFeatureGroup_ID="361">
+         <Feature ID="483">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2497" Value="Rack mounting" langid="1"/>
+           <Name ID="2498" Value="Opstelling in rack." langid="2"/>
+           <Name ID="7245" Value="Montage en rack" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039213" Value="" No="123693" CategoryFeatureGroup_ID="361">
+         <Feature ID="502">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2535" Value="Management Protocols" langid="1"/>
+           <Name ID="2536" Value="Beheerprotocollen" langid="2"/>
+           <Name ID="7264" Value="Management Protocols" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039214" Value="" No="123692" CategoryFeatureGroup_ID="361">
+         <Feature ID="665">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2861" Value="Management Platform" langid="1"/>
+           <Name ID="2862" Value="Beheerplatform" langid="2"/>
+           <Name ID="7425" Value="Management Platform" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039215" Value="" No="123691" CategoryFeatureGroup_ID="361">
+         <Feature ID="575">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2681" Value="Management Level" langid="1"/>
+           <Name ID="2682" Value="Beheerniveau" langid="2"/>
+           <Name ID="7337" Value="Management Level" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039216" Value="7" No="123690" CategoryFeatureGroup_ID="361">
+         <Feature ID="549">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2629" Value="Installed ports" langid="1"/>
+           <Name ID="2630" Value="Geïnstalleerde poorten" langid="2"/>
+           <Name ID="7311" Value="Installed ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039217" Value="" No="123689" CategoryFeatureGroup_ID="361">
+         <Feature ID="854">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="3239" Value="Maximum Capacity" langid="1"/>
+           <Name ID="3240" Value="Maximumcapaciteit" langid="2"/>
+           <Name ID="7612" Value="Capacité maximale" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039218" Value="" No="100030" CategoryFeatureGroup_ID="361">
+         <Feature ID="606">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2743" Value="Data Transfer Rate" langid="1"/>
+           <Name ID="2744" Value="Overdrachtssnelheid" langid="2"/>
+           <Name ID="7368" Value="Taux de transfert de données" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039219" Value="" No="100025" CategoryFeatureGroup_ID="361">
+         <Feature ID="447">
+          <Measure ID="22" Sign="Kbps"/>
+           <Name ID="2261" Value="Modem speed" langid="1"/>
+           <Name ID="2262" Value="Modemsnelheid" langid="2"/>
+           <Name ID="7138" Value="Modem speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039220" Value="Windows 98SE, 2000, Me, XP or Mac OS X " No="100020" CategoryFeatureGroup_ID="361">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039221" Value="True plug and play &amp;#8211; connect up to 7 USB devices" No="100005" CategoryFeatureGroup_ID="361">
+         <Feature ID="31">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1375" Value="Type" langid="1"/>
+           <Name ID="1376" Value="Type" langid="2"/>
+           <Name ID="6702" Value="Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039222" Value="" No="100000" CategoryFeatureGroup_ID="361">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039223" Value="" No="0" CategoryFeatureGroup_ID="1286">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039224" Value="31.7 x 101.6 x 63.5" No="100000" CategoryFeatureGroup_ID="1286">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039225" Value="" No="100000" CategoryFeatureGroup_ID="361">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039226" Value="100" No="100000" CategoryFeatureGroup_ID="1286">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039227" Value="" No="100066" CategoryFeatureGroup_ID="1150">
+         <Feature ID="1774">
+          <Measure ID="23" Sign="Mbps"/>
+           <Name ID="5523" Value="Data Transfer Rate" langid="1"/>
+           <Name ID="5524" Value="Overdrachtssnelheid" langid="2"/>
+           <Name ID="8553" Value="Taux de transfert de données" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039228" Value="" No="24" CategoryFeatureGroup_ID="783">
+         <Feature ID="1555">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4833" Value="Digital signal protocol" langid="1"/>
+           <Name ID="4834" Value="Digital signal protocol" langid="2"/>
+           <Name ID="8317" Value="Digital signal protocol" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039229" Value="" No="9" CategoryFeatureGroup_ID="785">
+         <Feature ID="1106">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3753" Value="Non-operating temperature range" langid="1"/>
+           <Name ID="3754" Value="Non-operating temperature range" langid="2"/>
+           <Name ID="7861" Value="Non-operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039230" Value="" No="23702" CategoryFeatureGroup_ID="361">
+         <Feature ID="645">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2821" Value="NO LABEL" langid="1"/>
+           <Name ID="2822" Value="NO LABEL" langid="2"/>
+           <Name ID="7405" Value="NO LABEL" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039231" Value="" No="23699" CategoryFeatureGroup_ID="361">
+         <Feature ID="738">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3007" Value="Communications" langid="1"/>
+           <Name ID="3008" Value="Communicatie" langid="2"/>
+           <Name ID="7498" Value="Communications" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039232" Value="" No="23696" CategoryFeatureGroup_ID="361">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039233" Value="Overcurrent protection for each port " No="23695" CategoryFeatureGroup_ID="361">
+         <Feature ID="607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2745" Value="Safety" langid="1"/>
+           <Name ID="2746" Value="Veiligheid" langid="2"/>
+           <Name ID="7369" Value="Sécurité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039234" Value="" No="65" CategoryFeatureGroup_ID="361">
+         <Feature ID="1591">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4940" Value="Statusindicatoren" langid="2"/>
+           <Name ID="4939" Value="Status indicators" langid="1"/>
+           <Name ID="6600" Value="Status indicators" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039235" Value="" No="50" CategoryFeatureGroup_ID="361">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039236" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="477">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2485" Value="Media types supported" langid="1"/>
+           <Name ID="2486" Value="Media" langid="2"/>
+           <Name ID="7239" Value="Media types supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039237" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039238" Value="" No="0" CategoryFeatureGroup_ID="1285">
+         <Feature ID="687">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="2905" Value="Power availability" langid="1"/>
+           <Name ID="2906" Value="Beschikbaar vermogen" langid="2"/>
+           <Name ID="7447" Value="disponibilité de l'alimentation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039239" Value="" No="0" CategoryFeatureGroup_ID="785">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039240" Value="" No="0" CategoryFeatureGroup_ID="785">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039241" Value="" No="0" CategoryFeatureGroup_ID="1285">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039242" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="793">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3117" Value="Compliance Industry Standards" langid="1"/>
+           <Name ID="3118" Value="Standaard" langid="2"/>
+           <Name ID="7553" Value="Compliance Industry Standards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039243" Value="Y" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039244" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="884">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3309" Value="Countries supported" langid="1"/>
+           <Name ID="3310" Value="Countries supported" langid="2"/>
+           <Name ID="7647" Value="Countries supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039245" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="885">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3311" Value="GSM phone supported" langid="1"/>
+           <Name ID="3312" Value="GSM phone supported" langid="2"/>
+           <Name ID="7648" Value="GSM phone supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039246" Value="" No="0" CategoryFeatureGroup_ID="1285">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039247" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039248" Value="" No="0" CategoryFeatureGroup_ID="1285">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039249" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1313">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4167" Value="PCI Card network connection" langid="1"/>
+           <Name ID="4168" Value="PCI Card network connection" langid="2"/>
+           <Name ID="8064" Value="PCI Card network connection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039250" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1314">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4169" Value="PCI Card connection type" langid="1"/>
+           <Name ID="4170" Value="PCI Card connection type" langid="2"/>
+           <Name ID="8065" Value="PCI Card connection type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039251" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1315">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4171" Value="PCI Card Data modes" langid="1"/>
+           <Name ID="4172" Value="PCI Card Data modes" langid="2"/>
+           <Name ID="8066" Value="PCI Card Data modes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039252" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1316">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4173" Value="PCI Card Fax modes" langid="1"/>
+           <Name ID="4174" Value="PCI Card Fax modes" langid="2"/>
+           <Name ID="8067" Value="PCI Card Fax modes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039253" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1317">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4175" Value="PCI Card error corrections" langid="1"/>
+           <Name ID="4176" Value="PCI Card error corrections" langid="2"/>
+           <Name ID="8068" Value="PCI Card error corrections" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039254" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1318">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4177" Value="PCI Card data compression" langid="1"/>
+           <Name ID="4178" Value="PCI Card data compression" langid="2"/>
+           <Name ID="8069" Value="PCI Card data compression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039255" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1319">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4179" Value="PCI Card data connection" langid="1"/>
+           <Name ID="4180" Value="PCI Card data connection" langid="2"/>
+           <Name ID="8070" Value="PCI Card data connection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039256" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1320">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4181" Value="PCI Card Command set" langid="1"/>
+           <Name ID="4182" Value="PCI Card Command set" langid="2"/>
+           <Name ID="8071" Value="PCI Card Command set" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039257" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1321">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4183" Value="PCI Card Dialling/receiving" langid="1"/>
+           <Name ID="4184" Value="PCI Card Dialling/receiving" langid="2"/>
+           <Name ID="8072" Value="PCI Card Dialling/receiving" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039258" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1322">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4185" Value="PCI Card telephone features" langid="1"/>
+           <Name ID="4186" Value="PCI Card telephone features" langid="2"/>
+           <Name ID="8073" Value="PCI Card telephone features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039259" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1323">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4187" Value="PCI Card general features" langid="1"/>
+           <Name ID="4188" Value="PCI Card general features" langid="2"/>
+           <Name ID="8074" Value="PCI Card general features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039260" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1324">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4189" Value="PCI Card operating system support" langid="1"/>
+           <Name ID="4190" Value="PCI Card operating system support" langid="2"/>
+           <Name ID="8075" Value="PCI Card operating system support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039261" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1678">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5293" Value="35 mm camera lens equivalent" langid="1"/>
+           <Name ID="5294" Value="35 mm cameralens equivalent" langid="2"/>
+           <Name ID="8443" Value="35 mm camera lens equivalent" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7039262" Value="" No="0" CategoryFeatureGroup_ID="361">
+         <Feature ID="1813">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5615" Value="Heat dissipation" langid="1"/>
+           <Name ID="5616" Value="warmtedissipatie" langid="2"/>
+           <Name ID="8598" Value="dissipation thermique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="128" Name="Targus"/>
+       <Category ID="243">
+         <Name ID="487" Value="hubs or concentrators" langid="1"/>
+         <Name ID="488" Value="hubs of concentrators" langid="2"/>
+         <Name ID="6316" Value="hubs or concentrators" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

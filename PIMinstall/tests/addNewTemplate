@@ -1,0 +1,144 @@
+#!/usr/bin/perl
+
+#$Id: addNewTemplate 3419 2010-11-08 16:59:33Z dima $
+
+use strict;
+
+#use lib "/home/pim/lib";
+use lib "/home/dima/gcc_svn/lib";
+
+# begin
+
+my $new_template_name = lc($ARGV[0]);
+my $force = $ARGV[1];
+
+chomp($new_template_name);
+
+return unless $new_template_name;
+
+# check if exists
+
+goto skip if $force;
+
+die "this template exists!..\n\n" if (
+	(-f "../templates/english/".$new_template_name.".html") ||
+	(-f "../alib/english/".$new_template_name.".al") ||
+	(-f "../ailib/".$new_template_name.".ail"));
+
+skip:
+
+open TMPL, ">../templates/english/".$new_template_name.".html";
+binmode TMPL, ":utf8";
+
+print TMPL '$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="main" height="20">
+      ... $$INCLUDE '.$new_template_name.'_menu_link.html$$
+    </td>
+  </tr>
+</table>
+
+<br />
+
+{
+name: errors;
+}
+
+{
+name: '.$new_template_name.'_search;
+}
+
+{
+name: '.$new_template_name.';
+}
+
+$$INCLUDE footer2.html$$
+';
+
+close TMPL;
+
+open TMPLML, ">../templates/english/".$new_template_name."_menu_link.html";
+binmode TMPLML, ":utf8";
+
+print TMPLML '<img src="/img/campaign_def/arrow.gif" width="9" alt=""/>&nbsp;<a href="%%base_url%%;mi='.$new_template_name.';tmpl='.$new_template_name.'.html">'.ucfirst(lc($new_template_name)).'</a>
+';
+
+close TMPLML;
+
+open AL, ">../alib/english/".$new_template_name.".al";
+binmode AL, ":utf8";
+
+print AL '{
+name: '.$new_template_name.';
+
+'.$new_template_name.'_row:
+<tr>
+  <td class="main info_bold"><a href="%%base_url%%;tmpl=%%tmpl%%; ... "> ... </a></td>
+
+</tr>
+
+body:
+
+<table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="padding-top:10px">
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
+        <tr>
+          <td>
+
+            <table border="0" cellpadding="3" cellspacing="1" width="100%" align="center">
+              <tr>
+                <th class="main info_header" width="15%"><a href="%%base_url%%;tmpl=%%tmpl%%;"> ... </a></th>
+
+              </tr>
+
+              %%'.$new_template_name.'_rows%%
+
+            </table>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+}
+';
+
+close AL;
+
+
+open AIL, ">../ailib/".$new_template_name.".ail";
+binmode AIL, ":utf8";
+
+print AIL '{
+name: '.$new_template_name.';
+priority: 10;
+
+_resource_'.$new_template_name.': select ... where %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_'.$new_template_name.'_type: multi;
+_resource_'.$new_template_name.'_def_order: login;
+_mapping_'.$new_template_name.': ... ;
+
+authorize_superuser: ;
+authorize_supereditor: ;
+authorize_category_manager: ;
+authorize_editor: ;
+authorize_supplier: ;
+authorize_shop: ;
+
+authorize_submit_superuser: ;
+
+}
+';
+
+close AIL;

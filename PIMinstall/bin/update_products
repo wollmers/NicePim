@@ -1,0 +1,76 @@
+#!/usr/bin/perl
+
+############################################################################################
+##
+##  Utility for updating products by part number from one supplier to another
+##
+############################################################################################
+
+$source_supplier = 'IBM';
+$dest_supplier = 'Lenovo';
+$dest_owner = 'supergalina';
+$products_list = '/home/pim/bin/update_products.list'; ## the list of part numbers to update
+
+############################################################################################
+
+use lib '/home/pim/lib';
+use atomsql;
+use data_management;
+
+$source_sup_id = 0;
+$dest_sup_id = 0;
+$dest_user_id = 0;
+$not_found = 0;
+
+$r = &get_row('supplier',"name=".&str_sqlize($source_supplier));
+$source_sup_id = $r->{'supplier_id'};
+if(!$source_sup_id){ print "Supplier '$source_supplier' not found\n\n"; $not_found=1; }
+
+$r = &get_row('supplier',"name=".&str_sqlize($dest_supplier));
+$dest_sup_id = $r->{'supplier_id'};
+if(!$dest_sup_id){ print "Supplier '$dest_supplier' not found\n\n"; $not_found=1; }
+
+$r = &get_row('users',"login=".&str_sqlize($dest_owner));
+$dest_user_id = $r->{'user_id'};
+if(!$dest_user_id){ print "Owner '$dest_owner' not found\n\n"; $not_found=1; }
+
+exit if($not_found);
+
+@lines = ();
+open(FILE, '<'.$products_list);
+while($line = <FILE>){ chomp($line); push(@lines,&str_sqlize($line)) if ($line ne ""); }
+close(FILE);
+
+foreach $prod(@lines){
+  my $source = &get_row('product',"prod_id=$prod and supplier_id=$source_sup_id");
+  my $source_prod_id = $source->{'product_id'};
+
+  if(!$source_prod_id){
+    print "'$prod' from '$source_supplier' not found\n";
+  }
+  else{
+    my $dest = &get_row('product',"prod_id=$prod and supplier_id=$dest_sup_id");
+    my $dest_prod_id = $dest->{'product_id'};
+
+    if($dest_prod_id){
+      print "Update $prod($dest_prod_id) <- $source_prod_id\n";
+      my $update;
+      $update->{'product_id'} = $dest_prod_id;
+      $update->{'supplier_id'} = $dest_sup_id;
+      $update->{'user_id'} = $dest_user_id;
+      $update->{'family_id'} = 0;
+
+      &copy_product($source_prod_id,$update,'UPDATE');
+    }
+    else{
+      print "Create & copy $prod <- $source_prod_id\n";
+      $source->{'supplier_id'} = $dest_sup_id;
+      $source->{'user_id'} = $dest_user_id;
+      $source->{'family_id'} = 0;
+
+      &copy_product($source_prod_id,$source);
+    }
+  }
+}
+
+print "\nDone.\n\n";

@@ -1,0 +1,22 @@
+{
+name: campaigns;
+priority: 10;
+
+_resource_campaigns: select campaign_id, name, if(short_description != '',short_description,'&nbsp;'), start_date, end_date,
+(select count(*) from campaign_kit ck where ck.campaign_id=c.campaign_id) number_of_products
+from campaign c where %%user_clause%% and %%search_clause%% limit %%start_row%%, %%rows_number%%;
+_resource_campaigns_type: multi;
+_mapping_campaigns: campaign_id, name, short_description, start_date, end_date, number_of_products;
+
+_format_as_date: start_date, end_date;
+
+authorize_superuser: campaign_id;
+authorize_supereditor: campaign_id;
+authorize_category_manager: campaign_id;
+authorize_supplier: campaign_id;
+
+authorize_submit_superuser: campaign_id;
+authorize_submit_supereditor: campaign_id;
+authorize_submit_category_manager: campaign_id;
+authorize_submit_supplier: campaign_id;
+}

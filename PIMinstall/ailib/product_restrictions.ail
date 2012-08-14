@@ -1,0 +1,35 @@
+{
+name: product_restrictions;
+priority: 10;
+
+_resource_restrictions: SELECT pr.id, s.name, v1.value, if(pr.subscription_level = 1 ,'For all indexes' ,'For free XML'), if(COUNT(prd.id) = 0, 'ALL', COUNT(prd.id) ) 
+FROM product_restrictions pr
+INNER JOIN language lan ON (lan.langid = pr.langid)
+INNER JOIN vocabulary v1 ON (lan.sid = v1.sid AND v1.langid = 1)
+INNER JOIN supplier s ON (s.supplier_id = pr.supplier_id)
+LEFT JOIN product_restrictions_details prd ON (prd.restriction_id = pr.id)
+GROUP BY 1,2,3,4
+
+_resource_restrictions_type: multi;
+_mapping_restrictions: i_id, n_supplier_id, n_langid, n_subscription_level, n_count;
+
+_resource_add_new: SELECT 0, 0, 0;
+_resource_add_new_type: single;
+_mapping_add_new: new_supplier_id, new_langid, new_subscription_level;
+
+format_as_dropdown: new_langid,new_supplier_id,new_subscription_level;
+
+new_langid_dropdown_select: SELECT l.langid,v.value FROM language l INNER JOIN vocabulary v USING (sid) WHERE v.langid = 1 ORDER BY 2;
+new_supplier_id_dropdown_select: SELECT supplier_id, name FROM supplier ORDER BY 2;
+new_subscription_level_dropdown_select: SELECT 2,'For free XML' UNION SELECT 1,'For all indexes';
+
+new_supplier_id_dropdown_width: 200;
+new_supplier_id_dropdown_attrs: style="width\: 180px;"
+
+new_langid_dropdown_width: 200;
+new_langid_dropdown_attrs: style="width\: 180px;"
+
+new_subscription_level_dropdown_width: 200;
+new_subscription_level_dropdown_attrs: style="width\: 180px;"
+
+}

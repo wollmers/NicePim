@@ -1,0 +1,6 @@
+{
+name: price_report;
+custom_processing: yes;
+priority: 100;
+
+}

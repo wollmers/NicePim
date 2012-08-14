@@ -1,0 +1,7 @@
+{
+name: suppliers_search;
+priority: 10;
+
+_resource_params: select '%%search_name%%'
+_mapping_params: search_name;
+}

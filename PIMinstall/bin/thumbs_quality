@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomsql;
+use thumbnail;
+use strict;
+
+#my $base_path = '/home/pim/';
+
+my $product_id  = 112817;
+
+my $products_data = &do_query("select low_pic, high_pic from product where product_id = $product_id");
+
+my $product = {'product_id' => $product_id,
+							 'low_pic' => $products_data->[0][0],
+							 'high_pic' => $products_data->[0][1]};
+							 
+&thumbnailize_product($product);

@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="96929" Prod_id="CPWNA100/00" ThumbPic="http://www.icecat.biz/thumbs/96929.jpg" Code="1" Quality="ICECAT" HighPic="" Name="WIRELESS NOTEBOOK ADAPTER" LowPic="http://www.icecat.biz/img/norm/low/96929.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="1063" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1060" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1062" No="0">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1061" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1058" No="0">
+         <FeatureGroup ID="23">
+           <Name ID="5041" Value="Bandwidth" langid="1"/>
+           <Name ID="5042" Value="Bandbreedte" langid="2"/>
+           <Name ID="8332" Value="Bandwidth" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1064" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1065" No="0">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1059" No="0">
+         <FeatureGroup ID="35">
+           <Name ID="5167" Value="Networking" langid="1"/>
+           <Name ID="5168" Value="Networking" langid="2"/>
+           <Name ID="8387" Value="Networking" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="110132" URL="http://www.consumer.philips.com/consumer/catalog/product.jsp?language=en&amp;country=GB&amp;catalogType=CONSUMER&amp;productId=CPWNA100_00_GB_CONSUMER#" ShortDesc="WIRELESS NOTEBOOK ADAPTER " langid="1" LongDesc="Laptop freedom with network convenience \nExpand your wireless network \nThe CPWNA100 wireless notebook adapter integrates your laptop or notebook into your connected home network with speeds up to 108 Mbps \nEase of Use  \nSoftware will help you to install the unit in 3 minutes  \nBenefit from future-proof compatibility  \nInteroperable with all WiFi certified products  \nFeel secure about reliability  \nHigh level security on WiFi 802.11G  \nEnjoy wireless freedom  \nWireless RF communication based on open IEEE802.11 standard  " WarrantyInfo="" PDFURL="http://www.icecat.biz/pdf/110132-6758.pdf"/>
+        <ProductFeature ID="9591307" Value="" No="5" CategoryFeatureGroup_ID="1064">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591305" Value="" No="85" CategoryFeatureGroup_ID="1059">
+         <Feature ID="1591">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4940" Value="Statusindicatoren" langid="2"/>
+           <Name ID="4939" Value="Status indicators" langid="1"/>
+           <Name ID="6600" Value="Status indicators" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591306" Value="" No="5" CategoryFeatureGroup_ID="1064">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591302" Value="" No="7" CategoryFeatureGroup_ID="1065">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591303" Value="" No="89" CategoryFeatureGroup_ID="1059">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591310" Value="" No="93" CategoryFeatureGroup_ID="1062">
+         <Feature ID="990">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3521" Value="Interface type" langid="1"/>
+           <Name ID="3522" Value="Interfacetype" langid="2"/>
+           <Name ID="7748" Value="Interface type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591309" Value="" No="94" CategoryFeatureGroup_ID="1062">
+         <Feature ID="1494">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4685" Value="Antenna type" langid="1"/>
+           <Name ID="4686" Value="Antenne type" langid="2"/>
+           <Name ID="8291" Value="Antenna type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591308" Value="" No="4" CategoryFeatureGroup_ID="1064">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591304" Value="WPA " No="88" CategoryFeatureGroup_ID="1059">
+         <Feature ID="454">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2439" Value="Security algorithm supported" langid="1"/>
+           <Name ID="2440" Value="Ondersteunde beveiligingsalgoritmen" langid="2"/>
+           <Name ID="7216" Value="Security algorithm supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591298" Value="" No="11" CategoryFeatureGroup_ID="1063">
+         <Feature ID="1593">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4943" Value="Spread spectrum method" langid="1"/>
+           <Name ID="4944" Value="Spread spectrum method" langid="2"/>
+           <Name ID="6649" Value="Spread spectrum method" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591311" Value="" No="93" CategoryFeatureGroup_ID="1062">
+         <Feature ID="1311">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4163" Value="Connection to PC" langid="1"/>
+           <Name ID="4164" Value="Connection to PC" langid="2"/>
+           <Name ID="8062" Value="Connection to PC" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591312" Value="" No="92" CategoryFeatureGroup_ID="1062">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591300" Value="" No="6" CategoryFeatureGroup_ID="1063">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591299" Value="" No="8" CategoryFeatureGroup_ID="1063">
+         <Feature ID="1503">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4703" Value="Modulation" langid="1"/>
+           <Name ID="4704" Value="Modulatie" langid="2"/>
+           <Name ID="8300" Value="Modulation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591297" Value="2.4 &amp; 5" No="100099" CategoryFeatureGroup_ID="1058">
+         <Feature ID="1587">
+          <Measure ID="37" Sign="Ghz"/>
+           <Name ID="4931" Value="Bandwidth" langid="1"/>
+           <Name ID="4932" Value="Bandwidth" langid="2"/>
+           <Name ID="6598" Value="Bandwidth" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591290" Value="802.11a/b/g combo " No="100097" CategoryFeatureGroup_ID="1059">
+         <Feature ID="446">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2259" Value="Data link protocol" langid="1"/>
+           <Name ID="2260" Value="Data link protocol" langid="2"/>
+           <Name ID="6734" Value="Data link protocol" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591289" Value="" No="100098" CategoryFeatureGroup_ID="1059">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591284" Value="108" No="10100001" CategoryFeatureGroup_ID="1058">
+         <Feature ID="1774">
+          <Measure ID="23" Sign="Mbps"/>
+           <Name ID="5523" Value="Data Transfer Rate" langid="1"/>
+           <Name ID="5524" Value="Overdrachtssnelheid" langid="2"/>
+           <Name ID="8553" Value="Taux de transfert de données" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591295" Value="Wireless" No="100001" CategoryFeatureGroup_ID="1062">
+         <Feature ID="1655">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5169" Value="Connectivity technology" langid="1"/>
+           <Name ID="5170" Value="Connectiviteit-technologie" langid="2"/>
+           <Name ID="8388" Value="Connectivity technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591301" Value="" No="3" CategoryFeatureGroup_ID="1063">
+         <Feature ID="249">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1865" Value="Certification" langid="1"/>
+           <Name ID="1866" Value="Certificering" langid="2"/>
+           <Name ID="6941" Value="Certification" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591292" Value="" No="100091" CategoryFeatureGroup_ID="1059">
+         <Feature ID="1590">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4938" Value="Open space max range" langid="2"/>
+           <Name ID="4937" Value="Open space max range" langid="1"/>
+           <Name ID="6601" Value="Open space max range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591293" Value="" No="100090" CategoryFeatureGroup_ID="1059">
+         <Feature ID="1589">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4935" Value="Indoors max range" langid="1"/>
+           <Name ID="4936" Value="Max bereik binnenshuis" langid="2"/>
+           <Name ID="6597" Value="Indoors max range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591294" Value="" No="100086" CategoryFeatureGroup_ID="1059">
+         <Feature ID="502">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2535" Value="Management Protocols" langid="1"/>
+           <Name ID="2536" Value="Beheerprotocollen" langid="2"/>
+           <Name ID="7264" Value="Management Protocols" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591296" Value="" No="100100" CategoryFeatureGroup_ID="1058">
+         <Feature ID="1551">
+          <Measure ID="68" Sign="Gbps"/>
+           <Name ID="4825" Value="Data transfer rate" langid="1"/>
+           <Name ID="4826" Value="Overdrachtssnelheid" langid="2"/>
+           <Name ID="8146" Value="Taux de transfert de données" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591288" Value="CD-ROM drive :  yes  \nHard disc space :  35 MB  \nProcessor :  Pentium II 500MHz or faster  \nRAM memory :  64 MB  " No="100012" CategoryFeatureGroup_ID="1060">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591291" Value="" No="100092" CategoryFeatureGroup_ID="1059">
+         <Feature ID="70">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1477" Value="Network Architecture" langid="1"/>
+           <Name ID="1478" Value="Network Architecture" langid="2"/>
+           <Name ID="6749" Value="Network Architecture" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591286" Value="35" No="100001" CategoryFeatureGroup_ID="1061">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591287" Value="Windows ME, 2000, XP  " No="100096" CategoryFeatureGroup_ID="1060">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9591285" Value="" No="100002" CategoryFeatureGroup_ID="1061">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="25" Name="Philips"/>
+       <Category ID="924">
+         <Name ID="5687" Value="Wireless network adapters" langid="1"/>
+         <Name ID="5688" Value="Wireless network adapters" langid="2"/>
+         <Name ID="8634" Value="Wireless network adapters" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

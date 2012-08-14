@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="130033" Prod_id="20620" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="DVD+R 4.7GB 8SPEED" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+      <CategoryFeatureGroup/>
+        <ProductDescription ID="150659" URL="" ShortDesc="DVD+R 4.7GB 8SPEED SPINDLE 25                       NS (NMS)" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="81" Name="Imation"/>
+       <Category ID="1066">
+         <Name ID="9768" Value="read write DVDs" langid="1"/>
+         <Name ID="9769" Value="read write DVDs" langid="3"/>
+         <Name ID="9770" Value="herschrijfbare DVDs" langid="2"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

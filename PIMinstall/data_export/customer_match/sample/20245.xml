@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="20245" Prod_id="18L0032" ThumbPic="http://www.icecat.biz/thumbs/20245.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/20245.jpg" Name="Ink Cart black 600sh f Z55+65+65N" LowPic="http://www.icecat.biz/img/norm/low/20245.jpg">
+        <ProductRelated ID="331780">
+         <Product ID="11395" Prod_id="16M0064" ThumbPic="http://www.icecat.biz/thumbs/11395.jpg" Name="Lexmark Inkjet Z55 3600x1200dpi 17 13 ppm">
+          <Supplier ID="20" Name="Lexmark"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="323308">
+         <Product ID="11397" Prod_id="13D0044" ThumbPic="http://www.icecat.biz/thumbs/11397.jpg" Name="LEXMARK Z65 21 PPM BLACK">
+          <Supplier ID="20" Name="Lexmark"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="485" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="21283" URL="" ShortDesc="Ink Cart black 600sh f Z55+65+65N" langid="1" LongDesc="Lexmark never stops improving its printing systems to achieve the finest resolution and to guarantee constant print quality thanks to integrated printhead cartridges. With its new generation of integrated printhead cartridges, Lexmark has once again taken inkjet technology one-step ahead! This new black printhead have more nozzles and cover higher space on one path. The new color printhead have small and medium nozzles to produce ink drop of variable size, resulting in finer and less grainy images. All Lexmark inkjet cartridges have the actual print head, there where the core inkjet technology lies, integrated to the cartridge bottle. The main advantage to having the print head as an integrated part to the cartridge is that Lexmark customers get a new print head with each cartridge replacement! This is each time like getting a brand new printer all over again! No risk of deterioration of the print head (and therefore a decrease in quality) during the life of the printer as can be the case with other manufacturers who integrate the print head as a fixed part inside the printer itself." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="3927844" Value="0,050" No="16914" CategoryFeatureGroup_ID="485">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927845" Value="70 x 38 x 98" No="116911" CategoryFeatureGroup_ID="485">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927846" Value="N" No="100000" CategoryFeatureGroup_ID="485">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927847" Value="" No="35639" CategoryFeatureGroup_ID="485">
+         <Feature ID="486">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="2503" Value="Case or Master Carton Weight" langid="1"/>
+           <Name ID="2504" Value="Gewicht doos of mastercarton" langid="2"/>
+           <Name ID="7248" Value="Case or Master Carton Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927848" Value="" No="35637" CategoryFeatureGroup_ID="485">
+         <Feature ID="777">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3085" Value="Case or Master Carton Quantity" langid="1"/>
+           <Name ID="3086" Value="Inhoud doos of mastercarton" langid="2"/>
+           <Name ID="7537" Value="Quantité dans la caisse ou le carton grand format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927849" Value="" No="35634" CategoryFeatureGroup_ID="485">
+         <Feature ID="751">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3033" Value="Case or Master Carton Dimensions (W x D x H)" langid="1"/>
+           <Name ID="3034" Value="Afmetingen doos of mastercarton (B x D x H)" langid="2"/>
+           <Name ID="7511" Value="Case or Master Carton Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927850" Value="" No="17003" CategoryFeatureGroup_ID="485">
+         <Feature ID="704">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2939" Value="Larger Master Carton Weight" langid="1"/>
+           <Name ID="2940" Value="Gewicht groot mastercarton" langid="2"/>
+           <Name ID="7464" Value="Larger Master Carton Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927851" Value="" No="17002" CategoryFeatureGroup_ID="485">
+         <Feature ID="586">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2703" Value="Larger Master Carton Quantity" langid="1"/>
+           <Name ID="2704" Value="Inhoud groot mastercarton" langid="2"/>
+           <Name ID="7348" Value="Quantité du carton grand format le plus important" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927852" Value="" No="17000" CategoryFeatureGroup_ID="485">
+         <Feature ID="487">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2505" Value="Larger Master Carton Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2506" Value="Afmetingen groot mastercarton (B x D x H)" langid="2"/>
+           <Name ID="7249" Value="Larger Master Carton Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927853" Value="" No="16999" CategoryFeatureGroup_ID="485">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927854" Value="" No="16917" CategoryFeatureGroup_ID="485">
+         <Feature ID="849">
+          <Measure ID="55" Sign="pages"/>
+           <Name ID="3229" Value="Dr. Grauert (ECMA-132/ISO 10561) yields (pages)" langid="1"/>
+           <Name ID="3230" Value="Dr. Grauert (ECMA-132/ISO 10561) paginaopbrengst" langid="2"/>
+           <Name ID="7607" Value="Dr. Grauert (ECMA-132/ISO 10561) yields (pages)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927855" Value="" No="16915" CategoryFeatureGroup_ID="485">
+         <Feature ID="513">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2557" Value="Pallet Weight" langid="1"/>
+           <Name ID="2558" Value="Gewicht pallet" langid="2"/>
+           <Name ID="7275" Value="Pallet Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927856" Value="" No="16913" CategoryFeatureGroup_ID="485">
+         <Feature ID="732">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2995" Value="Quantity per Pallet" langid="1"/>
+           <Name ID="2996" Value="Aantal per pallet" langid="2"/>
+           <Name ID="7492" Value="Quantité par palette" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927857" Value="" No="16912" CategoryFeatureGroup_ID="485">
+         <Feature ID="530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2591" Value="Pallet Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2592" Value="Afmetingen pallet (B x D x H)" langid="2"/>
+           <Name ID="7292" Value="Pallet Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927858" Value="" No="16910" CategoryFeatureGroup_ID="485">
+         <Feature ID="626">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2783" Value="Page yield for A4 format (Black and white)" langid="1"/>
+           <Name ID="2784" Value="Paginaopbrengst voor A4-formaat (zwart-wit)" langid="2"/>
+           <Name ID="7386" Value="Page yield for A4 format (Black and white)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927859" Value="" No="50" CategoryFeatureGroup_ID="485">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927860" Value="" No="34" CategoryFeatureGroup_ID="485">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927861" Value="" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3927862" Value="" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="705">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2941" Value="Compatible Ink Types" langid="1"/>
+           <Name ID="2942" Value="Compatibele inkttypen" langid="2"/>
+           <Name ID="7465" Value="Compatible Ink Types" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="20" Name="Lexmark"/>
+       <Category ID="377">
+         <Name ID="755" Value="ink cartridges" langid="1"/>
+         <Name ID="756" Value="inktcartridges" langid="2"/>
+         <Name ID="6445" Value="ink cartridges" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,166 @@
+#!/usr/bin/perl
+
+#$Id: do_generate_stat_report_and_mail_it 3505 2010-11-26 13:50:03Z alexey $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+#use lib '/home/alex/icecat/bo/trunk/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+use atom_util;
+use atom_html;
+
+use process_manager;
+use stat_report;
+
+# use Data::Dumper;
+#
+my $id = $ARGV[0];
+#my $id=76;
+exit unless ($id);
+
+my $call; # make an artificial call
+my $table_name = "generate_report_bg_processes";
+
+$main_slave='tmp_main';
+
+&register_slave('slave1',$atomcfg{'dbslavehost'},$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'});
+make_slave_host('slave1');
+&register_slave($main_slave,$atomcfg{'dbhost'},$atomcfg{'dbuser'},$atomcfg{'dbpass'});
+
+# select values
+my $order;
+
+my $i=0;
+my $cols = &do_query("DESC " . $table_name,$main_slave);
+foreach (@$cols) {
+	$order->{$i} = $_->[0];
+	$i++;
+}
+
+
+sub get_ids {
+    my $my_pid = shift;
+
+    my @str = qx(ps aux | grep do_generate_stat_report_and_mail_it);
+    my @res = ();
+    foreach (@str) {
+        if (/do_generate_stat_report_and_mail_it (\d+)/) {
+            push @res, $1 if ($1 != $my_pid);
+        }
+    }
+    return @res;
+}
+
+#
+# smart launcher
+#
+
+#my $name = do_query("SELECT bg_stage FROM ");
+
+while (1) {
+    
+    my @pids = get_ids($ARGV[0]);
+    
+    unless (scalar @pids) {
+        # log_printf("### There is no another instances of this script - " . $ARGV[0] );
+        last;
+    }
+    else {
+        # check for 'I am working files'
+        my $no_files = 1;
+        foreach (@pids) {
+            if (-f $atomcfg{'session_path'} . $_ . '_working') {
+            
+                # if tacklock with MY ID already exist (very strange situation)
+                if ($_ == $ARGV[0]) {
+                    # kill it
+                    # and try to check another ones
+                    unlink($atomcfg{'session_path'} . $_ . '_working');
+                }
+                else {
+                    $no_files = 0;
+                    last;
+                }
+            }
+        }
+        
+        last if ($no_files);
+        
+        # log_printf("### NOT OK - waiting for @pids");
+        
+        my $task_name = do_query("SELECT bg_stage FROM generate_report_bg_processes WHERE ${table_name}_id = $id ",$main_slave)->[0]->[0];
+        $task_name =~ s/\s*\(.*\)$/ (sleeping)/;
+        my $stmt = "UPDATE generate_report_bg_processes SET bg_stage = '$task_name' WHERE ${table_name}_id = $id ";
+        do_statement($stmt,$main_slave);
+        
+        sleep 3;
+    }
+    
+}
+
+# create 'I am working' file
+my $tasklock_filename = $atomcfg{'session_path'} . $ARGV[0] . '_working';
+qx(touch $tasklock_filename);
+
+
+my $request = &do_query("select * from ".$table_name." where ".$table_name."_id=".$id,$main_slave)->[0]; # * isn't a bug, I'll follow desc
+
+my $i=0;
+foreach (@$request) {
+	if (($order->{$i} ne 'name') && ($order->{$i} ne 'class')) {
+		$hin{$order->{$i}} = $_;
+	}
+	else {
+		$call->{$order->{$i}} = $_;
+	}
+	$i++;
+}
+# hash created
+
+my $atoms; # REQUIRED!!!!!!!!
+$hl{'langid'} = 1;
+&process_atom_ilib($call->{'name'});
+$atoms = &process_atom_lib($call->{'name'});
+# for AJAX reporting, progress bar
+$hin{'ajax_bg_process'} = 1;
+$hin{'ajax_bg_process_id'} = $id;
+my $connect_id=&do_query('SELECT CONNECTION_ID()')->[0][0];
+&do_statement("update generate_report_bg_processes 
+				   set connection_id=$connect_id
+				   where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+
+if($hin{'mail_class_format'} eq 'GDR'){
+	my $str = &generate_graph_report($atoms->{$call->{'class'}}->{$call->{'name'}}, $call);
+	&send_preformatted_reports_via_mail(\%hin, $str,1);
+}else{
+	my $str = &generate_stat_report($atoms->{$call->{'class'}}->{$call->{'name'}}, $call,$hin{'request_include_graph'});
+	&send_preformatted_reports_via_mail(\%hin, $str);
+}
+&do_statement("update generate_report_bg_processes 
+				   set connection_id=0
+				   where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+
+if ($hin{'ajax_bg_process'}) {
+	&do_statement("update generate_report_bg_processes 
+				   set bg_stage=CONCAT(code,'&nbsp;(completed)'),
+				       bg_end_date=unix_timestamp()
+				   where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+}
+
+END {
+	#&do_statement("delete from ".$table_name." where ".$table_name."_id=".$id);
+}
+
+
+# remove 'I am working' files
+
+$tasklock_filename =~ s/(\d+)_working$/*_working/;
+my @files = glob($tasklock_filename);
+unlink(@files);
+
+

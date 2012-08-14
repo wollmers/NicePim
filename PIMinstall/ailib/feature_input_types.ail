@@ -1,0 +1,19 @@
+{
+name: feature_input_types;
+
+priority: 10;
+
+authorize_superuser: feature_input_type_id;
+authorize_supereditor: feature_input_type_id;
+authorize_category_manager: feature_input_type_id;
+
+authorize_submit_superuser: feature_input_type_id;
+authorize_submit_supereditor: feature_input_type_id;
+authorize_submit_category_manager: feature_input_type_id;
+
+_resource_feature_input: select feature_input_type_id, type, name, pattern from feature_input_type order by feature_input_type_id asc;
+_resource_feature_input_type: multi;
+_mapping_feature_input: feature_input_type_id, type, name, pattern;
+
+
+}

@@ -1,0 +1,94 @@
+#!/usr/bin/perl
+
+use strict;
+
+#$Id: export_products_for_icecat_biz 3436 2010-11-12 13:26:08Z dima $
+
+# Fields for base product feed:
+# 
+# product_id        product
+# prod_id           product
+# 
+# ean_upcs          product 1->n product_ean_codes, | separated
+# 
+# supplier_id       product
+# Category_ID       product
+# UNCATID           product 1->1 category
+# 
+# Quality           product 1->1 users 1->1 user_group_measure_map
+# Score             product 1->1 product_interest_score
+# 
+# model_name        product
+# 
+# publish           product
+# public            product
+# 
+# family_id         product
+# 
+# High_res_img      product
+# Low_res_img       product
+# Thumbnail_img     product
+# low_pic_size      product
+# high_pic_size     product
+# thumb_pic_size    product
+# high_pic_width    product
+# high_pic_height   product
+# low_pic_width     product
+# low_pic_height    product
+# 
+# Updated           product
+# date_added        product
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomsql;
+use atomlog;
+use atom_misc;
+
+$| = 1;
+
+my $d = "\t";
+my $n = "\n";
+my $outfile = $atomcfg{'xml_path'} . 'level4/prf/products_for_icecat_biz.csv';
+
+open OUT, ">", $outfile.'.new';
+binmode OUT, ":utf8";
+
+print OUT "product_id".$d."prod_id".$d."eans".$d."supplier_id".$d."catid".$d."unspsc".$d."quality".$d."score".$d."name".$d."publish".$d."public".$d."family_id".$d."high_pic".$d."low_pic".$d."thumb_pic".$d."low_pic_size".$d."high_pic_size".$d."thumb_pic_size".$d."high_pic_width".$d."high_pic_height".$d."low_pic_width".$d."low_pic_height".$d."updated".$d."date_added".$n;
+
+my @arr = &get_primary_key_set_of_ranges('p', 'product', 100000, 'product_id');
+foreach my $b_cond (@arr) {
+	my $prods = &do_query("SELECT p.product_id, p.prod_id, group_concat(pec.ean_code separator '|') eans, p.supplier_id, p.catid,
+                                c.ucatid, ugmm.measure, pis.score, p.name, p.publish,
+                                p.public, p.family_id, p.high_pic, p.low_pic, p.thumb_pic,
+                                p.low_pic_size, p.high_pic_size, p.thumb_pic_size, p.high_pic_width, p.high_pic_height,
+                                p.low_pic_width, p.low_pic_height, p.updated, p.date_added
+FROM product p
+LEFT JOIN category c ON p.catid = c.catid
+LEFT JOIN product_interest_score pis ON p.producT_id = pis.product_id
+LEFT JOIN product_ean_codes pec ON p.product_id = pec.product_id
+LEFT JOIN users u ON p.user_id = u.user_id
+LEFT JOIN user_group_measure_map ugmm ON u.user_group = ugmm.user_group
+
+WHERE 1 AND ".$b_cond."
+
+GROUP BY p.product_id
+ORDER BY p.product_id ASC");
+
+	foreach my $prod (@$prods) {
+		my @a = @$prod;
+		$a[1] =~ s/[\t\n\r]//g;
+		$a[8] =~ s/[\t\n\r]//g;
+		print OUT join $d, @a;
+		print OUT $n;
+	}
+}
+
+close OUT;
+
+# to live & gzipped
+`/bin/mv -f $outfile.new $outfile`;
+`/bin/cat $outfile | gzip -9 > $outfile.gz.new`;
+`/bin/mv -f $outfile.gz.new $outfile.gz`;

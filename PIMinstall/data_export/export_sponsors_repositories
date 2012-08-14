@@ -1,0 +1,306 @@
+#!/usr/bin/perl
+
+#$Id: export_sponsors_repositories 2619 2010-05-26 08:58:17Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+use atom_misc;
+use atom_util;
+use data_management;
+use icecat_server2_repository;
+use process_manager;
+use icecat_server2;
+
+use POSIX qw (strftime);
+use Data::Dumper;
+
+$| = 1;
+
+if (&get_running_perl_processes_number('export_sponsors_repositories') != 1)  {
+	print "already running. exit!";
+	exit;
+}
+
+print "Start... ";
+
+# get today's initial date
+my $today = &format_date(time);
+$today =~ s/.{6}$/000000/;
+
+#my %icontent;
+
+print $today."\n";
+
+# variables
+my $ln = '/bin/ln -s -f';
+
+my $path = {
+	'level4'      => $atomcfg{'xml_path'}.'level4/',
+	'level4_int'  => $atomcfg{'xml_path'}.'level4/INT/',
+	'freexml_int' => $atomcfg{'xml_path'}.'freexml.int/',
+	'vendor_int'  => $atomcfg{'xml_path'}.'vendor.int/'
+};
+
+my $realm = 'Open ICEcat XML repository';
+
+
+my $mapping = 'product_mapping.xml';
+
+# get has of langs + INT
+my $langs = &do_query("select langid, short_code from language where published='Y' order by langid");
+my %lang_hash = map {$_->[0] => $_->[1]} @$langs;
+$lang_hash{0} = 'INT';
+
+my ($swap, $cmd);
+
+ #############################
+## All right, let's move now ##
+ #############################
+
+# load sponsors
+my $sponsors = &get_rows('supplier',"(is_sponsor='Y' and user_id!=0) or (public_login != '' and public_login is not null)");
+
+if (!$sponsors->[0]) {
+	print "It's a pity we have no sponsors! :(\n";
+	exit;
+}
+else {
+	print "\nWe have several sponsors, ";
+}
+
+# add folder_name to sponsors
+foreach my $sponsor (@$sponsors) {
+	if (($sponsor->{'is_sponsor'} eq 'Y') && ($sponsor->{'user_id'} ne '0')) {
+		$sponsor->{'in_freexml'} = 1;
+	}
+	else {
+		$sponsor->{'in_freexml'} = 0;
+	}
+}
+
+# make dirs
+&makedir($path->{'vendor_int'});
+&makedir($path->{'freexml_int'});
+
+# make categories.xml & measures.xml.gz for /freexml.int/
+&symlink($atomcfg{'xml_path'},$path->{'freexml_int'},'categories.xml');
+&symlink($atomcfg{'xml_path'},$path->{'freexml_int'},'measures.xml.gz');
+
+# creating symlinks for /level4/refs.xml to /freexml.int/refs.xml & refs/
+&symlink($path->{'level4'},$path->{'freexml_int'},'refs.xml');
+&symlink($path->{'level4'},$path->{'freexml_int'},'refs');
+
+my $freexml_index;
+
+print "create repositories for vendors:\n";
+
+&product_mapping_header_footer;
+&supplier_mapping_header_footer;
+
+foreach (@$sponsors) {
+	&create_repository($_);
+}
+
+print "\n";
+
+# store freexml indexes
+print "store freexmls:\t";
+
+&store_product_mapping($path->{'freexml_int'});
+&store_supplier_mapping($path->{'freexml_int'});
+
+&product_mapping_header_footer_end;
+&supplier_mapping_header_footer_end;
+
+foreach my $langid (sort {$a <=> $b} keys %lang_hash) {
+	print "\n\t\033[1m".$lang_hash{$langid}."\033[0m ";
+
+	&makedir($path->{'freexml_int'}.$lang_hash{$langid});
+
+#	&create_specific_index_files_from_index_cache($langid, $daily_products); # already added
+	
+	&store_index( {
+		path               => $path->{'freexml_int'} . $lang_hash{$langid} . "/",
+		content            => $freexml_index,
+		langid             => $langid,
+		supplier_id        => 0,
+		subscription_level => 'freexml',
+								});
+	
+	# also already added
+#	&store_specific_index( { 
+#		path               => $path->{'freexml_int'} . $lang_hash{$langid} . "/",
+#		langid             => $langid,
+#		supplier_id        => 0,
+#		subscription_level => 'freexml',
+#												 });	
+
+	&symlink($path->{'freexml_int'},$path->{'freexml_int'}.$lang_hash{$langid}."/",'product_mapping.xml');
+	&symlink($path->{'freexml_int'},$path->{'freexml_int'}.$lang_hash{$langid}."/",'supplier_mapping.xml');
+}
+
+print "\n\n";
+
+# remove old vendors
+print "vendors removing...  ";
+
+opendir(DIR, $path->{'vendor'});
+
+my $matched;
+
+my @all_repos = grep { !/^\./ && -d $path->{'vendor'}.$_ } readdir(DIR);
+
+foreach my $ext_name (@all_repos) {
+	# set off
+	$matched = 0;
+	# find & check
+	foreach my $isponsor (@$sponsors) {
+		if (lc($ext_name) eq lc($isponsor->{'folder_name'})) {
+			$matched = 1;
+			last;
+		}
+	}
+	# remove dirs
+	unless ($matched) {
+		print &swap;
+		$cmd = "/bin/rm -rf ".$path->{'vendor_int'}.$ext_name;
+		`$cmd`;
+	}
+}
+
+closedir(DIR);
+
+foreach my $hndl (values %$freexml_index) {
+  $cmd = '/bin/rm -f '.$hndl->{'draftfilename'};
+  `$cmd`;
+}
+
+print "done.\n\n";
+
+################## stop ####################
+
+
+
+sub create_repository {
+ 	my ($vendor) = @_;
+
+	my $table_name = 'itmp_product4free_repo';
+
+	print "\033[1;31m" . $vendor->{'name'} . (" " x (20-length($vendor->{'name'}))) . "\033[0;37m";
+
+	my ($content, $xml);
+
+	#  make vendorpath name
+	my $vendor_int_path = $path->{'vendor_int'}.$vendor->{'folder_name'}.'/';
+
+	# make dirs
+	&makedir($vendor_int_path);
+	foreach my $langid (sort {$a <=> $b} keys %lang_hash) {
+		&makedir($vendor_int_path.$lang_hash{$langid});
+	}
+	
+	&symlink($atomcfg{'xml_export_path'},$vendor_int_path,'categories.xml');
+	&symlink($atomcfg{'xml_export_path'},$vendor_int_path,'categories.xml.gz');
+	&symlink($atomcfg{'xml_export_path'},$vendor_int_path,'measures.xml');
+	&symlink($atomcfg{'xml_export_path'},$vendor_int_path,'measures.xml.gz');
+
+	## creating symlinks for /level4.int/refs.xml to /vendor.int/*/refs.xml & refs/
+	foreach my $langid (sort {$a <=> $b} keys %lang_hash) {
+		&symlink($path->{'level4'},$vendor_int_path.$lang_hash{$langid}."/",'refs.xml');
+		&symlink($path->{'level4'},$vendor_int_path.$lang_hash{$langid}."/",'refs');
+	}
+	
+	my $daily_products = {};
+
+	# get tmp_product
+	$table_name = &get_products_for_repository_via_index_cache({'supplier_name' => $vendor->{'name'}, 'table_name' => $table_name}, 'progress');
+
+	# create index for /vendor.int/
+	$content = &create_index_files_from_index_cache(1, { 'table_name' => $table_name }, 'progress', $daily_products);
+
+	if ($vendor->{'in_freexml'}) { # complete freexml index files also!!!!!!!!!!
+		foreach my $t (keys %$content) {
+			next if ($t =~ /onlyvendor/i);
+			unless ($freexml_index->{$t}->{'draftfilename'}) {
+				$freexml_index->{$t}->{'draftfilename'} = '/tmp/'.$$.'_freexml_'.$content->{$t}->{'filename'};
+				$freexml_index->{$t}->{'filename'} = $content->{$t}->{'filename'};
+				$cmd = '/bin/rm -f '.$freexml_index->{$t}->{'draftfilename'}.' && /bin/cat '.$content->{$t}->{'draftfilename'}.' > '.$freexml_index->{$t}->{'draftfilename'}; # to prevent old data copying
+			}
+			else {
+				$cmd = '/bin/cat '.$content->{$t}->{'draftfilename'}.' >> '.$freexml_index->{$t}->{'draftfilename'};
+			}
+			&log_printf($cmd." ".$t);
+			`$cmd`;
+		}
+	}
+
+	my $tt;
+
+	if ($content->{'only_vendor'}) { # add only_vendor data to general also!!!!!!!!!
+		foreach my $t (keys %$content) {
+			if ($t =~ /onlyvendor/i) {
+				$tt = $t;
+				$tt =~ s/onlyvendor$//i;
+				$cmd = '/bin/cat '.$content->{$t}->{'draftfilename'}.' >> '.$content->{$tt}->{'draftfilename'};
+				&log_printf($cmd." ".$t." -> ".$tt);
+				`$cmd`;
+			}
+		}
+	}
+
+	if ($vendor->{'in_freexml'}) {
+		# product_mapping
+		&create_prodid_mapping('add', {'table_name' => $table_name});
+	
+		# make supplier_mapping (of prijslijst.txt)
+		&create_supplier_mapping('add', {'table_name' => $table_name});
+	}
+
+ 	foreach my $langid (sort {$a <=> $b} keys %lang_hash) {
+		print "\n\t\033[1m".$lang_hash{$langid}."\033[0m ";
+		
+		&create_specific_index_files_from_index_cache($langid, $daily_products, $vendor->{'supplier_id'});
+		
+		&store_index( {
+			path               => $vendor_int_path . $lang_hash{$langid} . "/",
+			content            => $content,
+			langid             => $langid,
+			supplier_id        => $vendor->{'supplier_id'},
+			subscription_level => 'all',
+									});
+		
+		&store_specific_index( {
+			path               => $vendor_int_path . $lang_hash{$langid} . "/",
+			langid             => $langid,
+			supplier_id        => $vendor->{'supplier_id'},
+			subscription_level => 'all',
+													 });
+		
+		if ($vendor->{'in_freexml'}) {
+			&symlink($path->{'freexml_int'}, $vendor_int_path . $lang_hash{$langid} . "/", 'product_mapping.xml', 'ignore');
+			&symlink($path->{'freexml_int'}, $vendor_int_path . $lang_hash{$langid} . "/", 'supplier_mapping.xml', 'ignore');
+		}
+	}
+
+	foreach my $hndl (values %$content) {
+		$cmd = '/bin/rm -f '.$hndl->{'draftfilename'};
+		`$cmd`;
+	}
+
+	print "\n";
+}
+
+sub format_date {
+	return strftime("%Y%m%d%H%M%S", localtime(shift));
+}
+
+sub swap {
+	$swap = ($swap eq '/')?'\\':'/';
+	return "\b".$swap;
+}

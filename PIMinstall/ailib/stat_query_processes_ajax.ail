@@ -1,0 +1,23 @@
+{
+name: stat_query_processes_ajax;
+
+verify: generate_report_bg_processes_id;
+
+authorize_editor: generate_report_bg_processes_id;
+authorize_supplier: generate_report_bg_processes_id;
+authorize_superuser: generate_report_bg_processes_id;
+authorize_supereditor: generate_report_bg_processes_id;
+authorize_category_manager: generate_report_bg_processes_id;
+
+_resource_stat_query_process_div_style_display: select if(count(*)=0,'none','inline') from generate_report_bg_processes;
+_mapping_stat_query_process_div_style_display: display;
+
+_resource_stat_query_process: select IF(bg_stage=CONCAT(code,'&nbsp;(completed)'),bg_end_date-bg_start_date,unix_timestamp()-bg_start_date),
+	bg_stage,
+	round(if(bg_max_value>0,bg_current_value/bg_max_value*100,0)),
+	if(bg_max_value>0,bg_current_value/bg_max_value*100,0)*2,
+	(100-if(bg_max_value>0,bg_current_value/bg_max_value*100,0))*2,generate_report_bg_processes_id from generate_report_bg_processes;
+_resource_stat_query_process_type: multi;
+_mapping_stat_query_process: seconds, stage, percent, percent1, percent2,generate_report_bg_processes_id;
+
+}

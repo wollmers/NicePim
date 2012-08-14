@@ -1,0 +1,21 @@
+{
+name: cov_features_query;
+
+_resource_data: select '%%search_supplier_id%%','%%search_distri_id%%','%%search_catid%%','%%search_catfeat_id%%','%%on_stock%%';
+_mapping_data: search_supplier_id, search_distri_id, search_catid, search_catfeat_id, on_stock;
+
+format_as_dropdown: search_supplier_id,search_catfeat_id;
+search_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+search_catfeat_id_dropdown_select: select category_feature_id,if(cf.searchable=1,concat('[S] ',value),value) from category_feature as cf left join feature using(feature_id) left join vocabulary using(sid) where langid=%%langid%% and catid='%%search_catid%%' order by cf.searchable desc,value asc
+format_as_input_checkbox: on_stock;
+format_as_onmarket_select: search_distri_id;
+
+format_as_smart_dropdown: search_catid;
+search_catid_add_empty: Any category;
+search_catid_allow_pcat_choice: Y;
+search_catid_smart_dropdown_attrs: style="width\: 308px;"
+
+
+verify_deny_guest: yes;
+
+}

@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="8414" Prod_id="963257-0909" ThumbPic="http://www.icecat.biz/thumbs/8414.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/9766.jpg" Name="DRIVING FORCE" LowPic="http://www.icecat.biz/img/norm/low/8414.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="311" No="10">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1179" No="4">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="866" No="9">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1113" No="1">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1377" No="11">
+         <FeatureGroup ID="49">
+           <Name ID="9699" Value="Input device" langid="1"/>
+           <Name ID="9700" Value="Input device" langid="3"/>
+           <Name ID="9701" Value="Input device" langid="2"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="82711" URL="http://www.logitech.com/index.cfm?page=products/details&amp;CRID=97&amp;CONTENTID=5028&amp;countryid=12&amp;languageid=1" ShortDesc="Logitech® Driving Force&amp;#8482; Force Feedback, Gas/Brake Pedals, Lap Attachment, USB " langid="1" LongDesc="As you take your seat and start your motor, check your controls one last time. Whether this is a new course to you - or an old adversary - you'll need to keep your eyes on the track and, for the most part, feel the device that controls your actions. The design and test teams behind Logitech® Driving Force have spent long hours with fully working design prototypes, positioning the clusters of controls around this world-class race wheel, to ensure that they are easy to find, enabling you to optimise your driving performance in any make of car - and experience a new level of enjoyment in Gran Turismo® 3 and other PlayStation® 2 driving games. " WarrantyInfo="2-year guarantee " PDFURL=""/>
+        <ProductFeature ID="5641615" Value="PlayStation® 2 " No="50" CategoryFeatureGroup_ID="311">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641613" Value="USB" No="60" CategoryFeatureGroup_ID="311">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641616" Value="N" No="0" CategoryFeatureGroup_ID="311">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641608" Value="" No="100061" CategoryFeatureGroup_ID="1377">
+         <Feature ID="1738">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5423" Value="Buttons quantity" langid="1"/>
+           <Name ID="5424" Value="Aantal knoppen" langid="2"/>
+           <Name ID="8482" Value="Buttons quantity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641609" Value="PlayStation® 2 " No="100049" CategoryFeatureGroup_ID="311">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641610" Value="Full product support " No="100048" CategoryFeatureGroup_ID="311">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641611" Value="Plug &amp; Play" No="100060" CategoryFeatureGroup_ID="1377">
+         <Feature ID="1655">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5169" Value="Connectivity technology" langid="1"/>
+           <Name ID="5170" Value="Connectiviteit-technologie" langid="2"/>
+           <Name ID="8388" Value="Connectivity technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641612" Value="" No="62" CategoryFeatureGroup_ID="1377">
+         <Feature ID="440">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2247" Value="Pointing device" langid="1"/>
+           <Name ID="2248" Value="Pointing device" langid="2"/>
+           <Name ID="7132" Value="Pointing device" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641607" Value="USB" No="100063" CategoryFeatureGroup_ID="311">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641606" Value="Force feedback steering wheel, Gas and brake pedals, Lap attachment " No="100064" CategoryFeatureGroup_ID="1377">
+         <Feature ID="1050">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3641" Value="Input devices description" langid="1"/>
+           <Name ID="3642" Value="Input devices description" langid="2"/>
+           <Name ID="7807" Value="Input devices description" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5641614" Value="" No="59" CategoryFeatureGroup_ID="1377">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="91" Name="Logitech"/>
+       <Category ID="193">
+         <Name ID="387" Value="joysticks or game pads" langid="1"/>
+         <Name ID="388" Value="joysticks of gamepads" langid="2"/>
+         <Name ID="6266" Value="joysticks or game pads" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

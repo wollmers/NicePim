@@ -1,0 +1,8 @@
+{
+name: dictionaries_search;
+_resource_params: select '%%search_name%%','%%search_dictionary_group_id%%'
+_mapping_params: search_name,search_dictionary_group_id;
+format_as_dropdown: search_dictionary_group_id;
+search_dictionary_group_id_dropdown_select: select dictionary_group_id,value from dictionary_group where 1 order by value;
+
+}

@@ -1,0 +1,23 @@
+{
+name: feature_groups;
+priority: 10;
+
+_resource_groups: select feature_group_id, vocabulary.value from feature_group, vocabulary where feature_group.sid = vocabulary.sid and vocabulary.langid = %%langid%% AND %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_groups_type: multi;
+_resource_groups_def_order: name;
+_mapping_groups: feature_group_id, name;
+
+authorize_superuser: feature_group_id;
+authorize_submit_superuser: feature_group_id;
+authorize_supereditor: feature_group_id;
+authorize_category_manager: feature_group_id;
+authorize_submit_supereditor: feature_group_id;
+authorize_submit_category_manager: feature_group_id;
+
+authorize_editor: feature_group_id;
+authorize_supplier: feature_group_id;
+authorize_guest: feature_group_id;
+authorize_shop: feature_group_id;
+
+
+}

@@ -1,0 +1,135 @@
+{
+name: measure;
+priority: 10;
+
+verify: measure_id;
+verify_submit: measure_id;
+
+verify_add: yes;
+verify_add_superuser: measure_id;
+verify_add_supereditor: measure_id;
+verify_add_category_manager: measure_id;
+
+
+authorize_superuser: measure_id;
+authorize_supereditor: measure_id;
+authorize_category_manager: measure_id;
+authorize_editor: measure_id;
+authorize_supplier: measure_id;
+authorize_guest: measure_id;
+authorize_shop: measure_id;
+
+authorize_submit_superuser: measure_id;
+authorize_submit_supereditor: measure_id;
+authorize_submit_category_manager: measure_id;
+
+
+_resource_measure: select measure_id, sid, tid, sign, system_of_measurement from measure where measure_id = %%measure_id%%
+_resource_measure_type: single;
+_resource_measure_key: measure_id;
+_mapping_measure: measure_id, sid, tid, sign, system_of_measurement;
+
+_format_as_system_of_measurement: system_of_measurement;
+
+_resource_label: select language.langid, vocabulary1.value, vocabulary.value, vocabulary.record_id
+from language
+left join measure
+on measure.measure_id = %%measure_id%%
+left join vocabulary
+on measure.sid = vocabulary.sid and language.langid = vocabulary.langid
+left join vocabulary as vocabulary1
+on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+order by language.langid
+_resource_label_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by language.langid
+_resource_label_type: multi;
+_resource_label_key: sid;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id;
+
+
+_resource_sign: select l.langid, v.value, ms.value, ms.measure_sign_id from language l
+left join measure_sign ms on l.langid=ms.langid and ms.measure_id=%%measure_id%%
+inner join vocabulary v on l.sid=v.sid and v.langid=1 order by l.langid
+
+_resource_sign_iq: select l.langid, v.value, NULL, NULL from language l inner join vocabulary v on l.sid=v.sid and v.langid=1 order by l.langid
+
+_resource_sign_type: multi;
+_resource_sign_key: measure_id;
+_mapping_sign: s_langid, language, _rotate_sign, _rotate_measure_sign_id;
+
+
+_resource_text: select language.langid, vocabulary1.value, tex.value, tex.tex_id
+from language
+left join measure
+on measure.measure_id = %%measure_id%%
+left join tex
+on measure.tid = tex.tid and language.langid = tex.langid
+left join vocabulary as vocabulary1
+on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+order by language.langid
+_resource_text_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by language.langid
+_resource_text_type: multi;
+_resource_text_key: tid;
+_mapping_text:  t_langid, language, _rotate_text, _rotate_tex_id;
+
+ format_as_text: sign;
+
+validate_as_assigned_rows: measure_id;
+measure_id_assigned_tables: feature;
+mesaure_id_assigned_tables_keys: measure_id;
+
+_resource_measure_power_map: select vr.pattern from measure_value_regexp mvr
+inner join value_regexp vr using (value_regexp_id)
+where mvr.measure_id=%%measure_id%% order by mvr.no asc;
+_resource_measure_power_map_type: multi;
+_mapping_measure_power_map: pattern;
+
+
+ _insert_sequence: 1,2,3,4,5,6;
+
+ _insert_table_1: sid_index;
+ _insert_values_1: dummy;
+ _insert_fields_1: dummy;
+ _insert_key_1: sid;
+ _delete_sequence_1: yes;  
+
+ _insert_table_2: vocabulary;
+ _insert_values_2: sid, _rotate_v_langid, _rotate_label;
+ _insert_fields_2: sid, langid, value;
+ _rotate_insert_2: label;
+ _insert_key_2: record_id;
+ _update_key_2: sid;
+ _update_sequence_2: yes;
+ _delete_sequence_2: yes; 
+
+ _insert_table_3: tid_index;
+ _insert_values_3: dummy;
+ _insert_fields_3: dummy;
+ _insert_key_3: tid;
+ _delete_sequence_3: yes;
+
+ _insert_table_4: tex;
+ _insert_values_4: tid, _rotate_t_langid, _rotate_text;
+ _insert_fields_4: tid, langid, value;
+ _rotate_insert_4: text;
+ _insert_key_4: tex_id;
+ _update_key_4: tid;
+ _update_sequence_4: yes;
+ _delete_sequence_4: yes; 
+
+ _insert_table_5: measure;
+ _insert_values_5: sid, tid, sign, system_of_measurement;
+ _insert_fields_5: sid, tid, sign, system_of_measurement;
+ _insert_key_5: measure_id;
+ _update_sequence_5: yes;
+ _delete_sequence_5: yes;
+
+	_insert_table_6: measure_sign;
+	_insert_values_6: measure_id, _rotate_s_langid, _rotate_sign;
+	_insert_fields_6: measure_id, langid, value;
+	_rotate_insert_6: sign;
+	_insert_key_6: measure_sign_id;
+	_update_key_6: measure_id;
+	_update_sequence_6: yes;
+	_delete_sequence_6: yes;
+
+}

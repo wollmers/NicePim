@@ -1,0 +1,37 @@
+{
+name: feature_values_group;
+priority: 10;
+
+verify: feature_values_group_id;
+verify_submit: feature_values_group_id;
+
+verify_add: yes;
+verify_add_superuser: feature_values_group_id;
+verify_add_supereditor: feature_values_group_id;
+
+authorize_submit_superuser: feature_values_group_id;
+authorize_submit_supereditor: feature_values_group_id;
+
+authorize_superuser: feature_values_group_id;
+authorize_supereditor: feature_values_group_id;
+authorize_category_manager: feature_values_group_id;
+authorize_editor: feature_values_group_id;
+authorize_supplier: feature_values_group_id;
+authorize_guest: feature_values_group_id;
+authorize_shop: feature_values_group_id;
+
+_resource_group: select feature_values_group_id, name from feature_values_group where feature_values_group_id = %%feature_values_group_id%%
+_resource_group_key: feature_values_group_id;
+_resource_group_type: single;
+_mapping_group: feature_values_group_id, name;
+
+ _insert_sequence: 1;
+
+ _insert_table_1: feature_values_group;
+ _insert_values_1: name;
+ _insert_fields_1: name;
+ _insert_key_1: feature_values_group_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+ 
+}

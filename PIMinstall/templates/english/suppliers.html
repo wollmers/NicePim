@@ -1,0 +1,42 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="main" height="20">
+			$$INCLUDE suppliers_menu_link.html$$
+    </td>
+  </tr>
+</table>
+
+<br>
+<table width="100%">
+    <tr>
+        <td align="left">
+            <a href="%%base_url%%;mi=suppliers;tmpl=default_warranty_info.html">Default warranty info</a>
+            &nbsp;
+            <a href="%%base_url%%;mi=suppliers;tmpl=product_restrictions.html">Product restrictions</a>
+            &nbsp;
+        </td>
+    </tr>
+</table>
+
+{
+name: suppliers_search;
+}
+
+{
+name: errors;
+}
+{
+name: warnings;
+}
+
+{
+name: suppliers;
+}
+
+$$INCLUDE footer2.html$$

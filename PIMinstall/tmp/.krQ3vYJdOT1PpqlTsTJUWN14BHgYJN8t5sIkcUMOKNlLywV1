@@ -1,0 +1,11 @@
+mail_dispatch_log_start_row=
+s_order_mail_dispatch_log_dispatch_log_mode=D
+s_order_mail_dispatch_log_dispatch_log=dispatch_date_delivered
+mail_dispatch_search_start_row=
+deep_search=
+mi=users
+!permanent_list=mi
+!langid=1
+!user_id=2
+!sesscode=krQ3vYJdOT1PpqlTsTJUWN14BHgYJN8t5sIkcUMOKNlLywV1
+!hl_permanent_list=user_id

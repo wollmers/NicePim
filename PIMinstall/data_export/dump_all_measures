@@ -1,0 +1,108 @@
+#!/usr/bin/perl
+
+#$Id: dump_all_measures 3602 2010-12-17 13:56:30Z dima $
+
+use lib '/home/pim/lib';
+#use lib '/home/dima/gcc_svn/lib';
+
+use strict;
+use icecat_util;
+use icecat_client;
+
+use atomsql;
+use atomlog;
+use atomcfg;
+use Data::Dumper;
+
+my $hash = {
+#						'ProductsDump'		=> { 'langid' => '1,2',
+#																 }
+						'MeasuresList' 		=> '1,2,3,4,5,6,7,8,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40',
+#						'FeaturesList'		=> '1,2',
+#						'CategoriesList'	=> { 
+#							langid => '1,2,3', 
+#							Searchable => 1, 
+#							UNCATID => '43172313',
+#							Category_ID => 219
+#																 }
+#						'SupplierCategoriesList'	=> { 
+#																					'langid' => '1,2', 
+#																					'Supplier_ID' => '21',
+#																					'Searchable'	=> 1,
+																					 
+#																					'Supplier' => 'HP'
+#																				 },
+#						'ProductsStatistic' => {	
+#																		 'langid' 		=> '1,2',
+#																			UNCATID => '43172313',
+#																			Category_ID => 219,
+#																			Type => 'TOP10'
+#																	 },
+#
+#						'SuppliersList'		=> {
+#						                       Searchable => 1,
+#																	 UNCATID => '43172313',
+#																 },
+#						'ProductsList'			=> {
+#																	'langid' 		=> '1,2',
+#																	'Products'	=> [
+#																									{
+#																									 'ID' => '406'
+#																									}
+#																										{
+#																										 'ID' => '452'
+#																										}
+#																								]
+#																		},
+#																									
+
+#																										{
+#																										 'Prod_id' 			=> 'C8934A#A2L',
+#																										 'Supplier_ID'	=> '1'
+#																										},
+#																										{
+#																										 'Prod_id' 			=> 'C8934A#A2L',
+#																										 'Supplier'			=> 'HP'
+#																										},
+#						
+#																							 ]
+#																 }
+#							'CategoryFeaturesList' => { 
+#							'Category_ID' => 151, 
+#							'langid' => '1,2' },
+#							'ProductsListLookup' => {
+#																			 'LookupFeatures' => [['26','60'],
+#																														['25','10000']
+#																													 ],
+
+#																			 'langid' => 1,
+#																			 'Supplier' => 'maxtor',
+#																			 'Supplier_ID' => '21',
+#																			 'UNCATID' => '43172313'
+#																		 }
+#							'ProductsStatistic'	=> {
+#																			 'Category_ID'	=> '153',
+#																			 'Type'					=> 'TOP10'
+#																		 }
+#						'SupplierProductFamiliesList' => {
+#														'langid' => '1,2' ,
+#													}
+						};
+
+my $message = &build_message(&build_request($hash,'icecat','BcW9NgnbMH',time));
+## print $$message."\n\n";
+my $url = $atomcfg{host}."xml_server2_unleashed.cgi";
+
+my $response = &post_message($$message, $url, 1);
+binmode(STDOUT,":bytes");
+ print $response;
+
+#
+# $Log: dump_all_categories,v $
+# Revision 1.1  2005/05/24 12:17:19  sergey
+# initial release
+#
+#
+
+
+

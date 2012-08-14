@@ -1,0 +1,48 @@
+{
+ name: products_raiting;
+ priority: 10;
+ 
+  _resource_rating: select pis.product_id, pis.name, prod_id, supplier, s.supplier_id, score, status, status, v.value, s.supplier_id, pis.catid, pis.language_flag, u.user_id, u.login %%additional_values%%
+ from product_interest_score pis force index (score, supplier)
+ left join category c using (catid)
+ left join vocabulary v on c.sid=v.sid and v.langid=1
+ left join users u using (user_id)
+ left join supplier s using (supplier_id) 
+ %%additional_joins%%
+ where %%supplier_restrict_clause%% and %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+
+ _resource_rating_type: multi;
+ _resource_rating_def_order: score;
+ _resource_rating_def_order_mode: D;
+ _resource_rating_def_search: status = 0;
+ _resource_rating_straight_join_approve: 0;
+ _resource_rating_order_by_tables_order_default: pis,c,v;
+ _resource_rating_order_by_tables_order_score: pis,c,v;
+ _resource_rating_order_by_tables_order_product_name: pis,c,v;
+ _resource_rating_order_by_tables_order_supplier_name: pis,c,v;
+ _resource_rating_bitwise_search: yes;
+ _resource_rating_disable_sql_calc_found_rows: 1;
+ resource_rating_disable_sql_calc_found_rows_cache: 12; 
+ _resource_rating_bitwise_field: pis.language_flag;
+ _resource_rating_additional_search: onstock, onmarket;
+ _mapping_rating: product_id, product_name, prod_id, supplier_name, supplier_id, score, status,  status_mode, cat_name, ssupplier_id, catid, language_flag, owner_id, owner, product_id_distributor, distributor_id, country_id, country_name;
+ 
+ _format_as_status_mode: status_mode;
+ _format_as_language_flag: language_flag;
+
+ _format_as_product_distributor: product_id_distributor;
+ 
+ authorize_superuser: product_id;
+ authorize_supereditor: product_id;
+ authorize_category_manager: product_id;
+ authorize_editor: product_id;
+ authorize_guest: product_id;
+ authorize_shop: product_id;
+
+ authorize_submit_superuser: product_id;
+ authorize_submit_supereditor: product_id;
+ authorize_submit_category_manager: product_id;
+
+verify_deny_guest: yes;
+ 
+}

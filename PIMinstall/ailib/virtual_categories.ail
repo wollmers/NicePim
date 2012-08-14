@@ -1,0 +1,22 @@
+{
+name: virtual_categories;
+priority: 10;
+
+_resource_virtual_categories: SELECT virtual_category_id, name, category_id
+FROM virtual_category
+WHERE category_id = %%catid%%
+ORDER BY 1 ASC
+
+_resource_virtual_categories_type: multi;
+_mapping_virtual_categories: virtual_category_id, name, category_id;
+
+validate_as_unique_virtual_category: new_name;
+
+_insert_sequence: 1;
+
+_insert_table_1: virtual_category;
+_insert_values_1: virtual_category_id, catid, new_name;
+_insert_fields_1: virtual_category_id, category_id, name;
+
+}
+

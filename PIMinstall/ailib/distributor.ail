@@ -1,0 +1,71 @@
+{
+name: distributor;
+priority: 10000;
+
+verify: distributor_id;
+authorize_superuser: distributor_id;
+
+verify_submit: distributor_id;
+
+verify_add: yes;
+verify_add_superuser: distributor_id;
+
+verify_deny_guest: yes;
+
+authorize_submit_superuser: distributor_id;
+
+_resource_dummy: SELECT IF('%%distributor_pl_id%%' like '\%\%distributor_pl_id\%\%','','%%distributor_pl_id%%');
+_resource_dummy_type: single;
+_mapping_dummy: distributor_pl_id;
+
+_resource_sync: SELECT sync FROM distributor WHERE distributor_id = %%distributor_id%%
+_mapping_sync: dist_sync;
+_resource_distributor: SELECT distributor_id, name, code,code,trust_level,langid,country_id,direct,last_import_date,file_creation_date,group_code,source,visible,sync,direct
+FROM distributor
+WHERE distributor_id = %%distributor_id%%
+_resource_distributor_type: single;
+_resource_distributor_key: distributor_id;
+_mapping_distributor: distributor_id, name, code,code_link,trust_level,langid,country_id,direct,last_import_date,file_creation_date,group_code,source,visible,sync,direct_val;
+
+format_as_yes_no_select:direct, visible;
+format_as_ok_not_ok_for_distri: sync;
+format_as_from_unixtime: last_import_date,file_creation_date;
+
+country_id_dropdown_select: select c.country_id, v.value from country c JOIN vocabulary v USING(sid) where v.langid=1 order by code;
+
+langid_dropdown_select: select langid, code from language where 1 order by code;
+
+group_code_dropdown_select: select group_code,group_code FROM distributor GROUP BY group_code HAVING group_code!='';
+
+format_as_dropdown: country_id,langid,group_code;
+
+validate_as_mandatory: name,langid,country_id,code;
+unique_table: distributor;
+unique_table_id: distributor_id;
+validate_as_unique: code;
+validate_as_numeric:trust_level;
+
+trust_level_num_interval_left: 0;
+trust_level_num_interval_right: 100;
+trust_level_num_interval_msg: Trust level must be between 0 and 100;
+validate_as_num_interval:trust_level;
+
+unupdated_table: distributor;
+unupdated_table_id: distributor_id;
+unupdated_field: code;
+validate_as_unupdated: code;
+
+unshown_update_pk:distributor_id;
+unshown_update_field:code;
+format_as_unshown_update:code;
+
+ _insert_sequence: 3;
+
+ _insert_table_3: distributor;
+ _insert_values_3: name,code,trust_level,langid,direct,country_id,group_code,visible;
+ _insert_fields_3: name,code,trust_level,langid,direct,country_id,group_code,visible;
+ _insert_key_3: distributor_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes;
+  
+}

@@ -1,0 +1,112 @@
+#!/usr/bin/perl
+
+#$Id: mail_dispatch 3728 2011-01-17 08:45:51Z alexey $
+
+use lib '/home/pim/lib';
+#use lib '/home/d_uglatch/icecat/lib';
+#use lib '/home/dima/gcc_svn/lib';
+
+use strict;
+
+use atomsql;
+use atomlog;
+use atomcfg;
+use atom_mail;
+
+use Crypt::Lite;
+
+use Data::Dumper;
+
+my $crypt = Crypt::Lite->new( debug => 0, encoding => 'hex8' );
+my $phrase = 'yuiNsAEoj97dKMYrDN3t';
+
+# select dispatches
+my $dispatches = &do_query("select id, subject, plain_body, html_body, to_emails, attachment_name, attachment_content_type, attachment_body, salutation, footer from mail_dispatch where date_queued < ".time." and status = 0");
+
+foreach my $d (@$dispatches) {
+	# status 'in progress'
+	&update_rows("mail_dispatch", "id = ".$d->[0], {'status' => 2});
+	my @emails = split(",", $d->[4]); 
+
+	# build hash to get unic emails
+	my $unic_emails;
+	foreach my $email (@emails) {
+		$email =~ s/^\s*(.+?)\s*$/$1/s;
+		$unic_emails->{$email} = 1;
+	}
+	
+	# remove \r from text_body
+	$d->[2] =~ s/\r//gs;
+	chomp($d->[8]);
+	chomp($d->[9]);
+
+	# init
+	my $total_emails = 0;
+	
+	# directly mailing	
+	foreach my $email (keys %$unic_emails) {
+		# check, what contact has this email
+		my $pers = &do_query("select c.person, (select u.user_id from users u where u.pers_cid=c.contact_id limit 1), 
+		c.email_subscribing from contact c where c.email = ".&str_sqlize($email)." order by c.email_subscribing asc limit 1")->[0];
+
+		# next email, if no subscription
+		if ($pers->[2] eq 'N') {
+			log_printf("complex_sendmail wasn't activated - the ".$email." was unsubscribed");
+			next;
+		}
+
+		$total_emails++;
+		my $link = $atomcfg{'bo_host'}."feedback/do.cgi?unsubscribe=";
+		if ($pers->[0]) {
+			$link .= $crypt->encrypt($pers->[1], $phrase);
+		}
+
+		# add salutation & footer
+		my $isText = 1; # start with text, then html
+		my $main_text = '';
+		my $body = undef;
+		my $email_truncated = $email;
+		$email_truncated =~ s/^(.+?)\@.+$/$1/s;
+
+		foreach my $i (2,3) {
+			unless ($d->[$i]) {
+				$isText = 0;
+				next;
+			}
+			
+			$main_text .= $d->[$i]; # main text
+			my $person = ( $pers->[0] ? $pers->[0] : $email_truncated ) . ","; # salutation with person
+			$main_text =~ s/%%person%%/$person/g;
+
+			if ($pers->[0]) {
+				$main_text =~ s/%%unsubscribe%%/$link/g;
+			} else {
+				$main_text =~ s/%%unsubscribe%%//g;
+			}
+			$isText = 0;
+			$body->[$i] = $main_text;
+		}
+
+		my $mail = {
+			'to' => $email,
+			'from' => $atomcfg{'mail_dispatch_from'},
+			'subject' => $d->[1],
+			'default_encoding'=>'utf8',
+			'text_body' => $body->[2],
+			'html_body' => $body->[3],
+			'attachment_name' => $d->[5],
+			'attachment_content_type' => $d->[6],
+			'attachment_body' => $d->[7]
+		};
+		
+#		&log_printf(Dumper($mail));
+			
+		# send mail
+			&simple_sendmail($mail);			
+			log_printf("simple_sendmail is sending - the ".$email." is subscribed");
+	}	
+
+	# status 'delivered'
+	&update_rows("mail_dispatch", "id = ".$d->[0], {'status' => 1, 'date_delivered' => time, 'sent_emails' => $total_emails});
+	log_printf("\ndispatch $d->[0] delivered: $d->[1]");
+}

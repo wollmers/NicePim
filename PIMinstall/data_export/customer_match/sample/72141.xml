@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="72141" Prod_id="USM128MS" ThumbPic="http://www.icecat.biz/thumbs/72141.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/24341.jpg" Name="Micro Vault with Memory Stick Pro adapter slot. Up to 128 MB. USB 2.0" LowPic="http://www.icecat.biz/img/norm/low/72141.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="736" No="5">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="27" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="786" No="15">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="771" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1104" No="0">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="144173" URL="" ShortDesc="Micro Vault with Memory Stick Pro adapter slot. Up to 128 MB. USB 2.0" langid="1" LongDesc="Micro Vault with Memory Stick Pro adapter slot, sold with a 16 MB Memory Stick. It has its own buit-in storage capacity of 128 MB. It creates 2 drives in the computer : one for the internal flash memory, the other for Memory Stick. &lt;p&gt;\n- Plugs directly into computer's USB port. &lt;br&gt;\n- High-speed USB 2.0 and USB 1.1 compatible &lt;br&gt;\n- Available in 128 MB capacity. &lt;br&gt;\n- No adaptors or cables required. &lt;br&gt;\n- Ultra compact and stylish design. &lt;br&gt;\n- Plug'n Play USB interface requires no driver software. &lt;br&gt;\n- 4 included software for user friendliness and higher performance. &lt;br&gt;\n- Product line is colour-coded according to storage capacity &lt;br&gt;\n" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9291655" Value="" No="2" CategoryFeatureGroup_ID="736">
+         <Feature ID="990">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3521" Value="Interface type" langid="1"/>
+           <Name ID="3522" Value="Interfacetype" langid="2"/>
+           <Name ID="7748" Value="Interface type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9185294" Value="128" No="100001" CategoryFeatureGroup_ID="736">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291645" Value="" No="100003" CategoryFeatureGroup_ID="27">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291642" Value="" No="100005" CategoryFeatureGroup_ID="771">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291656" Value="PC &amp; Mac" No="50" CategoryFeatureGroup_ID="27">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291639" Value="" No="100045" CategoryFeatureGroup_ID="736">
+         <Feature ID="1642">
+          <Measure ID="75" Sign="year(s)"/>
+           <Name ID="5121" Value="Data retention" langid="1"/>
+           <Name ID="5122" Value="Data retention" langid="2"/>
+           <Name ID="8365" Value="Data retention" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291649" Value="" No="30" CategoryFeatureGroup_ID="736">
+         <Feature ID="1501">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4699" Value="LED indicators" langid="1"/>
+           <Name ID="4700" Value="LED-indicatoren" langid="2"/>
+           <Name ID="8298" Value="LED indicators" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291650" Value="" No="20" CategoryFeatureGroup_ID="736">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291643" Value="Windows XP &lt;br&gt;\nWindows 2000  &lt;br&gt;\nWindows ME  &lt;br&gt;\nWindows 98  &lt;br&gt;\nWindows 98 SE  &lt;br&gt;\nMac OS 9 and higher  &lt;br&gt;\n" No="100066" CategoryFeatureGroup_ID="27">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291652" Value="" No="11" CategoryFeatureGroup_ID="736">
+         <Feature ID="718">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2967" Value="Compliance Logo" langid="1"/>
+           <Name ID="2968" Value="Compatibiliteitslogo" langid="2"/>
+           <Name ID="7478" Value="Compliance Logo" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291654" Value="" No="7" CategoryFeatureGroup_ID="736">
+         <Feature ID="250">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1867" Value="Bundled hardware" langid="1"/>
+           <Name ID="1868" Value="Gebundelde hardware" langid="2"/>
+           <Name ID="6942" Value="Bundled hardware" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291640" Value="Driver Software included: &lt;br&gt;\nWindows 98 SE &lt;br&gt;\nWindows 98 &lt;br&gt;\nSoftware included: &lt;br&gt;\nAutoLogin  &lt;br&gt;\nPCLock  &lt;br&gt;\nAutoZip  &lt;br&gt;\nPassword Lock  &lt;br&gt;\n" No="100008" CategoryFeatureGroup_ID="736">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291638" Value="5.5" No="100088" CategoryFeatureGroup_ID="736">
+         <Feature ID="1644">
+          <Measure ID="40" Sign="MB/s"/>
+           <Name ID="5125" Value="Read speed" langid="1"/>
+           <Name ID="5126" Value="Leessnelheid" langid="2"/>
+           <Name ID="8367" Value="Read speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291637" Value="4.0" No="100099" CategoryFeatureGroup_ID="736">
+         <Feature ID="1645">
+          <Measure ID="40" Sign="MB/s"/>
+           <Name ID="5127" Value="Write speed" langid="1"/>
+           <Name ID="5128" Value="Schrijfsnelheid" langid="2"/>
+           <Name ID="8368" Value="Vitesse d'écriture" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291648" Value="USB 2.0 and USB 1.1 compatible" No="60" CategoryFeatureGroup_ID="786">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291641" Value="" No="100000" CategoryFeatureGroup_ID="736">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291651" Value="" No="12" CategoryFeatureGroup_ID="736">
+         <Feature ID="1064">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3669" Value="Supported protocols" langid="1"/>
+           <Name ID="3670" Value="Supported protocols" langid="2"/>
+           <Name ID="7819" Value="Supported protocols" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291653" Value="Memory Stick Pro adapter slot." No="11" CategoryFeatureGroup_ID="736">
+         <Feature ID="1586">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4930" Value="Uitbreidingsslots" langid="2"/>
+           <Name ID="4929" Value="Expansion slots" langid="1"/>
+           <Name ID="6606" Value="Connecteurs d'extension" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291647" Value="" No="100001" CategoryFeatureGroup_ID="27">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291646" Value="" No="100002" CategoryFeatureGroup_ID="27">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291644" Value="" No="100003" CategoryFeatureGroup_ID="27">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9291657" Value="" No="4" CategoryFeatureGroup_ID="1104">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="858">
+         <Name ID="4907" Value="USB memory reader/writer" langid="1"/>
+         <Name ID="4908" Value="USB geheugen lezer/schrijver" langid="2"/>
+         <Name ID="6568" Value="USB memory reader/writer" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

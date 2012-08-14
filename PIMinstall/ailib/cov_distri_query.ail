@@ -1,0 +1,19 @@
+{
+name: cov_distri_query;
+priority: 10;
+
+_resource_cov_distri_query: select '%%distri_id%%', '%%on_stock%%', '%%undescribed%%', '%%supplier_id%%';
+
+_mapping_cov_distri_query: distri_id, on_stock, undescribed, supplier_id;
+
+format_as_multiselect: supplier_id;
+format_as_dropdown: distri_id;
+
+distri_id_dropdown_select: select distributor_id, name from distributor order by name;
+supplier_id_multiselect_select: select supplier_id, name from supplier order by name;
+
+store_as_multiselect: supplier_id;
+
+format_as_input_checkbox: on_stock, undescribed;
+
+}

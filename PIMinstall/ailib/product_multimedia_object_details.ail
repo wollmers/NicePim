@@ -1,0 +1,16 @@
+{
+name: product_multimedia_object_details;
+
+_resource_object_details: select id, langid, short_descr, content_type, size/1000, link, link, updated, keep_as_url, type, height, width
+from product_multimedia_object pmo where pmo.id = %%object_id%%;
+_mapping_object_details: object_id, object_langid, object_descr, object_type, object_size, object_url, object, updated, keep_as_url, type, height, width;
+
+format_as_dropdown: object_langid, type;
+object_langid_dropdown_select: select l.langid, v.value from language as l, vocabulary as v where l.sid = v.sid and v.langid = %%langid%%;
+type_dropdown_select: select distinct type, type from product_multimedia_object;
+
+format_as_multimedia_object: object;
+store_as_object_url_uploaded: object_url;
+
+format_as_yes_no_select: keep_as_url;
+}

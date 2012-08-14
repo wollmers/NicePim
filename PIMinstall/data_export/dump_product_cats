@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomsql;
+use atomcfg;
+use atomlog;
+use atom_util;
+use data_management;
+
+my $path = $atomcfg{'www_path'}.'export/levelplus/csv';
+
+`/bin/mkdir -p $path`;
+
+my $out_encoding = 'utf8';
+$out_encoding = 'bytes' if ($out_encoding ne 'utf8');
+
+my $data = &do_query("select product_id, catid from product");
+&make_nmtable($data, ['product_id', 'catid']);
+&write_out_flat_file($path.'/product_categorization.txt', 
+										 ['product_id', 'catid'], $data, 
+										 {
+											 'write_header'	=> 1,
+											 'encoding' => $out_encoding
+										 });
+my $langs = &do_query("select langid from language");	
+
+foreach my $lang_row(@$langs){
+	my $data = &do_query("select catid, ucatid, vocabulary.value from category, vocabulary where vocabulary.sid = category.sid and langid = $lang_row->[0] ");	
+	&make_nmtable($data, ['catid', 'uncatid', 'name']);	 
+	&write_out_flat_file($path.'/categorization_'.$lang_row->[0].'.txt', 
+											 ['catid', 'uncatid', 'name'], $data, 
+											 {
+												 'write_header'	=> 1,
+												 'encoding' => $out_encoding
+											 });
+	
+}
+

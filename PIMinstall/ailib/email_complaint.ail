@@ -1,0 +1,33 @@
+{
+ name: email_complaint;
+ priority: 10;
+ 
+ _resource_email_complaint: select product_complaint.product_id, product_complaint.id, 
+ product_complaint.prod_id, supplier.name, subject, message, DATE_FORMAT(date, '%d.%c.%Y %H:%i:%s'), users.login, 
+ product_complaint.email, users.user_id, complaint_status_id, vocabulary.value, 'dummy', product_complaint.company 
+ from product_complaint, vocabulary,  product_complaint_status, users, supplier  
+ where product_complaint.id = %%complaint_id%% and  product_complaint.complaint_status_id = 
+ product_complaint_status.code and  product_complaint_status.sid = vocabulary.sid and 
+ vocabulary.langid = 1  and users.user_id = product_complaint.user_id and 
+ product_complaint.supplier_id = supplier.supplier_id 
+ _mapping_email_complaint: product_id, complaint_id, prodid, supplier_name, subject, message, date, uname, uemail, userid, status_id, status_name, last_complaint_id, company;
+ 
+ _resource_funame: select name from product_complaint as pc where pc.id = %%complaint_id%%
+ _mapping_funame: funame;
+ 
+
+ _resource_history: select pch.id, pch.complaint_id, pc.subject, pch.message, DATE_FORMAT(pch.date, '%d.%c.%Y %H:%i:%s'), u.login,
+  c.email, v.value, pch.complaint_status_id from product_complaint_history as pch, 
+	product_complaint as pc, vocabulary as v, users as u, product_complaint_status as pcs, 
+	contact as c where pch.complaint_id = pc.id and pch.user_id = u.user_id and  
+	pch.complaint_status_id = pcs.code and pcs.sid = v.sid and v.langid = 1 and
+	 pc.id = %%complaint_id%% and u.pers_cid = c.contact_id
+ _resource_history_type: multi;
+ _mapping_history: hid, hcomplaint_id, hsubject, hmessage, hdate, huname, huemail, hstatus_name, hstatus_id;
+ 
+ _format_as_status_name: status_name, hstatus_name;
+ _format_as_last_complaint_id: last_complaint_id;
+ _format_as_uname: uname;
+ _format_as_compl_msg: message, hmessage, subject, hsubject;
+ 
+}

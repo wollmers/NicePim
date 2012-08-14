@@ -1,0 +1,22 @@
+{
+name: ajax_track_products_rule;
+format_undef_values: yes;
+_resource_data: select tp.track_product_id,tp.feed_prod_id,tp.rule_prod_id,tp.rule_prod_id,tp.rule_prod_id,'',
+				s.name,is_reverse_rule,tp.supplier_id,tp.supplier_id,p.prod_id,tp.is_reverse_rule,tp.map_prod_id,tp.is_parked,feed_supplier,
+				u_ch.login,tp.changer_action,tp.track_list_id,'%%main_tmpl%%'
+				from track_product tp
+				LEFT JOIN supplier s ON s.supplier_id=tp.supplier_id 
+				LEFT JOIN product p ON tp.product_id=p.product_id
+				LEFT JOIN users u_ch ON tp.changer=u_ch.user_id
+				WHERE tp.track_product_id=%%track_product_id%%;
+_resource_data_type: single;
+_mapping_data: track_product_id,feed_prod_id,rule_prod_id,rule_prod_id_html,rule_prod_id_rev,is_rule_confirmed_html,supplier_name,is_reverse_rule,supplier_id,supplier_id_raw,prod_id,is_reverse_rule,map_prod_id,button_ok,feed_supplier,changer,changer_action,track_list_id,main_tmpl;
+
+format_as_track_list_rule_prod_id: rule_prod_id_html,rule_prod_id_rev;
+format_as_track_list_rule_status: is_rule_confirmed_html;
+format_as_hide_track_products_col: changer;
+
+format_as_dropdown: supplier_id;
+supplier_id_dropdown_select: select supplier_id, name from supplier where 1 order by name
+format_as_track_product_rule_button: button_ok;
+}

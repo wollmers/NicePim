@@ -1,0 +1,44 @@
+{
+ name: products_raiting_details;
+ 
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id, product_id # '1' == edit_user_id, product_id # '5' == edit_user_id, product_id # '19' == edit_user_id, product_id # 'category_manager' == edit_user_group;
+authorize_submit_supplier: product_id;
+ 
+  
+ _resource_raiting: select pis.product_id, pis.name, pis.prod_id, pis.supplier, pis.score, product_price.stock,product_price.price, pis.updated, pis.status, users.login, pis.product_requested
+ 					from product_interest_score pis, users, product_price where pis.product_id = %%product_id%% and pis.user_id = users.user_id and pis.product_id = product_price.product_id;
+ _mapping_raiting: product_id, name, prod_id, supplier_name, score, stock,price, updated, status_mode, owner, product_requested, edit_user_id, edit_user_group,;  
+ _format_as_supplier_name: supplier_name;
+ _format_as_updated: updated;
+ _format_as_status_mode: status_mode;
+ 
+ priority: 10;
+
+ _resource_requires: select u.login, d.email, d.message, d.todate, d.date from describe_product_request as d, users as u where product_id = %%product_id%% and d.user_id = u.user_id;
+ _resource_requires_type: multi;
+ _mapping_requires: login, email, message, todate, date;
+
+ _format_as_text: message;
+	     
+}

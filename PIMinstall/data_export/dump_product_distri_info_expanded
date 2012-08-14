@@ -1,0 +1,353 @@
+#!/usr/bin/perl
+
+#$Id: dump_product_info_expanded 2504 2010-04-28 12:00:24Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+use lib "/home/alex/icecat/bo/trunk/lib";
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use Getopt::Long;
+
+use Data::Dumper;
+
+# init
+
+$| = 1;
+
+my $lang = 1; # default lang
+my $brand = 0; # default brand
+my $category = 0; # default category
+my $verbose = undef; # default verbose mode
+my $class = 0; # default class value
+my $all = 0; # default all value
+my $distri_code=0;
+my $Getopt_Long_result = GetOptions(
+	'lang=s' => \$lang,
+	'brand=s' => \$brand,
+	'category=s' => \$category,
+	'verbose' => \$verbose,
+	'class=s' => \$class,
+	'all' => \$all,
+	'distri=s'=>\$distri_code
+	);
+&usage if (!$brand && !$category && !$distri_code);
+#print $distri_code."\n";
+#$distri_code=173;
+my $t = ",";
+my $n = "\n";
+
+# start
+
+print "\033[1m".$0."\033[0m started:\n\n";
+
+# 1. select the category, brand [ and other conditions ]
+
+# brand
+my (@brandsArray);
+
+$brand =~ s/,+/,/gs;
+chomp($brand);
+
+if ($brand) {
+	if ($brand !~ /^\d+(,\d+)*$/) { # we have the digit
+		my @brandsArray = split /,/, $brand;
+		$brand = undef;
+		
+		foreach (@brandsArray) {
+			my $x = &do_query("select supplier_id from supplier where name=".&str_sqlize($_))->[0][0];
+			push @$brand, $x if $x;
+		}
+	}
+	else { # convert \d+, \d+... -> [ \d+, \d+... ]
+		my @brandsArray = split /,/, $brand;
+		$brand = undef;
+		
+		foreach (@brandsArray) {
+			push @$brand, $_ if $_;
+		}
+	}
+	
+	&empty unless $brand;
+
+	print "Brand IDs collected: \033[1m" . ( join ', ', @$brand ) . "\033[0m\n\n";
+}
+else {
+	$brand = [];
+}
+
+
+# category
+my (@categoriesArray);
+
+$category =~ s/,+/,/gs;
+chomp($category);
+
+if ($category) {
+	if ($category !~ /^\d+(,\d+)*$/) { # we have the digit
+		my @categoriesArray = split /,/, $category;
+		$category = undef;
+		
+		foreach (@categoriesArray) {
+			my $y = &do_query("select c.catid from category c inner join vocabulary v on c.sid=v.sid and v.langid=1 and v.value=".&str_sqlize($_))->[0][0];
+			push @$category, $y if $y;
+		}
+	}
+	else { # convert \d+, \d+... -> [ \d+, \d+... ]
+		my @categoriesArray = split /,/, $category;
+		$category = undef;
+		
+		foreach (@categoriesArray) {
+			push @$category, $_ if $_;
+		}
+	}
+
+	&empty unless $category;
+
+	print "Category IDs collected: \033[1m" . ( join ', ', @$category ) . "\033[0m\n\n";
+}
+else {
+	$category = [];
+}
+
+# lang: check the code, short_code, langid
+chomp($lang);
+$lang =~ s/^\s+|\s+$//gs;
+if ($lang !~ /^\d+$/) { # we have a string
+	$lang = &do_query("select langid from language where upper(code)=upper(".&str_sqlize($lang).")")->[0][0] ||
+		&do_query("select langid from language where upper(short_code)=upper(".&str_sqlize($lang).")")->[0][0];
+}
+
+$lang = 1 unless $lang;
+my $show_lang = &do_query("select code from language where langid=".$lang)->[0][0];
+
+print "Language is \033[1m".$show_lang."\033[0m (\033[1m".$lang."\033[0m)\n\n";
+
+# described
+
+print "Described / all mode: \033[1m" . ( $all ? "ALL PRODUCTS" : "DESCRIBED ONLY" ) . "\033[0m\n\n";
+
+# 2.a. collect all product_ids
+
+&do_statement("drop temporary table if exists tmp_product_expanded");
+&do_statement("create temporary table tmp_product_expanded (
+product_id       int(13) primary key,
+ean_count        int(13) not null default 0,
+gallery_count    int(13) not null default 0,
+multimedia_count int(13) not null default 0,
+
+key (ean_count),
+key (gallery_count),
+key (multimedia_count))");
+
+&do_statement("alter table tmp_product_expanded disable keys");
+my $distri_join=' JOIN distributor_product dp ON dp.product_id=p.product_id ';
+&do_statement("insert IGNORE into tmp_product_expanded(product_id) select p.product_id from product p " .
+							( $all ? "" : " inner join view_product_described vpd using (product_id) " ) . 
+							(($distri_code)?$distri_join:'').
+							" where " .
+							( $#$brand == -1 ? " 1 " : " p.supplier_id in (" . ( join ',', @$brand ) . ") " ) . " AND " .
+							( $#$category == -1 ? " 1 " : " p.catid in (" . ( join ',', @$category ) . ") " ) . ' AND '.
+							( (!$distri_code) ? " 1 " : " dp.distributor_id= ".$distri_code ) );
+
+print &do_query("select count(*) from tmp_product_expanded")->[0][0] . "\n";
+# 2.b. count all elements: eans, galleries, objects
+
+&do_statement("update tmp_product_expanded tpe set tpe.ean_count = (select count(*) from product_ean_codes pec where pec.product_id=tpe.product_id)");
+&do_statement("update tmp_product_expanded tpe set tpe.gallery_count = (select count(*) from product_gallery pg where pg.product_id=tpe.product_id)");
+&do_statement("update tmp_product_expanded tpe set tpe.multimedia_count = (select count(*) from product_multimedia_object pmo where pmo.product_id=tpe.product_id and pmo.langid=".$lang.")");
+
+&do_statement("alter table tmp_product_expanded enable keys");
+
+
+my $ean_max = &do_query("select max(ean_count) from tmp_product_expanded")->[0][0];
+my $gallery_max = &do_query("select max(gallery_count) from tmp_product_expanded")->[0][0];
+my $multimedia_max =  &do_query("select max(multimedia_count) from tmp_product_expanded")->[0][0];
+
+print "The number of ean columns: \033[1m" . $ean_max . "\033[0m\n";
+print "The number of gallery columns: \033[1m" . $gallery_max . "\033[0m\n";
+print "The number of multimedia object columns: \033[1m" .$multimedia_max . "\033[0m\n\n";
+
+# 3. get the features array and hash: array - the header, hash: feature_id (not c_f_id, because different categories wil have the same features in the different columns) => position
+
+my ($fHash, $order, $fName);
+$order = 0;
+
+my $quote='"';
+my $cfs = &do_query("select f.feature_id, fv.value, fv1.value
+from  feature f
+inner join category_feature cf        on f.feature_id = cf.feature_id " . ( $#$category > -1 ? "and cf.catid in (" . ( join ',', @$category ) . ")" : "" ) . "
+inner join category_feature_group cfg on cf.category_feature_group_id = cfg.category_feature_group_id
+inner join vocabulary fv              on f.sid = fv.sid and fv.langid = " . ( $lang || "1" ) . "
+inner join vocabulary fv1             on f.sid = fv1.sid and fv1.langid = 1
+where " . ( $class eq 'any' ? " 1 " : ( $class eq '1' ? " f.class = 1 " : " f.class = 0 " ) ) . "
+order by f.class asc, cfg.no desc, cf.searchable desc, cf.no desc");
+
+foreach my $cf (@$cfs) {
+	unless ($fHash->{$cf->[0]}) {
+		$order++;
+
+		$fName = $cf->[1] || $cf->[2];
+		$fName =~ s/\t/\\t/gs;
+		$fName =~ s/\r/\\r/gs;
+		$fName =~ s/\n/\\n/gs;
+
+		$fHash->{$cf->[0]} = {
+			'order'               => $order,
+			'value'               => $fName
+		};
+	}
+}
+
+print "The number of feature columns we will have in the output: \033[1m" . $order . "\033[0m (feature class is \033[1m" . $class . "\033[0m)\n\n";
+
+# 4. collect the CSV: one request [], eans, galleries, multimedia objects, features
+
+open CSV, "> ./dump_product_info_expanded.csv";
+binmode CSV, ":utf8";
+CSV->autoflush(0);
+
+# make header
+
+# P... headers
+print CSV $quote."product_id".$quote.$t.$quote."vendor name".$quote.$t.$quote."prod_id".$quote.$t.$quote."category name".$quote.$t.$quote."family name".$quote.$t.$quote."product name".$quote.$t.$quote."high pic".$quote.$t.$quote."low pic".$quote.$t.$quote."thumb pic".$quote.$t.$quote."short description".$quote.$t.$quote."long description".$quote.$t.$quote."warranty info".$quote.$t.$quote."pdf url".$quote.$t.$quote."manual pdf url".$quote;
+
+# PEAN headers
+
+foreach my $pean (0 .. $ean_max-1) {
+	print CSV $t.$quote."ean #" . ($pean + 1).$quote;
+}
+
+# PG headers
+
+foreach my $pgallery (0 .. $gallery_max-1) {
+	print CSV $t.$quote."product gallery picture #" . ($pgallery + 1).$quote;
+}
+
+# PM headers
+
+foreach my $pmultimedia (0 .. $multimedia_max-1) {
+	print CSV $t.$quote."product gallery mutimedia object #" . ($pmultimedia + 1).$quote;
+}
+
+# PFL || PF headers
+foreach (sort { $fHash->{$a}->{'order'} <=> $fHash->{$b}->{'order'} } keys %$fHash) {
+	print CSV $t.$quote . "feature #" . $fHash->{$_}->{'order'} .  ": " . $fHash->{$_}->{'value'}.$quote;
+}
+
+print CSV $n;
+
+# make content. TODO: split it by ... between ...
+my $ps = &do_query("select p.product_id, s.name,        p.prod_id,    cv.value,         cv1.value, /* 4 */
+                           pfv.value,    pfv1.value,    p.name,       p.high_pic,       p.low_pic, /* 9 */
+                           p.thumb_pic,  pd.short_desc, pd.long_desc, pd.warranty_info, pd.pdf_url, pd.manual_pdf_url /* 15 */
+from product p
+inner join tmp_product_expanded tpe on p.product_id = tpe.product_id
+inner join supplier s               on p.supplier_id = s.supplier_id
+inner join category c               on p.catid = c.catid
+left  join vocabulary cv            on c.sid = cv.sid and cv.langid = ".$lang."
+left  join vocabulary cv1           on c.sid = cv1.sid and cv1.langid = 1
+left  join product_family pf        on p.family_id = pf.family_id
+left  join vocabulary pfv           on pf.sid = pfv.sid and pfv.langid = ".$lang."
+left  join vocabulary pfv1          on pf.sid = pfv1.sid and pfv1.langid = 1
+left  join product_description pd   on p.product_id = pd.product_id and pd.langid = ".$lang);
+
+
+print "The number of products is (\033[1m" . ($#$ps+1) . "\033[0m): ";
+
+my $cnt = 0;
+foreach my $p (@$ps) {
+	$cnt++;
+
+	print "(".$cnt.")" unless $cnt % 100;
+	print "." unless $cnt % 10;
+
+	foreach my $i (0 .. 15) {
+		$p->[$i] =~ s/$quote/$quote$quote/gs;
+	}
+
+# P, S, C, PF, PD
+	print CSV $quote.$p->[0].$quote.$t.$quote.$p->[1].$quote.$t.$quote.$p->[2].$quote.$t.$quote.($p->[3] || $p->[4]).$quote.$t.$quote.($p->[5] || $p->[6]).$quote.$t.$quote.$p->[7].$quote.$t.$quote.$p->[8].$quote.$t.$quote.$p->[9].$quote.$t.$quote.$p->[10].$quote.$t.$quote.$p->[11].$quote.$t.$quote.$p->[12].$quote.$t.$quote.$p->[13].$quote.$t.$quote.$p->[14].$quote.$t.$quote.$p->[15].$quote;
+ 
+# PEC
+	my $peans = &do_query("select ean_code from product_ean_codes where product_id = ".$p->[0]);
+	foreach my $pean (0 .. $ean_max-1) {
+		$peans->[$pean][0] =~ s/$quote/$quote$quote/gs;
+		print CSV $t.$quote.$peans->[$pean][0].$quote;
+	}
+
+# PG
+	my $pgalleries = &do_query("select link from product_gallery where product_id=".$p->[0]);
+	foreach my $pgallery (0 .. $gallery_max-1) {
+		$pgalleries->[$pgallery][0] =~ s/$quote/$quote$quote/gs;
+		print CSV $t.$quote.$pgalleries->[$pgallery][0].$quote;
+	}
+
+# PM
+	my $pmultimedias = &do_query("select link from product_multimedia_object where product_id=".$p->[0]);
+	foreach my $pmultimedia (0 .. $multimedia_max-1) {
+		$pmultimedias->[$pmultimedia][0] =~ s/$quote/$quote$quote/gs;
+		print CSV $t.$quote.$pmultimedias->[$pmultimedia][0].$quote;
+	}
+
+# PFL || PF
+
+	my $pFeaturesHash = {};
+	my $pLocalFeaturesHash = {};
+	my $fValue;
+
+	my $pFeatures = &do_query("select pf.value, cf.feature_id
+from product_feature pf
+inner join category_feature cf on pf.category_feature_id=cf.category_feature_id
+where pf.product_id=".$p->[0]);
+
+	foreach my $pFeature (@$pFeatures) {
+		$fValue = $pFeature->[0];
+
+		$fValue =~ s/$quote/$quote$quote/gs;
+
+		$pFeaturesHash->{$pFeature->[1]} = $fValue;
+	}
+
+	my $pLocalFeatures = &do_query("select pfl.value, cf.feature_id
+from product_feature_local pfl
+inner join category_feature cf on pfl.category_feature_id=cf.category_feature_id and pfl.langid=".$lang."
+where pfl.product_id=".$p->[0]);
+
+	foreach my $pLocalFeature (@$pLocalFeatures) {
+		$fValue = $pLocalFeature->[0];
+
+		$fValue =~ s/$quote/$quote$quote/gs;
+
+		$pLocalFeaturesHash->{$pLocalFeature->[1]} = $fValue;
+	}
+
+	# generate PFL || PF CSV
+	foreach (sort { $fHash->{$a}->{'order'} <=> $fHash->{$b}->{'order'} } keys %$fHash) {
+		print CSV $t .$quote. ( $pLocalFeaturesHash->{$_} || $pFeaturesHash->{$_} ).$quote ;
+	}
+
+	print CSV $n;
+}
+
+close CSV;
+
+print " done\n\n";
+
+exit(0);
+
+# sub
+
+sub usage {
+	print "Usage: dump_product_info_expanded\n\t\t--brand <brand name or id>\n\t\t--category <category name or id>\n\t\t--distri <distributor code>\n\t\t--lang <language_id or language code or language name>\n\t\t--class <0|1|any>\n\t\t--all\n\n";
+	exit(1);
+} # sub usage
+
+sub empty {
+	print "There are 0 products we have. Exiting\n\n";
+	die;
+} # sub empty

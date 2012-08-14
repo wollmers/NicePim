@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+
+#$Id: filter_supplier_products 3019 2010-08-31 12:55:17Z lexx $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use atom_misc;
+use atom_util;
+
+# new style parameters set
+my $path = $ARGV[0];
+my $langid = $ARGV[1];
+my $supplier_id = $ARGV[2];     # only for sponsors indexes (0 = all suppliers)
+my $subscription_level = $ARGV[3];
+
+exit unless ($path);
+exit unless (-e $path);
+exit unless (defined $supplier_id);
+exit unless (defined $subscription_level);
+# exit unless (&do_query("select 1 from supplier where supplier_id=".$supplier_id)->[0][0]);
+
+open TMP, "<".$path;
+binmode TMP, ":utf8";
+my $content = join '', <TMP>;
+close TMP;
+
+# get prod_id_set from DB (not as command line parameter)
+my $prod_id_set_res = get_restricted_products_from_db($langid, $supplier_id, $subscription_level);
+
+
+foreach my $x (@$prod_id_set_res) {
+
+    if ($path =~ /\.xml/) {
+	    &remove_index_xml_item_by_supplier_id(\$content, $x->{'supplier_id'}, $x->{'prod_id_set'} );
+    }
+    elsif ($path =~ /\.csv/) {
+	    &remove_index_csv_item_by_supplier_id(\$content, $x->{'supplier_id'}, $x->{'prod_id_set'} );
+    }
+    else {
+	    # unknown extension - nothing to do
+    }
+}
+
+# write new content
+
+open NEW, ">".$path.".after";
+binmode NEW, ":utf8";
+print NEW $content;
+close NEW;
+
+# replace new with after
+
+my $cmd;
+$cmd = '/bin/rm -f '.$path;
+`$cmd`;
+
+$cmd = '/bin/mv -f '.$path.'.after '.$path;
+`$cmd`;

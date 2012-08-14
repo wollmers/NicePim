@@ -1,0 +1,405 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="129687" Prod_id="PN240AA" ThumbPic="http://www.icecat.biz/thumbs/129687.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP Media Center m1190.nl Photosmart pc" LowPic="http://www.icecat.biz/img/hp/low_res/hp-media-center-m1000-photosmart-pc-series_190x170.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="271" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="2" No="100">
+         <FeatureGroup ID="1">
+           <Name ID="4859" Value="Processor" langid="1"/>
+           <Name ID="4860" Value="Processor" langid="2"/>
+           <Name ID="7174" Value="Processor" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="4" No="40">
+         <FeatureGroup ID="2">
+           <Name ID="4861" Value="Disk drive" langid="1"/>
+           <Name ID="4862" Value="Disk drive" langid="2"/>
+           <Name ID="7175" Value="Disk drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="3" No="50">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="5" No="30">
+         <FeatureGroup ID="4">
+           <Name ID="4865" Value="Optical drive" langid="1"/>
+           <Name ID="4866" Value="Optische drive" langid="2"/>
+           <Name ID="7177" Value="Optical drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="6" No="90">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1308" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="821" No="0">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1309" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1306" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1307" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="150227" URL="http://www.hp.com" ShortDesc="HP Media Center m1190.nl Photosmart pcm1190.nl" langid="2" LongDesc="Een krachtig, gemakkelijk te gebruiken digitaal mediacentrum dat pc prestaties combineert met digitaal entertainmentEen krachtig, gemakkelijk te gebruiken digitaal mediacentrumCombinatie van entertainment en informatie met multimediaprestaties." WarrantyInfo="1 jaar pick-up en return service, onderdelen en arbeid." PDFURL=""/>
+        <ProductFeature ID="9551680" Value="Monitoren (apart aan te schaffen): HP Pavilion f2304 23-inch LCD met geïntegreerde luidsprekers; HP Pavilion f1904 19-inch LCD met externe luidsprekers; HP Pavilion f1723 17-inch LCD met geïntegreerde luidsprekers" No="100210" CategoryFeatureGroup_ID="6">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551675" Value="Microsoft® Windows® XP Media Center Edition 2005" No="100013" CategoryFeatureGroup_ID="1308">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551691" Value="200" No="10103313" CategoryFeatureGroup_ID="4">
+         <Feature ID="7">
+          <Measure ID="20" Sign="GB"/>
+           <Name ID="1300" Value="Harde schijf drive" langid="2"/>
+           <Name ID="1299" Value="Hard disk drive capacity" langid="1"/>
+           <Name ID="6659" Value="Hard disk drive" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551677" Value="512" No="10103325" CategoryFeatureGroup_ID="3">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551676" Value="3000" No="10103311" CategoryFeatureGroup_ID="2">
+         <Feature ID="5">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="1292" Value="Processor-kloksnelheid" langid="2"/>
+           <Name ID="1291" Value="Processor clock speed" langid="1"/>
+           <Name ID="6663" Value="Processor clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551674" Value="Intel® Pentium® 4 processor 530" No="100230" CategoryFeatureGroup_ID="2">
+         <Feature ID="47">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1431" Value="Processor" langid="1"/>
+           <Name ID="1432" Value="Processor" langid="2"/>
+           <Name ID="6728" Value="Processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551698" Value="Microsoft® Internet Explorer 6.0; Microsoft® Outlook® Express; Adobe® Acrobat Reader 5.0" No="100011" CategoryFeatureGroup_ID="271">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551693" Value="(7200-rpm)" No="100024" CategoryFeatureGroup_ID="4">
+         <Feature ID="430">
+          <Measure ID="28" Sign="RPM"/>
+           <Name ID="2227" Value="Hard disk rotational speed" langid="1"/>
+           <Name ID="2228" Value="Harde schijf rotatiesnelheid" langid="2"/>
+           <Name ID="7122" Value="Hard disk rotational speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551707" Value="190 x 420 x 385 mm" No="100005" CategoryFeatureGroup_ID="1309">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551695" Value="800MHz" No="100220" CategoryFeatureGroup_ID="271">
+         <Feature ID="802">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="3135" Value="System Bus" langid="1"/>
+           <Name ID="3136" Value="Systeembus" langid="2"/>
+           <Name ID="7562" Value="Bus système" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551678" Value="DDR-SDRAM" No="20008" CategoryFeatureGroup_ID="3">
+         <Feature ID="642">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2815" Value="Memory Type" langid="1"/>
+           <Name ID="2816" Value="Type geheugen" langid="2"/>
+           <Name ID="7402" Value="Mémoire en standard" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551694" Value="TV-uitgang" No="20015" CategoryFeatureGroup_ID="821">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551692" Value="Seriële ATA vaste schijf" No="20022" CategoryFeatureGroup_ID="4">
+         <Feature ID="622">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2775" Value="Hard disk controller" langid="1"/>
+           <Name ID="2776" Value="Vaste schijf-controller" langid="2"/>
+           <Name ID="7382" Value="Contrôleur de disque dur" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551699" Value="1 PCI-Express 16x" No="20027" CategoryFeatureGroup_ID="6">
+         <Feature ID="579">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2689" Value="Video adapter, bus" langid="1"/>
+           <Name ID="2690" Value="Video-adapter, bus" langid="2"/>
+           <Name ID="7341" Value="Video adapter, bus" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551688" Value="128 Mb videogeheugen" No="100032" CategoryFeatureGroup_ID="6">
+         <Feature ID="574">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="2679" Value="Video adapter memory" langid="1"/>
+           <Name ID="2680" Value="Geheugen video-adapter" langid="2"/>
+           <Name ID="7336" Value="Video adapter memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551700" Value="Intel® 915P express chipset" No="120037" CategoryFeatureGroup_ID="2">
+         <Feature ID="753">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3037" Value="Chipset" langid="1"/>
+           <Name ID="3038" Value="Chipset" langid="2"/>
+           <Name ID="7513" Value="Chipset" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551697" Value="Draadloos toetsenbord en draadloze muis" No="20039" CategoryFeatureGroup_ID="271">
+         <Feature ID="457">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2445" Value="Keyboard" langid="1"/>
+           <Name ID="2446" Value="Toetsenbord" langid="2"/>
+           <Name ID="7219" Value="Clavier" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551679" Value="4 DIMM-sockets" No="20040" CategoryFeatureGroup_ID="3">
+         <Feature ID="672">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2875" Value="Memory slots" langid="1"/>
+           <Name ID="2876" Value="Geheugenslots" langid="2"/>
+           <Name ID="7432" Value="Emplacements mémoire" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551689" Value="3 PCI" No="20044" CategoryFeatureGroup_ID="271">
+         <Feature ID="84">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1505" Value="Slot Type" langid="1"/>
+           <Name ID="1506" Value="Slot Type" langid="2"/>
+           <Name ID="6761" Value="Slot Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551696" Value="ATI RADEON X300SE" No="143200" CategoryFeatureGroup_ID="271">
+         <Feature ID="614">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2759" Value="Graphic adapter" langid="1"/>
+           <Name ID="2760" Value="Grafische adapter" langid="2"/>
+           <Name ID="7375" Value="Graphic adapter" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551681" Value="DVD-drive" No="353" CategoryFeatureGroup_ID="271">
+         <Feature ID="1120">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3781" Value="Optical drive type" langid="1"/>
+           <Name ID="3782" Value="type optische drive" langid="2"/>
+           <Name ID="7875" Value="type de lecteur optique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551683" Value="Max. 16x" No="354" CategoryFeatureGroup_ID="5">
+         <Feature ID="1121">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3783" Value="CD drive maximum speed" langid="1"/>
+           <Name ID="3784" Value="CD drive maximum speed" langid="2"/>
+           <Name ID="7876" Value="CD drive maximum speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9805794" Value="200-Gb" No="402" CategoryFeatureGroup_ID="4">
+         <Feature ID="974">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3489" Value="Hard disk type" langid="1"/>
+           <Name ID="3490" Value="Harde schijf-type" langid="2"/>
+           <Name ID="7735" Value="Hard disk type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551690" Value="10/100BT netwerkinterface" No="100200" CategoryFeatureGroup_ID="821">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551706" Value="580 x 500 x 460 mm" No="10" CategoryFeatureGroup_ID="1309">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551708" Value="24 kg" No="15" CategoryFeatureGroup_ID="1309">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551703" Value="Microsoft® Works Suite 2004: Microsoft® Word 2002; Microsoft® Works 7.0; Microsoft® AutoRoute 2004; Microsoft® Encarta® Encyclopedia Standard 2004; Microsoft® Picture It!® Photo Standard 9" No="0" CategoryFeatureGroup_ID="271">
+         <Feature ID="1657">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5173" Value="Software productivity" langid="1"/>
+           <Name ID="5174" Value="Software-productiviteit" langid="2"/>
+           <Name ID="8390" Value="Software productivity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551685" Value="InterVideo WinDVD Creator; Sonic RecordNow cd/dvd; Microsoft® MovieMaker 2; HP Image Zone; Microsoft® Windows® Media Player 9; Apple iTunes" No="100000" CategoryFeatureGroup_ID="271">
+         <Feature ID="1688">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5313" Value="Driver software for optical drive" langid="1"/>
+           <Name ID="5314" Value="Driver software voor optische drive" langid="2"/>
+           <Name ID="8453" Value="Driver software for optical drive" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551701" Value="Creative Sound Blaster® Audigy® 2 ZS" No="100000" CategoryFeatureGroup_ID="271">
+         <Feature ID="1693">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5323" Value="Internal audio system" langid="1"/>
+           <Name ID="5324" Value="Intern audiosysteem" langid="2"/>
+           <Name ID="8458" Value="Internal audio system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551687" Value="Level 2 cache 1024 Kb" No="100000" CategoryFeatureGroup_ID="271">
+         <Feature ID="1662">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5191" Value="Internal cache" langid="1"/>
+           <Name ID="5192" Value="Intern cache" langid="2"/>
+           <Name ID="8399" Value="Internal cache" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551702" Value="Altec Lansing 2.1 luidsprekers met subwoofer" No="0" CategoryFeatureGroup_ID="271">
+         <Feature ID="1695">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5327" Value="Speakers and microphone" langid="1"/>
+           <Name ID="5328" Value="Luidprekers en microfoon" langid="2"/>
+           <Name ID="8460" Value="Haut-parleurs et micro" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551684" Value="Max. 16x ±r/±rw double layer" No="0" CategoryFeatureGroup_ID="271">
+         <Feature ID="1711">
+          <Measure ID="21" Sign="x"/>
+           <Name ID="5361" Value="Second optical drive speed" langid="1"/>
+           <Name ID="5362" Value="snelheid tweede optische drive" langid="2"/>
+           <Name ID="8476" Value="vitesse du deuxième lecteur optique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551682" Value="DVD-writer" No="100000" CategoryFeatureGroup_ID="271">
+         <Feature ID="1712">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5363" Value="Second optical drive type" langid="1"/>
+           <Name ID="5364" Value="type tweede optische drive" langid="2"/>
+           <Name ID="8477" Value="type de deuxième lecteur optique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551709" Value="13200" No="100000" CategoryFeatureGroup_ID="1309">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551705" Value="IEEE 1394 Firewire®-interface" No="100000" CategoryFeatureGroup_ID="271">
+         <Feature ID="1594">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4945" Value="Video in" langid="1"/>
+           <Name ID="4946" Value="Video in" langid="2"/>
+           <Name ID="6607" Value="Video in" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551686" Value="InterVideo WinDVD SE met Dolby Digital Playback" No="0" CategoryFeatureGroup_ID="271">
+         <Feature ID="2113">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9470" Value="Driver software for 2nd optical drive" langid="1"/>
+           <Name ID="9471" Value="Driver software for 2nd optical drive" langid="3"/>
+           <Name ID="9472" Value="Driver software voor 2e optische drive" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9551704" Value="9-in-1 geheugenkaartlezer" No="100000" CategoryFeatureGroup_ID="271">
+         <Feature ID="2115">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9476" Value="Memory card unit" langid="1"/>
+           <Name ID="9477" Value="Memory card unit" langid="3"/>
+           <Name ID="9478" Value="Geheugenkaart-eenheid" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9611282" Value="2 externe posities voor optische drives, 1 interne inbouwplaats voor vaste schijf; 1 externe positie voor vaste schijf" No="0" CategoryFeatureGroup_ID="271">
+         <Feature ID="2128">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9539" Value="External drive enclosure" langid="1"/>
+           <Name ID="9540" Value="External drive enclosure" langid="3"/>
+           <Name ID="9541" Value="Externe drivebehuizing" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760564" Value="Palisade" No="0" CategoryFeatureGroup_ID="271">
+         <Feature ID="2157">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9654" Value="Enclosure" langid="1"/>
+           <Name ID="9655" Value="Enclosure" langid="3"/>
+           <Name ID="9656" Value="Behuizing" langid="2"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="153">
+         <Name ID="307" Value="personal computers" langid="1"/>
+         <Name ID="308" Value="personal computers" langid="2"/>
+         <Name ID="6226" Value="personal computers" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,131 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use strict;
+use atomcfg;
+use atomlog;
+use data_management;
+use atomsql;
+use thumbnail;
+use atom_mail;
+
+use LWP::Simple;
+use LWP::Simple qw($ua); $ua->timeout($atomcfg{'http_request_timeout'});
+
+my $prefs; # = &load_data_source_prefs('Thumbnails');
+if(!$prefs){
+# die 'Can\'t load preferences!';
+}
+
+my $users = &do_query('select user_id, login from users');
+my %user = map { $_->[0] => $_->[1] } @$users;
+
+my $report_missing;
+
+ my $products = &do_query("
+ select product_id, low_pic, high_pic, user_id, prod_id, thumb_pic from product 
+ 														where (low_pic<>'' or high_pic <> '' ) 
+ 														order by prod_id");
+
+print "starting\n";
+# my $products = &do_query("select product_id, low_pic, high_pic, user_id, prod_id from product where product_id = 112817 order by prod_id");
+ print "products (".$#$products.")are loaded\n";
+
+my $images_path = $atomcfg{'base_dir'}.'/images_cache/';
+my $low_images_path 	=	$atomcfg{'base_dir'}.'/www/img/low_pic/';
+my $high_images_path	= $atomcfg{'base_dir'}.'/www/img/high_pic/';
+
+
+foreach my $row(@$products){
+  my $hash = 
+				{
+	      	"product_id" => $row->[0],
+	      	"low_pic"    => $row->[1],
+	      	"high_pic"   => $row->[2]
+		    };
+	if(($row->[1] =~m/img\/norm/)&&($row->[2] =~m/img\/norm/)){
+	 if($row->[5]){
+#	  print "skipped\n";
+	  next;
+	 }
+	} else {
+
+		&log_printf("product $row->[0]");
+		$hash = &normalize_product_pics({
+	    "product_id" => $row->[0],
+			"low_pic"		 => $row->[1],
+			"high_pic"	 => $row->[2]
+	  });
+	}
+  
+print "$row->[0]...";	
+
+	if(!&thumbnailize_product($hash)){  
+			$report_missing->{$row->[3]}->{$row->[4]} = 1;
+#			&update_rows('product', "product_id = ".$row->[0],
+#																	{
+#																	 'low_pic' => '\'\'',
+#																	 'high_pic' => '\'\''
+#																	});
+	}
+print "ok\n";
+}
+
+my $cats = &do_query("select catid, low_pic from category where low_pic <> ''");
+foreach my $row(@$cats){
+ print "cat ".$row->[0]."\n";
+ if(&thumbnailize_category({'catid' => $row->[0], 'low_pic' => $row->[1]})){
+  # ok
+ } else {
+  print "missing data for CAT".$row->[0]."\n";
+  $report_missing->{'2'}->{'CAT'.$row->[0]} = 1;
+ };
+}
+
+
+#create suppliers thumbnails by logo
+my $suppls = &do_query("select supplier_id, low_pic, user_id from supplier where low_pic <> '' and low_pic <> 'N/A'");
+my $hash;
+foreach my $row(@$suppls){
+    &log_printf("supplier $row->[0]");		  
+    if(&thumbnailize_supplier({'supplier_id' => $row->[0], 'low_pic' => $row->[1]})){
+    #ok
+    }
+    else{
+	print "missing data for SUP".$row->[0]."\n";
+	$report_missing->{$row->[2]}->{'SUP.$row->[0]'} = 1;
+    }
+}
+
+#create products families thumbnails
+my $families = &do_query("select family_id, low_pic from product_family where low_pic <> '' and low_pic <> 'N/A'");
+ my $hash;
+ foreach my $row(@$families){
+ #    &log_printf("familiy $row->[0]");
+ if(&thumbnailize_family({'family_id' => $row->[0], 'low_pic' => $row->[1]})){
+  #ok
+ }
+ else{
+  print "missing data for FAM".$row->[0]."\n";
+  $report_missing->{$row->[0]}->{"FAM.$row->[0]"} = 1;
+ }
+}
+
+my $report = "Couldn\'t get images for following products:\n\n";
+
+foreach my $user_id(keys %$report_missing){
+ if($user{$user_id} ne 'nobody'){
+  foreach my $prod_id(sort keys %{$report_missing->{$user_id}}){
+	 $report .= $user{$user_id}."\t".$prod_id."\n";
+	}
+ }
+}
+
+if($prefs->{'send_report'}){
+# &sendmail($report, $prefs->{'email'}, 'thumbs');
+}
+binmode(STDOUT,":utf8");
+print $report;
+
+

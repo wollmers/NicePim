@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="47013" Prod_id="DPMC03" ThumbPic="http://www.icecat.biz/thumbs/47013.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/47013.jpg" Name="Carry Case Sport Active f DigCam Large" LowPic="http://www.icecat.biz/img/norm/low/47013.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="705" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="82532" URL="" ShortDesc="Active Camera Case - Large Model # DPMC03 " langid="1" LongDesc="The Active Camera Case is the ideal solution for photographers on the go. Compact, lightweight and made of tough nylon material this case provides superior protection for your camera. A zippered external pocket allows for the storage of memory cards or batteries and the adjustable removable shoulder strap allows for easy hands free transportation. Protective Nylon outer material \nDetachable adjustable shoulder strap \nInternal pocket for memory cards and batteries \nNylon belt loop for easy transportation \n" WarrantyInfo="Lifetime " PDFURL=""/>
+        <ProductFeature ID="5553303" Value="Nylon Black/Grey " No="0" CategoryFeatureGroup_ID="705">
+         <Feature ID="898">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3337" Value="Material" langid="1"/>
+           <Name ID="3338" Value="Material" langid="2"/>
+           <Name ID="7661" Value="Material" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5553304" Value="" No="0" CategoryFeatureGroup_ID="705">
+         <Feature ID="899">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3339" Value="Carry cases protection" langid="1"/>
+           <Name ID="3340" Value="Carry cases protection" langid="2"/>
+           <Name ID="7662" Value="Carry cases protection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5553305" Value="" No="0" CategoryFeatureGroup_ID="705">
+         <Feature ID="900">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3341" Value="Compartments" langid="1"/>
+           <Name ID="3342" Value="Compartments" langid="2"/>
+           <Name ID="7663" Value="Compartments" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5553306" Value="" No="0" CategoryFeatureGroup_ID="705">
+         <Feature ID="901">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3343" Value="Carry cases other features" langid="1"/>
+           <Name ID="3344" Value="Carry cases other features" langid="2"/>
+           <Name ID="7664" Value="Carry cases other features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5553300" Value="160.5 x 110.5 x 90" No="100000" CategoryFeatureGroup_ID="705">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5553299" Value="0.27" No="0" CategoryFeatureGroup_ID="705">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5553302" Value="" No="0" CategoryFeatureGroup_ID="705">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="128" Name="Targus"/>
+       <Category ID="826">
+         <Name ID="4581" Value="Backpacks" langid="1"/>
+         <Name ID="4582" Value="Rugzakken" langid="2"/>
+         <Name ID="8257" Value="Backpacks" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

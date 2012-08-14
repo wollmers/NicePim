@@ -1,0 +1,15 @@
+AuthName "ICEcat backoffice publications"
+AuthType Basic
+AuthBasicAuthoritative Off
+AuthMySQLHost 192.168.1.42
+AuthMySQLDB gccdb
+AuthMySQLUser gcc
+AuthMySQLPassword WV120xA
+AuthMySQLPwEncryption none
+AuthMySQLUserTable users
+AuthMySQLNameField login
+AuthMySQLPasswordField password
+AuthMySQLUserCondition "user_group in ('supereditor','superuser')"
+require valid-user
+
+Options -Indexes

@@ -1,0 +1,15 @@
+{
+name: default_warranty_info_edit;
+priority: 10;
+
+_resource_default_warranty_info_edit: SELECT code, warranty_info, l.langid
+FROM language l
+LEFT JOIN default_warranty_info dwi ON (dwi.langid = l.langid AND catid = %%catid%% AND supplier_id = %%supplier_id%%);
+
+_resource_default_warranty_info_edit_type: multi;
+_mapping_default_warranty_info_edit: lang, text, langid;
+
+}
+
+_resource_default_warranty_info_edit_key: default_warranty_info_id;
+

@@ -1,0 +1,50 @@
+{
+
+name: category_feature_group;
+
+priority: 10;
+
+verify: category_feature_group_id;
+verify_submit: category_feature_group_id;
+
+verify_add: yes;
+verify_add_superuser: category_feature_group_id;
+verify_add_supereditor: category_feature_group_id;
+verify_add_category_manager: category_feature_group_id;
+
+authorize_superuser: category_feature_group_id;
+authorize_supereditor: category_feature_group_id;
+authorize_category_manager: category_feature_group_id;
+authorize_editor: category_feature_group_id;
+authorize_supplier: category_feature_group_id;
+authorize_guest: category_feature_group_id;
+authorize_shop: category_feature_group_id;
+
+authorize_submit_superuser: category_feature_group_id;
+authorize_submit_supereditor: category_feature_group_id;
+authorize_submit_category_manager: category_feature_group_id;
+
+_resource_feature: select category_feature_group_id, feature_group.feature_group_id, category_feature_group.no, vocabulary.value 
+  from 
+	    category_feature_group, feature_group, vocabulary
+			
+			where 
+			 		category_feature_group.feature_group_id = feature_group.feature_group_id 
+					and category_feature_group.category_feature_group_id = %%category_feature_group_id%%
+					and vocabulary.sid = feature_group.sid and vocabulary.langid = %%langid%%
+				
+_resource_feature_type: single;
+_resource_feature_key: category_feature_group_id;
+_mapping_feature: category_feature_group_id, feature_group_id, nom, group_name;
+
+
+ _insert_sequence: 5;
+
+ _insert_table_5: category_feature_group;
+ _insert_values_5: nom;
+ _insert_fields_5: no;
+ _insert_key_5: category_feature_group_id;
+ _update_sequence_5: yes;
+ _delete_sequence_5: yes;
+ 
+}

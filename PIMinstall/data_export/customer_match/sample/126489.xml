@@ -1,0 +1,759 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="126489" Prod_id="961372-0914" ThumbPic="http://www.icecat.biz/thumbs/126489.jpg" Code="1" Quality="ICECAT" HighPic="" Name="QUICKCAM ZOOM REFRESH" LowPic="http://www.icecat.biz/img/norm/low/126489.jpg">
+        <ProductRelated ID="557133">
+         <Product ID="20357" Prod_id="961240-0914" ThumbPic="http://www.icecat.biz/thumbs/20357.jpg" Name="QuickCamPro USB W32 for Notebook">
+          <Supplier ID="91" Name="Logitech"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="557136">
+         <Product ID="20362" Prod_id="961183-0914" ThumbPic="http://www.icecat.biz/thumbs/20362.jpg" Name="Quickcam Express 640x480 USB W98">
+          <Supplier ID="91" Name="Logitech"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="557134">
+         <Product ID="33380" Prod_id="961241-0914" ThumbPic="http://www.icecat.biz/thumbs/33380.jpg" Name="Logitech Quickcam USB">
+          <Supplier ID="91" Name="Logitech"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="557132">
+         <Product ID="53406" Prod_id="961310-0914" ThumbPic="http://www.icecat.biz/thumbs/53406.jpg" Name="QuickCam Sphere 640x480 USB W98">
+          <Supplier ID="91" Name="Logitech"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="557135">
+         <Product ID="73426" Prod_id="961306-0914" ThumbPic="http://www.icecat.biz/thumbs/73426.jpg" Name="QUICKCAM MESSENGER">
+          <Supplier ID="91" Name="Logitech"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="624" No="22">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="16" No="80">
+         <FeatureGroup ID="1">
+           <Name ID="4859" Value="Processor" langid="1"/>
+           <Name ID="4860" Value="Processor" langid="2"/>
+           <Name ID="7174" Value="Processor" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="43" No="70">
+         <FeatureGroup ID="2">
+           <Name ID="4861" Value="Disk drive" langid="1"/>
+           <Name ID="4862" Value="Disk drive" langid="2"/>
+           <Name ID="7175" Value="Disk drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="17" No="60">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="15" No="10">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="45" No="50">
+         <FeatureGroup ID="13">
+           <Name ID="5008" Value="Lenssysteem" langid="2"/>
+           <Name ID="5007" Value="Lens system" langid="1"/>
+           <Name ID="8187" Value="Lens system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="44" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1035" No="2">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1034" No="1">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1181" No="0">
+         <FeatureGroup ID="35">
+           <Name ID="5167" Value="Networking" langid="1"/>
+           <Name ID="5168" Value="Networking" langid="2"/>
+           <Name ID="8387" Value="Networking" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="146069" URL="http://www.logitech.com/index.cfm/products/details/NL/EN,crid=4,contentid=9183,detail=2" ShortDesc="QUICKCAM ZOOM REFRESH USB ZOOM VIA SOFTWARE" langid="1" LongDesc="Bring your instant messages-and your drab desktop-to life with the stunning silver QuickCam Zoom. With just one click, you can add live video to your instant messages and share a smile with anyone, anywhere in the world. Thanks to the digital zoom and the automatic face-tracking technology, you can capture your special moments with more clarity and ease. You can also conduct video calls and conferences and say what's on your mind with live audio using the built-in microphone. With the QuickCam Zoom, it's never been easier to zoom in and get closer! \n\nAdd live video to MSN® Messenger, now with fast video and large 320 x 240 image size \nWorks with video-enabled Yahoo!® Messenger, and Windows® Messenger \nLet the automatic face-tracking technology follow your every move \nEnjoy true 640 x 480 resolution \nTurn on automatic zoom \nCapture sound with the built-in microphone \nWorks with PC and Mac OS® X" WarrantyInfo="2-year guarantee" PDFURL=""/>
+        <ProductDescription ID="148963" URL="http://www.logitech.com/index.cfm/products/details/NL/NL,CRID=4,CONTENTID=9183" ShortDesc="QUICKCAM ZOOM REFRESH USB ZOOM VIA SOFTWARE" langid="2" LongDesc="Breng uw instant messages en uw kleurloze desktop tot leven met de QuickCam Zoom in prachtig zilver. Met slechts één klik kunt u livevideo aan uw instant messages toevoegen en een glimlach met iedereen, overal ter wereld delen. Dankzij de digitale zoom en technologie voor automatische face-tracking kunt u uw speciale momenten scherper en gemakkelijker vastleggen. U kunt ook videogesprekken en -vergaderingen voeren, en dankzij de ingebouwde microfoon kunt u via live-audio zeggen wat u denkt. Het is nog nooit zo gemakkelijk geweest om in te zoomen en dichterbij te komen als met de QuickCam Zoom! \n\nVoeg livevideo toe aan MSN® Messenger; nu met snelle video en een groot beeldformaat van 320 x 240 \nWerkt met livevideo via Yahoo!® Messenger en Windows® Messenger \nLaat de technologie voor automatische face-tracking al uw bewegingen volgen \nGeniet van een ware resolutie van 640 x 480 \nZet de automatische zoom aan \nLeg geluid vast via de ingebouwde microfoon \nWerkt op pc en Mac OS® X" WarrantyInfo="2 jaar garantie" PDFURL=""/>
+        <ProductFeature ID="9495516" Value="" No="3" CategoryFeatureGroup_ID="1034">
+         <Feature ID="514">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2559" Value="Power supply type" langid="1"/>
+           <Name ID="2560" Value="type voeding" langid="2"/>
+           <Name ID="7276" Value="type d'alimentation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495517" Value="" No="2" CategoryFeatureGroup_ID="44">
+         <Feature ID="1331">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="4203" Value="Dimensions" langid="1"/>
+           <Name ID="4204" Value="Dimensions" langid="2"/>
+           <Name ID="8082" Value="Dimensions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495515" Value="" No="10" CategoryFeatureGroup_ID="1034">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495514" Value="" No="190" CategoryFeatureGroup_ID="1034">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495513" Value="" No="200" CategoryFeatureGroup_ID="1035">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495512" Value="" No="210" CategoryFeatureGroup_ID="1035">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495511" Value="" No="50" CategoryFeatureGroup_ID="15">
+         <Feature ID="789">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3109" Value="Recommended System Requirements" langid="1"/>
+           <Name ID="3110" Value="Aanbevolen systeemspecificatie" langid="2"/>
+           <Name ID="7549" Value="Recommended System Requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495510" Value="" No="1" CategoryFeatureGroup_ID="624">
+         <Feature ID="1581">
+          <Measure ID="71" Sign="lux"/>
+           <Name ID="4919" Value="Min illumination" langid="1"/>
+           <Name ID="4920" Value="Min illumination" langid="2"/>
+           <Name ID="6566" Value="Min illumination" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495509" Value="" No="1" CategoryFeatureGroup_ID="624">
+         <Feature ID="1580">
+          <Measure ID="69" Sign="lines"/>
+           <Name ID="4917" Value="Horisontal resolution" langid="1"/>
+           <Name ID="4918" Value="Horisontal resolution" langid="2"/>
+           <Name ID="6573" Value="Horisontal resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495508" Value="" No="1" CategoryFeatureGroup_ID="624">
+         <Feature ID="1498">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4693" Value="Frequency range" langid="1"/>
+           <Name ID="4694" Value="Frequentiebereik" langid="2"/>
+           <Name ID="8295" Value="Frequency range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495507" Value="" No="1" CategoryFeatureGroup_ID="624">
+         <Feature ID="1295">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4131" Value="Camera shutter speed" langid="1"/>
+           <Name ID="4132" Value="Camera shutter speed" langid="2"/>
+           <Name ID="8048" Value="Camera shutter speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495506" Value="" No="1" CategoryFeatureGroup_ID="624">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495505" Value="" No="2" CategoryFeatureGroup_ID="624">
+         <Feature ID="1578">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4913" Value="Image stabilizer" langid="1"/>
+           <Name ID="4914" Value="Image stabilizer" langid="2"/>
+           <Name ID="6571" Value="Image stabilizer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495504" Value="" No="2" CategoryFeatureGroup_ID="624">
+         <Feature ID="1306">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4153" Value="Recording of AV files" langid="1"/>
+           <Name ID="4154" Value="Recording of AV files" langid="2"/>
+           <Name ID="8057" Value="Recording of AV files" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495503" Value="" No="2" CategoryFeatureGroup_ID="624">
+         <Feature ID="1280">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4101" Value="Cable type" langid="1"/>
+           <Name ID="4102" Value="Cable type" langid="2"/>
+           <Name ID="8033" Value="Cable type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495502" Value="" No="2" CategoryFeatureGroup_ID="624">
+         <Feature ID="664">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2859" Value="Shutter Lag" langid="1"/>
+           <Name ID="2860" Value="Sluitervertraging" langid="2"/>
+           <Name ID="7424" Value="Délai entre les prises de vue" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495501" Value="" No="6" CategoryFeatureGroup_ID="624">
+         <Feature ID="1064">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3669" Value="Supported protocols" langid="1"/>
+           <Name ID="3670" Value="Supported protocols" langid="2"/>
+           <Name ID="7819" Value="Supported protocols" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495500" Value="" No="11" CategoryFeatureGroup_ID="624">
+         <Feature ID="1592">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4942" Value="Peripheral/ interface devices" langid="2"/>
+           <Name ID="4941" Value="Peripheral/ interface devices" langid="1"/>
+           <Name ID="6592" Value="Peripheral/ interface devices" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495499" Value="" No="12" CategoryFeatureGroup_ID="624">
+         <Feature ID="84">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1505" Value="Slot Type" langid="1"/>
+           <Name ID="1506" Value="Slot Type" langid="2"/>
+           <Name ID="6761" Value="Slot Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495498" Value="" No="13" CategoryFeatureGroup_ID="624">
+         <Feature ID="1283">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4107" Value="Camera CCD sensor" langid="1"/>
+           <Name ID="4108" Value="Camera CCD sensor" langid="2"/>
+           <Name ID="8036" Value="Camera CCD sensor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495497" Value="Microphone - integrated" No="42" CategoryFeatureGroup_ID="624">
+         <Feature ID="1025">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3591" Value="Sound system microphone" langid="1"/>
+           <Name ID="3592" Value="Sound system microphone" langid="2"/>
+           <Name ID="7783" Value="Sound system microphone" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495496" Value="" No="140" CategoryFeatureGroup_ID="624">
+         <Feature ID="682">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2895" Value="White Balance" langid="1"/>
+           <Name ID="2896" Value="Witbalans" langid="2"/>
+           <Name ID="7442" Value="Equilibrage des blancs" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495495" Value="" No="150" CategoryFeatureGroup_ID="624">
+         <Feature ID="1302">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4145" Value="Camera sensitivity" langid="1"/>
+           <Name ID="4146" Value="Camera sensitivity" langid="2"/>
+           <Name ID="8054" Value="Camera sensitivity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495494" Value="" No="160" CategoryFeatureGroup_ID="624">
+         <Feature ID="1285">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4111" Value="Camera file format" langid="1"/>
+           <Name ID="4112" Value="Camera-bestandsformaat" langid="2"/>
+           <Name ID="8038" Value="Camera file format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495493" Value="" No="170" CategoryFeatureGroup_ID="624">
+         <Feature ID="24">
+          <Measure ID="25" Sign=""/>
+           <Name ID="1351" Value="Free text" langid="1"/>
+           <Name ID="1352" Value="Free text" langid="2"/>
+           <Name ID="6691" Value="Free text" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495490" Value="" No="260" CategoryFeatureGroup_ID="624">
+         <Feature ID="1571">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4893" Value="Compression chip" langid="1"/>
+           <Name ID="4894" Value="Compression chip" langid="2"/>
+           <Name ID="7198" Value="Compression chip" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495491" Value="" No="250" CategoryFeatureGroup_ID="624">
+         <Feature ID="248">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1863" Value="Security features" langid="1"/>
+           <Name ID="1864" Value="Beveiligingseigenschappen" langid="2"/>
+           <Name ID="6940" Value="Security features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495492" Value="" No="220" CategoryFeatureGroup_ID="624">
+         <Feature ID="1569">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4889" Value="Exposure times" langid="1"/>
+           <Name ID="4890" Value="Exposure times" langid="2"/>
+           <Name ID="7195" Value="Exposure times" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495489" Value="" No="270" CategoryFeatureGroup_ID="624">
+         <Feature ID="1304">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4149" Value="Camera accessories included" langid="1"/>
+           <Name ID="4150" Value="Camera accessories included" langid="2"/>
+           <Name ID="8055" Value="Camera accessories included" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495488" Value="" No="280" CategoryFeatureGroup_ID="624">
+         <Feature ID="1572">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4895" Value="Pre/Post alarm buffer" langid="1"/>
+           <Name ID="4896" Value="Pre/Post alarm buffer" langid="2"/>
+           <Name ID="7199" Value="Pre/Post alarm buffer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495487" Value="" No="290" CategoryFeatureGroup_ID="624">
+         <Feature ID="1573">
+          <Measure ID="76" Sign="dBA"/>
+           <Name ID="4897" Value="Signal-to Noise Ratio" langid="1"/>
+           <Name ID="4898" Value="Signaal/ruis-verhouding" langid="2"/>
+           <Name ID="7197" Value="Signal-to Noise Ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495486" Value="External" No="340" CategoryFeatureGroup_ID="624">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495485" Value="" No="365" CategoryFeatureGroup_ID="624">
+         <Feature ID="1291">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4123" Value="Camera focusing range" langid="1"/>
+           <Name ID="4124" Value="Camera focusing range" langid="2"/>
+           <Name ID="8044" Value="Camera focusing range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495484" Value="" No="30" CategoryFeatureGroup_ID="45">
+         <Feature ID="1290">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="4121" Value="Lens" langid="1"/>
+           <Name ID="4122" Value="Lens" langid="2"/>
+           <Name ID="8043" Value="Lens" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495483" Value="" No="54" CategoryFeatureGroup_ID="17">
+         <Feature ID="584">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2699" Value="Memory Upgrade" langid="1"/>
+           <Name ID="2700" Value="Geheugenupgrade" langid="2"/>
+           <Name ID="7346" Value="Memory Upgrade" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495482" Value="" No="55" CategoryFeatureGroup_ID="17">
+         <Feature ID="1246">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="4033" Value="Maximum internal memory" langid="1"/>
+           <Name ID="4034" Value="Maximum intern geheugen" langid="2"/>
+           <Name ID="7999" Value="Maximum internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495480" Value="" No="100110" CategoryFeatureGroup_ID="44">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495481" Value="" No="100000" CategoryFeatureGroup_ID="44">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495479" Value="" No="100001" CategoryFeatureGroup_ID="1034">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495478" Value="for Windows®: \nQuickCapture photos &amp; videos software \nOne-click video e-mail software \nWeb camming \nDigital zoom software \nAutomatic face-tracking software \nLive video integrated with MSN® Messenger \nWorks with video-enabled Yahoo!® Messenger \nLive video calls with Windows® Messenger\n\nfor Mac OS® X: \nCapture high-resolution photos \nRecord high-quality videos \nDigital zoom software \nWorks with video-enabled Yahoo!® Messenger" No="100001" CategoryFeatureGroup_ID="15">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495477" Value="" No="100070" CategoryFeatureGroup_ID="15">
+         <Feature ID="47">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1431" Value="Processor" langid="1"/>
+           <Name ID="1432" Value="Processor" langid="2"/>
+           <Name ID="6728" Value="Processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495476" Value="Pentium® II 400, Celeron® 400, AMD Athlon processor (500Mhz or higher recommended)" No="100315" CategoryFeatureGroup_ID="15">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495475" Value="200" No="100330" CategoryFeatureGroup_ID="15">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495474" Value="" No="100000" CategoryFeatureGroup_ID="624">
+         <Feature ID="1293">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4127" Value="Camera viewfinder" langid="1"/>
+           <Name ID="4128" Value="Camera viewfinder" langid="2"/>
+           <Name ID="8046" Value="Camera viewfinder" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495473" Value="" No="100001" CategoryFeatureGroup_ID="624">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495472" Value="" No="100003" CategoryFeatureGroup_ID="624">
+         <Feature ID="38">
+          <Measure ID="32" Sign="o"/>
+           <Name ID="1395" Value="Viewing angle, vertical" langid="1"/>
+           <Name ID="1396" Value="Viewing angle, vertical" langid="2"/>
+           <Name ID="6711" Value="Viewing angle, vertical" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495471" Value="" No="100004" CategoryFeatureGroup_ID="624">
+         <Feature ID="1860">
+          <Measure ID="71" Sign="lux"/>
+           <Name ID="5724" Value="Light sensitivity" langid="2"/>
+           <Name ID="5723" Value="Light sensitivity" langid="1"/>
+           <Name ID="8650" Value="Light sensitivity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495470" Value="" No="100010" CategoryFeatureGroup_ID="624">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495469" Value="" No="100011" CategoryFeatureGroup_ID="624">
+         <Feature ID="765">
+          <Measure ID="60" Sign="s"/>
+           <Name ID="3061" Value="Self Timer" langid="1"/>
+           <Name ID="3062" Value="Zelfontspanner" langid="2"/>
+           <Name ID="7525" Value="Déclencheur à retardement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495468" Value="" No="100011" CategoryFeatureGroup_ID="624">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495467" Value="Windows® 98, 2000, Me, XP\nMac OS® 10.1.5+ " No="100012" CategoryFeatureGroup_ID="624">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495466" Value="" No="100012" CategoryFeatureGroup_ID="624">
+         <Feature ID="37">
+          <Measure ID="32" Sign="o"/>
+           <Name ID="1393" Value="Viewing angle, horizontal" langid="1"/>
+           <Name ID="1394" Value="Viewing angle, horizontal" langid="2"/>
+           <Name ID="6710" Value="Viewing angle, horizontal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495465" Value="" No="100020" CategoryFeatureGroup_ID="624">
+         <Feature ID="711">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2953" Value="Light Exposure Control" langid="1"/>
+           <Name ID="2954" Value="Belichtingsinstelling" langid="2"/>
+           <Name ID="7471" Value="Light Exposure Control" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495464" Value="Manual focus" No="100040" CategoryFeatureGroup_ID="624">
+         <Feature ID="759">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3049" Value="Focus" langid="1"/>
+           <Name ID="3050" Value="Focus of scherpstelling of brandpuntsafstand" langid="2"/>
+           <Name ID="7519" Value="Focus" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495463" Value="" No="100041" CategoryFeatureGroup_ID="624">
+         <Feature ID="638">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2807" Value="Aperture Range" langid="1"/>
+           <Name ID="2808" Value="Diafragma" langid="2"/>
+           <Name ID="7398" Value="Aperture Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495462" Value="640 x 480" No="100043" CategoryFeatureGroup_ID="624">
+         <Feature ID="1597">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="4958" Value="Video capture resolution" langid="2"/>
+           <Name ID="4957" Value="Video capture resolution" langid="1"/>
+           <Name ID="6593" Value="Video capture resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495461" Value="" No="100044" CategoryFeatureGroup_ID="624">
+         <Feature ID="1598">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4959" Value="Still image capture resolution" langid="1"/>
+           <Name ID="4960" Value="Still image capture resolution" langid="2"/>
+           <Name ID="6586" Value="Still image capture resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495460" Value="" No="100045" CategoryFeatureGroup_ID="624">
+         <Feature ID="63">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1463" Value="Mega Pixel" langid="1"/>
+           <Name ID="1464" Value="Mega Pixel" langid="2"/>
+           <Name ID="6743" Value="Mega Pixel" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495459" Value="" No="100060" CategoryFeatureGroup_ID="624">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495458" Value="" No="100120" CategoryFeatureGroup_ID="624">
+         <Feature ID="1568">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="4887" Value="Physical resolution" langid="1"/>
+           <Name ID="4888" Value="Physical resolution" langid="2"/>
+           <Name ID="7194" Value="Physical resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495457" Value="" No="100130" CategoryFeatureGroup_ID="624">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495456" Value="" No="100195" CategoryFeatureGroup_ID="624">
+         <Feature ID="1595">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4947" Value="Video out" langid="1"/>
+           <Name ID="4948" Value="Video uit" langid="2"/>
+           <Name ID="6608" Value="Video out" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495455" Value="" No="100200" CategoryFeatureGroup_ID="624">
+         <Feature ID="1594">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4945" Value="Video in" langid="1"/>
+           <Name ID="4946" Value="Video in" langid="2"/>
+           <Name ID="6607" Value="Video in" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495454" Value="" No="100205" CategoryFeatureGroup_ID="624">
+         <Feature ID="1601">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4966" Value="Tripod mountable" langid="2"/>
+           <Name ID="4965" Value="Tripod mountable" langid="1"/>
+           <Name ID="6590" Value="Tripod mountable" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495453" Value="320 x 240 image size" No="100240" CategoryFeatureGroup_ID="624">
+         <Feature ID="710">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2951" Value="Compression" langid="1"/>
+           <Name ID="2952" Value="Datacompressie" langid="2"/>
+           <Name ID="7470" Value="Compression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495452" Value="" No="100300" CategoryFeatureGroup_ID="624">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495451" Value="CMOS" No="100310" CategoryFeatureGroup_ID="624">
+         <Feature ID="1574">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4900" Value="Sensor type" langid="2"/>
+           <Name ID="4899" Value="Sensor type" langid="1"/>
+           <Name ID="7201" Value="Sensor type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495450" Value="" No="100380" CategoryFeatureGroup_ID="624">
+         <Feature ID="15">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="1321" Value="Display size" langid="1"/>
+           <Name ID="1322" Value="Afmetingen scherm" langid="2"/>
+           <Name ID="6678" Value="Taille de l'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495449" Value="" No="100390" CategoryFeatureGroup_ID="624">
+         <Feature ID="1596">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="4949" Value="Maximum resolution (still pictures)" langid="1"/>
+           <Name ID="4950" Value="Maximale resolutie (foto's)" langid="2"/>
+           <Name ID="6609" Value="Maximum resolution (still pictures)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495448" Value="" No="100004" CategoryFeatureGroup_ID="45">
+         <Feature ID="576">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2683" Value="Lens System" langid="1"/>
+           <Name ID="2684" Value="Lenssysteem" langid="2"/>
+           <Name ID="7338" Value="Lens System" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495447" Value="" No="100044" CategoryFeatureGroup_ID="45">
+         <Feature ID="463">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2457" Value="Flash" langid="1"/>
+           <Name ID="2458" Value="Flits" langid="2"/>
+           <Name ID="7225" Value="Flash" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495446" Value="" No="100320" CategoryFeatureGroup_ID="45">
+         <Feature ID="1600">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4964" Value="Focus adjustment" langid="2"/>
+           <Name ID="4963" Value="Focus adjustment" langid="1"/>
+           <Name ID="6589" Value="Focus adjustment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495445" Value="" No="100320" CategoryFeatureGroup_ID="45">
+         <Feature ID="1522">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="4764" Value="Focal length" langid="2"/>
+           <Name ID="4763" Value="Focal length" langid="1"/>
+           <Name ID="8214" Value="Focal length" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495444" Value="" No="100350" CategoryFeatureGroup_ID="45">
+         <Feature ID="74">
+          <Measure ID="33" Sign="x"/>
+           <Name ID="1485" Value="Optical Zoom" langid="1"/>
+           <Name ID="1486" Value="Optical Zoom" langid="2"/>
+           <Name ID="6753" Value="Optical Zoom" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495443" Value="" No="100370" CategoryFeatureGroup_ID="45">
+         <Feature ID="48">
+          <Measure ID="33" Sign="x"/>
+           <Name ID="1433" Value="Digital zoom" langid="1"/>
+           <Name ID="1434" Value="Digital zoom" langid="2"/>
+           <Name ID="6729" Value="Digital zoom" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495442" Value="128" No="100001" CategoryFeatureGroup_ID="17">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495440" Value="" No="100090" CategoryFeatureGroup_ID="17">
+         <Feature ID="538">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="2607" Value="Flash Memory" langid="1"/>
+           <Name ID="2608" Value="Flashgeheugen" langid="2"/>
+           <Name ID="7300" Value="Flash Memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495441" Value="" No="100080" CategoryFeatureGroup_ID="17">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495439" Value="640x480" No="10000001" CategoryFeatureGroup_ID="624">
+         <Feature ID="1659">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="5179" Value="Maximum resolution" langid="1"/>
+           <Name ID="5180" Value="Maximum resolutie" langid="2"/>
+           <Name ID="8393" Value="Maximum resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9495438" Value="30" No="10100230" CategoryFeatureGroup_ID="624">
+         <Feature ID="1570">
+          <Measure ID="85" Sign="fps"/>
+           <Name ID="4891" Value="Digital video capture speed" langid="1"/>
+           <Name ID="4892" Value="Digital video capture speed" langid="2"/>
+           <Name ID="7196" Value="Digital video capture speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9360357" Value="1 x USB - 4 PIN USB Type B" No="180" CategoryFeatureGroup_ID="624">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="91" Name="Logitech"/>
+       <Category ID="577">
+         <Name ID="1155" Value="webcams" langid="1"/>
+         <Name ID="1156" Value="webcams" langid="2"/>
+         <Name ID="6629" Value="webcams" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

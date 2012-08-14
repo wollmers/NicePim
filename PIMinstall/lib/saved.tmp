@@ -1,0 +1,92 @@
+sub create_measure
+{
+ my ($name,$sign) = @_;
+
+ 
+ print "Creating measure $name($sign) - "; 
+ 
+ 
+ 
+ # now importing loaded feature
+ if(!$measure->{$name})
+ {
+  &insert_rows('sid_index', { 'dummy' => '1' });
+	my $sid = &sql_last_insert_id();
+	
+	foreach my $langid(1,2){
+	 &insert_rows('vocabulary', { 'sid' 		=> $sid, 
+																			 'langid'	=> $langid,
+																			 'value'		=> &str_sqlize($name)});
+	}
+	
+	&insert_rows('measure', {
+																	 'sid' => $sid,
+																	 'sign' => &str_sqlize($sign)
+																 });
+	$measure->{$name} = &sql_last_insert_id();
+#	$measure_by_id->{$measure->{$name}} = $name;
+ }
+print $measure->{$name}."\n";
+
+ return $measure->{$name};
+}
+
+
+sub create_feature
+{
+ my ($name,$measure_id,$type) = @_;
+ 
+ $name=~s/\s+\Z//g;
+
+ $name = &get_cached_feature_name($name);
+
+ my $hash_name = {};
+ my $hf = 0;
+ 
+ if(ref($name) eq 'HASH'){
+  $hash_name = $name;
+	$hf = 1;
+	$name = $name->{$langid};
+ }
+ 
+ if(!$measure_id){
+  $measure_id = $measure->{'Text'};
+ }
+ 
+ my $ms = $measure_by_id->{$measure_id};
+
+ print "Creating feature $name($ms <-> $measure_id) - "; 
+ 
+ 
+ my $o_name = $name.'('.$ms.')';
+ print " \$feature->{$o_name} \= \'$feature->{$o_name}\'";
+ 
+ if(!$measure_id){ print "MEASURE $ms IS NOT DEFINED!\n"; }
+ 
+ # now importing loaded feature
+
+ if(!$feature->{$o_name} && $measure_id){
+  &insert_rows('sid_index', { 'dummy' => '1' });
+	my $sid = &sql_last_insert_id();
+	
+	foreach my $langid(1,2){
+	 &insert_rows('vocabulary', { 'sid' 		=> $sid, 
+																			 'langid'	=> $langid,
+																			 'value'		=> &str_sqlize(
+																			 $hf?$hash_name->{$langid}:$name
+																			 )});
+	}
+	
+	&insert_rows('feature', {
+																	 'sid' => $sid,
+																	 'measure_id' => $measure_id,
+																	 'type' => &str_sqlize($type),
+																	 'class' => '1'
+																 });
+	$feature->{$name.'('.$measure_by_id->{$measure_id}.')'} = &sql_last_insert_id();
+	$feature_by_id->{$feature->{$name.'('.$measure_by_id->{$measure_id}.')'}} = $name.'('.$measure_by_id->{$measure_id}.')';
+ }
+print $feature->{$name.'('.$measure_by_id->{$measure_id}.')'}."\n";
+
+ return $feature->{$name.'('.$measure_by_id->{$measure_id}.')'};
+}

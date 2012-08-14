@@ -1,0 +1,37 @@
+{
+name: campaign_gallery;
+priority: 10;
+
+_resource_campaign_gallery: select campaign_gallery_id, campaign_id, logo_pic, thumb_pic from campaign_gallery where campaign_id=%%campaign_id%%;
+_resource_campaign_gallery_type: multi;
+_mapping_campaign_gallery: campaign_gallery_id, campaign_id, logo_pic, thumb_pic;
+
+authorize_superuser: campaign_id;
+authorize_supereditor: campaign_id;
+authorize_category_manager: campaign_id;
+authorize_editor: campaign_id;
+authorize_relation: campaign_id;
+authorize_guest: campaign_id;
+authorize_shop: campaign_id;
+
+authorize_submit_superuser: campaign_id;
+authorize_submit_supereditor: campaign_id;
+authorize_submit_category_manager: campaign_id;
+
+verify_deny_guest: yes;
+
+format_as_ssl_url: logo_pic, thumb_pic;
+
+store_as_campaign_gallery_pic_uploaded: logo_pic;
+
+_insert_sequence: 1;
+
+_insert_table_1: campaign_gallery;
+_insert_values_1: campaign_id, logo_pic, thumb_pic;
+_insert_fields_1: campaign_id, logo_pic, thumb_pic;
+_insert_key_1: campaign_gallery_id;
+_update_key_1: campaign_gallery_id;
+_delete_sequence_1: yes;
+_update_sequence_1: yes;
+
+}

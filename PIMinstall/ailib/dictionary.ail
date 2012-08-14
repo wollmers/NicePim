@@ -1,0 +1,59 @@
+{
+name: dictionary;
+priority: 10;
+
+verify: dictionary_id;
+verify_submit: dictionary_id;
+verify_add: yes;
+verify_add_superuser: dictionary_id;
+
+verify_deny_guest: yes;
+
+authorize_superuser: dictionary_id;
+authorize_submit_superuser: dictionary_id;
+
+_resource_dictionary: select dictionary_id, code, updated, name,'','',dictionary_group_id from dictionary where dictionary_id = %%dictionary_id%%
+_resource_dictionary_type: single;
+_resource_dictionary_key: dictionary_id;
+_mapping_dictionary: dictionary_id, code, updated, name,lang_links,textarea_ids,dictionary_group_id;
+
+format_as_dictionary_langs: lang_links;
+format_as_dictionary_id_list: textarea_ids;
+format_as_dropdown: dictionary_group_id;
+dictionary_group_id_dropdown_select: select dictionary_group_id,value from dictionary_group where 1 order by value;
+
+store_as_dictionary_code: code;
+validate_as_mandatory: name;
+
+_resource_dictionary_text: select l.langid,l.code,dt.html,dt.dictionary_text_id,''
+							from language l 	 
+							LEFT JOIN dictionary_text dt ON l.langid=dt.langid AND dt.dictionary_id=%%dictionary_id%% AND dt.distributor_id=0
+							group by l.langid						   
+_resource_dictionary_text_type: multi;
+_resource_dictionary_text_key: dictionary_id;
+_resource_dictionary_text_iq: select l.langid,l.code,NULL, NULL,'' from language l order by langid;
+_mapping_dictionary_text: langid,lang_name,_rotate_html,_rotate_dictionary_text_id,curr_style;
+
+ format_as_curr_dictionary_style: curr_style;
+
+ _insert_sequence: 1,2;
+
+ _insert_table_1: dictionary;
+ _insert_values_1: dictionary_id,code,name,dictionary_group_id;
+ _insert_fields_1: dictionary_id,code,name,dictionary_group_id;
+ _insert_key_1: dictionary_id;
+ _update_key_1: dictionary_id; 
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes;
+  
+ _insert_table_2: dictionary_text;
+ _insert_values_2: _rotate_dictionary_text_id, _rotate_html, _rotate_langid,dictionary_id;
+ _insert_fields_2: dictionary_text_id, html, langid,dictionary_id;
+ _insert_key_2: dictionary_text_id;
+ _update_key_2: dictionary_id;
+ _rotate_insert_2: dictionary_text;
+ _update_sequence_2: yes;
+ _delete_sequence_2: yes;
+
+ 
+}

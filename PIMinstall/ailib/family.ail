@@ -1,0 +1,117 @@
+{
+
+name: family;
+
+priority: 10;
+
+verify: family_id;
+verify_submit: family_id;
+
+verify_add: yes;
+verify_add_superuser: family_id;
+verify_add_supereditor: family_id;
+verify_add_category_manager: family_id;
+
+verify_deny_guest: yes;
+
+authorize_superuser: family_id;
+authorize_supereditor: family_id;
+authorize_category_manager: family_id;
+authorize_editor: family_id;
+authorize_supplier: family_id;
+authorize_guest: family_id;
+authorize_shop: family_id;
+
+authorize_submit_superuser: family_id;
+authorize_submit_supereditor: family_id;
+authorize_submit_category_manager: family_id;
+
+
+_resource_family: select pf.family_id, pf.sid, pf.tid, pf.supplier_id, pf.parent_family_id, low_pic, low_pic, catid, 'stub' from product_family as pf, vocabulary as v where pf.family_id = %%family_id%% and pf.sid = v.sid and v.langid = %%langid%%
+_resource_family_type: single;
+_resource_family_key: family_id;
+_mapping_family:  family_id, sid, tid, supplier_id, parent_family_id, low_pic, low_pic_formatted, catid, exchange_family;
+
+validate_as_parent_family_id: parent_family_id;
+
+_format_as_low_pic: low_pic_formatted;
+
+table_validate_unique_text: product_family;
+voc_record_id_validate_unique_text:_rotate_record_id_1;
+validate_as_unique_text_voc: _rotate_label_1;
+
+validate_as_define_subst_family:family_id;
+
+_resource_supplier: select name from supplier where supplier_id = %%supplier_id%%
+_mapping_supplier: supplier_name;
+
+format_as_tree: parent_family_id, exchange_family;
+parent_family_id_tree_select:  select family_id, vocabulary.value, parent_family_id from product_family, vocabulary where product_family.sid = vocabulary.sid and vocabulary.langid = %%langid%% and product_family.family_id <> 1 and product_family.supplier_id=%%supplier_id%%   and family_id != %%ffamily_id%% and parent_family_id != %%ffamily_id%%
+
+format_as_smart_dropdown: catid;
+
+exchange_family_tree_select: select family_id,value,parent_family_id from product_family, vocabulary where product_family.sid = vocabulary.sid and vocabulary.langid = 1 and family_id <> 1 and family_id <> %%family_id%% and product_family.supplier_id=%%supplier_id%% 
+
+validate_as_catid: catid;
+
+_resource_label: select language.langid, vocabulary1.value, vocabulary.value, vocabulary.record_id from 
+vocabulary, vocabulary as vocabulary1, product_family, language where 
+product_family.family_id = %%family_id%%  and product_family.sid = vocabulary.sid and 
+language.langid = vocabulary.langid and vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid 
+order by vocabulary1.value
+_resource_label_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by vocabulary1.value
+_resource_label_type: multi;
+_resource_label_key: sid;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id;
+
+ _resource_text: select language.langid, vocabulary1.value, tex.value, tex.tex_id from tex, vocabulary as vocabulary1, product_family, language where product_family.family_id = %%family_id%%  and product_family.tid = tex.tid and language.langid = tex.langid and vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid order by vocabulary1.value
+ _resource_text_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by vocabulary1.value
+ _resource_text_type: multi;
+ _resource_text_key: tid;
+ _mapping_text:  t_langid, language, _rotate_text, _rotate_tex_id;
+
+ _insert_sequence: 1,2,3,4,5;
+
+ _insert_table_1: sid_index;
+ _insert_values_1: dummy;
+ _insert_fields_1: dummy;
+ _insert_key_1: sid;
+ _delete_sequence_1: yes;  
+ 
+ _insert_table_2: vocabulary;
+ _insert_values_2: sid, _rotate_v_langid, _rotate_label;
+ _insert_fields_2: sid, langid, value;
+ _rotate_insert_2: label;
+ _insert_key_2: record_id;
+ _update_key_2: sid;
+ _update_sequence_2: yes;
+ _delete_sequence_2: yes;
+ 
+ _insert_table_3: tid_index;
+ _insert_values_3: dummy;
+ _insert_fields_3: dummy;
+ _insert_key_3: tid;
+ _delete_sequence_3: yes;
+  
+ _insert_table_4: tex;
+ _insert_values_4: tid, _rotate_t_langid, _rotate_text;
+ _insert_fields_4: tid, langid, value;
+ _rotate_insert_4: text;
+ _insert_key_4: tex_id;
+ _update_key_4: tid;
+ _update_sequence_4: yes;
+ _delete_sequence_4: yes; 
+ 
+ 
+ _insert_table_5: product_family;
+ _insert_values_5: sid, tid, parent_family_id, supplier_id, catid;
+ _insert_fields_5: sid, tid, parent_family_id, supplier_id, catid;
+ _insert_key_5: family_id;
+ _update_sequence_5: yes;
+ _delete_sequence_5: yes;
+  
+}
+
+validate_as_assigned_rows: family_id;
+family_id_assigned_tables: product;
+family_assigned_tables_keys: family_id;

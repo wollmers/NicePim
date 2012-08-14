@@ -1,0 +1,196 @@
+#!/usr/bin/perl
+
+use strict;
+
+use lib "/home/pim/lib";
+#use lib "/home/dima/gcc_svn/lib";
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use Image::Magick;
+
+# begin
+
+my $images = &do_query("select p.product_id, p.prod_id, (select s.name from supplier s where s.supplier_id=p.supplier_id), p.low_pic from product p where low_pic != ''");
+
+#$images = [
+#	[1,'AB','HP','./wartermark_absent.jpg'],
+#	[2,'PR','HP','./wartermark_presents.jpg']
+#];
+
+my $aval_pids;
+
+open PIDS, "< ./".$0.".pids";
+binmode PIDS, ":utf8";
+while (<PIDS>) {
+	s/\n$//s;
+	$aval_pids->{$_} = 1;
+}
+close PIDS;
+
+print "Total low pics: " . ($#$images + 1) . "\n";
+
+my $o;
+my $q = '';
+my $p = '';
+
+my ($h, $w, $bad, @pxs);
+
+open OUT, ">".$0.".report";
+binmode OUT, ":utf8";
+
+foreach my $image (@$images) {
+	next unless $aval_pids->{$image->[0]};
+
+	$p = $image->[3];
+
+	# change the image path if needed
+	if ($p =~ /https?:\/\//) {
+		$p =~ s,^.*(/img/.*)$,/home/pim/www$1,;
+	}
+
+	print $p . "\t";
+
+	$q = $p;
+	$q =~ s/^\/home\/gcc\/www/\/data\/www/s;
+
+	# check the image
+	if (!-f $p) { # file absent
+		next if $q !~ /^\/data/i;
+		# try to download it
+		`scp www\@images.icecat.biz:$q $p`;
+		print "R (".$q.")";
+	}
+	else {
+		print "L ";
+	}
+
+	# read the next image
+	$o = Image::Magick->new();
+	$o->Read($p);
+
+	# get the h and w
+	($w, $h) = $o->Ping($p);
+	
+	goto next_turn if !$w || !$h;
+
+	$bad = 0;
+
+	# get the specific grey pixels
+
+	# ***
+	#  *
+	#  *
+	#  *
+	#  *
+	#  *
+	#  *
+	# ***
+
+	$w--; $h--;
+
+	goto force;
+
+	foreach my $px ([$w-18,$h-16],[$w-17,$h-16],[$w-16,$h-16],[$w-17,$h-15],[$w-17,$h-14],[$w-17,$h-13],[$w-17,$h-12],[$w-17,$h-11],[$w-17,$h-10],[$w-18,$h-9],[$w-17,$h-9],[$w-16,$h-9]) {
+		@pxs = $o->GetPixel('x'=>$px->[0],'y'=>$px->[1]);
+#		print $px->[0]." ".$px->[1]." \n";
+#		print "G> ".$image->[3]." (".$w."x".$h.") \t".($pxs[0]*255)." ".($pxs[1]*255)." ".($pxs[2]*255)."\n";
+		
+		foreach (0..2) {
+			goto next_turn if $pxs[$_]*255 < 192 || $pxs[$_]*255 > 213;
+		}
+	}
+
+#	foreach my $px2 ([$w-18,$h-13],[$w-17,$h-17],[$w-17,$h-8],[$w-16,$h-13]) {
+	foreach my $px2 (
+		[$w-15,$h-8],[$w-16,$h-8],[$w-17,$h-8],[$w-18,$h-8],[$w-19,$h-8],
+		[$w-15,$h-9],[$w-19,$h-9],
+		[$w-15,$h-10],[$w-16,$h-10],[$w-18,$h-10],[$w-19,$h-10],
+		[$w-15,$h-11],[$w-16,$h-11],[$w-18,$h-11],[$w-19,$h-11],
+		[$w-15,$h-12],[$w-16,$h-12],[$w-18,$h-12],[$w-19,$h-12],
+		[$w-15,$h-13],[$w-16,$h-13],[$w-18,$h-13],[$w-19,$h-13],
+		[$w-15,$h-14],[$w-16,$h-14],[$w-18,$h-14],[$w-19,$h-14],
+		[$w-15,$h-15],[$w-16,$h-15],[$w-18,$h-15],[$w-19,$h-15],
+		[$w-15,$h-16],[$w-19,$h-16],
+		[$w-15,$h-17],[$w-16,$h-17],[$w-17,$h-17],[$w-18,$h-17],[$w-19,$h-17]
+		) {
+		@pxs = $o->GetPixel('x'=>$px2->[0],'y'=>$px2->[1]);
+		
+#		print "W> ".$image->[3]." (".$w."x".$h.") \t".($pxs[0]*255)." ".($pxs[1]*255)." ".($pxs[2]*255)."\n";
+		
+		foreach (0..2) {
+			goto next_turn if $pxs[$_]*255 >= 192 && $pxs[$_]*255 <= 213;
+		}
+	}
+
+ force:
+	
+	print "I ";
+	
+# now, we must remove the `I` watermark
+	
+	foreach my $px ([$w-18,$h-16],[$w-17,$h-16],[$w-16,$h-16],[$w-17,$h-15],[$w-17,$h-14],[$w-17,$h-13],[$w-17,$h-12],[$w-17,$h-11],[$w-17,$h-10],[$w-18,$h-9],[$w-17,$h-9],[$w-16,$h-9]) {
+		@pxs = $o->GetPixel('x'=>$px->[0],'y'=>$px->[1]);
+		&setBehavourColor($o, $px->[0], $px->[1]);
+	}
+
+#	$o->Write("./".$0."_".$image->[0].".jpg");
+	$o->Write($p);
+	`scp $p www\@images.icecat.biz:$q`;
+	&do_statement("update product set updated=now() where product_id=".$image->[0]);
+	
+	print OUT join "\t", @$image;
+	print OUT "\n";
+	
+ next_turn:
+	
+	print "\n";
+	
+
+}
+
+close OUT;
+
+exit(0);
+
+# subs
+
+sub setBehavourColor {
+	my ($o,$x,$y) = @_;
+
+	goto skipskip;
+
+	my $cnt = 0;
+	my @pxs;
+	my $newpxs = [0,0,0];
+	
+	for my $dx (-1..1) {
+		for my $dy (-1..1) {
+			# get the next pixel around
+			@pxs = $o->GetPixel('x'=>$x+$dx,'y'=>$y+$dy);
+
+			# check if it is the grey - then next
+			foreach (0..2) {
+				next if $pxs[$_]*255 < 192 || $pxs[$_]*255 > 213;
+			}
+			
+			# else - increase
+			foreach (0..2) {
+				$newpxs->[$_] += $pxs[$_];
+			}			
+			$cnt++;
+		}
+	}
+	
+	return unless $cnt;
+
+	foreach (0..2) {
+		$newpxs->[$_] /= $cnt;
+	}
+
+ skipskip:
+
+	$o->SetPixel('x'=>$x,'y'=>$y,color=>[1,1,1]);
+} # sub setBehavourColor

@@ -1,0 +1,61 @@
+{
+name: supplier_assigned_users;
+
+verify: supplier_id;
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: supplier_id;
+verify_add_supereditor: supplier_id;
+verify_add_category_manager: supplier_id;
+
+verify_deny_guest: yes;
+
+
+_resource_assigned_user: select 0;
+_mapping_assigned_user: new_brand_assigned_users_id;
+
+
+_validate_as_mandatory: new_brand_assigned_users_id;
+
+
+_format_as_dropdown: new_brand_assigned_users_id;
+new_brand_assigned_users_id_dropdown_select: select u.user_id, concat(u.login,if((c.person is not null and c.company is not null),concat(' (',substr(c.person,1,25),',',' ',substr(c.company,1,50),')'),'')) from users u inner join contact c on u.pers_cid=c.contact_id where u.user_group='shop' order by u.login asc;
+
+
+_resource_assigned_users: select bau.brand_assigned_users_id, bau.user_id, u.login, c.person, c.company, v.value
+from  brand_assigned_users bau
+inner join users u using (user_id)
+left  join contact c on u.pers_cid=c.contact_id
+left  join country cn on c.country_id=cn.country_id
+left  join vocabulary v on cn.sid=v.sid and v.langid=1
+where bau.supplier_id = %%supplier_id%%
+_resource_assigned_users_type: multi;
+_mapping_assigned_users: brand_assigned_users_id, user_id, login, person, company, country;
+
+
+_insert_sequence: 1;
+
+ _insert_table_1: brand_assigned_users;
+ _insert_values_1: user_id, supplier_id;
+ _insert_fields_1: user_id, supplier_id;
+ _insert_key_1: brand_assigned_users_id;
+ _update_key_1: brand_assigned_users_id;
+ _insert_key_name_1: new_brand_assigned_users_id;
+ _update_key_name_1: new_brand_assigned_users_id;
+ _delete_sequence_1: yes;
+ _update_sequence_1: yes;
+
+}

@@ -1,0 +1,11 @@
+{
+name: product_post_complain;
+
+_resource_user: select login, contact.email, curdate(), 'dummy' from users, contact where users.user_id = %%user_id%%  and users.pers_cid = contact.contact_id
+_mapping_user: uname, uemail, date, search_nobody_select;
+
+format_as_nobody_complaint: search_nobody_select;
+
+verify_deny_guest: yes;
+
+}

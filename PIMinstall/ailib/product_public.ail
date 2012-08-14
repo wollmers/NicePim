@@ -1,0 +1,18 @@
+{
+name: product_public;
+priority: 10;
+
+_resource_product: select publish, product.user_id, product_id, supplier.name, prod_id, cat_name.value, launch_date, obsolence_date, product.name, low_pic, low_pic, high_pic from product, category, vocabulary as cat_name, supplier where supplier.supplier_id = product.supplier_id and product_id = %%product_id%% and category.catid = product.catid and category.sid = cat_name.sid and cat_name.langid = %%langid%%
+_resource_product_type: single;
+_resource_product_key: product_id;
+_mapping_product: publish, edit_user_id, product_id, supplier_name, prod_id, cat_name, launch_date, obsolence_date, name, low_pic, low_pic_formatted, high_pic;
+
+
+format_as_date: launch_date, obsolence_date;
+format_as_sv_user_id: edit_user_id;
+format_as_text: name, prod_id;
+
+format_as_low_pic: low_pic_formatted;
+format_as_publish: publish;
+
+}

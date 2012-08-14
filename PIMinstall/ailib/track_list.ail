@@ -1,0 +1,45 @@
+{
+name: track_list;
+priority: 1000;
+
+_resource_data: select tl.track_list_id,tl.feed_config_id,tl.delimiter,tl.feed_type,tl.newline,tl.feed_url,tl.user_choiced_file,tl.feed_pwd,tl.feed_login,tl.is_first_header,tl.escape,
+				0,tl.ean_cols,tl.name_col,tl.brand_col,tl.brand_prodid_col,'',name,ext_col1,ext_col2,ext_col3,ext_col1_name,ext_col2_name,ext_col3_name,'',client_id
+				from track_list tl where tl.track_list_id='%%track_list_id%%';
+_resource_data_type: single;
+_resource_data_imply_fields: yes;
+_resource_data_key: track_list_id;
+_mapping_data: track_list_id,feed_config_id,delimiter,feed_type,newline,feed_url,user_choiced_file,feed_pwd,feed_login,is_first_header,escape,ean_col,ean_cols,name_col,brand_col,brand_prodid_col,dummy,name,ext_col1,ext_col2,ext_col3,ext_col1_name,ext_col2_name,ext_col3_name,coverage_summary,client_id;
+
+
+validate_as_onechar: escape;
+validate_as_url_exists: feed_url;
+validate_as_csv_delimiter: delimiter;
+validate_as_pricelist_columns: ean_cols;
+
+ext_col1_ext_col1_name_validate_as_all_or_nothing_names: Extended column number 1 and extended column name 1; 
+ext_col2_ext_col2_name_validate_as_all_or_nothing_names: Extended column number 2 and extended column name 2; 
+ext_col3_ext_col3_name_validate_as_all_or_nothing_names: Extended column number 3 and extended column name 3; 
+validate_as_all_or_nothing: ext_col1&ext_col1_name,ext_col2&ext_col2_name,ext_col3&ext_col3_name;
+validate_as_mandatory: client_id; 
+
+ean_col_autodetect_keys: ean,upc,ean_code;
+name_col_autodetect_keys: name,title;
+brand_col_autodetect_keys: manufacturer,brand,supplier,vendor;
+brand_prodid_col_autodetect_keys: prodid,partcode,mpn,sku,partnumber,manufacturer product code,model;
+
+format_as_csv_column_choice: ean_col,name_col,brand_col,brand_prodid_col,ext_col1,ext_col2,ext_col3;
+store_as_track_list_feed: track_list_id;
+format_as_dropdown: client_id;
+client_id_dropdown_select: select user_id, login from users where user_group = 'shop' and subscription_level=4 ORDER BY login; 
+
+format_as_coverage_summary: coverage_summary;
+
+_insert_sequence: 1;
+_insert_table_1: track_list;
+_insert_values_1: feed_config_id,delimiter,feed_type,newline,feed_url,user_choiced_file,feed_pwd,feed_login,is_first_header,escape,ean_cols,name_col,brand_col,brand_prodid_col,name,ext_col1,ext_col2,ext_col3,ext_col1_name,ext_col2_name,ext_col3_name,client_id;
+_insert_fields_1: feed_config_id,delimiter,feed_type,newline,feed_url,user_choiced_file,feed_pwd,feed_login,is_first_header,escape,ean_cols,name_col,brand_col,brand_prodid_col,name,ext_col1,ext_col2,ext_col3,ext_col1_name,ext_col2_name,ext_col3_name,client_id;
+_insert_key_1: track_list_id;
+_update_sequence_1: yes;
+}
+
+

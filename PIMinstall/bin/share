@@ -1,0 +1,79 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use strict;
+ 
+use atomsql;
+
+
+ my $rows = &do_query("select category.catid, vocabulary.value, category.pcatid from category, vocabulary where category.sid = vocabulary.sid and vocabulary.langid = 1 order by vocabulary.value");
+
+	 my ($key_i,$parent_i); # indexes
+	 $key_i = 0;
+	 $parent_i = 2;
+	 
+	 my $i = 0;
+
+	 # now got indexes found
+
+	 my $tmp = {};
+	 my $result = [];
+
+	 #
+	 # building tree structure in $tmp
+	 #
+	 
+	 # first pass - finding children
+	 	 
+	 foreach my $row(@$rows){
+	 		push @{$tmp->{$row->[$parent_i]}->{'children'}}, $row->[$key_i];
+			$tmp->{$row->[$key_i]}->{'data'} =  $row;
+	 }
+	 
+	 # this is id for root element
+	 my $root = 1;
+
+	 # second pass - finishing tree
+	 
+	 foreach my $id(keys %$tmp){
+	  if(!defined $tmp->{$id}->{'data'}&&$id != $root){
+#		 &log_printf('!!'.$id);
+		 
+		 foreach my $child(@{$tmp->{$id}->{'children'}}){
+#		 &log_printf($child);
+		  push @{$tmp->{$root}->{'children'}}, $child;
+		 }
+		 
+		 delete $tmp->{$id};
+		}
+	 }
+
+my $src = 2;
+my $data = &do_query("select feature_id, catid, no from category_feature where catid = $src");
+
+&rec(2);
+	 
+sub rec
+{
+my ($catid) = @_;
+ print "Cat $catid - $tmp->{$catid}->{'data'}->[1]\n";
+ foreach my $child(@{$tmp->{$catid}->{'children'}}){
+
+ print "child $child - $tmp->{$child}->{'data'}->[1]\n";
+
+	 my $this_data = &do_query("select feature_id, catid, no from category_feature where catid = $child");
+
+
+	 unless($this_data && $this_data->[0]){
+	  foreach my $new_row(@$data){
+		 &insert_rows('category_feature', { "feature_id" 	=> $new_row->[0],
+																				"catid"				=> $child,
+																				"no"					=> $new_row->[2]});
+		}
+	 }
+  &rec($child);
+ print "Back to cat $catid - $tmp->{$catid}->{'data'}->[1]\n";
+ }
+
+}

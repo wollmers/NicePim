@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+
+#$Id: remove_old_nobody_products 1979 2009-11-18 15:02:54Z dima $
+
+use lib '/home/pim/lib';
+
+$| = 1;
+
+use strict;
+
+use atomlog;
+use atomcfg;
+use atomsql;
+
+use Data::Dumper;
+
+print "Total # of old nobody products is \033[1m";
+
+&do_statement("set \@threemonthsago = from_unixtime(unix_timestamp() - 60*60*24*30*3)");
+&do_statement("set \@ninemonthsago = from_unixtime(unix_timestamp() - 60*60*24*30*9)");
+
+my $old_products = &do_query("select count(*) from product p inner join product_active pa using (product_id) where pa.active=0 and p.user_id=1 and p.date_added < \@ninemonthsago and p.date_added != '0000-00-00'")->[0][0];
+
+&do_statement("delete p from product p inner join product_active pa using (product_id) where pa.active=0 and p.user_id=1 and p.date_added < \@ninemonthsago and p.date_added != '0000-00-00'");
+
+print $old_products."\033[0m\n\n";

@@ -1,0 +1,47 @@
+{
+name: feature_value_mapping;
+priority: 10;
+
+verify: feature_value_mapping_id;
+authorize_superuser: feature_value_mapping_id;
+authorize_supereditor: feature_value_mapping_id;
+authorize_category_manager: feature_value_mapping_id;
+authorize_editor: feature_value_mapping_id;
+authorize_supplier: feature_value_mapping_id;
+authorize_guest: feature_value_mapping_id;
+
+authorize_submit_superuser: feature_value_mapping_id;
+authorize_submit_supereditor: feature_value_mapping_id;
+authorize_submit_category_manager: feature_value_mapping_id;
+
+
+verify_submit: feature_value_mapping_id;
+
+verify_add: yes;
+verify_add_superuser: feature_value_mapping_id;
+verify_add_supereditor: feature_value_mapping_id;
+verify_add_category_manager: feature_value_mapping_id;
+
+_resource_feature_value_mapping: select feature.feature_id, feat_name.value, id, ext_value, int_value, feature.restricted_values from feature_value_mapping, vocabulary as feat_name, feature where feat_name.sid = feature.sid and feat_name.langid = %%langid%% and feature.feature_id = feature_value_mapping.feature_id and id = %%feature_value_mapping_id%%
+_resource_feature_value_mapping_type: single;
+_resource_feature_value_mapping_key: feature_value_mapping_id;
+_mapping_feature_value_mapping: feature_id, feat_name, feature_value_mapping_id, ext_value, int_value, restricted_values;
+
+format_as_text: ext_value;
+format_as_feature_restricted_dropdown: int_value;
+
+store_as_clean_textarea: ext_value, int_value;
+
+validate_as_mandatory: feature_id, ext_value;
+
+ _insert_sequence: 3;
+
+ _insert_table_3: feature_value_mapping;
+ _insert_values_3: feature_value_mapping_id, ext_value, int_value;
+ _insert_fields_3: id, ext_value, int_value;
+ _insert_key_3: feature_value_mapping_id;
+ _insert_key_3_name: id; 
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

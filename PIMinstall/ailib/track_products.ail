@@ -1,0 +1,73 @@
+{
+name: track_products;
+priority: 10000;
+format_undef_values: yes;
+authorize_by_field_only: product_id;
+
+_resource_track_products_head: SELECT '','','','','','','','','','','','','','','','','','','','','','','','','';						  						  
+_resource_track_products_head_type: single;
+_mapping_track_products_head: head_ext_col1,head_ext_col2,head_ext_col3,head_extr_ean,head_extr_login,head_extr_langs,head_extr_pdf_langs,head_extr_man_langs,head_extr_rel_count,head_extr_date_added,head_extr_feat_count,head_extr_quality,head_actions,head_is_rule_confirmed,head_remarks,head_name,head_eans_joined,head_map_prod_id,head_is_rule_confirmed,head_feed_prod_id,head_feed_supplier,head_supplier_name,user_column_choice,head_changer;
+
+format_as_hide_track_products_col_names: head_ext_col1,head_ext_col2,head_ext_col3,head_extr_ean,head_extr_login,head_extr_langs,head_extr_pdf_langs,head_extr_man_langs,head_extr_rel_count,head_extr_date_added,head_extr_feat_count,head_extr_quality,head_actions,head_is_rule_confirmed,head_remarks,head_name,head_eans_joined,head_map_prod_id,head_is_rule_confirmed,head_feed_prod_id,head_feed_supplier,head_supplier_name,head_changer;
+format_as_track_list_column_choice: user_column_choice; 
+
+_resource_track_list: SELECT tl.rules,group_concat(l.code separator ','),tl.name as manda_langs
+						FROM track_list tl
+						LEFT JOIN track_list_lang tll ON tll.track_list_id=tl.track_list_id
+						LEFT JOIN language l ON l.langid=tll.langid
+						WHERE tl.track_list_id=%%track_list_id%%;  						  
+_resource_track_list_type: single;
+_mapping_track_list: rules,manda_langs,tracklist_name;
+
+
+
+_resource_track_products: select tp.track_product_id,tp.name,tp.track_list_id,tp.product_id,tp.feed_prod_id,tp.feed_supplier,tp.is_parked,tp.is_parked,tp.ext_col1,tp.ext_col2,tp.ext_col3,
+						  p.product_id,tp.map_prod_id,tp.supplier_id,s.name as supplier_name,tp.product_id,
+						  tp.eans_joined,
+						  tp.extr_langs,
+						  tp.extr_pdf_langs,
+						  tp.extr_man_langs,
+						  tp.extr_rel_count,
+						  tp.extr_feat_count,
+						  tp.extr_quality,
+						  tp.track_product_status,
+						  tp.extr_ean,u.login,p.date_added,
+						  IF(tp.rule_prod_id!='' and tp.rule_prod_id!=tp.map_prod_id,0,1) as is_rule_confirmed,
+						  tp.remarks,tp.updated,tp.extr_quality,tp.extr_quality,map_prod_id	as map_partcode_tofind,rule_supplier_id,rule_prod_id,
+						  p.prod_id,tp.is_reverse_rule,u_ch.login,tp.changer_action,'',tp.track_product_id,tp.track_product_id
+						  from track_product tp
+						  JOIN track_list tl ON tl.track_list_id=tp.track_list_id						  
+						  LEFT JOIN product p ON p.product_id=tp.product_id
+						  LEFT JOIN users u ON p.user_id=u.user_id
+						  LEFT JOIN users u_ch ON tp.changer=u_ch.user_id
+						  LEFT JOIN supplier s ON tp.supplier_id=s.supplier_id
+					      WHERE tp.track_list_id=%%track_list_id%% and %%restrict%% and %%search_clause%% 
+					      GROUP BY tp.track_product_id %%order_clause%% limit %%start_row%%,%%rows_number%% 
+_resource_track_products_type: multi;
+_resource_track_products_def_order: feed_prod_id;
+_resource_track_products_def_order_mode: A;
+_mapping_track_products: track_product_id,name,track_list_id,product_id,feed_prod_id,feed_supplier,is_parked,is_parked_raw,ext_col1,ext_col2,ext_col3,real_product_id,map_prod_id,supplier_id,supplier_name,actions,eans_joined,extr_langs,extr_pdf_langs,extr_man_langs,extr_rel_count,extr_feat_count,extr_quality,track_product_status,extr_ean,extr_login,extr_date_added,is_rule_confirmed,remarks,updated,tr_color,extr_quality_raw,map_partcode_tofind,rule_supplier_id_raw,rule_prod_id,prod_id,is_reverse_rule,changer,changer_action,button_type,track_product_item_marked,track_product_id_clip;
+
+format_as_hide_track_products_col: ext_col1,ext_col2,ext_col3,extr_ean,extr_login,extr_langs,extr_pdf_langs,extr_man_langs,extr_rel_count,extr_date_added,extr_feat_count,extr_quality,actions,is_rule_confirmed,remarks,name,eans_joined,map_prod_id,feed_prod_id,feed_supplier,supplier_name,changer;
+format_as_track_list_status_color: tr_color;
+format_as_button_type: button_type;
+format_as_clipboard_indicator: track_product_item_marked;
+clipboard_hide: No;
+format_as_ids_save_for_clipboard:  track_product_id_clip;
+
+authorize_superuser: track_list_id;
+authorize_supereditor: track_list_id;
+
+track_products_restrict_editor: 1
+track_products_restrict_guest: 0
+track_products_restrict_shop: 0
+track_products_restrict_supplier: 0
+track_products_restrict_supereditor: 1
+track_products_restrict_category_manager: 0
+track_products_restrict_superuser: 1
+
+}
+
+
+
+

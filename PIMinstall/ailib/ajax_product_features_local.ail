@@ -1,0 +1,5 @@
+{
+name: ajax_product_features_local;
+custom_processing: yes;
+priority: 0;
+}

@@ -1,0 +1,29 @@
+{
+name: families;
+priority: 10;
+
+_resource_families: SELECT pf.family_id, v.value, (SELECT COUNT(ps.series_id) FROM product_series ps WHERE ps.family_id=pf.family_id) as series_count, pf.catid, v1.value
+FROM product_family pf
+INNER JOIN vocabulary v ON pf.sid=v.sid AND v.langid=%%langid%%
+LEFT  JOIN category c ON pf.catid=c.catid
+LEFT  JOIN vocabulary v1 ON c.sid=v1.sid AND v1.langid=%%langid%%
+WHERE pf.supplier_id = %%supplier_id%% AND pf.parent_family_id = %%family_id%%
+ORDER BY 2,5;
+_resource_families_type: multi;
+_resource_families_def_order: family_id;
+_resource_families_key: supplier_id;
+_resource_families_def_order: family_id;
+_mapping_families: family_id, family_name, series_count, catid, category_name;
+
+_format_as_family_name: family_name;
+
+authorize_superuser: family_id;
+authorize_submit_superuser: family_id;
+authorize_supereditor: family_id;
+authorize_submit_supereditor: family_id;
+
+authorize_editor: family_id;
+authorize_supplier: family_id;
+authorize_guest: family_id;
+authorize_shop: family_id;
+}

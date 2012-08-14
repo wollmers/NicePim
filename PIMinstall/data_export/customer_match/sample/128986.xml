@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="128986" Prod_id="A9O-00005" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="OEM REMOTE CTRL W RECEIVR WIN" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="311" No="10">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1179" No="4">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="866" No="9">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1113" No="1">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1377" No="11">
+         <FeatureGroup ID="49">
+           <Name ID="9699" Value="Input device" langid="1"/>
+           <Name ID="9700" Value="Input device" langid="3"/>
+           <Name ID="9701" Value="Input device" langid="2"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="149209" URL="" ShortDesc="OEM REMOTE CTRL W RECEIVR WIN XP MCE IR W TELETXT 3PK          NL (MSD)" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="100" Name="Microsoft"/>
+       <Category ID="193">
+         <Name ID="387" Value="joysticks or game pads" langid="1"/>
+         <Name ID="388" Value="joysticks of gamepads" langid="2"/>
+         <Name ID="6266" Value="joysticks or game pads" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="131645" Prod_id="10322651-NL" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="Bdl NSW 2005+Spiderman DVD NL CD W32" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="173" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="749" No="13">
+         <FeatureGroup ID="6">
+           <Name ID="4881" Value="License" langid="1"/>
+           <Name ID="4882" Value="License" langid="2"/>
+           <Name ID="7185" Value="License" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="745" No="15">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="152561" URL="" ShortDesc="Bdl NSW 2005+Spiderman DVD NL CD W32" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="127" Name="Symantec"/>
+       <Category ID="55">
+         <Name ID="111" Value="Software utilities" langid="1"/>
+         <Name ID="112" Value="Software utilities" langid="2"/>
+         <Name ID="6128" Value="Software utilities" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

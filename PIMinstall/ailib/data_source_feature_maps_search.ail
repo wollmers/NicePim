@@ -1,0 +1,10 @@
+{
+name: data_source_feature_maps_search;
+priority: 10;
+
+_resource_params: select '%%search_symbol%%', '%%search_feat_name%%'
+_mapping_params: search_symbol, search_feat_name;
+
+verify_deny_guest: yes;
+
+}

@@ -1,0 +1,45 @@
+{
+name:  supplier_url_edit;
+
+verify: supplier_id;
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: feature_id;
+verify_add_supereditor: feature_id;
+verify_add_category_manager: feature_id;
+
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+_resource_url_edit: select id, url, su.country_id, description, langid from
+supplier_url as su where su.id = %%id%% and supplier_id = %%supplier_id%%
+_resource_url_edit_type: single;
+_resource_url_edit_key: id;
+_mapping_url_edit: id, url, country, description, language;
+
+format_as_dropdown: country, language; 
+country_dropdown_select: select country_id, value from country, vocabulary where country.sid = vocabulary.sid and langid=%%langid%%
+language_dropdown_select: select l.langid, value from language as l, vocabulary as v where l.sid = v.sid and v.langid = %%langid%%;
+
+validate_as_mandatory: url, language;
+
+ _insert_sequence: 2;
+ 
+ _insert_table_2: supplier_url;
+ _insert_values_2: url, country, language, description, supplier_id;
+ _insert_fields_2: url, country_id, langid, description, supplier_id;
+ _insert_key_2: id;
+ _update_sequence_2: yes;
+ _delete_sequence_2: yes;
+				 
+}

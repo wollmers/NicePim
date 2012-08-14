@@ -1,0 +1,30 @@
+{
+
+name: feature_menu;
+
+priority: 10;
+verify: feature_id;
+
+authorize_superuser: feature_id;
+authorize_supereditor: feature_id;
+authorize_category_manager: feature_id;
+authorize_editor: feature_id;
+authorize_supplier: feature_id;
+authorize_guest: feature_id;
+authorize_shop: feature_id;
+
+_resource_feature: select f.feature_id, v.value, ms.value, mv.value
+
+from feature f
+inner join vocabulary v on f.sid=v.sid and v.langid = %%langid%%
+inner join measure m on m.measure_id = f.measure_id
+left join measure_sign ms on ms.measure_id = f.measure_id and ms.langid = %%langid%%
+inner join vocabulary mv on m.sid=mv.sid and mv.langid=v.langid
+
+where f.feature_id = %%feature_id%%
+
+_resource_feature_type: single;
+_mapping_feature: feature_id, name, sign, measure_name;
+
+
+}

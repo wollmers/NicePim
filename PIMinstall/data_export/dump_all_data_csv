@@ -1,0 +1,298 @@
+#!/usr/bin/perl
+
+#$Id: dump_all_data_csv 3625 2010-12-24 13:52:24Z vadim $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomsql;
+use atomlog;
+use data_management;
+use icecat_util;
+use atom_util;
+use atom_misc;
+
+$| = 1;
+
+my $prf_only = $ARGV[0];
+
+my $utf8_suffix = ".utf8";
+my $new = ".new";
+my $cmd;
+
+my $path = $atomcfg::atomcfg{'xml_path'}.'level4/csv';
+my $freexml_path = $atomcfg::atomcfg{'xml_path'}.'freexml.int/csv';
+my $prf_path = $atomcfg::atomcfg{'xml_path'}.'level4/prf';
+
+print "Let's start... ";
+
+goto prf_only if $prf_only;
+
+my $langs = &do_query("select pfl.langid, l.short_code from product_feature_local pfl inner join language l using (langid) group by pfl.langid");
+my %lang_hash = map {$_->[0] => uc($_->[1])} @$langs;
+
+print "got the list of langs... ";
+
+my $lng;
+
+&done;
+
+print "\nCreate csvs:\n";
+
+foreach $lng (sort {$a <=> $b} keys %lang_hash) {
+	my $prf_pfl_path = $atomcfg::atomcfg{'xml_path'}.'level4/'.$lang_hash{$lng}."/csv";
+	$cmd = '/bin/mkdir -p '.$prf_pfl_path;
+	`$cmd`;
+	print "$prf_pfl_path: product_feature_local ". $lang_hash{$lng}." for PRF... ";
+	&write_out_flat_file_from_db($prf_pfl_path.'/product_feature_local.txt', 'product_feature_local',
+															 {
+																 'write_header' => 1,
+																 'language' => $lng
+															 });
+	&done;
+}
+
+$cmd = '/bin/mkdir -p '.$path;
+`$cmd`;
+$cmd = '/bin/mkdir -p '.$prf_path;
+`$cmd`;
+$cmd = '/bin/mkdir -p '.$freexml_path;
+`$cmd`;
+
+my %tables = (
+	'product'=>0,
+	'product_description'=>1,
+	'product_feature'=>1,
+	'product_name'=>1,
+	'product_related'=>1,
+	'product_bundled'=>1, 
+	'product_statistic'=>1, 
+	'product_ean_codes' => 1,
+	'product_multimedia_object' => 1,
+	'product_gallery' => 1,
+
+	'feature_values_vocabulary' => 0,
+	'category'=>0, 'category_feature'=>0, 'feature'=>0, 'category_feature_group'=>0, 'feature_group'=>0,
+	'supplier'=>0, 'vocabulary' =>0, 'tex'=>0, 'language'=>0, 'measure'=>0, 'measure_sign'=>0,
+	'product_family'=>0,
+	'product_series'=>0,
+);
+
+my %links4open = (
+	'category' => 1,
+	'category_feature' => 1,
+	'category_feature_group' => 1,
+	'feature' => 1,
+	'feature_group' => 1,
+	'tex' => 1,
+	'vocabulary' => 1
+	);
+
+&do_statement("create temporary table allowed (product_id int(13) primary key)");
+&do_statement("insert ignore into allowed (product_id) select product_id from product p inner join users u using (user_id) where user_group in ('supplier','editor','supereditor','category_manager','exeditor','superuser')");
+
+foreach my $table (keys %tables) {
+	print " " x (25 - length($table));
+	print $table."... ";
+  &write_out_flat_file_from_db($path.'/'.$table.'.txt', $table,
+															 {
+																 'write_header'	=> 1
+															 });
+	&done;	
+}
+
+prf_only:
+
+print "products ALL for PRF... ";
+&write_out_flat_file_from_db($prf_path.'/product.txt', 'product',
+														 {
+															 'write_header'	=> 1
+														 });
+&done;	
+
+print "aggregate_product_count for PRF... ";
+&write_out_flat_file_from_db($prf_path.'/aggregated_product_count.txt', 'aggregated_product_count',
+														 {
+															 'write_header'	=> 1
+														 });
+&done;	
+
+print "country for PRF... ";
+&write_out_flat_file_from_db($prf_path.'/country.txt', 'country',
+														 {
+															 'write_header'	=> 1
+														 });
+&done;	
+
+print "\nAll tables are Done\n\n";
+
+exit(0);
+
+
+sub write_out_flat_file_from_db {
+	my ($filename, $data_table, $options) = @_;
+	
+	my $header = &describe_table($data_table);
+	
+	open(FILE_UTF8, ">".$filename.$utf8_suffix.$new) or &log_printf("write_out_flat_file_from_db: fatal - can't open file ".$filename.$utf8_suffix.$new.": ".$!);
+	
+	binmode(FILE_UTF8,":utf8");
+	
+	my $select_fields = '';
+	
+	if (!$options->{'delimiter'}) {
+		$options->{'delimiter'} = "\t";
+	}
+	if (!$options->{'new_line'}) {
+		$options->{'new_line'} = "\n";
+	}
+	
+	my $file = '';
+	
+	if ($options->{'write_header'}) {
+		my $line = '';
+		foreach my $item (@$header) {
+			if ($line) {
+				$line .= $options->{'delimiter'}
+			}
+			$line .= $item;
+		}
+		
+		$select_fields = join('`,`', @$header);
+		
+		$line .= $options->{'new_line'};
+		$file .= $line;
+		print FILE_UTF8 $line;
+	}
+	
+	
+	my $select = 'SELECT `'.$select_fields.'` FROM '.$data_table;
+	if ($tables{$data_table}) {
+		$select .= ' inner join allowed using(product_id)';
+	}
+
+	if ($options->{'language'}) {
+		$select.=" WHERE langid = ".$options->{'language'}." ";
+	}
+	else {
+		$select.=" WHERE 1 ";
+	}
+
+	# split by id (1..100000, 100001..200000, 200001..30000 etc)
+	my $pk = &primary_key_from_table($data_table);
+	my $max_pk = &do_query("select max(".$pk.") from ".$data_table)->[0][0];
+	my $delim = 100000;
+	my $betweens = undef;
+	my $init = 1;
+	if (($pk) && ($max_pk > $delim)) {
+		while ($init <= $max_pk) {
+			push @$betweens, $pk.' between '.$init.' and '. ( $init + $delim - 1 );
+			$init += $delim;
+		}
+	}
+	else {
+		push @$betweens, '1';
+	}
+
+	print "\033[1m" . ( $#$betweens + 1 ) . "\033[0m request(s): ";
+
+	foreach my $between (@$betweens) {
+
+		my $sth = $atomsql::dbh->prepare($select.' AND '.$between);
+		my $rv = $sth->execute;
+		&log_printf("SQL QUERY DIRECT: ".$select.' AND '.$between);
+		
+		print "\033[31m.\033[37m";
+		
+		my $row;	
+		my $line;
+		while ($row = $sth->fetchrow_arrayref) {
+			
+			$line = "";	
+			my $i = 0;
+			foreach my $item (@$header) {
+				if ($i) { 
+					print FILE_UTF8 $options->{'delimiter'};
+				}
+				
+				$row->[$i] =~ s/\n/\\n/gs;
+				$row->[$i] =~ s/\r/\\r/gs;
+				$row->[$i] =~ s/\t/\\t/gs;
+				
+				if (defined $row->[$i]) {
+					&Encode::_utf8_on($row->[$i]);
+					print FILE_UTF8 $row->[$i];
+				}
+				$i++;
+			}
+			
+			print FILE_UTF8 $options->{'new_line'};
+		}
+		
+		$rv=$sth->finish;
+		
+	} # ranges foreach (between .. and ..)
+	
+	close (FILE_UTF8);
+
+	# convert utf8-file to latin1-file
+	open FILE_UTF8, "< $filename$utf8_suffix$new";
+	open FILE_LATIN1, "> $filename$new";
+	binmode FILE_UTF8, ":utf8";
+	binmode FILE_LATIN1, ":bytes";
+	while (<FILE_UTF8>) {
+		print FILE_LATIN1 &utf82latin($_);
+	}
+	close FILE_UTF8;
+	close FILE_LATIN1;
+
+	# change *.new to *
+	$cmd = '/bin/mv -f '.$filename.$new.' '.$filename;
+	`$cmd`;
+	$cmd = '/bin/mv -f '.$filename.$utf8_suffix.$new.' '.$filename.$utf8_suffix;
+	`$cmd`;
+
+	# add * to *.gz
+	$cmd = '/bin/gzip -c '.$filename.' > '.$filename.'.gz';
+	`$cmd`;
+	$cmd = '/bin/gzip -c '.$filename.$utf8_suffix.' > '.$filename.$utf8_suffix.'.gz';
+	`$cmd`;
+
+	# add freexml.int links, if needed
+
+	if ($links4open{$data_table}) {
+		my $freexml_filename = $freexml_path.'/'.$data_table.'.txt';
+		$cmd = '/bin/ln -s -f '.$filename.' '.$freexml_filename;
+		`$cmd`;
+		$cmd = '/bin/ln -s -f '.$filename.$utf8_suffix.' '.$freexml_filename.$utf8_suffix;
+		`$cmd`;
+		$cmd = '/bin/ln -s -f '.$filename.'.gz '.$freexml_filename.'.gz';
+		`$cmd`;
+		$cmd = '/bin/ln -s -f '.$filename.$utf8_suffix.'.gz '.$freexml_filename.$utf8_suffix.'.gz';
+		`$cmd`;
+	}
+}
+
+sub primary_key_from_table {
+	my ($table) = @_;
+
+	chomp($table);
+
+	return undef unless $table;
+
+	my $indexes = &do_query("show index from ".$table);
+
+	foreach (@$indexes) {
+		if ($_->[2] eq 'PRIMARY') {
+			return $_->[4];
+		}
+	}
+
+	return undef;
+} # sub primary_key_from_table
+
+sub done {
+	print " \033[31mdone\033[37m\n";
+}

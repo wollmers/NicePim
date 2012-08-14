@@ -1,0 +1,145 @@
+{
+name: category;
+priority: 10;
+
+
+verify: catid;
+verify_submit: catid;
+
+
+authorize_superuser: catid;
+authorize_supereditor: catid;
+authorize_category_manager: catid;
+authorize_editor: catid;
+authorize_supplier: catid;
+authorize_guest: catid;
+authorize_shop: catid;
+
+authorize_submit_superuser: catid;
+authorize_submit_supereditor: catid;
+authorize_submit_category_manager: catid;
+
+verify_add: yes;
+verify_add_superuser: catid;
+verify_add_supereditor: catid;
+
+
+
+_resource_category: select pcatid, searchable, visible, catid, sid, tid, ucatid, low_pic, low_pic,'',thumb_pic from category where catid = %%catid%%
+_resource_category_type: single;
+_resource_category_key: catid;
+_resource_category_skey: catid;
+_mapping_category: pcatid, searchable, visible, catid, sid, tid, ucatid, low_pic, low_pic_formatted,js_langid_array,thumb_pic;
+validate_as_assigned_rows: catid;
+catid_assigned_tables: category, product, data_source_category_map;
+catid_assigned_tables_keys: pcatid, catid, catid;
+
+format_as_js_langid_array: js_langid_array;
+
+format_as_searchable: searchable, visible;
+
+low_pic_formatted_thumb_pic: thumb_pic;
+format_as_low_pic: low_pic_formatted;
+
+store_as_category_nestedset: catid;
+
+format_as_smart_dropdown: pcatid;
+pcatid_allow_pcat_choice: Y;
+
+_resource_label: select language.langid, vocabulary1.value, vocabulary.value, vocabulary.record_id, catid
+from language
+left join category                  on category.catid = %%catid%%
+left join vocabulary                on language.langid = vocabulary.langid and category.sid = vocabulary.sid
+left join vocabulary as vocabulary1 on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+order by language.langid
+_resource_label_iq: select language.langid, vocabulary1.value, NULL, NULL
+from language
+left join vocabulary as vocabulary1 on vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid
+order by language.langid
+
+_resource_label_type: multi;
+_resource_label_skey: catid;
+_resource_label_key: catid;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id, catid;
+
+validate_as_category_name: _rotate_label;
+
+_resource_text: select language.langid, vocabulary1.value, tex.value, tex.tex_id, catid
+from language
+left join vocabulary as vocabulary1 on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+left join category                  on category.catid = %%catid%%
+left join tex                       on category.tid = tex.tid and language.langid = tex.langid
+order by language.langid
+_resource_text_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by language.langid
+
+_resource_text_type: multi;
+_resource_text_skey: catid;
+_resource_text_key: tid;
+_mapping_text:  t_langid, language, _rotate_text, _rotate_tex_id, catid;
+ 
+_resource_keywords: select language.langid, vocabulary.value, category_keywords.keywords, category_keywords.id, category_keywords.category_id from language
+left join vocabulary on vocabulary.sid=language.sid and vocabulary.langid = %%langid%%
+left join category_keywords on category_keywords.langid=language.langid and category_keywords.category_id=%%catid%% order by language.langid
+_resource_keywords_iq: select distinct language.langid, vocabulary.value, NULL, NULL from language
+left join vocabulary on vocabulary.sid=language.sid and vocabulary.langid=1 order by language.langid
+_resource_keywords_type: multi;
+_resource_keywords_skey: catid;
+_resource_keywords_key: tid;
+_mapping_keywords: k_langid, language, _rotate_keywords, _rotate_id, catid;
+
+
+validate_as_mandatory: ucatid;
+validate_as_uploaded_url: low_pic;
+
+ _insert_sequence: 1,2,3,4,5,6;
+
+ _insert_table_1: sid_index;
+ _insert_values_1: dummy;
+ _insert_fields_1: dummy;
+ _insert_key_1: sid;
+ _delete_sequence_1: yes;
+  
+ _insert_table_2: vocabulary;
+ _insert_values_2: sid, _rotate_v_langid, _rotate_label;
+ _insert_fields_2: sid, langid, value;
+ _rotate_insert_2: label;
+ _insert_key_2: record_id;
+ _update_key_2: sid;
+ _delete_sequence_2: yes; 
+ _update_sequence_2: yes;
+ 
+ _insert_table_3: tid_index;
+ _insert_values_3: dummy;
+ _insert_fields_3: dummy;
+ _insert_key_3: tid;
+ _delete_sequence_3: yes;
+  
+ _insert_table_4: tex;
+ _insert_values_4: tid, _rotate_t_langid, _rotate_text;
+ _insert_fields_4: tid, langid, value;
+ _rotate_insert_4: text;
+ _insert_key_4: tex_id;
+ _update_key_4: tid;
+ _update_sequence_4: yes;
+ _delete_sequence_4: yes; 
+ 
+ 
+ _insert_table_5: category;
+ _insert_values_5: sid, tid, searchable, visible, pcatid, ucatid;
+ _insert_fields_5: sid, tid, searchable, visible, pcatid, ucatid;
+ _insert_5_keep_unique: yes; 
+ _insert_5_unique_set: ucatid;
+ _insert_key_5: catid;
+ _update_sequence_5: yes;
+ _delete_sequence_5: yes; 
+ 
+ _insert_table_6: category_keywords;
+ _insert_values_6: catid, _rotate_k_langid,_rotate_keywords;
+ _insert_fields_6: category_id,langid,keywords;
+ _rotate_insert_6: keywords;
+ _insert_key_6: id;
+ _update_key_6: id;
+ _update_sequence_6: yes;
+ _delete_sequence_6: yes;
+  
+}

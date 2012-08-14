@@ -1,0 +1,20 @@
+{
+name: generic_operations;
+
+priority: 10;
+
+_resource_generic_operation: select generic_operation_id, name, code, code, parameter from generic_operation order by code asc;
+_resource_generic_operation_type: multi;
+_mapping_generic_operation: generic_operation_id, name, code, exist, parameter;
+
+_format_as_has_implementation: exist;
+
+authorize_superuser: generic_operation_id;
+authorize_supereditor: generic_operation_id;
+authorize_category_manager: generic_operation_id;
+
+authorize_submit_superuser: generic_operation_id;
+authorize_submit_supereditor: generic_operation_id;
+authorize_submit_category_manager: generic_operation_id;
+
+}

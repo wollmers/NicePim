@@ -1,0 +1,24 @@
+{
+name: countries;
+priority: 10;
+
+_resource_countries: select c.country_id, v.value, c.code, c.ean_prefix, c.system_of_measurement from country c
+inner join vocabulary v on c.sid = v.sid and v.langid = %%langid%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_countries_type: multi;
+_resource_countries_def_order: name;
+_mapping_countries: country_id, name, country_code, ean_prefix, system_of_measurement;
+
+authorize_superuser: country_id;
+authorize_submit_superuser: country_id;
+authorize_supereditor: country_id;
+authorize_category_manager: country_id;
+authorize_submit_supereditor: country_id;
+authorize_submit_category_manager: country_id;
+
+authorize_editor: country_id;
+authorize_supplier: country_id;
+authorize_guest: country_id;
+authorize_shop: country_id;
+
+
+}

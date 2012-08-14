@@ -1,0 +1,38 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="main" height="20">
+			$$INCLUDE users_menu_link.html$$
+    </td>
+  </tr>
+</table>
+
+<br />
+
+<span>
+    <a href='%%base_url%%;tmpl=mail_dispatch_edit.html'>%%mail_dispatch_link%%</a>
+    &nbsp;
+    <a href='%%base_url%%;tmpl=editor_journal_list.html'>%%editors_journal_link%%</a>
+    &nbsp;
+    <a href='%%base_url%%;tmpl=platforms.html'>%%platforms_link%%</a>
+    &nbsp;
+    <a href='%%base_url%%;tmpl=sectors.html'>%%sectors_link%%</a></span>
+
+{
+name: errors;
+}
+
+{
+name: users_search;
+}
+
+{
+name: users;
+}
+
+$$INCLUDE footer2.html$$

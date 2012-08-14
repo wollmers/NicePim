@@ -1,0 +1,27 @@
+{
+ name: products_by_feature_value_ajax;
+ priority: 10; 
+ _resource_product: SELECT SQL_CALC_FOUND_ROWS p.product_id,p.prod_id,p.name,s.name FROM product p 
+ 					 JOIN product_feature pf USING(product_id) 
+ 					 JOIN supplier s USING(supplier_id)
+ 					 JOIN category_feature cf USING(category_feature_id) 
+ 					 WHERE cf.feature_id=%%feature_id%% and pf.value='%%feature_value%%' LIMIT %%limit%%;
+ _resource_product_type: multi;
+ _mapping_product: product_id,prod_id,name,supplier_name;
+ 
+ _resource_total_count: SELECT count(*) FROM product p 
+	 					 JOIN product_feature pf USING(product_id) 
+	 					 JOIN supplier s USING(supplier_id)
+	 					 JOIN category_feature cf USING(category_feature_id) 
+	 					 WHERE cf.feature_id=%%feature_id%% and pf.value='%%feature_value%%' LIMIT %%limit%%;
+ _resource_total_count_type: single;
+ _mapping_total_count: show_all;
+ _format_as_show_all: show_all;
+ 
+ _resource_feature_value: SELECT '%%feature_value%%';
+ _resource_feature_value_type: single;
+ _mapping_feature_value: feature_value_;
+ _format_as_str_sqlize: feature_value_;
+ _format_as_URLEncode: feature_value_;
+  
+}

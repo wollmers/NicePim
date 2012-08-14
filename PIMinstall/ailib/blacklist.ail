@@ -1,0 +1,11 @@
+{
+name: blacklist;
+priority: 10;
+
+_resource_black_list: select l.langid, l.code, group_concat(lb.value separator ' ') from language l left join language_blacklist lb using(langid) group by l.langid;
+_resource_black_list_type: multi;
+_mapping_black_list: language_id, language_name, black_words;
+
+verify_deny_guest: yes;
+
+}

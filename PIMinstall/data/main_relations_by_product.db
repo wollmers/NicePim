@@ -1,0 +1,207 @@
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS main_relations_by_product;
+CREATE PROCEDURE main_relations_by_product(product_id_main int(13))
+BEGIN
+/*SELECT product_id_main;*/
+CALL get_relation_rules(product_id_main);
+CALL get_relation_sets();
+CALL get_valid_relations();
+END//
+
+DROP PROCEDURE IF EXISTS get_relation_rules;
+CREATE PROCEDURE get_relation_rules(product_id_p int(13))
+BEGIN
+
+DECLARE date_added_p, start_date_rr, end_date_rr, category_feature_id_tmp int(13);
+DECLARE prod_id_p, prod_id_rr varchar(60);
+DECLARE supplier_id_p, catid_p, family_id_p, feature_id_cf, supplier_id_rr, catid_rr, family_id_rr, feature_id_rr, rrId, product_id_tmp int(13);
+DECLARE feature_value_pf, feature_value_rr varchar(255);
+DECLARE exact_value_rr, done, old_done, p_done tinyint(1) DEFAULT 0;
+DECLARE sel1, sel2, sel3, sel4, fquery, sel5 text;
+DECLARE exact_v, exact_v1, l_exact_v varchar(255);
+DECLARE product_id_cnt int(3);
+DECLARE rrIdCursor CURSOR FOR SELECT relation_rule_id FROM relation_rule WHERE 1;
+/*DECLARE pIdCursor CURSOR FOR SELECT product_id FROM product_ids_tmp WHERE 1;*/
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+DECLARE EXIT HANDLER FOR SQLEXCEPTION CLOSE rrIdCursor;
+
+OPEN rrIdCursor;
+
+/* give the product's data for checking */
+SELECT prod_id, UNIX_TIMESTAMP(date_added), supplier_id, catid, family_id INTO prod_id_p, date_added_p, supplier_id_p, catid_p, family_id_p FROM product WHERE product_id=product_id_p;
+
+/* create the necessary internal tables */
+DROP TEMPORARY TABLE IF EXISTS relation_rules_tmp;
+CREATE TEMPORARY TABLE relation_rules_tmp(relation_rule_id_tmp int(13) PRIMARY KEY);
+
+DROP TEMPORARY TABLE IF EXISTS product_ids_tmp;
+CREATE TEMPORARY TABLE product_ids_tmp(product_id int(13) PRIMARY KEY) ENGINE = MEMORY;
+
+while_l: LOOP
+FETCH rrIdCursor INTO rrId;
+
+IF done THEN
+  CLOSE rrIdCursor;
+  LEAVE while_l;
+END IF;
+
+
+SELECT UNIX_TIMESTAMP(start_date), UNIX_TIMESTAMP(end_date), prod_id, supplier_id, catid, supplier_family_id, feature_id, feature_value, exact_value INTO
+        start_date_rr, end_date_rr, prod_id_rr, supplier_id_rr, catid_rr, family_id_rr, feature_id_rr, feature_value_rr, exact_value_rr FROM relation_rule
+        WHERE relation_rule_id=rrId;
+
+/* many checkings */
+IF(start_date_rr <> 0 AND end_date_rr <> 0) THEN
+  IF(date_added_p > end_date_rr OR date_added_p < start_date_rr) THEN ITERATE while_l;
+  END IF;
+END IF;
+
+IF(prod_id_rr <> '') THEN
+  IF(supplier_id_rr <> 0) THEN
+    IF(prod_id_rr = prod_id_p AND supplier_id_rr = supplier_id_p) THEN
+      INSERT IGNORE INTO relation_rules_tmp SET relation_rule_id_tmp = rrId;
+      ITERATE while_l;
+    END IF;
+  ELSE IF(prod_id_rr = prod_id_p) THEN INSERT IGNORE INTO relation_rules_tmp SET relation_rule_id_tmp = rrId; ITERATE while_l; END IF;
+  END IF;
+	ITERATE while_l;
+END IF;
+
+IF(supplier_id_rr = 0 AND catid_rr = 0) THEN ITERATE while_l; END IF;
+IF(catid_rr = 0) THEN SET feature_id_rr = 0; END IF;
+
+IF(supplier_id_rr <> 0) THEN SET sel1 = CONCAT(' AND p.supplier_id=',supplier_id_rr); ELSE SET sel1=''; END IF;
+IF(catid_rr <> 0) THEN
+  IF(supplier_id_rr <> 0) THEN
+  SET sel2 = '';
+  ELSE SET sel2 = CONCAT(' AND p.catid=',catid_rr);
+  END IF;
+ELSE SET sel2='';
+END IF;
+IF(family_id_rr <> 0 and family_id_rr <> 1) THEN SET sel3 = CONCAT(' AND p.family_id=',family_id_rr); ELSE SET sel3=''; END IF;
+IF(exact_value_rr <> 0) THEN
+  CASE exact_value_rr
+    WHEN 1 THEN SET exact_v = " like '%"; SET exact_v1 = "%'"; SET l_exact_v = "pf.value";
+    WHEN 2 THEN SET exact_v = ' = "'; SET exact_v1 = '"'; SET l_exact_v = "pf.value";
+    WHEN 3 THEN SET exact_v = ' > convert("'; SET exact_v1 = '",decimal(32,3))'; SET l_exact_v = "convert(pf.value, decimal(32,3)) ";
+    WHEN 4 THEN SET exact_v = ' < convert("'; SET exact_v1 = '",decimal(32,3))'; SET l_exact_v = "convert(pf.value, decimal(32,3)) ";
+    WHEN 5 THEN SET exact_v = ' <> "'; SET exact_v1 = '"'; SET l_exact_v = "pf.value";
+  END CASE;
+END IF;
+
+IF(feature_id_rr <> 0 ) THEN SELECT category_feature_id INTO category_feature_id_tmp FROM category_feature WHERE feature_id = feature_id_rr AND catid = catid_rr;
+  IF(supplier_id_rr <> 0) THEN SET sel4 = CONCAT('product p INNER JOIN product_feature pf USING(product_id) WHERE pf.category_feature_id=',category_feature_id_tmp,' AND ', l_exact_v, exact_v, feature_value_rr, exact_v1);
+                                SET sel5 = CONCAT(' AND p.product_id=',product_id_p);
+  ELSE SET sel4 = CONCAT(' product_feature pf WHERE pf.category_feature_id=',category_feature_id_tmp,' AND ',l_exact_v,exact_v,feature_value_rr,exact_v1);
+       SET sel2='';
+                                SET sel5 = CONCAT(' AND pf.product_id=',product_id_p);
+  END IF;
+ELSE SET sel4 = 'product p WHERE 1 ';
+                                SET sel5 = CONCAT(' AND p.product_id=',product_id_p);
+END IF;
+
+SET old_done = done;
+SET @fquery = CONCAT('SELECT product_id INTO @product_id_tmp FROM ',sel4,sel1,sel2,sel3,sel5);
+
+PREPARE stmt FROM @fquery;
+EXECUTE stmt;
+
+IF(product_id_p = @product_id_tmp) THEN INSERT IGNORE INTO relation_rules_tmp SET relation_rule_id_tmp = rrId; END IF;
+SET @product_id_tmp = 0;
+IF (done) THEN SET done = old_done; END IF;
+END LOOP;
+
+/*SELECT * FROM relation_rules_tmp;*/
+END//
+
+
+
+DROP PROCEDURE IF EXISTS get_relation_sets;
+CREATE PROCEDURE get_relation_sets()
+BEGIN
+
+DECLARE rrId int(13);
+DECLARE done tinyint(1) DEFAULT 0;
+DECLARE rrIdCursor CURSOR FOR SELECT relation_rule_id_tmp FROM relation_rules_tmp;
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+DECLARE EXIT HANDLER FOR SQLEXCEPTION CLOSE rrIdCursor;
+
+DROP TEMPORARY TABLE IF EXISTS relation_sets_tmp;
+CREATE TEMPORARY TABLE relation_sets_tmp(relation_set_id_tmp int(13) PRIMARY KEY);
+
+OPEN rrIdCursor;
+FETCH rrIdCursor INTO rrId;
+
+WHILE done=0 do
+INSERT IGNORE INTO relation_sets_tmp (relation_set_id_tmp) SELECT relation_set_id FROM relation_set WHERE relation_rule_id = rrId;
+FETCH rrIdCursor INTO rrId;
+END WHILE;
+
+CLOSE rrIdCursor;
+
+END//
+
+
+
+DROP PROCEDURE IF EXISTS get_valid_relations;
+CREATE PROCEDURE get_valid_relations()
+BEGIN
+
+DECLARE rsId int(13);
+DECLARE done tinyint(1) DEFAULT 0;
+DECLARE rsIdCursor CURSOR FOR SELECT relation_set_id_tmp FROM relation_sets_tmp;
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+DECLARE EXIT HANDLER FOR SQLEXCEPTION CLOSE rsIdCursor;
+
+DROP TEMPORARY TABLE IF EXISTS relations_left;
+CREATE TEMPORARY TABLE relations_left(
+        relation_id_left int(13) NOT NULL PRIMARY KEY,
+        include_set_id_left int(13));
+
+DROP TEMPORARY TABLE IF EXISTS relations_exclude_left;
+CREATE TEMPORARY TABLE relations_exclude_left(
+        relation_id_left int(13) NOT NULL PRIMARY KEY,
+        exclude_set_id_left int(13));
+
+DROP TEMPORARY TABLE IF EXISTS relations_right;
+CREATE TEMPORARY TABLE relations_right(
+        relation_id_right int(13) NOT NULL PRIMARY KEY,
+        include_set_id_right int(13));
+
+DROP TEMPORARY TABLE IF EXISTS relations_exclude_right;
+CREATE TEMPORARY TABLE relations_exclude_right(
+        relation_id_right int(13) NOT NULL PRIMARY KEY,
+        exclude_set_id_right int(13));
+
+DROP TEMPORARY TABLE IF EXISTS duplicate_relations;
+CREATE TEMPORARY TABLE duplicate_relations(relation_set_id_duplicate int(13) PRIMARY KEY);
+
+OPEN rsIdCursor;
+FETCH rsIdCursor INTO rsId;
+
+WHILE done=0 do
+
+INSERT IGNORE INTO relations_left SELECT relation_id, include_set_id FROM relation WHERE include_set_id = rsId;
+INSERT IGNORE INTO relations_right SELECT relation_id, include_set_id_2 FROM relation WHERE include_set_id_2 = rsId;
+INSERT IGNORE INTO relations_exclude_left SELECT relation_id, exclude_set_id FROM relation WHERE exclude_set_id = rsId and exclude_set_id != 0;
+INSERT IGNORE INTO relations_exclude_right SELECT relation_id, exclude_set_id_2 FROM relation WHERE exclude_set_id_2 = rsId and exclude_set_id_2 != 0;
+
+FETCH rsIdCursor INTO rsId;
+END WHILE;
+
+CLOSE rsIdCursor;
+
+/* fight with the duplications, as for me (dima), it's a joke */
+INSERT INTO duplicate_relations SELECT include_set_id_left FROM relations_left INNER JOIN relations_right ON include_set_id_left=include_set_id_right;
+DELETE rl FROM relations_left rl INNER JOIN duplicate_relations dr ON rl.include_set_id_left=dr.relation_set_id_duplicate;
+DELETE rr FROM relations_right rr INNER JOIN duplicate_relations dr ON rr.include_set_id_right=dr.relation_set_id_duplicate;
+
+/* remove exclude from include */
+DELETE rl FROM relations_left  rl INNER JOIN relations_exclude_left  rel USING (relation_id_left);
+DELETE rr FROM relations_right rr INNER JOIN relations_exclude_right rer USING (relation_id_right);
+
+SELECT relation_id_left,'include_set' FROM relations_left UNION SELECT relation_id_right, 'include_set_2' FROM relations_right;
+
+END//
+DELIMITER ;

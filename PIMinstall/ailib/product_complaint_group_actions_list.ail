@@ -1,0 +1,18 @@
+{
+ name: product_complaint_group_actions_list;
+
+ _resource_dummy: select 'dummy2';
+ _mapping_dummy: search_status_list;
+
+ format_as_dropdown: search_status_list;
+ search_status_list_dropdown_select: SELECT pcs.code,v.value FROM product_complaint_status pcs JOIN vocabulary v USING(sid) WHERE v.langid=1;
+
+ actions_list: status_list, delete;
+ actions_denied_variants: delete#status_list;
+
+ status_list_action: update product_complaint set complaint_status_id = %%code%% where id in (%%complaint_id%%);
+ status_list_param: code;
+ delete_action: delete from product_complaint where id in (%%complaint_id%%);
+ delete_action_sub: delete from product_complaint_history where complaint_id in (%%complaint_id%%);
+ publis_param: ;
+}

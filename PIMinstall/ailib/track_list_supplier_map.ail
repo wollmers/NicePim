@@ -1,0 +1,18 @@
+{
+name: track_list_supplier_map;
+priority: 1;
+format_undef_values: Y;
+_resource_track_list_supplier_map: select sm.track_list_supplier_map_id,sm.symbol,u.login,s.name,sm.client_id,sm.supplier_id from track_list_supplier_map sm 
+				JOIN users u ON u.user_id=sm.client_id
+				LEFT JOIN supplier s USING(supplier_id)				  
+			    WHERE %%restrict%% and %%search_clause%%  %%order_clause%%
+				limit %%start_row%%,%%rows_number%% 
+
+_resource_track_list_supplier_map_def_order: login;
+_resource_track_list_supplier_map_def_order_mode: D;   					       
+_resource_track_list_supplier_map_type: multi;
+_mapping_track_list_supplier_map: track_list_supplier_map_id, symbol, login, brand, client_id,map_supplier_id;
+format_as_dropdown_ajaxed: map_supplier_id;
+map_supplier_id_dropdown_ajaxed_select: select supplier_id, name from supplier order by name;
+
+}

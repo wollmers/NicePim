@@ -1,0 +1,15 @@
+{
+name: price_lists;
+priority: 10;
+
+_resource_pricelists: select dp.name, dp.pl_url, dp.pl_format, dp.code, dp.updated, dp.active, dp.coverage, l.code, dp.langid from distributor_pl dp inner join language l using(langid);
+
+_resource_pricelists_type: multi;
+
+_mapping_pricelists: distributor, pl_url, pl_format, d_code, modified, active, cover, language, langid;
+
+_format_as_pricelists_checkbox: active;
+
+
+
+}

@@ -1,0 +1,34 @@
+{
+name: relation_rules;
+priority: 10;
+
+_resource_relation_group: select name from relation_group where relation_group_id=%%relation_group_id%%;
+_mapping_relation_group: relation_group_name;
+
+
+_resource_relation_rules: select r.relation_id, r.name, relation_id, relation_id,
+(select count(*) from relation_set rs1 where rs1.relation_set_id=r.include_set_id)+  (select count(*) from relation_set rs2 where rs2.relation_set_id=r.exclude_set_id),
+(select count(*) from relation_set rs3 where rs3.relation_set_id=r.include_set_id_2)+(select count(*) from relation_set rs4 where rs4.relation_set_id=r.exclude_set_id_2)
+from relation r
+where relation_group_id=%%relation_group_id%%
+order by r.name asc;
+_resource_relation_rules_type: multi;
+_mapping_relation_rules: relation_id, name, amount, amount_2, relations_set, relations_set_2;
+
+
+format_as_relation_set_amount: amount, amount_2;
+
+
+authorize_superuser: relation_group_id;
+authorize_supereditor: relation_group_id;
+authorize_category_manager: relation_group_id;
+authorize_editor: relation_group_id;
+authorize_relation: relation_group_id;
+authorize_guest: relation_group_id;
+authorize_shop: relation_group_id;
+
+authorize_submit_superuser: relation_group_id;
+authorize_submit_supereditor: relation_group_id;
+authorize_submit_category_manager: relation_group_id;
+
+}

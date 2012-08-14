@@ -1,0 +1,10 @@
+{
+name: track_list_entrusted_editors;
+priority: 1000;
+
+_resource_data: select '[]','[]';
+_resource_data_type: single;
+_mapping_data: available_user_id,occupied_user_id;
+format_as_dropdown_multi_pair_from_entrusted_user: available_user_id;
+format_as_dropdown_multi_pair_to_entrusted_user: occupied_user_id;
+}

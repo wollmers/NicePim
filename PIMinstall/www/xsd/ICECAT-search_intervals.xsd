@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="ICECAT-interface" type="body" />
+
+	<xs:complexType name="body">
+		<xs:sequence>
+		<xs:element name="CategoryFeatureIntervals" type="cf" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="cf">
+		<xs:sequence>
+		<xs:element name="Interval" type="inter" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="category_feature_id" type="xs:integer" use="required" />
+		<xs:attribute name="valid" type="xs:integer" use="required" />
+		<xs:attribute name="invalid" type="xs:integer" use="required" />
+		<xs:attribute name="ratio" type="xs:float" use="required" />
+		<xs:attribute name="updated" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="inter">
+	<xs:sequence>	   		
+		<xs:element name="Max" type="xs:string" />
+		<xs:element name="Min" type="xs:string" />
+	</xs:sequence>			
+		<xs:attribute name="amount" type="xs:integer" use="required" />
+		<xs:attribute name="order" type="xs:integer" use="required" />
+	</xs:complexType>
+
+</xs:schema>

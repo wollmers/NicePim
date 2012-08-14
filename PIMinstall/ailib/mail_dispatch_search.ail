@@ -1,0 +1,7 @@
+{
+name: mail_dispatch_search;
+
+resource_params: select %%search_dispatch_subject%%
+_mapping_params: search_dispatch_subject;
+
+}

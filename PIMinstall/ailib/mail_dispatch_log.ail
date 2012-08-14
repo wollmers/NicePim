@@ -1,0 +1,15 @@
+{
+name: mail_dispatch_log;
+
+_resource_dispatch_log: select id, subject, to_groups, date_queued, date_delivered, attachment_name, status, sent_emails from mail_dispatch where %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%;
+_resource_dispatch_log_type: multi;
+_resource_dispatch_log_def_order: dispatch_date_delivered;
+_resource_dispatch_log_def_order_mode: D;
+_mapping_dispatch_log: dispatch_id, dispatch_subject, dispatch_to_groups, dispatch_date_queued, dispatch_date_delivered, dispatch_attach, dispatch_status, dispatch_sent_emails;
+ 
+_format_as_dispatch_to_groups: dispatch_to_groups;
+_format_as_dispatch_status: dispatch_status;
+_format_as_dispatch_attach: dispatch_attach;
+_format_as_date: dispatch_date_delivered, dispatch_date_queued;
+
+}

@@ -1,0 +1,26 @@
+{
+name: mail_dispatch;
+
+_resource_mail_dispatch: select 'dummy1', 'dummy2', 'now';
+_mapping_mail_dispatch: mail_dispatch_groups, dispatch_attachment, dispatch_date, country_id_set;
+
+_format_as_mail_dispatch_groups: mail_dispatch_groups;
+
+_resource_mail_details: SELECT subject, country_id, single_email, to_groups, to_emails  FROM mail_dispatch WHERE id="%%id%%";
+_mapping_mail_details: dispatch_subject, country_id_set, single_email;
+
+dispatch_groups_values:editors,all_shops,suppliers,partners,all_subs;
+dispatch_group_editors: user_group = 'editor';
+dispatch_group_all_shops: user_group = 'shop';
+dispatch_group_suppliers: user_group = 'supplier';
+dispatch_group_partners: user_group = 'partner';
+dispatch_group_all_subs: email_subscribing = 'Y';
+
+format_as_dropdown: country_id_set;
+country_id_set_dropdown_select: select country_id, v.value from country_popular cp inner join country c using (country_id) inner join vocabulary v on c.sid=v.sid and v.langid=1;
+
+store_as_dispatch_attachment_uploaded: dispatch_attachment;
+validate_as_mandatory: dispatch_subject, dispatch_html_message;
+validate_as_dispatch_groups: mail_dispatch_groups;
+validate_as_yyyy_mm_dd_and_probably_hh_mm_ss: dispatch_date;
+}

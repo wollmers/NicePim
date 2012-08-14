@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="128907" Prod_id="VGNT1XP/L.CEZ" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="Intel Pentium Mobile Ultra Low Voltage 733 1.1GHz 512MB 40GB DVD+/-RW" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="269" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="35" No="10">
+         <FeatureGroup ID="1">
+           <Name ID="4859" Value="Processor" langid="1"/>
+           <Name ID="4860" Value="Processor" langid="2"/>
+           <Name ID="7174" Value="Processor" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="107" No="9">
+         <FeatureGroup ID="2">
+           <Name ID="4861" Value="Disk drive" langid="1"/>
+           <Name ID="4862" Value="Disk drive" langid="2"/>
+           <Name ID="7175" Value="Disk drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="106" No="8">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="32" No="6">
+         <FeatureGroup ID="4">
+           <Name ID="4865" Value="Optical drive" langid="1"/>
+           <Name ID="4866" Value="Optische drive" langid="2"/>
+           <Name ID="7177" Value="Optical drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="33" No="7">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1183" No="0">
+         <FeatureGroup ID="7">
+           <Name ID="4884" Value="Platform" langid="2"/>
+           <Name ID="4883" Value="Platform" langid="1"/>
+           <Name ID="7173" Value="Platform" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="34" No="4">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="110" No="3">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="31" FeatureGroup="" No="0"/>
+        <CategoryFeatureGroup ID="36" No="5">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="108" No="1">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="109" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1403" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="762" No="2">
+         <FeatureGroup ID="31">
+           <Name ID="5075" Value="Keyboard" langid="1"/>
+           <Name ID="5076" Value="Toetsenbord" langid="2"/>
+           <Name ID="8280" Value="Keyboard" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="149130" URL="" ShortDesc="Intel Pentium Mobile Ultra Low Voltage 733 1.1GHz 512MB 40GB DVD+/-RW X-Black 10.6 inch WideTFT 1280x768 WGXA WLAN Bluetooth XP PRO UK MUI" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9497533" Value="40" No="10105480" CategoryFeatureGroup_ID="107">
+         <Feature ID="7">
+          <Measure ID="20" Sign="GB"/>
+           <Name ID="1300" Value="Harde schijf drive" langid="2"/>
+           <Name ID="1299" Value="Hard disk drive capacity" langid="1"/>
+           <Name ID="6659" Value="Hard disk drive" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9497534" Value="Microsoft Windows XP Professional" No="105999" CategoryFeatureGroup_ID="1183">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9497535" Value="Wireless LAN" No="100000" CategoryFeatureGroup_ID="36">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9497536" Value="512" No="10105479" CategoryFeatureGroup_ID="106">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9497890" Value="TFT" No="105980" CategoryFeatureGroup_ID="33">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="151">
+         <Name ID="303" Value="notebooks" langid="1"/>
+         <Name ID="304" Value="notebooks" langid="2"/>
+         <Name ID="6224" Value="notebooks" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,30 @@
+<!ELEMENT ICECAT-interface (Reviews)>
+
+<!ELEMENT Reviews (Product*)>
+
+<!ELEMENT Product (Review*)>
+<!ATTLIST Product
+					ID           CDATA #REQUIRED
+					AwardName    CDATA #REQUIRED
+					AwardHighPic CDATA #REQUIRED
+					AwardLowPic  CDATA #REQUIRED>
+
+<!ELEMENT Review (Value|ValueGood|ValueBad|BottomLine)>
+<!ATTLIST Review
+					ID        CDATA #REQUIRED
+					LangID    CDATA #REQUIRED
+					Group     CDATA #REQUIRED
+					Code      CDATA #REQUIRED
+					Score     CDATA #REQUIRED
+					URL       CDATA #REQUIRED
+					LogoPic   CDATA #REQUIRED
+					DateAdded CDATA #REQUIRED
+					Updated   CDATA #REQUIRED>
+
+<!ELEMENT Value      (#PCDATA)>
+
+<!ELEMENT ValueGood  (#PCDATA)>
+
+<!ELEMENT ValueBad   (#PCDATA)>
+
+<!ELEMENT BottomLine (#PCDATA)>

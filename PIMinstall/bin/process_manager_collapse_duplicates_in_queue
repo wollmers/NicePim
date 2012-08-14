@@ -1,0 +1,92 @@
+#!/usr/bin/perl
+
+#$Id: process_manager_collapse_duplicates_in_queue 3468 2010-11-19 14:31:23Z dima $
+
+use lib '/home/pim/lib/';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+use process_manager;
+
+use Term::ANSIColor qw(:constants);
+
+if (&get_running_perl_processes_number('process_manager_collapse_duplicates_in_queue') != 1) {
+  exit;
+}
+
+my $fake = 0;
+
+print BOLD . WHITE . "process_manager_collapse_duplicates_in_queue started:" . RESET . "\n\n";
+
+my $processes = &do_query("select product_id, max(prio), group_concat(id order by id asc separator ','), group_concat(langid_list separator ';') from process_queue where process_class_id=1 and process_status_id=1 group by product_id having count(*) > 1");
+
+print "\t" . BOLD . YELLOW . ($#$processes+1) . RESET . " duplicates found\n\n";
+
+foreach (@$processes) {
+	my $product_id = $_->[0];
+	my $prio = $_->[1];
+	my @id_list = split /,/, $_->[2];
+	my $l = $_->[3];
+	my @langs = split /;/, $_->[3];
+
+	print "\t" . $product_id . "\t" . $_->[3] . "\n";
+
+	my $collect_langs;
+
+	if (($l =~ /;;/) || ($l =~ /^;/) || ($l =~ /;$/)) {
+		$collect_langs = {};
+		goto res;
+	}
+
+	foreach (@langs) {
+		my @lang = split /,/, $_;
+
+		foreach my $l (@lang) {
+			unless ($l) {
+				$collect_langs = {};
+				goto res;
+			}
+			$collect_langs->{$l} = 1 if $l =~ /^\d+$/;
+		}
+	}
+
+ res:
+
+	my $new_langid_list = '';
+	foreach (sort {$a <=> $b} keys %$collect_langs) {
+		$new_langid_list .= $_ . ',';
+	}
+	chop($new_langid_list);
+
+	my $single_id = '';
+	$single_id = shift @id_list;
+	my $new_id_list = '';
+
+	foreach (@id_list) {
+		$new_id_list .= $_ . ',';
+	}
+	chop($new_id_list);
+
+	print "\tlangid_list = " . $new_langid_list . "  new_id_list = " . $new_id_list . "\n\n";
+
+	# delete all others
+	my $q = "delete from process_queue where id in (".$new_id_list.")";
+	if ($fake) {
+		print "\t\t" . BOLD . GREEN . $q . RESET . "\n";
+	}
+	else {
+		&do_statement($q) if $new_id_list;
+	}
+
+	# update single
+	$q = "update process_queue set prio=".$prio.", langid_list=".&str_sqlize($new_langid_list).", process_status_id=1 where id=".$single_id;
+	if ($fake) {
+		print "\t\t" . BOLD . GREEN . $q . RESET . "\n";		
+	}
+	else {
+		&do_statement($q) if $single_id;
+	}
+}

@@ -1,0 +1,13 @@
+{
+name: track_products_all_search;
+priority: 10;
+
+_resource_params: select '%%search_rule_user_id%%','%%search_supplier_id%%','%%search_track_list_id%%','%%search_rule_status%%','%%search_feed_prod_id%%';
+_mapping_params: search_rule_user_id,search_supplier_id,search_track_list_id,search_rule_status,search_feed_prod_id;
+
+search_rule_user_id_dropdown_select: SELECT u.user_id,u.login FROM users u JOIN user_group_measure_map ug USING(user_group) WHERE ug.measure='ICECAT'   
+search_supplier_id_dropdown_select: SELECT supplier_id,name FROM supplier;
+search_track_list_id_dropdown_select: SELECT tl.track_list_id,tl.name FROM track_product tp JOIN track_list tl USING(track_list_id) WHERE tp.rule_prod_id!='' GROUP BY tl.track_list_id;								     
+format_as_dropdown: search_rule_user_id,search_supplier_id,search_track_list_id; 
+format_as_custom_select: search_rule_status;
+}

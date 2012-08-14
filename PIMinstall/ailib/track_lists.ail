@@ -1,0 +1,53 @@
+{
+name: track_lists;
+priority: 10;
+
+_resource_track_lists: select tl.name,tl.track_list_id,goal_coverage,deadline_date,is_open,priority,lu.login,lu.user_id,
+					   (SELECT count(*) FROM track_product tp WHERE tp.track_list_id=tl.track_list_id) as prods_count,
+					   (SELECT count(*) FROM track_product tp JOIN product p USING(product_id) 
+					   		WHERE tp.track_list_id=tl.track_list_id and tp.extr_quality='icecat') as prods_described,
+					   (SELECT count(*) FROM track_product tp WHERE tp.track_list_id=tl.track_list_id and tp.is_parked=0 AND tp.extr_quality!='icecat') as prods_count_free,
+					   (SELECT count(*) FROM track_product tp WHERE tp.track_list_id=tl.track_list_id and tp.extr_quality='icecat' AND described_date!=0) as prods_editor_described,					   					    
+					   count(tle.track_list_editor_id) as count_editors,tl.track_list_id,					   
+					   unix_timestamp(created),'11',tle.user_id as editor_id,tl.name,tl.name,
+					   (ROUND((((SELECT count(*) FROM track_product tp JOIN product p USING(product_id) WHERE tp.track_list_id=tl.track_list_id and tp.extr_quality='icecat')/(SELECT count(*) FROM track_product tp WHERE tp.track_list_id=tl.track_list_id))*100))) as prods_desc_pers,
+					   '1',tl.user_id as owner_id,'',
+					   (SELECT count(*) FROM track_product tp WHERE tp.track_list_id=tl.track_list_id AND (tp.extr_quality='icecat' or tp.is_parked=1)) as processed_prods
+					   from track_list tl 
+					   JOIN users lu ON lu.user_id=tl.user_id
+					   LEFT JOIN track_list_editor tle ON tl.track_list_id=tle.track_list_id 
+					   WHERE %%restrict%% and %%search_clause%%  
+					   GROUP BY tl.track_list_id 
+					   %%order_clause%%
+					   limit %%start_row%%,%%rows_number%% 
+
+_resource_track_lists_type: multi;
+_resource_track_lists_def_order: name;
+_mapping_track_lists: name,track_list_id,goal_coverage,deadline_date,is_open,priority,login,user_id,prods_count,prods_described,prods_count_free,prods_editor_described,count_editors,report_link,created,eta,editor_id,link_to_import,link_to_settings,prods_desc_pers,prods_desc_pers_color,owner_id,link_to_graphic,processed_prods;
+deadline_date_from_unixtime_stamp: %Y-%m-%d; 
+format_as_from_unixtime: deadline_date;
+format_as_open_closed: is_open;
+format_as_track_list_priority: priority;
+format_as_tracklist_eta: eta;
+format_as_track_list_described_color: prods_desc_pers_color;
+format_as_track_list_hide_link: link_to_import,link_to_settings,link_to_entrusted,link_to_add,report_link,link_to_graphic;
+format_as_track_list_hide_link_entrusted_editors: link_to_rules,link_to_brand_map;
+authorize_superuser: track_list_id;
+authorize_supereditor: track_list_id;
+
+_resource_dummy: select '','','',''; 
+_mapping_dummy: link_to_rules,link_to_add,link_to_entrusted,link_to_brand_map;
+
+
+track_lists_restrict_editor: 1
+track_lists_restrict_guest: 0
+track_lists_restrict_shop: 0
+track_lists_restrict_supplier: 0
+track_lists_restrict_supereditor: 1
+track_lists_restrict_category_manager: 0
+track_lists_restrict_superuser: 1
+
+authorize_submit_superuser: track_list_id;
+authorize_submit_supereditor: track_list_id;
+
+}

@@ -1,0 +1,36 @@
+{
+name: category_features;
+priority: 10;
+
+_resource_features: select f.feature_id, category_feature_id, v.value, ms.value, (cf.searchable * 10000000 + (1 - f.class) * 100000 + cf.no) as big_number, cf.searchable, category_feature_id, group_name.value, if(cf.searchable = 1, 'Edit','')
+from category_feature cf
+inner join feature f on cf.feature_id = f.feature_id
+inner join vocabulary v on f.sid = v.sid and v.langid = %%langid%%
+left  join measure_sign ms on f.measure_id = ms.measure_id and ms.langid = %%langid%%
+inner join category_feature_group cfg on cf.category_feature_group_id = cfg.category_feature_group_id
+inner join feature_group fg on cfg.feature_group_id = fg.feature_group_id
+inner join vocabulary group_name on group_name.sid = fg.sid and group_name.langid = %%langid%%
+
+where cf.catid = %%catid%% and %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+	
+_resource_features_type: multi;
+_resource_features_def_order: nom;
+_resource_features_def_order_mode: D;
+_resource_features_key: catid;
+_mapping_features: feature_id, category_feature_id, name, sign, nom, searchable, category_feature_item_marked, group_name, search_link;
+
+format_as_clipboard_indicator: category_feature_item_marked;
+
+authorize_superuser: category_feature_id, feature_id;
+authorize_supereditor: category_feature_id, feature_id;
+authorize_category_manager: category_feature_id, feature_id;
+authorize_editor: category_feature_id, feature_id;
+authorize_supplier: category_feature_id, feature_id;
+authorize_guest: category_feature_id, feature_id;
+authorize_shop: category_feature_id, feature_id;
+
+authorize_submit_superuser: category_feature_id, feature_id;
+authorize_submit_supereditor: category_feature_id, feature_id;
+authorize_submit_category_manager: category_feature_id, feature_id;
+
+}

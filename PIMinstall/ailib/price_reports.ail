@@ -1,0 +1,11 @@
+{
+name: price_reports;
+
+_resource_pricelist:select '%%distri_code%%',  %%langid%%, %%active%% from distributor_pl;
+_mapping_pricelist:distri_code, langid, active;
+
+format_as_dropdown:distri_code,langid;
+langid_dropdown_select: select langid,code from language where published='Y';
+distri_code_dropdown_select: select code,name from distributor_pl;
+format_as_input_checkbox: active; 
+}

@@ -1,0 +1,6 @@
+{
+name:distributors_search
+_resource_params: select '%%search_name%%','%%search_active%%','%%search_group_code%%','%%search_direct%%','%%search_visible%%'
+_mapping_params: search_name,search_active,search_group_code,search_direct,search_visible;
+format_as_custom_select:search_active,search_direct,search_visible;
+}

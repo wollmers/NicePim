@@ -1,0 +1,30 @@
+{
+name: category_features_merge;
+priority: 10;
+
+verify: feature_id;
+
+verify_add: yes;
+verify_add_superuser: src_feature_id;
+verify_add_supereditor: src_feature_id;
+verify_add_category_manager: src_feature_id;
+
+verify_deny_guest: yes;
+
+_resource_feature: select %%src_feature_id%%, %%dst_feature_id%%
+_resource_feature_type: single;
+_resource_feature_key: src_feature_id;
+_mapping_feature: src_feature_id, dst_feature_id;
+
+_resource_category: select vocabulary.value from category, vocabulary  where category.sid = vocabulary.sid and category.catid=%%catid%% and vocabulary.langid = %%langid%%
+_mapping_category: category_name;
+
+
+validate_as_mandatory: src_feature_id, dst_feature_id;
+
+format_as_dropdown: src_feature_id, dst_feature_id;
+src_feature_id_dropdown_select: select feature.feature_id, concat(vocabulary.value,'(',measure_name.value,')',' - ',feature.feature_id) from feature, vocabulary, vocabulary as measure_name, measure, category_feature where feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = %%langid%% and vocabulary.sid = feature.sid and vocabulary.langid = %%langid%% and category_feature.catid=%%catid%% and category_feature.feature_id=feature.feature_id order by vocabulary.value
+
+dst_feature_id_dropdown_select: select feature.feature_id, concat(vocabulary.value,'(',measure_name.value,')',' - ',feature.feature_id) from feature, vocabulary, vocabulary as measure_name, measure, category_feature where feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = %%langid%% and vocabulary.sid = feature.sid and vocabulary.langid = %%langid%% and category_feature.catid=%%catid%% and category_feature.feature_id=feature.feature_id order by vocabulary.value
+
+}

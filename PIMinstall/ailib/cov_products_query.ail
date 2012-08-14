@@ -1,0 +1,20 @@
+{
+name: cov_products_query;
+
+_resource_data: select '%%search_supplier_id%%','%%search_distri_id%%','%%search_catid%%','%%show_subtotals%%','%%on_stock%%';
+_mapping_data: search_supplier_id, search_distri_id, search_catid, show_subtotals, on_stock;
+
+format_as_dropdown: search_supplier_id;
+search_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+
+format_as_smart_dropdown: search_catid;
+search_catid_allow_pcat_choice: Y;
+search_catid_add_empty: Any category;
+search_catid_smart_dropdown_attrs: style="width\: 302px;"
+
+format_as_input_checkbox: show_subtotals, on_stock;
+format_as_onmarket_select: search_distri_id;
+
+verify_deny_guest: yes;
+
+}

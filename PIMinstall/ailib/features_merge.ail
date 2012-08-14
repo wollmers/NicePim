@@ -1,0 +1,26 @@
+{
+name: features_merge;
+priority: 10;
+
+verify: feature_id;
+
+verify_add: yes;
+verify_add_superuser: src_feature_id;
+verify_add_supereditor: src_feature_id;
+verify_add_category_manager: src_feature_id;
+
+verify_deny_guest: yes;
+
+_resource_feature: select %%src_feature_id%%, %%dst_feature_id%%
+_resource_feature_type: single;
+_resource_feature_key: src_feature_id;
+_mapping_feature: src_feature_id, dst_feature_id;
+
+validate_as_mandatory: src_feature_id, dst_feature_id;
+
+format_as_dropdown: src_feature_id, dst_feature_id;
+src_feature_id_dropdown_select: select feature_id, concat(vocabulary.value,'(',measure_name.value,')',' - ',feature_id) from feature, vocabulary, vocabulary as measure_name, measure where feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = %%langid%% and vocabulary.sid = feature.sid and vocabulary.langid = %%langid%%  order by vocabulary.value
+
+dst_feature_id_dropdown_select: select feature_id, concat(vocabulary.value,'(',measure_name.value,')',' - ',feature_id) from feature, vocabulary, vocabulary as measure_name, measure where feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = %%langid%% and vocabulary.sid = feature.sid and vocabulary.langid = %%langid%%  order by vocabulary.value
+
+}

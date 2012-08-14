@@ -1,0 +1,139 @@
+#!/usr/bin/perl
+
+#$Id: export_products_overview 2546 2010-05-08 00:55:06Z dima $
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomsql;
+use atomlog;
+use atom_misc;
+
+use data_management;
+
+use Encode;
+
+$| = 1;
+
+###
+### The script, which will prepare a list pf products with their key feature values
+###
+
+# init
+
+my (@p, $i);
+
+my $gz = '.gz';
+my $new = '.new';
+my $out = $atomcfg{'xml_path'}.'level4/%%code%%/product_overview.txt';
+
+
+# langs INT and local langs
+my $langs = &do_query("select langid, short_code from language where published='Y'");
+my %lang_dir = map {$_->[0] => $_->[1]} @$langs; $lang_dir{0} = 'INT';
+
+
+# db
+&do_statement("drop temporary table if exists tmp_country_product");
+&do_statement("create temporary table tmp_country_product (product_id int(13) primary key)");
+&do_statement("insert ignore into tmp_country_product(product_id) select product_id from country_product where existed = 1 and active = 1");
+
+
+print "Total number of active products is: \033[1m".&do_query("select count(*) from tmp_country_product")->[0][0]."\033[0m\n";
+
+&do_statement("drop temporary table if exists tmp_users");
+&do_statement("create temporary table tmp_users (user_id int(13) primary key)");
+&do_statement("insert ignore into tmp_users(user_id)
+select u.user_id from users u
+inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group
+inner join content_measure_index_map cmim on ugmm.measure = cmim.content_measure where cmim.quality_index > 0");
+
+
+print "Total number of good users is: \033[1m".&do_query("select count(*) from tmp_users")->[0][0]."\033[0m\n";
+
+my ($handles, $handle, $out2, $chandle, $langid);
+
+# open all file handles
+foreach $langid (keys %lang_dir) {
+	$handle = new IO::File;
+	$out2 = $out;
+	$out2 =~ s/%%code%%/$lang_dir{$langid}/;
+	open($handle, "> ".$out2.$new);
+	$handle->binmode(":utf8");
+	$handles->{$langid} = $handle;
+}
+
+my ($select, $sth, $rv);
+
+# use betweens!!!
+
+my @arr = &get_primary_key_set_of_ranges('p','product',100000,'product_id');
+
+print "Start:\n";
+
+$i = 0;
+
+foreach my $b_cond (@arr) {
+
+	print "\t".$b_cond."... ";
+
+	$select = "select p.product_id, psd.langid, psd.short_summary_description, psd.long_summary_description
+from product p
+inner join product_summary_description psd on p.product_id=psd.product_id
+inner join tmp_users tu on p.user_id=tu.user_id
+inner join tmp_country_product tcp on p.product_id=tcp.product_id
+where ".$b_cond."
+order by p.product_id";
+	$sth = $atomsql::dbh->prepare($select);
+	$rv = $sth->execute;
+
+	log_printf("SQL DIRECT: ".$select);
+
+#	unless ($sth->rows) {
+#		print "Mistake in the products result. Exit.\n";
+#		die;
+#	}
+
+	while (@p = $sth->fetchrow_array) {
+		# some info
+		$i++;
+
+		print $i." " unless ($i % 1000);
+
+		$chandle = $handles->{$p[1]};
+
+		&Encode::_utf8_on($p[2]);
+		&Encode::_utf8_on($p[3]);
+
+		foreach my $j (2..3) {
+			$p[$j] =~ s/\t//gs;
+			$p[$j] =~ s/\n//gs;
+		}
+
+		print $chandle $p[0]."\t".$p[2]."\t".$p[3]."\n";
+	}
+
+	print "done\n";
+}
+
+&do_statement("drop temporary table if exists tmp_country_product");
+&do_statement("drop temporary table if exists tmp_users");
+
+print "the total number is ".$i."\n\n";
+
+foreach $langid (keys %lang_dir) {
+	$chandle = $handles->{$langid};
+	close $chandle;
+	$out2 = $out;
+	$out2 =~ s/%%code%%/$lang_dir{$langid}/;
+	`/bin/cat $out2$new | gzip -c9 > $out2$gz$new`;
+	`/bin/mv $out2$new $out2`;
+	`/bin/mv $out2$gz$new $out2$gz`;
+}
+
+print "End.\n\n";
+
+# end

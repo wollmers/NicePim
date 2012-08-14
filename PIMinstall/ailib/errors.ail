@@ -1,0 +1,5 @@
+{
+name: errors;
+ custom_processing: yes;
+ priority: 0;
+}

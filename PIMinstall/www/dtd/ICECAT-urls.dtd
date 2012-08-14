@@ -1,0 +1,64 @@
+<!ELEMENT ICECAT-interface (ProductUrls|Suppliers|CategoriesList)*>
+	<!ATTLIST ICECAT-interface
+		  xmlns:xsi		CDATA #IMPLIED
+		  xsi:noNamespaceSchemaLocation 	CDATA #IMPLIED>
+
+<!ELEMENT ProductUrls (ProductUrl+)>
+<!ELEMENT ProductUrl (EAN_UPCS|Country_Markets)*>
+<!ATTLIST ProductUrl
+					URL                   CDATA #REQUIRED
+					Low_res_img           CDATA #IMPLIED
+					UNCATID               CDATA #REQUIRED
+					Thumbnail_img         CDATA #IMPLIED
+					High_res_img          CDATA #IMPLIED
+					Category_ID           CDATA #REQUIRED
+					product_id            CDATA #REQUIRED
+					model_name            CDATA #IMPLIED
+					Quality	              CDATA #REQUIRED
+					supplier_id           CDATA #REQUIRED
+					original_supplier_id  CDATA #IMPLIED
+					prod_id	              CDATA #REQUIRED
+					m_prod_id             CDATA #IMPLIED
+					Product_View          CDATA #IMPLIED
+					On_Market             CDATA #IMPLIED
+					Updated               CDATA #IMPLIED>
+
+<!ELEMENT EAN_UPCS (EAN_UPC)+>
+
+<!ELEMENT EAN_UPC EMPTY>
+
+<!ATTLIST EAN_UPC
+		Value		CDATA #REQUIRED>
+
+<!ELEMENT CategoriesList (Category)+>		
+
+<!ELEMENT Suppliers (Supplier+)>
+<!ELEMENT Supplier EMPTY>
+<!ATTLIST Supplier
+											supplier_id CDATA #REQUIRED
+											Name				CDATA #REQUIRED>
+
+<!ELEMENT Category (Name+|ParentCategory|CategoryFeatureGroup+|UNCATID|Names|Feature+)*> 
+    <!ATTLIST Category
+        	UNCATID             CDATA #IMPLIED
+	        Searchable          CDATA #IMPLIED
+		ThumbPic            CDATA #IMPLIED
+		ID                  CDATA #REQUIRED
+		LowPic              CDATA #IMPLIED>
+		
+<!ELEMENT ParentCategory (Names+)>
+    <!ATTLIST ParentCategory
+                ID                  CDATA #REQUIRED>
+		
+
+<!ELEMENT Names (Name)*>
+<!ELEMENT Name (#PCDATA)>
+<!ATTLIST Name
+    ID                  CDATA #IMPLIED
+		langid              CDATA #IMPLIED
+		Value               CDATA #IMPLIED>
+
+<!ELEMENT Country_Markets (Country_Market)+>
+<!ELEMENT Country_Market EMPTY>
+<!ATTLIST Country_Market
+	  Value               CDATA #REQUIRED>

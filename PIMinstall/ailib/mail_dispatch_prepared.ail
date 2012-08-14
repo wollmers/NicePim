@@ -1,0 +1,10 @@
+{
+name: mail_dispatch_prepared;
+
+_resource_dispatch_prepared: select 'dummy1', 'dummy2', 'dummy3', 'dummy4', 'dummy5';
+_mapping_dispatch_prepared: dispatch_send_to, dispatch_persons, dispatch_emails, dispatch_html_message, dispatch_plain_text;
+
+_format_as_dispatch_send_to: dispatch_send_to;
+_format_as_dispatch_message: dispatch_html_message;
+
+}

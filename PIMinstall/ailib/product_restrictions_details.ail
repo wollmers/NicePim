@@ -1,0 +1,17 @@
+{
+name: product_restrictions_details;
+priority: 10;
+
+_resource_rest_details: SELECT prd.product_id, p.prod_id, prd.id
+FROM product_restrictions_details prd 
+INNER JOIN product p ON (prd.product_id = p.product_id )
+WHERE restriction_id = %%restriction_id%%
+
+_resource_rest_details_type: multi;
+_mapping_rest_details: product_id, prod_id, id;
+
+_resource_rest_counter: SELECT COUNT(*) FROM product_restrictions_details WHERE restriction_id = %%restriction_id%%
+_resource_rest_counter_type: single;
+_mapping_rest_counter: rest_counter;
+
+}

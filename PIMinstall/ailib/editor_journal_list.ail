@@ -1,0 +1,28 @@
+{
+name: editor_journal_list;
+
+_resource_editor_group: select user_group from users where user_id=%%user_id%%;
+_mapping_editor_group: user_group;
+
+_resource_editor_journal_list: select straight_join ej.user_id,ej.user_id, u.login, count(distinct ej.product_id) cnt, if('%%user_group%%' in ('editor','exeditor') and u.user_id != %%user_id%%,'1','0') FROM  editor_journal as ej JOIN users as u ON ej.user_id=u.user_id %%left_join_distri%%  
+where %%from_date_prepared%% and %%to_date_prepared%% and 
+%%search_editor_prepared%% and %%search_supplier_prepared%% and
+%%search_catid_prepared%% and %%search_prodid_prepared%% and %%search_changetype_prepared%% and ej.score = 1
+and %%search_distributor_prepared%% and %%search_isactive_prepared%%
+group by ej.user_id order by cnt desc;
+_resource_editor_journal_list_type: multi;
+_mapping_editor_journal_list: editor_id, editor_distri, editor_login, editor_products_num, editor_remove_link;
+_format_as_editor_distri:editor_distri;
+
+_resource_editor_journal_summary: select user_id, 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy' from editor_journal as ej %%left_join_distri%% where 1
+and %%from_date_prepared%% and %%to_date_prepared%% and %%search_editor_prepared%% and %%search_supplier_prepared%% and
+%%search_catid_prepared%% and %%search_prodid_prepared%% and %%search_changetype_prepared%% 
+and %%search_distributor_prepared%% and %%search_isactive_prepared%%
+and ej.score = 1;
+_resource_editor_journal_summary_type: single;
+_mapping_editor_journal_summary: editor_id, editor_product_summary, summary_product,
+summary_descriptions, summary_description_details, summary_features, summary_related,
+summary_objects, summary_gallery;
+
+_format_as_journal_product_summary: editor_product_summary;
+}

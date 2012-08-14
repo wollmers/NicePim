@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use atomsql;
+use atomcfg;
+
+my $user = $ARGV[0];
+print "User $user\n";
+exit if(!$user);
+
+my $data = &do_query("select login, password from users where login = ".&str_sqlize($user));
+#icecat.biz
+print "/home/httpsd/bin/htpasswd -b /home/httpsd/conf/export.cnf $data->[0][0] $data->[0][1]\n";
+system("/home/httpd/bin/htpasswd -b $atomcfg{'httpd_path'} $data->[0][0] $data->[0][1]");
+
+#development
+#print "/usr/bin/htpasswd -b /home/serzh/httpd/conf/export.cnf $data->[0][0] $data->[0][1]\n";
+#system("/usr/bin/htpasswd -b /home/serzh/httpd/conf/export.cnf $data->[0][0] $data->[0][1]");

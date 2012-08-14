@@ -1,0 +1,36 @@
+.feature_products_overlay{
+	display: none; 
+	height:50px;
+	float: left; 
+	position: absolute; 
+	top:550px;left: 100px; 
+}
+.close_cross{
+	background-color: #D4EAF1;
+	color: red; text-align:right; cursor: pointer;
+}
+.overlay_corner{
+	height: 8px;
+	width: 8px;
+}
+.overlay_border_v{
+	width: 8px;	
+}
+.overlay_border_v_1{
+	height: 28px;
+	background-position: bottom;
+}
+.overlay_border_h{
+	height: 8px;
+}
+.feature_products_overlay #ajax_result{
+	background-color: #D4EAF1;
+	height:180px;
+	width: 100%;
+	overflow: scroll;	
+}
+
+.feature_products_overlay #ajax_overlay_result_id{
+	/*height:100%;*/
+}
+

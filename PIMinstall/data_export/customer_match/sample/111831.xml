@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="111831" Prod_id="C9368AE" ThumbPic="http://www.icecat.biz/thumbs/111831.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP Nr. 100 grijze fotocartridge (15 ml)" LowPic="http://www.icecat.biz/img/hp/low_res/c9368ae_190x170.jpg">
+        <ProductRelated ID="589556">
+         <Product ID="111831" Prod_id="C9368AE" ThumbPic="http://www.icecat.biz/thumbs/111831.jpg" Name="HP Nr. 100 grijze fotocartridge (15 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="521257">
+         <Product ID="123573" Prod_id="Q3414B" ThumbPic="http://www.icecat.biz/thumbs/123573.jpg" Name="HP Photosmart 325 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526375">
+         <Product ID="123693" Prod_id="C8963B" ThumbPic="http://www.icecat.biz/thumbs/123693.jpg" Name="HP Deskjet 6540 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526376">
+         <Product ID="123695" Prod_id="C9031B" ThumbPic="http://www.icecat.biz/thumbs/123695.jpg" Name="HP Deskjet 6840 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526377">
+         <Product ID="123696" Prod_id="Q3419B" ThumbPic="http://www.icecat.biz/thumbs/123696.jpg" Name="HP Photosmart 375 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="557522">
+         <Product ID="128771" Prod_id="Q3399B" ThumbPic="http://www.icecat.biz/thumbs/128771.jpg" Name="HP Photosmart 8150 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565399">
+         <Product ID="129803" Prod_id="Y1451B" ThumbPic="http://www.icecat.biz/thumbs/129803.jpg" Name="HP Photosmart 375 Printer/R507 Digital Camera">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565747">
+         <Product ID="130523" Prod_id="Q3388B" ThumbPic="http://www.icecat.biz/thumbs/130523.jpg" Name="HP Photosmart 8450 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="565820">
+         <Product ID="130529" Prod_id="Q5542B" ThumbPic="http://www.icecat.biz/thumbs/130529.jpg" Name="HP Photosmart 2610 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="581204">
+         <Product ID="134272" Prod_id="Q5569B" ThumbPic="http://www.icecat.biz/thumbs/134272.jpg" Name="HP Officejet 7410 all-in-one printer, fax, scanner, copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="581205">
+         <Product ID="134282" Prod_id="Q5562B" ThumbPic="http://www.icecat.biz/thumbs/134282.jpg" Name="HP Officejet 7310 all-in-one printer, fax, scanner, copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="589531">
+         <Product ID="134872" Prod_id="C8967B" ThumbPic="http://www.icecat.biz/thumbs/134872.jpg" Name="HP Deskjet 6520 Colour Inkjet Printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="588568">
+         <Product ID="134873" Prod_id="Q5552B" ThumbPic="http://www.icecat.biz/thumbs/134873.jpg" Name="HP Photosmart 2710 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="589556">
+         <Product ID="111831" Prod_id="C9368AE" ThumbPic="http://www.icecat.biz/thumbs/111831.jpg" Name="HP Nr. 100 grijze fotocartridge (15 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="485" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="128537" URL="www.hp.com" ShortDesc="HP Nr. 100 grijze fotocartridge" langid="2" LongDesc="HP Nr. 100 grijze fotocartridge (15 ml)Deze geavanceerde grijze fotocartridge  die deel uitmaakt van HP's printsystemen met 3, 6 en 8 inktkleuren  maakt veel meer scherpe details zichtbaar in zwart-wit en kleurenfoto's en produceert prints die generaties lang lichtbestendig zijn*.Deze originele HP grijze fotocartridge maakt veel meer scherpe details zichtbaar in zwart-wit en kleurenfoto's. Hij maakt deel uit van HP's nieuwe printsystemen met 3, 6 en 8 inktkleuren. Als de cartridge zelfstandig wordt gebruikt, produceert hij (met drie inktkleuren) haarscherpe zwart-wit foto's met schitterende nuances, structuren en contrasten. In een printsysteem met 6 of 8 inktkleuren zorgt hij voor een breed kleurbereik met subtiele kleurovergangen. De gemaakte fotoprints zijn generaties lang lichtbestendig*.HP Nr. 100 grijze fotocartridge (15 ml)Deze geavanceerde grijze fotocartridge  die deel uitmaakt van HP's printsystemen met 3, 6 en 8 inktkleuren  maakt veel meer scherpe details zichtbaar in zwart-wit en kleurenfoto's en produceert prints die generaties lang lichtbestendig zijn*." WarrantyInfo="HP producten zijn, bij normaal gebruik volgens de specificaties, gegarandeerd vrij van materiaal- en fabricagefouten tot de op het product aangegeven datum. De garantie geldt niet voor lege cartridges of cartridges die op enige manier gewijzigd zijn. Raadpleeg voor complete garantiegegevens uw dealer of de HP website: www.hp.com/support/inkjet_warranty. Mogelijk hebt u naast de garantie van de fabrikant nog andere wettelijke rechten of aanspraakmogelijkheden jegens de leverancier." PDFURL=""/>
+        <ProductDescription ID="128811" URL="http://www.hp.com/cgi-bin/cposupport/loc/mkSession.cgi?LC=FR&amp;CC=BE&amp;PN=C9368AE" ShortDesc="" langid="3" LongDesc="" WarrantyInfo="Les produits HP sont garantis pièces et main-d'uvre dans des conditions d'utilisation normales, conformes à leurs spécifications, jusqu'à la date indiquée sur les produits. La garantie ne couvre pas les produits vides ou ayant été modifiés de quelque façon que ce soit. Pour des informations complètes sur la garantie, contactez votre distributeur ou consultez www.hp.com/support/inkjet_warranty. Il se peut qu'outre cette garantie du fabricant, vous jouissiez de droits spécifiques envers le fabricant, et non affectés par cette garantie.&lt;BR&gt;\n" PDFURL=""/>
+        <ProductDescription ID="129123" URL="http://www.hp.com" ShortDesc="HP No. 100 Grey Photo Inkjet Print Cartridge" langid="1" LongDesc="This advanced grey photo cartridge  part of HPs 3-, 6- and 8-ink printing systems  brings crisp, dramatic detail to both black &amp; white and colour photos and produces prints that resist fading for generations*.HP No. 100 Grey Photo Inkjet Print Cartridge (15 ml)This genuine HP grey photo cartridge brings crisp, dramatic detail to both black and white and colour photographs. This cartridge is part of HP's new 3-, 6-, and 8-ink printing systems. Used alone, its 3 inks create high definition black and white photos with striking tone, texture and contrast. Used as part of a 6- or 8-ink system, it provides a wide gamut of colors with smooth transitions between colors. It produces photos that resist fading for generations.*HP No. 100 Grey Photo Inkjet Print Cartridge (15 ml)This advanced grey photo cartridge  part of HPs 3-, 6- and 8-ink printing systems  brings crisp, dramatic detail to both black &amp; white and colour photos and produces prints that resist fading for generations*." WarrantyInfo="HP warrants that HP products are free from defects in workmanship or material under normal use in accordance with specifications until the date marked on the product. Warranty does not cover empty products or products that have been modified in any way. For complete warranty details contact your dealer or see www.hp.com/support/inkjet_warranty.  You may also have statutory legal rights against the seller in addition to this manufacturer's warranty which are not restricted by this manufacturer's warranty." PDFURL=""/>
+        <ProductFeature ID="8516394" Value="141 x 113 x 37 mm" No="116911" CategoryFeatureGroup_ID="485">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516386" Value="800 x 1200 x 1002 mm" No="16912" CategoryFeatureGroup_ID="485">
+         <Feature ID="530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2591" Value="Pallet Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2592" Value="Afmetingen pallet (B x D x H)" langid="2"/>
+           <Name ID="7292" Value="Pallet Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513258" Value="1400" No="16913" CategoryFeatureGroup_ID="485">
+         <Feature ID="732">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2995" Value="Quantity per Pallet" langid="1"/>
+           <Name ID="2996" Value="Aantal per pallet" langid="2"/>
+           <Name ID="7492" Value="Quantité par palette" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513267" Value="164 kg" No="16915" CategoryFeatureGroup_ID="485">
+         <Feature ID="513">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2557" Value="Pallet Weight" langid="1"/>
+           <Name ID="2558" Value="Gewicht pallet" langid="2"/>
+           <Name ID="7275" Value="Pallet Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516392" Value="20 tot 80" No="16999" CategoryFeatureGroup_ID="485">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9292681" Value="594 x 210 x 213 mm" No="17000" CategoryFeatureGroup_ID="485">
+         <Feature ID="487">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2505" Value="Larger Master Carton Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2506" Value="Afmetingen groot mastercarton (B x D x H)" langid="2"/>
+           <Name ID="7249" Value="Larger Master Carton Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513265" Value="50" No="17002" CategoryFeatureGroup_ID="485">
+         <Feature ID="586">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2703" Value="Larger Master Carton Quantity" langid="1"/>
+           <Name ID="2704" Value="Inhoud groot mastercarton" langid="2"/>
+           <Name ID="7348" Value="Quantité du carton grand format le plus important" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513262" Value="4.96 kg" No="17003" CategoryFeatureGroup_ID="485">
+         <Feature ID="704">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2939" Value="Larger Master Carton Weight" langid="1"/>
+           <Name ID="2940" Value="Gewicht groot mastercarton" langid="2"/>
+           <Name ID="7464" Value="Larger Master Carton Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516388" Value="594 x 210 x 213 mm" No="35634" CategoryFeatureGroup_ID="485">
+         <Feature ID="751">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3033" Value="Case or Master Carton Dimensions (W x D x H)" langid="1"/>
+           <Name ID="3034" Value="Afmetingen doos of mastercarton (B x D x H)" langid="2"/>
+           <Name ID="7511" Value="Case or Master Carton Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513264" Value="91.5 g" No="50" CategoryFeatureGroup_ID="485">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9292682" Value="0 - 40" No="34" CategoryFeatureGroup_ID="485">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516391" Value="15 to 35" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516385" Value="Op kleurstofbasis" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="705">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2941" Value="Compatible Ink Types" langid="1"/>
+           <Name ID="2942" Value="Compatibele inkttypen" langid="2"/>
+           <Name ID="7465" Value="Compatible Ink Types" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516393" Value="5 tot 95% relatieve luchtvochtigheid" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533927" Value="26.3 g" No="100000" CategoryFeatureGroup_ID="485">
+         <Feature ID="1690">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5317" Value="Empty weight" langid="1"/>
+           <Name ID="5318" Value="Leeg gewicht" langid="2"/>
+           <Name ID="8455" Value="Poids à vide" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513261" Value="7" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="1679">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5295" Value="Number of cartons per pallet" langid="1"/>
+           <Name ID="5296" Value="Aantal dozen per pallet" langid="2"/>
+           <Name ID="8444" Value="Number of cartons per pallet" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513263" Value="4" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="1680">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5297" Value="Number of layers per pallet" langid="1"/>
+           <Name ID="5298" Value="Aantal lagen per pallet" langid="2"/>
+           <Name ID="8445" Value="Number of layers per pallet" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516395" Value="48" No="100000" CategoryFeatureGroup_ID="485">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513266" Value="5 pl" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="2008">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9017" Value="Ink drop" langid="1"/>
+           <Name ID="9018" Value="Goutte d'encre" langid="3"/>
+           <Name ID="9019" Value="Inktdruppel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516387" Value="Grijs, lichtgrijs, zwart" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="2037">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9107" Value="Print cartridge colors" langid="1"/>
+           <Name ID="9108" Value="Print cartridge colors" langid="3"/>
+           <Name ID="9109" Value="Print cartridge colors" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516390" Value="15 ml" No="100000" CategoryFeatureGroup_ID="485">
+         <Feature ID="2038">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9110" Value="Print cartridge volume (metric)" langid="1"/>
+           <Name ID="9111" Value="Print cartridge volume (metric)" langid="3"/>
+           <Name ID="9112" Value="Print cartridge volume (metric)" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513260" Value="1/3 inch" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="2043">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="9125" Value="Printhead swath" langid="1"/>
+           <Name ID="9126" Value="Printhead swath" langid="3"/>
+           <Name ID="9127" Value="Printhead swath" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8516389" Value="18 months from the date of manufacture" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="2049">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9143" Value="Printing material shelf life" langid="1"/>
+           <Name ID="9144" Value="Durée de stockage" langid="3"/>
+           <Name ID="9145" Value="Bewaartijd vóór gebruik" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8513259" Value="2" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="2066">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9194" Value="Stacking number for pallet" langid="1"/>
+           <Name ID="9195" Value="Nombre de palettes par pile" langid="3"/>
+           <Name ID="9196" Value="Aantal items voor pallet" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760414" Value="15 ml" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="1656">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="5171" Value="Capacity cartridge" langid="1"/>
+           <Name ID="5172" Value="Capaciteit cartridge" langid="2"/>
+           <Name ID="8389" Value="Capacity cartridge" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760415" Value="18 maanden na de fabricagedatum" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="2154">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9645" Value="Expiration date" langid="1"/>
+           <Name ID="9646" Value="Expiration date" langid="3"/>
+           <Name ID="9647" Value="Expiration date" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760101" Value="100" No="0" CategoryFeatureGroup_ID="485">
+         <Feature ID="2155">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9648" Value="Selectability" langid="1"/>
+           <Name ID="9649" Value="Selectability" langid="3"/>
+           <Name ID="9650" Value="Selectability" langid="2"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="377">
+         <Name ID="755" Value="ink cartridges" langid="1"/>
+         <Name ID="756" Value="inktcartridges" langid="2"/>
+         <Name ID="6445" Value="ink cartridges" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

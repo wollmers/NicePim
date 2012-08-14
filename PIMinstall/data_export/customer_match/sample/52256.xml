@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="52256" Prod_id="7000000002167" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="ModemBlaster EN 56K V.92int PCI 1pk Bulk" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="371" No="30">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="776" No="25">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="779" No="15">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="778" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="775" No="10">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="777" No="20">
+         <FeatureGroup ID="34">
+           <Name ID="5139" Value="Protocols" langid="1"/>
+           <Name ID="5140" Value="Protocols" langid="2"/>
+           <Name ID="8374" Value="Protocols" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1318" No="0">
+         <FeatureGroup ID="35">
+           <Name ID="5167" Value="Networking" langid="1"/>
+           <Name ID="5168" Value="Networking" langid="2"/>
+           <Name ID="8387" Value="Networking" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="58922" URL="" ShortDesc="Modemblaster EN 56K V.92 internal PCI 1pak Bulk" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="5736353" Value="56" No="10100025" CategoryFeatureGroup_ID="371">
+         <Feature ID="447">
+          <Measure ID="22" Sign="Kbps"/>
+           <Name ID="2261" Value="Modem speed" langid="1"/>
+           <Name ID="2262" Value="Modemsnelheid" langid="2"/>
+           <Name ID="7138" Value="Modem speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="45" Name="Creative Labs"/>
+       <Category ID="253">
+         <Name ID="507" Value="modems" langid="1"/>
+         <Name ID="508" Value="modems" langid="2"/>
+         <Name ID="6326" Value="modems" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

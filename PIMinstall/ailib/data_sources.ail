@@ -1,0 +1,23 @@
+{
+name: data_sources;
+priority: 10;
+
+_resource_data_sources: select data_source_id, code, if(unix_timestamp(updated)=0,'',updated) from data_source %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_data_sources_type: multi;
+_resource_data_sources_def_order: code;
+_mapping_data_sources: data_source_id, code, updated;
+
+format_as_date_yyyy_dd_mm_hh_ss: updated;
+
+authorize_superuser: data_source_id;
+authorize_supereditor: data_source_id;
+authorize_category_manager: data_source_id;
+authorize_editor: data_source_id;
+authorize_supplier: data_source_id;
+authorize_guest: data_source_id;
+
+authorize_submit_superuser: data_source_id;
+authorize_submit_supereditor: data_source_id;
+authorize_submit_category_manager: data_source_id;
+
+}

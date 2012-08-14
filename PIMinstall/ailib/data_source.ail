@@ -1,0 +1,48 @@
+{
+name: data_source;
+priority: 10;
+
+verify: data_source_id;
+authorize_superuser: data_source_id;
+authorize_supereditor: data_source_id;
+authorize_category_manager: data_source_id;
+authorize_editor: data_source_id;
+authorize_supplier: data_source_id;
+authorize_guest: data_source_id;
+
+verify_submit: data_source_id;
+
+verify_add: yes;
+verify_add_superuser: data_source_id;
+verify_add_supereditor: data_source_id;
+verify_add_category_manager: data_source_id;
+
+verify_deny_guest: yes;
+
+_resource_supplier: select data_source_id, code, update_style,  user_id, email, send_report, configuration from data_source where data_source_id = %%data_source_id%%
+_resource_supplier_type: single;
+_resource_supplier_key: data_source_id;
+_mapping_supplier: data_source_id, code, update_style, edit_user_id, email, send_report, configuration;
+
+authorize_submit_superuser: data_source_id;
+authorize_submit_supereditor: data_source_id;
+authorize_submit_category_manager: data_source_id;
+
+
+format_as_assorted_list: update_style, send_report;
+
+format_as_dropdown: edit_user_id;
+edit_user_id_dropdown_select: select user_id, login from users where user_group = 'supplier' or user_group = 'nogroup' order by login
+
+validate_as_mandatory: code, email;
+
+ _insert_sequence: 3;
+
+ _insert_table_3: data_source;
+ _insert_values_3: edit_user_id, code, update_style, email, send_report, configuration;
+ _insert_fields_3: user_id, code, update_style, email, send_report, configuration;
+ _insert_key_3: data_source_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

@@ -1,0 +1,51 @@
+<!ELEMENT ICECAT-interface (files.index)+>
+
+<!ATTLIST ICECAT-interface
+		xmlns:xsi CDATA #IMPLIED
+		xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+
+<!ELEMENT files.index (file)*>
+
+<!ATTLIST files.index
+		Generated		CDATA #REQUIRED>
+
+<!ELEMENT file (M_Prod_ID|EAN_UPCS|Country_Markets|Distributors)*>
+
+<!ATTLIST file
+		path		CDATA #REQUIRED
+		Product_ID		CDATA #REQUIRED
+		Updated		CDATA #REQUIRED
+		Quality		CDATA #REQUIRED
+		Supplier_id		CDATA #REQUIRED
+		Prod_ID		CDATA #REQUIRED
+		Catid		CDATA #REQUIRED
+		On_Market		CDATA #IMPLIED
+		Model_Name	CDATA #IMPLIED
+		Product_View	CDATA #IMPLIED
+		HighPic	            CDATA #IMPLIED
+		HighPicSize	        CDATA #IMPLIED
+		HighPicWidth	    CDATA #IMPLIED
+		HighPicHeight	    CDATA #IMPLIED>
+<!ELEMENT M_Prod_ID (#PCDATA)>
+
+<!ELEMENT EAN_UPCS (EAN_UPC)+>
+
+<!ELEMENT EAN_UPC EMPTY>
+
+<!ATTLIST EAN_UPC
+		Value		CDATA #REQUIRED>
+
+<!ELEMENT Country_Markets (Country_Market)+>
+
+<!ELEMENT Country_Market EMPTY>
+
+<!ATTLIST Country_Market
+		Value		CDATA #REQUIRED>
+
+<!ELEMENT Distributors (Distributor)+>
+<!ELEMENT Distributor EMPTY>
+<!ATTLIST Distributor
+		ID		  CDATA #REQUIRED
+		Name	  CDATA #REQUIRED
+		Country   CDATA #REQUIRED
+		ProdlevId CDATA #REQUIRED>

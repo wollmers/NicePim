@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+#$Id: thumbs_quality_all 2 2005-08-29 12:03:18Z serzh $
+
+use lib '/home/pim/lib';
+use atomsql;
+use thumbnail;
+use strict;
+
+STDOUT->autoflush(1);
+
+my $products_data = &do_query("select product_id, low_pic, high_pic from product where thumb_pic <> ''");
+
+my $i = 0;
+
+foreach my $product_data(@$products_data){
+ $i++;
+
+ if(($i/100) == int($i/100)){
+  print '.';
+ }
+ 
+ my $product = {
+							 'product_id' => $product_data->[0],
+							 'low_pic' 		=> $product_data->[1],
+							 'high_pic' 	=> $product_data->[2]
+							 };
+ &thumbnailize_product($product);
+} 

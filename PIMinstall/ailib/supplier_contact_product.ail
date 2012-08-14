@@ -1,0 +1,16 @@
+{
+name: supplier_contact_product;
+
+_resource_supplier_product: select 1, 1, 1;
+_resource_supplier_product_type: single;
+_mapping_supplier_product: catid, cat2family, categories_families;
+
+
+_format_as_tree: catid;
+catid_tree_select: select catid, vocabulary.value, pcatid from category, vocabulary
+where category.sid = vocabulary.sid and vocabulary.langid = %%langid%%  and category.catid <> 1
+
+_format_as_cat2family: cat2family;
+_format_as_categories_families: categories_families;
+
+}

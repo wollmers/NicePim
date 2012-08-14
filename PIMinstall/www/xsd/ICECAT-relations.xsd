@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="ICECAT-interface" type="body" />
+
+	<xs:complexType name="body">
+	 <xs:sequence>
+		<xs:element name="RelationGroup" type="RelationGroup" maxOccurs="unbounded" />
+	 </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="RelationGroup">
+	   <xs:sequence>
+		<xs:element name="Relation" type="Relation" minOccurs="0" maxOccurs="unbounded" />
+	   </xs:sequence>
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="description" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="Relation">
+		<xs:all>
+			<xs:element name="SourceIncludeRules" type="Rules" />
+			<xs:element name="SourceExcludeRules" type="Rules" minOccurs="0" />
+			<xs:element name="DestinationIncludeRules" type="Rules" />
+			<xs:element name="DestinationExcludeRules" type="Rules" minOccurs="0" />
+		</xs:all>
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="Rules">
+	  <xs:sequence>
+		<xs:element name="Rule" type="Rule" maxOccurs="unbounded" />
+	  </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Rule">
+	  <xs:all>
+		<xs:element name="Supplier" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+				<xs:attribute name="ID" type="xs:integer" use="required" />
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="SupplierFamily" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+				<xs:attribute name="ID" type="xs:integer" use="required" />
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="Category" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+				<xs:attribute name="ID" type="xs:integer" use="required" />
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="Feature" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+				<xs:simpleContent>
+					<xs:extension base="xs:string">
+						<xs:attribute name="ID" type="xs:integer" use="required" />
+						<xs:attribute name="exact" type="xs:string" use="required" />
+					</xs:extension>
+				</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="Prod_id" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+				<xs:attribute name="value" type="xs:string" use="required" />
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="Start_date" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+				<xs:attribute name="value" type="xs:date" use="required" />
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="End_date" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+				<xs:attribute name="value" type="xs:date" use="required" />
+			</xs:complexType>
+		</xs:element>
+	 </xs:all>
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+</xs:schema>

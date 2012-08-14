@@ -1,0 +1,10 @@
+<!ELEMENT ICECAT-interface (Products)>
+
+<!ELEMENT Products (Product*)>
+
+<!ELEMENT Product EMPTY>
+<!ATTLIST Product
+					ID           CDATA #REQUIRED
+					path         CDATA #REQUIRED
+					ReviewsCount CDATA #REQUIRED
+					On_Market    CDATA #REQUIRED>

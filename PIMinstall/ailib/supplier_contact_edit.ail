@@ -1,0 +1,68 @@
+{
+name:  supplier_contact_edit;
+
+verify: supplier_id;
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: supplier_id;
+verify_add_supereditor: supplier_id;
+verify_add_category_manager: supplier_id;
+
+
+_resource_contact_edit: select c.contact_id, c.person, c.phone, c.country_id, c.email, c.position, c.company, c.street, c.nbr, c.zip, c.city, c.fax, c.supplier_contact_report_id
+from contact c where c.contact_id = %%contact_id%%;
+_resource_contact_edit_type: single;
+_resource_contact_edit_key: contact_id;
+_mapping_contact_edit: contact_id, person, phone, country_id, email, position, company, street, nbr, zip, city, fax, supplier_contact_report_id;
+
+
+_resource_supplier_contact_report_edit: select supplier_contact_report_id, default_manager, interval_id, report_lang, report_format from supplier_contact_report where supplier_contact_report_id = %%supplier_contact_report_id%%;
+_resource_supplier_contact_report_edit_type: single;
+_resource_supplier_contact_report_edit_key: supplier_contact_report_id;
+_mapping_supplier_contact_report_edit: supplier_contact_report_id, default, interval_id, report_lang, report_format;
+
+
+format_as_report_format: report_format; 
+format_as_dropdown: country_id, report_lang, interval_id; 
+report_lang_dropdown_select: select langid, code from language
+country_id_dropdown_select: select country_id, value from country, vocabulary where country.sid = vocabulary.sid and langid=%%langid%% order by value
+interval_id_dropdown_select: select interval_id, name from time_interval;
+
+validate_as_mandatory: person, email, report_lang;
+validate_as_default: report_format;
+validate_as_htmltype_to_daily: report_format;
+
+_format_as_yes_no: default;
+
+ _insert_sequence: 1,2;
+
+ _insert_table_1: supplier_contact_report;
+ _insert_values_1: default_manager, interval_id, report_lang, report_format;
+ _insert_fields_1: default_manager, interval_id, report_lang, report_format;
+ _insert_key_1: supplier_contact_report_id;
+ _insert_key_name_1: supplier_contact_report_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes;
+ 
+ _insert_table_2: contact;
+ _insert_values_2: person, phone, country_id, email, position, company, street, nbr, zip, city, fax, supplier_contact_report_id;
+ _insert_fields_2: person, phone, country_id, email, position, company, street, nbr, zip, city, fax, supplier_contact_report_id;
+ _insert_key_2: contact_id;
+ _insert_key_name_2: contact_id;
+ _update_sequence_2: yes;
+				 
+}
+validate_as_default: report_format;

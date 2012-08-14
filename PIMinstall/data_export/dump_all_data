@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use strict;
+use icecat_util;
+use icecat_client;
+
+use atomsql;
+use atomlog;
+use Data::Dumper;
+
+my $hash = {
+						'ProductsDump'		=> { 'langid' => '1,2'
+						
+						,				'MinQuality' =>'NOEDITOR'
+																 }
+						};
+
+my $message = &build_message(&build_request($hash,'icecat','BcW9NgnbMH',time));
+# print $message."\n\n";
+my $url = $atomcfg{host}."xml_server2.cgi";
+
+my $response = &post_message($$message, $url, 1); # no ungzip
+
+ print $response;
+
+
+

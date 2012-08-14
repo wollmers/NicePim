@@ -1,0 +1,18 @@
+{
+name: user_brands;
+priority: 10;
+
+_resource_def: select 0;
+_mapping_def: supplier_id_new;
+
+_format_as_dropdown: supplier_id_new;
+supplier_id_new_dropdown_select: select s.supplier_id, s.name from supplier s where (select count(*) from supplier_users su where su.user_id = %%edit_user_id%% and s.supplier_id = su.supplier_id) = 0 order by name asc;
+
+_resource_user_brands: select supplier_id, name from supplier_users su inner join supplier s using (supplier_id) where su.user_id = %%edit_user_id%%;
+_resource_user_brands_type: multi;
+_mapping_user_brands: supplier_id, name;
+
+_resource_user: select login from users where user_id = %%edit_user_id%%;
+_mapping_user: user_login;
+
+}

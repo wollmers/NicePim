@@ -1,0 +1,25 @@
+{
+name: dictionaries;
+priority: 10;
+
+_resource_dictionaries: select d.dictionary_id,d.name,d.updated,d.dictionary_group_id,dg.value from dictionary d
+					LEFT JOIN dictionary_group dg USING(dictionary_group_id)
+					WHERE %%restrict%% and %%search_clause%% 
+					%%order_clause%% LIMIT %%start_row%%,%%rows_number%%;
+_resource_dictionaries_type: multi;
+_resource_dictionaries_def_order: name;
+_mapping_dictionaries: dictionary_id,name,updated,dictionary_group_id,group;
+
+authorize_superuser: dictionary_id;
+
+suppliers_restrict_editor: 0
+suppliers_restrict_guest: 0
+suppliers_restrict_shop: 0
+suppliers_restrict_supplier: 0
+suppliers_restrict_supereditor: 0
+suppliers_restrict_category_manager: 0
+suppliers_restrict_superuser: 1
+
+authorize_submit_superuser: dictionary_id;
+
+}

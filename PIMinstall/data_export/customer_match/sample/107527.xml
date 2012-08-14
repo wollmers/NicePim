@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="107527" Prod_id="10MFD" ThumbPic="http://www.icecat.biz/thumbs/107527.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/24351.jpg" Name="FD 1.44MB 3.5&amp;quot; HD DOS formatted 10pk" LowPic="http://www.icecat.biz/img/norm/low/107527.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="401" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1361" No="0">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1360" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1367" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="144177" URL="" ShortDesc="Micro floppy disk, 3.5&amp;quot; double-sided, high density, IBM formatted, 10-packs" langid="1" LongDesc="Micro floppy disk, 3.5&amp;quot; double-sided, high density, IBM formatted, 10-packs &lt;p&gt;\n- High-quality media &lt;br&gt;\n- Worldwide standard for small data storage &lt;br&gt;\n- Very reliable &lt;br&gt;\n- Low-cost storage solution &lt;br&gt;\n" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9291759" Value="N" No="0" CategoryFeatureGroup_ID="401">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="291">
+         <Name ID="583" Value="Floppy diskettes" langid="1"/>
+         <Name ID="584" Value="Floppy diskettes" langid="2"/>
+         <Name ID="6360" Value="Floppy diskettes" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

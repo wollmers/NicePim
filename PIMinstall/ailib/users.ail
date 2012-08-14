@@ -1,0 +1,35 @@
+{
+name: users;
+priority: 10;
+
+_resource_users: select 'dummy', u.user_id, u.login, u.subscription_level, u.user_group, u.pers_cid, u.user_partner_id, c.email, c.country_id, c.url, c.company, v.value, s.name, c.email_subscribing
+from users u left join contact c on u.pers_cid=c.contact_id LEFT JOIN country k on c.country_id = k.country_id LEFT JOIN vocabulary v on k.sid = v.sid and v.langid=1 
+LEFT JOIN sector_name s on c.sector_id = s.sector_id and s.langid = 1
+where %%restrict%% and %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_users_type: multi;
+_resource_users_def_order: login;
+_mapping_users: cnt, edit_user_id, login, subscription_level, user_group, pers_cid, user_partner_id, email, user_country_id, url, company, country, sector, email_subscribing;
+
+authorize_superuser: edit_user_id;
+authorize_supereditor: edit_user_id # user_id == edit_user_id ;
+authorize_category_manager: edit_user_id # user_id == edit_user_id ;
+authorize_editor: edit_user_id # user_id == edit_user_id ;
+authorize_supplier: edit_user_id # user_id == edit_user_id ;
+authorize_shop: edit_user_id # user_id == edit_user_id;
+
+authorize_submit_superuser: edit_user_id;
+
+users_restrict_editor: user_id = %%user_id%%
+users_restrict_guest: 0
+users_restrict_shop: user_id = %%user_id%%
+users_restrict_supplier: user_id = %%user_id%%
+users_restrict_supereditor: user_id = %%user_id%%
+users_restrict_category_manager: user_id = %%user_id%%
+users_restrict_superuser: 1
+
+
+format_as_prod_cnt: cnt;
+
+}
+
+

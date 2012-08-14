@@ -1,0 +1,235 @@
+#!/usr/bin/perl
+
+#$Id: update_product_xml_chunk 3759 2011-01-26 09:16:46Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomsql;
+use atomcfg;
+use atomlog;
+
+use icecat_server2_repository;
+use data_management;
+use icecat_util;
+use icecat_server2;
+use atom_misc;
+use atom_util;
+use process_manager;
+use atom_mail;
+
+use SOAP::WSDL;
+
+$| = 1;
+
+my ($product_id, $process_queue_id, $list_of_languages) = @ARGV;
+
+$SIG{ALRM} = sub {
+	if ($process_queue_id) {
+		&update_process_status($process_queue_id, { 'process_status_id' => 1, 'pid' => $$ });
+	}
+	&mail_timeout("XML processing timeout, resetting to the 1st state");
+	die "XML processing timeout, resetting to the 1st state\n";
+};
+
+alarm 1800; # 30 minutes...
+
+print "Start: ";
+
+my $cmd = $atomcfg{'base_dir'}.'bin/update_product_xml_chunk';
+
+my ($child_pid, $paths, $exists, $sendSoap);
+
+if ($process_queue_id) {
+	&update_process_status($process_queue_id, { 'process_status_id' => 20, 'pid' => $$ });
+}
+
+goto final unless ($product_id);
+
+# check for wrongly added products
+my $product_date = &get_product_date($product_id);
+my $product_date_current = &do_query("select modification_time from product_modification_time where product_id=".$product_id)->[0][0];
+
+my $up_to_date = 0;
+#$up_to_date = 1 if (($process_queue_id) && ($product_date == $product_date_current));
+
+my $get = &do_query("select cmim.quality_index, p.public, s.name, s.folder_name from product p
+inner join users u using (user_id)
+inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group
+inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure
+inner join supplier s using (supplier_id)
+where p.product_id = ".$product_id." and p.publish != 'N' limit 1");
+
+my $quality = $get->[0][0];
+
+my $limited_product = $get->[0][1];
+$limited_product = 'Y' if ($limited_product ne 'L');
+
+my $supplier_name = $get->[0][2];
+
+my $supplier_path = $get->[0][3];
+
+# expand list of languages need to be updated
+if (($list_of_languages) && ($list_of_languages =~ /^\d+(\,\d+)*$/)) {
+	my $langids = do_query("SELECT GROUP_CONCAT(DISTINCT langid SEPARATOR ',')
+	FROM language WHERE backup_langid IN ($list_of_languages) GROUP BY ''")->[0]->[0];
+	$list_of_languages .= $langids ? ("," . $langids) : "";
+}
+else {
+	undef $list_of_languages;
+}
+
+#====== UPDATE XML CACHE AND REPOSITORIES
+my $langs = &do_query("select langid, short_code from language where published='Y'" . ( $list_of_languages ? " and langid in (".$list_of_languages.")" : "" ));
+
+my %lang_hash = map {$_->[0] => lc("_".$_->[1])} @$langs;
+$lang_hash{0} = '';
+
+my %lang_dir = map {$_->[0] => $_->[1]} @$langs;
+$lang_dir{0} = 'INT';
+
+$sendSoap = 0;
+
+if ($quality) { # create & add product xml
+	print "X-";
+	my $xs_pids = &get_products_related_by_product_id($product_id);
+	&do_statement("drop temporary table if exists itmp_xpids");
+	&do_statement("create temporary table itmp_xpids (product_id int(13) primary key)");
+	if($xs_pids) {
+		&do_statement("insert ignore into itmp_xpids values(".join('),(',@$xs_pids).")");
+	}
+	print "sells: \033[1m". ( $#$xs_pids+1 ) ."\033[0m\nLangs: ";
+
+	if ($#$xs_pids > 10000) {
+		alarm 0;
+	}
+
+	foreach my $langid(sort {$a <=> $b} keys %lang_hash) {
+		undef $paths;
+		$paths = $atomcfg{'xml_path'}.'level4/'.$lang_dir{$langid}.'/';
+		$exists = (-e $paths.&get_smart_path($product_id).$product_id.'.xml') || (-e $paths.&get_smart_path($product_id).$product_id.'.xml.gz');
+		unless (($up_to_date) && ($exists)) {
+			if (($langid == 0) && (!$exists)) {
+				my $cnt = 0;
+				foreach my $xs_pid (@$xs_pids) {
+#					&update_rows('product', "product_id=".$xs_pid, { 'updated' => 'NOW()' });
+					&queue_process($cmd." ".$xs_pid, {'product_id'=>$xs_pid,'process_class_id'=>1,'prio'=>1});
+					$cnt++;
+				} 
+				print "\n $cnt related products were added to queue for update\n" if($cnt);
+			}
+			print $lang_dir{$langid};
+			my $result = &put_product_xml2_repo($product_id, $langid, $paths, &get_product_partsxml_fromdb($product_id, $langid), $product_date, $sendSoap);
+			# disabled, it isn't good
+#			&do_statement("delete from actual_product where product_id = ".$product_id." and langid = ".$langid." and xml_updated = 1");
+			if ($result eq 'new') {
+				print "[\033[1m\033[32mU\033[37m\033[0m] ";
+				$sendSoap = 1;
+			}
+			elsif ($result eq 'old') {
+				print '[R] ';
+			}
+			else {
+				print '[D] ';
+			}
+		}
+		else {
+			print "- ";
+		}
+	}
+
+	# sending SOAP request
+
+	if ($sendSoap) {
+		# ask vitaly
+		
+		$child_pid = fork(); # after that, we will have 2 processes, instead of one
+
+		unless ($child_pid) { # SOAP child
+
+			&close_connection;
+			&init_connection;
+
+			$SIG{ALRM} = sub {
+				if ($process_queue_id) {
+					&update_process_status($process_queue_id, { 'process_status_id' => 1, 'pid' => $$ });
+				}
+				&mail_timeout("SOAP requesting timeout, exiting");
+				die "SOAP requesting timeout, exiting\n";
+			};
+
+			alarm 30;
+
+			$0 = 'SOAP request sync for product_id = '.$product_id;
+
+			log_printf("SOAP child process for product_id = ".$product_id." started!.");
+
+			my $soap = undef;
+			my $status = undef;
+			print "\nSending SOAP request: ";
+			unless (eval {$soap = SOAP::WSDL->new(wsdl=>'http://gcc:asd345ghj@prf.icecat.biz/webservice/prf.wsdl')}) {
+				print 'connection failed';
+			}
+			else {
+				print "connected, sending \033[1m\033[32mpushProductToQueue\033[37m\033[0m(".$product_id.",".$product_date."), ";
+				my $res = $soap->call('pushProductToQueue', { 'pushProductToQueue' => {
+					'productId' => $product_id,
+					'published' => $product_date,
+					'prio' => $process_queue_id ? ( &do_query("select prio from process_queue where id = ".$process_queue_id)->[0][0] || 1 ) : 1
+																											}
+															});
+				$status = $res->body()->{'pushProductToQueueResponse'}->{'status'};
+				if ($status eq '1') {
+					print "\033[1msent\033[0m";
+				}
+				elsif ($status =~ /skipped/) {
+					print "\033[1mskipped\033[0m";
+				}
+				else {
+					print "\033[1m\033[31mfailed\033[37m\033[0m";
+				}
+			}
+
+			exit(0);
+
+		} # child process ended
+
+		# just in case - as the main process need to refresh its connection also
+		&close_connection;
+		&init_connection;
+	}
+}
+else { # remove product
+	&remove_product_from_repository($product_id, undef, {'full' => 1});
+	print '- ';
+}
+
+print "\nupdated from db: ".$product_id.", quality = ".$quality.", limited = ".$limited_product."\n";
+
+final:
+
+if ($process_queue_id) {
+	&update_process_status($process_queue_id, {'process_status_id' => 30, 'finished_date' => 'unix_timestamp()'});
+}
+
+if ($sendSoap) {
+	$0 = 'waiting for SOAP request sync for product_id = '.$product_id;
+
+	$SIG{ALRM} = sub {
+		&mail_timeout("SOAP requesting timeout, exiting");
+		die "SOAP requesting timeout, exiting\n";
+	};
+
+	alarm 30;
+
+	waitpid $child_pid, 0;
+
+	print "\nchild process ".$child_pid." was finished\n";
+}
+
+sub mail_timeout {
+	my ($msg) = @_;
+	&sendmail($msg, 'dima@icecat.biz', 'info@icecat.biz', $product_id.','.$process_queue_id.','.$list_of_languages.' XML processing timed out');
+} # sub sub mail_timeout

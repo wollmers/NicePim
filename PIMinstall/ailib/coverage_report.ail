@@ -1,0 +1,5 @@
+{
+name: coverage_report;
+ custom_processing: yes;
+ priority: 100;
+}

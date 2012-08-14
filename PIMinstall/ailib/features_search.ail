@@ -1,0 +1,13 @@
+{
+name: features_search;
+priority: 10;
+
+_resource_params: select %%search_name%%, '%%search_measure_id%%'
+_mapping_params: search_name, search_measure_id;
+
+_format_as_dropdown: search_measure_id;
+search_measure_id_dropdown_select: select m.measure_id, CONCAT(v.value,' (',ms.value,')') from measure m
+inner join vocabulary v on m.sid=v.sid and v.langid=1
+left join measure_sign ms on m.measure_id=ms.measure_id and ms.langid=1
+order by v.value asc;
+}

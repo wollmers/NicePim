@@ -1,0 +1,17 @@
+{
+name: import_export;
+priority: 10;
+
+_resource_import_export: select 1;
+_mapping_import_export: export_langid;
+
+_resource_languages: SELECT l.langid, v.value FROM language l LEFT JOIN vocabulary v on l.sid=v.sid and v.langid = 1;
+_resource_languages_type: multi;
+_mapping_languages: langid_id, langid_name;
+
+format_as_dropdown: export_langid;
+export_langid_dropdown_select: SELECT langid, code from language;
+
+verify_deny_guest: yes;
+
+}

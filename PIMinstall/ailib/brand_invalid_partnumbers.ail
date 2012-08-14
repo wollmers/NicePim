@@ -1,0 +1,30 @@
+{
+name: brand_invalid_partnumbers;
+priority: 10;
+
+_resource_brand_invalid_partnumbers: select p.product_id, p.prod_id, p.name, p.supplier_id, s.name, s.prod_id_regexp, p.user_id, u.login, p.product_id from product p
+inner join product_wrong_partcodes p2 using (product_id)
+inner join supplier s on p.supplier_id=s.supplier_id
+inner join users u on p.user_id=u.user_id
+
+where %%search_clause%%
+%%order_clause%%
+limit %%start_row%%, %%rows_number%%
+_resource_brand_invalid_partnumbers_type: multi;
+_resource_brand_invalid_partnumbers_def_order: prod_id;
+_mapping_brand_invalid_partnumbers: product_id, prod_id, name, supplier_id, brand, prod_id_regexp, user_id, login, product_id4distri;
+
+_format_as_product_distributor: product_id4distri;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_relation: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+}

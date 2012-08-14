@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+
+#$Id: create_supplier_repository 3419 2010-11-08 16:59:33Z dima $
+
+use lib '/home/pim/lib';
+use atomsql;
+use atomlog;
+use atom_misc;
+use atomcfg;
+use data_management;
+use strict;
+
+my $ln = "/bin/ln";
+
+#to create new repository please enter new repository details
+my $repository;
+$repository = {
+ 'supplier_name' => 'Acer',
+# 'supplier_name' => 'Lenovo',
+# 'supplier_name' => 'Fujitsu-Siemens',
+ 'market_status' => 'yes', 										# yes or no(comment if not needed)
+ 'content_level' => 'ICECAT' 									# ICECAT, SUPPLIER, NOBODY(comment if not needed)
+};
+$repository->{'path'} = $atomcfg{'xml_export_path'}.lc($repository->{'supplier_name'})."/";
+
+my $supplier_id = &do_query("select supplier_id from supplier where name=".&str_sqlize($repository->{'supplier_name'}))->[0][0];
+if(!$supplier_id){ die "wrong supplier name";}
+
+my $products = &get_products4repository($repository);
+
+foreach my $product(@$products){
+	my $command = $ln." -s ".$atomcfg{'xml_dir_path'}.$product->[0].".xml ".$repository->{'path'}.$product->[0].".xml";
+	`$command`;
+	&log_printf("\nlink created for $product->[0]");
+}

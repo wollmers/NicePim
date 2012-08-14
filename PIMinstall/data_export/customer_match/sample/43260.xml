@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="43260" Prod_id="Y1789B" ThumbPic="http://www.icecat.biz/thumbs/43260.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP Photosmart starterkit" LowPic="http://www.icecat.biz/img/hp/low_res/y1789b_190x170.jpg">
+        <ProductRelated ID="58313">
+         <Product ID="43259" Prod_id="Q2217A" ThumbPic="http://www.icecat.biz/thumbs/43259.jpg" Name="hp photosmart 935 digital camera with hp instant share and hp photosmart 8886 docking station">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="85853">
+         <Product ID="46958" Prod_id="Q2214A" ThumbPic="http://www.icecat.biz/thumbs/46958.jpg" Name="hp photosmart 935 digital camera with hp instant share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="260140">
+         <Product ID="48964" Prod_id="Q2210A" ThumbPic="http://www.icecat.biz/thumbs/48964.jpg" Name="HP Photosmart 735 digital camera with HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="260141">
+         <Product ID="48980" Prod_id="Q2213A" ThumbPic="http://www.icecat.biz/thumbs/48980.jpg" Name="HP Photosmart 735 digital camera with HP Instant Share and HP Photosmart 8886 docking station">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="357908">
+         <Product ID="53080" Prod_id="Q2200A" ThumbPic="http://www.icecat.biz/thumbs/53080.jpg" Name="HP Photosmart 945 digitale camera met HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="357909">
+         <Product ID="53855" Prod_id="Q2224A" ThumbPic="http://www.icecat.biz/thumbs/53855.jpg" Name="HP Photosmart 635 digital camera with HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="357910">
+         <Product ID="54113" Prod_id="Q3731A" ThumbPic="http://www.icecat.biz/thumbs/54113.jpg" Name="HP Photosmart 435 digital camera with HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="363913">
+         <Product ID="55711" Prod_id="Q2203A" ThumbPic="http://www.icecat.biz/thumbs/55711.jpg" Name="HP Photosmart 945 digitale camera met HP Instant Share en HP cameradock">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="541327">
+         <Product ID="124970" Prod_id="L1854A" ThumbPic="http://www.icecat.biz/thumbs/124970.jpg" Name="HP Photosmart M307 digitale camera met HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="243495">
+         <Product ID="48697" Prod_id="Q2214A#AC2" ThumbPic="http://www.icecat.biz/thumbs/48697.jpg" Name="hp photosmart 935 digital camera with hp instant share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="261022">
+         <Product ID="49007" Prod_id="Q2213A#AC2" ThumbPic="http://www.icecat.biz/thumbs/49007.jpg" Name="hp photosmart 735 digital camera with hp instant share and hp photosmart 8886 docking station">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="82603">
+         <Product ID="43259" Prod_id="Q2217A" ThumbPic="http://www.icecat.biz/thumbs/43259.jpg" Name="hp photosmart 935 digital camera with hp instant share and hp photosmart 8886 docking station">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="85774">
+         <Product ID="46958" Prod_id="Q2214A" ThumbPic="http://www.icecat.biz/thumbs/46958.jpg" Name="hp photosmart 935 digital camera with hp instant share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="258483">
+         <Product ID="48964" Prod_id="Q2210A" ThumbPic="http://www.icecat.biz/thumbs/48964.jpg" Name="HP Photosmart 735 digital camera with HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="258487">
+         <Product ID="48980" Prod_id="Q2213A" ThumbPic="http://www.icecat.biz/thumbs/48980.jpg" Name="HP Photosmart 735 digital camera with HP Instant Share and HP Photosmart 8886 docking station">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="302118">
+         <Product ID="49482" Prod_id="Q2213A#AC2*BUNDLE*" ThumbPic="http://www.icecat.biz/thumbs/49482.jpg" Name="hp photosmart 735 digital camera with hp instant share and hp photosmart 8886 docking station">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="338004">
+         <Product ID="54119" Prod_id="Q3731A#AC2" ThumbPic="http://www.icecat.biz/thumbs/54119.jpg" Name="hp photosmart 435 digitale camera met hp instant share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="323865">
+         <Product ID="53178" Prod_id="Q2200A#AC2" ThumbPic="http://www.icecat.biz/thumbs/53178.jpg" Name="HP Photosmart 945 digitale camera met HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="335549">
+         <Product ID="53890" Prod_id="Q2224A#AC2" ThumbPic="http://www.icecat.biz/thumbs/53890.jpg" Name="hp photosmart 635 digital camera with hp instant share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="323859">
+         <Product ID="53080" Prod_id="Q2200A" ThumbPic="http://www.icecat.biz/thumbs/53080.jpg" Name="HP Photosmart 945 digitale camera met HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="337446">
+         <Product ID="54113" Prod_id="Q3731A" ThumbPic="http://www.icecat.biz/thumbs/54113.jpg" Name="HP Photosmart 435 digital camera with HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="335544">
+         <Product ID="53855" Prod_id="Q2224A" ThumbPic="http://www.icecat.biz/thumbs/53855.jpg" Name="HP Photosmart 635 digital camera with HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="383756">
+         <Product ID="55711" Prod_id="Q2203A" ThumbPic="http://www.icecat.biz/thumbs/55711.jpg" Name="HP Photosmart 945 digitale camera met HP Instant Share en HP cameradock">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="437803">
+         <Product ID="89830" Prod_id="Q2213A#AC2#*BUNDLE*" ThumbPic="http://www.icecat.biz/thumbs/89830.jpg" Name="hp photosmart 735 digital camera with hp instant share and hp photosmart 8886 docking station">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="469030">
+         <Product ID="99137" Prod_id="Q2224A#AC2#*MAKRO*" ThumbPic="http://www.icecat.biz/thumbs/99137.jpg" Name="hp photosmart 635 digital camera with hp instant share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="556680">
+         <Product ID="128541" Prod_id="L1839A#AC2" ThumbPic="http://www.icecat.biz/thumbs/128541.jpg" Name="HP Photosmart m407 digitale camera met HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="561521">
+         <Product ID="129485" Prod_id="L1842A#AC2" ThumbPic="http://www.icecat.biz/thumbs/129485.jpg" Name="HP Photosmart M407 Digital Camera with HP Camera Dock">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="561110">
+         <Product ID="129468" Prod_id="L1842A" ThumbPic="http://www.icecat.biz/thumbs/129468.jpg" Name="HP Photosmart m407 digitale camera met HP cameradock">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="556537">
+         <Product ID="128467" Prod_id="L1839A" ThumbPic="http://www.icecat.biz/thumbs/128467.jpg" Name="HP Photosmart m407 digitale camera">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="617367">
+         <Product ID="136496" Prod_id="Q2200A#AC2#*CARREF*" ThumbPic="http://www.icecat.biz/thumbs/53178.jpg" Name="HP Photosmart 945 digitale camera met HP Instant Share">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="632" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="882" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1041" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1405" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1042" No="0">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="46038" URL="" ShortDesc="HP Digitale camerakits" langid="2" LongDesc="Deze gunstig geprijsde kit bevat alle essentiële accessoires voor nieuwe bezitters van een HP Photosmart digitale camera. Bevat een batterijlader (laadt in 2 uur), vier oplaadbare 1800 mAh NiMH batterijen en een universele, uitbreidbare, gecapitonneerde HP cameratas." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="48100" URL="" ShortDesc="HP Digital Camera Kits" langid="1" LongDesc="This value for money kit provides all the essential accessories for any first-time HP Photosmart digital camera owner. Includes a fast 2-hour recharger, four rechargeable 1800 mAh NiMH batteries and a universal, expandable, padded HP camera case." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="120599" URL="http://www.hp.com/cgi-bin/cposupport/loc/mkSession.cgi?LC=FR&amp;CC=BE&amp;PN=Y1789B" ShortDesc="" langid="3" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="585">
+         <Name ID="1171" Value="Camera accessories" langid="1"/>
+         <Name ID="1172" Value="Camera-accessoires" langid="2"/>
+         <Name ID="6637" Value="Camera accessories" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

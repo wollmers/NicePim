@@ -1,0 +1,5 @@
+{
+name:graphical_query_report_top;
+_resource_test: select 'test_str';
+_mapping_test: test_var; 
+}

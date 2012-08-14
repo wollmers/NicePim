@@ -1,0 +1,59 @@
+#!/usr/bin/perl
+
+#$Id$
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use atom_misc;
+use icecat_util;
+
+#use Data::Dumper;
+
+$| = 1;
+
+my $free = $ARGV[0]; # 0 - full, 1 - free
+my $langid = $ARGV[1] || 0; # langid
+
+my $realtime_script_path = $atomcfg{'host'}.'reviews.cgi?product_id=';
+
+$langid = 0 unless $langid =~ /^\d+$/;
+
+# export reviews
+
+my $out = &xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"http://data.icecat.biz/dtd/ICECAT-product_reviews_index.dtd\">\n".&source_message()."\n<ICECAT-interface>\n";
+
+my $select = "SELECT p.product_id, count(*), max(if(pa.active IS NULL, 0, pa.active))
+  FROM       product p
+  INNER JOIN product_review pr      ON pr.product_id = p.product_id " . ( $langid ? " AND pr.langid = ".$langid : '' ) .
+	( $free ? " INNER JOIN supplier s ON p.supplier_id = s.supplier_id AND s.is_sponsor = 'Y' " : '' ) .
+	" LEFT JOIN product_active pa    ON pa.product_id = p.product_id GROUP BY p.product_id ORDER by p.product_id ASC";
+
+my $sth = $atomsql::dbh->prepare($select);
+lp("SQL DIRECT: ".$select);
+my $rv = $sth->execute;
+
+$out .= "<Products>\n";
+
+my $r;
+
+while ($r = $sth->fetchrow_arrayref) {
+	$out .= &t(1) . "<Product ID=\"".$r->[0]."\" path=\"".$realtime_script_path.$r->[0]."\" ReviewsCount=\"".$r->[1]."\" On_Market=\"".$r->[2]."\"></Product>\n";
+}
+
+$out .= "</Products>\n</ICECAT-interface>\n";
+
+binmode STDOUT, ":utf8";
+
+print STDOUT $out;
+
+# subs
+sub t {
+  return "\t" x shift;
+}

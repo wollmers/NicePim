@@ -1,0 +1,61 @@
+#!/usr/bin/perl
+
+#$Id: drop_nomarket_nobody_products 3353 2010-10-29 10:32:59Z dima $
+
+use lib '/home/pim/lib';
+
+use strict;
+use atomcfg;
+use atomsql;
+
+# several checkings
+
+die unless &do_query("SELECT count(*) FROM country_product WHERE active = 1")->[0][0];
+die unless &do_query("SELECT count(*) FROM distributor_product WHERE active = 1")->[0][0];
+
+my $fake = 0;
+
+print "Selecting nobody/nomarket products\n";
+
+&do_statement("DROP TEMPORARY TABLE IF EXISTS nobody_products");
+&do_statement("CREATE TEMPORARY TABLE nobody_products (product_id int(13), KEY (product_id))");
+&do_statement("ALTER TABLE nobody_products DISABLE KEYS");
+&do_statement("INSERT INTO nobody_products(product_id) SELECT product_id FROM product WHERE user_id = 1 and date_added < from_unixtime(unix_timestamp() - (30 * 24 * 60 * 60))"); # 1 month ago
+&do_statement("ALTER TABLE nobody_products ENABLE KEYS");
+
+print "nobodys: ".&do_query("SELECT count(*) FROM nobody_products")->[0][0]."\n";
+
+&do_statement("DROP TEMPORARY TABLE IF EXISTS products_to_delete");
+&do_statement("CREATE TEMPORARY TABLE products_to_delete (product_id int(13), KEY (product_id))");
+&do_statement("ALTER TABLE products_to_delete DISABLE KEYS");
+&do_statement("INSERT INTO products_to_delete(product_id)
+SELECT np.product_id
+FROM nobody_products np
+WHERE (SELECT SUM(active) FROM country_product cp WHERE cp.product_id = np.product_id) = 0");
+&do_statement("ALTER TABLE products_to_delete ENABLE KEYS");
+
+print "Number of products to delete: ",&do_query("SELECT FOUND_ROWS()")->[0][0],"\n\n";
+
+# show some of them
+
+print "Display some of them:\n";
+
+print &do_query_dump("select p.product_id, p.prod_id, p.name, p.date_added from product p inner join products_to_delete pd using(product_id) limit 20");
+
+print "\n\n";
+
+# delete / fake
+
+my @tables2cleanup = ( 'product' );
+
+foreach my $table (@tables2cleanup) {
+	if ($fake) {
+		&do_query("SELECT t.product_id FROM $table t INNER JOIN products_to_delete d ON t.product_id = d.product_id");
+	}
+	else {
+		&do_statement("DELETE t FROM $table t INNER JOIN products_to_delete d ON t.product_id = d.product_id");
+	}
+	print "Table '$table' cleaned. ",&do_query("SELECT FOUND_ROWS()")->[0][0]," products were removed\n";
+}
+
+print "Done.\n";

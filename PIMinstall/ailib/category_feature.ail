@@ -1,0 +1,57 @@
+{
+
+name: category_feature;
+
+priority: 10;
+
+verify: category_feature_id;
+verify_submit: category_feature_id;
+
+verify_add: yes;
+verify_add_superuser: feature_id;
+verify_add_supereditor: feature_id;
+verify_add_category_manager: feature_id;
+
+authorize_superuser: category_feature_id;
+authorize_supereditor: category_feature_id;
+authorize_category_manager: category_feature_id;
+authorize_editor: category_feature_id;
+authorize_supplier: category_feature_id;
+authorize_guest: category_feature_id;
+authorize_shop: category_feature_id;
+
+authorize_submit_superuser: category_feature_id;
+authorize_submit_supereditor: category_feature_id;
+authorize_submit_category_manager: category_feature_id;
+
+_resource_feature: select category_feature_id, feature_id, category_feature.no,searchable, category_feature_group_id, restricted_search_values, use_dropdown_input, mandatory,0 from category_feature where category_feature.category_feature_id = %%category_feature_id%%
+_resource_feature_type: single;
+_resource_feature_key: category_feature_id;
+_mapping_feature: category_feature_id, feature_id, no, searchable, feature_group_id, restricted_search_values, use_dropdown_input, mandatory, autoinsert;
+
+format_as_searchable: searchable,mandatory;
+format_as_input_checkbox: autoinsert;
+format_as_cat_feat_group_id: feature_group_id;
+validate_as_mandatory: feature_group_id;
+
+format_as_dropdown: feature_id;
+feature_id_dropdown_select: select feature_id, concat(vocabulary.value,'(',measure_name.value,')') from feature, vocabulary, vocabulary as measure_name, measure where feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = %%langid%% and vocabulary.sid = feature.sid and vocabulary.langid = %%langid%%  order by vocabulary.value
+feature_group_id_dropdown_select: select feature_group_id, vocabulary.value from feature_group, vocabulary where vocabulary.sid = feature_group.sid and vocabulary.langid = %%langid%% order by value
+
+format_as_yes_no: use_dropdown_input;
+
+store_as_cat_feat_group_id: feature_group_id;
+store_as_feature_values: restricted_search_values;
+
+ _insert_sequence: 5;
+
+ _insert_table_5: category_feature;
+ _insert_values_5: catid, feature_id, no, searchable, feature_group_id,restricted_search_values, use_dropdown_input, mandatory;
+ _insert_fields_5: catid, feature_id, no, searchable, category_feature_group_id,restricted_search_values, use_dropdown_input, mandatory;
+ _insert_5_keep_unique: yes;
+ _insert_5_unique_set: catid, feature_id;
+ _insert_key_5: category_feature_id;
+ _update_sequence_5: yes;
+ _delete_sequence_5: yes;
+ 
+}

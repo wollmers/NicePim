@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="ICECAT-interface" type="body" />
+
+	<xs:complexType name="body">
+		<xs:all>
+			<xs:element name="Suppliers" type="Suppliers" />
+			<xs:element name="CategoriesList" type="CategoriesList" />
+			<xs:element name="ProductUrls" type="ProductUrls" />
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:complexType name="Suppliers">
+	 <xs:sequence>
+		<xs:element name="Supplier" type="Supplier" minOccurs="0" maxOccurs="unbounded" />
+	 </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Supplier">
+		<xs:attribute name="supplier_id" type="xs:integer" use="required" />
+		<xs:attribute name="Name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="CategoriesList">
+	  <xs:sequence>
+		<xs:element name="Category" type="Category" maxOccurs="unbounded" />
+	  </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Category">
+		<xs:sequence>
+			<xs:element name="Name" type="Name" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="ParentCategory" type="ParentCategory" />
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+		<xs:attribute name="UNCATID" type="xs:string" use="required" />
+		<xs:attribute name="ThumbPic" type="xs:anyURI" use="required" />
+		<xs:attribute name="Searchable" type="xs:boolean" use="required" />
+		<xs:attribute name="LowPic" type="xs:anyURI" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="ParentCategory">
+	  <xs:all>
+		<xs:element name="Names" type="Names" />
+	  </xs:all>
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="Names">
+	  <xs:sequence>
+		<xs:element name="Name" type="Name" minOccurs="0" maxOccurs="unbounded" />
+	  </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Name">
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+		<xs:attribute name="langid" type="xs:integer" use="required" />
+		<xs:attribute name="Value" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="ProductUrls">
+	  <xs:sequence>
+		<xs:element name="ProductUrl" type="ProductUrl" maxOccurs="unbounded" />
+	  </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProductUrl">
+	  <xs:sequence>
+		<xs:element name="Country_Markets" type="Country_Markets" minOccurs="0" maxOccurs="unbounded" />
+		<xs:element name="EAN_UPCS" type="EAN_UPCS" minOccurs="0" maxOccurs="unbounded" />
+	  </xs:sequence>
+		<xs:attribute name="URL" type="xs:anyURI" use="required" />
+		<xs:attribute name="Low_res_img" type="xs:anyURI" use="required" />
+		<xs:attribute name="UNCATID" type="xs:string" use="required" />
+		<xs:attribute name="Thumbnail_img" type="xs:anyURI" use="required" />
+		<xs:attribute name="High_res_img" type="xs:anyURI" use="required" />
+		<xs:attribute name="Category_ID" type="xs:integer" use="required" />
+		<xs:attribute name="product_id" type="xs:integer" use="required" />
+		<xs:attribute name="model_name" type="xs:string" use="required" />
+		<xs:attribute name="Quality" type="xs:string" use="required" />
+		<xs:attribute name="supplier_id" type="xs:integer" use="required" />
+		<xs:attribute name="original_supplier_id" type="xs:integer" use="required" />
+		<xs:attribute name="prod_id" type="xs:string" use="required" />
+		<xs:attribute name="m_prod_id" type="xs:string" use="required" />
+		<xs:attribute name="Product_View" type="xs:integer" use="required" />
+		<xs:attribute name="On_Market" type="xs:boolean" use="required" />
+		<xs:attribute name="Updated" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="EAN_UPCS">
+	 <xs:sequence>
+		<xs:element name="EAN_UPC" type="EAN_UPC" maxOccurs="unbounded" />
+	 </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="EAN_UPC">
+		<xs:attribute name="Value" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="Country_Markets">
+	 <xs:sequence>
+		<xs:element name="Country_Market" type="Country_Market" maxOccurs="unbounded" />
+	 </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Country_Market">
+		<xs:attribute name="Value" type="xs:string" use="required" />
+	</xs:complexType>
+
+</xs:schema>

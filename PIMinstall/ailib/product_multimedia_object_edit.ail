@@ -1,0 +1,40 @@
+{
+name: product_multimedia_object_edit;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id, product_id # '1' == edit_user_id;
+authorize_submit_supplier: product_id;
+
+_resource_multimedia_object: select '', '', '0';
+_mapping_multimedia_object: object_langid, object_descr, keep_as_url;
+
+format_as_yes_no_select: keep_as_url;
+
+format_as_dropdown: object_langid;
+object_langid_dropdown_select: select l.langid, v.value from language as l, vocabulary as v where l.sid = v.sid and v.langid = %%langid%%;
+
+validate_as_mandatory: object_langid, object_descr;
+
+store_as_object_url_uploaded: object_url;
+
+}

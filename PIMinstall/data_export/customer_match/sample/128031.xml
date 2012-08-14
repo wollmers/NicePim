@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="128031" Prod_id="L1750A" ThumbPic="http://www.icecat.biz/thumbs/128031.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP ep7112 Home cinema digitale projector" LowPic="http://www.icecat.biz/img/hp/low_res/l1750a_190x170.jpg">
+        <ProductRelated ID="560348">
+         <Product ID="129406" Prod_id="L1717A" ThumbPic="http://www.icecat.biz/thumbs/129406.jpg" Name="HP SCART-naar-composite / S-video met audio-adapter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560349">
+         <Product ID="129407" Prod_id="L1711A" ThumbPic="http://www.icecat.biz/thumbs/129407.jpg" Name="HP ep7100 serie afstandsbediening">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560350">
+         <Product ID="129408" Prod_id="L1716A" ThumbPic="http://www.icecat.biz/thumbs/129408.jpg" Name="HP composite RCA-kabel, 6 m">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560364">
+         <Product ID="129409" Prod_id="L1757A" ThumbPic="" Name="HP ep7100 serie plafondmontagekit">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560358">
+         <Product ID="129402" Prod_id="L1733A" ThumbPic="http://www.icecat.biz/thumbs/129402.jpg" Name="HP ep7100 serie plafondmontagekit">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560352">
+         <Product ID="129399" Prod_id="L1740A" ThumbPic="http://www.icecat.biz/thumbs/129399.jpg" Name="HP HDTV mobiel 60-inch scherm">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560356">
+         <Product ID="129401" Prod_id="L1741A" ThumbPic="http://www.icecat.biz/thumbs/129401.jpg" Name="HP HDTV mobiel 80-inch scherm">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560354">
+         <Product ID="129400" Prod_id="L1731A" ThumbPic="http://www.icecat.biz/thumbs/129400.jpg" Name="HP ep7100 serie / ep9012 lampmodule">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560360">
+         <Product ID="129403" Prod_id="L1715A" ThumbPic="http://www.icecat.biz/thumbs/129403.jpg" Name="HP S-video kabel, 6 m">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="560362">
+         <Product ID="129404" Prod_id="L1714A" ThumbPic="http://www.icecat.biz/thumbs/129404.jpg" Name="HP HDTV (RBG) kabel, 6 m">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="615" No="12">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1016" No="50">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1012" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1013" No="2">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1014" No="9">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1015" No="55">
+         <FeatureGroup ID="44">
+           <Name ID="5635" Value="Projector" langid="1"/>
+           <Name ID="5636" Value="Projector" langid="2"/>
+           <Name ID="8608" Value="Projector" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1017" No="44">
+         <FeatureGroup ID="45">
+           <Name ID="5641" Value="Video input" langid="1"/>
+           <Name ID="5642" Value="Video input" langid="2"/>
+           <Name ID="8611" Value="Video input" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="148096" URL="http://h10010.www1.hp.com/wwpc/us/en/sm/WF02a/382087-236094-236093.html" ShortDesc="HP ep7112 Home cinema digitale projectorep7112" langid="2" LongDesc="Familie van digitale home cinema projectoren met een superieure weergavekwaliteit en realistische kleuren.HP's familie van digitale home cinema projectoren biedt niet alleen een geweldige kijkervaring met een superieure weergavekwaliteit, natuurlijke kleuren en een scherp beeldcontrast, maar is bovendien heel gebruiksvriendelijk.Deze instapniveau digitale projector is speciaal afgestemd op home cinema toepassingen: hij biedt een superieure weergavekwaliteit met natuurlijke kleuren en een scherp beeldcontrast en is bovendien heel gebruiksvriendelijk.Home cinema projector met superieure weergavekwaliteitHome cinema projector met superieure weergavekwaliteit, natuurlijke kleuren en een scherp beeldcontrast" WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="150352" URL="http://h10010.www1.hp.com/wwpc/us/en/sm/WF02a/382087-236094-236093.html" ShortDesc="HP ep7112 Home Cinema Digital Projectorep7112" langid="1" LongDesc="HP's range of dedicated home cinema digital projectors, delivering a big screen experience with superior image quality, life-like colours and above average contrast while at the same time being intuitive and easy to use.Range of home cinema digital projectors, delivering superior image quality and realistic colours.Home cinema projector with superior image quality, life-like colours and above average contrastThis entry-level digital projector has been optimised for pure home cinema applications, delivering superior image quality with life-like colours and above average contrast while at the same time being intuitive and easy to use.Home cinema projector with superior image quality" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9451326" Value="386 x 365 x 205 mm" No="100260" CategoryFeatureGroup_ID="1012">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451314" Value="Circa 1 tot 10 m" No="270" CategoryFeatureGroup_ID="615">
+         <Feature ID="1175">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="3891" Value="Objective projection distance" langid="1"/>
+           <Name ID="3892" Value="Objective projection distance" langid="2"/>
+           <Name ID="7929" Value="Objective projection distance" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451310" Value="Verticaal: ± 20° (40° totaal)" No="271" CategoryFeatureGroup_ID="615">
+         <Feature ID="1176">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3893" Value="Digital keystone correction" langid="1"/>
+           <Name ID="3894" Value="Digitale keystone-correctie" langid="2"/>
+           <Name ID="7930" Value="Digital keystone correction" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451302" Value="1600:1 (JBMA volledig aan/uit)" No="100279" CategoryFeatureGroup_ID="1015">
+         <Feature ID="34">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1383" Value="Contrast ratio" langid="1"/>
+           <Name ID="1384" Value="Contrast ratio" langid="2"/>
+           <Name ID="6706" Value="Contrast ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451305" Value="24-bits, 16.7 miljoen kleuren" No="100300" CategoryFeatureGroup_ID="1015">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451332" Value="20 tot 80% relatieve luchtvochtigheid" No="100" CategoryFeatureGroup_ID="1013">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451330" Value="20 tot 80" No="90" CategoryFeatureGroup_ID="1013">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451327" Value="641.4 x 558.8 x 278.6 mm" No="110" CategoryFeatureGroup_ID="1012">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9561622" Value="Universal AC 90-265 V, 47/63 Hz with PFC that meets EN61000-3-2 Class D for input harmonics" No="87" CategoryFeatureGroup_ID="1014">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451333" Value="20 - 60" No="89" CategoryFeatureGroup_ID="1013">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451304" Value="1 composite video-ingang (1 RCA), &lt;br&gt;1 S-video-ingang (1 mini-DIN 4-pins), &lt;br&gt;1 component video-ingang (3 RCA), &lt;br&gt;stereo-ingang (2 RCA), &lt;br&gt;USB voor service-upgrades" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451303" Value="100 tot 240 V bij 50  60 Hz" No="0" CategoryFeatureGroup_ID="1014">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451306" Value="DLP met 0.55-inch, 12 graden kantelend DMD en voor video geoptimaliseerde 6-segments kleurenwieltechnologie (RGBRGB)" No="0" CategoryFeatureGroup_ID="1015">
+         <Feature ID="822">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3175" Value="Surface treatment" langid="1"/>
+           <Name ID="3176" Value="Oppervlaktebewerking" langid="2"/>
+           <Name ID="7581" Value="Surface treatment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451334" Value="10 to 40" No="0" CategoryFeatureGroup_ID="1013">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451307" Value="840 (max.) ANSI-lumen" No="0" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1566">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4877" Value="Brightness" langid="1"/>
+           <Name ID="4878" Value="Helderheid" langid="2"/>
+           <Name ID="7183" Value="Brightness" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451313" Value="SVGA (800 x 600 pixels) met 16:9 breedbeeld en optionele 4:3 weergave" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451331" Value="20 tot 80% relatieve luchtvochtigheid" No="0" CategoryFeatureGroup_ID="1013">
+         <Feature ID="563">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2657" Value="Recommended Humidity Operating Range" langid="1"/>
+           <Name ID="2658" Value="Aanbevolen relatieve luchtvochtigheid bij gebruik" langid="2"/>
+           <Name ID="7325" Value="Humidité de fonctionnement recommandée" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451308" Value="Via DVI-naar-VGA adapter: XGA, SVGA, VGA, Mac, SXGA, Mac LC 13-inch, Mac II 13-inch, Mac 16-inch, Mac 19-inch, Mac G4, i Mac DV" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451318" Value="Draadloze, backlit afstandsbediening voor basisfunctionaliteit" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1665">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5197" Value="Handheld remote control" langid="1"/>
+           <Name ID="5198" Value="Handheld afstandsbediening" langid="2"/>
+           <Name ID="8402" Value="Contrôle à distance du portable" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451315" Value="210-W lamp; levensduur lamp 4000 uur" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="550">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2631" Value="Light Exposure Type" langid="1"/>
+           <Name ID="2632" Value="Type belichting" langid="2"/>
+           <Name ID="7312" Value="Light Exposure Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451320" Value="Gebruiksvriendelijk meertalig weergavemenu op het scherm" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1666">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5199" Value="Menu" langid="1"/>
+           <Name ID="5200" Value="Menu" langid="2"/>
+           <Name ID="8403" Value="Menu" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451322" Value="&lt; 34 B(A) bij 23º C" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="585">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2701" Value="Acoustic Pressure Emissions" langid="1"/>
+           <Name ID="2702" Value="Geluidsdruk" langid="2"/>
+           <Name ID="7347" Value="Pression sonore émise" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451316" Value="Max. F/2.4, 1.16:1 handmatige zoom" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="576">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2683" Value="Lens System" langid="1"/>
+           <Name ID="2684" Value="Lenssysteem" langid="2"/>
+           <Name ID="7338" Value="Lens System" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451328" Value="9.3 kg" No="0" CategoryFeatureGroup_ID="1012">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451319" Value="0.283, 0.304" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1686">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5309" Value="Color coordinates of white point" langid="1"/>
+           <Name ID="5310" Value="Kleurcoördinaten van white point" langid="2"/>
+           <Name ID="8451" Value="Color coordinates of white point" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451309" Value="Lamp defect: rood; temperatuurwaarschuwing: rood; voeding: blauw" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1501">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4699" Value="LED indicators" langid="1"/>
+           <Name ID="4700" Value="LED-indicatoren" langid="2"/>
+           <Name ID="8298" Value="LED indicators" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451317" Value="Stroomtoevoer naar lamp wordt automatisch verbroken als klep open is" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1685">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5307" Value="Lamp-door protection" langid="1"/>
+           <Name ID="5308" Value="Beschermd lampdeurtje" langid="2"/>
+           <Name ID="8450" Value="Lamp-door protection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451312" Value="128% van het beeld boven de middenlijn" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1702">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5341" Value="Offset" langid="1"/>
+           <Name ID="5342" Value="Off-set" langid="2"/>
+           <Name ID="8467" Value="Offset" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451311" Value="Instelbaar van 0.8 tot 6.9 m (diagonaal)" No="100000" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1705">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5349" Value="Projected image size" langid="1"/>
+           <Name ID="5350" Value="Projectieformaat" langid="2"/>
+           <Name ID="8470" Value="Projected image size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451321" Value="80%" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1715">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5369" Value="Uniformity" langid="1"/>
+           <Name ID="5370" Value="Eenvormigheid" langid="2"/>
+           <Name ID="8480" Value="Uniformité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451324" Value="Universele netvoeding 90-265 V, 47/63 Hz met PFC die voldoet aan EN61000-3-2 klasse D voor input-harmonics" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451323" Value="3 jaar exchange-garantie (U4802E)&lt;br&gt; 3 jaar reparatie en aflevering (U8136E) &lt;br&gt;2 jaar exchange-garantie (U8228A)" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1880">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5787" Value="Services (supportpack)" langid="1"/>
+           <Name ID="5788" Value="Services (supportpack)" langid="2"/>
+           <Name ID="8681" Value="Services (supportpack)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451329" Value="5700" No="100000" CategoryFeatureGroup_ID="1012">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451325" Value="Ja, met optionele HP plafondmontagekit" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1867">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5741" Value="Mounting" langid="1"/>
+           <Name ID="5742" Value="Mounting" langid="2"/>
+           <Name ID="8658" Value="Mounting" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9496087" Value="Lensbeschermingsknop" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="2084">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9248" Value="Control panel" langid="1"/>
+           <Name ID="9249" Value="Panneau de commande" langid="3"/>
+           <Name ID="9250" Value="Bedieningspaneel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9746812" Value="IEC 950-compatibel, veiligheid: UL-registratie, EU LVD en EN 60950 compatibel, NEMKO goedkeuring, gecertificeerd door CSA, Mexico NOM-1-NYCE, Tsjechische Republiek EZU, Singapore PSB, Rusland GOST, Polen PCBC, China CCIB" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2745" Value="Safety" langid="1"/>
+           <Name ID="2746" Value="Veiligheid" langid="2"/>
+           <Name ID="7369" Value="Sécurité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9710012" Value="Mono luidspreker, 5-W piekuitgangsspanning" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1695">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5327" Value="Speakers and microphone" langid="1"/>
+           <Name ID="5328" Value="Luidprekers en microfoon" langid="2"/>
+           <Name ID="8460" Value="Haut-parleurs et micro" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9710013" Value="24/7 gratis support via e-mail/web en gratis telefonische support voor basisinstallatie, configuratie en probleemoplossing in EMEA tijdens en buiten de garantieperiode; voor telefonische support gelden de standaard gesprekstarieven" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="2138">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9588" Value="Service &amp; support" langid="1"/>
+           <Name ID="9589" Value="Service &amp; support" langid="3"/>
+           <Name ID="9590" Value="Service en support" langid="2"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="567">
+         <Name ID="1135" Value="computer screen projector" langid="1"/>
+         <Name ID="1136" Value="computerschermprojectoren" langid="2"/>
+         <Name ID="6619" Value="computer screen projector" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

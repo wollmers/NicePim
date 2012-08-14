@@ -1,0 +1,9 @@
+{
+name: trace_families;
+
+_resource_family: select family_id from product_family where family_id = %%family_id%%;
+_resource_family_key: family_id;
+_mapping_family: trace_family;
+
+_format_as_trace_family: trace_family;
+}

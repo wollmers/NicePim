@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use atomsql;
+
+my $user = $ARGV[0];
+print "User $user\n";
+exit if(!$user);
+
+my $data = &do_query("select login, password from users where login = ".&str_sqlize($user));
+my $httpd_path  = $atomcfg{'httpd_path'};
+
+print "/home/httpsd/bin/htpasswd -b $httpd_path $data->[0][0] $data->[0][1]\n";
+system("/home/httpsd/bin/htpasswd -b $httpd_path $data->[0][0] $data->[0][1]");

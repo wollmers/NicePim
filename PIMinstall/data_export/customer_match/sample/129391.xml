@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="129391" Prod_id="73VF008000005" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="Webcam Live Pro USB Retail FR" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="309" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="149700" URL="" ShortDesc="Webcam Live Pro USB Retail FR NL" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9551832" Value="USB" No="60" CategoryFeatureGroup_ID="309">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="45" Name="Creative Labs"/>
+       <Category ID="191">
+         <Name ID="383" Value="input devices" langid="1"/>
+         <Name ID="384" Value="besturing" langid="2"/>
+         <Name ID="6264" Value="input devices" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

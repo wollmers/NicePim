@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+#$Id$
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use Data::Dumper;
+
+&do_statement("insert ignore into country_popular(country_id) select distinct country_id from country_product");

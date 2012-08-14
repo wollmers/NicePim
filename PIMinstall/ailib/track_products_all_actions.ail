@@ -1,0 +1,12 @@
+{
+name:track_products_all_actions;
+ priority: 50;
+ actions_list: add_mapping, delete;
+ actions_denied_variants: delete#add_mapping;
+
+ add_mapping_action: SELECT 'custom processing. see command_proc_track_product_all_group_action';
+ delete_action: SELECT 'custom processing. see command_proc_track_product_all_group_action';
+ publis_param: ;
+ 
+ 
+}

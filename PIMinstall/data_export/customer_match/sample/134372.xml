@@ -1,0 +1,949 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="134372" Prod_id="PSA72E-00Y021DU" ThumbPic="http://www.icecat.biz/thumbs/134372.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="Satellite M30X-130" LowPic="http://www.icecat.biz/img/toshiba/prod/satm30x_web_100007.jpg">
+        <ProductRelated ID="582493">
+         <Product ID="38385" Prod_id="PX1098E-1PRP" ThumbPic="http://www.icecat.biz/thumbs/38385.jpg" Name="USB2.0 Port Replicator">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582494">
+         <Product ID="51875" Prod_id="PX1117U-1DAC" ThumbPic="" Name="USB External Keyboard US">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582495">
+         <Product ID="51878" Prod_id="PX1117G-1DAC" ThumbPic="" Name="USB External Keyboard German">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582496">
+         <Product ID="53754" Prod_id="PX1132E-1PRP" ThumbPic="http://www.icecat.biz/thumbs/53754.jpg" Name="Ergo Pro">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582497">
+         <Product ID="65271" Prod_id="PA3311U-1M25" ThumbPic="http://www.icecat.biz/thumbs/65271.jpg" Name="256 MB Memory Expansion">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582498">
+         <Product ID="65272" Prod_id="PA3312U-1M51" ThumbPic="" Name="512 MB Memory Expansion">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582499">
+         <Product ID="65273" Prod_id="PA3313U-1M1G" ThumbPic="" Name="1024MB (1GB) Geheugenuitbreiding">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582500">
+         <Product ID="94370" Prod_id="PX1153E-1NAC" ThumbPic="" Name="USB Cordless Optical Mouse">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582501">
+         <Product ID="94589" Prod_id="PX1154E-1NAC" ThumbPic="http://www.icecat.biz/thumbs/94589.jpg" Name="USB Optical Mouse">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="616692">
+         <Product ID="110443" Prod_id="PX1159E-1M12" ThumbPic="http://www.icecat.biz/thumbs/110443.jpg" Name="128 MB USB geheugen">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="269" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="35" No="10">
+         <FeatureGroup ID="1">
+           <Name ID="4859" Value="Processor" langid="1"/>
+           <Name ID="4860" Value="Processor" langid="2"/>
+           <Name ID="7174" Value="Processor" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="107" No="9">
+         <FeatureGroup ID="2">
+           <Name ID="4861" Value="Disk drive" langid="1"/>
+           <Name ID="4862" Value="Disk drive" langid="2"/>
+           <Name ID="7175" Value="Disk drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="106" No="8">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="32" No="6">
+         <FeatureGroup ID="4">
+           <Name ID="4865" Value="Optical drive" langid="1"/>
+           <Name ID="4866" Value="Optische drive" langid="2"/>
+           <Name ID="7177" Value="Optical drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="33" No="7">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1183" No="0">
+         <FeatureGroup ID="7">
+           <Name ID="4884" Value="Platform" langid="2"/>
+           <Name ID="4883" Value="Platform" langid="1"/>
+           <Name ID="7173" Value="Platform" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="34" No="4">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="110" No="3">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="31" FeatureGroup="" No="0"/>
+        <CategoryFeatureGroup ID="36" No="5">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="108" No="1">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="109" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="762" No="2">
+         <FeatureGroup ID="31">
+           <Name ID="5075" Value="Keyboard" langid="1"/>
+           <Name ID="5076" Value="Toetsenbord" langid="2"/>
+           <Name ID="8280" Value="Keyboard" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="155632" URL="" ShortDesc="" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9719533" Value="2048" No="0" CategoryFeatureGroup_ID="106">
+         <Feature ID="1246">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="4033" Value="Maximum internal memory" langid="1"/>
+           <Name ID="4034" Value="Maximum intern geheugen" langid="2"/>
+           <Name ID="7999" Value="Maximum internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719548" Value="Y" No="76" CategoryFeatureGroup_ID="269">
+         <Feature ID="964">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3469" Value="Graphic adapter direct 3D support" langid="1"/>
+           <Name ID="3470" Value="Graphic adapter direct 3D support" langid="2"/>
+           <Name ID="7725" Value="Graphic adapter direct 3D support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719539" Value="Lezen: 24x CD-ROM, 8x DVD-ROM/ Schrijven: 16x CD-R, 4x CD-RW,8x HS CD-RW, 4x DVD-R, 2x DVD-RW, 2.4x DVD+R, 2.4x DVD+RW,  2x DVD-RAM" No="43" CategoryFeatureGroup_ID="32">
+         <Feature ID="917">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3375" Value="CD/DVD maximum speed" langid="1"/>
+           <Name ID="3376" Value="CD/DVD maximumsnelheid" langid="2"/>
+           <Name ID="7680" Value="CD/DVD maximum speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719532" Value="ATI" No="68" CategoryFeatureGroup_ID="269">
+         <Feature ID="956">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3453" Value="Graphics adapter manufacturer" langid="1"/>
+           <Name ID="3454" Value="Graphische adapter, fabrikant" langid="2"/>
+           <Name ID="7717" Value="Graphics adapter manufacturer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719516" Value="8192" No="633" CategoryFeatureGroup_ID="107">
+         <Feature ID="1328">
+          <Measure ID="47" Sign="KB"/>
+           <Name ID="4197" Value="Hard disk buffer size" langid="1"/>
+           <Name ID="4198" Value="Hard disk buffer size" langid="2"/>
+           <Name ID="8079" Value="Hard disk buffer size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719515" Value="4200" No="100015" CategoryFeatureGroup_ID="107">
+         <Feature ID="430">
+          <Measure ID="28" Sign="RPM"/>
+           <Name ID="2227" Value="Hard disk rotational speed" langid="1"/>
+           <Name ID="2228" Value="Harde schijf rotatiesnelheid" langid="2"/>
+           <Name ID="7122" Value="Hard disk rotational speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719485" Value="2" No="150" CategoryFeatureGroup_ID="109">
+         <Feature ID="913">
+          <Measure ID="46" Sign="hrs"/>
+           <Name ID="3367" Value="Battery power off" langid="1"/>
+           <Name ID="3368" Value="Accu power off" langid="2"/>
+           <Name ID="7676" Value="Battery power off" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719486" Value="Wi-Fi&amp;trade;" No="134" CategoryFeatureGroup_ID="36">
+         <Feature ID="1045">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3631" Value="Wireless compliancy" langid="1"/>
+           <Name ID="3632" Value="Draadloze standaard" langid="2"/>
+           <Name ID="7802" Value="Wireless compliancy" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719487" Value="2.7" No="187" CategoryFeatureGroup_ID="762">
+         <Feature ID="1001">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3543" Value="Keyboard key stroke" langid="1"/>
+           <Name ID="3544" Value="Keyboard key stroke" langid="2"/>
+           <Name ID="7759" Value="Keyboard key stroke" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719488" Value="notebook" No="92" CategoryFeatureGroup_ID="107">
+         <Feature ID="989">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3519" Value="Hard disk desktop or notebook?" langid="1"/>
+           <Name ID="3520" Value="Harde schijf, desktop of notebook?" langid="2"/>
+           <Name ID="7747" Value="Hard disk desktop or notebook?" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719489" Value="2" No="67" CategoryFeatureGroup_ID="269">
+         <Feature ID="955">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3451" Value="Number of expansion types" langid="1"/>
+           <Name ID="3452" Value="Aantal uitbreidingstypes" langid="2"/>
+           <Name ID="7716" Value="Number of expansion types" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719558" Value="3" No="101" CategoryFeatureGroup_ID="762">
+         <Feature ID="1003">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3547" Value="Keyboard easy keys" langid="1"/>
+           <Name ID="3548" Value="Toetsenbord, easy keys" langid="2"/>
+           <Name ID="7761" Value="Keyboard easy keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719527" Value="1 jaar internationale garantie. Zorg voor opwaardering van de standaard garantie met de optionele Toshiba garantie uitbreidingen en all-risk verzekeringspakketten." No="0" CategoryFeatureGroup_ID="269">
+         <Feature ID="1448">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4554" Value="Garantie" langid="2"/>
+           <Name ID="4553" Value="Warranty" langid="1"/>
+           <Name ID="7700" Value="Warranty" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719526" Value="9.5" No="86" CategoryFeatureGroup_ID="107">
+         <Feature ID="977">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3495" Value="Hard disk height" langid="1"/>
+           <Name ID="3496" Value="Harde schijf, hoogte" langid="2"/>
+           <Name ID="7737" Value="Hard disk height" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719524" Value="1280 x 800" No="95" CategoryFeatureGroup_ID="269">
+         <Feature ID="729">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2989" Value="Video adapter resolution" langid="1"/>
+           <Name ID="2990" Value="Resolutie video-adapter" langid="2"/>
+           <Name ID="7489" Value="Video adapter resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719525" Value="ingebouwde stereo speakers" No="115" CategoryFeatureGroup_ID="110">
+         <Feature ID="1024">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3589" Value="Speakers" langid="1"/>
+           <Name ID="3590" Value="Speakers" langid="2"/>
+           <Name ID="7782" Value="Speakers" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719523" Value="2" No="87" CategoryFeatureGroup_ID="107">
+         <Feature ID="979">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3499" Value="Hard disk number of plates" langid="1"/>
+           <Name ID="3500" Value="Harde schijf, aantal schijven" langid="2"/>
+           <Name ID="7739" Value="Hard disk number of plates" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719522" Value="Y" No="103" CategoryFeatureGroup_ID="762">
+         <Feature ID="1006">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3553" Value="Keyboard inlaid numeric keypad" langid="1"/>
+           <Name ID="3554" Value="Toetsenbord, ingelegd numeriek keypad" langid="2"/>
+           <Name ID="7764" Value="Keyboard inlaid numeric keypad" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719521" Value="systeem wachtwoord beveiliging" No="153" CategoryFeatureGroup_ID="269">
+         <Feature ID="248">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1863" Value="Security features" langid="1"/>
+           <Name ID="1864" Value="Beveiligingseigenschappen" langid="2"/>
+           <Name ID="6940" Value="Security features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719484" Value="tot 4" No="101005" CategoryFeatureGroup_ID="109">
+         <Feature ID="435">
+          <Measure ID="46" Sign="hrs"/>
+           <Name ID="2237" Value="Battery maximum life" langid="1"/>
+           <Name ID="2238" Value="Batterij, maximale werkingsduur" langid="2"/>
+           <Name ID="7127" Value="Battery maximum life" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719483" Value="Enhanced IDE (ATA-6)" No="100090" CategoryFeatureGroup_ID="107">
+         <Feature ID="982">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3505" Value="Hard disk interface" langid="1"/>
+           <Name ID="3506" Value="Harde schijf-interface" langid="2"/>
+           <Name ID="7742" Value="Hard disk interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719482" Value="400" No="108" CategoryFeatureGroup_ID="35">
+         <Feature ID="1015">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="3571" Value="Processor front side bus" langid="1"/>
+           <Name ID="3572" Value="Processor front side bus" langid="2"/>
+           <Name ID="7773" Value="Processor front side bus" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719476" Value="Y" No="78" CategoryFeatureGroup_ID="269">
+         <Feature ID="966">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3473" Value="Graphics adapter integrated TV encoder" langid="1"/>
+           <Name ID="3474" Value="Graphics adapter integrated TV encoder" langid="2"/>
+           <Name ID="7727" Value="Graphics adapter integrated TV encoder" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719477" Value="2" No="98" CategoryFeatureGroup_ID="762">
+         <Feature ID="997">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3535" Value="Windows® keys" langid="1"/>
+           <Name ID="3536" Value="Windows®-toetsen" langid="2"/>
+           <Name ID="7755" Value="Windows® keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719478" Value="Intel&amp;reg; PRO/Wireless LAN 2200BG Mini PCI adaptor integrated in Intel&amp;reg; Centrino&amp;trade; mobile technology" No="131" CategoryFeatureGroup_ID="36">
+         <Feature ID="1047">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3635" Value="Wireless communication manufacturer" langid="1"/>
+           <Name ID="3636" Value="Wireless communication manufacturer" langid="2"/>
+           <Name ID="7804" Value="Wireless communication manufacturer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719479" Value="400" No="72" CategoryFeatureGroup_ID="269">
+         <Feature ID="960">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="3461" Value="Graphics adapter bus clock speed" langid="1"/>
+           <Name ID="3462" Value="Graphics adapter bus clock speed" langid="2"/>
+           <Name ID="7721" Value="Graphics adapter bus clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719480" Value="12" No="185" CategoryFeatureGroup_ID="269">
+         <Feature ID="998">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3537" Value="Keyboard function keys" langid="1"/>
+           <Name ID="3538" Value="Keyboard function keys" langid="2"/>
+           <Name ID="7756" Value="Keyboard function keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719481" Value="lithium-ion" No="101004" CategoryFeatureGroup_ID="109">
+         <Feature ID="434">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2235" Value="Battery technlogy" langid="1"/>
+           <Name ID="2236" Value="Batterij, technologie" langid="2"/>
+           <Name ID="7126" Value="Battery technlogy" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719552" Value="19.05" No="186" CategoryFeatureGroup_ID="762">
+         <Feature ID="1000">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3541" Value="Keyboard key pitch" langid="1"/>
+           <Name ID="3542" Value="Keyboard key pitch" langid="2"/>
+           <Name ID="7758" Value="Keyboard key pitch" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719473" Value="DVD Super Multi Drive" No="213" CategoryFeatureGroup_ID="269">
+         <Feature ID="1120">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3781" Value="Optical drive type" langid="1"/>
+           <Name ID="3782" Value="type optische drive" langid="2"/>
+           <Name ID="7875" Value="type de lecteur optique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719538" Value="Norton Internet Security&amp;trade; 2004 (90-dagen gratis op proef)&lt;BR&gt;\nInterVideo WinDVD&amp;trade;&lt;BR&gt;\nSonic&amp;trade; Record Now!&lt;BR&gt;\nConfigFree&amp;trade;&lt;BR&gt;\non-line gebruikershandleiding&lt;BR&gt;\nToshiba utilities en drivers&lt;BR&gt;\nMicrosoft&amp;reg; Windows&amp;reg; XP Home Edition (triple language: UK,FR,NL)&lt;BR&gt;\nMicrosoft&amp;reg; Office OneNote &amp;trade; 2003 " No="100002" CategoryFeatureGroup_ID="1183">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719553" Value="65" No="37" CategoryFeatureGroup_ID="109">
+         <Feature ID="906">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="3353" Value="AC adapter power dissipation" langid="1"/>
+           <Name ID="3354" Value="AC adapter power dissipation" langid="2"/>
+           <Name ID="7669" Value="AC adapter power dissipation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719555" Value="Y" No="119" CategoryFeatureGroup_ID="110">
+         <Feature ID="1030">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3601" Value="Sound system direct sound" langid="1"/>
+           <Name ID="3602" Value="Audiosysteem direct geluid" langid="2"/>
+           <Name ID="7788" Value="Sound system direct sound" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719556" Value="Intel&amp;reg; Centrino&amp;trade; mobile technology met Intel&amp;reg; Pentium&amp;reg; M processor 735, Intel&amp;reg; PRO/Wireless 2200BG network connectie en Intel&amp;reg; 855GME chipset" No="100000" CategoryFeatureGroup_ID="269">
+         <Feature ID="31">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1375" Value="Type" langid="1"/>
+           <Name ID="1376" Value="Type" langid="2"/>
+           <Name ID="6702" Value="Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719557" Value="365 x 275 x 30 (voorzijde) / 38 (achterzijde)" No="100005" CategoryFeatureGroup_ID="108">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719517" Value="Forward, Rewind, Play / Pause, Stop" No="102" CategoryFeatureGroup_ID="762">
+         <Feature ID="1004">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3549" Value="Keyboard type of easy keys" langid="1"/>
+           <Name ID="3550" Value="Toetsenbord, type of easy keys" langid="2"/>
+           <Name ID="7762" Value="Keyboard type of easy keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719511" Value="Y" No="74" CategoryFeatureGroup_ID="269">
+         <Feature ID="962">
+          <Measure ID="50" Sign="bit"/>
+           <Name ID="3465" Value="3D graphics accelerator" langid="1"/>
+           <Name ID="3466" Value="3D graphics accelerator" langid="2"/>
+           <Name ID="7723" Value="3D graphics accelerator" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719512" Value="6-in-1 Bridge Media Slot (ondersteunt SD&amp;trade; Card, SmartMedia&amp;trade;, Memory Stick&amp;reg;, Memory Stick Pro&amp;trade;, MultiMedia Card&amp;trade;, xD-Picture Card&amp;trade;)&lt;BR&gt;\nUSB 2.0&lt;BR&gt;\nheadphone (stereo)&lt;BR&gt;\ningebouwde luidspreker&lt;BR&gt;\nexterne microfoon&lt;BR&gt;\nFast Infrared Port (FIR)&lt;BR&gt;\ni.LINK&amp;reg; (IEEE 1394 / Firewire)&lt;BR&gt;\nTV-out (s-video)&lt;BR&gt;\nparallel&lt;BR&gt;\nRJ-45&lt;BR&gt;\nRJ-11&lt;BR&gt;\nextern beeldscherm&lt;BR&gt;\nDC-in" No="93" CategoryFeatureGroup_ID="36">
+         <Feature ID="990">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3521" Value="Interface type" langid="1"/>
+           <Name ID="3522" Value="Interfacetype" langid="2"/>
+           <Name ID="7748" Value="Interface type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719541" Value="18 / 20" No="100059" CategoryFeatureGroup_ID="33">
+         <Feature ID="946">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="3433" Value="Display response rise/fall" langid="1"/>
+           <Name ID="3434" Value="Display response rise/fall" langid="2"/>
+           <Name ID="7707" Value="Display response rise/fall" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719561" Value="RJ-45&lt;BR&gt;\nRJ-11" No="130" CategoryFeatureGroup_ID="36">
+         <Feature ID="1043">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3627" Value="Wired communication connector" langid="1"/>
+           <Name ID="3628" Value="Wired communication connector" langid="2"/>
+           <Name ID="7800" Value="Wired communication connector" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719566" Value="11" No="189" CategoryFeatureGroup_ID="762">
+         <Feature ID="1007">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3555" Value="Hot keys" langid="1"/>
+           <Name ID="3556" Value="Hot keys" langid="2"/>
+           <Name ID="7765" Value="Hot keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719565" Value="305" No="38" CategoryFeatureGroup_ID="109">
+         <Feature ID="907">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="3355" Value="AC adapter weight" langid="1"/>
+           <Name ID="3356" Value="AC adapter gewicht" langid="2"/>
+           <Name ID="7670" Value="AC adapter weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719563" Value="Y" No="0" CategoryFeatureGroup_ID="269">
+         <Feature ID="1562">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4869" Value="Volume dial" langid="1"/>
+           <Name ID="4870" Value="Volume dial" langid="2"/>
+           <Name ID="7179" Value="Volume dial" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719564" Value="Y" No="80" CategoryFeatureGroup_ID="33">
+         <Feature ID="968">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3477" Value="Graphics adapter multiple display support" langid="1"/>
+           <Name ID="3478" Value="Graphics adapter multiple display support" langid="2"/>
+           <Name ID="7729" Value="Graphics adapter multiple display support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719543" Value="19" No="35" CategoryFeatureGroup_ID="109">
+         <Feature ID="904">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="3349" Value="AC adapter output voltage" langid="1"/>
+           <Name ID="3350" Value="AC adapter output voltage" langid="2"/>
+           <Name ID="7667" Value="AC adapter output voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719491" Value="8101CL (ge&amp;iuml;ntegreerd)" No="126" CategoryFeatureGroup_ID="36">
+         <Feature ID="1040">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3621" Value="Wired communication type" langid="1"/>
+           <Name ID="3622" Value="Wired communication type" langid="2"/>
+           <Name ID="7797" Value="Wired communication type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719497" Value="Wireless LAN (802.11b/g dual-mode ge&amp;iuml;ntegreerde network ondersteuning)" No="132" CategoryFeatureGroup_ID="36">
+         <Feature ID="1048">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3637" Value="Wireless technology" langid="1"/>
+           <Name ID="3638" Value="Draadloze technologie" langid="2"/>
+           <Name ID="7805" Value="Wireless technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719493" Value="220" No="46" CategoryFeatureGroup_ID="269">
+         <Feature ID="922">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="3385" Value="Drive device weight" langid="1"/>
+           <Name ID="3386" Value="Drive, gewicht" langid="2"/>
+           <Name ID="7685" Value="Drive device weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719492" Value="Y" No="120" CategoryFeatureGroup_ID="110">
+         <Feature ID="1031">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3603" Value="Sound system direct 3D sound" langid="1"/>
+           <Name ID="3604" Value="Audiosysteem direct 3D geluid" langid="2"/>
+           <Name ID="7789" Value="Sound system direct 3D sound" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719499" Value="Realtek" No="125" CategoryFeatureGroup_ID="36">
+         <Feature ID="1039">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3619" Value="Wired communication manufacturer" langid="1"/>
+           <Name ID="3620" Value="Wired communication manufacturer" langid="2"/>
+           <Name ID="7796" Value="Wired communication manufacturer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719534" Value="Y" No="73" CategoryFeatureGroup_ID="269">
+         <Feature ID="961">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3463" Value="2D graphics accelerator" langid="1"/>
+           <Name ID="3464" Value="2D graphics accelerator" langid="2"/>
+           <Name ID="7722" Value="2D graphics accelerator" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9711555" Value="Microsoft Windows XP Home Edition" No="105999" CategoryFeatureGroup_ID="1183">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719554" Value="1 x PC Card Type II&lt;BR&gt;\ngeheugen slots (1 configureerbaar)" No="66" CategoryFeatureGroup_ID="269">
+         <Feature ID="954">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3449" Value="Expansion type" langid="1"/>
+           <Name ID="3450" Value="Uitbreiding type" langid="2"/>
+           <Name ID="7715" Value="Expansion type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719530" Value="10/100 Base-TX&lt;BR&gt;\n56 Kbps data (V.90) and 14.4 Kbps fax (V.17)" No="128" CategoryFeatureGroup_ID="36">
+         <Feature ID="443">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2253" Value="Networking speed" langid="1"/>
+           <Name ID="2254" Value="Netwerksnelheid" langid="2"/>
+           <Name ID="7135" Value="Networking speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719529" Value="MOBILITY&amp;trade; RADEON&amp;trade; 9700" No="141164" CategoryFeatureGroup_ID="269">
+         <Feature ID="614">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2759" Value="Graphic" langid="1"/>
+           <Name ID="2760" Value="Graphic" langid="2"/>
+           <Name ID="7375" Value="Graphic" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719528" Value="DDR RAM" No="70" CategoryFeatureGroup_ID="106">
+         <Feature ID="958">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3457" Value="Graphics adapter memory Type" langid="1"/>
+           <Name ID="3458" Value="Graphics adapter memory Type" langid="2"/>
+           <Name ID="7719" Value="Graphics adapter memory Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719551" Value="4" No="188" CategoryFeatureGroup_ID="762">
+         <Feature ID="1005">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3551" Value="Number of keyboard cursor keys" langid="1"/>
+           <Name ID="3552" Value="Number of keyboard cursor keys" langid="2"/>
+           <Name ID="7763" Value="Number of keyboard cursor keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719514" Value="1280 x 800" No="105970" CategoryFeatureGroup_ID="33">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719542" Value="65.536" No="706" CategoryFeatureGroup_ID="269">
+         <Feature ID="1357">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4255" Value="Internal video modes maximum number of colours" langid="1"/>
+           <Name ID="4256" Value="Interne video modes, maximum aantal kleuren" langid="2"/>
+           <Name ID="8108" Value="Internal video modes maximum number of colours" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719490" Value="Y" No="77" CategoryFeatureGroup_ID="269">
+         <Feature ID="965">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3471" Value="Motion compensation" langid="1"/>
+           <Name ID="3472" Value="Motion compensation" langid="2"/>
+           <Name ID="7726" Value="Motion compensation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719550" Value="MIDI support" No="207" CategoryFeatureGroup_ID="110">
+         <Feature ID="1023">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3587" Value="Supported sound standards" langid="1"/>
+           <Name ID="3588" Value="Ondersteunde audiostandaarden" langid="2"/>
+           <Name ID="7781" Value="Supported sound standards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719474" Value="Y" No="99" CategoryFeatureGroup_ID="762">
+         <Feature ID="999">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3539" Value="Keyboard euro key" langid="1"/>
+           <Name ID="3540" Value="Toetsenbord, eurotoets" langid="2"/>
+           <Name ID="7757" Value="Keyboard euro key" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719510" Value="1700" No="10105478" CategoryFeatureGroup_ID="35">
+         <Feature ID="5">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="1292" Value="Processor-kloksnelheid" langid="2"/>
+           <Name ID="1291" Value="Processor clock speed" langid="1"/>
+           <Name ID="6663" Value="Processor clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719475" Value="2" No="0" CategoryFeatureGroup_ID="269">
+         <Feature ID="1564">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="4873" Value="2nd level cache" langid="1"/>
+           <Name ID="4874" Value="2e niveau cache" langid="2"/>
+           <Name ID="7181" Value="2nd level cache" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719472" Value="802.11b/g" No="135" CategoryFeatureGroup_ID="36">
+         <Feature ID="1046">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3633" Value="Wireless network support" langid="1"/>
+           <Name ID="3634" Value="Wireless network support" langid="2"/>
+           <Name ID="7803" Value="Wireless network support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719537" Value="Y" No="75" CategoryFeatureGroup_ID="269">
+         <Feature ID="963">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3467" Value="Graphics Adapter Open GL support" langid="1"/>
+           <Name ID="3468" Value="Graphics Adapter Open GL support" langid="2"/>
+           <Name ID="7724" Value="Graphics Adapter Open GL support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719536" Value="64" No="100173" CategoryFeatureGroup_ID="33">
+         <Feature ID="574">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="2679" Value="Video adapter memory" langid="1"/>
+           <Name ID="2680" Value="Geheugen video-adapter" langid="2"/>
+           <Name ID="7336" Value="Video adapter memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719535" Value="64" No="122" CategoryFeatureGroup_ID="106">
+         <Feature ID="1034">
+          <Measure ID="50" Sign="bit"/>
+           <Name ID="3609" Value="Internal memory data bus width" langid="1"/>
+           <Name ID="3610" Value="Intern geheugen, databus bandbreedte" langid="2"/>
+           <Name ID="7791" Value="Internal memory data bus width" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719547" Value="16-bit stereo" No="114" CategoryFeatureGroup_ID="110">
+         <Feature ID="1022">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3585" Value="Audio format supported" langid="1"/>
+           <Name ID="3586" Value="Ondersteund audioformaat" langid="2"/>
+           <Name ID="7780" Value="Audio format supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719562" Value="Realtek ALC250 (on board)" No="117" CategoryFeatureGroup_ID="110">
+         <Feature ID="1026">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3593" Value="Sound system type" langid="1"/>
+           <Name ID="3594" Value="Audiosysteem-type" langid="2"/>
+           <Name ID="7784" Value="Sound system type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719545" Value="autosensing AC adapter (100/240 V) voor wereldwijd gebruik" No="33" CategoryFeatureGroup_ID="109">
+         <Feature ID="902">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3345" Value="AC adapter input voltage" langid="1"/>
+           <Name ID="3346" Value="AC adapter input voltage" langid="2"/>
+           <Name ID="7665" Value="AC adapter input voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719544" Value="400:1" No="58" CategoryFeatureGroup_ID="33">
+         <Feature ID="945">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3431" Value="Display typical contrast ratio" langid="1"/>
+           <Name ID="3432" Value="Beeldscherm, typische contrastratio" langid="2"/>
+           <Name ID="7706" Value="Display typical contrast ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719518" Value="0.25875 x 0.25875" No="100008" CategoryFeatureGroup_ID="33">
+         <Feature ID="32">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1377" Value="Pixel pitch" langid="1"/>
+           <Name ID="1378" Value="Pixel pitch" langid="2"/>
+           <Name ID="6703" Value="Pixel pitch" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719560" Value="60-81-104-126-147-164-185-200" No="625" CategoryFeatureGroup_ID="33">
+         <Feature ID="953">
+          <Measure ID="52" Sign="NIT"/>
+           <Name ID="3447" Value="LCD brightness levels 1-8" langid="1"/>
+           <Name ID="3448" Value="LCD heldherheid niveau's 1-8" langid="2"/>
+           <Name ID="7714" Value="LCD brightness levels 1-8" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719494" Value="48" No="208" CategoryFeatureGroup_ID="110">
+         <Feature ID="1027">
+          <Measure ID="31" Sign="KHz"/>
+           <Name ID="3595" Value="Sound system maximum sampling rate" langid="1"/>
+           <Name ID="3596" Value="Audiosysteem maximum sampling rate" langid="2"/>
+           <Name ID="7785" Value="Sound system maximum sampling rate" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719546" Value="ATAPI" No="47" CategoryFeatureGroup_ID="32">
+         <Feature ID="923">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3387" Value="CD-RW/DVD-ROM interface" langid="1"/>
+           <Name ID="3388" Value="CD-RW/DVD-ROM interface" langid="2"/>
+           <Name ID="7686" Value="CD-RW/DVD-ROM interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719496" Value="8 x AGP bus" No="82" CategoryFeatureGroup_ID="269">
+         <Feature ID="971">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3483" Value="Graphics adapter connected bus" langid="1"/>
+           <Name ID="3484" Value="Graphics adapter connected bus" langid="2"/>
+           <Name ID="7732" Value="Graphics adapter connected bus" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719513" Value="15.4" No="10105488" CategoryFeatureGroup_ID="33">
+         <Feature ID="15">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="1321" Value="Display size" langid="1"/>
+           <Name ID="1322" Value="Afmetingen scherm" langid="2"/>
+           <Name ID="6678" Value="Taille de l'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719549" Value="86" No="97" CategoryFeatureGroup_ID="762">
+         <Feature ID="996">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3533" Value="Keyboard keys" langid="1"/>
+           <Name ID="3534" Value="Toetsenbord-toetsen" langid="2"/>
+           <Name ID="7754" Value="Keyboard keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9711554" Value="TFT" No="105980" CategoryFeatureGroup_ID="33">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9711552" Value="60" No="10105480" CategoryFeatureGroup_ID="107">
+         <Feature ID="7">
+          <Measure ID="20" Sign="GB"/>
+           <Name ID="1300" Value="Harde schijf drive" langid="2"/>
+           <Name ID="1299" Value="Hard disk drive capacity" langid="1"/>
+           <Name ID="6659" Value="Hard disk drive" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9711553" Value="512" No="10105479" CategoryFeatureGroup_ID="106">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719495" Value="3.42" No="36" CategoryFeatureGroup_ID="109">
+         <Feature ID="905">
+          <Measure ID="41" Sign="A"/>
+           <Name ID="3351" Value="AC adapter output current" langid="1"/>
+           <Name ID="3352" Value="AC adapter output stroom" langid="2"/>
+           <Name ID="7668" Value="AC adapter output current" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719519" Value="Ethernet LAN&lt;BR&gt;\ninternationaal V.90 modem" No="127" CategoryFeatureGroup_ID="36">
+         <Feature ID="1041">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3623" Value="Networking topology" langid="1"/>
+           <Name ID="3624" Value="Netwerktopologie" langid="2"/>
+           <Name ID="7798" Value="Networking topology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719520" Value="1&lt;BR&gt;\n3 (achterzijde 2, rechterzijde 1)&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1&lt;BR&gt;\n1" No="94" CategoryFeatureGroup_ID="36">
+         <Feature ID="991">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3523" Value="Number of interfaces type" langid="1"/>
+           <Name ID="3524" Value="Aantal interface-types" langid="2"/>
+           <Name ID="7749" Value="Number of interfaces type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719540" Value="Y" No="118" CategoryFeatureGroup_ID="110">
+         <Feature ID="1029">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3599" Value="Sound system full Duplex" langid="1"/>
+           <Name ID="3600" Value="Audiosysteem full Duplex" langid="2"/>
+           <Name ID="7787" Value="Sound system full Duplex" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719531" Value="2" No="0" CategoryFeatureGroup_ID="32">
+         <Feature ID="1450">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="4558" Value="CD/DVD buffer size" langid="2"/>
+           <Name ID="4557" Value="CD/DVD buffer size" langid="1"/>
+           <Name ID="7772" Value="CD/DVD buffer size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719509" Value="Stroom kabel&lt;BR&gt;\nAC adapter" No="155" CategoryFeatureGroup_ID="269">
+         <Feature ID="250">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1867" Value="Bundled hardware" langid="1"/>
+           <Name ID="1868" Value="Gebundelde hardware" langid="2"/>
+           <Name ID="6942" Value="Bundled hardware" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719559" Value="Touch Pad" No="105" CategoryFeatureGroup_ID="269">
+         <Feature ID="1010">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3561" Value="Pointing device type" langid="1"/>
+           <Name ID="3562" Value="Pointing device type" langid="2"/>
+           <Name ID="7768" Value="Pointing device type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719507" Value="3100" No="100000" CategoryFeatureGroup_ID="108">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719505" Value="standaard" No="100039" CategoryFeatureGroup_ID="109">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719506" Value="256, 512, 1024" No="124" CategoryFeatureGroup_ID="106">
+         <Feature ID="1037">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="3615" Value="Internal memory expansion module sizes" langid="1"/>
+           <Name ID="3616" Value="Intern geheugen, omvang uitbruidingsmodules" langid="2"/>
+           <Name ID="7794" Value="Internal memory expansion module sizes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719508" Value="Wake-On-LAN, remote boot&lt;BR&gt;\nring wake-up resume" No="129" CategoryFeatureGroup_ID="36">
+         <Feature ID="1042">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3625" Value="Wired communication features" langid="1"/>
+           <Name ID="3626" Value="Wired communication features" langid="2"/>
+           <Name ID="7799" Value="Wired communication features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719504" Value="3" No="88" CategoryFeatureGroup_ID="107">
+         <Feature ID="980">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3501" Value="Hard disk number of heads" langid="1"/>
+           <Name ID="3502" Value="Harde schijf, aantal koppen" langid="2"/>
+           <Name ID="7740" Value="Hard disk number of heads" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719501" Value="14.8 V x 6450" No="40" CategoryFeatureGroup_ID="109">
+         <Feature ID="909">
+          <Measure ID="51" Sign="mAh"/>
+           <Name ID="3359" Value="Battery performance" langid="1"/>
+           <Name ID="3360" Value="Accu performance" langid="2"/>
+           <Name ID="7672" Value="Battery performance" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719502" Value="DDR RAM" No="123" CategoryFeatureGroup_ID="106">
+         <Feature ID="1035">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3611" Value="Internal memory technology" langid="1"/>
+           <Name ID="3612" Value="Intern geheugen-technologie" langid="2"/>
+           <Name ID="7792" Value="Internal memory technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719500" Value="CD-ROM, CD-R, CD-RW, DVD-ROM, DVD-R, DVD-RW, DVD+R, DVD+RW, DVD-RAM" No="0" CategoryFeatureGroup_ID="32">
+         <Feature ID="1547">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4815" Value="DVD drive compatibility" langid="1"/>
+           <Name ID="4816" Value="DVD drive compatibiliteit" langid="2"/>
+           <Name ID="6739" Value="DVD drive compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719503" Value="4" No="149" CategoryFeatureGroup_ID="109">
+         <Feature ID="912">
+          <Measure ID="46" Sign="hrs"/>
+           <Name ID="3365" Value="Battery power on" langid="1"/>
+           <Name ID="3366" Value="Accu power on" langid="2"/>
+           <Name ID="7675" Value="Battery power on" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9719498" Value="50-60" No="34" CategoryFeatureGroup_ID="109">
+         <Feature ID="903">
+          <Measure ID="36" Sign="Hz"/>
+           <Name ID="3347" Value="AC adapter frequency" langid="1"/>
+           <Name ID="3348" Value="AC adapter frequentie" langid="2"/>
+           <Name ID="7666" Value="AC adapter frequency" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="2" Name="Toshiba"/>
+       <Category ID="151">
+         <Name ID="303" Value="notebooks" langid="1"/>
+         <Name ID="304" Value="notebooks" langid="2"/>
+         <Name ID="6224" Value="notebooks" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

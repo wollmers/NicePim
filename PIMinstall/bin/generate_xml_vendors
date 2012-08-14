@@ -1,0 +1,171 @@
+#!/usr/bin/perl
+
+#$Id: generate_xml_vendors 3197 2010-10-05 05:28:08Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+use atomlog;
+use atomcfg;
+use icecat_server2_repository;
+use atomsql;
+use atom_util;
+use atom_misc;
+use icecat_util;
+use data_management;
+use Parallel::ForkManager;
+
+use Data::Dumper;
+
+$| = 1;
+
+print "Vendor repository manager is started:\n";
+
+my $parallels = 4;
+
+my $path = {
+	'level4'  => $atomcfg{'xml_path'}.'level4/',
+	'freexml' => $atomcfg{'xml_path'}.'freexml.int/',
+	'vendor'  => $atomcfg{'xml_path'}.'vendor.int/',
+	'xml_export_path' => $atomcfg{'xml_export_path'}
+};
+
+# creating symlinks for /level4/refs.xml to /freexml.int/refs.xml & refs/
+`/bin/mkdir -p $path->{'vendor'}`;
+
+# add necessary symlinks
+
+&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'categories.xml');
+&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'categories.xml.gz');
+&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'measures.xml');
+&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'measures.xml.gz');
+
+# load sponsors
+my $sponsors = &do_query('
+SELECT supplier_id, name, folder_name
+FROM supplier
+WHERE (is_sponsor = "Y" AND user_id != 0) OR (public_login != "" AND public_login IS NOT NULL)
+');
+
+# parallels
+
+my $pm = new Parallel::ForkManager($parallels);
+
+foreach my $s (sort {$sponsors->[$a][2] cmp $sponsors->[$b][2]} @$sponsors) {
+
+	my $pid = $pm->start($s->[2]) and next;
+
+  # This code is the child process!..
+
+  $0 .= ' [ '.$s->[1].' ]';
+
+	&close_connection;
+	&init_connection;
+
+	my $table_name = $s->[2];
+	$table_name =~ s/\W+/_/g;
+	my $vendor_show = $s->[1];
+	$vendor_show .= ' ' x (25 - length($vendor_show));
+
+	print "\t".$vendor_show."\tStarted\n";
+
+	$table_name = &get_products_for_repository_via_index_cache(
+		{ 'updated' => 1,
+			'supplier_id' => $s->[0],
+			'table_name' => 'itmp_product_'.$table_name."_".$s->[0]
+		}, '');
+
+	print "\t".$vendor_show."\tTable formed\n";
+
+	# generate indexes for INT & lang repositories
+
+	my $langs = &do_query("SELECT langid, short_code FROM language WHERE published = 'Y'");
+	my %lang_hash = map {$_->[0] => $_->[1]} @$langs;
+	$lang_hash{0} = 'INT';
+
+	my $daily_products = {};
+
+	my $content = &create_index_files_from_index_cache(0, { 'on_market' => 1, 'table_name' => $table_name }, '', $daily_products);
+#	print "\nDaily products detected : " . scalar (keys %$daily_products) . "\n";
+
+	print "\t".$vendor_show."\tDraft cache files formed\n";
+
+	# change the vendor path
+
+	$path->{'vendor'} .= $s->[2] . '/';
+
+	# add necessary symlinks
+
+	&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'categories.xml');
+	&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'categories.xml.gz');
+	&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'measures.xml');
+	&symlink($path->{'xml_export_path'}, $path->{'vendor'}, 'measures.xml.gz');
+
+	# add indexes
+
+	my ($cgi_file, $cmd, $any_symbols, $xml);
+
+	foreach my $langid (sort {$a <=> $b} keys %lang_hash) {
+
+#		print "\n\t".$lang_hash{$langid}."(".$langid."):\t";
+
+		`/bin/mkdir -p $path->{'vendor'}$lang_hash{$langid}`;
+		
+		# supplier_id => 0  - any supplier
+		# subscription_level => 0 - any access level
+
+		# to complete index files with specific per language products...
+		&create_specific_index_files_from_index_cache($langid, $daily_products, $s->[0], '');
+		
+		print "\t".$vendor_show."\t".$lang_hash{$langid}." draft cache files completed with specific info\n";
+
+		# store main indexes...
+		&store_index( {
+			path               => $path->{'vendor'} . $lang_hash{$langid} . "/",
+			content            => $content,
+			langid             => $langid,
+			supplier_id        => 0,
+			subscription_level => 'all',
+									});
+		
+		# just complete daily files...
+		&store_specific_index( {
+			path               => $path->{'vendor'} . $lang_hash{$langid} . "/",
+			langid             => $langid,
+			supplier_id        => 0,
+			subscription_level => 'all',
+													 });
+
+		print "\t".$vendor_show."\t".$lang_hash{$langid}." language index files stored\n";
+
+#		print "index ";
+
+		&symlink($path->{'freexml'}, $path->{'vendor'}.$lang_hash{$langid}.'/', 'product_mapping.xml');
+		&symlink($path->{'freexml'}, $path->{'vendor'}.$lang_hash{$langid}.'/', 'supplier_mapping.xml');
+
+		&symlink($path->{'level4'}, $path->{'vendor'}.$lang_hash{$langid}.'/', 'refs.xml');
+		&symlink($path->{'level4'}, $path->{'vendor'}.$lang_hash{$langid}.'/', 'refs');
+	}
+
+#	print "\n";
+
+	# remove tmps
+
+	my $cmd;
+
+	foreach my $hndl (values %$content) {
+		$cmd = '/bin/rm -f '.$hndl->{'draftfilename'};
+		`$cmd`;
+	}
+
+	print "\t".$vendor_show."\tFinished\n";
+	
+	$pm->finish($s->[2]); # pass an exit code to finish
+}
+
+print "Waiting for Children...\n";
+$pm->wait_all_children;
+print "Everybody is out of the pool!\n";
+
+exit(0);

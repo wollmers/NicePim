@@ -1,0 +1,32 @@
+$$INCLUDE head2.html$$	
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="main" height="20">
+			$$INCLUDE users_menu_link.html$$
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<span><a class="linkmenu3" href="%%base_url%%;tmpl=mail_dispatch_edit.html;">Edit mail dispatch</a></span>
+>
+<span><a class="linkmenu3" href="%%base_url%%;tmpl=mail_dispatch_log.html;">Mail dispatch log</a></span>
+>
+<span><a class="linkmenu3" href="%%base_url%%;tmpl=mail_dispatch_in.html;id=%%id%%">Dispatch details</a></span>
+>
+
+{
+name: errors;
+}
+
+{
+name: mail_dispatch_in;
+}
+
+$$INCLUDE footer2.html$$

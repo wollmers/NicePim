@@ -1,0 +1,49 @@
+{
+name: campaign;
+priority: 10;
+
+_resource_campaign: select campaign_id, name, short_description, long_description, link, start_date, end_date, updated, country_id_set from campaign where campaign_id=%%campaign_id%%;
+_resource_campaign_type: single;
+_resource_campaign_key: campaign_id;
+_mapping_campaign: campaign_id, name, short_description, long_description, link, start_date, end_date, updated, country_id_set;
+
+_resource_user_data: select '%%user_id%%';
+_mapping_user_data: user_id;
+
+format_as_date_three_dropdowns: start_date, end_date;
+
+format_as_multiselect: country_id_set;
+country_id_set_multiselect_select: select country_id, v.value from country_popular cp inner join country c using (country_id) inner join vocabulary v on c.sid=v.sid and v.langid=1;
+
+validate_as_mandatory: name;
+
+validate_as_start_less_than_end: date;
+
+store_as_date_three_dropdowns: start_date, end_date;
+store_as_multiselect: country_id_set;
+
+authorize_superuser: campaign_id;
+authorize_supereditor: campaign_id;
+authorize_category_manager: campaign_id;
+authorize_editor: campaign_id;
+authorize_relation: campaign_id;
+authorize_guest: campaign_id;
+authorize_shop: campaign_id;
+
+authorize_submit_superuser: campaign_id;
+authorize_submit_supereditor: campaign_id;
+authorize_submit_category_manager: campaign_id;
+
+verify_deny_guest: yes;
+
+_insert_sequence: 1;
+
+_insert_table_1: campaign;
+_insert_values_1: name, short_description, long_description, link, start_date, end_date, user_id, country_id_set;
+_insert_fields_1: name, short_description, long_description, link, start_date, end_date, user_id, country_id_set;
+_insert_key_1: campaign_id;
+_update_key_1: campaign_id;
+_delete_sequence_1: yes;
+_update_sequence_1: yes;
+
+}

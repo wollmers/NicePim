@@ -1,0 +1,34 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="main" height="20">
+			$$INCLUDE cats_menu_link.html$$
+{
+name: trace_categories;
+}
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<span><a href="%%base_url%%;tmpl=cat_feat_batch.html">Batch category features assignment</a> <a href="%%base_url%%;tmpl=categories_merge.html;">Merge</a></span>
+
+{
+name: errors;
+}
+
+{
+name: categories_search;
+}
+
+{
+name: categories;
+}
+
+$$INCLUDE footer2.html$$

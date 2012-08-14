@@ -1,0 +1,15 @@
+{
+name:track_products_actions;
+ priority: 50;
+ actions_list: park, unpark;
+ actions_denied_variants: park#unpark;
+
+ add_mapping_action: SELECT 'custom processing. see command_proc_track_product_group_action';
+ delete_action: SELECT 'custom processing. see command_proc_track_product_group_action';
+
+_resource_data: select '111111111111111111111111111111111111111111111111111';
+_resource_data_type: single;
+_mapping_data: park_cause;
+ format_as_radio_buttons: park_cause; 
+
+}

@@ -1,0 +1,59 @@
+{
+name: product_feature;
+
+priority: 10;
+
+verify: product_feature_id;
+verify_submit: product_feature_id;
+
+verify_add: yes;
+verify_add_superuser: product_feature_id;
+verify_add_supereditor: product_feature_id;
+verify_add_category_manager: product_feature_id;
+verify_add_editor: product_feature_id # user_id == edit_user_id;
+verify_add_supplier: product_feature_id # user_id == edit_user_id;
+
+authorize_editor: product_id, product_feature_id;
+authorize_supplier: product_id, product_feature_id;
+authorize_superuser: product_id, product_feature_id;
+authorize_supereditor: product_id, product_feature_id;
+authorize_category_manager: product_id, product_feature_id;
+
+_resource_product: select product_id, 'dummy' from product where product_id = %%product_id%%
+_resource_product_type: single;
+_resource_product_key: product_id;
+_mapping_product: product_id, feature_date;
+
+_resource_feature: select cf.category_feature_id, p.product_id, product_feature_id, f.feature_id, pf.value, cf.no, m.sign, f.type, cf.search_list_restriction, cf.use_dropdown_input
+
+from product_feature pf
+inner join product p on p.product_id = pf.product_id
+inner join category_feature cf on cf.category_feature_id = pf.category_feature_id
+inner join feature f on f.feature_id = cf.feature_id
+inner join vocabulary feature_name on f.sid = feature_name.sid and feature_name.langid = %%langid%%
+inner join measure m on m.measure_id = f.measure_id
+
+where pf.product_id = %%product_id%% and pf.product_feature_id = %%product_feature_id%%
+
+_resource_feature_type: single;
+_resource_feature_key: product_feature_id;
+_mapping_feature: category_feature_id, product_id, product_feature_id, feature_id, value, no, sign, type, search_restricted_values, cat_feat_input_dropdown;
+
+validate_as_mandatory: value, category_feature_id;
+
+format_as_dropdown: category_feature_id;
+category_feature_id_dropdown_select: select category_feature.category_feature_id,feature_name.value from product, category_feature, feature, vocabulary as feature_name where product.product_id = %%product_id%% and category_feature.catid = product.catid and feature.feature_id = category_feature.feature_id and feature.sid = feature_name.sid and feature_name.langid = %%langid%%
+
+format_as_feature_input: value;
+store_as_get_date: feature_date;
+
+ _insert_sequence: 1;
+ 
+ _insert_table_1: product_feature;
+ _insert_key_1: product_feature_id;
+ _insert_values_1: product_id, category_feature_id, value;
+ _insert_fields_1: product_id, category_feature_id, value;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+
+}

@@ -1,0 +1,48 @@
+{
+name: product_related_ajax;
+priority: 10;
+default_rows_number: 1000;
+
+verify: product_id;
+verify_submit: product_id, cproduct_id;
+
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+
+_resource_related: select p.user_id, pr.product_related_id, pr.product_id, rel.prod_id, pr.rel_product_id, rel.name, rel.supplier_id, s.name, pr.preferred_option
+from product_related pr
+inner join product rel on rel.product_id = pr.rel_product_id
+inner join product p on pr.product_id = p.product_id
+inner join supplier s on rel.supplier_id=s.supplier_id
+where pr.product_id = %%product_id%% %%order_clause%% limit %%start_row%%, %%rows_number%%
+_resource_related_type: multi;
+_resource_related_def_order: rel_prod_id;
+_resource_related_key: product_id;
+_resource_related_skey: product_related_id;
+_mapping_related: edit_user_id, product_related_id, product_id, rel_prod_id, r_product_id, r_name, r_supplier_id, r_supplier_name, preferred_option;
+
+
+_resource_reversed_related: select p.user_id, pr.product_related_id, pr.rel_product_id, rel.prod_id, pr.product_id, rel.name, rel.supplier_id, s.name, pr.preferred_option
+from product_related pr
+inner join product rel on rel.product_id = pr.product_id
+inner join product p on pr.rel_product_id = p.product_id
+inner join supplier s on rel.supplier_id=s.supplier_id
+where pr.rel_product_id = %%product_id%% %%order_clause%% limit %%start_row%%, %%rows_number%%
+_resource_reversed_related_type: multi;
+_resource_reversed_related_def_order: rel_prod_id;
+_resource_reversed_related_key: product_id;
+_resource_reversed_related_skey: product_related_id;
+_mapping_reversed_related: edit_user_id, product_related_id, product_id, rel_prod_id, r_product_id, r_name, r_supplier_id, r_supplier_name, preferred_option;
+
+
+}

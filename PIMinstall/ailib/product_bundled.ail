@@ -1,0 +1,44 @@
+{
+name: product_bundled;
+priority: 10;
+default_rows_number: 500;
+
+verify: product_id;
+verify_submit: product_id, cproduct_id;
+
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+
+_resource_bundled: select product.user_id, product_bundled.id, product_bundled.product_id, bndl.prod_id, bndl_product_id, bndl.name from product_bundled, product as bndl, product where product_bundled.product_id = product.product_id and product_bundled.product_id = %%product_id%% and bndl.product_id = product_bundled.bndl_product_id %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_bundled_type: multi;
+_resource_bundled_def_order: bndl_prod_id;
+_resource_bundled_key: product_id;
+_resource_bundled_skey: product_bundled_id;
+_mapping_bundled: edit_user_id, product_bundled_id, product_id, bndl_prod_id, bndl_product_id, bndl_name;
+
+validate_as_mandatory_bndl_product_add: bndl_product_id;
+
+ _insert_sequence: 1;
+ _insert_ignore_keys: yes;
+ 
+ _insert_table_1: product_bundled;
+ _insert_key_1: product_bundled_id;
+ _insert_key_1_name: id; 
+ _insert_values_1: product_id, bndl_product_id;
+ _insert_fields_1: product_id, bndl_product_id;
+ _insert_1_keep_unique: yes;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+
+
+}

@@ -1,0 +1,179 @@
+<!ELEMENT ICECAT-interface (Request)>
+
+<!ATTLIST ICECAT-interface
+                xmlns:xsi CDATA #IMPLIED
+		xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+
+<!ELEMENT Request (DistributorListRequest|LanguageListRequest|MeasuresListRequest|FeaturesListRequest|CategoriesListRequest|SuppliersListRequest|CategoryFeaturesListRequest|SupplierCategoriesListRequest|ProductsListRequest|ProductsListLookupRequest|ProductsStatistic|DescribeProductsRequest|
+									 ProductsDumpRequest|StatisticQueryListRequest|StatisticQueryDatesListRequest|StatisticQueryDateDataReportRequest|									
+									 SupplierProductFamiliesListRequest|
+									 ProductsComplaintRequest|
+									 FulltextProductsSearchRequest|
+									 FeatureValuesVocabularyListRequest
+									 )+>
+    <!ATTLIST Request
+                Password            CDATA #REQUIRED
+        	Request_ID          CDATA #REQUIRED
+		Login               CDATA #REQUIRED>
+
+<!ELEMENT LanguageListRequest EMPTY>
+
+<!ELEMENT DistributorListRequest EMPTY>
+
+<!ELEMENT FeatureValuesVocabularyListRequest EMPTY>
+    <!ATTLIST FeatureValuesVocabularyListRequest
+                langid              CDATA #IMPLIED>
+
+<!ELEMENT MeasuresListRequest EMPTY>
+    <!ATTLIST MeasuresListRequest
+                langid              CDATA #REQUIRED>
+
+<!ELEMENT FeaturesListRequest EMPTY>
+    <!ATTLIST FeaturesListRequest
+                langid              CDATA #REQUIRED>
+
+<!ELEMENT CategoriesListRequest EMPTY>
+    <!ATTLIST CategoriesListRequest
+                UNCATID             CDATA #IMPLIED 
+        	langid              CDATA #REQUIRED
+		Category_ID         CDATA #IMPLIED
+		Searchable          CDATA #IMPLIED>
+<!ELEMENT ProductsDumpRequest EMPTY>
+<!ATTLIST ProductsDumpRequest 
+		MinQuality	    CDATA #IMPLIED
+		Supplier_ID	    CDATA #IMPLIED
+		UpdatedFrom	    CDATA #IMPLIED
+		langid		    CDATA #REQUIRED>
+
+
+<!ELEMENT SuppliersListRequest EMPTY>
+    <!ATTLIST SuppliersListRequest
+		UNCATID							CDATA #IMPLIED
+		Searchable          CDATA #IMPLIED
+		Category_ID					CDATA #IMPLIED>
+
+<!ELEMENT CategoryFeaturesListRequest EMPTY>
+    <!ATTLIST CategoryFeaturesListRequest
+                UNCATID             CDATA #IMPLIED
+        	langid              CDATA #REQUIRED
+		Category_ID         CDATA #IMPLIED
+		Searchable	    CDATA #IMPLIED>
+
+<!ELEMENT SupplierCategoriesListRequest (Supplier)+>
+    <!ATTLIST SupplierCategoriesListRequest
+                langid              CDATA #REQUIRED>
+		
+<!ELEMENT Supplier (#PCDATA)>
+    <!ATTLIST Supplier
+                ID                  CDATA #IMPLIED
+								>
+								
+
+<!ELEMENT ProductsListRequest (Product)+>
+    <!ATTLIST ProductsListRequest
+                langid              CDATA #REQUIRED>
+	
+<!ELEMENT Product (Prod_id|Supplier)*>
+    <!ATTLIST Product
+		ID		    CDATA #IMPLIED>
+
+<!ELEMENT Prod_id (#PCDATA)>
+
+<!ELEMENT ProductsListLookupRequest (Supplier|Features|
+																		 ProductFamily)+>
+    <!ATTLIST ProductsListLookupRequest
+                UNCATID             CDATA #REQUIRED
+		langid              CDATA #REQUIRED
+		LookupText          CDATA #IMPLIED
+		MinQuality          CDATA #IMPLIED
+		Category_ID					CDATA #IMPLIED
+		OnMarket						CDATA	#IMPLIED
+		>
+		
+		
+<!ELEMENT Features (Feature)+>
+
+<!ELEMENT Feature EMPTY>			    		
+    <!ATTLIST Feature
+		LimitValue	     CDATA #IMPLIED
+		ID		     CDATA #IMPLIED>
+		
+<!ELEMENT ProductsStatistic (Product*)>
+    <!ATTLIST ProductsStatistic
+                UNCATID             CDATA #REQUIRED
+        	Category_ID         CDATA #IMPLIED
+		MinQuality          CDATA #IMPLIED
+		Type                CDATA #REQUIRED>
+		
+<!ELEMENT DescribeProductsRequest (DescribeProductRequest)+>
+    <!ATTLIST DescribeProductsRequest
+                langid              CDATA #REQUIRED>
+		    		
+							
+<!ELEMENT DescribeProductRequest EMPTY>
+    <!ATTLIST DescribeProductRequest
+                Product_id      CDATA #IMPLIED
+                Prod_id         CDATA #IMPLIED
+                Supplier_id     CDATA #IMPLIED
+                Email           CDATA #IMPLIED
+                toDate          CDATA #IMPLIED
+                Message         CDATA #IMPLIED
+		Supplier_Code	CDATA #IMPLIED>
+												    		
+<!ELEMENT SupplierProductFamiliesListRequest EMPTY>		
+    <!ATTLIST SupplierProductFamiliesListRequest
+                langid              CDATA #REQUIRED						
+                Supplier_ID      CDATA #IMPLIED
+								SupplierParentProductFamily_ID CDATA #IMPLIED
+								Category_ID	CDATA #IMPLIED
+		>
+ 
+<!ELEMENT ProductFamily EMPTY>
+    <!ATTLIST ProductFamily
+                ID                  CDATA #IMPLIED
+								>
+		
+<!ELEMENT StatisticQueryListRequest EMPTY>
+		
+<!ELEMENT StatisticQueryDatesListRequest (StatisticQuery+)> 
+	<!ATTLIST StatisticQueryDatesListRequest  
+						DateStart		CDATA #IMPLIED 
+						DateEnd		CDATA #IMPLIED>		
+
+<!ELEMENT StatisticQuery EMPTY> 
+	<!ATTLIST StatisticQuery 
+						ID		CDATA #REQUIRED 
+						Code	CDATA #IMPLIED 
+						Period	CDATA #IMPLIED>		
+		
+<!ELEMENT StatisticQueryDateDataReportRequest (StatisticQueryDate)>
+	<!ELEMENT StatisticQueryDate EMPTY> 
+		<!ATTLIST StatisticQueryDate 
+							ID								CDATA #REQUIRED 
+							StatisticQuery_ID	CDATA #IMPLIED 
+							Date							CDATA #IMPLIED 
+							Period						CDATA #IMPLIED>
+		
+		
+			    		
+<!ELEMENT ProductsComplaintRequest (ProductComplaintRequest)+>
+
+<!ELEMENT ProductComplaintRequest EMPTY>
+<!ATTLIST ProductComplaintRequest
+           	Product_id      CDATA #IMPLIED
+           	Prod_id         CDATA #IMPLIED
+           	Supplier_id     CDATA #IMPLIED
+           	Supplier_Code   CDATA #IMPLIED
+           	Date            CDATA #IMPLIED
+           	Message         CDATA #IMPLIED
+           	Subject         CDATA #IMPLIED
+           	Email    				CDATA #IMPLIED
+          	Name   					CDATA #IMPLIED
+          	Company  				CDATA #IMPLIED>
+							    
+<!ELEMENT   FulltextProductsSearchRequest (Supplier)* >
+	<!ATTLIST  FulltextProductsSearchRequest 
+						Text	 					CDATA 	#REQUIRED
+						Category_ID			CDATA 	#IMPLIED
+						MinQuality			CDATA 	#IMPLIED
+						langid	 				CDATA 	#IMPLIED>

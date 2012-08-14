@@ -1,0 +1,338 @@
+# trigger product_description_after_insert: INSERT product_description -> INSERT product_description_reverse
+
+DROP TRIGGER IF EXISTS product_description_after_insert;
+delimiter |
+CREATE TRIGGER product_description_after_insert
+AFTER INSERT ON product_description
+FOR EACH ROW
+BEGIN
+	IF NEW.pdf_url != '' OR NEW.manual_pdf_url != '' THEN
+		insert IGNORE into product_description_reverse(product_description_id,pdf_url,manual_pdf_url) values(NEW.product_description_id,REVERSE(NEW.pdf_url),REVERSE(NEW.manual_pdf_url));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_description_after_update: UPDATE product_description -> UPDATE product_description_reverse
+
+DROP TRIGGER IF EXISTS product_description_after_update;
+delimiter |
+CREATE TRIGGER product_description_after_update
+AFTER UPDATE ON product_description
+FOR EACH ROW
+BEGIN
+	delete from product_description_reverse where product_description_id=NEW.product_description_id;
+	IF NEW.pdf_url !='' OR NEW.manual_pdf_url != '' THEN
+		insert IGNORE into product_description_reverse(product_description_id,pdf_url,manual_pdf_url) values(NEW.product_description_id,REVERSE(NEW.pdf_url),REVERSE(NEW.manual_pdf_url));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_description_after_delete: DELETE product_description -> DELETE product_description_reverse
+
+DROP TRIGGER IF EXISTS product_description_after_delete;
+delimiter |
+CREATE TRIGGER product_description_after_delete
+AFTER DELETE ON product_description
+FOR EACH ROW
+BEGIN
+	delete from product_description_reverse where product_description_id=OLD.product_description_id;
+END;|
+delimiter ;
+
+# trigger category_after_insert: INSERT category -> INSERT category_reverse
+
+DROP TRIGGER IF EXISTS category_after_insert;
+delimiter |
+CREATE TRIGGER category_after_insert
+AFTER INSERT ON category
+FOR EACH ROW
+BEGIN
+	IF NEW.low_pic != '' OR NEW.thumb_pic != '' THEN
+		insert IGNORE into category_reverse(catid,low_pic,thumb_pic) values(NEW.catid,REVERSE(NEW.low_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger category_after_update: UPDATE category -> UPDATE category_reverse
+
+DROP TRIGGER IF EXISTS category_after_update;
+delimiter |
+CREATE TRIGGER category_after_update
+AFTER UPDATE ON category
+FOR EACH ROW
+BEGIN
+	delete from category_reverse where catid=NEW.catid;
+	IF NEW.low_pic !='' OR NEW.thumb_pic !='' THEN
+		insert IGNORE into category_reverse(catid,low_pic,thumb_pic) values(NEW.catid,REVERSE(NEW.low_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger category_after_delete: DELETE category -> DELETE category_reverse
+
+DROP TRIGGER IF EXISTS category_after_delete;
+delimiter |
+CREATE TRIGGER category_after_delete
+AFTER DELETE ON category
+FOR EACH ROW
+BEGIN
+	delete from category_reverse where catid=OLD.catid;
+END;|
+delimiter ;
+
+# trigger product_after_insert: INSERT product -> INSERT product_reverse
+
+DROP TRIGGER IF EXISTS product_after_insert;
+delimiter |
+CREATE TRIGGER product_after_insert
+AFTER INSERT ON product
+FOR EACH ROW
+BEGIN
+	if NEW.low_pic != '' OR new.high_pic != '' OR NEW.thumb_pic IS NOT NULL THEN
+		insert IGNORE into product_reverse(product_id,low_pic,high_pic,thumb_pic)
+			values(NEW.product_id,REVERSE(NEW.low_pic),REVERSE(NEW.high_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_after_update: UPDATE product -> UPDATE product_reverse
+
+DROP TRIGGER IF EXISTS product_after_update;
+delimiter |
+CREATE TRIGGER product_after_update
+AFTER UPDATE ON product
+FOR EACH ROW
+BEGIN
+	IF NEW.low_pic != OLD.low_pic OR NEW.high_pic != OLD.high_pic OR (NOT (NEW.thumb_pic <=> OLD.thumb_pic)) THEN
+		delete from product_reverse where product_id=NEW.product_id;
+		IF NEW.low_pic != '' OR NEW.high_pic != '' OR NEW.thumb_pic IS NOT NULL THEN
+			 insert IGNORE into product_reverse(product_id,low_pic,high_pic,thumb_pic)
+			 values(NEW.product_id,REVERSE(NEW.low_pic),REVERSE(NEW.high_pic),REVERSE(NEW.thumb_pic));
+			 END IF;
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_after_delete: DELETE product -> DELETE product_reverse, insert product_deleted
+
+DROP TRIGGER IF EXISTS product_after_delete;
+delimiter |
+CREATE TRIGGER product_after_delete
+AFTER DELETE ON product
+FOR EACH ROW
+BEGIN
+	delete from product_reverse where product_id=OLD.product_id;
+	INSERT IGNORE INTO product_deleted (product_id,catid,name,supplier_id,user_id,prod_id) values (OLD.product_id,OLD.catid,OLD.name,OLD.supplier_id,OLD.user_id,OLD.prod_id);
+END;|
+delimiter ;
+
+# trigger product_family_after_insert: INSERT product_family -> INSERT product_family_reverse
+
+DROP TRIGGER IF EXISTS product_family_after_insert;
+delimiter |
+CREATE TRIGGER product_family_after_insert
+AFTER INSERT ON product_family
+FOR EACH ROW	
+BEGIN
+	if NEW.low_pic != '' OR NEW.thumb_pic != '' THEN
+		insert IGNORE into product_family_reverse(family_id,low_pic,thumb_pic)
+			values(NEW.family_id,REVERSE(NEW.low_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_family_after_update: UPDATE product_family -> UPDATE product_family_reverse
+
+DROP TRIGGER IF EXISTS product_family_after_update;
+delimiter |
+CREATE TRIGGER product_family_after_update
+AFTER UPDATE ON product_family
+FOR EACH ROW
+BEGIN
+	delete from product_family_reverse where family_id=NEW.family_id;
+	IF NEW.low_pic !='' OR NEW.thumb_pic !='' THEN
+		insert IGNORE into product_family_reverse(family_id,low_pic,thumb_pic)
+			values(NEW.family_id,REVERSE(NEW.low_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_family_after_delete: DELETE product_family -> DELETE product_family_reverse
+
+DROP TRIGGER IF EXISTS product_family_after_delete;
+delimiter |
+CREATE TRIGGER product_family_after_delete
+AFTER DELETE ON product_family
+FOR EACH ROW
+BEGIN
+	delete from product_family_reverse where family_id=OLD.family_id;
+END;|
+delimiter ;
+
+# trigger supplier_after_insert: INSERT supplier -> INSERT supplier_reverse
+
+DROP TRIGGER IF EXISTS supplier_after_insert;
+delimiter |
+CREATE TRIGGER supplier_after_insert
+AFTER INSERT ON supplier
+FOR EACH ROW	
+BEGIN
+	if NEW.low_pic != '' OR NEW.thumb_pic != '' THEN
+		insert IGNORE into supplier_reverse(supplier_id,low_pic,thumb_pic)
+			values(NEW.supplier_id,REVERSE(NEW.low_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger supplier_after_update: UPDATE supplier -> UPDATE supplier_reverse
+
+DROP TRIGGER IF EXISTS supplier_after_update;
+delimiter |
+CREATE TRIGGER supplier_after_update
+AFTER UPDATE ON supplier
+FOR EACH ROW
+BEGIN
+	delete from supplier_reverse where supplier_id=NEW.supplier_id;
+	IF NEW.low_pic !='' OR NEW.thumb_pic !='' THEN
+		insert IGNORE into supplier_reverse(supplier_id,low_pic,thumb_pic)
+			values(NEW.supplier_id,REVERSE(NEW.low_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger supplier_after_delete: DELETE supplier -> DELETE supplier_reverse
+
+DROP TRIGGER IF EXISTS supplier_after_delete;
+delimiter |
+CREATE TRIGGER supplier_after_delete
+AFTER DELETE ON supplier
+FOR EACH ROW
+BEGIN
+	delete from supplier_reverse where supplier_id=OLD.supplier_id;
+END;|
+delimiter ;
+
+# trigger product_gallery_after_insert: INSERT product_gallery -> INSERT product_gallery_reverse
+
+DROP TRIGGER IF EXISTS product_gallery_after_insert;
+delimiter |
+CREATE TRIGGER product_gallery_after_insert
+AFTER INSERT ON product_gallery
+FOR EACH ROW	
+BEGIN
+	if NEW.link != '' OR NEW.thumb_link != '' THEN
+		insert IGNORE into product_gallery_reverse(id,link,thumb_link)
+			values(NEW.id,REVERSE(NEW.link),REVERSE(NEW.thumb_link));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_gallery_after_update: UPDATE product_gallery -> UPDATE product_gallery_reverse
+
+DROP TRIGGER IF EXISTS product_gallery_after_update;
+delimiter |
+CREATE TRIGGER product_gallery_after_update
+AFTER UPDATE ON product_gallery
+FOR EACH ROW
+BEGIN
+	delete from product_gallery_reverse where id=NEW.id;
+	IF NEW.link !='' OR NEW.thumb_link !='' THEN
+		insert IGNORE into product_gallery_reverse(id,link,thumb_link)
+			values(NEW.id,REVERSE(NEW.link),REVERSE(NEW.thumb_link));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_gallery_after_delete: DELETE product_gallery -> DELETE product_gallery_reverse
+
+DROP TRIGGER IF EXISTS product_gallery_after_delete;
+delimiter |
+CREATE TRIGGER product_gallery_after_delete
+AFTER DELETE ON product_gallery
+FOR EACH ROW
+BEGIN
+	delete from product_gallery_reverse where id=OLD.id;
+END;|
+delimiter ;
+
+# trigger product_multimedia_object_after_insert: INSERT product_multimedia_object -> INSERT product_multimedia_object_reverse
+
+DROP TRIGGER IF EXISTS product_multimedia_object_after_insert;
+delimiter |
+CREATE TRIGGER product_multimedia_object_after_insert
+AFTER INSERT ON product_multimedia_object
+FOR EACH ROW	
+BEGIN
+	if NEW.link != '' THEN
+		insert IGNORE into product_multimedia_object_reverse(id,link) values(NEW.id,REVERSE(NEW.link));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_multimedia_object_after_update: UPDATE product_multimedia_object -> UPDATE product_multimedia_object_reverse
+
+DROP TRIGGER IF EXISTS product_multimedia_object_after_update;
+delimiter |
+CREATE TRIGGER product_multimedia_object_after_update
+AFTER UPDATE ON product_multimedia_object
+FOR EACH ROW
+BEGIN
+	delete from product_multimedia_object_reverse where id=NEW.id;
+	IF NEW.link !='' THEN
+		insert IGNORE into product_multimedia_object_reverse(id,link) values(NEW.id,REVERSE(NEW.link));
+	END IF;
+END;|
+delimiter ;
+
+# trigger product_multimedia_object_after_delete: DELETE product_multimedia_object -> DELETE product_multimedia_object_reverse
+
+DROP TRIGGER IF EXISTS product_multimedia_object_after_delete;
+delimiter |
+CREATE TRIGGER product_multimedia_object_after_delete
+AFTER DELETE ON product_multimedia_object
+FOR EACH ROW
+BEGIN
+	delete from product_multimedia_object_reverse where id=OLD.id;
+END;|
+delimiter ;
+
+# trigger campaign_gallery_after_insert: INSERT campaign_gallery -> INSERT campaign_gallery_reverse
+
+DROP TRIGGER IF EXISTS campaign_gallery_after_insert;
+delimiter |
+CREATE TRIGGER campaign_gallery_after_insert
+AFTER INSERT ON campaign_gallery
+FOR EACH ROW
+BEGIN
+	IF NEW.logo_pic != '' OR NEW.thumb_pic is not null THEN
+		insert IGNORE into campaign_gallery_reverse(campaign_gallery_id,logo_pic,thumb_pic) values(NEW.campaign_gallery_id,REVERSE(NEW.logo_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger campaign_gallery_after_update: UPDATE campaign_gallery -> UPDATE campaign_gallery_reverse
+
+DROP TRIGGER IF EXISTS campaign_gallery_after_update;
+delimiter |
+CREATE TRIGGER campaign_gallery_after_update
+AFTER UPDATE ON campaign_gallery
+FOR EACH ROW
+BEGIN
+	delete from campaign_gallery_reverse where campaign_gallery_id=NEW.campaign_gallery_id;
+	IF NEW.logo_pic !='' OR NEW.thumb_pic is not null THEN
+		insert IGNORE into campaign_gallery_reverse(campaign_gallery_id,logo_pic,thumb_pic) values(NEW.campaign_gallery_id,REVERSE(NEW.logo_pic),REVERSE(NEW.thumb_pic));
+	END IF;
+END;|
+delimiter ;
+
+# trigger campaign_gallery_after_delete: DELETE campaign_gallery -> DELETE campaign_gallery_reverse
+
+DROP TRIGGER IF EXISTS campaign_gallery_after_delete;
+delimiter |
+CREATE TRIGGER campaign_gallery_after_delete
+AFTER DELETE ON campaign_gallery
+FOR EACH ROW
+BEGIN
+	delete from campaign_gallery_reverse where campaign_gallery_id=OLD.campaign_gallery_id;
+END;|
+delimiter ;

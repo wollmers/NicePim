@@ -1,0 +1,11 @@
+{
+name: ajax_google_translations;
+
+priority: 10;
+
+_resource_data: select '%%en_string%%','%%id_pattern%%','%%lang_ids%%','1';
+_mapping_data: en_string,id_pattern,lang_ids,result;
+
+format_as_google_transl_return: result; 
+
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="95761" Prod_id="PCGEVPW2" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="Warranty Extension 2Yr RTB f VAIO" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="686" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="108753" URL="" ShortDesc="Warranty Extension 2Yr RTB f VAIO" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="788">
+         <Name ID="4493" Value="hardware support" langid="1"/>
+         <Name ID="4494" Value="hardware support" langid="2"/>
+         <Name ID="8221" Value="hardware support" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,119 @@
+#!/usr/bin/perl
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+use atom_misc;
+
+my $code = $ARGV[0];
+if(!defined $code){
+	&log_printf("fatal error: missing parameter in td_export_data");
+	exit;
+}
+
+my $full_active = 1 if ($code eq 'TDES');
+
+my $name = $code.'_mapping';
+my $rich = '_rich';
+my $full = '_full';
+my $export_path = '/export/techdata/';
+my $full_export_path = '/export/techdatafull/';
+
+my $importfn = $atomcfg{'www_path'}.$export_path.$name.'.txt';
+my $importfn_rich = $atomcfg{'www_path'}.$export_path.$name.$rich.'.txt';
+my $importfn_full = $atomcfg{'www_path'}.$full_export_path.$name.$full.'.txt';
+my $importfn_full_rich = $atomcfg{'www_path'}.$full_export_path.$name.$full.$rich.'.txt';
+
+my $distributor_id = &do_query("select distributor_id from distributor where code='".$code."'")->[0][0];
+
+unless ($distributor_id) {
+	&log_printf("fatal error: distributor absent");
+	exit;
+}
+
+my $res = &do_query("select distinct p.product_id, dp.dist_prod_id, p.prod_id, p.low_pic, p.high_pic, p.thumb_pic, cmim.quality_index, s.is_sponsor, (select count(*) from product_multimedia_object pmo where pmo.product_id=p.product_id) pmo_cnt
+from product as p
+inner join distributor_product as dp on dp.product_id=p.product_id
+inner join users u on p.user_id=u.user_id
+inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group
+inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure
+inner join supplier s on p.supplier_id=s.supplier_id
+where dp.distributor_id=".$distributor_id." and dp.active=1");
+
+my $img_cnt = 0;
+my $product_cnt = 0;
+my $product_rich_cnt = 0;
+my $product_full_cnt = 0;
+my $product_full_rich_cnt = 0;
+
+my ($product_info_url, $str, $pmos, $pmo);
+
+my $header = "ItemID\tProduct_id\tURL\tLow_res_img\tHigh_res_img\tThumbnail_img\tMultimedia_objects_set\n";
+
+open (TDFILE, "> $importfn") || die("fatal error: can't open $importfn");
+open (TDFILERICH, "> $importfn_rich") || die("fatal error: can't open $importfn_rich");
+print TDFILE $header;
+print TDFILERICH $header;
+
+if ($full_active) {
+	open (TDFULLFILE, "> $importfn_full") || die("fatal error: can't open $importfn_full");
+	open (TDFULLFILERICH, "> $importfn_full_rich") || die("fatal error: can't open $importfn_full_rich");
+	print TDFULLFILE $header;
+	print TDFULLFILERICH $header;
+}
+
+foreach my $row (@$res) {
+	$product_info_url = "http://prf.icecat.biz/index.cgi?product_id=".$row->[0].";mi=start;smi=product"; # url for product description
+	$product_info_url .= ($code eq 'TDES')?";shopname=techdata-es;lang=sp":"";
+	$product_info_url .= ($code eq 'TDPT')?";shopname=Techdata-pt;lang=pt":"";
+
+	$img_cnt++ if ($row->[3]);
+
+	$pmo = '';
+	if ($row->[8] > 0) { # has miltimedia_objects
+		$pmos = &do_query("select id, link, keep_as_url from product_multimedia_object where product_id=".$row->[0]);
+		foreach (@$pmos) {
+			$pmo .= $_->[2] ? $atomcfg{'objects_host'}.'objects/'.$row->[0].'-'.$_->[0].'.html' : $_->[1];
+			$pmo .= '|';
+		}
+		chop($pmo);
+	}
+
+	$str = $row->[1]."\t".$row->[0]."\t".$product_info_url."\t".$row->[3]."\t".$row->[4]."\t".$row->[5]."\t".$pmo."\n";
+
+	if ($row->[7] eq 'Y') { # open
+		print TDFILE $str;
+		if (($row->[6] > 0) && ($code ne 'TDES' || ($row->[3] && $row->[4] && $row->[5]))) {
+			print TDFILERICH $str;
+			$product_rich_cnt++;	
+		}
+		$product_cnt++;	
+	}
+	if ($full_active) { # full
+		print TDFULLFILE $str;
+		if ($row->[6] > 0) {
+			print TDFULLFILERICH $str;
+			$product_full_rich_cnt++;	
+		}
+		$product_full_cnt++;
+	}
+}
+
+close(TDFILE);
+close(TDFILERICH);
+
+if ($full_active) {
+	close(TDFILE);
+	close(TDFILERICH);
+}
+
+print("\nProducts loaded: $product_cnt\nDescribed products: $product_rich_cnt\n");
+if ($full_active) {
+	print("Full products loaded: $product_full_cnt\nFull described products: $product_full_rich_cnt\n");
+}
+print("Products with low_pic: $img_cnt\n");

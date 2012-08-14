@@ -1,0 +1,32 @@
+{
+name: features;
+priority: 10;
+
+_resource_features: select f.feature_id, v.value, ms.value, 'dummy', f.measure_id
+
+from feature f
+inner join vocabulary v on f.sid=v.sid and v.langid = %%langid%%
+left join measure_sign ms on ms.measure_id=f.measure_id and ms.langid = %%langid%%
+
+
+where %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+
+_resource_features_type: multi;
+_resource_features_def_order: name;
+_mapping_features: feature_id, name, sign, dummy, measure_id;
+
+format_as_values: dummy;
+
+authorize_superuser: feature_id;
+authorize_supereditor: feature_id;
+authorize_category_manager: feature_id;
+authorize_editor: feature_id;
+authorize_supplier: feature_id;
+authorize_guest: feature_id;
+authorize_shop: feature_id;
+
+authorize_submit_superuser: feature_id;
+authorize_submit_supereditor: feature_id;
+authorize_submit_category_manager: feature_id;
+
+}

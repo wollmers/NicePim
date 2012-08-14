@@ -1,0 +1,113 @@
+#!/usr/bin/perl
+
+#COPY	FAMILIES FROM 1 SUPPLIER TO 2 BY MATCHING PARENT FAMILES NAMES
+#IF NO MATCH ALL CHILD FAMILES COPIED
+
+use lib '/home/pim/lib';
+use atomlog;
+use atomsql;
+use strict;
+use Data::Dumper;
+use LWP::Simple;
+
+#suppliers id;
+my ($supplier1_id, $supplier2_id) = (3, 728);
+
+my $fams1 = &do_query("select family_id, value from product_family as pf, vocabulary as v where supplier_id = $supplier1_id and parent_family_id = 1 and pf.sid = v.sid and v.langid = 1");
+my %fam1hash = map{$_->[1] => $_->[0]} @$fams1;
+
+my $fams2 = &do_query("select family_id, value from product_family as pf, vocabulary as v where supplier_id = $supplier2_id and parent_family_id = 1 and pf.sid = v.sid and v.langid = 1");
+my %fam2hash = map{$_->[1] => $_->[0]} @$fams2;
+
+#find family to copy
+foreach my $fam_name(keys %fam1hash){
+ if($fam2hash{$fam_name}){ next;} #names match, don't copy
+#family must be copied
+ my $famid = $fam1hash{$fam_name};
+#copy childs
+ my $child_fams = &do_query("select family_id, parent_family_id from product_family where parent_family_id = ".$famid);
+ print $famid;
+ my $pfamid = &copy_fam($famid, 1);
+ foreach my $child_fam(@$child_fams){ 
+  print "\t$child_fam->[0]";
+	&get_child($child_fam->[0], $pfamid);
+ }
+}
+ 
+sub get_child{
+ my ($famid, $pfamid) = @_;
+#copy  family
+ my $parent_famid = &copy_fam($famid, $pfamid);
+#select childs
+ my $child_fams = &do_query("select family_id from product_family where parent_family_id = $famid");
+ foreach my $child_fam(@$child_fams){ 
+  print "\t\t$child_fam->[0]";
+  &get_child($child_fam->[0], $parent_famid);
+ }
+}
+  
+sub copy_fam{
+ my ($famid, $pfamid) = @_;
+ my $fam_data = &do_query("select supplier_id, sid, tid, low_pic, thumb_pic, catid from product_family where family_id = $famid");
+
+my $last_sid = 0;
+if($fam_data->[0][1]){
+#create sid
+ &insert_rows('sid_index', {'dummy' => 1});
+ $last_sid = &sql_last_insert_id();
+ my $fam_sid = &do_query("select langid, value from vocabulary where sid = $fam_data->[0][1]");
+ foreach my $sid(@$fam_sid){
+	&insert_rows('vocabulary', {
+	 'sid' => $last_sid,
+	 'langid' => $sid->[0],
+	 'value' => &str_sqlize($sid->[1])}
+	);  
+ }
+}
+
+my $last_tid = 0;
+if($fam_data->[0][2]){
+#create tid
+ &insert_rows('tid_index', {'dummy' => 1});
+ $last_tid = &sql_last_insert_id();
+ my $fam_tid = &do_query("select langid, value from tex where tid = $fam_data->[0][2]");
+ foreach my $tid(@$fam_tid){
+	&insert_rows('tex', {
+	 'tid' => $last_tid,
+	 'langid' => $tid->[0],
+	 'value' => &str_sqlize($tid->[1])}
+	);  
+ }
+}
+ 
+#create new family
+ &insert_rows('product_family',{
+	'parent_family_id' => $pfamid,
+	'supplier_id' => $supplier2_id,
+	'sid' => $last_sid,
+	'tid' => $last_tid,
+	'catid' => $fam_data->[0][5]}
+ ); 
+ 
+ my $new_famid = &sql_last_insert_id();
+
+#copy low_pic 
+ $fam_data->[0][3] =~ m/\.(.{3,4})$/;
+ my $ext = lc($1);
+ my $rand_ind =(int(rand(10000)));
+ my $low_pic = "/home/pim/www/img/families/".$new_famid.'-'.$rand_ind.'.'.$ext;
+ mirror($fam_data->[0][3], $low_pic);
+
+#copy low_pic 
+ $fam_data->[0][4] =~ m/\.(.{3,4})$/;
+ $ext = lc($1);
+ my $thumb_pic = "/home/pim/www/img/thumbs/FAM".$new_famid.'.'.$ext;
+ mirror($fam_data->[0][4], $thumb_pic);
+ 
+ &update_rows('product_family', "family_id = $new_famid", {
+	'low_pic' => &str_sqlize("http://data.icecat.biz/img/families/$new_famid-$rand_ind.$ext"), 
+	'thumb_pic' => &str_sqlize("http://data.icecat.biz/img/thumbs/$new_famid.$ext")});
+	
+ print "  copied to $new_famid\n";
+ return $new_famid;  
+}

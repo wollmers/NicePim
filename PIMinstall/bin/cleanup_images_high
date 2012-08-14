@@ -1,0 +1,34 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use atomsql;
+
+my $location 	= 'img/norm/';
+my $base 			= "/home/pim/www/";
+
+STDOUT->autoflush(1);
+
+my $new_dir = 'high_new/';
+
+print "Started\n";
+
+
+my $data 	= &do_query("select high_pic from product where high_pic like \"%biz/img/norm/high/%\"");
+
+push @$data, @$data2;
+
+print "Loaded data\n\n";
+my $i = 0;
+foreach my $row(@$data){
+	my $url = $row->[0];
+	$i++;
+	my $path = 	$row->[0];
+		 $path =~s/.*.icecat.biz//;
+	
+	print $path.'('.$i.')...';
+#	print "cp  $base$path $base$location$new_dir ";
+	`cp -f $base$path $base$location$new_dir`; 
+	print "done\n";
+#	exit();
+}

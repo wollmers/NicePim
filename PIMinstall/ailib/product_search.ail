@@ -1,0 +1,31 @@
+{
+name: product_search;
+priority: 20;
+
+_resource_param: select %%search_supplier_id%%, %%search_catid%%, %%search_prod_id%%, %%search_product_name%%, %%search_edit_user_id%%, %%search_adv%%, %%search_to_year%%, %%search_to_month%%, %%search_to_day%%, %%search_from_year%%, %%search_from_month%%, %%search_from_day%%, %%search_period%%, '%%deep_search%%', '%%deep_search%%', %%search_catid%% as search_vcats, '%%vcat_enable_all%%', '%%vcat_enable_list%%', '%%checked_by_supereditor%%'
+_mapping_param: search_supplier_id, search_catid, search_prod_id, search_product_name, search_edit_user_id, search_adv, search_to_year, search_to_month, search_to_day, search_from_year, search_from_month, search_from_day, search_period, deep_search, deep_search_checked, search_vcats, vcat_enable_all, vcat_enable_list, checked_by_supereditor;
+
+format_as_dropdown: search_supplier_id, search_edit_user_id;
+search_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+search_supplier_id_dropdown_width: 200;
+
+search_edit_user_id_dropdown_select: select user_id, login from users where user_group = 'supereditor' or user_group = 'category_manager' or user_group = 'nogroup' or user_group = 'superuser' or user_group = 'editor' or user_group = 'supplier' or user_group = 'exeditor' order by login
+search_edit_user_id_dropdown_width: 200;
+
+format_as_assorted_list: search_period;
+format_as_year: search_from_year, search_to_year;
+format_as_month: search_from_month, search_to_month;
+format_as_day: search_from_day, search_to_day;
+
+format_as_smart_dropdown: search_catid;
+format_as_virtual_categories_list: search_vcats;
+
+search_catid_add_empty: Any category;
+search_catid_allow_pcat_choice: Y;
+search_catid_smart_dropdown_attrs: style="width\: 180px;"
+
+format_as_checked_checkbox: deep_search_checked;
+
+format_as_checkbox: search_recurse_catid;
+format_as_input_checkbox: checked_by_supereditor;
+}

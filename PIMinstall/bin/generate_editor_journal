@@ -1,0 +1,78 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomsql;
+use atomlog;
+use strict;
+
+my $tables;
+$tables = {
+ 'product_description' => 'product_description_id',
+ 'product_feature' => 'product_feature_id', 
+ 'product_bundled' => 'id', 
+ 'product_related' => 'product_related_id', 
+ 'product_gallery' => 'id',
+ 'product_multimedia_object' => 'id'
+};
+my $product_table = &do_query("select product_id, p.user_id, supplier_id, prod_id, catid, unix_timestamp(updated) from product as p, users as u where p.user_id = u.user_id and u.user_group = 'editor'");
+
+foreach my $product(@$product_table){
+	my $product_id = $product->[0];
+	my $user_id = $product->[1];
+	my $supplier_id = $product->[2];
+	my $prod_id = &str_sqlize($product->[3]);
+	my $catid = $product->[4];
+	my $date = $product->[5];
+	
+ &insert_rows("editor_journal",{
+				'user_id' => $user_id,
+				'product_table' => &str_sqlize("product"),
+				'product_table_id' => $product_id,
+				'date' => $date,
+				'product_id' => $product_id,
+				'supplier_id' => $supplier_id,
+				'prod_id' => $prod_id,
+				'catid' => $catid,
+				'score' => 1
+  });
+	foreach my $table_name(sort keys %$tables){
+		if($table_name ne 'product_bundled'){
+		 my $val_clause = " and 1 ";
+		 if($table_name eq 'product_feature'){ $val_clause = " and value <> ''";}
+		 my $table_data = &do_query("select ".$tables->{$table_name}.", unix_timestamp(updated) from ".$table_name." where product_id = ".$product_id.$val_clause);	
+ 		 foreach my $data(@$table_data){
+			 my $table_id = $data->[0];
+			 my $table_date = $data->[1];
+			 &insert_rows("editor_journal",{
+				'user_id' => $user_id,
+				'product_table' => &str_sqlize($table_name),
+				'product_table_id' => $table_id,
+				'date' => $table_date,
+				'product_id' => $product_id,
+				'supplier_id' => $supplier_id,
+				'prod_id' => $prod_id,
+				'catid' => $catid,
+				'score' => 1
+			 });
+#			 &log_printf("\ninserted ".$table_name.": ".$table_id);
+		 }
+		}else{
+		 my $table_data = &do_query("select ".$tables->{$table_name}." from ".$table_name." where product_id = ".$product_id);	
+ 		 foreach my $data(@$table_data){
+			 my $table_id = $data->[0];
+			 &insert_rows("editor_journal",{
+				'user_id' => $user_id,
+				'product_table' => &str_sqlize($table_name),
+				'product_table_id' => $table_id,
+				'date' => $date,
+				'product_id' => $product_id,
+				'supplier_id' => $supplier_id,
+				'prod_id' => $prod_id,
+				'catid' => $catid,
+				'score' => 1
+			 });
+#			 &log_printf("\ninserted ".$table_name.": ".$table_id);
+		}
+	}
+ }
+}

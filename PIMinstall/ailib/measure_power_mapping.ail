@@ -1,0 +1,59 @@
+{
+name: measure_power_mapping;
+priority: 9;
+
+verify: measure_id;
+verify_submit: measure_id;
+
+authorize_superuser: measure_id;
+authorize_supereditor: measure_id;
+authorize_category_manager: measure_id;
+authorize_editor: measure_id;
+authorize_supplier: measure_id;
+authorize_guest: measure_id;
+authorize_shop: measure_id;
+
+authorize_submit_superuser: measure_id;
+authorize_submit_supereditor: measure_id;
+authorize_submit_category_manager: measure_id;
+
+verify_deny_guest: yes;
+
+_resource_measure_power_map: select vr.pattern, mvr.id, 1, active, 1, 1, vr.parameter1, vr.parameter2 from measure_value_regexp mvr
+inner join value_regexp vr using (value_regexp_id)
+where mvr.measure_id=%%measure_id%% order by mvr.no asc;
+_resource_measure_power_map_type: multi;
+_mapping_measure_power_map: pattern, pattern_id, pattern_move, active, pattern_edit, pattern_del, parameter1, parameter2;
+
+
+format_as_pattern_type: pattern;
+format_as_pattern_move: pattern_move;
+format_as_pattern_edit: pattern_edit;
+format_as_pattern_del: pattern_del;
+format_as_pattern_add: pattern_add;
+
+
+_resource_generic_operation: select name, code from generic_operation order by name asc;
+_resource_generic_operation_type: multi;
+_mapping_generic_operation: name, code;
+
+
+_resource_left_select: select 1, 1, 1, 1, 1;
+_mapping_left_select: left_select, left_select_add, measure_power_mapping_results, initial_generic_operation_JavaScript_arrays, pattern_add;
+
+
+format_as_dropdown: left_select, left_select_add;
+left_select_dropdown_select: select code, name from generic_operation order by name asc;
+left_select_dropdown_JavaScript: onChange="javascript:setGOParameterByGOCode('edit',this.value)";
+left_select_add_dropdown_select: select code, name from generic_operation order by name asc;
+left_select_add_dropdown_JavaScript: onChange="javascript:setGOParameterByGOCode('add',this.value)";
+
+
+format_as_initial_generic_operation_JavaScript_arrays: initial_generic_operation_JavaScript_arrays;
+
+
+format_as_measure_power_mapping_value_get_from_params: measure_power_mapping_results;
+
+format_as_pattern_add: pattern_add;
+
+}

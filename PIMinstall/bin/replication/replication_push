@@ -1,0 +1,162 @@
+#!/usr/bin/perl
+
+#$Id: replication 1212 2008-10-13 17:50:22Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use Time::HiRes qw( usleep );
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+use atom_mail;
+
+use DBI;
+use Data::Dumper;
+
+##
+## conf
+##
+
+$| = 1;
+
+# mail
+my $to = 'dima@icecat.biz, sergey@bintime.com';
+my $subject = 'Replication info';
+
+# config
+my $minSize = 50 * 1024 * 1024 * 1024;
+my $minCurrentLog = 'mysql-bin.999999';
+my $dev_master = "/dev/cciss/c0d0p3";
+
+##
+## begin
+##
+
+my $df_master = &getFreeDiskSpace($atomcfg{'db_user'},$atomcfg{'db_host'},$dev_master);
+my $load_master = &getServerLoad($atomcfg{'db_user'},$atomcfg{'db_host'});
+
+print "*** \033[1mReplication management:".$$."\033[0m script started at ".localtime()." ***\n\n";
+
+print " master: \033[1m".$atomcfg{'db_host'}."\033[0m,\tdf: ".&b2mb($df_master)." Mb,\tload: ".$load_master."\n";
+
+my $slaves = &do_query("select ip, slave_status_id, device from slave_status");
+
+my ($slaves_status, $slave, $id, $device, $df, $load, $this_slave_error, $currentLog, $message, $error);
+my ($slave_dbh, $slave_sth, @slave_row, @slave_nw); # slave MySQL init
+my ($slave_Last_Error, $slave_Relay_Master_Log_File, $slave_Slave_IO_Running, $slave_Slave_SQL_Running, $slave_Seconds_Behind_Master); # slave fields
+
+foreach (@$slaves) {
+	$slave = $_->[0];
+	$id = $_->[1];
+	$device = $_->[2];
+	$df = &getFreeDiskSpace($atomcfg{'db_user'},$slave,$device);
+	$load = &getServerLoad($atomcfg{'db_user'},$slave);
+
+	print $id." slave: \033[1m".$slave."\033[0m,\tdf: ".&b2mb($df)." Mb,\tload: ".$load."\n";
+
+	$this_slave_error = 0;
+
+	# check replication
+	
+	print "Connect to ".$slave."... ";
+
+	# connect
+  $slave_dbh = DBI->connect("DBI:mysql:".$atomcfg{'dbname'}.":".$slave.";mysql_local_infile=1",$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'},{PrintError=>1,AutoCommit=>1});
+	die unless $slave_dbh;
+  $slave_dbh->{'mysql_auto_reconnect'} = 1;
+  $slave_dbh->do("set names utf8");
+
+	use Time::HiRes;
+
+	my $sleep = 5000;
+
+	while (1){
+	# do_query
+	@slave_nw = ();
+	$slave_sth = $slave_dbh->prepare("show slave status");
+  die unless $slave_sth;
+  $slave_sth->execute || die;
+
+  while (@slave_row = $slave_sth->fetchrow_array) {
+    for (my $i=0;$i<=$#slave_row;$i++) {
+			Encode::_utf8_on($slave_row[$i]);
+    }
+    push @slave_nw, [@slave_row];
+  }
+  $slave_sth->finish;
+
+
+	if($slave_nw[0]->[19]){
+		# error occured
+		$slave_dbh->do("SET GLOBAL SQL_SLAVE_SKIP_COUNTER=1");
+		$slave_dbh->do("START SLAVE");
+		$sleep = 500;
+		print "Error: $slave_nw[0]->[19], sleeping $sleep ms\n";
+	} else {
+		$sleep = 100000;
+		print "no error, secs behind $slave_nw[0]->[32], sleeping $sleep ms\n";
+	}
+		#sleep(5);
+		usleep($sleep);
+
+  }
+
+  
+	$slave_dbh->disconnect;
+	# finish do_query
+
+}
+
+exit();
+
+
+##
+## subs
+##
+
+sub getServerLoad {
+	my ($user,$host) = @_;
+	my $connect = "/usr/bin/ssh ".$user."@".$host." uptime |";
+#	print "getServerLoad: ".$connect."\n";
+	open SL, $connect;
+	binmode SL, ":utf8";
+	my @out = <SL>;
+	close SL;
+
+	my $load = $out[0];
+	$load =~ s/^.*average\:\s+(\d+\.\d+),.*$/$1/s;
+
+	return $load;
+} # sub getServerLoad
+
+
+sub getFreeDiskSpace {
+	my ($user,$host,$dev) = @_;
+	my $connect = "/usr/bin/ssh ".$user."@".$host." df -BK ".$dev." |";
+#	print "getFreeDiskSpace: ".$connect."\n";
+	open DF, $connect;
+	binmode DF, ":utf8";
+	my @out = <DF>;
+	close DF;
+
+	my (undef,undef,undef,$available) = split /\s+/, $out[1];
+	$available =~ s/K$//;
+	$available = int($available);
+	$available *= 1024;
+	
+	return $available;
+} # sub getFreeSpace
+
+sub b2mb {
+	my ($b) = @_;
+	return sprintf("%.2f",($b/(1024*1024)));
+} # sub b2mb
+
+sub b2gb {
+	my ($b) = @_;
+	return sprintf("%.2f",($b/(1024*1024*1024)));
+} # sub b2gb

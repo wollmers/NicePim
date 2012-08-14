@@ -1,0 +1,22 @@
+{
+name: sector;
+priority: 10;
+
+_resource_google: SELECT '1';
+_resource_google_type: single;
+_mapping_google: js_langid_array;
+format_as_js_langid_array: js_langid_array;
+
+
+_resource_sector: SELECT sector_name_id, sector_id, name, language.langid, code
+FROM language 
+LEFT JOIN sector_name ON language.langid = sector_name.langid AND sector_id = %%sector_id%%
+_resource_sector_type: multi;
+
+
+_resourse_sector_key: sector_name_id;
+_mapping_sector: sector_name_id, sector_id, name, langid, code;
+
+
+}
+

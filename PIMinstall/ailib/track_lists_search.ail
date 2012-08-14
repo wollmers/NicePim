@@ -1,0 +1,12 @@
+{
+name: track_lists_search;
+priority: 10;
+
+_resource_params: select '%%search_is_open%%','%%search_user_id%%','%%search_name%%';
+_mapping_params: search_is_open, search_user_id,search_name;
+
+format_as_custom_select: search_is_open;
+
+search_user_id_dropdown_select: SELECT DISTINCT u.user_id,u.login  FROM track_list tl JOIN users u USING(user_id);
+format_as_dropdown: search_user_id; 
+}

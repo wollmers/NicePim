@@ -1,0 +1,98 @@
+#!/usr/bin/perl
+
+#$Id: complete_summary_descriptions 3463 2010-11-17 15:09:47Z dima $
+
+#
+# complete_summary_descriptions
+#
+
+use lib '/home/pim/lib';
+#use lib '/home/dima/gcc_svn/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use data_management;
+use process_manager;
+
+$| = 1;
+
+# begin
+
+if (&get_running_perl_processes_number('complete_summary_descriptions') != 1) {
+  exit;
+}
+
+my $refresh_all = 0;
+
+print "Let's start \033[1m".$0."\033[0m:\n\n";
+
+my ($descs, $i, @p);
+
+$i = 0;
+
+# create new language table
+&do_statement("drop temporary table if exists tmp_language");
+&do_statement("create temporary table tmp_language like language");
+&do_statement("insert into tmp_language select * from language where published='Y'");
+&do_statement("alter table tmp_language modify langid int(3) not null default '0'");
+&do_statement("insert into tmp_language(langid,sid,code,short_code,published) values(0,0,'international','INT','Y')");
+
+&log_printf(&do_query_dump("show create table tmp_language"));
+&log_printf(&do_query_dump("select * from tmp_language"));
+
+# BUG was found 12.12.2009 1:50 in the cairo DB server - the report below blocks the product_memory table on the too big time frame
+# so, we need to copy the product product_ids to the separate table and use it as proper table for this left join
+# let's do it
+
+&do_statement("drop temporary table if exists tmp_product_brief");
+&do_statement("create temporary table tmp_product_brief (product_id int(13) not null default 0, key (product_id))");
+&do_statement("alter table tmp_product_brief disable keys");
+&do_statement("insert into tmp_product_brief(product_id) select product_id from product");
+&do_statement("alter table tmp_product_brief enable keys");
+
+my @ranges = &get_primary_key_set_of_ranges('p', 'tmp_product_brief', 1000, 'product_id');
+
+foreach my $range (@ranges) {
+	my $select = "select p.product_id, l.langid
+from tmp_product_brief p
+inner join tmp_language l
+" . ( $refresh_all ? " inner " : " left " ) . " join product_summary_description psd on psd.product_id=p.product_id and psd.langid=l.langid
+where l.published='Y' ". ( $refresh_all ? '' : " and psd.product_summary_description_id is null " ) . " AND " . $range;
+	
+	&log_printf("SQL QUERY DIRECT: ".$select."\n");
+	
+	my $sth = $atomsql::dbh->prepare($select);
+	my $rv = $sth->execute;
+	
+	print "\t".$range." is \033[1m".$sth->rows."\033[0m: ";
+	
+	while (@p = $sth->fetchrow_array) {
+		$i++;
+		print "P (".$i.") ".$p[0].", ".$p[1]."  " unless ($i % 1000);
+		print "." unless ($i % 10);
+		
+		# form new summary descriprions from database tables
+		$descs = &get_summary_descriptions($p[0], $p[1]);
+		$descs->{'long'} = &str_sqlize($descs->{'long'});
+		$descs->{'short'} = &str_sqlize($descs->{'short'});
+		
+		# refresh summary descriptions in database
+		if (&do_query("select product_summary_description_id from product_summary_description where product_id=".$p[0]." and langid=".$p[1])->[0][0]) {
+			&do_statement("update product_summary_description set short_summary_description = ".$descs->{'short'}.", long_summary_description = ".$descs->{'long'}." where product_id=".$p[0]." and langid=".$p[1]);
+		}
+		else {
+			&do_statement("insert IGNORE into product_summary_description(product_id,langid,short_summary_description,long_summary_description) values(".$p[0].",".$p[1].",".$descs->{'short'}.",".$descs->{'long'}.")");
+		}
+		undef $descs;
+	}
+	
+	print " \033[1mok\033[0m\n";
+}
+
+&do_statement("drop temporary table if exists tmp_product_brief");
+
+exit(0);

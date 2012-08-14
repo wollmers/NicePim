@@ -1,0 +1,234 @@
+#!/usr/bin/perl
+
+#$Id: replication 2714 2010-06-22 23:16:28Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+use atom_mail;
+
+use DBI;
+use Time::HiRes qw(usleep);
+use Data::Dumper;
+
+##
+## conf
+##
+
+$| = 1;
+
+# mail
+#my $to = 'dima@icecat.biz, sergey@bintime.com';
+my $to = 'dima@icecat.biz';
+my $subject = 'Replication info';
+
+# config
+my $minSize = 250 * 1024 * 1024 * 1024;
+my $minCurrentLog = 'mysql-bin.999999';
+my $dev_master = "/dev/cciss/c0d0p4";
+
+##
+## begin
+##
+
+my $df_master = &getFreeDiskSpace($atomcfg{'db_user'},$atomcfg{'db_host'},$dev_master);
+my $load_master = &getServerLoad($atomcfg{'db_user'},$atomcfg{'db_host'});
+
+print "*** \033[1mReplication management:".$$."\033[0m script started at ".localtime()." ***\n\n";
+
+print " master: \033[1m".$atomcfg{'db_host'}."\033[0m,\tdf: ".&b2mb($df_master)." Mb,\tload: ".$load_master."\n";
+
+my $slaves = &do_query("select ip, slave_status_id, device from slave_status");
+
+my ($slaves_status, $slave, $id, $device, $df, $load, $this_slave_error, $currentLog, $message, $error, $temp_ok);
+my ($slave_dbh, $slave_sth, @slave_row, @slave_nw); # slave MySQL init
+my ($master_dbh, $master_sth, @master_row, @master_nw); # master MySQL init
+my ($slave_Last_Error, $slave_Relay_Master_Log_File, $slave_Slave_IO_Running, $slave_Slave_SQL_Running, $slave_Seconds_Behind_Master); # slave fields
+
+foreach (@$slaves) {
+	$slave = $_->[0];
+	$id = $_->[1];
+	$device = $_->[2];
+	$df = &getFreeDiskSpace($atomcfg{'db_user'},$slave,$device);
+	$load = &getServerLoad($atomcfg{'db_user'},$slave);
+
+	print $id." slave: \033[1m".$slave."\033[0m,\tdf: ".&b2mb($df)." Mb,\tload: ".$load."\n";
+
+	$this_slave_error = 0;
+
+	# check replication
+	
+	print "Connect to ".$slave."... ";
+
+	# connect
+  $slave_dbh = DBI->connect("DBI:mysql::".$slave.";mysql_local_infile=1",$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'},{PrintError=>1,AutoCommit=>1});
+	die unless $slave_dbh;
+  $slave_dbh->{'mysql_auto_reconnect'} = 1;
+  $slave_dbh->do("set names utf8");
+
+	# do_query
+ once_again:
+	$slave_sth = $slave_dbh->prepare("show slave status");
+  die unless $slave_sth;
+  $slave_sth->execute || die;
+	@slave_nw = ();
+
+  while (@slave_row = $slave_sth->fetchrow_array) {
+    for (my $i=0;$i<=$#slave_row;$i++) {
+			Encode::_utf8_on($slave_row[$i]);
+    }
+    push @slave_nw, [@slave_row];
+  }
+  $slave_sth->finish;
+	# finish do_query
+
+	$#slave_nw = 0; # truncate 1 and more lines
+
+	# get necessary fields
+	$slave_Last_Error = $slave_nw[0]->[19];
+	$slave_Relay_Master_Log_File = $slave_nw[0]->[9];
+	$slave_Slave_IO_Running = $slave_nw[0]->[10];
+	$slave_Slave_SQL_Running = $slave_nw[0]->[11];
+	$slave_Seconds_Behind_Master = $slave_nw[0]->[32];
+
+	print "status is ";
+	if ((!$slave_Last_Error) && ($slave_Relay_Master_Log_File) && ($slave_Slave_IO_Running eq 'Yes') && ($slave_Slave_SQL_Running eq 'Yes')) {
+		$currentLog = $slave_Relay_Master_Log_File;
+		$slaves_status->{$id}->{'replication_status'} = 1;
+		print "\033[32m\033[1mOK\033[0m\033[37m\n";
+
+		if ($temp_ok == 0) {
+			$temp_ok = 1;
+			&Time::HiRes::usleep(500_000);
+			goto once_again;
+		}
+	}
+	else {
+		# error replaction state
+		$message .= "Replication error on ".$slave.": ".$slave_Last_Error;
+		$slaves_status->{$id}->{'replication_status'} = 0;
+		$error = 1;
+		$temp_ok = 0;
+		$this_slave_error = 1;
+		print "\033[31m\033[1mFAILED\033[0m\033[37m, log is ".$slave_Relay_Master_Log_File." last error is ".$slave_Last_Error."\n";
+
+		$slave_dbh->do("SET GLOBAL SQL_SLAVE_SKIP_COUNTER=1");
+		$slave_dbh->do("START SLAVE");
+
+		&Time::HiRes::usleep(5_000);
+		goto once_again;
+	}
+
+	$slave_dbh->disconnect;
+
+	$slaves_status->{$id}->{'seconds_behind'} = $slave_Seconds_Behind_Master;
+	$slaves_status->{$id}->{'server_load'} = $load;
+	$slaves_status->{$id}->{'free_disk'} = &b2gb($df);
+
+	print "\033[0mCurrent log is \033[1m".$currentLog."\033[0m, seconds behind master are \033[1m".$slave_Seconds_Behind_Master."\033[0m, loading is \033[1m".$load."\033[0m\n";
+
+	if ($df < $minSize) {
+		# if OK, send mail and clear logs
+		if ($this_slave_error) {
+			# send mail
+			$message .= $slave.": Replication failed. Disk is out of space. Free disk space is ".&b2mb($df)." Mb, min. disk space is ".&b2mb($minSize)." Mb. Please, consider cleanup\n";
+		}
+		else {
+			$message .= $slave.": Replication OK. Free disk space is ".&b2mb($df).", min. disk space is ".&b2mb($minSize).". Please, consider cleanup\n";
+		}
+	}
+	else {
+		if ($this_slave_error) {
+			# send mail
+			$message .= $slave.": Replication failed.\n";
+		}
+	}
+
+	$minCurrentLog = $currentLog if ($minCurrentLog gt $currentLog);
+}
+
+if ($minCurrentLog ne 'mysql-bin.999999') {
+	if ($df_master < $minSize) {
+		# clear logs
+		print "Going to purge logs till ".$minCurrentLog."... ";
+		# connect
+		$master_dbh = DBI->connect("DBI:mysql::".$atomcfg{'dbhost'}.";mysql_local_infile=1",$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'},{PrintError=>1,AutoCommit=>1});
+		die unless $master_dbh;
+		$master_dbh->{'mysql_auto_reconnect'} = 1;
+		$master_dbh->do("PURGE MASTER LOGS TO '".$minCurrentLog."'");
+		$master_dbh->disconnect;
+		print "done\n";
+	}
+}
+
+# Updating the status table
+
+foreach my $id (keys %$slaves_status) {
+	&do_statement("UPDATE slave_status SET server_load = ".$slaves_status->{$id}->{'server_load'}.", seconds_behind = ".$slaves_status->{$id}->{'seconds_behind'}.", free_disk=".$slaves_status->{$id}->{'free_disk'}.", replication_status = ".$slaves_status->{$id}->{'replication_status'}." WHERE slave_status_id = ".$id);
+}
+
+if ($error) {
+	# print Dumper($slaves_status);
+	print "\nMailto: \033[33m".$message."\033[37m\n";
+
+	# mail
+#	&sendmail($message,$to,$atomcfg{'mail_from'},$subject." ".localtime());
+
+	# log
+	open LOGS, ">> /home/pim/bin/replication/replication.error";
+	binmode LOGS, ":utf8";
+	print LOGS localtime()."\t".$message;
+	close LOGS;
+}
+
+##
+## subs
+##
+
+sub getServerLoad {
+	my ($user,$host) = @_;
+	my $connect = "/usr/bin/ssh ".$user."@".$host." uptime |";
+#	print "getServerLoad: ".$connect."\n";
+	open SL, $connect;
+	binmode SL, ":utf8";
+	my @out = <SL>;
+	close SL;
+
+	my $load = $out[0];
+	$load =~ s/^.*average\:\s+(\d+\.\d+),.*$/$1/s;
+
+	return $load;
+} # sub getServerLoad
+
+
+sub getFreeDiskSpace {
+	my ($user,$host,$dev) = @_;
+	my $connect = "/usr/bin/ssh ".$user."@".$host." df -BK ".$dev." |";
+#	print "getFreeDiskSpace: ".$connect."\n";
+	open DF, $connect;
+	binmode DF, ":utf8";
+	my @out = <DF>;
+	close DF;
+
+	my (undef,undef,undef,$available) = split /\s+/, $out[1];
+	$available =~ s/K$//;
+	$available = int($available);
+	$available *= 1024;
+	
+	return $available;
+} # sub getFreeSpace
+
+sub b2mb {
+	my ($b) = @_;
+	return sprintf("%.2f",($b/(1024*1024)));
+} # sub b2mb
+
+sub b2gb {
+	my ($b) = @_;
+	return sprintf("%.2f",($b/(1024*1024*1024)));
+} # sub b2gb

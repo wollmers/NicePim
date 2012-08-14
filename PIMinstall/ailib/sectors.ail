@@ -1,0 +1,29 @@
+{
+name: sectors;
+priority: 10;
+
+_resource_sectors: SELECT sector.sector_id, dummy, name, sector_name_id
+FROM sector LEFT JOIN sector_name USING (sector_id) 
+WHERE langid=1 
+ORDER BY 1 ASC;
+_resource_sectors_type: multi;
+_mapping_sectors: sector_id, dummy, name, sector_name_id;
+
+format_as_empty_sector_name: name;
+
+_insert_sequence: 1,2;
+
+_insert_table_1: sector;
+_insert_values_1: sector_id, '';
+_insert_fields_1: sector_id, dummy;
+_insert_key_1: sector_id;
+
+
+_insert_table_2: sector_name;
+_insert_values_2: sector_name_id, sector_id, new_name, default_langid;
+_insert_fields_2: sector_name_id, sector_id, name, langid;
+_insert_key_2: sector_name_id;
+
+}
+
+

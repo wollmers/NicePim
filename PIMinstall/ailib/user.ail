@@ -1,0 +1,102 @@
+{
+name: user;
+priority: 10;
+
+verify: edit_user_id;
+verify_submit: edit_user_id;
+
+verify_add: yes;
+verify_add_superuser: edit_user_id, pers_cid;
+
+verify_deny_guest: yes;
+
+authorize_superuser: edit_user_id;
+authorize_supereditor: edit_user_id # user_id == edit_user_id ;
+authorize_category_manager: edit_user_id # user_id == edit_user_id ;
+authorize_editor: edit_user_id # user_id == edit_user_id ;
+authorize_supplier: edit_user_id # user_id == edit_user_id ;
+
+authorize_submit_superuser: edit_user_id;
+
+_resource_user: select access_restriction_ip, access_restriction, reference, 'dummy', users.user_id, login, user_group, password, pers_cid,
+                       login_expiration_date, subscription_level, statistic_enabled, access_repository, user_partner_id,access_via_ftp, 1,
+                       platform, logo_pic, logo_pic, is_implementation_partner, is_implementation_partner, user_group from users where user_id = %%edit_user_id%%
+_resource_user_type: single;
+_resource_user_key: edit_user_id;
+_mapping_user: access_restriction_ip, access_restriction, reference, cnt, edit_user_id, login, user_group, password, pers_cid, login_expiration_date, subscription_level, statistic_enabled, access_repository, user_partner_id, access_via_ftp, icetoolsurl, platform, logo_pic, logo_pic_view, is_implementation_partner, is_implementation_partner_raw, display_partner;
+
+_resource_contact: select mphone, fax, icq, contact_id, email, url, phone, person, city, street, nbr, zip, country_id, company, sector_id, email_subscribing, position from contact where contact_id = %%pers_cid%%
+_resource_contact_key: pers_cid;
+_resource_contact_type: single;
+_mapping_contact: mphone, fax, icq, contact_id, email,url,phone,person,city,street, nbr, zip, country_id, company, sector_id, email_subscribing, position;
+
+validate_as_mandatory: email, person;
+validate_as_login_expiration_date: login_expiration_date;
+validate_as_shop_user: user_group;
+validate_as_user_partner_logo: logo_pic;
+ 
+format_as_dropdown: country_id, user_partner_id, sector_id;
+format_as_dropdown_name: platform;
+format_as_display_user_partner: display_partner;
+format_as_ssl_url: logo_pic_view;
+
+user_partner_id_dropdown_select: select user_id, login from users where user_group='partner' order by login;
+country_id_dropdown_select: select country_id, vocabulary.value from country, vocabulary where country.sid = vocabulary.sid and langid = %%langid%% order by vocabulary.value;
+sector_id_dropdown_select: select s.sector_id, sn.name from sector s inner join sector_name sn on s.sector_id=sn.sector_id and sn.langid=1 and sn.sector_id > 1;
+sector_id_dropdown_new_value_also: Y;
+platform_dropdown_name_select: select p.name, p.name, count(u.user_id) cnt from platform p inner join users u on u.platform=p.name group by 1 having cnt >= 10 order by 3 desc;
+platform_dropdown_name_prefill_sub: platform_table_complete;
+platform_dropdown_name_prefill_if_empty: N;
+platform_dropdown_name_new_value_also: Y;
+
+format_as_access_restriction: access_restriction,access_via_ftp;
+format_as_expiration_date: login_expiration_date;
+format_as_subscription_level: subscription_level;
+format_as_access_repository: access_repository;
+format_as_icetools_auth_link: icetoolsurl;
+format_as_input_checkbox: email_subscribing;
+format_as_logo_pic: logo_pic;
+
+is_implementation_partner_attrs: onchange="hide_user_integ_sett(this)";
+is_implementation_partner_yes_no_default: 0;
+format_as_yes_no_select: is_implementation_partner;
+
+store_as_user_partner_id: user_partner_id;
+store_as_checkbox: email_subscribing;
+store_as_logo_pic_uploaded: logo_pic;
+
+format_as_timesec: login_expiration_date;
+
+ _insert_sequence: 1,2;
+
+ _insert_table_1: contact;
+ _insert_key_1: pers_cid;
+ _insert_key_1_name: contact_id;
+ _insert_values_1: mphone, fax, icq, email, url, phone, person, city, street, nbr, zip, country_id, company, sector_id, email_subscribing, position;
+ _insert_fields_1: mphone, fax, icq, email, url, phone, person, city, street, nbr, zip, country_id, company, sector_id, email_subscribing, position;
+
+_update_sequence_1: yes;
+_delete_sequence_1: yes;
+
+
+ _insert_table_2: users;
+ _insert_key_2: edit_user_id;
+ _insert_key_2_name: user_id;
+ _insert_values_2: pers_cid, login, user_group, password,access_restriction_ip, access_restriction, login_expiration_date, reference, subscription_level,statistic_enabled,user_partner_id,access_via_ftp,platform,logo_pic,is_implementation_partner;
+ _insert_fields_2: pers_cid, login, user_group, password,access_restriction_ip, access_restriction, login_expiration_date, reference, subscription_level,statistic_enabled,user_partner_id,access_via_ftp,platform,logo_pic,is_implementation_partner;
+ _insert_2_keep_unique: yes;
+ _insert_2_unique_set: login;
+
+_update_sequence_2: yes;
+_delete_sequence_2: yes;
+
+user_group_attrs: onchange="alert('aaa')";
+
+format_as_user_group: user_group;
+format_as_statistic_enabled: statistic_enabled;
+
+store_as_user_reference: user_reference;
+format_as_prod_cnt: cnt;
+validate_as_mandatory: login, user_group, password, email, person;
+
+}

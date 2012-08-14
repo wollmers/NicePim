@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="123326" Prod_id="SUA750I" ThumbPic="http://www.icecat.biz/thumbs/123326.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/123326.jpg" Name="Smart UPS 750VA Interactive+ PowerChute" LowPic="http://www.icecat.biz/img/norm/low/123326.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="698" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1215" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="885" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="886" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="884" No="0">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="887" No="0">
+         <FeatureGroup ID="36">
+           <Name ID="5181" Value="Color" langid="1"/>
+           <Name ID="5182" Value="Kleur" langid="2"/>
+           <Name ID="8394" Value="Color" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="141697" URL="http://www.apc.com/resource/include/techspec_index.cfm?base_sku=SUA750I" ShortDesc=" APC Smart-UPS, 750VA/500W, Input 230V/Output 230V, Interface Port DB-9 RS-232, USB, SmartSlot" langid="1" LongDesc=" APC Smart-UPS® protects your data by supplying reliable, network-grade power in either traditional Tower or Rack-optimized form factors for space constrained business critical applications. Award winning APC Smart-UPS® is the perfect UPS for protecting business critical fileservers (Intel or UNIX based), minicomputers, network switches and hubs, Point of Sale, retail/bank back office and ATM's. Rack Mount versions are the choice for rack optimized servers, server appliances, blade servers, other blade devices and rack-mounted network switches and hubs.\n\nWith included PowerChute® management software for servers and workstations, IT administrators can provide safe system shutdown and advanced UPS management (All major operating systems supported). Connectivity is through serial or USB port (USB not standard on all models). Additional manageability is available through the SmartSlot, an internal accessory slot that allows you to install optional accessories to enhance the performance of your UPS. Network connection with Web browser management and/or environmental monitoring, serial port expansion, and out-of-band management options are available. With pure sine-wave output ensuring compatibility with all connected devices, Intelligent Battery Management ensuring a highly available UPS and an advanced 16 segment bar graph display ensuring information and management, the Smart-UPS® is a UPS you can count on. " WarrantyInfo=" 2 years repair or replace" PDFURL=""/>
+        <ProductFeature ID="9201924" Value="" No="60" CategoryFeatureGroup_ID="698">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346235" Value="Configurable for 220 : 230 or 240 nominal output voltage" No="100043" CategoryFeatureGroup_ID="884">
+         <Feature ID="1755">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5463" Value="Output Voltage Note" langid="1"/>
+           <Name ID="5464" Value="Output Voltage Note" langid="2"/>
+           <Name ID="8523" Value="Output Voltage Note" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346243" Value="" No="0" CategoryFeatureGroup_ID="698">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346242" Value="40" No="27" CategoryFeatureGroup_ID="698">
+         <Feature ID="732">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2995" Value="Quantity per Pallet" langid="1"/>
+           <Name ID="2996" Value="Aantal per pallet" langid="2"/>
+           <Name ID="7492" Value="Quantité par palette" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346220" Value="140 x 360 x 160" No="100030" CategoryFeatureGroup_ID="885">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346237" Value="IEC-320-C14 inlet" No="100038" CategoryFeatureGroup_ID="884">
+         <Feature ID="1757">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5467" Value="Input Connection Type" langid="1"/>
+           <Name ID="5468" Value="Input Connection Type" langid="2"/>
+           <Name ID="8525" Value="Input Connection Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346239" Value="" No="29" CategoryFeatureGroup_ID="885">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346240" Value="" No="50" CategoryFeatureGroup_ID="698">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346241" Value=" LED status display with load and battery bar-graphs and On Line : On Battery : Replace Battery : and Overload Indicators" No="49" CategoryFeatureGroup_ID="698">
+         <Feature ID="1501">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4699" Value="LED indicators" langid="1"/>
+           <Name ID="4700" Value="LED-indicatoren" langid="2"/>
+           <Name ID="8298" Value="LED indicators" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346226" Value="340" No="100036" CategoryFeatureGroup_ID="698">
+         <Feature ID="1759">
+          <Measure ID="81" Sign="joule"/>
+           <Name ID="5473" Value="Surge energy rating" langid="1"/>
+           <Name ID="5474" Value="Surge energy rating" langid="2"/>
+           <Name ID="8528" Value="Surge energy rating" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346233" Value="" No="100002" CategoryFeatureGroup_ID="1215">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346221" Value="13000" No="100001" CategoryFeatureGroup_ID="885">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346234" Value="" No="100047" CategoryFeatureGroup_ID="884">
+         <Feature ID="1751">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5453" Value="Emergency Power Off (EPO)" langid="1"/>
+           <Name ID="5454" Value="Emergency Power Off (EPO)" langid="2"/>
+           <Name ID="8518" Value="Emergency Power Off (EPO)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346236" Value="" No="100041" CategoryFeatureGroup_ID="884">
+         <Feature ID="1756">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5465" Value="Output Connections" langid="1"/>
+           <Name ID="5466" Value="Output Connections" langid="2"/>
+           <Name ID="8524" Value="Output Connections" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346238" Value="Black" No="100028" CategoryFeatureGroup_ID="887">
+         <Feature ID="1766">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5487" Value="Color of product" langid="1"/>
+           <Name ID="5488" Value="Color of product" langid="2"/>
+           <Name ID="8535" Value="Color of product" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346246" Value="0 to 95" No="25" CategoryFeatureGroup_ID="886">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346245" Value="0 to 40" No="26" CategoryFeatureGroup_ID="886">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346225" Value="" No="100037" CategoryFeatureGroup_ID="698">
+         <Feature ID="1758">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="5469" Value="Cord Length" langid="1"/>
+           <Name ID="5470" Value="Cord Length" langid="2"/>
+           <Name ID="8526" Value="Cord Length" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346216" Value="750" No="10100045" CategoryFeatureGroup_ID="884">
+         <Feature ID="1752">
+          <Measure ID="80" Sign="VA"/>
+           <Name ID="5457" Value=" Output power capacity (VA)" langid="1"/>
+           <Name ID="5458" Value=" Output power capacity" langid="2"/>
+           <Name ID="8520" Value=" Output power capacity (VA)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346217" Value="500" No="10100044" CategoryFeatureGroup_ID="884">
+         <Feature ID="1753">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="5459" Value="Output power capacity (Watts)" langid="1"/>
+           <Name ID="5460" Value="Output power capacity (Watts)" langid="2"/>
+           <Name ID="8521" Value="Output power capacity (Watts)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346218" Value="230" No="10100042" CategoryFeatureGroup_ID="884">
+         <Feature ID="1754">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="5461" Value="Nominal output voltage" langid="1"/>
+           <Name ID="5462" Value="Nominal output voltage" langid="2"/>
+           <Name ID="8522" Value="Nominal output voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346219" Value="230" No="10100040" CategoryFeatureGroup_ID="884">
+         <Feature ID="1765">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="5485" Value="Nominal input voltage" langid="1"/>
+           <Name ID="5486" Value="Nominal input voltage" langid="2"/>
+           <Name ID="8534" Value="Nominal input voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346223" Value="Alarm when on battery : distinctive low battery alarm : configurable delays" No="100000" CategoryFeatureGroup_ID="0">
+         <Feature ID="1725">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5393" Value="Audible Alarms" langid="1"/>
+           <Name ID="5394" Value="Geluidsalarm" langid="2"/>
+           <Name ID="8492" Value="Audible Alarms" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346222" Value="DB-9, RS-232, USB, SmartSlot" No="100050" CategoryFeatureGroup_ID="698">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346224" Value="" No="100046" CategoryFeatureGroup_ID="698">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346227" Value="Full time multi-pole noise filtering : 0.3% IEEE surge let-through : zero clamping response time : meets UL 1449" No="100035" CategoryFeatureGroup_ID="698">
+         <Feature ID="1760">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5475" Value="Filtering" langid="1"/>
+           <Name ID="5476" Value="Filtering" langid="2"/>
+           <Name ID="8529" Value="Filtering" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346230" Value="" No="100032" CategoryFeatureGroup_ID="698">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346229" Value="" No="100033" CategoryFeatureGroup_ID="698">
+         <Feature ID="1762">
+          <Measure ID="66" Sign="min"/>
+           <Name ID="5479" Value="Typical backup time at full load" langid="1"/>
+           <Name ID="5480" Value="Typical backup time at full load" langid="2"/>
+           <Name ID="8531" Value="Typical backup time at full load" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346228" Value="" No="100034" CategoryFeatureGroup_ID="698">
+         <Feature ID="1761">
+          <Measure ID="66" Sign="min"/>
+           <Name ID="5477" Value="Typical backup time at half load" langid="1"/>
+           <Name ID="5478" Value="Typical backup time at half load" langid="2"/>
+           <Name ID="8530" Value="Typical backup time at half load" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346231" Value="" No="100031" CategoryFeatureGroup_ID="698">
+         <Feature ID="1763">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5481" Value="Replacement battery cartridge" langid="1"/>
+           <Name ID="5482" Value="Replacement battery cartridge" langid="2"/>
+           <Name ID="8532" Value="Replacement battery cartridge" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346232" Value="" No="100000" CategoryFeatureGroup_ID="698">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346244" Value="50/60 +/- 3 Hz (auto sensing)" No="39" CategoryFeatureGroup_ID="884">
+         <Feature ID="1244">
+          <Measure ID="36" Sign="Hz"/>
+           <Name ID="4029" Value="Power supply input frequency" langid="1"/>
+           <Name ID="4030" Value="Power supply input frequency" langid="2"/>
+           <Name ID="7997" Value="Power supply input frequency" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346249" Value="0 to 95" No="22" CategoryFeatureGroup_ID="886">
+         <Feature ID="1383">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="4307" Value="Storage humidity" langid="1"/>
+           <Name ID="4308" Value="Storage humidity" langid="2"/>
+           <Name ID="8134" Value="Storage humidity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346248" Value="-15 - 45" No="23" CategoryFeatureGroup_ID="886">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9346247" Value="" No="24" CategoryFeatureGroup_ID="886">
+         <Feature ID="667">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="2865" Value="Operating altitude" langid="1"/>
+           <Name ID="2866" Value="Hoogte in bedrijf" langid="2"/>
+           <Name ID="7427" Value="Operating altitude" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="33" Name="APC"/>
+       <Category ID="817">
+         <Name ID="4551" Value="Uninterruptible power supplies (UPS)" langid="1"/>
+         <Name ID="4552" Value="Uninterruptible power supplies (UPS)" langid="2"/>
+         <Name ID="8247" Value="Uninterruptible power supplies (UPS)" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

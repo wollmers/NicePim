@@ -1,0 +1,10 @@
+{
+name: feature_value_search;
+priority: 10;
+
+_resource_param: select '%%search_eng_value%%', '%%search_feature_values_group_id%%'
+_mapping_param: search_eng_value,search_feature_values_group_id;
+
+format_as_dropdown: search_feature_values_group_id;
+search_feature_values_group_id_dropdown_select: select feature_values_group_id, name from feature_values_group order by name
+}

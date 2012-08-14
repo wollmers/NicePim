@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="108549" Prod_id="4CDMARKER-BT" ThumbPic="http://www.icecat.biz/thumbs/108549.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/24729.jpg" Name="A blister with 4 colour markers" LowPic="http://www.icecat.biz/img/norm/low/108549.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="569" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="124589" URL="" ShortDesc="&lt;BR&gt; Blister 4 stuks." langid="2" LongDesc="&lt;BR&gt;Sony CD marker &lt;br&gt;" WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="144917" URL="" ShortDesc="A blister with 4 colour markers (red, green, blue and black) to write on all CDs and DVDs." langid="1" LongDesc="A blister with 4 colour markers (red, green, blue and black) to write on all CDs and DVDs. &lt;br&gt;\nMarkers with specially adapted felt, for writing on all your CDs or DVDs. &lt;br&gt;\nPermanent ink which can only be erased with alcohol. &lt;br&gt;\n" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="461">
+         <Name ID="923" Value="Markers" langid="1"/>
+         <Name ID="924" Value="Markers" langid="2"/>
+         <Name ID="6529" Value="Markers" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

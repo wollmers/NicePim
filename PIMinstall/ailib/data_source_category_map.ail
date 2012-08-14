@@ -1,0 +1,56 @@
+{
+name: data_source_category_map;
+priority: 10;
+
+verify: data_source_category_map_id;
+authorize_superuser: data_source_category_map_id;
+authorize_supereditor: data_source_category_map_id;
+authorize_category_manager: data_source_category_map_id;
+authorize_editor: data_source_category_map_id;
+authorize_supplier: data_source_category_map_id;
+authorize_guest: data_source_category_map_id;
+
+authorize_submit_superuser: data_source_category_map_id;
+authorize_submit_supereditor: data_source_category_map_id;
+authorize_submit_category_manager: data_source_category_map_id;
+
+
+verify_submit: data_source_category_map_id;
+
+verify_add: yes;
+verify_add_superuser: data_source_category_map_id;
+verify_add_supereditor: data_source_category_map_id;
+verify_add_category_manager: data_source_category_map_id;
+
+verify_deny_guest: yes;
+
+_resource_data_source_category_map: select data_source_id, data_source_category_map_id, symbol, symbol, catid, distributor_id, distributor_id from data_source_category_map where data_source_category_map_id = %%data_source_category_map_id%%
+_resource_data_source_category_map_type: single;
+_resource_data_source_category_map_key: data_source_category_map_id;
+_mapping_data_source_category_map: data_source_id, data_source_category_map_id, symbol, matched_symbols, catid, distributor_id, distributor_id_static;
+
+format_as_merge_symbol: matched_symbols;
+matched_symbols_type: category;
+
+format_as_text: symbol;
+
+format_as_dropdown: distributor_id;
+distributor_id_dropdown_select: select distributor_id, name from distributor order by trust_level desc, name asc
+
+format_as_tree: catid;
+catid_tree_select: select catid, vocabulary.value, pcatid from category, vocabulary where category.sid = vocabulary.sid and vocabulary.langid = %%langid%%  and category.catid <> 1
+
+validate_as_mandatory: catid, symbol;
+
+ _insert_sequence: 3;
+
+ _insert_table_3: data_source_category_map;
+ _insert_values_3: symbol, catid, data_source_id, distributor_id;
+ _insert_fields_3: symbol, catid, data_source_id, distributor_id;
+ _insert_key_3: data_source_category_map_id;
+ _insert_3_keep_unique: yes; 
+ _insert_3_unique_set: symbol, distributor_id, data_source_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

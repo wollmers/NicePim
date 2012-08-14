@@ -1,0 +1,47 @@
+{
+name: feed_config;
+priority: 10;
+
+_resource_feedconfigdata: SELECT IF('%%delimiter%%' like '\%\%delimiter\%\%','','%%delimiter%%'),
+								 IF('%%delimiter%%' like '\%\%delimiter\%\%','','%%delimiter%%'),
+								 IF('%%feed_type%%' like '\%\%feed_type\%\%','','%%feed_type%%'),
+								 IF('%%newline%%'   like '\%\%newline\%\%','','%%newline%%'),
+								 IF('%%feed_url%%'  like '\%\%feed_url\%\%','','%%feed_url%%'),
+								 IF('%%feed_config_id%%'  like '\%\%feed_config_id\%\%','','%%feed_config_id%%'),
+								 IF('%%user_choiced_file%%' like '\%\%user_choiced_file\%\%','','%%user_choiced_file%%'),
+								 IF('%%feed_pwd%%' like '\%\%feed_pwd\%\%','','%%feed_pwd%%'),
+								 IF('%%feed_login%%' like '\%\%feed_login\%\%','','%%feed_login%%'),
+								 IF('%%is_first_header%%' like '\%\%is_first_header\%\%','','%%is_first_header%%'),
+								 '%%preview%%','',
+								 IF('%%escape%%' like '\%\%escape\%\%','','%%escape%%'),''
+_resource_feedconfigdata_type: single;
+_resource_feedconfigdata_iq: select 'auto','auto';
+_resource_feedconfigdata_imply_fields: yes;
+_mapping_feedconfigdata: delimiter,user_delimiter,feed_type,newline,feed_url,feed_config_id,user_choiced_file,feed_pwd,feed_login,is_first_header,preview,preview_button,escape,feed_file_name;
+
+
+validate_as_onechar: escape;
+validate_as_url_exists: feed_url;
+validate_as_csv_delimiter: delimiter;
+
+store_as_escape: escape;
+format_as_rand:feed_config_id;
+
+user_delimiter_radio_default_field: custom;
+user_delimiter_radio_attrs: onclick="change_delimiter(this)";
+format_as_radio: user_delimiter;
+
+feed_type_custom_select_default: auto;
+feed_type_custom_select_attrs: onchange="display_csv_settings(this)";
+newline_custom_select_default: \r\n;
+format_as_custom_select:feed_type,newline;
+
+format_as_yes_no_select: is_first_header;
+is_first_header_yes_no_default: 0;
+
+format_as_dir_choice: user_choiced_file;
+format_as_feed_config_preview: preview;
+format_as_text: escape;
+format_as_feed_file_name:feed_file_name;
+format_as_feed_config_preview_button:preview_button;
+}

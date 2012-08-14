@@ -1,0 +1,18 @@
+{
+name: series;
+priority: 10;
+
+_resource_series: SELECT ps.series_id, v.value FROM product_series ps JOIN vocabulary v USING (sid) WHERE ps.supplier_id=%%supplier_id%% AND ps.family_id=%%family_id%% AND ps.catid=%%catid%% AND v.langid=%%langid%%;
+_resource_series_type: multi;
+_mapping_series: series_id, series_name;
+
+authorize_superuser: series_id;
+authorize_submit_superuser: series_id;
+authorize_supereditor: series_id;
+authorize_submit_supereditor: series_id;
+
+authorize_editor: series_id;
+authorize_supplier: series_id;
+authorize_guest: series_id;
+authorize_shop: series_id;
+}

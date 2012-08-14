@@ -1,0 +1,5 @@
+{
+name: stat_report;
+ custom_processing: yes;
+ priority: 100;
+}

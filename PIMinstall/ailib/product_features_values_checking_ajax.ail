@@ -1,0 +1,26 @@
+{
+name: product_features_values_checking_ajax;
+priority: 10;
+
+verify_submit: product_id;
+
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+_resource_pattern: select 0, fit.pattern, ms.value from category_feature cf
+inner join feature f using (feature_id)
+inner join measure_sign ms on f.measure_id=ms.measure_id and ms.langid=1
+left  join feature_input_type fit using (type) where cf.category_feature_id=%%category_feature_id%%
+_mapping_pattern: color, fit_pattern, sign;
+
+format_as_feature_value_checking_ajax: color;
+}

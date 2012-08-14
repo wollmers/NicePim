@@ -1,0 +1,137 @@
+{
+name: product_new;
+priority: 10;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id, product_id # '1' == edit_user_id, product_id # '19' == edit_user_id, product_id # 'category_manager' == edit_user_group;
+authorize_submit_supplier: product_id;
+
+deny_editor_delete: yes;
+
+_resource_product: select publish, public, login, product.user_id, users.user_group, product_id, supplier_id, prod_id, prod_id, catid, catid, launch_date, obsolence_date, name, low_pic, low_pic, high_pic, thumb_pic, family_id, series_id, topseller, updated, date_added, 'dummy', 'dummy', product_id, high_pic_size, low_pic_size, thumb_pic_size, high_pic_origin
+from product inner join users using (user_id) where product_id = 0;
+
+_resource_product_type: single;
+_resource_product_key: product_id;
+_mapping_product: publish, public, login, edit_user_id, edit_user_group, product_id, supplier_id, prod_id, prod_id4valid, catid, old_catid, launch_date, obsolence_date, name, low_pic, low_pic_formatted, high_pic, thumb_pic, family_id, series_id, topseller, updated, date_added, lang_tabs, tab_names, product_xml_indicator, high_pic_size, low_pic_size, thumb_pic_size, high_pic_origin;
+
+_resource_product_title: SELECT '';
+_mapping_product_title: title;
+
+_resource_vcategories: SELECT catid FROM product WHERE product_id = 0;
+_resource_vcategories_type: single;
+_mapping_vcategories: vcats;
+
+vcats_very_smart_dropdown_attrs: style="width\: 330px;"
+format_as_virtual_categories_list: vcats;
+
+_resource_product_country: select existed from country_product where product_id = 0;
+_resource_product_country_type: single;
+_resource_product_key: product_id;
+_mapping_product_country: market_state;
+
+_resource_product_gallery: select 0, 0;
+_resource_product_gallery_type: single;
+_mapping_product_gallery: gallery_id, gallery_pics;
+
+_resource_product_score: select score from product_interest_score where product_id = 0;
+_resource_product_score_type: single;
+_resource_product_key: product_id;
+_mapping_product_score: product_score;
+
+_resource_supplier_contact: select 'dummy', 'dummy';
+_resource_supplier_contact_type: single;
+_mapping_supplier_contact: supplier_contacts, supplier_name;
+
+_resource_product_original: select dp.original_prod_id, pod.original_cat, pod.original_vendor, pod.original_name, d.name, s.name, if(dp.active,'green','grey'), dp.dist_prod_id
+from product_original_data pod
+inner join distributor_product dp on pod.product_id=dp.product_id and pod.distributor_id=dp.distributor_id
+inner join distributor d on dp.distributor_id=d.distributor_id
+left  join supplier s on dp.original_supplier_id=s.supplier_id where dp.product_id = 0;
+_resource_product_original_type: multi;
+_mapping_product_original: oprod_id, ocat, osupplier, oname, odistri, omappedorigsupplier, oactiveness, odist_prod_id;
+
+_format_as_supplier_contact: supplier_contacts;
+
+format_as_market_state: market_state;
+
+format_as_dropdown_ajaxed: supplier_id;
+supplier_id_dropdown_ajaxed_select: select supplier_id, name from supplier order by name;
+
+format_as_tree1: family_id;
+
+format_as_date: launch_date, obsolence_date;
+format_as_date_yyyy_dd_mm_hh_ss: updated;
+
+format_as_sv_user_id: edit_user_id;
+format_as_text: name, prod_id, product_score;
+
+format_as_low_pic: low_pic_formatted;
+format_as_publish: publish;
+format_as_public: public;
+format_as_topseller: topseller;
+
+format_as_smart_dropdown: catid;
+catid_smart_dropdown_attrs: style="width\: 302px;"
+
+format_as_gallery_pics: gallery_pics;
+_format_as_lang_tabs: lang_tabs;
+_format_as_tab_name: tab_names;
+
+format_as_wrong_partcode: prod_id4valid;
+
+format_as_product_xml_indicator: product_xml_indicator;
+
+format_as_series: series_id;
+
+validate_as_mandatory: prod_id,catid, name;
+validate_as_mandatory_number: supplier_id, edit_user_id;
+
+validate_as_uploaded_obj: high_pic;
+
+validate_as_family_id: family_id;
+validate_as_series_id: series_id;
+validate_as_catid: catid;
+
+validate_as_strict_brand_prod_id: prod_id;
+
+validate_as_prod_id: prod_id;
+
+validate_as_product_access: product_id;
+
+store_as_fake_user_id: edit_user_id;
+store_as_publish: publish;
+store_as_public: public;
+store_as_prod_id: prod_id;
+
+ _insert_sequence: 1;
+ 
+ _insert_table_1: product;
+ _insert_key_1: product_id;
+ _insert_values_1: supplier_id, prod_id, catid, edit_user_id, name, publish, public, family_id, series_id, topseller, high_pic_origin;
+ _insert_fields_1: supplier_id, prod_id, catid, user_id, name, publish, public, family_id, series_id, topseller, high_pic_origin;
+ _insert_1_keep_unique: yes;
+ _insert_1_unique_set: prod_id, supplier_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+}

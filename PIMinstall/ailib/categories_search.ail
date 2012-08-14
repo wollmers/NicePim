@@ -1,0 +1,7 @@
+{
+name: categories_search;
+priority: 10;
+
+_resource_params: select %%search_name%%, %%search_ucatid%%
+_mapping_params: search_name, search_ucatid;
+}

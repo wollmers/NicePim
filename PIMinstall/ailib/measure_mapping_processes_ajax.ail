@@ -1,0 +1,23 @@
+{
+name: measure_mapping_processes_ajax;
+
+verify: measure_id;
+
+authorize_editor: measure_id;
+authorize_supplier: measure_id;
+authorize_superuser: measure_id;
+authorize_supereditor: measure_id;
+authorize_category_manager: measure_id;
+
+_resource_measure_mapping_process_div_style_display: select if(count(*)=0,'none','inline') from value_regexp_bg_processes where user_id=%%user_id%%;
+_mapping_measure_mapping_process_div_style_display: display;
+
+_resource_measure_mapping_process: select unix_timestamp()-start_date,
+	stage,
+	round(if(max_value>0,current_value/max_value*100,0)),
+	if(max_value>0,current_value/max_value*100,0)*2,
+	(100-if(max_value>0,current_value/max_value*100,0))*2 from value_regexp_bg_processes where user_id=%%user_id%%;
+_resource_measure_mapping_process_type: multi;
+_mapping_measure_mapping_process: seconds, stage, percent, percent1, percent2;
+
+}

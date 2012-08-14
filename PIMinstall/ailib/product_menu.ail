@@ -1,0 +1,25 @@
+{
+name: product_menu;
+priority: 10;
+
+verify: product_id;
+verify_submit: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+_resource_product: select login, product.user_id, users.user_group, product_id, supplier_id, prod_id, catid, launch_date, obsolence_date from product, users where product_id = %%product_id%% and users.user_id = product.user_id
+_resource_product_type: single;
+_resource_product_key: product_id;
+_mapping_product: login, edit_user_id, edit_user_group, product_id, supplier_id, prod_id, catid, launch_date, obsolence_date;
+
+}

@@ -1,0 +1,58 @@
+#!/usr/bin/perl
+
+#$Id: TP-Link_image_updater 3484 2010-11-23 18:37:15Z dima $
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomlog;
+use atomcfg;
+use atomsql;
+
+use thumbnail;
+
+$| = 1;
+
+# get the list of jpg with png content
+
+my $picts_dir = $atomcfg{'base_dir'}.'tests/TP-Link/TP-LINK_Pictures/';
+
+my $suffix = 'TP-LINK';
+
+my $supplier_id = &do_query("select supplier_id from supplier where name = ".&str_sqlize($suffix))->[0][0];
+
+die unless $supplier_id;
+
+opendir DIR, $picts_dir;
+my @files = grep { -f $picts_dir.$_ } readdir(DIR);
+closedir DIR;
+
+my $dup = {};
+
+foreach (@files) {
+	my $fullpath;
+	$fullpath = $picts_dir.$_;
+	my $prod_id;
+	$prod_id = $_;
+
+	$prod_id =~ s/^.*\/.+?$//;
+	$prod_id =~ s/(-\d+)?\.(jpg|tif)$//;
+	my $prod_id_2;
+	$prod_id_2 = $prod_id;
+	$prod_id_2 =~ s/-//g;
+
+	next if $dup->{$prod_id};
+	$dup->{$prod_id} = 1;
+
+	print $prod_id . " " . $prod_id_2 . "\n";
+
+	my $prods = &do_query("select product_id from product where supplier_id= ".$supplier_id." and prod_id in (".&str_sqlize($prod_id).",".&str_sqlize($prod_id_2).") and user_id > 1 and high_pic not like ".&str_sqlize('%'.$suffix.'%'));
+	foreach (@$prods) {
+		print "\t" . $_->[0] . "\n";
+		my $thumb = &thumbnailize_product (
+			&normalize_product_pics( { 'product_id' => $_->[0], 'high_pic' => $fullpath }, $suffix)
+			);
+	}
+}

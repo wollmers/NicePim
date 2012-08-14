@@ -1,0 +1,625 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="129128" Prod_id="MSX512S" ThumbPic="http://www.icecat.biz/thumbs/129128.jpg" Code="1" Quality="ICECAT" HighPic="" Name="Memory Stick PRO 512MB" LowPic="http://www.icecat.biz/img/low_pic/129128-7675.jpg">
+        <ProductRelated ID="559524">
+         <Product ID="125484" Prod_id="DSC-W1?KIT" ThumbPic="http://www.icecat.biz/thumbs/125484.jpg" Name="DSC-W1 NON 5.1Mpix MPEG USB2.0">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="559579">
+         <Product ID="125502" Prod_id="DSC-P93?KIT" ThumbPic="http://www.icecat.biz/thumbs/125502.jpg" Name="DSC-P93 NON 5.1Mpix MPEG USB2.0">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="559525">
+         <Product ID="126292" Prod_id="DSCW1S64DN" ThumbPic="http://www.icecat.biz/thumbs/126292.jpg" Name="CYBERSHOT DSC-W1 DIGICAM">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="559578">
+         <Product ID="128009" Prod_id="DCSP93ACCKDN.YBN" ThumbPic="http://www.icecat.biz/thumbs/128009.jpg" Name="CYBERSHOT DSC P 93">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="559580">
+         <Product ID="128106" Prod_id="DSCP93ACCKDN.YBN" ThumbPic="http://www.icecat.biz/thumbs/128106.jpg" Name="CYBERSHOT DSC P 93">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="834" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="829" No="0">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="854" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="852" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="851" No="0">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="853" No="0">
+         <FeatureGroup ID="32">
+           <Name ID="5133" Value="Endurance" langid="1"/>
+           <Name ID="5134" Value="Endurance" langid="2"/>
+           <Name ID="8371" Value="Endurance" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="855" No="0">
+         <FeatureGroup ID="33">
+           <Name ID="5135" Value="Access time" langid="1"/>
+           <Name ID="5136" Value="Access time" langid="2"/>
+           <Name ID="8372" Value="Access time" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="149404" URL="" ShortDesc="512 MB Memory Stick PRO Media  (MSX-512S)." langid="1" LongDesc="Maximize your digital file storage with the durable MSX-512S Memory Stick PRO media from Sony. Featuring 512 megabytes of storage space with 460 megabytes available and an expanded operating temperature range of -13° F to 185° Fahrenheit, you get all of the benefits of standard Memory Stick PRO media with increased durability.\nThe MSX-512S is backwards compatible with most devices that use standard Memory Stick PRO media. Its compact design is slightly smaller than a stick of chewing gum, so its incredibly compact and very easy to store. Its combination of storage size, durability and compatibility makes it the perfect complement to a new digital camera.\n-512 MB maximum storage capacity with 220 MB available.\n-Minimum write speeds of 15 Mbps on Memory Stick PRO enabled devices optimized with 4-pin parallel interface .\n-Increased operating temperature range of -13° F to 185° F for greater durability.\n-Ideal for digital photography and compact video.\n-Backwards compatible with Memory Stick PR media enabled devices.\n-Incredibly compact design is slightly smaller than a stick of gum." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9517893" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1901">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5893" Value="Short Message Service (SMS)" langid="1"/>
+           <Name ID="5894" Value="Short Message Service (SMS)" langid="2"/>
+           <Name ID="8731" Value="Short Message Service (SMS)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516428" Value="512" No="10100100" CategoryFeatureGroup_ID="829">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516429" Value="" No="100074" CategoryFeatureGroup_ID="855">
+         <Feature ID="23">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="1349" Value="Access time" langid="1"/>
+           <Name ID="1350" Value="Toegangstijd" langid="2"/>
+           <Name ID="6690" Value="Access time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516430" Value="" No="100076" CategoryFeatureGroup_ID="855">
+         <Feature ID="1647">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="5131" Value="Serial page access" langid="1"/>
+           <Name ID="5132" Value="Serial page access" langid="2"/>
+           <Name ID="8370" Value="Serial page access" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516431" Value="" No="100075" CategoryFeatureGroup_ID="855">
+         <Feature ID="1646">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="5129" Value="Random access" langid="1"/>
+           <Name ID="5130" Value="Random access" langid="2"/>
+           <Name ID="8369" Value="Random access" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517891" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1899">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5889" Value="GSM Voice Communication" langid="1"/>
+           <Name ID="5890" Value="GSM Voice Communication" langid="2"/>
+           <Name ID="8729" Value="GSM Voice Communication" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516433" Value="" No="100070" CategoryFeatureGroup_ID="829">
+         <Feature ID="606">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2743" Value="Data Transfer Rate" langid="1"/>
+           <Name ID="2744" Value="Overdrachtssnelheid" langid="2"/>
+           <Name ID="7368" Value="Taux de transfert de données" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517890" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1898">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5887" Value="GPRS" langid="1"/>
+           <Name ID="5888" Value="GPRS" langid="2"/>
+           <Name ID="8728" Value="GPRS" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517889" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1897">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5885" Value="Circuit Swith Data" langid="1"/>
+           <Name ID="5886" Value="Circuit Swith Data" langid="2"/>
+           <Name ID="8727" Value="Circuit Swith Data" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517888" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1896">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5883" Value="AT Command Set" langid="1"/>
+           <Name ID="5884" Value="AT Command Set" langid="2"/>
+           <Name ID="8726" Value="AT Command Set" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517887" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1178">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3897" Value="Other remarks" langid="1"/>
+           <Name ID="3898" Value="Overige opmerkingen" langid="2"/>
+           <Name ID="7932" Value="Other remarks" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516440" Value="" No="100084" CategoryFeatureGroup_ID="829">
+         <Feature ID="1644">
+          <Measure ID="40" Sign="MB/s"/>
+           <Name ID="5125" Value="Read speed" langid="1"/>
+           <Name ID="5126" Value="Leessnelheid" langid="2"/>
+           <Name ID="8367" Value="Read speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516441" Value=" 15 Mbps on Memory Stick PRO enabled devices optimized with 4-pin parallel interface" No="100083" CategoryFeatureGroup_ID="829">
+         <Feature ID="1645">
+          <Measure ID="40" Sign="MB/s"/>
+           <Name ID="5127" Value="Write speed" langid="1"/>
+           <Name ID="5128" Value="Schrijfsnelheid" langid="2"/>
+           <Name ID="8368" Value="Vitesse d'écriture" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516442" Value="" No="100099" CategoryFeatureGroup_ID="851">
+         <Feature ID="1638">
+          <Measure ID="73" Sign="mA"/>
+           <Name ID="5109" Value="Standby current" langid="1"/>
+           <Name ID="5110" Value="Standby current" langid="2"/>
+           <Name ID="8359" Value="Standby current" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516443" Value="" No="100098" CategoryFeatureGroup_ID="851">
+         <Feature ID="1640">
+          <Measure ID="73" Sign="mA"/>
+           <Name ID="5113" Value="Write: current" langid="1"/>
+           <Name ID="5114" Value="Schrijven: stroomgebruik" langid="2"/>
+           <Name ID="8361" Value="Write: current" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516444" Value="" No="100097" CategoryFeatureGroup_ID="851">
+         <Feature ID="1639">
+          <Measure ID="73" Sign="mA"/>
+           <Name ID="5111" Value="Read: current" langid="1"/>
+           <Name ID="5112" Value="Lezen: stroomgebruik" langid="2"/>
+           <Name ID="8360" Value="Read: current" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516446" Value="" No="100079" CategoryFeatureGroup_ID="834">
+         <Feature ID="1643">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="5123" Value="Start-up time" langid="1"/>
+           <Name ID="5124" Value="Start-up time" langid="2"/>
+           <Name ID="8366" Value="Start-up time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516447" Value="" No="100096" CategoryFeatureGroup_ID="834">
+         <Feature ID="1642">
+          <Measure ID="75" Sign="year(s)"/>
+           <Name ID="5121" Value="Data retention" langid="1"/>
+           <Name ID="5122" Value="Data retention" langid="2"/>
+           <Name ID="8365" Value="Data retention" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516449" Value="21.5 x 50 x 2.8 (0.85&amp;quot; x 1.97&amp;quot; x 0.11&amp;quot;)" No="100091" CategoryFeatureGroup_ID="854">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516450" Value="" No="100095" CategoryFeatureGroup_ID="834">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516451" Value="" No="100094" CategoryFeatureGroup_ID="852">
+         <Feature ID="1637">
+          <Measure ID="72" Sign="G"/>
+           <Name ID="5103" Value="Operating shock" langid="1"/>
+           <Name ID="5104" Value="Schokbestendigheid" langid="2"/>
+           <Name ID="8356" Value="Operating shock" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516452" Value="" No="100093" CategoryFeatureGroup_ID="852">
+         <Feature ID="1636">
+          <Measure ID="72" Sign="G"/>
+           <Name ID="5101" Value="Vibration resistance" langid="1"/>
+           <Name ID="5102" Value="Trillingsbestendigheid" langid="2"/>
+           <Name ID="8352" Value="Vibration resistance" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516453" Value="" No="100092" CategoryFeatureGroup_ID="853">
+         <Feature ID="1641">
+          <Measure ID="74" Sign="cycles per logical sector"/>
+           <Name ID="5117" Value="Endurance" langid="1"/>
+           <Name ID="5118" Value="Houdbaarheid" langid="2"/>
+           <Name ID="8363" Value="Endurance" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516454" Value="4" No="100090" CategoryFeatureGroup_ID="854">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516455" Value="" No="100077" CategoryFeatureGroup_ID="854">
+         <Feature ID="1648">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="5137" Value="CompactFlash adapter dimensions" langid="1"/>
+           <Name ID="5138" Value="CompactFlash adapter dimensions" langid="2"/>
+           <Name ID="8373" Value="CompactFlash adapter dimensions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516456" Value="" No="85" CategoryFeatureGroup_ID="834">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516457" Value="" No="88" CategoryFeatureGroup_ID="829">
+         <Feature ID="1035">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3611" Value="Internal memory technology" langid="1"/>
+           <Name ID="3612" Value="Intern geheugen-technologie" langid="2"/>
+           <Name ID="7792" Value="Internal memory technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516458" Value="" No="71" CategoryFeatureGroup_ID="829">
+         <Feature ID="427">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2221" Value="Internal memory type" langid="1"/>
+           <Name ID="2222" Value="Internal memory type" langid="2"/>
+           <Name ID="7119" Value="Internal memory type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516461" Value="" No="87" CategoryFeatureGroup_ID="834">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516462" Value="" No="86" CategoryFeatureGroup_ID="829">
+         <Feature ID="1139">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="3819" Value="Seek time" langid="1"/>
+           <Name ID="3820" Value="zoektijd" langid="2"/>
+           <Name ID="7893" Value="temps d'accès" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516463" Value="2.7- 3.6" No="89" CategoryFeatureGroup_ID="851">
+         <Feature ID="1466">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="4630" Value="Input voltage" langid="2"/>
+           <Name ID="4629" Value="Input voltage" langid="1"/>
+           <Name ID="7916" Value="Input voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516464" Value="" No="3" CategoryFeatureGroup_ID="834">
+         <Feature ID="1362">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4265" Value="Expansion clock" langid="1"/>
+           <Name ID="4266" Value="Expansion clock" langid="2"/>
+           <Name ID="8113" Value="Expansion clock" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516465" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1188">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3917" Value="Expansion form factor" langid="1"/>
+           <Name ID="3918" Value="Expansion form factor" langid="2"/>
+           <Name ID="7942" Value="Expansion form factor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516466" Value="" No="4" CategoryFeatureGroup_ID="834">
+         <Feature ID="1364">
+          <Measure ID="50" Sign="bit"/>
+           <Name ID="4269" Value="Expansion data/address bus width" langid="1"/>
+           <Name ID="4270" Value="Expansion data/address bus width" langid="2"/>
+           <Name ID="8115" Value="Expansion data/address bus width" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516467" Value="" No="1" CategoryFeatureGroup_ID="834">
+         <Feature ID="1363">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4267" Value="Expansion access speed" langid="1"/>
+           <Name ID="4268" Value="Expansion access speed" langid="2"/>
+           <Name ID="8114" Value="Expansion access speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516468" Value="" No="4" CategoryFeatureGroup_ID="834">
+         <Feature ID="1361">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4263" Value="Expansion module type" langid="1"/>
+           <Name ID="4264" Value="Expansion module type" langid="2"/>
+           <Name ID="8112" Value="Expansion module type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516469" Value="" No="2" CategoryFeatureGroup_ID="834">
+         <Feature ID="1360">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4261" Value="Expansion chip type" langid="1"/>
+           <Name ID="4262" Value="Expansion chip type" langid="2"/>
+           <Name ID="8111" Value="Expansion chip type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516470" Value="" No="5" CategoryFeatureGroup_ID="834">
+         <Feature ID="1359">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="4259" Value="Expansion voltage" langid="1"/>
+           <Name ID="4260" Value="Expansion voltage" langid="2"/>
+           <Name ID="8110" Value="Expansion voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516471" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1187">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3915" Value="Expansion description" langid="1"/>
+           <Name ID="3916" Value="Expansion description" langid="2"/>
+           <Name ID="7941" Value="Expansion description" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516472" Value="10-pin Serial Memory Stick® Interface and 4-pin Parallel" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516473" Value="" No="65" CategoryFeatureGroup_ID="834">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517892" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1900">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5891" Value="SIM" langid="1"/>
+           <Name ID="5892" Value="SIM" langid="2"/>
+           <Name ID="8730" Value="SIM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516475" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1191">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3923" Value="Bluetooth / PC Card interface" langid="1"/>
+           <Name ID="3924" Value="Bluetooth / PC Card interface" langid="2"/>
+           <Name ID="7945" Value="Bluetooth / PC Card interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516476" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1192">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3925" Value="Bluetooth / PC Card transmission range" langid="1"/>
+           <Name ID="3926" Value="Bluetooth / PC Card transmission range" langid="2"/>
+           <Name ID="7946" Value="Bluetooth / PC Card transmission range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516477" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1193">
+          <Measure ID="37" Sign="Ghz"/>
+           <Name ID="3927" Value="Bluetooth / PC Card frequency band" langid="1"/>
+           <Name ID="3928" Value="Bluetooth / PC Card frequency band" langid="2"/>
+           <Name ID="7947" Value="Bluetooth / PC Card frequency band" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516478" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1194">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3929" Value="Bluetooth / PC Card modulation technique" langid="1"/>
+           <Name ID="3930" Value="Bluetooth / PC Card modulation technique" langid="2"/>
+           <Name ID="7948" Value="Bluetooth / PC Card modulation technique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516479" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1195">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3931" Value="Bluetooth / PC Card bundled software" langid="1"/>
+           <Name ID="3932" Value="Bluetooth / PC Card bundled software" langid="2"/>
+           <Name ID="7949" Value="Bluetooth / PC Card bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516480" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1196">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3933" Value="Bluetooth / PC Card operating system support" langid="1"/>
+           <Name ID="3934" Value="Bluetooth / PC Card operating system support" langid="2"/>
+           <Name ID="7950" Value="Bluetooth / PC Card operating system support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516481" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1197">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3935" Value="Bluetooth / PC Card transmission power" langid="1"/>
+           <Name ID="3936" Value="Bluetooth / PC Card transmission power" langid="2"/>
+           <Name ID="7951" Value="Bluetooth / PC Card transmission power" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516482" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1198">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3937" Value="Wireless LAN standard" langid="1"/>
+           <Name ID="3938" Value="Wireless LAN standard" langid="2"/>
+           <Name ID="7952" Value="Wireless LAN standard" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516483" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1199">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3939" Value="Bluetooth / PC Card dimensions W x D x H" langid="1"/>
+           <Name ID="3940" Value="Bluetooth / PC Card dimensions W x D x H" langid="2"/>
+           <Name ID="7953" Value="Bluetooth / PC Card dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516484" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1200">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3941" Value="Bluetooth / PC Card type of network I/F chip" langid="1"/>
+           <Name ID="3942" Value="Bluetooth / PC Card type of network I/F chip" langid="2"/>
+           <Name ID="7954" Value="Bluetooth / PC Card type of network I/F chip" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516485" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1201">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3943" Value="Bluetooth / PC Card support network" langid="1"/>
+           <Name ID="3944" Value="Bluetooth / PC Card support network" langid="2"/>
+           <Name ID="7955" Value="Bluetooth / PC Card support network" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516486" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1202">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3945" Value="Bluetooth / PC Card Ports" langid="1"/>
+           <Name ID="3946" Value="Bluetooth / PC Card Ports" langid="2"/>
+           <Name ID="7956" Value="Bluetooth / PC Card Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516487" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1203">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3947" Value="Wireless PC Card AOL" langid="1"/>
+           <Name ID="3948" Value="Wireless PC Card AOL" langid="2"/>
+           <Name ID="7957" Value="Wireless PC Card AOL" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516488" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1204">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3949" Value="Bluetooth / PC Card WOL" langid="1"/>
+           <Name ID="3950" Value="Bluetooth / PC Card WOL" langid="2"/>
+           <Name ID="7958" Value="Bluetooth / PC Card WOL" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516489" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1205">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3951" Value="Bluetooth / PC Card Remote Boot" langid="1"/>
+           <Name ID="3952" Value="Bluetooth / PC Card Remote Boot" langid="2"/>
+           <Name ID="7959" Value="Bluetooth / PC Card Remote Boot" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516490" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1206">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3953" Value="Bluetooth / PC Card  removable (user/service)" langid="1"/>
+           <Name ID="3954" Value="Bluetooth / PC Card  removable (user/service)" langid="2"/>
+           <Name ID="7960" Value="Bluetooth / PC Card  removable (user/service)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516491" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1207">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3955" Value="Bluetooth / PC Card vendor" langid="1"/>
+           <Name ID="3956" Value="Bluetooth / PC Card vendor" langid="2"/>
+           <Name ID="7961" Value="Bluetooth / PC Card vendor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516492" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1208">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3957" Value="Bluetooth version" langid="1"/>
+           <Name ID="3958" Value="Bluetooth version" langid="2"/>
+           <Name ID="7962" Value="Bluetooth version" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516493" Value="" No="0" CategoryFeatureGroup_ID="834">
+         <Feature ID="1209">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3959" Value="Bluetooth / PC Card type (module/mini-PCI/SD)" langid="1"/>
+           <Name ID="3960" Value="Bluetooth / PC Card type (module/mini-PCI/SD)" langid="2"/>
+           <Name ID="7963" Value="Bluetooth / PC Card type (module/mini-PCI/SD)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517886" Value="10-pin Serial Memory Stick® Interface and 4-pin Parallel" No="60" CategoryFeatureGroup_ID="834">
+         <Feature ID="990">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3521" Value="Interface type" langid="1"/>
+           <Name ID="3522" Value="Interfacetype" langid="2"/>
+           <Name ID="7748" Value="Interface type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516495" Value="" No="81" CategoryFeatureGroup_ID="852">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516496" Value="-10.56 - 85(-13° - 185° F )" No="82" CategoryFeatureGroup_ID="852">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9516497" Value="" No="78" CategoryFeatureGroup_ID="853">
+         <Feature ID="533">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2597" Value="Mean time between failures" langid="1"/>
+           <Name ID="2598" Value="Mean time between failure" langid="2"/>
+           <Name ID="7295" Value="Temps moyen de bon fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517884" Value="" No="100002" CategoryFeatureGroup_ID="834">
+         <Feature ID="1935">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5963" Value="Operation" langid="1"/>
+           <Name ID="5964" Value="Werking" langid="2"/>
+           <Name ID="8762" Value="Operation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9517885" Value="" No="100000" CategoryFeatureGroup_ID="834">
+         <Feature ID="1848">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5697" Value="Fax compatibility" langid="1"/>
+           <Name ID="5698" Value="Fax compatibility" langid="2"/>
+           <Name ID="8639" Value="Fax compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="902">
+         <Name ID="5279" Value="flash memory" langid="1"/>
+         <Name ID="5280" Value="flashgeheugen" langid="2"/>
+         <Name ID="8436" Value="flash memory" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

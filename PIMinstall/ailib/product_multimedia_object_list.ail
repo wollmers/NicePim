@@ -1,0 +1,39 @@
+{
+name: product_multimedia_object_list;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id, product_id # '1' == edit_user_id;
+authorize_submit_supplier: product_id;
+
+_resource_multimedia_object: select id, short_descr, if(v.value is null,v1.value,v.value) object_lang, pmo.updated, content_type, size/1000, keep_as_url, type, height, width
+from product_multimedia_object pmo
+inner join language l on pmo.langid = l.langid
+left  join vocabulary v on pmo.langid = v.langid and l.sid = v.sid
+left  join vocabulary v1 on v1.langid = 1 and l.sid = v1.sid
+where pmo.product_id = %%product_id%%;
+_resource_multimedia_object_type: multi;
+_mapping_multimedia_object: object_id, object_descr_listed, object_lang, object_updated, object_type, object_size, keep_as_url, type, height, width;
+
+format_as_yes_no_text: keep_as_url;
+
+}

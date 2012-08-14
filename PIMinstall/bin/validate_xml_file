@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+use XML::LibXML;
+
+$file = $ARGV[0];
+$dtd = $ARGV[1];
+my $dtd = XML::LibXML::Dtd->new("",$dtd);
+$doc = XML::LibXML->new->parse_file($file);
+eval{ $doc->validate($dtd)."\n"};
+   if($@){
+	  print "$@";
+   } else{ 
+   	print "$file is OK\n";
+   }
+
+													

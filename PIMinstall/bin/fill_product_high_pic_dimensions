@@ -1,0 +1,68 @@
+#!/usr/bin/perl
+
+#$Id: fill_product_high_pic_dimensions 2339 2010-03-25 15:45:10Z dima $
+
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use Data::Dumper;
+
+##
+## begin
+##
+
+#binmode STDOUT, ":utf8";
+
+print "\033[32;44;1m*** ".$0.":".$$."\033[32;44m ".localtime()." ***\033[37;40;0m\n\n";
+
+my $products_with_images = &do_query("select p.high_pic, p.product_id from product p where p.high_pic!=''");
+
+my $stat;
+my $i = 0;
+
+print "Total: ". ($#$products_with_images + 1). ". ";
+
+foreach my $p (@$products_with_images) {
+	my $dims = &is_present(&modify_link($p->[0]));
+	$i++;
+	print $i." of " . ($#$products_with_images + 1) ."\n" . Dumper($stat). "\n" unless $i % 1000;
+	print "." unless $i % 100;
+
+	if ($dims) {
+		&do_statement("replace product_high_pic_dimensions(product_id, width, height) values(".$p->[1].",".$dims->[0].",".$dims->[1].")");
+	}
+}
+
+exit(0);
+
+sub is_present {
+	my $cmd = shift;
+
+#	open IMG, $cmd." |";
+#	binmode IMG, ":utf8";
+#	my $ret = join '', <IMG>;
+#	close IMG;
+
+	my $ret = `$cmd`;
+
+	if ($ret =~ /(JPEG)\s+(\d+)x(\d+)/) {
+		return [$2, $3];
+	}
+	
+	return undef;
+}
+
+sub modify_link {
+	my $link = shift;
+
+	# www@stockholm ~ $ ssh www@images.icecat.biz file /data/www/img/norm/high/491259-Philipsw.jpg
+	# /data/www/img/norm/high/491259-Philipsw.jpg: cannot open `/data/www/img/norm/high/491259-Philipsw.jpg' (No such file or directory)
+
+	$link =~ s,^.*(/img/.*)$,ssh www\@images.icecat.biz identify /data/www$1,;
+
+	return $link;
+}
+

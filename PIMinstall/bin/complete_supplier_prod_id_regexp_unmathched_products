@@ -1,0 +1,98 @@
+#!/usr/bin/perl
+
+#$Id: complete_supplier_prod_id_regexp_unmathched_products 2099 2009-12-25 13:10:46Z dima $
+
+#
+# complete_supplier_prod_id_regexp_unmathched_products
+#
+# create table product_wrong_partcodes (
+# product_wrong_partcodes_id int(13) primary key auto_increment,
+# product_id                 int(13) not null default 0,
+# supplier_id                int(13) not null default 0,
+#
+# key (product_id,supplier_id),
+# key (supplier_id)) ENGINE = MyISAM;
+#
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+use atom_misc;
+use icecat_mapping;
+
+$| = 1;
+
+# begin
+
+my $supplier_id = $ARGV[0];
+
+$supplier_id = undef if $supplier_id !~ /^\d+(,\d+)*$/;
+
+print "\033[1mLet's start\033[0m:\n";
+
+# create the new empty table
+
+&do_statement("drop table if exists product_wrong_partcodes_new");
+&do_statement("create table product_wrong_partcodes_new like product_wrong_partcodes");
+&do_statement("alter table product_wrong_partcodes_new disable keys");
+
+# Note: if supplier_id isn't null - just move all non-supplier_ids from the old table to the new
+
+print "\tselect " . ( $supplier_id ? $supplier_id : "all" ) . " products... ";
+
+my $ps = &do_query("select p.product_id, p.prod_id, p.supplier_id, s.prod_id_regexp from product p
+inner join supplier s using (supplier_id)
+where 1 ".
+( $supplier_id ? " and p.supplier_id in (".$supplier_id.")" : "" ) .
+" and s.prod_id_regexp != '' order by supplier_id asc");
+
+print "done\n";
+print "\tdecide wrong codes... ";
+
+my $file = "/tmp/complete_supplier_prod_id_regexp_unmathched_products_".&do_query("select unix_timestamp()")->[0][0]."_".&make_code(8);
+
+open TMP, ">".$file;
+foreach (@$ps) {
+	unless (&brand_prod_id_checking_by_regexp($_->[1],{'regexp' => $_->[3]})) {
+		print TMP $_->[0]."\x01".$_->[2]."\x02";
+	}
+}
+close TMP;
+
+print "done\n";
+print "\tload wrong codes to the new table... ";
+
+&do_statement("load data local infile '".$file."' into table product_wrong_partcodes_new fields terminated by '\x01' lines terminated by '\x02' (product_id, supplier_id)");
+
+print "done\n";
+
+`/bin/rm -f $file`;
+
+if ($supplier_id) {
+	print "\tload the rest wrong codes to the new table from old table... ";
+	&do_statement("insert into product_wrong_partcodes_new(product_id,supplier_id) select product_id,supplier_id from product_wrong_partcodes where supplier_id not in (".$supplier_id.")");
+	print "done\n";
+}
+
+&do_statement("drop table if exists product_wrong_partcodes_old");
+print "\tenable keys... ";
+&do_statement("alter table product_wrong_partcodes_new enable keys");
+print "done\n\n";
+&do_statement("rename table product_wrong_partcodes to product_wrong_partcodes_old, product_wrong_partcodes_new to product_wrong_partcodes");
+
+# stat
+my $stat = &do_query("select p.supplier_id, count(*),
+(select s.name from supplier s where s.supplier_id=p.supplier_id)
+from product_wrong_partcodes p group by 1 order by 2 desc");
+foreach (@$stat) {
+	print $_->[2]."\t".$_->[1]." products\n";
+}
+
+print "\nEnd.\n\n";
+
+# end

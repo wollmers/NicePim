@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+#$Id: update_product_md5_cache_once 3615 2010-12-22 18:30:49Z dima $
+
+use strict;
+
+use lib '/home/pim/lib/';
+#use lib '/home/dima/gcc_svn/lib/';
+
+use atomsql;
+use atomlog;
+use atomcfg;
+
+use atom_util;
+
+$| = 1;
+
+print "\033[1mStart:\033[0m\n";
+
+my $entities = &do_query("select update_product_md5_cache_id, table_name, table_id, md5_hash, size, updated from update_product_md5_cache order by 2, 3");
+
+foreach my $entity (@$entities) {
+	print "\t" . $entity->[1]. " id = " . $entity->[2]."... ";
+	my $new_md5 = &_prepare_table_md5($entity->[1], $entity->[2]); # 0 - md5, 1 - length
+
+	if (($entity->[3] ne $new_md5->[0]) ||
+			($entity->[4] ne $new_md5->[1])) { # changed
+		print "\033[1mchanged\033[0m\n";
+		print "\t\tmd5   \t".$entity->[3]." -> ".$new_md5->[0]."\n";
+		print "\t\tlength\t".$entity->[4]." -> ".$new_md5->[1]."\n";
+		&do_statement("update update_product_md5_cache set md5_hash = ".&str_sqlize($new_md5->[0]).", size = ".&str_sqlize($new_md5->[1]).", updated = updated where update_product_md5_cache_id = ".$entity->[0]);
+	}
+	else { # same
+		print "the same\n";
+	}
+}
+
+print "\033[1mEnd.\033[0m\n\n";

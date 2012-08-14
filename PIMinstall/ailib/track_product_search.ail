@@ -1,0 +1,11 @@
+{
+name: track_product_search;
+priority: 10;
+
+_resource_params: select '%%search_supplier_id%%','%%search_track_product_status%%','%%search_map_partcode_tofind%%';
+_mapping_params: search_supplier_id,search_track_product_status,search_map_partcode_tofind;
+
+search_supplier_id_dropdown_select: SELECT DISTINCT tp.supplier_id,s.name  FROM track_product tp JOIN supplier s USING(supplier_id) ORDER BY s.name;
+format_as_dropdown: search_supplier_id; 
+format_as_custom_select: search_track_product_status;
+}

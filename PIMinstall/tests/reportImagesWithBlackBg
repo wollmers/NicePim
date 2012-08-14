@@ -1,0 +1,90 @@
+#!/usr/bin/perl
+
+use strict;
+
+use lib "/home/pim/lib";
+#use lib "/home/dima/gcc_svn/lib";
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use Image::Magick;
+
+# begin
+
+my $images = &do_query("select product_id, prod_id, low_pic, high_pic from product where low_pic != '' and high_pic != '' and supplier_id = 1");
+
+print "Total pics: " . ($#$images + 1) . "\n";
+
+my $o;
+my $q = '';
+my $p = '';
+
+my ($h, $w, $bad, @pxs);
+
+open OUT, ">".$0.".report";
+binmode OUT, ":utf8";
+
+foreach my $image (@$images) {
+	$p = $image->[3];
+
+	# change the image path if needed
+	if ($p =~ /^https?:\/\//) {
+		$p =~ s,^.*(/img/.*)$,/home/pim/www$1,;
+	}
+
+	print $p . "\t";
+
+	$q = $p;
+	$q =~ s/^\/home\/gcc\/www/\/data\/www/s;
+
+	# check the image
+	if (!-f $p) { # file absent
+		next if $q !~ /^\/data/i;
+		# try to download it
+		`scp www\@images.icecat.biz:$q $p`;
+		print "R (".$q.")";
+	}
+	else {
+		print "L ";
+	}
+
+	# read the next image
+	$o = Image::Magick->new();
+	$o->Read($p);
+
+	# get the h and w
+	($w, $h) = $o->Ping($p);
+	
+	goto next_turn if !$w || !$h;
+
+	$bad = 0;
+
+	# get the bg
+	$w--; $h--;
+
+	foreach my $px ([$w,$h],[0,$h],[$w,0],[0,0]) {
+		@pxs = $o->GetPixel('x'=>$px->[0],'y'=>$px->[1]);
+		foreach (0..2) {
+			goto next_turn if $pxs[$_]*255 > 10;
+		}
+	}
+
+#	&do_statement("update product set updated=now() where product_id=".$image->[0]);
+	
+	print OUT join "\t", @$image;
+	print OUT "\t";
+	print OUT join "\t", @pxs;
+	print OUT "\n";
+	
+ next_turn:
+	
+	print "\n";
+	
+
+}
+
+close OUT;
+
+exit(0);

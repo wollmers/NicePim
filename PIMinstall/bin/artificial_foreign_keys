@@ -1,0 +1,164 @@
+#!/usr/bin/perl
+
+#$Id: artificial_foreign_keys 3727 2011-01-17 09:22:32Z alexey $
+
+#
+# artificial_foreign_keys
+#
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+$| = 1;
+
+my $optimize = 0;
+
+# begin
+
+my $a = [
+				 'product_description',
+				 'product_name',
+				 'product_feature',
+				 'product_feature_local',
+				 'product_related',
+				 'product_gallery',
+				 'product_multimedia_object',
+				 'product_bullet',
+				 'product_ean_codes',
+				 'product_modification_time',
+				 'product_original_data',
+				 'country_product',
+				 'distributor_product',
+				 'product_summary_description',
+				 'campaign_kit',
+
+				 'aggregated_product_count',
+
+				 'product_interest_score',
+
+				 'actual_product',
+				 'product_index_cache',
+				 'product_words'
+				 ];
+
+print "Let's start";
+
+goto img if ($ARGV[0] eq 'img');
+
+&do_statement("drop temporary table if exists tmp_product");
+&do_statement("create temporary table tmp_product (product_id int(13) primary key)");
+&do_statement("insert into tmp_product(product_id) select product_id from product");
+
+print ":\n";
+
+my ($rd, $ejrd, $ejrd1, $tid);
+
+$ejrd = 0;
+
+foreach (@$a) {
+	$rd = 0;
+	print "\t".$_."... ";
+
+	my @ranges = &get_primary_key_set_of_ranges('t',$_,100000);
+
+	if ($_ eq 'product_related') {
+		foreach my $range (@ranges) {
+			&do_statement("delete t from ".$_." t left join tmp_product p on p.product_id=t.rel_product_id where p.product_id is null AND ".$range);
+			$rd += &do_query("select row_count()")->[0][0];
+		}
+	}
+
+	foreach my $range (@ranges) {
+		&do_statement("delete t from ".$_." t left join tmp_product p using (product_id) where p.product_id is null AND ".$range);
+		$rd += &do_query("select row_count()")->[0][0];
+	}
+	print $rd." rows deleted, ";
+
+	if ((($rd > 0) && ($optimize)) || ($rd > 1000000)) {
+		#&do_statement("optimize table ".$_);
+		print "optimized";
+	}
+
+	# journal
+	$tid = &primary_key_from_table($_);
+
+	if (($_ eq 'product_modification_time') ||
+			($_ eq 'country_product') ||
+			($_ eq 'distributor_product') ||
+			($_ eq 'product_interest_score') ||
+			($_ eq 'product_original_data') ||
+			($_ eq 'aggregated_product_count') ||
+			($_ eq 'product_summary_description') ||
+			($_ eq 'campaign_kit') ||
+			($_ eq 'actual_product') ||
+			($_ eq 'product_index_cache')) {
+		goto nxt;
+	}
+
+	&do_statement("delete ej from ".$_." t right join editor_journal ej on t.".$tid."=ej.product_table_id where t.".$tid." is null and ej.product_table = '".$_."'");
+	$ejrd1 = &do_query("select row_count()")->[0][0];
+	$ejrd += $ejrd1;
+	print " EJ: ".$ejrd1." rows deleted";
+	
+ nxt:
+	print "\n";
+}
+
+if ((($ejrd > 0) && ($optimize)) || ($ejrd > 1000000)) {
+	print "\toptimize editor_journal... ";
+	#&do_statement("optimize table editor_journal");
+	print "optimized\n";
+}
+
+# non_product
+
+$rd = 0;
+
+print "\tdata_source_supplier_map... ";
+&do_statement("delete t from data_source_supplier_map t left join supplier s using (supplier_id) where s.supplier_id is null and t.supplier_id!=0");
+$rd = &do_query("select row_count()")->[0][0];
+print $rd." rows deleted\n";
+
+print "\tdata_source_category_map... ";
+&do_statement("delete t from data_source_category_map t left join category c using (catid) where c.catid is null and t.catid!=0");
+$rd = &do_query("select row_count()")->[0][0];
+print $rd." rows deleted\n";
+
+print "\tdata_source_feature_map... ";
+&do_statement("delete t from data_source_feature_map t left join feature f using (feature_id) where f.feature_id is null and t.feature_id!=0");
+$rd = &do_query("select row_count()")->[0][0];
+print $rd." rows deleted\n";
+
+img:
+
+# remove content_length and/or md5 info from editor products
+print "\tproduct_modification_time (picture_content_length)... ";
+&do_statement("update product p
+inner join product_modification_time pmt using (product_id)
+set pmt.picture_content_length=0
+where pmt.picture_content_length>0
+and (p.high_pic regexp '\\/[[:digit:]]+\\-[[:digit:]]+\\.[[:alpha:]]{3,4}\$' or trim(p.high_pic) = '')"); # content_length=0 if it is editor-owned product, not autoimported
+$rd = &do_query("select row_count()")->[0][0];
+print $rd." rows updated\n";
+
+print "\tproduct_modification_time (picture_high_md5_checksum)... ";
+&do_statement("update product p
+inner join product_modification_time pmt using (product_id)
+set pmt.picture_high_md5_checksum = NULL, pmt.picture_low_md5_checksum = NULL
+where pmt.picture_high_md5_checksum IS NOT NULL
+and pmt.picture_high_md5_checksum != ''
+and (p.high_pic regexp '\\/[[:digit:]]+\\-[[:digit:]]+\\.[[:alpha:]]{3,4}\$' or trim(p.high_pic) = '')"); # high & low checksums = NULL if it is editor-owned product, not autoimported
+$rd = &do_query("select row_count()")->[0][0];
+print $rd." rows updated\n";
+
+print "end\n\n";
+
+&do_statement("drop temporary table if exists tmp_product");
+
+exit(0);

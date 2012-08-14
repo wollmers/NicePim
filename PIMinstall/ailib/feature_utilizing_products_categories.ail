@@ -1,0 +1,47 @@
+{
+name: feature_utilizing_products_categories;
+
+priority: 10;
+verify: feature_id;
+
+authorize_superuser: feature_id,product_id;
+authorize_supereditor: feature_id,product_id;
+authorize_category_manager: feature_id,product_id;
+authorize_editor: feature_id,product_id;
+authorize_supplier: feature_id,product_id;
+authorize_guest: feature_id,product_id;
+authorize_shop: feature_id, product_id;
+
+authorize_submit_superuser: product_id, feature_id;
+authorize_submit_supereditor: product_id, feature_id;
+authorize_submit_category_manager: product_id, feature_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+_resource_feature: select feature_id, v.value, ms.value, measure_name.value
+
+from feature f
+inner join vocabulary v on f.sid = v.sid and v.langid = %%langid%%
+inner join measure m on m.measure_id=f.measure_id
+left  join measure_sign ms on f.measure_id = ms.measure_id and ms.langid = %%langid%%
+inner join vocabulary measure_name on measure_name.sid = m.sid and measure_name.langid = %%langid%%
+
+where f.feature_id = %%feature_id%%
+
+_resource_feature_type: single;
+_mapping_feature: feature_id, name, sign, measure_name;
+
+_resource_feature_cat: select distinct catid, catid from category_feature where feature_id = %%feature_id%%
+_resource_feature_cat_type: multi;
+_resource_feature_cat_key: feature_id;
+_mapping_feature_cat: catid, trace;
+
+format_as_trace_categories: trace;
+trace_tree_select: select catid, vocabulary.value, pcatid from category, vocabulary where category.sid = vocabulary.sid and vocabulary.langid = %%langid%%  and category.catid <> 1
+
+_resource_feature_prod: select value, user_id, product_id, prod_id, name, catid, vocabulary_value from tmp_feature_prod force index (sorting_index) order by vocabulary_value60, name60, value60, prod_id
+_resource_feature_prod_type: multi;
+_resource_feature_prod_key: feature_id;
+_mapping_feature_prod: value, user_id, product_id, prod_id, supplier, catid, cat_name;
+
+}

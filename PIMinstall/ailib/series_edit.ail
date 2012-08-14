@@ -1,0 +1,105 @@
+{
+name: series_edit;
+
+priority: 10;
+
+verify: series_id;
+verify_submit: series_id;
+
+verify_add: yes;
+verify_add_superuser: series_id;
+verify_add_supereditor: series_id;
+verify_add_category_manager: series_id;
+
+verify_deny_guest: yes;
+
+authorize_superuser: series_id;
+authorize_supereditor: series_id;
+authorize_category_manager: series_id;
+authorize_editor: series_id;
+authorize_supplier: series_id;
+authorize_guest: series_id;
+authorize_shop: series_id;
+
+authorize_submit_superuser: series_id;
+authorize_submit_supereditor: series_id;
+authorize_submit_category_manager: series_id;
+
+_resource_series: select ps.series_id, ps.sid, ps.tid, 'stub' from product_series ps, vocabulary v where ps.series_id = %%series_id%% and ps.sid = v.sid and v.langid = %%langid%%;
+_resource_series_type: single;
+_resource_series_key: series_id;
+_mapping_series:  series_id, sid, tid, exchange_series;
+
+format_as_dropdown: exchange_series;
+exchange_series_dropdown_select: select series_id, value from product_series join vocabulary using(sid) where family_id=%%family_id%% and supplier_id=%%supplier_id%% and catid=%%catid%% and langid=%%langid%% and series_id <> %%series_id%%;
+validate_as_define_subst_series: series_id;
+
+table_validate_unique_text: product_series;
+voc_record_id_validate_unique_text:_rotate_record_id_1;
+validate_as_unique_text_voc: _rotate_label_1;
+
+_resource_supplier: select name from supplier where supplier_id = %%supplier_id%%
+_mapping_supplier: supplier_name;
+
+_resource_category: SELECT v.value FROM category c JOIN  vocabulary v USING (sid) WHERE v.langid=%%langid%% AND c.catid=%%catid%%;
+_mapping_category: category_name;
+
+_resource_family: SELECT v.value FROM product_family pf JOIN vocabulary v USING (sid) WHERE v.langid=%%langid%% AND pf.family_id=%%family_id%%;
+_mapping_family: family_name;
+
+_resource_label: select l.langid, v1.value, v.value, v.record_id from vocabulary v, vocabulary v1, product_series ps, language l where ps.series_id = %%series_id%% and ps.sid = v.sid and l.langid = v.langid and v1.langid = %%langid%% and v1.sid = l.sid order by v1.value;
+
+_resource_label_iq: select l.langid, v.value, NULL, NULL from vocabulary v, language l where v.langid = %%langid%% and l.sid = v.sid order by v.value;
+
+_resource_label_type: multi;
+_resource_label_key: sid;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id;
+
+_resource_text: select l.langid, v.value, t.value, t.tex_id from tex t, vocabulary v, product_series ps, language l where ps.series_id = %%series_id%% and ps.tid = t.tid and l.langid = t.langid and v.langid = %%langid%% and v.sid = l.sid order by v.value;
+
+_resource_text_iq: select l.langid, v.value, NULL, NULL from vocabulary v, language l where v.langid = %%langid%% and l.sid = v.sid order by v.value;
+
+_resource_text_type: multi;
+_resource_text_key: tid;
+_mapping_text:  t_langid, language, _rotate_text, _rotate_tex_id;
+
+_insert_sequence: 1,2,3,4,5;
+
+_insert_table_1: sid_index;
+_insert_values_1: dummy;
+_insert_fields_1: dummy;
+_insert_key_1: sid;
+_delete_sequence_1: yes;
+
+_insert_table_2: vocabulary;
+_insert_values_2: sid, _rotate_v_langid, _rotate_label;
+_insert_fields_2: sid, langid, value;
+_rotate_insert_2: label;
+_insert_key_2: record_id;
+_update_key_2: sid;
+_update_sequence_2: yes;
+_delete_sequence_2: yes;
+
+_insert_table_3: tid_index;
+_insert_values_3: dummy;
+_insert_fields_3: dummy;
+_insert_key_3: tid;
+_delete_sequence_3: yes;
+
+_insert_table_4: tex;
+_insert_values_4: tid, _rotate_t_langid, _rotate_text;
+_insert_fields_4: tid, langid, value;
+_rotate_insert_4: text;
+_insert_key_4: tex_id;
+_update_key_4: tid;
+_update_sequence_4: yes;
+_delete_sequence_4: yes;
+
+_insert_table_5: product_series;
+_insert_values_5: sid, tid, supplier_id, catid, family_id;
+_insert_fields_5: sid, tid, supplier_id, catid, family_id;
+_insert_key_5: series_id;
+_update_sequence_5: yes;
+_delete_sequence_5: yes;
+
+}

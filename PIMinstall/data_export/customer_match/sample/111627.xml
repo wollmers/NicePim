@@ -1,0 +1,532 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="111627" Prod_id="6B300S0" ThumbPic="http://www.icecat.biz/thumbs/111627.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/25257.jpg" Name="HDDMax 10 300GB SATA150 7200rpm 1pk bulk" LowPic="http://www.icecat.biz/img/norm/low/111627.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="337" No="40">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="67" No="50">
+         <FeatureGroup ID="2">
+           <Name ID="4861" Value="Disk drive" langid="1"/>
+           <Name ID="4862" Value="Disk drive" langid="2"/>
+           <Name ID="7175" Value="Disk drive" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="66" No="35">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="65" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="128190" URL="http://www.maxtor.com/portal/site/Maxtor/?epi_menuItemID=ba88f6d7cf664718376049b291346068&amp;epi_menuID=976d37cd478c5826433f226075b46068&amp;epi_baseMenuID=976d37cd478c5826433f226075b46068&amp;channelpath=/en_us/Products/ATA%20Hard%20Drives/Desktop/DiamondMax%2010" ShortDesc="HDD DiamondMax 10 300GB SATA150 7200rpm 1pk bulk " langid="1" LongDesc="Based on an integrated, single-chip native SATA solution, DiamondMax 10 drives feature native command queuing along with the companys exclusive dual-processor technology and large buffers to deliver unparalleled speeds compared to traditional drives in their class. This unique set of features combined with Maxtors latest firmware technology, allows the drive to self-balance its workloads for a more efficient hard drive operation. With DiamondMax 10 hard drive-enabled systems, consumers can easily run multiple applications, such as games and music, at the same time without overwhelming the PC. Designed for multimedia PC users, graphic artists, system integrators and white box builders, the 7200 RPM DiamondMax 10 drives are offered in capacities of up to 300GB and are ideal for performance desktop computing storing high-resolution images, multimedia content, and personal and business information. " WarrantyInfo="" PDFURL="http://www.icecat.biz/pdf/1/111627.pdf"/>
+        <ProductFeature ID="9188455" Value="7200" No="200097" CategoryFeatureGroup_ID="67">
+         <Feature ID="1141">
+          <Measure ID="28" Sign="RPM"/>
+           <Name ID="3823" Value="Drive device speed" langid="1"/>
+           <Name ID="3824" Value="Drive device speed" langid="2"/>
+           <Name ID="7895" Value="Drive device speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352652" Value="300" No="10100000" CategoryFeatureGroup_ID="67">
+         <Feature ID="7">
+          <Measure ID="20" Sign="GB"/>
+           <Name ID="1300" Value="Harde schijf drive" langid="2"/>
+           <Name ID="1299" Value="Hard disk drive capacity" langid="1"/>
+           <Name ID="6659" Value="Hard disk drive" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352653" Value="" No="100100" CategoryFeatureGroup_ID="67">
+         <Feature ID="1140">
+          <Measure ID="40" Sign="MB/s"/>
+           <Name ID="3821" Value="Hard disk transfer rate" langid="1"/>
+           <Name ID="3822" Value="Harde schijf overdrachtssnelheid" langid="2"/>
+           <Name ID="7894" Value="Hard disk transfer rate" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352654" Value="" No="100095" CategoryFeatureGroup_ID="67">
+         <Feature ID="29">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="1367" Value="Write Seek" langid="1"/>
+           <Name ID="1368" Value="Write Seek" langid="2"/>
+           <Name ID="6698" Value="Write Seek" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352655" Value="" No="100091" CategoryFeatureGroup_ID="67">
+         <Feature ID="28">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="1365" Value="Read Seek" langid="1"/>
+           <Name ID="1366" Value="Read Seek" langid="2"/>
+           <Name ID="6697" Value="Read Seek" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352656" Value="" No="100085" CategoryFeatureGroup_ID="67">
+         <Feature ID="1163">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="3867" Value="Track to track seek time (read/write)" langid="1"/>
+           <Name ID="3868" Value="Track to track seek time (read/write)" langid="2"/>
+           <Name ID="7917" Value="Track to track seek time (read/write)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352657" Value="Y" No="100080" CategoryFeatureGroup_ID="67">
+         <Feature ID="22">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1345" Value="Internal" langid="1"/>
+           <Name ID="1346" Value="Intern" langid="2"/>
+           <Name ID="6688" Value="Internal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352658" Value="" No="100069" CategoryFeatureGroup_ID="67">
+         <Feature ID="1821">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5631" Value="Cylinders" langid="1"/>
+           <Name ID="5632" Value="Cylinders" langid="2"/>
+           <Name ID="8606" Value="Cylinders" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352659" Value="" No="100089" CategoryFeatureGroup_ID="337">
+         <Feature ID="23">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="1349" Value="Access time" langid="1"/>
+           <Name ID="1350" Value="Toegangstijd" langid="2"/>
+           <Name ID="6690" Value="Access time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352660" Value="4.17" No="100087" CategoryFeatureGroup_ID="337">
+         <Feature ID="1548">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="4817" Value="Average latency" langid="1"/>
+           <Name ID="4818" Value="Gemiddelde latency" langid="2"/>
+           <Name ID="6228" Value="Average latency" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352661" Value="" No="100070" CategoryFeatureGroup_ID="337">
+         <Feature ID="30">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1371" Value="Heads" langid="1"/>
+           <Name ID="1372" Value="Koppen" langid="2"/>
+           <Name ID="6700" Value="Heads" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352662" Value="16" No="100040" CategoryFeatureGroup_ID="337">
+         <Feature ID="27">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1363" Value="Buffer Size" langid="1"/>
+           <Name ID="1364" Value="Omvang buffer" langid="2"/>
+           <Name ID="6696" Value="Buffer Size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352663" Value="" No="100033" CategoryFeatureGroup_ID="337">
+         <Feature ID="606">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2743" Value="Data Transfer Rate" langid="1"/>
+           <Name ID="2744" Value="Overdrachtssnelheid" langid="2"/>
+           <Name ID="7368" Value="Taux de transfert de données" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352664" Value="" No="100013" CategoryFeatureGroup_ID="337">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352665" Value="" No="100011" CategoryFeatureGroup_ID="337">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352666" Value="" No="100000" CategoryFeatureGroup_ID="337">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352667" Value="" No="100000" CategoryFeatureGroup_ID="337">
+         <Feature ID="1447">
+          <Measure ID="20" Sign="GB"/>
+           <Name ID="4438" Value="Opslagcapaciteit" langid="2"/>
+           <Name ID="4437" Value="Storage capacity" langid="1"/>
+           <Name ID="7133" Value="Storage capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352668" Value="" No="100000" CategoryFeatureGroup_ID="337">
+         <Feature ID="1551">
+          <Measure ID="68" Sign="Gbps"/>
+           <Name ID="4825" Value="Data transfer rate" langid="1"/>
+           <Name ID="4826" Value="Overdrachtssnelheid" langid="2"/>
+           <Name ID="8146" Value="Taux de transfert de données" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352669" Value="SATA 150" No="100020" CategoryFeatureGroup_ID="66">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352670" Value="147 x 101.6 x 26.1" No="100005" CategoryFeatureGroup_ID="65">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352671" Value="" No="100000" CategoryFeatureGroup_ID="65">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352672" Value="N" No="9597" CategoryFeatureGroup_ID="67">
+         <Feature ID="52">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1441" Value="External" langid="1"/>
+           <Name ID="1442" Value="Extern" langid="2"/>
+           <Name ID="6733" Value="External" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352673" Value="9" No="649" CategoryFeatureGroup_ID="67">
+         <Feature ID="1139">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="3819" Value="Seek time" langid="1"/>
+           <Name ID="3820" Value="zoektijd" langid="2"/>
+           <Name ID="7893" Value="temps d'accès" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352674" Value="" No="1" CategoryFeatureGroup_ID="67">
+         <Feature ID="1274">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4089" Value="Pin number" langid="1"/>
+           <Name ID="4090" Value="Pin number" langid="2"/>
+           <Name ID="8027" Value="Pin number" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352675" Value="Native Command Queuing\nFluid Dynamic Bearings\nMaxtor Shock Protection System\nMaxtor Data Protection System\n" No="1100" CategoryFeatureGroup_ID="337">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352676" Value="" No="1000" CategoryFeatureGroup_ID="337">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352677" Value="" No="995" CategoryFeatureGroup_ID="337">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352678" Value="0 to 60" No="992" CategoryFeatureGroup_ID="337">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352679" Value="" No="869" CategoryFeatureGroup_ID="337">
+         <Feature ID="920">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3381" Value="Device read/write media compatibility" langid="1"/>
+           <Name ID="3382" Value="Device lees/schrijf-mediacompatibiliteit" langid="2"/>
+           <Name ID="7683" Value="Device read/write media compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352680" Value="" No="868" CategoryFeatureGroup_ID="337">
+         <Feature ID="1142">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3825" Value="Sustained data rate" langid="1"/>
+           <Name ID="3826" Value="Sustained data rate" langid="2"/>
+           <Name ID="7896" Value="Sustained data rate" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352681" Value="" No="705" CategoryFeatureGroup_ID="337">
+         <Feature ID="1144">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3829" Value="Device media compatibility" langid="1"/>
+           <Name ID="3830" Value="Device media compatibility" langid="2"/>
+           <Name ID="7898" Value="Device media compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352682" Value="" No="704" CategoryFeatureGroup_ID="337">
+         <Feature ID="1143">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3827" Value="Drive device operating system support" langid="1"/>
+           <Name ID="3828" Value="Drive device operating system support" langid="2"/>
+           <Name ID="7897" Value="Drive device operating system support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352683" Value="" No="648" CategoryFeatureGroup_ID="337">
+         <Feature ID="1138">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="3817" Value="Storage capacity" langid="1"/>
+           <Name ID="3818" Value="Opslagcapaciteit" langid="2"/>
+           <Name ID="7892" Value="Storage capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352684" Value="" No="50" CategoryFeatureGroup_ID="337">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352685" Value="" No="7" CategoryFeatureGroup_ID="337">
+         <Feature ID="585">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2701" Value="Acoustic Pressure Emissions" langid="1"/>
+           <Name ID="2702" Value="Geluidsdruk" langid="2"/>
+           <Name ID="7347" Value="Pression sonore émise" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352686" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352687" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="610">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2751" Value="Device write media compatibility" langid="1"/>
+           <Name ID="2752" Value="mediacompatibiliteit (schrijven)" langid="2"/>
+           <Name ID="7372" Value="compatibilité de support en écriture" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352688" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352689" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1145">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3831" Value="Drive devices applicable discs" langid="1"/>
+           <Name ID="3832" Value="Drive devices applicable discs" langid="2"/>
+           <Name ID="7899" Value="Drive devices applicable discs" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352690" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1146">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3833" Value="Drive devices applicable disc format" langid="1"/>
+           <Name ID="3834" Value="Drive devices applicable disc format" langid="2"/>
+           <Name ID="7900" Value="Drive devices applicable disc format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352691" Value="3.5" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1147">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="3835" Value="Size" langid="1"/>
+           <Name ID="3836" Value="Maat" langid="2"/>
+           <Name ID="7901" Value="Size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352692" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1148">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3837" Value="Drive device height" langid="1"/>
+           <Name ID="3838" Value="Drive device height" langid="2"/>
+           <Name ID="7902" Value="Drive device height" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352693" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1149">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3839" Value="Drive devices access time (read/write)" langid="1"/>
+           <Name ID="3840" Value="Drive devices access time (read/write)" langid="2"/>
+           <Name ID="7903" Value="Drive devices access time (read/write)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352694" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1150">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3841" Value="Drive device number of plates" langid="1"/>
+           <Name ID="3842" Value="Drive device number of plates" langid="2"/>
+           <Name ID="7904" Value="Drive device number of plates" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352695" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1151">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3843" Value="Drive Devices number of heads" langid="1"/>
+           <Name ID="3844" Value="Drive Devices number of heads" langid="2"/>
+           <Name ID="7905" Value="Drive Devices number of heads" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352696" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1152">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3845" Value="Drive devices bytes per sector" langid="1"/>
+           <Name ID="3846" Value="Drive devices bytes per sector" langid="2"/>
+           <Name ID="7906" Value="Drive devices bytes per sector" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352697" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1153">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3847" Value="Drive devices burst data transfer rate (PIO)" langid="1"/>
+           <Name ID="3848" Value="Drive devices burst data transfer rate (PIO)" langid="2"/>
+           <Name ID="7907" Value="Drive devices burst data transfer rate (PIO)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352698" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1154">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3849" Value="Drive devices burst data transfer rate (DMA)" langid="1"/>
+           <Name ID="3850" Value="Drive devices burst data transfer rate (DMA)" langid="2"/>
+           <Name ID="7908" Value="Drive devices burst data transfer rate (DMA)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352699" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1155">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3851" Value="Drive devices burst data transfer rate (Ultra DMA)" langid="1"/>
+           <Name ID="3852" Value="Drive devices burst data transfer rate (Ultra DMA)" langid="2"/>
+           <Name ID="7909" Value="Drive devices burst data transfer rate (Ultra DMA)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352700" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1156">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3853" Value="Drive devices burst data transfer rate (Multiword DMA)" langid="1"/>
+           <Name ID="3854" Value="Drive devices burst data transfer rate (Multiword DMA)" langid="2"/>
+           <Name ID="7910" Value="Drive devices burst data transfer rate (Multiword DMA)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352701" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1157">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3855" Value="Vendor" langid="1"/>
+           <Name ID="3856" Value="Vendor" langid="2"/>
+           <Name ID="7911" Value="Vendor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352702" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1158">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3857" Value="Data transfer rate (min/max)" langid="1"/>
+           <Name ID="3858" Value="Data-overdrachtssnelheid (min/max)" langid="2"/>
+           <Name ID="7912" Value="Data transfer rate (min/max)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352703" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1159">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3859" Value="Drive device removable (user/service)" langid="1"/>
+           <Name ID="3860" Value="Drive device removable (user/service)" langid="2"/>
+           <Name ID="7913" Value="Drive device removable (user/service)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352704" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1160">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3861" Value="Other Drive Devices" langid="1"/>
+           <Name ID="3862" Value="Other Drive Devices" langid="2"/>
+           <Name ID="7914" Value="Other Drive Devices" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352705" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1161">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3863" Value="Drive devices maximum HDD height" langid="1"/>
+           <Name ID="3864" Value="Drive devices maximum HDD height" langid="2"/>
+           <Name ID="7915" Value="Drive devices maximum HDD height" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352706" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1164">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3869" Value="Drive device maximum speed" langid="1"/>
+           <Name ID="3870" Value="Drive device maximum speed" langid="2"/>
+           <Name ID="7918" Value="Drive device maximum speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352707" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1165">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3871" Value="Data Transfer Rate (max)" langid="1"/>
+           <Name ID="3872" Value="Data Transfer Rate (max)" langid="2"/>
+           <Name ID="7919" Value="Data Transfer Rate (max)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352708" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1464">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4625" Value="Height" langid="1"/>
+           <Name ID="4626" Value="Hoogte" langid="2"/>
+           <Name ID="8271" Value="Height" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352709" Value="" No="0" CategoryFeatureGroup_ID="337">
+         <Feature ID="1677">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="5275" Value="Removable (user/service)" langid="1"/>
+           <Name ID="5276" Value="Verwijderbaar (gebruiker/service)" langid="2"/>
+           <Name ID="8434" Value="Removable (user/service)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352710" Value="" No="55" CategoryFeatureGroup_ID="66">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9352711" Value="" No="0" CategoryFeatureGroup_ID="65">
+         <Feature ID="922">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="3385" Value="Drive device weight" langid="1"/>
+           <Name ID="3386" Value="Drive, gewicht" langid="2"/>
+           <Name ID="7685" Value="Drive device weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="21" Name="Maxtor"/>
+       <Category ID="219">
+         <Name ID="439" Value="hard drives" langid="1"/>
+         <Name ID="440" Value="hard drives" langid="2"/>
+         <Name ID="6292" Value="hard drives" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

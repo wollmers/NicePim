@@ -1,0 +1,83 @@
+#!/usr/bin/perl
+
+#$Id: dump_relations 2318 2010-03-22 17:23:36Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+use atom_misc;
+
+use icecat_util;
+
+use Data::Dumper;
+
+my $map = {
+	'2' => 'SourceIncludeRules',
+	'3' => 'SourceExcludeRules',
+	'4' => 'DestinationIncludeRules',
+	'5' => 'DestinationExcludeRules'
+};
+
+my $exact = {
+	'0' => 'part-of',
+	'1' => 'equal',
+	'2' => 'less',
+	'3' => 'more',
+	'4' => 'non-equal'
+};
+
+$| = 1;
+
+my $out = &xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{'host'}."dtd/ICECAT-relations.dtd\">\n".&source_message()."\n<ICECAT-interface>\n";
+my $out2;
+my $groups = &do_query("select relation_group_id, name, description from relation_group");
+foreach my $group (@$groups) {
+	$out .= &t(1)."<RelationGroup ID=\"".$group->[0]."\" name=\"".&str_xmlize($group->[1])."\" description=\"".&str_xmlize($group->[2])."\">\n";
+	my $relations = &do_query("select relation_id, name, include_set_id, exclude_set_id, include_set_id_2, exclude_set_id_2 from relation where relation_group_id=".$group->[0]);
+	foreach my $relation (@$relations) {
+		my ($rules, $out2);
+		$out2 = '';
+		foreach my $id (2..5) {
+			if ($relation->[$id]) {
+				$rules = &do_query("select rr.relation_rule_id, rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date from relation_rule rr inner join relation_set rs using (relation_rule_id) where rs.relation_set_id=".$relation->[$id]);
+				$out2 .= &t(3)."<".$map->{$id}.">\n";
+				foreach my $rule (@$rules) {
+					$out2 .= &t(4)."<Rule ID=\"".$rule->[0]."\">\n";
+					$out2 .= &t(5)."<Supplier ID=\"".$rule->[1]."\" />\n" if ($rule->[1]);
+					$out2 .= &t(5)."<SupplierFamily ID=\"".$rule->[2]."\" />\n" if (($rule->[2]) && ($rule->[2] != 1));
+					$out2 .= &t(5)."<Category ID=\"".$rule->[3]."\" />\n" if ($rule->[3]);
+					if ($rule->[4] && $rule->[5] ne '') {
+						$out2 .= &t(5)."<Feature ID=\"".$rule->[4]."\" exact=\"".$exact->{$rule->[6]}."\"><![CDATA[".$rule->[5]."]]></Feature>\n";
+					}
+					$out2 .= &t(5)."<Prod_id value=\"".&str_xmlize($rule->[7])."\" />\n" if ($rule->[7]);
+					$out2 .= &t(5)."<Start_date value=\"".&str_xmlize($rule->[8])."\" />\n" if (($rule->[8] ne '0000-00-00') && ($rule->[8]));
+					$out2 .= &t(5)."<End_date value=\"".&str_xmlize($rule->[9])."\" />\n" if (($rule->[9] ne '0000-00-00') && ($rule->[9]));
+					$out2 .= &t(4)."</Rule>\n";
+				}
+				$out2 .= &t(3)."</".$map->{$id}.">\n";
+			}
+		}
+
+		if ($out2) {
+			$out .= &t(2)."<Relation ID=\"".$relation->[0]."\" name=\"".&str_xmlize($relation->[1])."\">\n";
+			$out .= $out2;
+			$out .= "\t\t</Relation>\n";
+		}
+	}
+	$out .= "\t</RelationGroup>\n";
+}
+
+$out .= "</ICECAT-interface>\n";
+
+binmode STDOUT, ":utf8";
+
+print STDOUT $out;
+
+sub t {
+	return "\t" x shift;
+}

@@ -1,0 +1,18 @@
+{
+name: products_complaint_search;
+priority: 10;
+
+_resource_params: select '%%search_userid%%', '%%search_fuserid%%', '%%search_subject%%', '%%search_status_id%%', '%%search_complaint_id%%', '%%search_internal_search%%'
+
+_mapping_params: search_userid, search_fuserid, search_subject, search_status_id, search_complaint_id, search_internal_search;
+
+format_as_internal_complaint_search: search_internal_search;
+format_as_dropdown: search_userid, search_fuserid, search_status_id;
+search_userid_dropdown_select: select DISTINCT product_complaint.user_id, login from users, product_complaint where users.user_id = product_complaint.user_id order by login;
+search_fuserid_dropdown_select: select user_id, login from users order by login
+search_status_id_dropdown_select: select code, value from product_complaint_status as pcs, vocabulary as v where pcs.sid = v.sid and v.langid = 1
+
+verify_deny_guest: yes;
+
+}
+	

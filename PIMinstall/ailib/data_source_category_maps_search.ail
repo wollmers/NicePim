@@ -1,0 +1,13 @@
+{
+name: data_source_category_maps_search;
+priority: 10;
+
+_resource_params: select '%%search_symbol%%', '%%search_cat_name%%', '%%search_distributor_id%%'
+_mapping_params: search_symbol, search_cat_name, search_distributor_id;
+
+_format_as_dropdown: search_distributor_id;
+search_distributor_id_dropdown_select: select distributor_id, name from distributor order by name asc;
+
+verify_deny_guest: yes;
+
+}

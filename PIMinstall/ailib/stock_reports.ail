@@ -1,0 +1,17 @@
+{
+name: stock_reports;
+
+ priority: 100;
+
+_resource_stock_reports: select  sr.stock_report_id, s.name, sr.mail_to, sr.mail_cc, sr.active, sr.time from stock_report sr inner join supplier s using (supplier_id);
+_resource_stock_reports_type: multi;
+_mapping_stock_reports: stock_report_id, supplier_name, mail_to, mail_cc, active, time;
+
+
+format_as_yes_no_text: active;
+
+
+authorize_superuser: stock_report_id;
+authorize_submit_superuser: stock_report_id;
+
+}

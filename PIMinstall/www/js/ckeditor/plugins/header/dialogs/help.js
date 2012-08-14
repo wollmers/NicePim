@@ -1,0 +1,19 @@
+CKEDITOR.dialog.add('drupalhelp', function(editor){
+	return{
+		title:Drupal.t('Help'),
+		minWidth:400,
+		minHeight:230,
+		contents:[{
+			id:'tab1',
+			label:'',
+			title:'',
+			expand:true,
+			padding:0,
+			elements:
+			[{type:'html',
+				id:'content',
+				html:'<div>'+Drupal.t('Help')+'</div>',
+				}]
+		}],buttons:[CKEDITOR.dialog.okButton]
+	};
+});

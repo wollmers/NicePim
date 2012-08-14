@@ -1,0 +1,1039 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="49855" Prod_id="Q5437A" ThumbPic="http://www.icecat.biz/thumbs/49855.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="hp fotopapier, glanzend, A4 (25 vel)" LowPic="http://www.icecat.biz/img/hp/low_res/q5437a.jpg">
+        <ProductRelated ID="551208">
+         <Product ID="1317" Prod_id="C8934A" ThumbPic="http://www.icecat.biz/thumbs/1317.jpg" Name="hp deskjet 845c printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="551158">
+         <Product ID="1318" Prod_id="C6455C" ThumbPic="http://www.icecat.biz/thumbs/1318.jpg" Name="hp deskjet 990cm printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576714">
+         <Product ID="1803" Prod_id="C8426A" ThumbPic="http://www.icecat.biz/thumbs/1803.jpg" Name="hp PSC 750 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576713">
+         <Product ID="1804" Prod_id="C8416A" ThumbPic="http://www.icecat.biz/thumbs/1804.jpg" Name="hp officejet v40 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="551149">
+         <Product ID="1942" Prod_id="C6455A" ThumbPic="http://www.icecat.biz/thumbs/1942.jpg" Name="hp deskjet 990cxi printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="410203">
+         <Product ID="1947" Prod_id="Q1604A" ThumbPic="http://www.icecat.biz/thumbs/1947.jpg" Name="hp photosmart 7150 photo inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="551199">
+         <Product ID="2069" Prod_id="C8925A" ThumbPic="http://www.icecat.biz/thumbs/2069.jpg" Name="hp deskjet 995c printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576715">
+         <Product ID="2076" Prod_id="C8436A" ThumbPic="http://www.icecat.biz/thumbs/2076.jpg" Name="hp psc 950 printer/flatbed fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="410202">
+         <Product ID="2205" Prod_id="C6487C" ThumbPic="http://www.icecat.biz/thumbs/2205.jpg" Name="HP Deskjet 5550 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308214">
+         <Product ID="33567" Prod_id="C8947A" ThumbPic="http://www.icecat.biz/thumbs/33567.jpg" Name="hp deskjet 3420 kleuren-inkjetprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576716">
+         <Product ID="33580" Prod_id="Q1605A" ThumbPic="http://www.icecat.biz/thumbs/33580.jpg" Name="hp photosmart 7550 photo-direct inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="410204">
+         <Product ID="33581" Prod_id="Q1603A" ThumbPic="http://www.icecat.biz/thumbs/33581.jpg" Name="hp photosmart 7350 photo-direct inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308206">
+         <Product ID="33589" Prod_id="C8949A" ThumbPic="http://www.icecat.biz/thumbs/33589.jpg" Name="hp deskjet 3325 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308212">
+         <Product ID="33604" Prod_id="C8959A" ThumbPic="http://www.icecat.biz/thumbs/33604.jpg" Name="hp deskjet 6127 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308213">
+         <Product ID="33605" Prod_id="C8954A" ThumbPic="http://www.icecat.biz/thumbs/33605.jpg" Name="hp deskjet 6122 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308207">
+         <Product ID="35832" Prod_id="Q1679A" ThumbPic="http://www.icecat.biz/thumbs/35832.jpg" Name="hp officejet 5110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308211">
+         <Product ID="35925" Prod_id="Q1638A" ThumbPic="http://www.icecat.biz/thumbs/35925.jpg" Name="hp officejet 6110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308208">
+         <Product ID="47049" Prod_id="C8390A" ThumbPic="http://www.icecat.biz/thumbs/47049.jpg" Name="hp officejet 7110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308210">
+         <Product ID="47050" Prod_id="C8389A" ThumbPic="http://www.icecat.biz/thumbs/47050.jpg" Name="HP Officejet 7130 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308209">
+         <Product ID="47051" Prod_id="C8388A" ThumbPic="http://www.icecat.biz/thumbs/47051.jpg" Name="HP Officejet 7140xi printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576719">
+         <Product ID="47053" Prod_id="Q1609A" ThumbPic="http://www.icecat.biz/thumbs/47053.jpg" Name="hp officejet 4110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="410205">
+         <Product ID="47054" Prod_id="Q3068A" ThumbPic="http://www.icecat.biz/thumbs/47054.jpg" Name="hp psc 2175 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576718">
+         <Product ID="49789" Prod_id="Q1685A" ThumbPic="http://www.icecat.biz/thumbs/49789.jpg" Name="hp fax 1230">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="364640">
+         <Product ID="52141" Prod_id="C8974A" ThumbPic="http://www.icecat.biz/thumbs/52141.jpg" Name="HP Deskjet 3650 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="377372">
+         <Product ID="52142" Prod_id="C8962A" ThumbPic="http://www.icecat.biz/thumbs/52142.jpg" Name="HP Deskjet 5150 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="342861">
+         <Product ID="52602" Prod_id="C8136A" ThumbPic="http://www.icecat.biz/thumbs/52602.jpg" Name="hp deskjet 9300 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="322013">
+         <Product ID="52814" Prod_id="Q3010A" ThumbPic="http://www.icecat.biz/thumbs/52814.jpg" Name="HP Photosmart 7660 photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="326488">
+         <Product ID="52815" Prod_id="Q3015A" ThumbPic="http://www.icecat.biz/thumbs/52815.jpg" Name="HP Photosmart 7760 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="322012">
+         <Product ID="52816" Prod_id="Q3005A" ThumbPic="http://www.icecat.biz/thumbs/52816.jpg" Name="HP Photosmart 7260 photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="364138">
+         <Product ID="53770" Prod_id="C9007A" ThumbPic="http://www.icecat.biz/thumbs/53770.jpg" Name="HP Deskjet 5652 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="334762">
+         <Product ID="53831" Prod_id="Q3020A" ThumbPic="http://www.icecat.biz/thumbs/53831.jpg" Name="HP Photosmart 7960 photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="341449">
+         <Product ID="54890" Prod_id="C8124A" ThumbPic="http://www.icecat.biz/thumbs/54890.jpg" Name="HP Business Inkjet printer 1100d">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="341816">
+         <Product ID="54891" Prod_id="C8135A" ThumbPic="http://www.icecat.biz/thumbs/54891.jpg" Name="HP Business Inkjet printer 1100dtn">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="342791">
+         <Product ID="55555" Prod_id="C8975A" ThumbPic="http://www.icecat.biz/thumbs/55555.jpg" Name="HP Deskjet 5850 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="342790">
+         <Product ID="55559" Prod_id="C8137A" ThumbPic="http://www.icecat.biz/thumbs/55559.jpg" Name="HP Deskjet 9650 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="410206">
+         <Product ID="65045" Prod_id="Q3094A" ThumbPic="http://www.icecat.biz/thumbs/65045.jpg" Name="HP PSC 2510 Photosmart all-in-one printer/flatbed fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="423342">
+         <Product ID="67320" Prod_id="C8138A" ThumbPic="http://www.icecat.biz/thumbs/67320.jpg" Name="HP Deskjet 9670 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="410207">
+         <Product ID="67507" Prod_id="Q3087A" ThumbPic="http://www.icecat.biz/thumbs/67507.jpg" Name="HP PSC 2410 Photosmart">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="423341">
+         <Product ID="67728" Prod_id="Q3501A" ThumbPic="http://www.icecat.biz/thumbs/67728.jpg" Name="HP PSC 1350 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="407453">
+         <Product ID="69723" Prod_id="C8125A" ThumbPic="http://www.icecat.biz/thumbs/69723.jpg" Name="HP Business Inkjet 2300 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="407454">
+         <Product ID="69724" Prod_id="C8126A" ThumbPic="http://www.icecat.biz/thumbs/69724.jpg" Name="HP Business Inkjet 2300n printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="407455">
+         <Product ID="69725" Prod_id="C8127A" ThumbPic="http://www.icecat.biz/thumbs/69725.jpg" Name="HP Business Inkjet 2300dtn printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="423343">
+         <Product ID="69737" Prod_id="C8139A" ThumbPic="http://www.icecat.biz/thumbs/69737.jpg" Name="HP Deskjet 9680 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576720">
+         <Product ID="71712" Prod_id="Q3435A" ThumbPic="http://www.icecat.biz/thumbs/71712.jpg" Name="HP Officejet 5510 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576721">
+         <Product ID="95179" Prod_id="C8140A" ThumbPic="http://www.icecat.biz/thumbs/95179.jpg" Name="HP Officejet 9110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576722">
+         <Product ID="95180" Prod_id="C8143A" ThumbPic="http://www.icecat.biz/thumbs/95180.jpg" Name="HP Officejet 9120 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576723">
+         <Product ID="95181" Prod_id="C8144A" ThumbPic="http://www.icecat.biz/thumbs/95181.jpg" Name="HP Officejet 9130 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576724">
+         <Product ID="95182" Prod_id="Q5601A" ThumbPic="http://www.icecat.biz/thumbs/95182.jpg" Name="HP Officejet 4215 all-in-one printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576725">
+         <Product ID="95183" Prod_id="Q5611A" ThumbPic="http://www.icecat.biz/thumbs/95183.jpg" Name="HP Officejet 4255 all-in-one printer/fax/scanner/copier and phone">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="585828">
+         <Product ID="100485" Prod_id="Y2270A" ThumbPic="http://www.icecat.biz/thumbs/100485.jpg" Name="HP Photosmart 7960gp photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576717">
+         <Product ID="101706" Prod_id="Q1652A" ThumbPic="http://www.icecat.biz/thumbs/101706.jpg" Name="hp psc 1110 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576726">
+         <Product ID="123572" Prod_id="Q5765A" ThumbPic="http://www.icecat.biz/thumbs/123572.jpg" Name="HP PSC 1315 all-in-one printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576729">
+         <Product ID="123645" Prod_id="Q3016A" ThumbPic="http://www.icecat.biz/thumbs/123645.jpg" Name="HP Photosmart 7762 photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576728">
+         <Product ID="128755" Prod_id="Q3409A" ThumbPic="http://www.icecat.biz/thumbs/128755.jpg" Name="HP Photosmart 7450 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576730">
+         <Product ID="128771" Prod_id="Q3399B" ThumbPic="http://www.icecat.biz/thumbs/128771.jpg" Name="HP Photosmart 8150 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576727">
+         <Product ID="130523" Prod_id="Q3388B" ThumbPic="http://www.icecat.biz/thumbs/130523.jpg" Name="HP Photosmart 8450 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="585827">
+         <Product ID="131100" Prod_id="Q5789B" ThumbPic="http://www.icecat.biz/thumbs/131100.jpg" Name="HP PSC 2355 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="585826">
+         <Product ID="134272" Prod_id="Q5569B" ThumbPic="http://www.icecat.biz/thumbs/134272.jpg" Name="HP Officejet 7410 all-in-one printer, fax, scanner, copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="580680">
+         <Product ID="134282" Prod_id="Q5562B" ThumbPic="http://www.icecat.biz/thumbs/134282.jpg" Name="HP Officejet 7310 all-in-one printer, fax, scanner, copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="617587">
+         <Product ID="134872" Prod_id="C8967B" ThumbPic="http://www.icecat.biz/thumbs/134872.jpg" Name="HP Deskjet 6520 Colour Inkjet Printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="589518">
+         <Product ID="134873" Prod_id="Q5552B" ThumbPic="http://www.icecat.biz/thumbs/134873.jpg" Name="HP Photosmart 2710 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="567684">
+         <Product ID="1319" Prod_id="C2693A" ThumbPic="http://www.icecat.biz/thumbs/1319.jpg" Name="hp deskjet 1200C">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="567690">
+         <Product ID="1320" Prod_id="C8100A" ThumbPic="http://www.icecat.biz/thumbs/1320.jpg" Name="hp deskjet 1220c/ps printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573105">
+         <Product ID="1321" Prod_id="C8952A" ThumbPic="http://www.icecat.biz/thumbs/1321.jpg" Name="hp deskjet 3820 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573158">
+         <Product ID="1322" Prod_id="C6436A" ThumbPic="http://www.icecat.biz/thumbs/1322.jpg" Name="hp kleuren-inkjetprinter cp1160">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568730">
+         <Product ID="1325" Prod_id="C8109A" ThumbPic="http://www.icecat.biz/thumbs/1325.jpg" Name="hp business inkjet printer 2600">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568745">
+         <Product ID="1326" Prod_id="C8110A" ThumbPic="http://www.icecat.biz/thumbs/1326.jpg" Name="hp business inkjet printer 2600dn">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573073">
+         <Product ID="1343" Prod_id="C6750A" ThumbPic="http://www.icecat.biz/thumbs/1343.jpg" Name="hp officejet k80 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568715">
+         <Product ID="1672" Prod_id="C8105A" ThumbPic="http://www.icecat.biz/thumbs/1672.jpg" Name="hp kleuren-inkjetprinter cp1700ps">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573027">
+         <Product ID="1680" Prod_id="C8375A" ThumbPic="http://www.icecat.biz/thumbs/1680.jpg" Name="hp officejet d135 all-in-one printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573012">
+         <Product ID="1681" Prod_id="C8377A" ThumbPic="http://www.icecat.biz/thumbs/1681.jpg" Name="hp officejet d145 all-in-one printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568687">
+         <Product ID="1801" Prod_id="C8108A" ThumbPic="http://www.icecat.biz/thumbs/1801.jpg" Name="hp kleuren-inkjetprinter cp1700">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573059">
+         <Product ID="1946" Prod_id="C6737A" ThumbPic="http://www.icecat.biz/thumbs/1946.jpg" Name="hp officejet g85 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572997">
+         <Product ID="2077" Prod_id="C8378A" ThumbPic="http://www.icecat.biz/thumbs/2077.jpg" Name="hp officejet d155xi all-in-one printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="568701">
+         <Product ID="2206" Prod_id="C8106A" ThumbPic="http://www.icecat.biz/thumbs/2206.jpg" Name="hp kleuren-inkjetprinter cp1700d">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="574021">
+         <Product ID="131733" Prod_id="Q5789B#ABU" ThumbPic="http://www.icecat.biz/thumbs/131733.jpg" Name="HP PSC 2355 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="581542">
+         <Product ID="134294" Prod_id="C8154A#ACT" ThumbPic="http://www.icecat.biz/thumbs/134294.jpg" Name="HP Business Inkjet 1200d printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="579455">
+         <Product ID="33597" Prod_id="C8648A" ThumbPic="http://www.icecat.biz/thumbs/33597.jpg" Name="hp psc 2110 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573122">
+         <Product ID="35671" Prod_id="C8957A" ThumbPic="http://www.icecat.biz/thumbs/35671.jpg" Name="hp deskjet 3816 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308222">
+         <Product ID="33604" Prod_id="C8959A" ThumbPic="http://www.icecat.biz/thumbs/33604.jpg" Name="hp deskjet 6127 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="309468">
+         <Product ID="35925" Prod_id="Q1638A" ThumbPic="http://www.icecat.biz/thumbs/35925.jpg" Name="hp officejet 6110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308218">
+         <Product ID="33605" Prod_id="C8954A" ThumbPic="http://www.icecat.biz/thumbs/33605.jpg" Name="hp deskjet 6122 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="310795">
+         <Product ID="33589" Prod_id="C8949A" ThumbPic="http://www.icecat.biz/thumbs/33589.jpg" Name="hp deskjet 3325 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="308130">
+         <Product ID="33567" Prod_id="C8947A" ThumbPic="http://www.icecat.biz/thumbs/33567.jpg" Name="hp deskjet 3420 kleuren-inkjetprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573041">
+         <Product ID="35831" Prod_id="C8373A" ThumbPic="http://www.icecat.biz/thumbs/35831.jpg" Name="hp officejet d125xi all-in-one printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="309112">
+         <Product ID="35832" Prod_id="Q1679A" ThumbPic="http://www.icecat.biz/thumbs/35832.jpg" Name="hp officejet 5110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="576599">
+         <Product ID="39143" Prod_id="Q1662A" ThumbPic="http://www.icecat.biz/thumbs/39143.jpg" Name="hp psc 1210 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="310796">
+         <Product ID="47049" Prod_id="C8390A" ThumbPic="http://www.icecat.biz/thumbs/47049.jpg" Name="hp officejet 7110 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="310798">
+         <Product ID="47051" Prod_id="C8388A" ThumbPic="http://www.icecat.biz/thumbs/47051.jpg" Name="HP Officejet 7140xi printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="310797">
+         <Product ID="47050" Prod_id="C8389A" ThumbPic="http://www.icecat.biz/thumbs/47050.jpg" Name="HP Officejet 7130 printer/fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="587348">
+         <Product ID="47054" Prod_id="Q3068A" ThumbPic="http://www.icecat.biz/thumbs/47054.jpg" Name="hp psc 2175 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="371435">
+         <Product ID="62024" Prod_id="C8962A#358" ThumbPic="http://www.icecat.biz/thumbs/62024.jpg" Name="hp deskjet 5150 kleuren-inkjetprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="423104">
+         <Product ID="52602" Prod_id="C8136A" ThumbPic="http://www.icecat.biz/thumbs/52602.jpg" Name="hp deskjet 9300 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="569738">
+         <Product ID="52140" Prod_id="C8991A" ThumbPic="http://www.icecat.biz/thumbs/52140.jpg" Name="HP Deskjet 3550 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="364151">
+         <Product ID="52142" Prod_id="C8962A" ThumbPic="http://www.icecat.biz/thumbs/52142.jpg" Name="HP Deskjet 5150 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="377371">
+         <Product ID="52141" Prod_id="C8974A" ThumbPic="http://www.icecat.biz/thumbs/52141.jpg" Name="HP Deskjet 3650 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="341277">
+         <Product ID="52814" Prod_id="Q3010A" ThumbPic="http://www.icecat.biz/thumbs/52814.jpg" Name="HP Photosmart 7660 photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="569906">
+         <Product ID="52144" Prod_id="C6490A" ThumbPic="http://www.icecat.biz/thumbs/52144.jpg" Name="HP Deskjet 5650 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="322024">
+         <Product ID="52815" Prod_id="Q3015A" ThumbPic="http://www.icecat.biz/thumbs/52815.jpg" Name="HP Photosmart 7760 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="342905">
+         <Product ID="55555" Prod_id="C8975A" ThumbPic="http://www.icecat.biz/thumbs/55555.jpg" Name="HP Deskjet 5850 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="341327">
+         <Product ID="52816" Prod_id="Q3005A" ThumbPic="http://www.icecat.biz/thumbs/52816.jpg" Name="HP Photosmart 7260 photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="323953">
+         <Product ID="53186" Prod_id="Q3015A#ABW" ThumbPic="http://www.icecat.biz/thumbs/53186.jpg" Name="HP Photosmart 7760 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="341294">
+         <Product ID="53831" Prod_id="Q3020A" ThumbPic="http://www.icecat.biz/thumbs/53831.jpg" Name="HP Photosmart 7960 photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="375502">
+         <Product ID="53770" Prod_id="C9007A" ThumbPic="http://www.icecat.biz/thumbs/53770.jpg" Name="HP Deskjet 5652 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="373077">
+         <Product ID="64118" Prod_id="C8975A#358" ThumbPic="http://www.icecat.biz/thumbs/64118.jpg" Name="HP Deskjet 5850 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="341680">
+         <Product ID="54891" Prod_id="C8135A" ThumbPic="http://www.icecat.biz/thumbs/54891.jpg" Name="HP Business Inkjet printer 1100dtn">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="379851">
+         <Product ID="54890" Prod_id="C8124A" ThumbPic="http://www.icecat.biz/thumbs/54890.jpg" Name="HP Business Inkjet printer 1100d">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="407820">
+         <Product ID="69765" Prod_id="C8139A#ACT" ThumbPic="http://www.icecat.biz/thumbs/69765.jpg" Name="HP Deskjet 9680 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="399387">
+         <Product ID="67337" Prod_id="C8138A#ACT" ThumbPic="http://www.icecat.biz/thumbs/67337.jpg" Name="HP Deskjet 9670 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="341970">
+         <Product ID="55079" Prod_id="C8135A#ACT" ThumbPic="http://www.icecat.biz/thumbs/55079.jpg" Name="hp business inkjet 1100dtn printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="382020">
+         <Product ID="55559" Prod_id="C8137A" ThumbPic="http://www.icecat.biz/thumbs/55559.jpg" Name="HP Deskjet 9650 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="586351">
+         <Product ID="65045" Prod_id="Q3094A" ThumbPic="http://www.icecat.biz/thumbs/65045.jpg" Name="HP PSC 2510 Photosmart all-in-one printer/flatbed fax/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="580900">
+         <Product ID="134276" Prod_id="C8169A" ThumbPic="http://www.icecat.biz/thumbs/134276.jpg" Name="HP Business Inkjet 1200 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="581780">
+         <Product ID="134319" Prod_id="C8156A#ACT" ThumbPic="http://www.icecat.biz/thumbs/134319.jpg" Name="HP Business Inkjet 1200dtwn printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="399308">
+         <Product ID="67320" Prod_id="C8138A" ThumbPic="http://www.icecat.biz/thumbs/67320.jpg" Name="HP Deskjet 9670 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="584100">
+         <Product ID="67507" Prod_id="Q3087A" ThumbPic="http://www.icecat.biz/thumbs/67507.jpg" Name="HP PSC 2410 Photosmart">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="410362">
+         <Product ID="67728" Prod_id="Q3501A" ThumbPic="http://www.icecat.biz/thumbs/67728.jpg" Name="HP PSC 1350 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="423736">
+         <Product ID="69724" Prod_id="C8126A" ThumbPic="http://www.icecat.biz/thumbs/69724.jpg" Name="HP Business Inkjet 2300n printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="423725">
+         <Product ID="69723" Prod_id="C8125A" ThumbPic="http://www.icecat.biz/thumbs/69723.jpg" Name="HP Business Inkjet 2300 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="407194">
+         <Product ID="69737" Prod_id="C8139A" ThumbPic="http://www.icecat.biz/thumbs/69737.jpg" Name="HP Deskjet 9680 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="423747">
+         <Product ID="69725" Prod_id="C8127A" ThumbPic="http://www.icecat.biz/thumbs/69725.jpg" Name="HP Business Inkjet 2300dtn printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="582754">
+         <Product ID="134427" Prod_id="Q5569B#ABW" ThumbPic="http://www.icecat.biz/thumbs/134427.jpg" Name="HP Officejet 7410 All-in-One Printer, Fax, Scanner, Copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573395">
+         <Product ID="131100" Prod_id="Q5789B" ThumbPic="http://www.icecat.biz/thumbs/131100.jpg" Name="HP PSC 2355 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="448487">
+         <Product ID="94168" Prod_id="Q3010A#ABW/KIT" ThumbPic="http://www.icecat.biz/thumbs/94168.jpg" Name="HP Photosmart 7660 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="574879">
+         <Product ID="132153" Prod_id="C8975A#ABP" ThumbPic="http://www.icecat.biz/thumbs/132153.jpg" Name="HP Deskjet 5850 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526479">
+         <Product ID="123729" Prod_id="C8167A#ACT" ThumbPic="" Name="HP Deskjet 9680gp printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="588554">
+         <Product ID="134873" Prod_id="Q5552B" ThumbPic="http://www.icecat.biz/thumbs/134873.jpg" Name="HP Photosmart 2710 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="580810">
+         <Product ID="134274" Prod_id="C8155A" ThumbPic="http://www.icecat.biz/thumbs/134274.jpg" Name="HP Business Inkjet 1200dtn printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="471624">
+         <Product ID="100485" Prod_id="Y2270A" ThumbPic="http://www.icecat.biz/thumbs/100485.jpg" Name="HP Photosmart 7960gp photo printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="477198">
+         <Product ID="102099" Prod_id="Q3020A#ABW/KIT3" ThumbPic="http://www.icecat.biz/thumbs/102099.jpg" Name="HP Photosmart 7960 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="580855">
+         <Product ID="134275" Prod_id="C8154A" ThumbPic="http://www.icecat.biz/thumbs/134275.jpg" Name="HP Business Inkjet 1200d printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="611835">
+         <Product ID="134872" Prod_id="C8967B" ThumbPic="http://www.icecat.biz/thumbs/134872.jpg" Name="HP Deskjet 6520 Colour Inkjet Printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="614452">
+         <Product ID="136054" Prod_id="C9007A#303" ThumbPic="http://www.icecat.biz/thumbs/136054.jpg" Name="hp deskjet 5652 kleuren-inkjetprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="574595">
+         <Product ID="131931" Prod_id="C8962A#357" ThumbPic="http://www.icecat.biz/thumbs/131931.jpg" Name="HP Deskjet 5150 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="495256">
+         <Product ID="110516" Prod_id="Q3015A#ABW/KIT" ThumbPic="http://www.icecat.biz/thumbs/110516.jpg" Name="HP Photosmart 7760 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="495306">
+         <Product ID="110517" Prod_id="Q3010A#ABW/KIT2" ThumbPic="http://www.icecat.biz/thumbs/110517.jpg" Name="HP Photosmart 7660 fotoprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572636">
+         <Product ID="123693" Prod_id="C8963B" ThumbPic="http://www.icecat.biz/thumbs/123693.jpg" Name="HP Deskjet 6540 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="574825">
+         <Product ID="132134" Prod_id="C8975A#353" ThumbPic="http://www.icecat.biz/thumbs/132134.jpg" Name="HP Deskjet 5850 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="574934">
+         <Product ID="133046" Prod_id="C8962A#303" ThumbPic="http://www.icecat.biz/thumbs/133046.jpg" Name="HP Deskjet 5150 colour inkjet printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="581641">
+         <Product ID="134306" Prod_id="C8155A#ACT" ThumbPic="http://www.icecat.biz/thumbs/134306.jpg" Name="HP Business Inkjet 1200dtn printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="588850">
+         <Product ID="134953" Prod_id="Q5569B#ABH" ThumbPic="http://www.icecat.biz/thumbs/134953.jpg" Name="HP Officejet 7410 All-in-One Printer, Fax, Scanner, Copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526426">
+         <Product ID="123697" Prod_id="C8167A" ThumbPic="http://www.icecat.biz/thumbs/123697.jpg" Name="HP Deskjet 9680gp printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="580765">
+         <Product ID="134273" Prod_id="C8156A" ThumbPic="http://www.icecat.biz/thumbs/134273.jpg" Name="HP Business Inkjet 1200dtwn printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572593">
+         <Product ID="123695" Prod_id="C9031B" ThumbPic="http://www.icecat.biz/thumbs/123695.jpg" Name="HP Deskjet 6840 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="571608">
+         <Product ID="122853" Prod_id="C9025A" ThumbPic="http://www.icecat.biz/thumbs/122853.jpg" Name="HP Deskjet 3745 kleureninkjetprinter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="571648">
+         <Product ID="123694" Prod_id="C9037A" ThumbPic="http://www.icecat.biz/thumbs/123694.jpg" Name="HP Deskjet 3845 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572679">
+         <Product ID="125498" Prod_id="C9016B" ThumbPic="http://www.icecat.biz/thumbs/125498.jpg" Name="HP Deskjet 5740 printer">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="573477">
+         <Product ID="131104" Prod_id="Q5789B#ABH" ThumbPic="http://www.icecat.biz/thumbs/131104.jpg" Name="HP PSC 2355 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="588782">
+         <Product ID="134928" Prod_id="Q5552B#ABW" ThumbPic="http://www.icecat.biz/thumbs/134928.jpg" Name="HP Photosmart 2710 All-in-One">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="588642">
+         <Product ID="134898" Prod_id="Q5552B#ABH" ThumbPic="http://www.icecat.biz/thumbs/134898.jpg" Name="HP Photosmart 2710 All-in-One">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="588911">
+         <Product ID="134981" Prod_id="Q3068A#ABD" ThumbPic="http://www.icecat.biz/thumbs/134981.jpg" Name="hp psc 2175 printer/scanner/copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="581187">
+         <Product ID="134272" Prod_id="Q5569B" ThumbPic="http://www.icecat.biz/thumbs/134272.jpg" Name="HP Officejet 7410 all-in-one printer, fax, scanner, copier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="578315">
+         <Product ID="130529" Prod_id="Q5542B" ThumbPic="http://www.icecat.biz/thumbs/130529.jpg" Name="HP Photosmart 2610 all-in-one">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="625150">
+         <Product ID="140316" Prod_id="Q5552B#ABW#*BUNDLE2*" ThumbPic="http://www.icecat.biz/thumbs/140316.jpg" Name="HP Photosmart 2710 All-in-One">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="625218">
+         <Product ID="140441" Prod_id="Q5552B#ABW#*BUNDLE1*" ThumbPic="http://www.icecat.biz/thumbs/140441.jpg" Name="HP Photosmart 2710 All-in-One">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="725" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="54948" URL="" ShortDesc="HP Fotopapier" langid="2" LongDesc="HP Glanzend fotopapier is een voordelig, direct drogend fotopapier met een hoogwaardige glanzende toplaag. Dit stevige (175 gr/m2), enkelzijdige papier is ideaal voor iedereen die fantastische resultaten wil bereiken met een scherp geprijsd product.HP's creatieve projectpapier met een glanzende finish aan één zijde. Afdrukken zien eruit als echte foto's voor creatieve projecten.HP Glanzend fotopapier, 175 gr/m², A4, 25 velHP's creatieve projectpapier met een glanzende finish aan één zijde. Afdrukken die eruit zien als echte foto's, voor creatieve projecten. HP Fotopapier is stevig papier van 175 gr/m2 met een glanzende zijde voor foto's en een matte zijde voor tekst. Helderwit papier waarop kleuren en tekst eruit springen Het is ideaal voor kalenders, schoolrapporten, plakboeken en andere fotoprojecten.HP Fotopapier is een voordelig, direct drogend fotopapier met een hoogwaardige glanzende toplaag." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="55112" URL="" ShortDesc="HP Photo Paper" langid="1" LongDesc="HP's creative project paper with a glossy finish on one side. It gives the look of professional-quality photos for creative projects.HP Photo Paper, Glossy is a value for money, instant-drying photo paper with a high quality glossy finish. This sturdy (175 g/m2), one-sided paper is ideal for people wanting to achieve great results from a competitively priced product.HP Photo Paper, Glossy, 175 g/m², A4, 25 sheetsHP's creative project paper with a glossy finish on one side. It gives the look of professional-quality photos for creative projects. HP Photo Paper is a sturdy 175 g/m2 paper with a glossy side for images and a matt side for text. Colours and text stand out on the bright white paper. It is ideal for calendars, school reports, scrapbooks and other photo projects.HP Photo Paper is a value for money, instant-drying photo paper with a high quality glossy finish." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="156214" URL="http://www.hp.com/cgi-bin/cposupport/loc/mkSession.cgi?LC=FR&amp;CC=BE&amp;PN=Q5437A" ShortDesc="Papier photo HP à finition brillante, 175 g/m2, A4, 25 feuilles" langid="3" LongDesc="Un papier HP pour projets créatifs avec une finition brillante sur une face. Il confère à vos projets créatifs l'aspect de véritables photos professionnelles. Le Papier photo HP est un papier robuste de 175 g/m2 avec une face brillante pour les images et une face mate pour les textes. Les couleurs et le texte sont mis en valeur par le papier blanc brillant. Il est idéal pour les calendriers, rapports scolaires, albums photo et autres projets à base de photos." WarrantyInfo="Garantie de 90 jours, remplacement des produits défectueux par le fabricant&lt;BR&gt;\n" PDFURL=""/>
+        <ProductFeature ID="3532196" Value="5 to 95% RH" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3532195" Value="20 to 80% RH" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3532197" Value="15 to 35° C" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3532198" Value="0 - 40" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="3532194" Value="0.27" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4151275" Value="232 x 14.3 x 314 mm" No="100000" CategoryFeatureGroup_ID="725">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483094" Value="330 x 162 x 238 mm" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="751">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3033" Value="Case or Master Carton Dimensions (W x D x H)" langid="1"/>
+           <Name ID="3034" Value="Afmetingen doos of mastercarton (B x D x H)" langid="2"/>
+           <Name ID="7511" Value="Case or Master Carton Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483100" Value="10" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="777">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3085" Value="Case or Master Carton Quantity" langid="1"/>
+           <Name ID="3086" Value="Inhoud doos of mastercarton" langid="2"/>
+           <Name ID="7537" Value="Quantité dans la caisse ou le carton grand format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483103" Value="4 kg" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="486">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="2503" Value="Case or Master Carton Weight" langid="1"/>
+           <Name ID="2504" Value="Gewicht doos of mastercarton" langid="2"/>
+           <Name ID="7248" Value="Case or Master Carton Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483095" Value="not applicable" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="487">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2505" Value="Larger Master Carton Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2506" Value="Afmetingen groot mastercarton (B x D x H)" langid="2"/>
+           <Name ID="7249" Value="Larger Master Carton Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483101" Value="not applicable" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="586">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2703" Value="Larger Master Carton Quantity" langid="1"/>
+           <Name ID="2704" Value="Inhoud groot mastercarton" langid="2"/>
+           <Name ID="7348" Value="Quantité du carton grand format le plus important" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483104" Value="not applicable" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="704">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2939" Value="Larger Master Carton Weight" langid="1"/>
+           <Name ID="2940" Value="Gewicht groot mastercarton" langid="2"/>
+           <Name ID="7464" Value="Larger Master Carton Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483105" Value="0.35 kg" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483096" Value="0 x 0 x 0 mm" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2591" Value="Pallet Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2592" Value="Afmetingen pallet (B x D x H)" langid="2"/>
+           <Name ID="7292" Value="Pallet Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483102" Value="400" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="732">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2995" Value="Quantity per Pallet" langid="1"/>
+           <Name ID="2996" Value="Aantal per pallet" langid="2"/>
+           <Name ID="7492" Value="Quantité par palette" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483098" Value="210 x 297 mm" No="100000" CategoryFeatureGroup_ID="725">
+         <Feature ID="1682">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5301" Value="Media size (1 slide)" langid="1"/>
+           <Name ID="5302" Value="Media-afmetingen (1 vel)" langid="2"/>
+           <Name ID="8447" Value="Media size (1 slide)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483093" Value="10" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="1679">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5295" Value="Number of cartons per pallet" langid="1"/>
+           <Name ID="5296" Value="Aantal dozen per pallet" langid="2"/>
+           <Name ID="8444" Value="Number of cartons per pallet" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483097" Value="4" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="1680">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5297" Value="Number of layers per pallet" langid="1"/>
+           <Name ID="5298" Value="Aantal lagen per pallet" langid="2"/>
+           <Name ID="8445" Value="Number of layers per pallet" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="4483099" Value="175 gr/m²" No="100000" CategoryFeatureGroup_ID="725">
+         <Feature ID="1692">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5321" Value="Weight printer media" langid="1"/>
+           <Name ID="5322" Value="Gewicht printermedia" langid="2"/>
+           <Name ID="8457" Value="Weight printer media" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6458429" Value="270" No="100000" CategoryFeatureGroup_ID="725">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9743017" Value="25" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2012">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9029" Value="Media sheets per package" langid="1"/>
+           <Name ID="9030" Value="Nombre de feuilles de support par boîte" langid="3"/>
+           <Name ID="9031" Value="Aantal vel per pak" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9227212" Value="183 kg" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="513">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2557" Value="Pallet Weight" langid="1"/>
+           <Name ID="2558" Value="Gewicht pallet" langid="2"/>
+           <Name ID="7275" Value="Pallet Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9743012" Value="86" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2044">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9128" Value="Printing material brightness" langid="1"/>
+           <Name ID="9129" Value="Luminosité du support d'impression" langid="3"/>
+           <Name ID="9130" Value="Helderheid printermedia" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9743016" Value="96%" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2048">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9140" Value="Printing material opacity" langid="1"/>
+           <Name ID="9141" Value="Opacité" langid="3"/>
+           <Name ID="9142" Value="Ondoorzichtigheid" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9743013" Value="10-20 HU" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2050">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9146" Value="Printing material smoothness" langid="1"/>
+           <Name ID="9147" Value="Lissé" langid="3"/>
+           <Name ID="9148" Value="Soepelheid" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9743010" Value="109" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2052">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9152" Value="Printing material whiteness" langid="1"/>
+           <Name ID="9153" Value="Blancheur" langid="3"/>
+           <Name ID="9154" Value="Witheid" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9743011" Value="4" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2065">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9191" Value="Stacking number for carton" langid="1"/>
+           <Name ID="9192" Value="Nombre de cartons par pile" langid="3"/>
+           <Name ID="9193" Value="Aantal items voor carton" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9743014" Value="216 m thick&lt;br&gt;\n 175 g/m2" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2143">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9609" Value="Technical features" langid="1"/>
+           <Name ID="9610" Value="Technical features" langid="3"/>
+           <Name ID="9611" Value="Technical features" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9753568" Value="3 08 08736-59724 2" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2153">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9642" Value="Pallet bar-code" langid="1"/>
+           <Name ID="9643" Value="Pallet bar-code" langid="3"/>
+           <Name ID="9644" Value="Pallet bar-code" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9753569" Value="1 08 08736-59724 8" No="0" CategoryFeatureGroup_ID="725">
+         <Feature ID="2151">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9636" Value="Smaller master carton bar-code" langid="1"/>
+           <Name ID="9637" Value="Smaller master carton bar-code" langid="3"/>
+           <Name ID="9638" Value="Smaller master carton bar-code" langid="2"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="847">
+         <Name ID="4748" Value="fotografisch papier" langid="2"/>
+         <Name ID="4747" Value="photographic paper" langid="1"/>
+         <Name ID="8225" Value="papier photographique" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

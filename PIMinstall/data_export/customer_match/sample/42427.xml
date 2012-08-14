@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="42427" Prod_id="PA492E" ThumbPic="http://www.icecat.biz/thumbs/42427.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/42427.jpg" Name="Targus DEFCON VPCL- Video Port Combination Lock" LowPic="http://www.icecat.biz/img/norm/low/42427.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="699" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="45165" URL="" ShortDesc="Targus DEFCON VPCL- Video Port Combination Lock" langid="1" LongDesc="Deter would-be thieves by attaching DEFCON VPCL securely to the video port on a desktop or notebook computer. Includes 6.5 feet of vinyl-coated, stainless steel cable and offers up to 10,000 user-settable combinations in a tamper-resistant lock patented pass-through video port cable design allows access to monitor or projector. Includes a screw lock for PC case. \nDeters potential thieves by attaching securely to the video port on most desktop and ntoebook computers, LCD monitors or projectors \nOne of the strongest security locking devices available today \nPatent pending pass-through video port cable design allows access to monitor or projector \nUp to 10,000 user-settable combinations in a tamper-resistant lock \n6.5 feet of vinyl-coated, stainless steel cable " WarrantyInfo="Limited One Year Warranty " PDFURL=""/>
+        <ProductFeature ID="5943234" Value="Video Port Lock-16.4x33.3x67.8" No="100000" CategoryFeatureGroup_ID="699">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943235" Value="" No="100000" CategoryFeatureGroup_ID="699">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943236" Value="23.4" No="100000" CategoryFeatureGroup_ID="699">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943237" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="248">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1863" Value="Security features" langid="1"/>
+           <Name ID="1864" Value="Beveiligingseigenschappen" langid="2"/>
+           <Name ID="6940" Value="Security features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943238" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="874">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3289" Value="PC Card Type" langid="1"/>
+           <Name ID="3290" Value="PC Card Type" langid="2"/>
+           <Name ID="7637" Value="PC Card Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943239" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="875">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3291" Value="PC Card network connection" langid="1"/>
+           <Name ID="3292" Value="PC Card network connection" langid="2"/>
+           <Name ID="7638" Value="PC Card network connection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943240" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="876">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3293" Value="PC Card Connector" langid="1"/>
+           <Name ID="3294" Value="PC Card Connector" langid="2"/>
+           <Name ID="7639" Value="PC Card Connector" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943241" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="877">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3295" Value="PC Card standards" langid="1"/>
+           <Name ID="3296" Value="PC Card standards" langid="2"/>
+           <Name ID="7640" Value="PC Card standards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943242" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="878">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3297" Value="PC Card Data modes" langid="1"/>
+           <Name ID="3298" Value="PC Card Data modes" langid="2"/>
+           <Name ID="7641" Value="PC Card Data modes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943243" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="879">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3299" Value="PC Card Fax modes" langid="1"/>
+           <Name ID="3300" Value="PC Card Fax modes" langid="2"/>
+           <Name ID="7642" Value="PC Card Fax modes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943244" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="880">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3301" Value="PC Card error corrections" langid="1"/>
+           <Name ID="3302" Value="PC Card error corrections" langid="2"/>
+           <Name ID="7643" Value="PC Card error corrections" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943245" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="881">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3303" Value="PC Card data compression" langid="1"/>
+           <Name ID="3304" Value="PC Card data compression" langid="2"/>
+           <Name ID="7644" Value="PC Card data compression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943246" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="882">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3305" Value="PC Card Command set" langid="1"/>
+           <Name ID="3306" Value="PC Card Command set" langid="2"/>
+           <Name ID="7645" Value="PC Card Command set" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943247" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="883">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3307" Value="PC Card Dialling/receiving" langid="1"/>
+           <Name ID="3308" Value="PC Card Dialling/receiving" langid="2"/>
+           <Name ID="7646" Value="PC Card Dialling/receiving" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943248" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="884">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3309" Value="Countries supported" langid="1"/>
+           <Name ID="3310" Value="Countries supported" langid="2"/>
+           <Name ID="7647" Value="Countries supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943249" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="885">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3311" Value="GSM phone supported" langid="1"/>
+           <Name ID="3312" Value="GSM phone supported" langid="2"/>
+           <Name ID="7648" Value="GSM phone supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943250" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="886">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3313" Value="PC Card BRI(Basic Rate Interface) IS" langid="1"/>
+           <Name ID="3314" Value="PC Card BRI(Basic Rate Interface) IS" langid="2"/>
+           <Name ID="7649" Value="PC Card BRI(Basic Rate Interface) IS" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943251" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="887">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3315" Value="PC Card B channel protocol" langid="1"/>
+           <Name ID="3316" Value="PC Card B channel protocol" langid="2"/>
+           <Name ID="7650" Value="PC Card B channel protocol" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943252" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="888">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3317" Value="PC Card D channel protocols" langid="1"/>
+           <Name ID="3318" Value="PC Card D channel protocols" langid="2"/>
+           <Name ID="7651" Value="PC Card D channel protocols" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943253" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="889">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3319" Value="PC Card analogue functionality" langid="1"/>
+           <Name ID="3320" Value="PC Card analogue functionality" langid="2"/>
+           <Name ID="7652" Value="PC Card analogue functionality" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943254" Value="Locks onto any desktop computer or notebook computer with a video port " No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943255" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="891">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3323" Value="Group 3 faxing" langid="1"/>
+           <Name ID="3324" Value="Group 3 faxing" langid="2"/>
+           <Name ID="7654" Value="Group 3 faxing" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943256" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="892">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3325" Value="CAPI support" langid="1"/>
+           <Name ID="3326" Value="CAPI support" langid="2"/>
+           <Name ID="7655" Value="CAPI support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943257" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943258" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="894">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3329" Value="PC Cards power requirements" langid="1"/>
+           <Name ID="3330" Value="PC Cards power requirements" langid="2"/>
+           <Name ID="7657" Value="PC Cards power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943259" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="895">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3331" Value="PC Card software compatibility" langid="1"/>
+           <Name ID="3332" Value="PC Card software compatibility" langid="2"/>
+           <Name ID="7658" Value="PC Card software compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943260" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="896">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3333" Value="PC Card hardware compatibility" langid="1"/>
+           <Name ID="3334" Value="PC Card hardware compatibility" langid="2"/>
+           <Name ID="7659" Value="PC Card hardware compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943261" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="897">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3335" Value="PC Card power management" langid="1"/>
+           <Name ID="3336" Value="PC Card power management" langid="2"/>
+           <Name ID="7660" Value="PC Card power management" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943262" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1193">
+          <Measure ID="37" Sign="Ghz"/>
+           <Name ID="3927" Value="Bluetooth / PC Card frequency band" langid="1"/>
+           <Name ID="3928" Value="Bluetooth / PC Card frequency band" langid="2"/>
+           <Name ID="7947" Value="Bluetooth / PC Card frequency band" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943263" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1198">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3937" Value="Wireless LAN standard" langid="1"/>
+           <Name ID="3938" Value="Wireless LAN standard" langid="2"/>
+           <Name ID="7952" Value="Wireless LAN standard" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943264" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1332">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4205" Value="PC Card format" langid="1"/>
+           <Name ID="4206" Value="PC Card format" langid="2"/>
+           <Name ID="8083" Value="PC Card format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943265" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1333">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4207" Value="PC Card operating system support" langid="1"/>
+           <Name ID="4208" Value="PC Card operating system support" langid="2"/>
+           <Name ID="8084" Value="PC Card operating system support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943266" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1334">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4209" Value="PC Card fundamental factors of accurancy" langid="1"/>
+           <Name ID="4210" Value="PC Card fundamental factors of accurancy" langid="2"/>
+           <Name ID="8085" Value="PC Card fundamental factors of accurancy" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943267" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1396">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4333" Value="Locking mechanics" langid="1"/>
+           <Name ID="4334" Value="Locking mechanics" langid="2"/>
+           <Name ID="8147" Value="Locking mechanics" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943268" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1397">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4335" Value="Cable lens" langid="1"/>
+           <Name ID="4336" Value="Cable lens" langid="2"/>
+           <Name ID="8148" Value="Cable lens" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943269" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1398">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4337" Value="Security power" langid="1"/>
+           <Name ID="4338" Value="Security power" langid="2"/>
+           <Name ID="8149" Value="Security power" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943270" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1399">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4339" Value="Alarm decibels" langid="1"/>
+           <Name ID="4340" Value="Alarm decibels" langid="2"/>
+           <Name ID="8150" Value="Alarm decibels" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5943271" Value="" No="0" CategoryFeatureGroup_ID="699">
+         <Feature ID="1401">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4343" Value="Other security software included" langid="1"/>
+           <Name ID="4344" Value="Other security software included" langid="2"/>
+           <Name ID="8151" Value="Other security software included" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="128" Name="Targus"/>
+       <Category ID="818">
+         <Name ID="4565" Value="Lock sets" langid="1"/>
+         <Name ID="4566" Value="Sloten" langid="2"/>
+         <Name ID="8250" Value="Lock sets" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

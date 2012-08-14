@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+
+#CLEAR REPOSITORY FROM NOT-EDITORS PRODCUTS
+
+use lib '/home/pim/lib';
+use atomsql;
+use atomlog;
+use atomcfg;
+use atom_misc;
+
+my $xml_dir = $atomcfg{'xml_dir_path'};
+
+my $cnt = 0;
+opendir(DIR, $xml_dir) or die "can't opendir $xml_dir: $!";
+while (defined($file = readdir(DIR))) {
+
+ $file =~ /^(\d+)\.xml$/;
+ my $product_id = $1;
+ my $user_group = &do_query("select user_group from product as p, users as u where product_id = $product_id and p.user_id = u.user_id")->[0][0];
+ my $level = &get_quality_index(get_quality_measure($user_group));
+ if(($level == 0)||(!$level)) { #not editors product
+	print "\n".$atomcfg{'xml_dir_path'}.$file."\t$product_id";
+	my $cmd = "rm ".$atomcfg{'xml_dir_path'}.$file;
+	`$cmd`;
+	$cnt++;
+ }
+
+}
+closedir(DIR);
+
+print "\n\nTOTAL xml files deleted: $cnt\n";

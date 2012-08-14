@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="73230" Prod_id="P9611A#ABB" ThumbPic="http://www.icecat.biz/thumbs/73230.jpg" Code="1" Quality="SUPPLIER" HighPic="http://www.icecat.biz/img/norm/high/73230.jpg" Name="HP Pavilion v72" LowPic="http://www.icecat.biz/img/norm/low/73230.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="339" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="813" No="45">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="814" No="50">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1246" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1247" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="815" No="44">
+         <FeatureGroup ID="36">
+           <Name ID="5181" Value="Color" langid="1"/>
+           <Name ID="5182" Value="Kleur" langid="2"/>
+           <Name ID="8394" Value="Color" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="816" No="40">
+         <FeatureGroup ID="37">
+           <Name ID="5183" Value="Display resolution" langid="1"/>
+           <Name ID="5184" Value="Beeldschermresolutie" langid="2"/>
+           <Name ID="8395" Value="Display resolution" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="84506" URL="" ShortDesc="HP v72" langid="1" LongDesc="17&amp;quot; CRT monitor with two separate speakers" WarrantyInfo="Limited one-year part and repair labour warranty (certain restrictions and exclusions apply)" PDFURL=""/>
+        <ProductDescription ID="84507" URL="" ShortDesc="HP v72" langid="2" LongDesc="17-inch CRT monitor met twee afzonderlijke luidsprekers" WarrantyInfo="Een jaar garantie op onderdelen en reparatie-arbeid. Bepaalde beperkingen en uitsluitingen zijn van toepassing." PDFURL=""/>
+        <ProductFeature ID="5744835" Value="Trio dot-pitch: 0.28 mm, Horizontale dot-pitch: 0.24 mm" No="100002" CategoryFeatureGroup_ID="813">
+         <Feature ID="32">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1377" Value="Pixel pitch" langid="1"/>
+           <Name ID="1378" Value="Pixel pitch" langid="2"/>
+           <Name ID="6703" Value="Pixel pitch" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744837" Value="Hor. sync-bereik: 30 ~ 70 kHz, Vert. sync-bereik: 50 ~ 140 Hz" No="103000" CategoryFeatureGroup_ID="813">
+         <Feature ID="35">
+          <Measure ID="31" Sign="KHz"/>
+           <Name ID="1387" Value="Horizontal scan range" langid="1"/>
+           <Name ID="1388" Value="Horizontale scan range" langid="2"/>
+           <Name ID="6708" Value="Horizontal scan range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744849" Value="17.2" No="10" CategoryFeatureGroup_ID="814">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744847" Value="410 x 432 x 445 mm" No="100040" CategoryFeatureGroup_ID="814">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744836" Value="1024 x 768 bij 85 Hz (aanbevolen)" No="10106347" CategoryFeatureGroup_ID="813">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744832" Value="Cathodic Ray Tube" No="100001" CategoryFeatureGroup_ID="813">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744838" Value="17" No="10117386" CategoryFeatureGroup_ID="813">
+         <Feature ID="15">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="1321" Value="Display size" langid="1"/>
+           <Name ID="1322" Value="Afmetingen scherm" langid="2"/>
+           <Name ID="6678" Value="Taille de l'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744839" Value="Curved Cathodic Ray Tube" No="17387" CategoryFeatureGroup_ID="339">
+         <Feature ID="822">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3175" Value="Surface treatment" langid="1"/>
+           <Name ID="3176" Value="Oppervlaktebewerking" langid="2"/>
+           <Name ID="7581" Value="Surface treatment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744842" Value="Contrast, helderheid, formaat en positionering, pincushion, trapezoïde, pincushion balans, parallellogram, kantelen (rotatie), moiré, degauss, kleurtemperatuur, reset, afsluiten" No="100045" CategoryFeatureGroup_ID="339">
+         <Feature ID="489">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2509" Value="User controls" langid="1"/>
+           <Name ID="2510" Value="Gebruikersknoppen" langid="2"/>
+           <Name ID="7251" Value="User controls" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744845" Value="Ja" No="17391" CategoryFeatureGroup_ID="339">
+         <Feature ID="775">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3081" Value="Plug and Play" langid="1"/>
+           <Name ID="3082" Value="plug-en-play" langid="2"/>
+           <Name ID="7535" Value="plug and play" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744834" Value="15-pins D-Sub VGA connector" No="100061" CategoryFeatureGroup_ID="339">
+         <Feature ID="560">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2651" Value="Input signal" langid="1"/>
+           <Name ID="2652" Value="Ingangssignaal" langid="2"/>
+           <Name ID="7322" Value="Input signal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744829" Value="met twee satellietluidsprekers" No="100055" CategoryFeatureGroup_ID="339">
+         <Feature ID="442">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2251" Value="Sound system" langid="1"/>
+           <Name ID="2252" Value="Audiosysteem" langid="2"/>
+           <Name ID="7134" Value="Sound system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744843" Value="15-pins mini D-SUB" No="728" CategoryFeatureGroup_ID="339">
+         <Feature ID="1371">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="4283" Value="Monitor video input signal" langid="1"/>
+           <Name ID="4284" Value="Monitor video input signal" langid="2"/>
+           <Name ID="8122" Value="Monitor video input signal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744852" Value="25 - 60" No="739" CategoryFeatureGroup_ID="1247">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744855" Value="CE-, TÜV-GS-, TCO 03-compatibele modellen, Energy Star-compatibel, Microsoft WHQL certificaat, goedkeuring volgens de ISO 9241-3, -7, -8 VOT richtlijnen" No="50" CategoryFeatureGroup_ID="339">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744833" Value="Echte kleur (16.7 miljoen)" No="100070" CategoryFeatureGroup_ID="815">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744851" Value="10° tot 35°C, 20% tot 80% relatieve luchtvochtigheid, niet-condenserend" No="0" CategoryFeatureGroup_ID="1247">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744846" Value="Max. 100 W aan, minder dan 5 W in powersave modus of uit" No="0" CategoryFeatureGroup_ID="1246">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744841" Value="Cathodic Ray Tube" No="0" CategoryFeatureGroup_ID="339">
+         <Feature ID="1520">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4760" Value="Type scherm" langid="2"/>
+           <Name ID="4759" Value="Display type" langid="1"/>
+           <Name ID="8217" Value="Type d'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744853" Value="tot 1280 x 1024 bij 60 Hz" No="0" CategoryFeatureGroup_ID="816">
+         <Feature ID="1604">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4971" Value="Recommended resolution" langid="1"/>
+           <Name ID="4972" Value="Aanbevolen resolutie" langid="2"/>
+           <Name ID="6580" Value="Recommended resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744831" Value="CE, TUV-GS, TCO 03 compliant models, Energy Star Compliant, Microsoft WHQL certified, ISO 9241-3, -7, -8 VOT guidelines approval" No="0" CategoryFeatureGroup_ID="339">
+         <Feature ID="793">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3117" Value="Compliance Industry Standards" langid="1"/>
+           <Name ID="3118" Value="Standaard" langid="2"/>
+           <Name ID="7553" Value="Compliance Industry Standards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744848" Value="495 x 560 x 528 mm" No="0" CategoryFeatureGroup_ID="339">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744850" Value="20.5 kg" No="0" CategoryFeatureGroup_ID="814">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744840" Value="Polished glass, anti glare antistatic" No="100000" CategoryFeatureGroup_ID="339">
+         <Feature ID="1694">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5325" Value="Faceplate treatment" langid="1"/>
+           <Name ID="5326" Value="Faceplate treatment" langid="2"/>
+           <Name ID="8459" Value="Faceplate treatment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744830" Value="2 Harman Kardon satellietluidsprekers met subwooferconnector en volumeknop, 3 W RMS per kanaal bij 10% totale harmonische vervorming (THD)" No="0" CategoryFeatureGroup_ID="339">
+         <Feature ID="1695">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5327" Value="Speakers and microphone" langid="1"/>
+           <Name ID="5328" Value="Luidprekers en microfoon" langid="2"/>
+           <Name ID="8460" Value="Haut-parleurs et micro" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744844" Value="15-pins mini D-SUB, vast, 1.8 meter" No="100000" CategoryFeatureGroup_ID="339">
+         <Feature ID="1594">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4945" Value="Video in" langid="1"/>
+           <Name ID="4946" Value="Video in" langid="2"/>
+           <Name ID="6607" Value="Video in" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5744854" Value="110 MHz" No="0" CategoryFeatureGroup_ID="339">
+         <Feature ID="1835">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5663" Value="Maximum pixel rate" langid="1"/>
+           <Name ID="5664" Value="Maximum pixelfrequentie" langid="2"/>
+           <Name ID="8622" Value="Maximum pixel rate" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="221">
+         <Name ID="443" Value="monitors CRT" langid="1"/>
+         <Name ID="444" Value="monitoren CRT" langid="2"/>
+         <Name ID="6294" Value="moniteurs CRT" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

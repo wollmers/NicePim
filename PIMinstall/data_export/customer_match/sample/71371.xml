@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="71371" Prod_id="51MZ0010AA003" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="MT1200" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="301" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1036" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="81482" URL="" ShortDesc="MT1200 FLOORSTAND PAIR                  ML (NMS)" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="45" Name="Creative Labs"/>
+       <Category ID="183">
+         <Name ID="367" Value="audio and visual accessories" langid="1"/>
+         <Name ID="368" Value="audiovisuele accessoires" langid="2"/>
+         <Name ID="6257" Value="audio and visual accessories" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,18 @@
+{
+name: user_authorities;
+priority: 10;
+
+_resource_user: select users.user_id, login, user_group, 'dummy', password from users  where user_id = %%edit_user_id%%
+_resource_user_type: single;
+_resource_user_key: edit_user_id;
+_mapping_user: edit_user_id, login, user_group, cnt, password;
+
+_resource_auth: select user_authority_id, user_id, catid, supplier_id, right from user_authority where user_id = %%edit_user_id%%  limit %%start_row%%,%%rows_number%%
+_resource_auth_type: multi;
+_resource_auth_key: edit_user_id;
+_mapping_auth: user_authority_id, edit_user_id, catid, supplier_id, right;
+
+format_as_supplier: supplier_id;
+format_as_category: catid;
+
+}

@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="53878" Prod_id="EB1T97" ThumbPic="http://www.icecat.biz/thumbs/53878.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/53878.jpg" Name="CD Case Mach 2 32CD" LowPic="http://www.icecat.biz/img/norm/low/53878.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="702" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1289" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="880" No="0">
+         <FeatureGroup ID="36">
+           <Name ID="5181" Value="Color" langid="1"/>
+           <Name ID="5182" Value="Kleur" langid="2"/>
+           <Name ID="8394" Value="Color" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="60898" URL="http://www.targus.com/uk/product_details.asp?sku=EB1T97" ShortDesc="CD Case 32 Mach 2" langid="1" LongDesc="The Mach2 CD cases incorporate powerful design elements in a no-nonsense CD case. Whatever the size of your CD or CD ROM collection, Mach 2 cases streamline the entire package with efficiency and style. This case holds up to 32 CDs or 16 with booklets. The product features the patented CD Projects clipping system, allowing you to snap individual sleeves in and out of this and other CD Projects products for easy organisation and transport. \nHolds 32 CDs or 16 with booklets .\nPatented BubbleSleeves protect your CD's &amp; reduce surface contact .\nPatented clipping system allows quick and easy transfer of CDs between home units and portable cases .\nAll CDProjects cases are guaranteed for life ." WarrantyInfo="Lifetime " PDFURL=""/>
+        <ProductFeature ID="6541481" Value="0.25" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541482" Value="165 x 180 x 50 " No="100000" CategoryFeatureGroup_ID="1289">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541480" Value="32 CD Wallet" No="100030" CategoryFeatureGroup_ID="702">
+         <Feature ID="31">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1375" Value="Type" langid="1"/>
+           <Name ID="1376" Value="Type" langid="2"/>
+           <Name ID="6702" Value="Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541483" Value="" No="100000" CategoryFeatureGroup_ID="1289">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541479" Value="" No="100031" CategoryFeatureGroup_ID="702">
+         <Feature ID="1749">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5449" Value="Carrying Strap" langid="1"/>
+           <Name ID="5450" Value="Carrying Strap" langid="2"/>
+           <Name ID="8516" Value="Carrying Strap" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541484" Value="O" No="100034" CategoryFeatureGroup_ID="880">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541485" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541486" Value="Nylon " No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="898">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3337" Value="Material" langid="1"/>
+           <Name ID="3338" Value="Material" langid="2"/>
+           <Name ID="7661" Value="Material" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541487" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="899">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3339" Value="Carry cases protection" langid="1"/>
+           <Name ID="3340" Value="Carry cases protection" langid="2"/>
+           <Name ID="7662" Value="Carry cases protection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541488" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="900">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3341" Value="Compartments" langid="1"/>
+           <Name ID="3342" Value="Compartments" langid="2"/>
+           <Name ID="7663" Value="Compartments" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541489" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="901">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3343" Value="Carry cases other features" langid="1"/>
+           <Name ID="3344" Value="Carry cases other features" langid="2"/>
+           <Name ID="7664" Value="Carry cases other features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541490" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="1454">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4605" Value="Carry cases, lining" langid="1"/>
+           <Name ID="4606" Value="Draagtassen, belijning" langid="2"/>
+           <Name ID="7297" Value="Carry cases, lining" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541491" Value="" No="0" CategoryFeatureGroup_ID="702">
+         <Feature ID="1455">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4608" Value="Personalisatie" langid="2"/>
+           <Name ID="4607" Value="Personalisation" langid="1"/>
+           <Name ID="7559" Value="Personalisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6541492" Value="Blue/Grey  " No="1" CategoryFeatureGroup_ID="880">
+         <Feature ID="1228">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3997" Value="Case Colour" langid="1"/>
+           <Name ID="3998" Value="Case Colour" langid="2"/>
+           <Name ID="7982" Value="Case Colour" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="128" Name="Targus"/>
+       <Category ID="822">
+         <Name ID="4573" Value="equipment cases" langid="1"/>
+         <Name ID="4574" Value="apparatuurtassen" langid="2"/>
+         <Name ID="8253" Value="equipment cases" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,2421 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="123834" Prod_id="9319A017AA" ThumbPic="http://www.icecat.biz/thumbs/123834.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/123834-2191.jpg" Name="PIXMA iP1500" LowPic="http://www.icecat.biz/img/low_pic/123834-1163.jpg">
+        <ProductRelated ID="548048">
+         <Product ID="20960" Prod_id="F51-2101350" ThumbPic="http://www.icecat.biz/thumbs/20960.jpg" Name="HR-101 HIGH RES PAPER A4">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548034">
+         <Product ID="21003" Prod_id="F51-2101500" ThumbPic="http://www.icecat.biz/thumbs/21003.jpg" Name="HR101 HIGH RES. PAPER A4">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548027">
+         <Product ID="21063" Prod_id="1029A008AA" ThumbPic="http://www.icecat.biz/thumbs/21063.jpg" Name="PR-101 A4 PHOTO PAPER">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548026">
+         <Product ID="21064" Prod_id="1029A009AA" ThumbPic="http://www.icecat.biz/thumbs/21064.jpg" Name="PR-101 A3+ PHOTO PAPER">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548050">
+         <Product ID="21144" Prod_id="F51-2621300" ThumbPic="http://www.icecat.biz/thumbs/21144.jpg" Name="HR-101 HIGH RES. PAPER A3+">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548032">
+         <Product ID="23631" Prod_id="1033A002" ThumbPic="http://www.icecat.biz/thumbs/23631.jpg" Name="HR101N PAPER A4">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548038">
+         <Product ID="24001" Prod_id="1033A001" ThumbPic="http://www.icecat.biz/thumbs/24001.jpg" Name="HR-101 A4 Paper high resolution 200sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548092">
+         <Product ID="24452" Prod_id="7981A005" ThumbPic="http://www.icecat.biz/thumbs/24452.jpg" Name="MP-101 A4 Paper photo 50sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548064">
+         <Product ID="24453" Prod_id="7980A010" ThumbPic="http://www.icecat.biz/thumbs/24453.jpg" Name="PP101 PHOTO PAPER PLUS GLOSSY">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548062">
+         <Product ID="24454" Prod_id="7980A008" ThumbPic="http://www.icecat.biz/thumbs/24454.jpg" Name="PP101PHOTO PAPER PLUS GLOSSY">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548040">
+         <Product ID="32429" Prod_id="1033A001AB" ThumbPic="http://www.icecat.biz/thumbs/32429.jpg" Name="Papier HR-101 A4 gecoat (200) 110g/m wit Pak 200 vel">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548052">
+         <Product ID="36483" Prod_id="7980A008AA" ThumbPic="http://www.icecat.biz/thumbs/36483.jpg" Name="PP-101 A4 PHOTO PAPER">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548066">
+         <Product ID="36484" Prod_id="7980A010AA" ThumbPic="http://www.icecat.biz/thumbs/36484.jpg" Name="PHOTO PAPER PP101">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548042">
+         <Product ID="36495" Prod_id="1033A002AB" ThumbPic="http://www.icecat.biz/thumbs/36495.jpg" Name="HR-101N HIGH RES PAPER A4">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548094">
+         <Product ID="36496" Prod_id="7981A005AA" ThumbPic="http://www.icecat.biz/thumbs/36496.jpg" Name="Fotopapier MP-101 A3 (40) 170g/m mat Pak 40 vel">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548023">
+         <Product ID="39433" Prod_id="1033A006AA" ThumbPic="http://www.icecat.biz/thumbs/39433.jpg" Name="HR-101N A3 High Resolution PAPER (20 sheets)">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548068">
+         <Product ID="65512" Prod_id="7980A029AA" ThumbPic="http://www.icecat.biz/thumbs/65512.jpg" Name="PP101A4 PHOTO PAPER GLOSSY">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548025">
+         <Product ID="68698" Prod_id="1029A015" ThumbPic="http://www.icecat.biz/thumbs/68698.jpg" Name="PR-101 4x6 Paper prof 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548096">
+         <Product ID="70895" Prod_id="7981A008" ThumbPic="http://www.icecat.biz/thumbs/70895.jpg" Name="MP-101 A3 Paper photo 40sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548056">
+         <Product ID="70914" Prod_id="7980A013" ThumbPic="http://www.icecat.biz/thumbs/70914.jpg" Name="PP-101 A3 Paper photo 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548074">
+         <Product ID="71959" Prod_id="8386A006" ThumbPic="http://www.icecat.biz/thumbs/71959.jpg" Name="SG-101 4x6 Paper photo semi-gloss 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548090">
+         <Product ID="72035" Prod_id="9157A005" ThumbPic="http://www.icecat.biz/thumbs/72035.jpg" Name="GP401 PHOTO PAPER - GLOSSY">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548058">
+         <Product ID="72124" Prod_id="7980A020" ThumbPic="http://www.icecat.biz/thumbs/72124.jpg" Name="PP-101 5x7 Paper photo 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548076">
+         <Product ID="72340" Prod_id="8386A009" ThumbPic="http://www.icecat.biz/thumbs/72340.jpg" Name="SG-101 A3 Paper photo semi-gloss 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548083">
+         <Product ID="72366" Prod_id="9157A012" ThumbPic="http://www.icecat.biz/thumbs/72366.jpg" Name="GP-401 A3+ Paper photo glossy 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548072">
+         <Product ID="72727" Prod_id="8386A005" ThumbPic="http://www.icecat.biz/thumbs/72727.jpg" Name="SG-101 A4 Paper photo semi-gloss 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548079">
+         <Product ID="73432" Prod_id="9157A004" ThumbPic="http://www.icecat.biz/thumbs/73432.jpg" Name="GP-401 A4 Paper photo glossy 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548081">
+         <Product ID="73463" Prod_id="9157A011" ThumbPic="http://www.icecat.biz/thumbs/73463.jpg" Name="GP-401 A3 Paper photo glossy 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548070">
+         <Product ID="79322" Prod_id="7980A030AA" ThumbPic="http://www.icecat.biz/thumbs/79322.jpg" Name="PP1014X6 PHOTO PAPER 6X4">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548024">
+         <Product ID="79384" Prod_id="1033A006" ThumbPic="http://www.icecat.biz/thumbs/79384.jpg" Name="HR-101 A3 Paper high resolution 20sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548044">
+         <Product ID="80539" Prod_id="1033A005" ThumbPic="http://www.icecat.biz/thumbs/80539.jpg" Name="HR-101 A4 Paper high resolution 100sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548054">
+         <Product ID="92131" Prod_id="7980A010/KIT" ThumbPic="http://www.icecat.biz/thumbs/92131.jpg" Name="K 2XPhoto PP-101 glossy plus 10x15cm">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548085">
+         <Product ID="102549" Prod_id="9157A020" ThumbPic="http://www.icecat.biz/thumbs/102549.jpg" Name="GP-401 4x6 Paper photo glossy 50sh 1+1">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548018">
+         <Product ID="105635" Prod_id="CAN22508" ThumbPic="http://www.icecat.biz/thumbs/105635.jpg" Name="Papier HR-101N A3 gecoat (200)">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548017">
+         <Product ID="123834" Prod_id="9319A017AA" ThumbPic="http://www.icecat.biz/thumbs/123834.jpg" Name="PIXMA iP1500">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548060">
+         <Product ID="124551" Prod_id="7980A042" ThumbPic="http://www.icecat.biz/thumbs/124551.jpg" Name="PP-101 Paper photo A4 + 4x6 Free">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548087">
+         <Product ID="124556" Prod_id="6881A048" ThumbPic="http://www.icecat.biz/thumbs/124556.jpg" Name="BCI-24 black + GP401 4x6">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548078">
+         <Product ID="124570" Prod_id="8386A022" ThumbPic="http://www.icecat.biz/thumbs/124570.jpg" Name="PHOTO PAPER SG101 2X20SHTS">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548016">
+         <Product ID="124821" Prod_id="9319A017" ThumbPic="http://www.icecat.biz/thumbs/124821.jpg" Name="PIXMA IP1500 BUBBLE JET">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548020">
+         <Product ID="39433" Prod_id="1033A006AA" ThumbPic="http://www.icecat.biz/thumbs/39433.jpg" Name="HR-101N A3 High Resolution PAPER (20 sheets)">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548019">
+         <Product ID="105635" Prod_id="CAN22508" ThumbPic="http://www.icecat.biz/thumbs/105635.jpg" Name="Papier HR-101N A3 gecoat (200)">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="548017">
+         <Product ID="123834" Prod_id="9319A017AA" ThumbPic="http://www.icecat.biz/thumbs/123834.jpg" Name="PIXMA iP1500">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="352" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="782" No="12">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="50" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="52" No="0">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="53" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="46" No="4">
+         <FeatureGroup ID="15">
+           <Name ID="5025" Value="Print speed" langid="1"/>
+           <Name ID="5026" Value="Printsnelheid" langid="2"/>
+           <Name ID="8324" Value="Print speed" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="47" No="5">
+         <FeatureGroup ID="16">
+           <Name ID="5027" Value="Print quality" langid="1"/>
+           <Name ID="5028" Value="Printkwaliteit" langid="2"/>
+           <Name ID="8325" Value="Print quality" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="48" No="3">
+         <FeatureGroup ID="17">
+           <Name ID="5029" Value="Output capacity" langid="1"/>
+           <Name ID="5030" Value="Uitvoercapaciteit" langid="2"/>
+           <Name ID="8326" Value="Output capacity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="49" No="1">
+         <FeatureGroup ID="18">
+           <Name ID="5031" Value="Input capacity" langid="1"/>
+           <Name ID="5032" Value="Invoercapaciteit" langid="2"/>
+           <Name ID="8327" Value="Input capacity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="51" No="0">
+         <FeatureGroup ID="19">
+           <Name ID="5033" Value="Media formats" langid="1"/>
+           <Name ID="5034" Value="Mediaformaten" langid="2"/>
+           <Name ID="8328" Value="Media formats" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="54" No="0">
+         <FeatureGroup ID="20">
+           <Name ID="5035" Value="Print technology" langid="1"/>
+           <Name ID="5036" Value="Printtechnologie" langid="2"/>
+           <Name ID="8329" Value="Print technology" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="825" No="0">
+         <FeatureGroup ID="38">
+           <Name ID="5189" Value="Sound emission" langid="1"/>
+           <Name ID="5190" Value="Sound emission" langid="2"/>
+           <Name ID="8398" Value="Sound emission" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="823" No="0">
+         <FeatureGroup ID="39">
+           <Name ID="5205" Value="Consumables" langid="1"/>
+           <Name ID="5206" Value="Consumables" langid="2"/>
+           <Name ID="8405" Value="Consumables" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="152708" URL="http://www.canon.nl/For_Home/Product_Finder/Printers/Bubble_Jet/PIXMA_iP1500/" ShortDesc="PIXMA IP1500 BUBBLEJET 18PPM USB 4800X1200DPI" langid="2" LongDesc="Kenmerken\n \n\n4.800x1.200 dpi1 met FINE printkop en 2 pl Micro-Nozzles \nMax. 18 ppm in zwart/wit, 13 ppm in kleur; print een 10x15 cm foto zonder witrand in slechts 58 seconden \nSnel printen van foto's zonder witrand \nEasy-PhotoPrint en Easy-WebPrint \nCompact, robuust design \nWindows &amp; Mac compatibel \n\n \n \nDe vriendelijke en betaalbare printer voor thuis\n \n \n\n\nFotoprints met een fantastische kwaliteit\nPrint fraaie, direct in te lijsten foto's zonder witrand op maximaal A4-formaat. Profiteer van heldere, natuurlijke kleuren plus haarscherpe details dankzij Canons nieuwe FINE* printkop. De minuscule 2 pl Micro-Nozzles plaatsen de inkt met hoge snelheid op het papier voor een resolutie van 4.800 x 1.200 dpi1 en resultaten met een professionele uitstraling.\n\nSnel en flexibel printen\nPrint huiswerk, brieven en internetpagina's nu sneller dan ooit met 18 ppm in zwart/wit en 13 ppm in kleur. Of print een fraaie 10x15 cm kleurenfoto zonder witrand in slechts 58 seconden. \n\nOpvallend gebruiksvriendelijk\nDeze vriendelijke printer heeft slechts twee functietoetsen, zodat iedereen er mee kan printen. Tot de meegeleverde, gebruiksvriendelijke software behoort Easy-WebPrint ideaal voor het printen van internetpagina's - en Easy-PhotoPrint voor het printen van paginagrote foto's zonder witrand. Selecteer met uw digitale camera de gewenste foto, selecteer het type papier en laat de PIXMA iP1500 de print maken. \n\nStijlvol en ruimtebesparend\nMet een aantrekkelijk stijlvol en robuust design neemt de trendsettende PIXMA iP1500 bijna geen ruimte in en worden al uw printopdrachten fluisterstil uitgevoerd. \n\nWindows en Mac compatibel\nDe PIXMA IP1500 werkt met alle populaire Windows en Macintosh besturingssystemen en is eenvoudig aan te sluiten via de USB poort." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="142586" URL="" ShortDesc="PIXMA IP1500 BUBBLEJET 18PPM USB 4800X1200DPI           IN (PC)" langid="1" LongDesc="High performance photo and document printing at home.\n-2 picolitre FINE (Full-photolithography Inkjet Nozzle Engineering) technology .\n-Prints up to 18 ppm in black and 13 ppm in colour .\n-Up to 4800 x 1200 dpi printing resolution .\n-Print a borderless 6&amp;quot; x 4&amp;quot; photo in around 58 seconds .\n-Print true borderless photos on 6&amp;quot; x 4&amp;quot;, 5&amp;quot; x 7&amp;quot; and A4 size .\n-Comes with Easy-PhotoPrint which includes blemish remover, face sharpener and face brightener. \n-USB and Macintosh compatible .\n-The PIXMA iP1500 Bubble Jet printer lets you enjoy high-quality photo and document printing at home. \n-As part of the PIXMA range, it is built with FINE (Full-photolithography Inkjet Nozzle Engineering) technology which ejects consistent 2 picolitre ink droplets with remarkable accuracy for smoother, sharper and more detailed images. \n-With a resolution of up to 4800 x 1200 dpi, print speed of up to 18 ppm black and 13 ppm in colour, and borderless photo prints up to A4, the PIXMA iP1500 is the perfect home printer for the whole family.\n" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9237224" Value="4800x1200" No="10100001" CategoryFeatureGroup_ID="47">
+         <Feature ID="61">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="1459" Value="Maximum resolution" langid="1"/>
+           <Name ID="1460" Value="Maximale resolutie" langid="2"/>
+           <Name ID="6741" Value="Maximum resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9237225" Value="USB" No="114272" CategoryFeatureGroup_ID="52">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9238201" Value="Y" No="105500" CategoryFeatureGroup_ID="352">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369148" Value="13.2" No="10114292" CategoryFeatureGroup_ID="46">
+         <Feature ID="558">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2647" Value="Print Speed (Black, Normal Quality, A4)" langid="1"/>
+           <Name ID="2648" Value="Printsnelheid (zwart, standaard, A4)" langid="2"/>
+           <Name ID="7320" Value="Print Speed (Black, Normal Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369149" Value="" No="105263" CategoryFeatureGroup_ID="47">
+         <Feature ID="82">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="1501" Value="Resolution color" langid="1"/>
+           <Name ID="1502" Value="Resolutie kleur" langid="2"/>
+           <Name ID="6759" Value="Resolution color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369150" Value="6.8" No="113290" CategoryFeatureGroup_ID="46">
+         <Feature ID="488">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2507" Value="Print Speed (Colour, Normal Quality, A4)" langid="1"/>
+           <Name ID="2508" Value="Printsnelheid (kleur, standaard, A4)" langid="2"/>
+           <Name ID="7250" Value="Print Speed (Colour, Normal Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369151" Value="" No="100301" CategoryFeatureGroup_ID="46">
+         <Feature ID="1673">
+          <Measure ID="60" Sign="s"/>
+           <Name ID="5217" Value="Time to first page (mono)" langid="1"/>
+           <Name ID="5218" Value="Time to first page (mono)" langid="2"/>
+           <Name ID="8411" Value="Time to first page (mono)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369152" Value="" No="100300" CategoryFeatureGroup_ID="46">
+         <Feature ID="1672">
+          <Measure ID="60" Sign="s"/>
+           <Name ID="5215" Value="Time to first page (color)" langid="1"/>
+           <Name ID="5216" Value="Time to first page (color)" langid="2"/>
+           <Name ID="8410" Value="Time to first page (color)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369153" Value="" No="114310" CategoryFeatureGroup_ID="48">
+         <Feature ID="637">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="2805" Value="Maximum Output Capacity" langid="1"/>
+           <Name ID="2806" Value="Maximale uitvoercapaciteit" langid="2"/>
+           <Name ID="7397" Value="Maximum Output Capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369154" Value="100" No="114316" CategoryFeatureGroup_ID="49">
+         <Feature ID="683">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="2897" Value="Maximum Input Capacity" langid="1"/>
+           <Name ID="2898" Value="Maximum invoercapaciteit" langid="2"/>
+           <Name ID="7443" Value="Maximum Input Capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369155" Value="" No="114281" CategoryFeatureGroup_ID="49">
+         <Feature ID="764">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3059" Value="Standard Paper Trays" langid="1"/>
+           <Name ID="3060" Value="Standaard papierladen" langid="2"/>
+           <Name ID="7524" Value="Standard Paper Trays" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369156" Value="416 x 207 x 165" No="100008" CategoryFeatureGroup_ID="53">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369157" Value="" No="115787" CategoryFeatureGroup_ID="352">
+         <Feature ID="699">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2929" Value="Hardware Scanning Resolution" langid="1"/>
+           <Name ID="2930" Value="Hardwarematige scanresolutie" langid="2"/>
+           <Name ID="7459" Value="Hardware Scanning Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369158" Value="" No="115785" CategoryFeatureGroup_ID="352">
+         <Feature ID="592">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2715" Value="Maximum Scanning Size" langid="1"/>
+           <Name ID="2716" Value="Maximum scanformaat" langid="2"/>
+           <Name ID="7354" Value="Maximum Scanning Size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369159" Value="A4" No="110000" CategoryFeatureGroup_ID="352">
+         <Feature ID="60">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1457" Value="Maximum print size" langid="1"/>
+           <Name ID="1458" Value="Maximale printafmetingen" langid="2"/>
+           <Name ID="6740" Value="Maximum print size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369160" Value="" No="106610" CategoryFeatureGroup_ID="352">
+         <Feature ID="12">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1313" Value="Internal modem" langid="1"/>
+           <Name ID="1314" Value="Intern modem" langid="2"/>
+           <Name ID="6675" Value="Internal modem" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369161" Value="" No="101000" CategoryFeatureGroup_ID="352">
+         <Feature ID="31">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1375" Value="Type" langid="1"/>
+           <Name ID="1376" Value="Type" langid="2"/>
+           <Name ID="6702" Value="Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369162" Value="" No="100040" CategoryFeatureGroup_ID="352">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369163" Value="" No="100030" CategoryFeatureGroup_ID="352">
+         <Feature ID="72">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1481" Value="Networking" langid="1"/>
+           <Name ID="1482" Value="Netwerk" langid="2"/>
+           <Name ID="6751" Value="Networking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369164" Value="" No="100025" CategoryFeatureGroup_ID="352">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369165" Value="" No="100020" CategoryFeatureGroup_ID="352">
+         <Feature ID="47">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1431" Value="Processor" langid="1"/>
+           <Name ID="1432" Value="Processor" langid="2"/>
+           <Name ID="6728" Value="Processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369166" Value="" No="100010" CategoryFeatureGroup_ID="352">
+         <Feature ID="5">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="1292" Value="Processor-kloksnelheid" langid="2"/>
+           <Name ID="1291" Value="Processor clock speed" langid="1"/>
+           <Name ID="6663" Value="Processor clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369167" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="62">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1461" Value="Media" langid="1"/>
+           <Name ID="1462" Value="Media" langid="2"/>
+           <Name ID="6742" Value="Media" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369168" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369169" Value="2900" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369170" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369171" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1104">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3749" Value="Networking features" langid="1"/>
+           <Name ID="3750" Value="Networking features" langid="2"/>
+           <Name ID="7859" Value="Networking features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369172" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1696">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5329" Value="Maximum media width" langid="1"/>
+           <Name ID="5330" Value="Maximumbreedte media" langid="2"/>
+           <Name ID="8461" Value="Maximum media width" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369173" Value="A4, A5, B5, Letter, Legal, Envelopes(DL, Com#10), 6&amp;quot;x4&amp;quot; and 5&amp;quot;x7&amp;quot;" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1698">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5333" Value="Media size (tray 1)" langid="1"/>
+           <Name ID="5334" Value="Mediaformaat (lade 1)" langid="2"/>
+           <Name ID="8463" Value="Media size (tray 1)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369174" Value="64-105g/m² (supported Photo Paper Plus Double sided 273g/m²)" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1700">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5337" Value="Media weight (tray 1)" langid="1"/>
+           <Name ID="5338" Value="Mediagewicht (lade 1)" langid="2"/>
+           <Name ID="8465" Value="Media weight (tray 1)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369175" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1703">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5345" Value="Print quality, vertical alignment accuracy" langid="1"/>
+           <Name ID="5346" Value="Printkwaliteit, nauwkeurigheid verticale uitlijning" langid="2"/>
+           <Name ID="8276" Value="Print quality, vertical alignment accuracy" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369176" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1704">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5347" Value="Page yield footnote" langid="1"/>
+           <Name ID="5348" Value="Paginaopbrengst voetnoot" langid="2"/>
+           <Name ID="8469" Value="Note de bas de page relative au nombre de pages imprimées" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369177" Value="Plain Paper (10mm): 100  /   Super White Paper (SW-201): 75  / High Resolution Paper (HR-101N): 80 / Photo Paper Pro (PR-101): A4: 10, 6&amp;quot;x4&amp;quot;: 20 / Photo Paper Plus Glossy (PP-101): A4/5&amp;quot;x7&amp;quot;: 10, 6&amp;quot;x4&amp;quot;: 20  /   Photo Paper Plus Semi-gloss (SG-101): A4: 10, 6&amp;quot;x4&amp;quot;: 20  /   Glossy Photo Paper (GP-401): A4: 10, 6&amp;quot;x4&amp;quot;: 20  /Matte Photo Paper (MP-101): A4: 10/Photo Paper Plus Double sided (PP-101D): A4/5&amp;quot;x7&amp;quot;: 1  Photo Stickers (PS-101): 1 /Photo Paper Plus Double sided (PP-101D): A4/5&amp;quot;x7&amp;quot;: 1  /Envelopes (DL, Com#10): 10/Transparencies (CF-102): 30 /T-Shirt Transfers (TR-301): 1 ." No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1713">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="5365" Value="Standard output capacity for transparancies" langid="1"/>
+           <Name ID="5366" Value="Standaard uitvoercapaciteit voor transparanten" langid="2"/>
+           <Name ID="8478" Value="Standard output capacity for transparancies" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369178" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1787">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5553" Value="Printhead" langid="1"/>
+           <Name ID="5554" Value="Printkop" langid="2"/>
+           <Name ID="8568" Value="Printhead" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369179" Value="" No="114301" CategoryFeatureGroup_ID="50">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369180" Value="Windows XP/2000/Me/98 \nMac OS 9.x/Mac OS X v10.2.x " No="100900" CategoryFeatureGroup_ID="50">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369181" Value="" No="100403" CategoryFeatureGroup_ID="825">
+         <Feature ID="1671">
+          <Measure ID="76" Sign="dBA"/>
+           <Name ID="5213" Value="Power save sound emission" langid="1"/>
+           <Name ID="5214" Value="Power save sound emission" langid="2"/>
+           <Name ID="8409" Value="Power save sound emission" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369182" Value="43" No="100401" CategoryFeatureGroup_ID="825">
+         <Feature ID="1670">
+          <Measure ID="76" Sign="dBA"/>
+           <Name ID="5211" Value="Standby sound emission" langid="1"/>
+           <Name ID="5212" Value="Standby sound emission" langid="2"/>
+           <Name ID="8408" Value="Standby sound emission" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369183" Value="" No="100400" CategoryFeatureGroup_ID="825">
+         <Feature ID="1669">
+          <Measure ID="76" Sign="dBA"/>
+           <Name ID="5209" Value="Operating sound emission" langid="1"/>
+           <Name ID="5210" Value="Operating sound emission" langid="2"/>
+           <Name ID="8407" Value="Operating sound emission" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369184" Value="" No="114328" CategoryFeatureGroup_ID="54">
+         <Feature ID="455">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2441" Value="Number of Print Cartridges" langid="1"/>
+           <Name ID="2442" Value="Aantal printcartridges" langid="2"/>
+           <Name ID="7217" Value="Number of Print Cartridges" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369185" Value="" No="214330" CategoryFeatureGroup_ID="823">
+         <Feature ID="1668">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5203" Value="Toner cartridge" langid="1"/>
+           <Name ID="5204" Value="Toner cartridge" langid="2"/>
+           <Name ID="8404" Value="Toner cartridge" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369186" Value="" No="214329" CategoryFeatureGroup_ID="823">
+         <Feature ID="1667">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5202" Value="EP-cartridge" langid="2"/>
+           <Name ID="5201" Value="EP-cartridge" langid="1"/>
+           <Name ID="7869" Value="EP-cartridge" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369187" Value="USB" No="105264" CategoryFeatureGroup_ID="52">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369188" Value="" No="15676" CategoryFeatureGroup_ID="782">
+         <Feature ID="545">
+          <Measure ID="55" Sign="pages"/>
+           <Name ID="2621" Value="A4 Pages Held in Memory" langid="1"/>
+           <Name ID="2622" Value="A4-pagina's in het geheugen" langid="2"/>
+           <Name ID="7307" Value="A4 Pages Held in Memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369189" Value="" No="14055" CategoryFeatureGroup_ID="782">
+         <Feature ID="644">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2819" Value="Memory Description" langid="1"/>
+           <Name ID="2820" Value="Omschrijving geheugen" langid="2"/>
+           <Name ID="7404" Value="Description de la mémoire" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369190" Value="" No="14289" CategoryFeatureGroup_ID="47">
+         <Feature ID="593">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2717" Value="Print Quality (Colour, Normal Quality)" langid="1"/>
+           <Name ID="2718" Value="Printkwaliteit (kleur, standaard)" langid="2"/>
+           <Name ID="7355" Value="Print Quality (Colour, Normal Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369191" Value="" No="14288" CategoryFeatureGroup_ID="47">
+         <Feature ID="479">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2489" Value="Print Quality (Colour, Best Quality)" langid="1"/>
+           <Name ID="2490" Value="Printkwaliteit (kleur, presentatie)" langid="2"/>
+           <Name ID="7241" Value="Print Quality (Colour, Best Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369192" Value="" No="14287" CategoryFeatureGroup_ID="47">
+         <Feature ID="697">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2925" Value="Print Quality (Black, Normal Quality)" langid="1"/>
+           <Name ID="2926" Value="Printkwaliteit (zwart, standaard)" langid="2"/>
+           <Name ID="7457" Value="Print Quality (Black, Normal Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369193" Value="" No="14286" CategoryFeatureGroup_ID="47">
+         <Feature ID="568">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2667" Value="Print Quality (Black, Draft Quality)" langid="1"/>
+           <Name ID="2668" Value="Printkwaliteit (zwart, concept)" langid="2"/>
+           <Name ID="7330" Value="Print Quality (Black, Draft Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369194" Value="" No="0" CategoryFeatureGroup_ID="47">
+         <Feature ID="1532">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4784" Value="Printkwaliteit (zwart, beste kwaliteit)" langid="2"/>
+           <Name ID="4783" Value="Print quality (black, best quality)" langid="1"/>
+           <Name ID="8237" Value="Print quality (black, best quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369195" Value="" No="31765" CategoryFeatureGroup_ID="46">
+         <Feature ID="485">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2501" Value="Print Speed (Colour, Draft Quality, A4, Bluetooth)" langid="1"/>
+           <Name ID="2502" Value="Printsnelheid (kleur, concept, A4, Bluetooth)" langid="2"/>
+           <Name ID="7247" Value="Print Speed (Colour, Draft Quality, A4, Bluetooth)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369196" Value="" No="31764" CategoryFeatureGroup_ID="46">
+         <Feature ID="478">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2487" Value="Print Speed (Black, Draft Quality, A4, Bluetooth)" langid="1"/>
+           <Name ID="2488" Value="Printsnelheid (zwart, concept, A4, Bluetooth)" langid="2"/>
+           <Name ID="7240" Value="Print Speed (Black, Draft Quality, A4, Bluetooth)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369197" Value="" No="22062" CategoryFeatureGroup_ID="46">
+         <Feature ID="634">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2799" Value="Print Speed (Black with Colour Highlights, Draft Quality, A3)" langid="1"/>
+           <Name ID="2800" Value="Printsnelheid (zwarte tekst met kleuraccenten, concept, A3)" langid="2"/>
+           <Name ID="7394" Value="Print Speed (Black with Colour Highlights, Draft Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369198" Value="" No="22058" CategoryFeatureGroup_ID="46">
+         <Feature ID="807">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3145" Value="Print Speed (Black with colour highlights, Normal quality A3 )" langid="1"/>
+           <Name ID="3146" Value="Printsnelheid (zwarte tekst met kleuraccenten, standaard, A4)" langid="2"/>
+           <Name ID="7567" Value="Print Speed (Black with colour highlights, Normal quality A3 )" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369199" Value="" No="22053" CategoryFeatureGroup_ID="46">
+         <Feature ID="651">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2833" Value="Print Speed (Black with Colour Highlights, Best Quality, A3)" langid="1"/>
+           <Name ID="2834" Value="Printsnelheid (zwarte tekst met kleuraccenten, presentatie, A3)" langid="2"/>
+           <Name ID="7411" Value="Print Speed (Black with Colour Highlights, Best Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369200" Value="" No="15034" CategoryFeatureGroup_ID="46">
+         <Feature ID="627">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2785" Value="First Page Out (Footnote)" langid="1"/>
+           <Name ID="2786" Value="Eerste pagina klaar (voetnoot)" langid="2"/>
+           <Name ID="7387" Value="First Page Out (Footnote)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369201" Value="" No="14680" CategoryFeatureGroup_ID="46">
+         <Feature ID="659">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2849" Value="Print Speed (Colour, Mixed text/graphics, Draft Quality, US Letter)" langid="1"/>
+           <Name ID="2850" Value="Printsnelheid (kleur, tekst met afbeeldingen in kleur, concept, kwarto)" langid="2"/>
+           <Name ID="7419" Value="Print Speed (Colour, Mixed text/graphics, Draft Quality, US Letter)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369202" Value="" No="14674" CategoryFeatureGroup_ID="46">
+         <Feature ID="768">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3067" Value="Print Speed (Black with Colour Highlights, Normal Quality, A4)" langid="1"/>
+           <Name ID="3068" Value="Printsnelheid (zwarte tekst met kleuraccenten, standaard A3)" langid="2"/>
+           <Name ID="7528" Value="Print Speed (Black with Colour Highlights, Normal Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369203" Value="" No="14672" CategoryFeatureGroup_ID="46">
+         <Feature ID="655">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2841" Value="Print Speed (Black with Colour Highlights, Draft Quality, A4)" langid="1"/>
+           <Name ID="2842" Value="Printsnelheid (zwarte tekst met kleuraccenten, concept, A4)" langid="2"/>
+           <Name ID="7415" Value="Print Speed (Black with Colour Highlights, Draft Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369204" Value="" No="14670" CategoryFeatureGroup_ID="46">
+         <Feature ID="675">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2881" Value="Print Speed (Black, Draft Quality, US letter)" langid="1"/>
+           <Name ID="2882" Value="Printsnelheid (zwart, concept, kwarto)" langid="2"/>
+           <Name ID="7435" Value="Print Speed (Black, Draft Quality, US letter)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369205" Value="" No="14669" CategoryFeatureGroup_ID="46">
+         <Feature ID="671">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2873" Value="Print Speed (Black with Colour Highlights, Best Quality, A4)" langid="1"/>
+           <Name ID="2874" Value="Printsnelheid (zwarte tekst met kleuraccenten, presentatie, A4)" langid="2"/>
+           <Name ID="7431" Value="Print Speed (Black with Colour Highlights, Best Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369206" Value="" No="14466" CategoryFeatureGroup_ID="46">
+         <Feature ID="798">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3127" Value="Print Speed (Colour photo 20x25 cm, Normal Quality)" langid="1"/>
+           <Name ID="3128" Value="Printsnelheid (kleurenfoto 20 x 25 cm, standaard)" langid="2"/>
+           <Name ID="7558" Value="Print Speed (Colour photo 20x25 cm, Normal Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369207" Value="" No="14464" CategoryFeatureGroup_ID="46">
+         <Feature ID="506">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2543" Value="Print Speed (Colour photo 20x25 cm, Best Quality)" langid="1"/>
+           <Name ID="2544" Value="Printsnelheid (kleurenfoto, 20 x 25 cm, presentatie)" langid="2"/>
+           <Name ID="7268" Value="Print Speed (Colour photo 20x25 cm, Best Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369208" Value="" No="14460" CategoryFeatureGroup_ID="46">
+         <Feature ID="529">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2589" Value="Print Speed (Colour, Full Page Colour, Normal Quality, A3)" langid="1"/>
+           <Name ID="2590" Value="Printsnelheid (kleur, paginagrote kleurenafbeelding, standaard, A3)" langid="2"/>
+           <Name ID="7291" Value="Print Speed (Colour, Full Page Colour, Normal Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369209" Value="" No="14447" CategoryFeatureGroup_ID="46">
+         <Feature ID="461">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2453" Value="Print Speed (Colour, Normal Quality, A3)" langid="1"/>
+           <Name ID="2454" Value="Printsnelheid (kleur, standaard, A3)" langid="2"/>
+           <Name ID="7223" Value="Print Speed (Colour, Normal Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369210" Value="" No="14444" CategoryFeatureGroup_ID="46">
+         <Feature ID="500">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2531" Value="Print Speed (Colour, Full Page Colour, Draft Quality, A3)" langid="1"/>
+           <Name ID="2532" Value="Printsnelheid (kleur, paginagrote kleurenafbeelding, concept, A3)" langid="2"/>
+           <Name ID="7262" Value="Print Speed (Colour, Full Page Colour, Draft Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369211" Value="" No="14443" CategoryFeatureGroup_ID="46">
+         <Feature ID="869">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3269" Value="Print Speed (Colour, Draft Quality, A3)" langid="1"/>
+           <Name ID="3270" Value="Printsnelheid (kleur, concept, A3)" langid="2"/>
+           <Name ID="7627" Value="Print Speed (Colour, Draft Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369212" Value="" No="14440" CategoryFeatureGroup_ID="46">
+         <Feature ID="709">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2949" Value="Print Speed (Colour, Full Page Colour, Best Quality, A3)" langid="1"/>
+           <Name ID="2950" Value="Printsnelheid (kleur, paginagrote kleurenafbeelding, presentatie, A3)" langid="2"/>
+           <Name ID="7469" Value="Print Speed (Colour, Full Page Colour, Best Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369213" Value="" No="14439" CategoryFeatureGroup_ID="46">
+         <Feature ID="503">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2537" Value="Print Speed (Colour, Best Quality, A3)" langid="1"/>
+           <Name ID="2538" Value="Printsnelheid (kleur, presentatie, A3)" langid="2"/>
+           <Name ID="7265" Value="Print Speed (Colour, Best Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369214" Value="" No="14437" CategoryFeatureGroup_ID="46">
+         <Feature ID="531">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2593" Value="Print Speed (Black, Normal Quality, A3)" langid="1"/>
+           <Name ID="2594" Value="Printsnelheid (zwart, standaard, A3)" langid="2"/>
+           <Name ID="7293" Value="Print Speed (Black, Normal Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369215" Value="" No="14435" CategoryFeatureGroup_ID="46">
+         <Feature ID="816">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3163" Value="Print Speed (Black, Draft Quality, A3)" langid="1"/>
+           <Name ID="3164" Value="Printsnelheid (zwart, concept, A3)" langid="2"/>
+           <Name ID="7576" Value="Print Speed (Black, Draft Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369216" Value="" No="14433" CategoryFeatureGroup_ID="46">
+         <Feature ID="735">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3001" Value="Print Speed (Black, Best Quality, A3)" langid="1"/>
+           <Name ID="3002" Value="Printsnelheid (zwart, presentatie, A3)" langid="2"/>
+           <Name ID="7495" Value="Print Speed (Black, Best Quality, A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369217" Value="" No="14391" CategoryFeatureGroup_ID="46">
+         <Feature ID="567">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2665" Value="Print Speed (Colour Photo, Normal Quality) on Photo Paper" langid="1"/>
+           <Name ID="2666" Value="Printsnelheid (kleurenfoto, standaard) op fotopapier" langid="2"/>
+           <Name ID="7329" Value="Print Speed (Colour Photo, Normal Quality) on Photo Paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369218" Value="" No="14368" CategoryFeatureGroup_ID="46">
+         <Feature ID="692">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2915" Value="Print Speed (Colour Photo, Draft Quality)" langid="1"/>
+           <Name ID="2916" Value="Printsnelheid (kleurenfoto, concept)" langid="2"/>
+           <Name ID="7452" Value="Print Speed (Colour Photo, Draft Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369219" Value="" No="14366" CategoryFeatureGroup_ID="46">
+         <Feature ID="594">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2719" Value="Print Speed (Colour Photo, Best Quality) on Photo Paper" langid="1"/>
+           <Name ID="2720" Value="Printsnelheid (kleurenfoto, presentatie) op fotopapier" langid="2"/>
+           <Name ID="7356" Value="Print Speed (Colour Photo, Best Quality) on Photo Paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369220" Value="" No="14365" CategoryFeatureGroup_ID="46">
+         <Feature ID="690">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2911" Value="Print Speed (Colour Photo, Draft Quality) on Photo Paper" langid="1"/>
+           <Name ID="2912" Value="Printsnelheid (kleurenfoto, concept) op fotopapier" langid="2"/>
+           <Name ID="7450" Value="Print Speed (Colour Photo, Draft Quality) on Photo Paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369221" Value="" No="14304" CategoryFeatureGroup_ID="46">
+         <Feature ID="625">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2781" Value="Print Speed Footnote" langid="1"/>
+           <Name ID="2782" Value="Printsnelheid voetnoot" langid="2"/>
+           <Name ID="7385" Value="Note de bas de page sur la vitesse d'impression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369222" Value="" No="14300" CategoryFeatureGroup_ID="46">
+         <Feature ID="782">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3095" Value="Print Speed (Colour Photo, Normal Quality)" langid="1"/>
+           <Name ID="3096" Value="Printsnelheid (kleurenfoto, standaard)" langid="2"/>
+           <Name ID="7542" Value="Print Speed (Colour Photo, Normal Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369223" Value="" No="14299" CategoryFeatureGroup_ID="46">
+         <Feature ID="509">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2549" Value="Print Speed (Colour Photo, Best Quality)" langid="1"/>
+           <Name ID="2550" Value="Printsnelheid (kleurenfoto, presentatie)" langid="2"/>
+           <Name ID="7271" Value="Print Speed (Colour Photo, Best Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369224" Value="" No="14298" CategoryFeatureGroup_ID="46">
+         <Feature ID="556">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2643" Value="Print Speed (Colour, Full Page Colour, Normal Quality, A4)" langid="1"/>
+           <Name ID="2644" Value="Printsnelheid (kleur, paginagrote kleurenafbeelding, standaard, A4)" langid="2"/>
+           <Name ID="7318" Value="Print Speed (Colour, Full Page Colour, Normal Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369225" Value="" No="14296" CategoryFeatureGroup_ID="46">
+         <Feature ID="522">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2575" Value="Print Speed (Colour, Full Page Colour, Draft Quality, A4)" langid="1"/>
+           <Name ID="2576" Value="Printsnelheid (kleur, paginagrote kleurenafbeelding, concept, A4)" langid="2"/>
+           <Name ID="7284" Value="Print Speed (Colour, Full Page Colour, Draft Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369226" Value="" No="14295" CategoryFeatureGroup_ID="46">
+         <Feature ID="460">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2451" Value="Print Speed (Colour, Draft Quality, A4)" langid="1"/>
+           <Name ID="2452" Value="Printsnelheid (kleur, concept, A4)" langid="2"/>
+           <Name ID="7222" Value="Print Speed (Colour, Draft Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369227" Value="" No="14294" CategoryFeatureGroup_ID="46">
+         <Feature ID="720">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2971" Value="Print Speed (Colour, Full Page Colour, Best Quality, A4)" langid="1"/>
+           <Name ID="2972" Value="Printsnelheid (kleur, paginagrote kleurenafbeelding, presentatie, A4)" langid="2"/>
+           <Name ID="7480" Value="Print Speed (Colour, Full Page Colour, Best Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369228" Value="" No="14293" CategoryFeatureGroup_ID="46">
+         <Feature ID="527">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2585" Value="Print Speed (Colour, Best Quality, A4)" langid="1"/>
+           <Name ID="2586" Value="Printsnelheid (kleur, presentatie, A4)" langid="2"/>
+           <Name ID="7289" Value="Print Speed (Colour, Best Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369229" Value="" No="14291" CategoryFeatureGroup_ID="46">
+         <Feature ID="826">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3183" Value="Print Speed (Black, Draft Quality, A4)" langid="1"/>
+           <Name ID="3184" Value="Printsnelheid (zwart, concept, A4)" langid="2"/>
+           <Name ID="7585" Value="Print Speed (Black, Draft Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369230" Value="" No="14290" CategoryFeatureGroup_ID="46">
+         <Feature ID="755">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3041" Value="Print Speed (Black, Best Quality, A4)" langid="1"/>
+           <Name ID="3042" Value="Printsnelheid (zwart, presentatie, A4)" langid="2"/>
+           <Name ID="7515" Value="Print Speed (Black, Best Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369231" Value="" No="14040" CategoryFeatureGroup_ID="46">
+         <Feature ID="783">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3097" Value="Print Speed (Colour, Normal Quality, A4, Transparency)" langid="1"/>
+           <Name ID="3098" Value="Printsnelheid (kleur, standaard, A4, transparanten)" langid="2"/>
+           <Name ID="7543" Value="Print Speed (Colour, Normal Quality, A4, Transparency)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369232" Value="" No="14037" CategoryFeatureGroup_ID="46">
+         <Feature ID="809">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3149" Value="Warm-up Time" langid="1"/>
+           <Name ID="3150" Value="Opwarmtijd" langid="2"/>
+           <Name ID="7569" Value="Temps de préchauffage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369233" Value="" No="0" CategoryFeatureGroup_ID="46">
+         <Feature ID="1536">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="4794" Value="Printsnelheid (zwart, snel standaardkwaliteit, A4)" langid="2"/>
+           <Name ID="4793" Value="Print speed (black, fast normal quality, A4)" langid="1"/>
+           <Name ID="8234" Value="Print speed (black, fast normal quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369234" Value="" No="0" CategoryFeatureGroup_ID="46">
+         <Feature ID="1537">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="4796" Value="Printsnelheid (kleurenfoto, snel standaardkwaliteit) op fotopapier" langid="2"/>
+           <Name ID="4795" Value="Print speed (colour photo, fast-normal quality) on photo paper" langid="1"/>
+           <Name ID="8227" Value="Print speed (colour photo, fast-normal quality) on photo paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369235" Value="" No="0" CategoryFeatureGroup_ID="46">
+         <Feature ID="1538">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="4797" Value="Print speed (colour, fast normal quality, A4)" langid="1"/>
+           <Name ID="4798" Value="Prinsnelheid (kleur, snel standaardkwaliteit, A4)" langid="2"/>
+           <Name ID="8229" Value="Print speed (colour, fast normal quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369236" Value="" No="0" CategoryFeatureGroup_ID="46">
+         <Feature ID="1540">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="4801" Value="Print speed (colour, full page colour, fast normal quality, A4)" langid="1"/>
+           <Name ID="4802" Value="Printsnelheid (kleur, volledige pagina kleur, snel standaardkwaliteit, A4)" langid="2"/>
+           <Name ID="8196" Value="Print speed (colour, full page colour, fast normal quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369237" Value="" No="0" CategoryFeatureGroup_ID="46">
+         <Feature ID="1541">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="4804" Value="Printsnelheid (kleur, mix tekst/graphics, normale kwaliteit, US brief)" langid="2"/>
+           <Name ID="4803" Value="Print Speed (colour, mixed text/graphics, normal quality, US Letter)" langid="1"/>
+           <Name ID="8256" Value="Print Speed (colour, mixed text/graphics, normal quality, US Letter)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369238" Value="" No="0" CategoryFeatureGroup_ID="46">
+         <Feature ID="1542">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="4805" Value="Print Speed (mixed text/graphics, best quality, US Letter)" langid="1"/>
+           <Name ID="4806" Value="Printsnelheid (mix tekst/graphics, beste kwaliteit, US brief)" langid="2"/>
+           <Name ID="6758" Value="Print Speed (mixed text/graphics, best quality, US Letter)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369239" Value="" No="15728" CategoryFeatureGroup_ID="48">
+         <Feature ID="806">
+          <Measure ID="77" Sign="pages per month"/>
+           <Name ID="3143" Value="Duty Cycle" langid="1"/>
+           <Name ID="3144" Value="Duty Cycle" langid="2"/>
+           <Name ID="7566" Value="Duty Cycle" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369240" Value="" No="14547" CategoryFeatureGroup_ID="48">
+         <Feature ID="721">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2973" Value="Standard output capacity for envelopes" langid="1"/>
+           <Name ID="2974" Value="Standaard uitvoercapaciteit voor enveloppen" langid="2"/>
+           <Name ID="7481" Value="Standard output capacity for envelopes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369241" Value="" No="14546" CategoryFeatureGroup_ID="48">
+         <Feature ID="778">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3087" Value="Standard Output Capacity for Cards" langid="1"/>
+           <Name ID="3088" Value="Standaard uitvoercapaciteit voor kaarten" langid="2"/>
+           <Name ID="7538" Value="Standard Output Capacity for Cards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369242" Value="" No="14545" CategoryFeatureGroup_ID="48">
+         <Feature ID="467">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2465" Value="Maximum output capacity for transparencies" langid="1"/>
+           <Name ID="2466" Value="Maximum uitvoercapaciteit voor transparanten" langid="2"/>
+           <Name ID="7229" Value="Maximum output capacity for transparencies" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369243" Value="" No="14544" CategoryFeatureGroup_ID="48">
+         <Feature ID="603">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2737" Value="Maximum output capacity for envelopes" langid="1"/>
+           <Name ID="2738" Value="Maximum uitvoercapaciteit voor enveloppen" langid="2"/>
+           <Name ID="7365" Value="Maximum output capacity for envelopes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369244" Value="" No="14543" CategoryFeatureGroup_ID="48">
+         <Feature ID="613">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2757" Value="Maximum output capacity for cards" langid="1"/>
+           <Name ID="2758" Value="Maximum uitvoercapaciteit voor kaarten" langid="2"/>
+           <Name ID="7374" Value="Maximum output capacity for cards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369245" Value="" No="114321" CategoryFeatureGroup_ID="48">
+         <Feature ID="846">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="3223" Value="Standard Output Capacity" langid="1"/>
+           <Name ID="3224" Value="Standaard uitvoercapaciteit" langid="2"/>
+           <Name ID="7604" Value="Standard Output Capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369246" Value="" No="15027" CategoryFeatureGroup_ID="49">
+         <Feature ID="779">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3089" Value="Input Capacity for Envelopes (2nd Tray)" langid="1"/>
+           <Name ID="3090" Value="Invoercapaciteit voor enveloppen (tweede lade)" langid="2"/>
+           <Name ID="7539" Value="Input Capacity for Envelopes (2nd Tray)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369247" Value="" No="14740" CategoryFeatureGroup_ID="49">
+         <Feature ID="600">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="2731" Value="Input Capacity of the 2nd Tray" langid="1"/>
+           <Name ID="2732" Value="Invoercapaciteit tweede lade" langid="2"/>
+           <Name ID="7362" Value="Input Capacity of the 2nd Tray" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369248" Value="" No="14655" CategoryFeatureGroup_ID="49">
+         <Feature ID="763">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3057" Value="Maximum Number of Paper Trays" langid="1"/>
+           <Name ID="3058" Value="Maximumaantal papierladen" langid="2"/>
+           <Name ID="7523" Value="Maximum Number of Paper Trays" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369249" Value="" No="14639" CategoryFeatureGroup_ID="49">
+         <Feature ID="797">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3125" Value="Additional Paper Trays" langid="1"/>
+           <Name ID="3126" Value="Extra papierladen" langid="2"/>
+           <Name ID="7557" Value="Bacs à papier supplémentaires" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369250" Value="" No="14589" CategoryFeatureGroup_ID="49">
+         <Feature ID="867">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3265" Value="Standard Input Capacity for Cards" langid="1"/>
+           <Name ID="3266" Value="Standaard invoercapaciteit voor kaarten" langid="2"/>
+           <Name ID="7625" Value="Standard Input Capacity for Cards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369251" Value="" No="14588" CategoryFeatureGroup_ID="49">
+         <Feature ID="462">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2455" Value="Input Capacity for Envelopes (Primary Tray)" langid="1"/>
+           <Name ID="2456" Value="Invoercapaciteit voor enveloppen (primaire lade)" langid="2"/>
+           <Name ID="7224" Value="Input Capacity for Envelopes (Primary Tray)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369252" Value="" No="14587" CategoryFeatureGroup_ID="49">
+         <Feature ID="712">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2955" Value="Standard input capacity for transparencies" langid="1"/>
+           <Name ID="2956" Value="Standaard invoercapaciteit voor transparanten" langid="2"/>
+           <Name ID="7472" Value="Standard input capacity for transparencies" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369253" Value="" No="114415" CategoryFeatureGroup_ID="49">
+         <Feature ID="752">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="3035" Value="Standard Input Capacity" langid="1"/>
+           <Name ID="3036" Value="Standaard invoercapaciteit" langid="2"/>
+           <Name ID="7512" Value="Standard Input Capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369254" Value="" No="14271" CategoryFeatureGroup_ID="49">
+         <Feature ID="540">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="2611" Value="Maximum input capacity for transparencies" langid="1"/>
+           <Name ID="2612" Value="Maximum invoercapaciteit voor transparanten" langid="2"/>
+           <Name ID="7302" Value="Maximum input capacity for transparencies" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369255" Value="" No="14270" CategoryFeatureGroup_ID="49">
+         <Feature ID="724">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2979" Value="Maximum Input Capacity for Labels" langid="1"/>
+           <Name ID="2980" Value="Maximum invoercapaciteit voor etiketten" langid="2"/>
+           <Name ID="7484" Value="Maximum Input Capacity for Labels" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369256" Value="" No="14269" CategoryFeatureGroup_ID="49">
+         <Feature ID="736">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3003" Value="Maximum Input Capacity for Envelopes" langid="1"/>
+           <Name ID="3004" Value="Maximum invoercapaciteit voor enveloppen" langid="2"/>
+           <Name ID="7496" Value="Maximum Input Capacity for Envelopes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369257" Value="" No="14268" CategoryFeatureGroup_ID="49">
+         <Feature ID="516">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2563" Value="Maximum Input Capacity for Cards" langid="1"/>
+           <Name ID="2564" Value="Maximum invoercapaciteit voor kaarten" langid="2"/>
+           <Name ID="7278" Value="Maximum Input Capacity for Cards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369258" Value="" No="14267" CategoryFeatureGroup_ID="49">
+         <Feature ID="618">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2767" Value="Maximum Input Capacity for Banners" langid="1"/>
+           <Name ID="2768" Value="Maximum invoercapaciteit voor banners" langid="2"/>
+           <Name ID="7378" Value="Maximum Input Capacity for Banners" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369259" Value="" No="31709" CategoryFeatureGroup_ID="53">
+         <Feature ID="518">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2567" Value="Weight Fully Extended" langid="1"/>
+           <Name ID="2568" Value="Gewicht volledig uitgeschoven" langid="2"/>
+           <Name ID="7280" Value="Weight Fully Extended" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369260" Value="" No="22125" CategoryFeatureGroup_ID="53">
+         <Feature ID="530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2591" Value="Pallet Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2592" Value="Afmetingen pallet (B x D x H)" langid="2"/>
+           <Name ID="7292" Value="Pallet Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369261" Value="" No="14619" CategoryFeatureGroup_ID="53">
+         <Feature ID="513">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2557" Value="Pallet Weight" langid="1"/>
+           <Name ID="2558" Value="Gewicht pallet" langid="2"/>
+           <Name ID="7275" Value="Pallet Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369262" Value="" No="14405" CategoryFeatureGroup_ID="53">
+         <Feature ID="669">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="2869" Value="Maximum Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2870" Value="Maximum afmetingen (B x D x H)" langid="2"/>
+           <Name ID="7429" Value="Maximum Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369263" Value="" No="14335" CategoryFeatureGroup_ID="53">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369264" Value="" No="14331" CategoryFeatureGroup_ID="53">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369265" Value="" No="6" CategoryFeatureGroup_ID="53">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369266" Value="" No="38742" CategoryFeatureGroup_ID="352">
+         <Feature ID="792">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3115" Value="Recommended use" langid="1"/>
+           <Name ID="3116" Value="Aanbevolen gebruik" langid="2"/>
+           <Name ID="7552" Value="Recommended use" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369267" Value="" No="32085" CategoryFeatureGroup_ID="352">
+         <Feature ID="865">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3261" Value="Subsystem Footnotes" langid="1"/>
+           <Name ID="3262" Value="Subsysteem voetnoten" langid="2"/>
+           <Name ID="7623" Value="Subsystem Footnotes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369268" Value="" No="22135" CategoryFeatureGroup_ID="352">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369269" Value="" No="15804" CategoryFeatureGroup_ID="352">
+         <Feature ID="571">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2673" Value="Scan File Format" langid="1"/>
+           <Name ID="2674" Value="Bestandsformaat voor scannen" langid="2"/>
+           <Name ID="7333" Value="Format du fichier de numérisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369270" Value="" No="15799" CategoryFeatureGroup_ID="352">
+         <Feature ID="688">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2907" Value="Right Metric Copy Margin" langid="1"/>
+           <Name ID="2908" Value="Rechtermarge kopieA&amp;quot;n (metrisch)" langid="2"/>
+           <Name ID="7448" Value="Right Metric Copy Margin" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369271" Value="" No="15798" CategoryFeatureGroup_ID="352">
+         <Feature ID="791">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3113" Value="Top Metric Copy Margin" langid="1"/>
+           <Name ID="3114" Value="Bovenmarge kopieA&amp;quot;n (metrisch)" langid="2"/>
+           <Name ID="7551" Value="Top Metric Copy Margin" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369272" Value="" No="15781" CategoryFeatureGroup_ID="352">
+         <Feature ID="761">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3053" Value="Bottom Copy Margin" langid="1"/>
+           <Name ID="3054" Value="Ondermarge kopie«n" langid="2"/>
+           <Name ID="7521" Value="Bottom Copy Margin" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369273" Value="" No="15780" CategoryFeatureGroup_ID="352">
+         <Feature ID="749">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3029" Value="Left Metric Copy Margin" langid="1"/>
+           <Name ID="3030" Value="Linkermarge kopieA&amp;quot;n (metrisch)" langid="2"/>
+           <Name ID="7509" Value="Left Metric Copy Margin" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369274" Value="" No="15727" CategoryFeatureGroup_ID="352">
+         <Feature ID="54">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1445" Value="Gray scale levels" langid="1"/>
+           <Name ID="1446" Value="Gray scale levels" langid="2"/>
+           <Name ID="6735" Value="Gray scale levels" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369275" Value="" No="15722" CategoryFeatureGroup_ID="352">
+         <Feature ID="619">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2769" Value="Internal/External JetDirect" langid="1"/>
+           <Name ID="2770" Value="Interne/externe Jetdirect" langid="2"/>
+           <Name ID="7379" Value="Internal/External JetDirect" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369276" Value="" No="15718" CategoryFeatureGroup_ID="352">
+         <Feature ID="844">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3219" Value="Fax Smart Software Features" langid="1"/>
+           <Name ID="3220" Value="Slimme faxsoftwarefuncties" langid="2"/>
+           <Name ID="7602" Value="Fonctions logicielles intelligentes du télécopieur" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369277" Value="" No="15717" CategoryFeatureGroup_ID="352">
+         <Feature ID="561">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2653" Value="Resolution (Black photo grayscale)" langid="1"/>
+           <Name ID="2654" Value="Resolutie (zwart, foto, grijstinten)" langid="2"/>
+           <Name ID="7323" Value="Resolution (Black photo grayscale)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369278" Value="" No="15716" CategoryFeatureGroup_ID="352">
+         <Feature ID="499">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2529" Value="Resolution (Black and White, Fine mode)" langid="1"/>
+           <Name ID="2530" Value="Resolutie (zwart-wit, fijn)" langid="2"/>
+           <Name ID="7261" Value="Resolution (Black and White, Fine mode)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369279" Value="" No="15715" CategoryFeatureGroup_ID="352">
+         <Feature ID="788">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="3107" Value="Resolution (Black and White, Standard mode)" langid="1"/>
+           <Name ID="3108" Value="Resolutie (zwart-wit, standaard)" langid="2"/>
+           <Name ID="7548" Value="Resolution (Black and White, Standard mode)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369280" Value="" No="15714" CategoryFeatureGroup_ID="352">
+         <Feature ID="858">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="3247" Value="Resolution (Black and White, Superfine mode)" langid="1"/>
+           <Name ID="3248" Value="Resolutie (zwart-wit, superfijn)" langid="2"/>
+           <Name ID="7616" Value="Resolution (Black and White, Superfine mode)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369281" Value="" No="15713" CategoryFeatureGroup_ID="352">
+         <Feature ID="679">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2889" Value="Fax Speed Dialing Footnote" langid="1"/>
+           <Name ID="2890" Value="Fax snelkiestoetsen Voetnoot" langid="2"/>
+           <Name ID="7439" Value="Fax Speed Dialing Footnote" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369282" Value="" No="15712" CategoryFeatureGroup_ID="352">
+         <Feature ID="722">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2975" Value="Copier Smart Software Features" langid="1"/>
+           <Name ID="2976" Value="Slimme copiersoftwarefuncties" langid="2"/>
+           <Name ID="7482" Value="Fonctions logicielles intelligentes du copieur" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369283" Value="" No="15710" CategoryFeatureGroup_ID="352">
+         <Feature ID="716">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2963" Value="Minimum Scanning Size" langid="1"/>
+           <Name ID="2964" Value="Minimum scanformaat" langid="2"/>
+           <Name ID="7476" Value="Minimum Scanning Size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369284" Value="" No="15688" CategoryFeatureGroup_ID="352">
+         <Feature ID="528">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2587" Value="Standalone Funcionality" langid="1"/>
+           <Name ID="2588" Value="Stand-alone functionaliteit" langid="2"/>
+           <Name ID="7290" Value="Standalone Funcionality" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369285" Value="" No="15682" CategoryFeatureGroup_ID="352">
+         <Feature ID="492">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2515" Value="Fax Speed (A4)" langid="1"/>
+           <Name ID="2516" Value="Faxsnelheid (A4)" langid="2"/>
+           <Name ID="7254" Value="Fax Speed (A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369286" Value="" No="15681" CategoryFeatureGroup_ID="352">
+         <Feature ID="815">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3161" Value="AIO Multitasking" langid="1"/>
+           <Name ID="3162" Value="AIO multitasking" langid="2"/>
+           <Name ID="7575" Value="AIO Multitasking" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369287" Value="" No="15677" CategoryFeatureGroup_ID="352">
+         <Feature ID="851">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3233" Value="Maximium Speed Dialing Numbers" langid="1"/>
+           <Name ID="3234" Value="Maximumaantal snelkiesnummers" langid="2"/>
+           <Name ID="7609" Value="Maximium Speed Dialing Numbers" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369288" Value="" No="15622" CategoryFeatureGroup_ID="352">
+         <Feature ID="772">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3075" Value="Scan Speed (Black, Normal Quality, A4)" langid="1"/>
+           <Name ID="3076" Value="Scansnelheid (zwart, standaard, A4)" langid="2"/>
+           <Name ID="7532" Value="Scan Speed (Black, Normal Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369289" Value="" No="15220" CategoryFeatureGroup_ID="352">
+         <Feature ID="766">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3063" Value="Scanner Smart Software Features" langid="1"/>
+           <Name ID="3064" Value="Slimme scannersoftwarefuncties" langid="2"/>
+           <Name ID="7526" Value="Fonctions logicielles intelligentes du scanneur" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369290" Value="" No="15208" CategoryFeatureGroup_ID="352">
+         <Feature ID="770">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3071" Value="Enhanced Copy Resolution" langid="1"/>
+           <Name ID="3072" Value="'Enhanced' kopieerresolutie" langid="2"/>
+           <Name ID="7530" Value="Enhanced Copy Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369291" Value="" No="15205" CategoryFeatureGroup_ID="352">
+         <Feature ID="562">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2655" Value="AIO Functions" langid="1"/>
+           <Name ID="2656" Value="AIO-functies" langid="2"/>
+           <Name ID="7324" Value="AIO Functions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369292" Value="" No="15066" CategoryFeatureGroup_ID="352">
+         <Feature ID="581">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2693" Value="Embedded Web Server" langid="1"/>
+           <Name ID="2694" Value="Embedded webserver" langid="2"/>
+           <Name ID="7343" Value="Embedded Web Server" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369293" Value="" No="15003" CategoryFeatureGroup_ID="352">
+         <Feature ID="660">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2851" Value="Scan Speed (Black, Normal Quality)" langid="1"/>
+           <Name ID="2852" Value="Scansnelheid (zwart, standaard)" langid="2"/>
+           <Name ID="7420" Value="Scan Speed (Black, Normal Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369294" Value="" No="15002" CategoryFeatureGroup_ID="352">
+         <Feature ID="727">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2985" Value="Optical Scanning Resolution" langid="1"/>
+           <Name ID="2986" Value="Optische scanresolutie" langid="2"/>
+           <Name ID="7487" Value="Optical Scanning Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369295" Value="" No="15001" CategoryFeatureGroup_ID="352">
+         <Feature ID="737">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="3005" Value="Enhanced scanning resolution" langid="1"/>
+           <Name ID="3006" Value="Enhanced scanresolutie" langid="2"/>
+           <Name ID="7497" Value="Enhanced scanning resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369296" Value="" No="14998" CategoryFeatureGroup_ID="352">
+         <Feature ID="823">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3177" Value="Auto Document Feeder Capacity" langid="1"/>
+           <Name ID="3178" Value="Capaciteit automatische documentinvoer" langid="2"/>
+           <Name ID="7582" Value="Capacité du chargeur automatique de documents" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369297" Value="" No="14908" CategoryFeatureGroup_ID="352">
+         <Feature ID="501">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="2533" Value="Print Margin Left (A3)" langid="1"/>
+           <Name ID="2534" Value="Printmarge links (A3)" langid="2"/>
+           <Name ID="7263" Value="Print Margin Left (A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369298" Value="" No="14907" CategoryFeatureGroup_ID="352">
+         <Feature ID="801">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3133" Value="Print Margin Right (A3)" langid="1"/>
+           <Name ID="3134" Value="Printmarge rechts (A3)" langid="2"/>
+           <Name ID="7561" Value="Print Margin Right (A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369299" Value="" No="14906" CategoryFeatureGroup_ID="352">
+         <Feature ID="856">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3243" Value="Print Margin Top (A3)" langid="1"/>
+           <Name ID="3244" Value="Printmarge boven (A3)" langid="2"/>
+           <Name ID="7614" Value="Print Margin Top (A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369300" Value="" No="14891" CategoryFeatureGroup_ID="352">
+         <Feature ID="821">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3173" Value="Print Margin Bottom (A3)" langid="1"/>
+           <Name ID="3174" Value="Printmarge onder (A3)" langid="2"/>
+           <Name ID="7580" Value="Print Margin Bottom (A3)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369301" Value="" No="14754" CategoryFeatureGroup_ID="352">
+         <Feature ID="672">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2875" Value="Memory slots" langid="1"/>
+           <Name ID="2876" Value="Geheugenslots" langid="2"/>
+           <Name ID="7432" Value="Emplacements mémoire" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369302" Value="" No="14730" CategoryFeatureGroup_ID="352">
+         <Feature ID="796">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3123" Value="Printer Management" langid="1"/>
+           <Name ID="3124" Value="Printerbeheer" langid="2"/>
+           <Name ID="7556" Value="Gestion d'imprimantes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369303" Value="" No="14700" CategoryFeatureGroup_ID="352">
+         <Feature ID="584">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2699" Value="Memory Upgrade" langid="1"/>
+           <Name ID="2700" Value="Geheugenupgrade" langid="2"/>
+           <Name ID="7346" Value="Memory Upgrade" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369304" Value="" No="14689" CategoryFeatureGroup_ID="352">
+         <Feature ID="541">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2613" Value="Number of Power Supply" langid="1"/>
+           <Name ID="2614" Value="Aantal voedingen" langid="2"/>
+           <Name ID="7303" Value="Number of Power Supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369305" Value="" No="14665" CategoryFeatureGroup_ID="352">
+         <Feature ID="451">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="2433" Value="Print Margin Top (A4)" langid="1"/>
+           <Name ID="2434" Value="Printmarge boven (A4)" langid="2"/>
+           <Name ID="7213" Value="Print Margin Top (A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369306" Value="" No="14664" CategoryFeatureGroup_ID="352">
+         <Feature ID="810">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3151" Value="Print Margin Right (A4)" langid="1"/>
+           <Name ID="3152" Value="Printmarge rechts (A4)" langid="2"/>
+           <Name ID="7570" Value="Print Margin Right (A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369307" Value="" No="14663" CategoryFeatureGroup_ID="352">
+         <Feature ID="523">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="2577" Value="Print Margin Left (A4)" langid="1"/>
+           <Name ID="2578" Value="Printmarge links (A4)" langid="2"/>
+           <Name ID="7285" Value="Print Margin Left (A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369308" Value="" No="14662" CategoryFeatureGroup_ID="352">
+         <Feature ID="829">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3189" Value="Print Margin Bottom (A4)" langid="1"/>
+           <Name ID="3190" Value="Printmarge onder (A4)" langid="2"/>
+           <Name ID="7588" Value="Print Margin Bottom (A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369309" Value="" No="14625" CategoryFeatureGroup_ID="352">
+         <Feature ID="514">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2559" Value="Power supply type" langid="1"/>
+           <Name ID="2560" Value="type voeding" langid="2"/>
+           <Name ID="7276" Value="type d'alimentation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369310" Value="" No="14618" CategoryFeatureGroup_ID="352">
+         <Feature ID="732">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2995" Value="Quantity per Pallet" langid="1"/>
+           <Name ID="2996" Value="Aantal per pallet" langid="2"/>
+           <Name ID="7492" Value="Quantité par palette" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369311" Value="" No="14607" CategoryFeatureGroup_ID="352">
+         <Feature ID="742">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3015" Value="Compatible Network Operating Systems" langid="1"/>
+           <Name ID="3016" Value="Compatibele netwerkbesturingssystemen" langid="2"/>
+           <Name ID="7502" Value="Compatible Network Operating Systems" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369312" Value="" No="14606" CategoryFeatureGroup_ID="352">
+         <Feature ID="786">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3103" Value="Network Ready" langid="1"/>
+           <Name ID="3104" Value="Netwerkklaar" langid="2"/>
+           <Name ID="7546" Value="Prêt pour le réseau" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369313" Value="" No="14598" CategoryFeatureGroup_ID="352">
+         <Feature ID="706">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="2943" Value="Maximum Print Length" langid="1"/>
+           <Name ID="2944" Value="Maximale printlengte" langid="2"/>
+           <Name ID="7466" Value="Maximum Print Length" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369314" Value="" No="14595" CategoryFeatureGroup_ID="352">
+         <Feature ID="805">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3141" Value="JetDirect Compatible Products" langid="1"/>
+           <Name ID="3142" Value="Jetdirect-compatibele producten" langid="2"/>
+           <Name ID="7565" Value="JetDirect Compatible Products" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369315" Value="" No="14593" CategoryFeatureGroup_ID="352">
+         <Feature ID="850">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3231" Value="Envelope feeder" langid="1"/>
+           <Name ID="3232" Value="Envelopinvoer" langid="2"/>
+           <Name ID="7608" Value="Chargeur d'enveloppes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369316" Value="" No="14586" CategoryFeatureGroup_ID="352">
+         <Feature ID="504">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2539" Value="Finished Output Handling" langid="1"/>
+           <Name ID="2540" Value="Documentafwerking" langid="2"/>
+           <Name ID="7266" Value="Finished Output Handling" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369317" Value="" No="14550" CategoryFeatureGroup_ID="352">
+         <Feature ID="611">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2753" Value="Printer Smart Software Features" langid="1"/>
+           <Name ID="2754" Value="Slimme printersoftwarefuncties" langid="2"/>
+           <Name ID="7373" Value="Fonctions logicielles intelligentes de l'imprimante" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369318" Value="" No="14347" CategoryFeatureGroup_ID="352">
+         <Feature ID="563">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2657" Value="Recommended Humidity Operating Range" langid="1"/>
+           <Name ID="2658" Value="Aanbevolen relatieve luchtvochtigheid bij gebruik" langid="2"/>
+           <Name ID="7325" Value="Humidité de fonctionnement recommandée" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369319" Value="" No="14346" CategoryFeatureGroup_ID="352">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369320" Value="" No="14345" CategoryFeatureGroup_ID="352">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369321" Value="" No="14344" CategoryFeatureGroup_ID="352">
+         <Feature ID="473">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2477" Value="Recommended Operating Temperature Range" langid="1"/>
+           <Name ID="2478" Value="Aanbevolen temperatuur bij gebruik" langid="2"/>
+           <Name ID="7235" Value="Recommended Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369322" Value="" No="14343" CategoryFeatureGroup_ID="352">
+         <Feature ID="511">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2553" Value="Maximum Operating Temperature Range" langid="1"/>
+           <Name ID="2554" Value="Maximum temperatuur in bedrijf" langid="2"/>
+           <Name ID="7273" Value="Maximum Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369323" Value="" No="14323" CategoryFeatureGroup_ID="352">
+         <Feature ID="585">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2701" Value="Acoustic Pressure Emissions" langid="1"/>
+           <Name ID="2702" Value="Geluidsdruk" langid="2"/>
+           <Name ID="7347" Value="Pression sonore émise" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369324" Value="" No="14320" CategoryFeatureGroup_ID="352">
+         <Feature ID="526">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2583" Value="Paper handling" langid="1"/>
+           <Name ID="2584" Value="Papierverwerking" langid="2"/>
+           <Name ID="7288" Value="Gestion du papier" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369325" Value="" No="14308" CategoryFeatureGroup_ID="352">
+         <Feature ID="838">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3207" Value="Energy Star certified" langid="1"/>
+           <Name ID="3208" Value="Energy Star-certificaat" langid="2"/>
+           <Name ID="7596" Value="Energy Star certified" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369326" Value="" No="14307" CategoryFeatureGroup_ID="352">
+         <Feature ID="647">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2825" Value="Acoustic Power Emissions" langid="1"/>
+           <Name ID="2826" Value="Geluidskracht" langid="2"/>
+           <Name ID="7407" Value="Puissance sonore émise" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369327" Value="" No="14305" CategoryFeatureGroup_ID="352">
+         <Feature ID="590">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2711" Value="Duty Cycle Letter Size Pages Per Month" langid="1"/>
+           <Name ID="2712" Value="Printvolume per maand voor A4-formaat pagina's" langid="2"/>
+           <Name ID="7352" Value="Duty Cycle Letter Size Pages Per Month" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369328" Value="" No="14283" CategoryFeatureGroup_ID="352">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369329" Value="" No="14279" CategoryFeatureGroup_ID="352">
+         <Feature ID="546">
+          <Measure ID="47" Sign="KB"/>
+           <Name ID="2623" Value="Memory Buffer" langid="1"/>
+           <Name ID="2624" Value="Geheugenbuffer" langid="2"/>
+           <Name ID="7308" Value="Mémoire tampon" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369330" Value="" No="14224" CategoryFeatureGroup_ID="352">
+         <Feature ID="701">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2933" Value="Copier Resize" langid="1"/>
+           <Name ID="2934" Value="Kopieën vergroten/verkleinen" langid="2"/>
+           <Name ID="7461" Value="Copier Resize" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369331" Value="" No="14111" CategoryFeatureGroup_ID="352">
+         <Feature ID="667">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="2865" Value="Operating altitude" langid="1"/>
+           <Name ID="2866" Value="Hoogte in bedrijf" langid="2"/>
+           <Name ID="7427" Value="Operating altitude" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369332" Value="" No="14070" CategoryFeatureGroup_ID="352">
+         <Feature ID="623">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2777" Value="Automatic Switching" langid="1"/>
+           <Name ID="2778" Value="Automatisch schakelen" langid="2"/>
+           <Name ID="7383" Value="Automatic Switching" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369333" Value="" No="14069" CategoryFeatureGroup_ID="352">
+         <Feature ID="733">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2997" Value="Bidirectional Support" langid="1"/>
+           <Name ID="2998" Value="Bi-directionele support" langid="2"/>
+           <Name ID="7493" Value="Bidirectional Support" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369334" Value="" No="5267" CategoryFeatureGroup_ID="352">
+         <Feature ID="58">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1453" Value="Infrared" langid="1"/>
+           <Name ID="1454" Value="Infrared" langid="2"/>
+           <Name ID="6738" Value="Infrared" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369335" Value="" No="5266" CategoryFeatureGroup_ID="352">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369336" Value="" No="5261" CategoryFeatureGroup_ID="352">
+         <Feature ID="77">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1491" Value="PPM color" langid="1"/>
+           <Name ID="1492" Value="PPM color" langid="2"/>
+           <Name ID="6755" Value="PPM color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369337" Value="" No="100" CategoryFeatureGroup_ID="352">
+         <Feature ID="817">
+          <Measure ID="60" Sign="s"/>
+           <Name ID="3165" Value="First Page Out (Colour, US letter)" langid="1"/>
+           <Name ID="3166" Value="Eerste pagina klaar (kleur, kwarto)" langid="2"/>
+           <Name ID="7577" Value="First Page Out (Colour, US letter)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369338" Value="PC / Mac" No="50" CategoryFeatureGroup_ID="352">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369339" Value="Max: 8 (printing) / Standby: 1" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="445">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="2257" Value="Power consumption" langid="1"/>
+           <Name ID="2258" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7137" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369340" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="537">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2605" Value="Scan type" langid="1"/>
+           <Name ID="2606" Value="type scan" langid="2"/>
+           <Name ID="7299" Value="type d'analyse" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369341" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="605">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2741" Value="Page Yield High Capacity (Black and White)" langid="1"/>
+           <Name ID="2742" Value="Paginaopbrengst high-capacity (zwart)" langid="2"/>
+           <Name ID="7367" Value="Page Yield High Capacity (Black and White)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369342" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2745" Value="Safety" langid="1"/>
+           <Name ID="2746" Value="Veiligheid" langid="2"/>
+           <Name ID="7369" Value="Sécurité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369343" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="642">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2815" Value="Memory Type" langid="1"/>
+           <Name ID="2816" Value="Type geheugen" langid="2"/>
+           <Name ID="7402" Value="Mémoire en standard" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369344" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="673">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2877" Value="Electromagnetic Compatibility" langid="1"/>
+           <Name ID="2878" Value="EMC" langid="2"/>
+           <Name ID="7433" Value="compatibilité électromagnétique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369345" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="774">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3079" Value="Export file formats" langid="1"/>
+           <Name ID="3080" Value="Exportbestandsformaten" langid="2"/>
+           <Name ID="7534" Value="Export file formats" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369346" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="793">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3117" Value="Compliance Industry Standards" langid="1"/>
+           <Name ID="3118" Value="Standaard" langid="2"/>
+           <Name ID="7553" Value="Compliance Industry Standards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369347" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="820">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3171" Value="Recommended media" langid="1"/>
+           <Name ID="3172" Value="Aanbevolen media" langid="2"/>
+           <Name ID="7579" Value="Recommended media" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369348" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="832">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3195" Value="Scan Speed (Colour, Full Page Colour, Normal Quality, A4)" langid="1"/>
+           <Name ID="3196" Value="Scansnelheid (kleur, paginagrote kleurenafbeelding, standaard, A4)" langid="2"/>
+           <Name ID="7591" Value="Scan Speed (Colour, Full Page Colour, Normal Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369349" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="872">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3275" Value="Page Yield High Capacity (Colour)" langid="1"/>
+           <Name ID="3276" Value="Paginaopbrengst high-capacity (kleur)" langid="2"/>
+           <Name ID="7630" Value="Page Yield High Capacity (Colour)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369350" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369351" Value="5 - 35" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369352" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369353" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1246">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="4033" Value="Maximum internal memory" langid="1"/>
+           <Name ID="4034" Value="Maximum intern geheugen" langid="2"/>
+           <Name ID="7999" Value="Maximum internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369354" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1257">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4055" Value="Modem type" langid="1"/>
+           <Name ID="4056" Value="Modemtype" langid="2"/>
+           <Name ID="8010" Value="Modem type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369355" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1300">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4141" Value="Battery life" langid="1"/>
+           <Name ID="4142" Value="Accu levensduur" langid="2"/>
+           <Name ID="8052" Value="Battery life" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369356" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1442">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4425" Value="Wireless option type" langid="1"/>
+           <Name ID="4426" Value="Wireless option type" langid="2"/>
+           <Name ID="8192" Value="Wireless option type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369357" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1449">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="4556" Value="Non-operating altitude" langid="2"/>
+           <Name ID="4555" Value="Non-operating altitude" langid="1"/>
+           <Name ID="7131" Value="Non-operating altitude" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369358" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1523">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4766" Value="Hoogte bij opslag" langid="2"/>
+           <Name ID="4765" Value="Altitude for storage" langid="1"/>
+           <Name ID="8213" Value="Altitude for storage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369359" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1535">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4791" Value="Battery recharge time" langid="1"/>
+           <Name ID="4792" Value="Batterij oplaadtijd" langid="2"/>
+           <Name ID="6725" Value="Temps de rechargement de la batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369360" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1683">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5303" Value="Dimensions with trays up" langid="1"/>
+           <Name ID="5304" Value="Afmetingen met laden ingeklapt" langid="2"/>
+           <Name ID="8448" Value="Dimensions with trays up" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369362" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1879">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="5785" Value="Print technology resolution" langid="1"/>
+           <Name ID="5786" Value="Printtechnologie resolutie" langid="2"/>
+           <Name ID="8680" Value="Résolution de la technologie d'impression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369363" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1880">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5787" Value="Services (supportpack)" langid="1"/>
+           <Name ID="5788" Value="Services (supportpack)" langid="2"/>
+           <Name ID="8681" Value="Services (supportpack)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369364" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1970">
+          <Measure ID="29" Sign=""/>
+           <Name ID="8903" Value="Mac Connectivity" langid="1"/>
+           <Name ID="8904" Value="Mac Connectivity" langid="3"/>
+           <Name ID="8905" Value="Mac Connectivity" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369365" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1988">
+          <Measure ID="29" Sign=""/>
+           <Name ID="8957" Value="Driver updates" langid="1"/>
+           <Name ID="8958" Value="Driver updates" langid="3"/>
+           <Name ID="8959" Value="Driver updates" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369366" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1989">
+          <Measure ID="29" Sign=""/>
+           <Name ID="8960" Value="Duplex supported media size" langid="1"/>
+           <Name ID="8961" Value="Taille de support prise en charge en mode recto-verso" langid="3"/>
+           <Name ID="8962" Value="Ondersteunde mediaformaten voor dubbelzijdig printen" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369367" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1990">
+          <Measure ID="29" Sign=""/>
+           <Name ID="8963" Value="Duplex supported media weight" langid="1"/>
+           <Name ID="8964" Value="Duplex supported media weight" langid="3"/>
+           <Name ID="8965" Value="Duplex supported media weight" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369368" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2010">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9023" Value="Media dimensions (metric)" langid="1"/>
+           <Name ID="9024" Value="Media dimensions (metric)" langid="3"/>
+           <Name ID="9025" Value="Media dimensions (metric)" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369369" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2011">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9026" Value="Media handling" langid="1"/>
+           <Name ID="9027" Value="Media handling" langid="3"/>
+           <Name ID="9028" Value="Media handling" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369370" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2015">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9038" Value="Memory technology" langid="1"/>
+           <Name ID="9039" Value="Technologie de la mémoire" langid="3"/>
+           <Name ID="9040" Value="Geheugentechnologie" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369371" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2020">
+          <Measure ID="91" Sign="F"/>
+           <Name ID="9056" Value="Operating temperature range" langid="1"/>
+           <Name ID="9057" Value="Operating temperature range" langid="3"/>
+           <Name ID="9058" Value="Operating temperature range" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369372" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2022">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9062" Value="Page yield (Photo)" langid="1"/>
+           <Name ID="9063" Value="Page yield (Photo)" langid="3"/>
+           <Name ID="9064" Value="Page yield (Photo)" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369373" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2023">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9065" Value="Paper Handling Optional/Input" langid="1"/>
+           <Name ID="9066" Value="Gestion du papier en option/entrée" langid="3"/>
+           <Name ID="9067" Value="Papierverwerking optioneel/invoer" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369374" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2024">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9068" Value="Paper Handling Optional/Output" langid="1"/>
+           <Name ID="9069" Value="Gestion du papier en option/sortie" langid="3"/>
+           <Name ID="9070" Value="Papierverwerking optioneel/uitvoer" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369375" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2025">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9071" Value="Paper Handling Standard/Input" langid="1"/>
+           <Name ID="9072" Value="Gestion du papier en standard/entrée" langid="3"/>
+           <Name ID="9073" Value="Papierverwerking standaard/invoer" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369376" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2026">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9074" Value="Paper Handling Standard/Output" langid="1"/>
+           <Name ID="9075" Value="Gestion du papier en standard/sortie" langid="3"/>
+           <Name ID="9076" Value="Papierverwerking standaard/uitvoer" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369377" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2027">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9077" Value="Maximum paper tray" langid="1"/>
+           <Name ID="9078" Value="Maximum paper tray" langid="3"/>
+           <Name ID="9079" Value="Maximum paper tray" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369378" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2037">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9107" Value="Print cartridge colors" langid="1"/>
+           <Name ID="9108" Value="Print cartridge colors" langid="3"/>
+           <Name ID="9109" Value="Print cartridge colors" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369379" Value="" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="2038">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9110" Value="Print cartridge volume (metric)" langid="1"/>
+           <Name ID="9111" Value="Print cartridge volume (metric)" langid="3"/>
+           <Name ID="9112" Value="Print cartridge volume (metric)" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369380" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2056">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9164" Value="Remote front panel software" langid="1"/>
+           <Name ID="9165" Value="Panneau de commande à distance" langid="3"/>
+           <Name ID="9166" Value="Software voor remote bedieningspaneel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369381" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2084">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9248" Value="Control panel" langid="1"/>
+           <Name ID="9249" Value="Panneau de commande" langid="3"/>
+           <Name ID="9250" Value="Bedieningspaneel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369382" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2085">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9251" Value="Media type and capacity(tray 2)" langid="1"/>
+           <Name ID="9252" Value="Media type and capacity(tray 2)" langid="3"/>
+           <Name ID="9253" Value="Media type and capacity(tray 2)" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369383" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2087">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9257" Value="Media weight (tray 2)" langid="1"/>
+           <Name ID="9258" Value="Media weight (tray 2)" langid="3"/>
+           <Name ID="9259" Value="Media weight (tray 2)" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369384" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2088">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9260" Value="Blue angel compliant" langid="1"/>
+           <Name ID="9261" Value="Conforme Blue Angel" langid="3"/>
+           <Name ID="9262" Value="Blue Angel-compatibel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369385" Value="" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2091">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9269" Value="Media size (tray 2)" langid="1"/>
+           <Name ID="9270" Value="Media size (tray 2)" langid="3"/>
+           <Name ID="9271" Value="Media size (tray 2)" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369386" Value="" No="14704" CategoryFeatureGroup_ID="50">
+         <Feature ID="754">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3039" Value="Optional Compatible Operating Systems" langid="1"/>
+           <Name ID="3040" Value="Optionele compatibele besturingssystemen" langid="2"/>
+           <Name ID="7514" Value="Systèmes d'exploitation optionnels compatibles" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369387" Value="Y" No="14571" CategoryFeatureGroup_ID="50">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369388" Value="" No="14566" CategoryFeatureGroup_ID="50">
+         <Feature ID="493">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2517" Value="Minumum system requirements for Macintosh" langid="1"/>
+           <Name ID="2518" Value="Minumum systeemeisen voor Macintosh" langid="2"/>
+           <Name ID="7255" Value="Minumum system requirements for Macintosh" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369389" Value="" No="14422" CategoryFeatureGroup_ID="50">
+         <Feature ID="789">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3109" Value="Recommended System Requirements" langid="1"/>
+           <Name ID="3110" Value="Aanbevolen systeemspecificatie" langid="2"/>
+           <Name ID="7549" Value="Recommended System Requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369390" Value="" No="34" CategoryFeatureGroup_ID="50">
+         <Feature ID="795">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3121" Value="Recommended Macintosh System Requirements" langid="1"/>
+           <Name ID="3122" Value="Aanbevolen systeemspecificatie Macintosh-configuratie" langid="2"/>
+           <Name ID="7555" Value="Recommended Macintosh System Requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369391" Value="" No="14707" CategoryFeatureGroup_ID="54">
+         <Feature ID="700">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2931" Value="Optional Printer Languages" langid="1"/>
+           <Name ID="2932" Value="Optionele printertalen" langid="2"/>
+           <Name ID="7460" Value="Optional Printer Languages" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369392" Value="" No="14597" CategoryFeatureGroup_ID="54">
+         <Feature ID="686">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2903" Value="Printer Drivers Included" langid="1"/>
+           <Name ID="2904" Value="Meegeleverde printerdrivers" langid="2"/>
+           <Name ID="7446" Value="Pilotes d'imprimantes inclus" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369393" Value="BCI-24Bk - Black ink tank  /BCI-24C - Colour ink tank" No="14570" CategoryFeatureGroup_ID="54">
+         <Feature ID="705">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2941" Value="Compatible Ink Types" langid="1"/>
+           <Name ID="2942" Value="Compatibele inkttypen" langid="2"/>
+           <Name ID="7465" Value="Compatible Ink Types" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369394" Value="" No="14363" CategoryFeatureGroup_ID="54">
+         <Feature ID="564">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2659" Value="Duplex Print Options" langid="1"/>
+           <Name ID="2660" Value="Opties voor dubbelzijdig printen" langid="2"/>
+           <Name ID="7326" Value="Options d'impression recto verso" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369395" Value="" No="14324" CategoryFeatureGroup_ID="54">
+         <Feature ID="459">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2449" Value="Standard Printer Languages" langid="1"/>
+           <Name ID="2450" Value="Standaard printertalen" langid="2"/>
+           <Name ID="7221" Value="Standard Printer Languages" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369396" Value="" No="14319" CategoryFeatureGroup_ID="54">
+         <Feature ID="680">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2891" Value="Typefaces" langid="1"/>
+           <Name ID="2892" Value="Lettertypen" langid="2"/>
+           <Name ID="7440" Value="Polices de caractères" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369397" Value="" No="14302" CategoryFeatureGroup_ID="54">
+         <Feature ID="547">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2625" Value="Colour Printing Technology" langid="1"/>
+           <Name ID="2626" Value="Kleurenprinttechnologie" langid="2"/>
+           <Name ID="7309" Value="Colour Printing Technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369398" Value="" No="14284" CategoryFeatureGroup_ID="54">
+         <Feature ID="453">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2437" Value="Print Head Nozzles" langid="1"/>
+           <Name ID="2438" Value="Spuitmondjes" langid="2"/>
+           <Name ID="7215" Value="Buses de tête d'impression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369399" Value="" No="5265" CategoryFeatureGroup_ID="54">
+         <Feature ID="78">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1493" Value="Print technology" langid="1"/>
+           <Name ID="1494" Value="Printtechnologie" langid="2"/>
+           <Name ID="6756" Value="Technologie d'impression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369400" Value="" No="0" CategoryFeatureGroup_ID="54">
+         <Feature ID="1531">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4781" Value="Print colours" langid="1"/>
+           <Name ID="4782" Value="Printkleuren" langid="2"/>
+           <Name ID="8203" Value="Print colours" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369401" Value="" No="14602" CategoryFeatureGroup_ID="51">
+         <Feature ID="696">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2923" Value="Media Weights by Paper Path" langid="1"/>
+           <Name ID="2924" Value="Mediagewichten per papierpad" langid="2"/>
+           <Name ID="7456" Value="Media Weights by Paper Path" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369402" Value="" No="14277" CategoryFeatureGroup_ID="51">
+         <Feature ID="842">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3215" Value="Recommended media weight" langid="1"/>
+           <Name ID="3216" Value="Aanbevolen mediagewicht" langid="2"/>
+           <Name ID="7600" Value="Recommended media weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369403" Value="" No="14276" CategoryFeatureGroup_ID="51">
+         <Feature ID="477">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2485" Value="Media types supported" langid="1"/>
+           <Name ID="2486" Value="Media" langid="2"/>
+           <Name ID="7239" Value="Media types supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369404" Value="" No="14274" CategoryFeatureGroup_ID="51">
+         <Feature ID="769">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3069" Value="Standard Media Sizes" langid="1"/>
+           <Name ID="3070" Value="Standaard mediaformaten" langid="2"/>
+           <Name ID="7529" Value="Standard Media Sizes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369405" Value="" No="14273" CategoryFeatureGroup_ID="51">
+         <Feature ID="458">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2447" Value="Custom Media Sizes" langid="1"/>
+           <Name ID="2448" Value="Formaten afwijkende media" langid="2"/>
+           <Name ID="7220" Value="Custom Media Sizes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369406" Value="" No="15007" CategoryFeatureGroup_ID="52">
+         <Feature ID="490">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2511" Value="TWAIN Compliance Interface" langid="1"/>
+           <Name ID="2512" Value="TWAIN-compatibele interface" langid="2"/>
+           <Name ID="7252" Value="TWAIN Compliance Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369407" Value="" No="14702" CategoryFeatureGroup_ID="52">
+         <Feature ID="725">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2981" Value="Optional Supported Network Operating Systems" langid="1"/>
+           <Name ID="2982" Value="Optionele ondersteunde netwerkbesturingssystemen" langid="2"/>
+           <Name ID="7485" Value="Optional Supported Network Operating Systems" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9369408" Value="" No="0" CategoryFeatureGroup_ID="52">
+         <Feature ID="1530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4780" Value="Optionele connectiviteit" langid="2"/>
+           <Name ID="4779" Value="Optional connectivity" langid="1"/>
+           <Name ID="8208" Value="Optional connectivity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="10" Name="Canon"/>
+       <Category ID="234">
+         <Name ID="469" Value="inkjet printers" langid="1"/>
+         <Name ID="470" Value="inkjetprinters" langid="2"/>
+         <Name ID="6307" Value="inkjet printers" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

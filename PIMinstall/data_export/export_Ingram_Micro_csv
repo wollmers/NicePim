@@ -1,0 +1,388 @@
+#!/usr/bin/perl
+
+# $Id: $
+
+#
+# A script generates xls-export for described below categories (for Ingram Micro)
+# 3.10.2007 Dmitry Mitko
+#
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use Time::localtime;
+use Net::FTP;
+
+ #######
+#       #
+# begin #
+#       #
+ #######
+
+# Initial variables
+
+$| = 1;
+
+my $send = 1;
+my $messages = 1;
+my $time = 0;
+my $d = ";"; # limiter between elements in SKUlist & VPNlist
+my $t = ","; # tab
+my $n = "\n"; # endline
+
+# remote ftp server
+
+my $login = 'ingram';
+my $pass = 'N04p1ck';
+my $host = 'ftp.iceshop.nl';
+my $dir = 'supplies';
+
+my $mail = "stephan_olieman\@zonnet.nl, stephan.olieman\@ingram.nl";
+
+my $Ingram_Micro_distributor_id = &do_query("select distributor_id from distributor where code='IM'")->[0][0] or die ("Could not find Ingram Micro distri. Stop!");
+
+my $langid = 2; # NL by default
+
+my $cat_unspscs = [
+# printers
+									 '43172500', # printers
+									 '43172501', # plotters
+									 '43172502', # band printers
+									 '43172503', # dot matrix printers
+									 '43172504', # label printers
+									 '43172505', # large format printers
+									 '43172506', # line matrix printers
+									 '43172507', # page printers
+									 '43172508', # thermal printers
+									 '43172509', # inkjet printers
+									 '43172510', # laser printers
+									 '44101503', # multifunctionals
+									 '43212103', # photo printers
+
+# data storage
+									 '43172212', # 
+									 '43172302', #
+									 '43172303', #
+									 '43172306', #
+									 '43172307', #
+									 '43172310', #
+									 '43201806', #
+									 '32101622', #
+									 '43201812', #
+									 '43211702'  #
+									 ];
+
+my $cat_rel_unspscs = [
+											 '14111500', # printer paper
+											 '13111200', # printer film
+											 '44103100', # printer supplies
+											 '43180000'  # data storage supplies
+											 ];
+
+#
+# Generate temp table for exporting:
+#
+# ingcat - leave void
+# vpn - distributor_product.dist_prod_id from distributor.name='Ingram Micro'
+# sku - product.prod_id
+# unspsc - category.ucatid
+# vendor - supplier.name
+# brand - supplier.name
+# type - category.name
+# model - product.name
+# properties - ??? maybe void
+# skulist - product_related.rel_product_id -> dist_prod_id (comma separated)
+# description - category.description
+# vpnlist - product_related.rel_product_id -> prod_id (comma separated)
+#
+
+&mprint(&start("CTs..."));
+
+&do_statement("create temporary table tmp_export (
+tmp_export_id int(13)      not null primary key auto_increment,
+product_id    int(13)      not null default '0',
+vpn           varchar(235) not null default '',
+sku           varchar(60)  not null default '',
+unspsc        varchar(255) not null default '',
+vendor        varchar(255) not null default '',
+type          varchar(255) not null default '',
+model         varchar(255) not null default '')");
+
+&do_statement("create temporary table tmp_export_reversed like tmp_export");
+
+&do_statement("create temporary table tmp_vpnlist (
+tmp_vpnlist_id   int(13)     not null primary key auto_increment,
+tmp_export_id    int(13)     not null default '0',
+rel_prod_id      varchar(60) not null default '',
+rel_dist_prod_id varchar(60) not null default '')");
+
+## Stephan don't want supplies SKUlist & VPNlist
+#&do_statement("create temporary table tmp_vpnlist_reversed like tmp_vpnlist");
+
+&mprint(&done_stop);
+
+# generate list of cats & their subcats
+
+&mprint(&start("Search subcats..."));
+my $cats = undef;
+foreach my $ucatid (@$cat_unspscs) {
+	$cats .= &do_query("select catid from category where ucatid=".&str_sqlize($ucatid))->[0][0].",";
+}
+chop($cats);
+
+my $rel_cats = undef;
+foreach my $ucatid (@$cat_rel_unspscs) {
+	$rel_cats .= &get_ucatid_children_comma_separated(&do_query("select catid from category where ucatid=".&str_sqlize($ucatid))->[0][0]);
+}
+chop($rel_cats);
+&mprint(&done_stop);
+
+# prepare useful tmp tables for non-reversed
+&mprint(&start("Reload tmp_product non-reversed..."));
+&reload_tmp_product("where catid in (".$cats.")");
+&mprint(&done_stop);
+
+# fullfill tmp_export non-reversed
+&mprint(&start("Fullfill main tmp table non-reversed..."));
+&do_statement("insert into tmp_export(product_id,vpn,sku,unspsc,vendor,type,model)
+select tp.product_id, tp.prod_id, dp.dist_prod_id, c.ucatid, s.name, v.value, tp.name
+from tmp_product tp
+left  join distributor_product dp on dp.product_id=tp.product_id and dp.distributor_id=".$Ingram_Micro_distributor_id."
+inner join category c using (catid)
+inner join supplier s using (supplier_id)
+left  join vocabulary v on c.sid=v.sid and v.langid=".$langid);
+&do_statement("alter ignore table tmp_export add unique key (product_id)");
+&mprint(&done_stop);
+
+# prepare useful tmp tables for reversed
+&mprint(&start("Reload tmp_product reversed..."));
+&reload_tmp_product("where catid in (".$rel_cats.")");
+&mprint(&done_stop);
+
+# fullfill tmp_export reversed
+&mprint(&start("Fullfill main tmp table reversed..."));
+&do_statement("insert into tmp_export_reversed(product_id,vpn,sku,unspsc,vendor,type,model)
+select tp.product_id, tp.prod_id, dp.dist_prod_id, c.ucatid, s.name, v.value, tp.name
+from tmp_product tp
+inner join distributor_product dp on dp.product_id=tp.product_id and dp.distributor_id=".$Ingram_Micro_distributor_id." and dp.active=1
+inner join category c using (catid)
+inner join supplier s using (supplier_id)
+left  join vocabulary v on c.sid=v.sid and v.langid=".$langid);
+&do_statement("alter ignore table tmp_export add unique key (product_id)");
+&mprint(&done_stop);
+
+# VPN_SKU_LIST generating DIRECT & REVERSED for non-reversed export
+&mprint(&start("Fullfill VPN&SKUlist non-reversed..."));
+&do_statement("insert into tmp_vpnlist (tmp_export_id,rel_prod_id,rel_dist_prod_id)
+select te.tmp_export_id, p.prod_id, dp.dist_prod_id
+from tmp_export te
+inner join product_related pr on te.product_id=pr.product_id
+inner join product p on pr.rel_product_id=p.product_id and p.catid in (".$rel_cats.")
+inner join distributor_product dp on dp.product_id=pr.rel_product_id and dp.distributor_id=".$Ingram_Micro_distributor_id." and dp.active=1");
+&mprint("DIRECT ");
+&do_statement("insert into tmp_vpnlist (tmp_export_id,rel_prod_id,rel_dist_prod_id)
+select te.tmp_export_id, p.prod_id, dp.dist_prod_id
+from tmp_export te
+inner join product_related pr on te.product_id=pr.rel_product_id
+inner join product p on pr.product_id=p.product_id and p.catid in (".$rel_cats.")
+inner join distributor_product dp on dp.product_id=pr.product_id and dp.distributor_id=".$Ingram_Micro_distributor_id." and dp.active=1");
+&mprint("REVERSED ");
+&do_statement("alter table tmp_vpnlist add key (tmp_export_id)");
+&mprint(&done_stop("ADD_KEY"));
+
+## Stephan don't want supplies SKUlist & VPNlist
+# VPN_SKU_LIST generating DIRECT & REVERSED for reversed export
+#&mprint(&start("Fullfill VPN&SKUlist reversed..."));
+#&do_statement("insert into tmp_vpnlist_reversed (tmp_export_id,rel_prod_id,rel_dist_prod_id)
+#select te.tmp_export_id, p.prod_id, dp.dist_prod_id
+#from tmp_export_reversed te
+#inner join product_related pr on te.product_id=pr.product_id
+#inner join product p on pr.rel_product_id=p.product_id and p.catid in (".$cats.")
+#inner join distributor_product dp on dp.product_id=pr.rel_product_id and dp.distributor_id=".$Ingram_Micro_distributor_id);
+#&mprint("DIRECT ");
+#&do_statement("insert into tmp_vpnlist_reversed (tmp_export_id,rel_prod_id,rel_dist_prod_id)
+#select te.tmp_export_id, p.prod_id, dp.dist_prod_id
+#from tmp_export_reversed te
+#inner join product_related pr on te.product_id=pr.rel_product_id
+#inner join product p on pr.product_id=p.product_id and p.catid in (".$cats.")
+#inner join distributor_product dp on dp.product_id=pr.product_id and dp.distributor_id=".$Ingram_Micro_distributor_id);
+#&mprint("REVERSED ");
+#&do_statement("alter table tmp_vpnlist_reversed add key (tmp_export_id)");
+#&mprint(&done_stop("ADD_KEY"));
+
+# statistic
+&mprint("\nexport_Ingram_Micro_xls statistics:\n");
+&mprint("\ttotal products non-reversed:\t".&do_query("select count(*) from tmp_export")->[0][0]."\n");
+&mprint("\twith relations non-reversed:\t".&do_query("select count(distinct tmp_export_id) from tmp_vpnlist")->[0][0]."\n\n");
+&mprint("\ttotal products reversed:\t".&do_query("select count(*) from tmp_export_reversed")->[0][0]."\n");
+## Stephan don't want supplies SKUlist & VPNlist
+#&mprint("\twith relations reversed:\t".&do_query("select count(distinct tmp_export_id) from tmp_vpnlist_reversed")->[0][0]."\n\n");
+
+my $list;
+
+&mprint(&start("Selecting results for non-reversed..."));
+my $out = &do_query("select te.tmp_export_id, te.vpn, te.sku, te.unspsc, te.vendor, te.type, te.model,
+GROUP_CONCAT(tv.rel_prod_id order by tv.tmp_vpnlist_id SEPARATOR ".&str_sqlize($d)."),
+GROUP_CONCAT(tv.rel_dist_prod_id order by tv.tmp_vpnlist_id SEPARATOR ".&str_sqlize($d).")
+from tmp_export te left join tmp_vpnlist tv using (tmp_export_id) group by te.tmp_export_id");
+&mprint(&done_stop);
+&mprint(&start("Selecting results for reversed..."));
+my $out_rev = &do_query("select te.tmp_export_id, te.vpn, te.sku, te.unspsc, te.vendor, te.type, te.model, '', '' from tmp_export_reversed te");
+&mprint(&done_stop);
+## Stephan don't want supplies SKUlist & VPNlist
+#&mprint(&start("Selecting results for reversed..."));
+#my $out_rev = &do_query("select te.tmp_export_id, te.vpn, te.sku, te.unspsc, te.vendor, te.type, te.model,
+#GROUP_CONCAT(tv.rel_prod_id order by tv.tmp_vpnlist_id SEPARATOR ".&str_sqlize($d)."),
+#GROUP_CONCAT(tv.rel_dist_prod_id order by tv.tmp_vpnlist_id SEPARATOR ".&str_sqlize($d).")
+#from tmp_export_reversed te left join tmp_vpnlist_reversed tv using (tmp_export_id) group by te.tmp_export_id");
+#&mprint(&done_stop);
+
+open(FILE,">".$atomcfg{'base_dir'}."/data_export/export_Ingram_Micro_csv.csv");
+binmode(FILE,":utf8");
+
+print FILE "ingcat".$t."vpn".$t."sku".$t."unspsc".$t."vendor".$t."brand".$t."type".$t."model".$t."properties".$t."skulist".$t."description".$t."vpnlist".$n;
+
+my $count = 0;
+my $limit = ($#$out + $#$out_rev + 2) / 32;
+		
+&mprint(&start("Publishing..."));
+foreach my $r (@$out,@$out_rev) {
+	print FILE &to_csv("").$t.
+		&to_csv($r->[1]).$t.
+		&to_csv($r->[2]).$t.
+		&to_csv($r->[3]).$t.
+		&to_csv($r->[4]).$t.
+		&to_csv($r->[4]).$t.
+		&to_csv($r->[5]).$t.
+		&to_csv($r->[6]).$t.
+		&to_csv("").$t.
+		&to_csv($r->[8]).$t.
+		&to_csv("").$t.
+		&to_csv($r->[7]).$n;
+
+	$count++;
+
+	if ($count > $limit) {
+		print "*";
+		$count = 0;
+	}
+}
+&mprint(&done_stop(" "));
+close FILE;
+
+if ($send) {
+	# send to remote ftp server
+
+	my $ftp = Net::FTP->new($host, Debug => 0)
+		or die "Cannot connect to ".$host.": $@";
+	
+	$ftp->login($login,$pass)
+		or die "Cannot login ", $ftp->message;
+	
+	$ftp->cwd("/".$dir)
+		or die "Cannot change working directory ", $ftp->message;
+	
+	$ftp->put("./export_Ingram_Micro_csv.csv")
+		or die "get failed ", $ftp->message;
+	
+	$ftp->quit;
+	
+	# send mail
+
+	my $cmd = "/usr/bin/zip -r /tmp/export_Ingram_Micro_csv.zip ./export_Ingram_Micro_csv.csv";
+	`$cmd`;
+	open(ZIP, "< /tmp/export_Ingram_Micro_csv.zip");
+	binmode(ZIP,":bytes");
+	my $zip = join('', <ZIP>);
+	close ZIP;
+	
+	my $mail = {
+		'to' => $mail,
+		'from' => 'dima',
+		'subject' => 'Ingram Micro export report',
+		'text_body' => 'see included',
+		'attachment_name' => "export_Ingram_Micro_csv.zip",
+		'attachment_content_type' => 'application/zip',
+		'attachment_body' => $zip
+		};
+	
+	&atom_mail::complex_sendmail($mail);
+}
+
+exit(0);
+
+ #############
+#             #
+# useful subs #
+#             #
+ #############
+
+sub get_ucatid_children_comma_separated {
+	my ($catid) = @_;
+
+	return undef unless ($catid);
+
+	my $out = $catid.",";
+
+	foreach my $ccatid (@{&do_query("select catid from category where pcatid=".$catid)}) {
+		$out .= &get_ucatid_children_comma_separated($ccatid->[0]);
+	}
+
+	return $out;
+} # sub get_ucatid_children_comma_separated
+
+sub reload_tmp_product {
+	my ($where) = @_;
+	
+	# product
+	&do_statement("drop temporary table if exists tmp_product");
+	&do_statement("create temporary table tmp_product (
+`product_id`  int(13)      NOT NULL default '0',
+`prod_id`     varchar(60)  NOT NULL default '',
+`supplier_id` int(13)      NOT NULL default '0',
+`user_id`     int(13)      NOT NULL default '0',
+`name`        varchar(255) NOT NULL default '',
+`catid`       int(13)      NOT NULL default '0')");
+	&do_statement("insert into tmp_product(product_id,prod_id,supplier_id,user_id,name,catid) select product_id,prod_id,supplier_id,user_id,name,catid from product ".$where);
+
+  # add index to `product_id`, `prod_id`+`supplier_id`
+	&do_statement("alter table tmp_product add primary key (product_id), add unique key (prod_id,supplier_id)");
+} # sub reload_tmp_product
+
+sub to_csv {
+	my $str = shift;
+	$str =~ s/\"/\\\"/sg;
+	return "\"".$str."\"";
+} # sub to_csv
+
+ ####################
+#                    #
+# miscellaneous subs #
+#                    #
+ ####################
+
+sub start {
+	my ($pre) = @_;
+	$time = &POSIX::time();
+	return $pre." ";
+} # sub start
+
+sub stop {
+	return (&POSIX::time()-$time);
+} # sub stop
+
+sub done_stop {
+	my ($pre) = @_;
+	my $secs = &stop;
+	return $pre.($pre ? " " : "")."(".$secs." sec".($secs == 1 ? "" : "s").")\n";
+} # sub done_stop
+
+sub mprint {
+	print shift if ($messages);
+} # sub mprint

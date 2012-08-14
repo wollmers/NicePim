@@ -1,0 +1,170 @@
+#!/usr/bin/perl
+
+use strict;
+
+use POSIX;
+use Parallel::ForkManager;
+use Getopt::Std;
+
+use Data::Dumper;
+
+$| = 1;
+
+#$0 =~ s/-p (\S+)/-p */gs;
+
+my $test = 0;
+
+# get all parameters
+
+our ($opt_u, $opt_p, $opt_d, $opt_c, $opt_D);
+
+getopt('upOdcD');
+
+die "Please, run it as root\n\n" if getuid;
+
+die "Usage: ".$0.
+	" -u ".&hl."<MySQL username>".&uhl.
+	" -d ".&hl."<MySQL database>".&uhl.
+	" -D ".&hl."<IM|MI>".&uhl.
+	" [-p <MySQL password> -c <parallel connections>]\n\n"
+	unless $opt_u && $opt_d;
+
+## CHECK!
+
+$opt_D = 'IM' if $opt_D ne 'MI';
+
+if ((-f "./".$0.".innodb_tables") && ($opt_D eq 'IM')) {
+	die "Please, remove the ./".$0." if you want to collect the new set of InnoDB tables\n\n";
+}
+
+# check the local server settings
+# datadir
+my $cmd = 'cat /etc/mysql/my.cnf | grep -v \'#\' | grep datadir | awk \'{ print $3 }\'';
+my $local_dir = `$cmd`;
+#print $local_dir."\n";
+chomp($local_dir);
+if (($local_dir) && (-d $local_dir)) {
+	print "Local MySQL datadir is: ".&hyellow.$local_dir.&def."\n";
+}
+else {
+	die "Unable to determine the local MySQL datadir\n\n";
+}
+
+# check the database
+
+my $mysql_connect = "mysql -u".$opt_u." " . ( $opt_p ? "-p".$opt_p : '' );
+
+$cmd = $mysql_connect. " -e 'show databases' | grep -P '".'\b'.$opt_d.'\b'."'";
+my $isDatabase = `$cmd`;
+chomp($isDatabase);
+
+if ($isDatabase eq $opt_d) {
+	print "MySQL ".&hl.$opt_d.&uhl." database is present\n";
+}
+else {
+	die "Can't find the MySQL ".&hl.$opt_d.&uhl." database\n\n";
+}
+
+# COLLECT!
+
+# collect the list of all & innodb tables
+my @innodb_tables = ();
+my %hinnodb_tables = ();
+if ($opt_D eq 'IM') {
+	$cmd = $mysql_connect . ' -e \'select table_name from information_schema.tables where engine = "innodb" and table_schema="'.$opt_d.'"\' | grep ""';
+	@innodb_tables = split /\n/, `$cmd`;
+
+	open STORE, ">./".$0.".innodb_tables";
+	binmode STORE, ":utf8";
+	print STORE $_."\n" foreach @innodb_tables;
+	close STORE;
+}
+else {
+	open STORE, "<./".$0.".innodb_tables";
+	binmode STORE, ":utf8";
+	@innodb_tables = <STORE>;
+	close STORE;	
+	s/\n$//s foreach @innodb_tables;
+}
+
+%hinnodb_tables = map { $_ => 1 } @innodb_tables;
+
+$cmd = $mysql_connect . ' ' . $opt_d . ' ' . ' -e \'show tables\' | grep ""';
+my @tables = split /\n/, `$cmd`;
+shift @tables;
+#print Dumper(\@tables);
+
+# detect the number of CPUs
+print "Detect the number of CPUs: ";
+my $howManyProcesses = $opt_c ? $opt_c : `cat /proc/cpuinfo | grep processor | wc -l`;
+chomp($howManyProcesses);
+if (($howManyProcesses =~ /^\d+$/) && ($howManyProcesses > 0)) {
+	$howManyProcesses = 3 if $howManyProcesses > 3;
+	print &hyellow.$howManyProcesses.&def." found";
+}
+else {
+	print &red."undefined".&white.", ".&hyellow."1".&def." by default";
+	$howManyProcesses = 1;
+}
+print "\n";
+
+# init
+
+my $pm = new Parallel::ForkManager($howManyProcesses + 1);
+
+#$pm->run_on_finish(sub { my ($pid, $exit_code, $ident) = @_; print "** $ident just got out of the pool with PID $pid and exit code: $exit_code\n"; } );
+#$pm->run_on_start(sub { my ($pid, $ident) = @_;	print "** $ident started, pid: $pid\n"; } );
+#$pm->run_on_wait(sub { print "** Have to wait for one children ...\n" }, 0.5 );
+
+#die;
+
+#my @tables;
+
+foreach my $table (sort {$hinnodb_tables{$b} <=> $hinnodb_tables{$a}} @tables) {
+	next unless $table;
+	my $pid = $pm->start($table) and next;
+
+	# This code is the child process
+
+	$0 .= ' [ Table '.$table.' ]';
+
+	# InnoDB -> MyISAM -> InnoDB
+	if ($hinnodb_tables{$table}) {
+		if ($opt_D eq 'IM') {
+			print $table." ".&red."I->M".&white." started\n";
+			$cmd = $mysql_connect . ' ' . $opt_d . ' ' . ' -e \'alter table '.$table.' ENGINE = MyISAM\'';
+			`$cmd` unless $test;
+			print $table." ".&red."I->M".&white." done\n";
+		}
+		elsif ($opt_D eq 'MI') {
+			print $table." ".&red."M->I".&white." started\n";
+			$cmd = $mysql_connect . ' ' . $opt_d . ' ' . ' -e \'alter table '.$table.' ENGINE = InnoDB\'';
+			`$cmd` unless $test;
+			print $table." ".&red."M->I".&white." done\n";
+		}
+	}
+	
+	sleep(1) if $test;
+
+	$pm->finish($table); # pass an exit code to finish
+}
+
+# finishing
+
+print "Waiting for Children...\n";
+$pm->wait_all_children;
+print "Everybody is out of the pool!\n";
+
+exit(0);
+
+# subs
+
+sub red { return "\033[31m"; }
+sub yellow { return "\033[33m"; }
+sub hl { return "\033[1m"; }
+sub uhl { return "\033[0m"; }
+sub white { return "\033[37m"; }
+
+sub hred { return &hl.&red; }
+sub hyellow { return &hl.&yellow; }
+sub def { return &white.&uhl; }

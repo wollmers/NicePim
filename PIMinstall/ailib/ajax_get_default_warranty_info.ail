@@ -1,0 +1,27 @@
+{
+name: ajax_get_default_warranty_info;
+
+priority: 10;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+_resource_def_wi: SELECT warranty_info FROM default_warranty_info WHERE catid = %%category_id%% AND supplier_id = %%supplier_id%% AND langid=%%desc_langid%%;
+_mapping_def_wi: wi;
+
+}

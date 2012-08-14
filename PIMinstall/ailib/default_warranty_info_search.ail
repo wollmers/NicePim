@@ -1,0 +1,24 @@
+{
+name: default_warranty_info_search;
+priority: 10;
+
+_resource_params: select '%%search_catid%%', '%%search_supplier_id%%';
+_mapping_params: search_catid, search_supplier_id;
+
+search_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+search_supplier_id_dropdown_width: 200;
+
+format_as_dropdown: search_supplier_id;
+
+search_catid_smart_dropdown_attrs: style="width\: 280px;"
+search_catid_add_empty: Any category;
+search_catid_add_empty_value: 1;
+
+format_as_smart_dropdown: search_catid;
+
+
+}
+
+
+
+

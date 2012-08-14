@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="134556" Prod_id="91.97420.B17" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="CASE H450A MINI TOWER 300W" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="355" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1314" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="155883" URL="" ShortDesc="CASE H450A MINI TOWER 300W USB &amp; SATA BLACK                 NS (PC)" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9731549" Value="USB" No="0" CategoryFeatureGroup_ID="355">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="211" Name="Aopen"/>
+       <Category ID="237">
+         <Name ID="475" Value="computer chassis" langid="1"/>
+         <Name ID="476" Value="computer chassis" langid="2"/>
+         <Name ID="6310" Value="ordinateur chassis" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

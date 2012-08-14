@@ -1,0 +1,30 @@
+{
+name: product_feature_choose_ajax;
+
+priority: 10;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+_resource_feature: select '%%feature_id%%';
+_mapping_feature: feature_id;
+
+format_as_dropdown: feature_id;
+feature_id_dropdown_select: select distinct f.feature_id, v.value from feature f inner join vocabulary v on f.sid=v.sid and v.langid=%%langid%% %%additional_join%% order by v.value asc;
+feature_id_dropdown_width: 300;
+}

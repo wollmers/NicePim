@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+#$Id: generate_distributor_mapping 114 2005-12-06 18:54:34Z eugeniy $
+
+use lib '/home/gcc/lib';
+
+use strict;
+use atomcfg;
+use atomsql;
+use atom_misc;
+
+my $path = $atomcfg{xml_export_path}.'techdata/';
+&makedir($path);
+&make_authmysql_htaccess($path, {
+	'auth_name' => 'TechData Open ICEcat URLs',
+	'user_table' => 'users',
+	'name_field' => 'login',
+	'pass_field' => 'password',
+	'condition' => "subscription_level in (1,2,6) and user_group='shop' and ".
+	"(access_restriction=0 or (access_restriction=1 and (access_restriction_ip rlike '%a' or access_restriction_ip rlike '%h')))"
+});
+
+&generate_distributor_mapping('TD');
+&generate_distributor_mapping('TB');
+print "Done.\n";
+
+sub generate_distributor_mapping
+{
+	my ($prefix) = @_;
+	my $fname = $path.$prefix.'_mapping.txt';
+
+	my $dist = &get_row('distributor',"code=".&str_sqlize($prefix));
+	if(!$dist){ print "No such distributor code: $prefix\n"; return; }
+
+	my $data = &do_query("select dist_prod_id,p.product_id from distributor_product as d, product as p where ".
+	"distributor_id=".$dist->{'distributor_id'}." and dist_prod_id!='' and d.product_id=p.product_id ".
+	"and supplier_id ".&in_selected_sponsors);
+	if(!$data->[0]){ print "Nothing was found for $prefix\n"; return; }
+
+	open(F, ">$fname") || die "Can't create $fname\n";
+	print "Make $fname\n";
+	print F "$prefix partnumber\tICEcat product ID\tURL\n";
+	foreach my $row (@$data) {
+		print F "$row->[0]\t$row->[1]\thttp://prf.icecat.biz/index.cgi?product_id=$row->[1]".
+		";mi=start;smi=product;shopname=techdata\n";
+	}
+	close(F);
+}

@@ -1,0 +1,17 @@
+{
+name: categories_merge;
+
+_resource_cat: select %%src_catid%%, %%dst_catid%%
+_resource_cat_type: single;
+_mapping_cat: src_catid, dst_catid;
+
+verify_add: yes;
+verify_add_superuser: catid;
+verify_add_supereditor: catid;
+verify_add_category_manager: catid;
+
+format_as_smart_dropdown: src_catid, dst_catid;
+src_catid_allow_pcat_choice: Y;
+dst_catid_allow_pcat_choice: Y;
+
+}

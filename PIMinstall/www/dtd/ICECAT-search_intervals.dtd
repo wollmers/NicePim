@@ -1,0 +1,20 @@
+<!ELEMENT ICECAT-interface (CategoryFeatureIntervals)* >
+
+<!ELEMENT CategoryFeatureIntervals (Interval)* >
+<!ATTLIST CategoryFeatureIntervals
+    category_feature_id CDATA #REQUIRED
+    valid CDATA #REQUIRED
+    invalid CDATA #REQUIRED
+    ratio CDATA #REQUIRED
+    updated CDATA #REQUIRED
+>
+
+<!ELEMENT Interval (Min, Max)>
+<!ATTLIST Interval 
+    amount      CDATA #REQUIRED
+    order       CDATA #REQUIRED
+>
+
+<!ELEMENT Min (#PCDATA)>
+<!ELEMENT Max (#PCDATA)>
+

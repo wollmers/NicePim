@@ -1,0 +1,29 @@
+$$INCLUDE head2.html$$
+$$INCLUDE ajax_response.html$$
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="main" height="20">
+			$$INCLUDE products_raiting_menu_link.html$$
+		</td>
+	</tr>
+</table>
+
+<br />
+
+{
+name: errors;
+}
+<div align="right" style="font-weight: normal"><a href="%%base_url%%;tmpl=product_rating_conf.html;html;mi=products_raiting" >Rating formula</a></div><br/>
+{
+name: products_raiting_search;
+}
+
+{
+name: products_raiting;
+}
+
+$$INCLUDE footer2.html$$

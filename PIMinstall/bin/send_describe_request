@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+
+use strict;
+use icecat_util;
+use icecat_client;
+use icecat_server2;
+
+
+    my $hash = {
+        'DescribeProductsRequest' => {
+                'langid' => "1,2",
+                'DescribeProductRequest' => [
+														{
+                            'Prod_id' => "LX.T5205.208",
+                            'Email' => "sergey\@icecat.biz",
+                            'toDate' => localtime(time()+24*60*60),
+                            'Message' => " this is new message!!! LX.T5205.208 is in topsellers, but has no picture and is not described good enough."
+														}
+#                            {
+#                            'Product_id' => 30,
+ #                           'Prod_id' => "PS302E-00QZ5-DU",
+  #                          'Supplier_id' => 2,
+   #                         'Email' => "no\@email.nl",
+    #                        'toDate' => $nowtime,
+     #                       'Message' => "Requirements for product with product_id=30"}
+            ]
+        }
+    };
+ 
+ 
+my $message = &build_message(&build_request($hash,'takeitnow','vkpke990',time));
+# print $message."\n\n";
+my $url = "http://data.icecat.biz/xml_server2.cgi";
+#my $url = "http://icecat.demo.iceshop.nl/xml_server2.cgi";
+ print $$message."\n";
+my $response = &post_message($$message, $url);
+
+ print $response;

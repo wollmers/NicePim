@@ -1,0 +1,22 @@
+{
+name: feature_value_mappings;
+priority: 10;
+
+_resource_feature_value_mappings: select id, ext_value, int_value from feature_value_mapping where feature_id = %%feature_id%% and %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_feature_value_mappings_type: multi;
+_resource_feature_value_mappings_key: feature_id;
+_resource_feature_value_mappings_def_order: ext_value;
+_mapping_feature_value_mappings: feature_value_mapping_id, ext_value, int_value;
+
+authorize_superuser: feature_value_mapping_id;
+authorize_supereditor: feature_value_mapping_id;
+authorize_category_manager: feature_value_mapping_id;
+authorize_editor: feature_value_mapping_id;
+authorize_supplier: feature_value_mapping_id;
+authorize_guest: feature_value_mapping_id;
+
+authorize_submit_superuser: feature_value_mapping_id;
+authorize_submit_supereditor: feature_value_mapping_id;
+authorize_submit_category_manager: feature_value_mapping_id;
+
+}

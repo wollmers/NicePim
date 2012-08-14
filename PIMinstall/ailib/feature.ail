@@ -1,0 +1,135 @@
+{
+
+name: feature;
+
+priority: 10;
+
+verify: feature_id;
+verify_submit: feature_id;
+
+verify_add: yes;
+verify_add_superuser: feature_id;
+verify_add_supereditor: feature_id;
+verify_add_category_manager: feature_id;
+
+authorize_superuser: feature_id;
+authorize_supereditor: feature_id;
+authorize_category_manager: feature_id;
+authorize_editor: feature_id;
+authorize_supplier: feature_id;
+authorize_guest: feature_id;
+authorize_shop: feature_id;
+
+authorize_submit_superuser: feature_id;
+authorize_submit_supereditor: feature_id;
+authorize_submit_category_manager: feature_id;
+
+_resource_feature: select searchable, limit_direction, class, feature_id, feature.sid, feature.tid, feature.measure_id, feature.type, restricted_values, 0,'1'  from feature, vocabulary  where feature.feature_id = %%feature_id%% and feature.sid = vocabulary.sid and vocabulary.langid = %%langid%% 
+_resource_feature_type: single;
+_resource_feature_key: feature_id;
+_mapping_feature:  searchable, limit_direction, class, feature_id, sid, tid, measure_id, type, restricted_values, autoinsert,js_langid_array;
+
+validate_as_mandatory: measure_id;
+validate_as_feature_to_del: feature_id;
+
+format_as_feature_class: class;
+format_as_limit_direction: limit_direction;
+format_as_js_langid_array: js_langid_array;
+
+format_as_feature_type: type;
+
+
+_resource_label: select language.langid, vocabulary1.value, vocabulary.value, vocabulary.record_id, feature_autonaming.feature_autonaming_id, if(feature_autonaming.data_source_id is null,0,feature_autonaming.data_source_id)
+from language
+left join feature
+on feature.feature_id = %%feature_id%%
+left join vocabulary
+on feature.sid = vocabulary.sid and language.langid = vocabulary.langid
+left join vocabulary as vocabulary1
+on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+left join feature_autonaming
+on feature_autonaming.feature_id = %%feature_id%% and language.langid = feature_autonaming.langid
+order by language.langid
+
+_resource_label_iq: select language.langid, vocabulary1.value, NULL, NULL, 0, 0 from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by language.langid
+_resource_label_type: multi;
+_resource_label_key: sid;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id, _rotate_feature_autonaming_id, _rotate_data_source_id;
+
+validate_as_feature_name: _rotate_label;
+
+_resource_text: select language.langid, vocabulary1.value, tex.value, tex.tex_id
+from language
+left join feature 
+on feature.feature_id = %%feature_id%%
+left join tex
+on feature.tid = tex.tid and language.langid = tex.langid
+left join vocabulary as vocabulary1
+on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+order by language.langid
+
+_resource_text_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by language.langid
+_resource_text_type: multi;
+_resource_text_key: tid;
+_mapping_text:  t_langid, language, _rotate_text, _rotate_tex_id;
+
+format_as_dropdown: measure_id, _rotate_data_source_id;
+measure_id_dropdown_select: select measure_id, vocabulary.value from measure, vocabulary where measure.sid = vocabulary.sid and vocabulary.langid = %%langid%% order by vocabulary.value
+_rotate_data_source_id_dropdown_select: select data_source_id, code from data_source order by code asc
+
+format_as_input_checkbox: autoinsert;
+
+store_as_clean_textarea: restricted_values;
+store_as_feature_values: restricted_values;
+
+store_as_delete_also_category_features: feature_id;
+ _insert_sequence: 1,2,3,4,5,6;
+
+ _insert_table_1: sid_index;
+ _insert_values_1: dummy;
+ _insert_fields_1: dummy;
+ _insert_key_1: sid;
+ _delete_sequence_1: yes;  
+ 
+ _insert_table_2: vocabulary;
+ _insert_values_2: sid, _rotate_v_langid, _rotate_label;
+ _insert_fields_2: sid, langid, value;
+ _rotate_insert_2: label;
+ _insert_key_2: record_id;
+ _update_key_2: sid;
+ _update_sequence_2: yes;
+ _delete_sequence_2: yes;
+ 
+ _insert_table_3: tid_index;
+ _insert_values_3: dummy;
+ _insert_fields_3: dummy;
+ _insert_key_3: tid;
+ _delete_sequence_3: yes;
+  
+ _insert_table_4: tex;
+ _insert_values_4: tid, _rotate_t_langid, _rotate_text;
+ _insert_fields_4: tid, langid, value;
+ _rotate_insert_4: text;
+ _insert_key_4: tex_id;
+ _update_key_4: tid;
+ _update_sequence_4: yes;
+ _delete_sequence_4: yes; 
+ 
+ 
+ _insert_table_5: feature;
+ _insert_values_5: sid, tid, measure_id, type, class, searchable, limit_direction, restricted_values;
+ _insert_fields_5: sid, tid, measure_id, type, class, searchable, limit_direction, restricted_values;
+ _insert_key_5: feature_id;
+ _update_sequence_5: yes;
+ _delete_sequence_5: yes;
+
+
+	_insert_table_6: feature_autonaming;
+	_insert_values_6: feature_id, _rotate_v_langid, _rotate_data_source_id;
+	_insert_fields_6: feature_id, langid, data_source_id;
+	_rotate_insert_6: label;
+	_insert_key_6: feature_autonaming_id;
+	_update_sequence_6: yes;
+	_delete_sequence_6: yes;
+
+}

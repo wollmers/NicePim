@@ -1,0 +1,54 @@
+{
+name: data_source_supplier_map;
+priority: 10;
+
+verify: data_source_supplier_map_id;
+
+authorize_superuser: data_source_supplier_map_id;
+authorize_supereditor: data_source_supplier_map_id;
+authorize_category_manager: data_source_supplier_map_id;
+authorize_editor: data_source_supplier_map_id;
+authorize_supplier: data_source_supplier_map_id;
+authorize_guest: data_source_supplier_map_id;
+
+authorize_submit_superuser: data_source_supplier_map_id;
+authorize_submit_supereditor: data_source_supplier_map_id;
+authorize_submit_category_manager: data_source_supplier_map_id;
+
+
+verify_submit: data_source_supplier_map_id;
+
+verify_add: yes;
+verify_add_superuser: data_source_supplier_map_id;
+verify_add_supereditor: data_source_supplier_map_id;
+verify_add_category_manager: data_source_supplier_map_id;
+
+verify_deny_guest: yes;
+
+_resource_data_source_supplier_map: select data_source_id, data_source_supplier_map_id, symbol, symbol, supplier_id, distributor_id from data_source_supplier_map where data_source_supplier_map_id = %%data_source_supplier_map_id%%
+_resource_data_source_supplier_map_type: single;
+_resource_data_source_supplier_map_key: data_source_supplier_map_id;
+_mapping_data_source_supplier_map: data_source_id, data_source_supplier_map_id, symbol, matched_symbols, supplier_id, distributor_id;
+
+format_as_merge_symbol: matched_symbols;
+matched_symbols_type: supplier;
+
+format_as_dropdown: distributor_id;
+distributor_id_dropdown_select: select distributor_id, name from distributor order by trust_level desc, name asc
+
+format_as_fuzzy_dropdown: supplier_id;
+supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+supplier_id_dropdown_pattern: symbol;
+
+ _insert_sequence: 3;
+
+ _insert_table_3: data_source_supplier_map;
+ _insert_values_3: symbol, supplier_id, data_source_id, distributor_id;
+ _insert_fields_3: symbol, supplier_id, data_source_id, distributor_id;
+ _insert_key_3: data_source_supplier_map_id;
+ _insert_3_keep_unique: yes; 
+ _insert_3_unique_set: symbol, distributor_id, data_source_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

@@ -1,0 +1,67 @@
+/* --------- smart dropdown --------- */
+
+div.scroll {
+  position: absolute;
+  background-color: white;
+  z-index: 2;
+  width: 300px;
+  height: 300px;
+  border-style: solid;
+  border-collapse: collapse;
+  border-color: #000000;
+  border-width: 1px;
+  overflow: auto;
+}
+
+
+
+div.scrolled {
+  background-color: white;
+  overflow: hidden;
+}
+
+div.scroll_item_sel {
+		background-color: #1e5aaa;
+		color: white;
+		height: 16px;
+		width: 300px;
+		cursor: default;
+  overflow: hidden;
+}
+
+div.scroll_item {
+		background-color: white;
+		color: black;
+		height: 16px;
+		width: 300px;
+  overflow: hidden;
+  font-weight: normal;
+}
+
+div.scroll_item_disabled {
+		background-color: white;
+		color: #888888;
+		height: 16px;
+		width: 300px;
+  overflow: hidden;
+  font-weight: normal;
+}
+
+div.scroll_item_active_sel {
+		background-color: #1e5aaa;
+		color: white;
+		height: 16px;
+		width: 300px;
+		font-weight: bold;
+		cursor: default;
+  overflow: hidden;
+}
+
+div.scroll_item_active {
+		background-color: white;
+		color: black;
+		font-weight: bold;
+		height: 16px;
+		width: 300px;
+  overflow: hidden;
+}

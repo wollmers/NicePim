@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="111843" Prod_id="L1915A" ThumbPic="http://www.icecat.biz/thumbs/111843.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP Scanjet 3770 flatbed scanner" LowPic="http://www.icecat.biz/img/hp/low_res/l1915a_190x170.jpg">
+        <ProductRelated ID="561483">
+         <Product ID="61906" Prod_id="U4784E" ThumbPic="" Name="3 jaar exchange op de volgende werkdag, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="601992">
+         <Product ID="78735" Prod_id="U8134A" ThumbPic="" Name="3 jaar haal- en brengservice, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="597488">
+         <Product ID="42107" Prod_id="U4784A" ThumbPic="" Name="3 jaar exchange op de volgende werkdag, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="596533">
+         <Product ID="42531" Prod_id="U4786PA" ThumbPic="" Name="1 jaar post-warranty exchange op de volgende werkdag, hardwaresupport">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="597478">
+         <Product ID="61906" Prod_id="U4784E" ThumbPic="" Name="3 jaar exchange op de volgende werkdag, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="597199">
+         <Product ID="78735" Prod_id="U8134A" ThumbPic="" Name="3 jaar haal- en brengservice, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="631205">
+         <Product ID="91235" Prod_id="U4786PE" ThumbPic="" Name="1 jaar post-warranty exchange op de volgende werkdag, hardwaresupport">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="612806">
+         <Product ID="135660" Prod_id="U8134E" ThumbPic="" Name="3 jaar haal- en brengservice, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="315" No="20">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="92" No="22">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="91" No="6">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="90" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="94" No="44">
+         <FeatureGroup ID="24">
+           <Name ID="5043" Value="Scanning" langid="1"/>
+           <Name ID="5044" Value="Scannen" langid="2"/>
+           <Name ID="6577" Value="Scanning" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="93" No="4">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1239" No="1">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="128549" URL="www.hp.com" ShortDesc="HP Scanjet 3770 flatbed scanner3770" langid="2" LongDesc="Deze stijlvolle, voordelige scanner beschikt over een ingebouwde transparantenadapter. Met een resolutie van 1200 x 2400 dpi, 48-bits kleur en handige sneltoetsen levert hij uitstekende prestaties.Stijlvolle, platte scanner met ingebouwde transparantenadapter.Stijlvolle scanner met transparantenadapter  uitstekende resultaten bij het scannen van foto's, documenten, dia's en meer.Deze platte en stijlvolle, voordelige scanner beschikt over een ingebouwde transparantenadapter. De prestaties zijn uitstekend: 1200 x 2400 dpi resolutie en 48-bits kleur zorgen telkens weer voor resultaten van fotokwaliteit en scanpreviews zijn in 10 seconden gereed. De knoppen voor scannen, kopiëren en Instant Share maken het gemakkelijk, ongeacht of u nu foto's, documenten, dia's of objecten scant.Stijlvolle scanner met transparantenadapter  uitstekende resultaten bij het scannen van foto's, documenten, dia's en meer.Stijlvolle, platte scanner met ingebouwde transparantenadapter.Deze stijlvolle, voordelige scanner beschikt over een ingebouwde transparantenadapter. Met een resolutie van 1200 x 2400 dpi, 48-bits kleur en handige sneltoetsen levert hij uitstekende prestaties." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="128873" URL="http://www.hp.com/cgi-bin/cposupport/loc/mkSession.cgi?LC=FR&amp;CC=BE&amp;PN=L1915A" ShortDesc="" langid="3" LongDesc="" WarrantyInfo="Garantie dun an sur le matériel, assistance téléphonique sur 30 jours avec lappui du service clientèle HP ; assistance en ligne gratuite 24 heures sur 24 sur les sites suivants : www.hp.com/go/support (anglais), www.hp.com/cposupport/de (allemand), www.hp.com/cposupport/sv (suédois), www.hp.com/cposupport/es (espagnol), www.hp.com/cposupport/pt (portugais), www.hp.com/cposupport/fr (français), www.hp.com/cposupport/it (italien), www.hp.com/cposupport/nl (hollandais)&lt;BR&gt;\n" PDFURL=""/>
+        <ProductDescription ID="129129" URL="www.hp.com" ShortDesc="HP Scanjet 3770 Digital Flatbed Scanner3770" langid="1" LongDesc="This stylish scanner combines value for money with the versatility provided by a built-in Transparent Materials Adapter (TMA). With 1200 x 2400 dpi resolution, 48-bit colour and one-touch access to key tools, performance is equally impressive.Stylish scanner with TMA  get high quality results from photos, documents, slides and more.This slim and stylish scanner combines value for money with the versatility provided by a built-in Transparent Materials Adapter (TMA). Its performance is equally impressive: 1200 x 2400 dpi resolution and 48-bit colour gives you photo-quality results every time while preview scans in 10 seconds mean no waiting around. Whether youre scanning photos, documents, slides or 3D objects, one-touch access to scan, copy and Instant Share tools means you get the job done in no time.Stylish slim scanner complete with built-in TMA.This stylish scanner combines value for money with the versatility provided by a built-in Transparent Materials Adapter (TMA). With 1200 x 2400 dpi resolution, 48-bit colour and one-touch access to key tools, performance is equally impressive.Stylish scanner with TMA  get high quality results from photos, documents, slides and more.Stylish slim scanner complete with built-in TMA." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="8515554" Value="1200 x 2400 dpi" No="15924" CategoryFeatureGroup_ID="94">
+         <Feature ID="737">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="3005" Value="Enhanced scanning resolution" langid="1"/>
+           <Name ID="3006" Value="Enhanced scanresolutie" langid="2"/>
+           <Name ID="7497" Value="Enhanced scanning resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8515555" Value="flatbed" No="15930" CategoryFeatureGroup_ID="94">
+         <Feature ID="537">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2605" Value="Scan type" langid="1"/>
+           <Name ID="2606" Value="type scan" langid="2"/>
+           <Name ID="7299" Value="type d'analyse" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8515556" Value="EMEA (compatibel met IEC 60950 3rd edition; veiligheidscertificaat van fabrikant), Polen (PCBC), Rusland (GOST)" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2745" Value="Safety" langid="1"/>
+           <Name ID="2746" Value="Veiligheid" langid="2"/>
+           <Name ID="7369" Value="Sécurité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8515557" Value="1200x2400" No="10115910" CategoryFeatureGroup_ID="94">
+         <Feature ID="699">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2929" Value="Hardware Scanning Resolution" langid="1"/>
+           <Name ID="2930" Value="Hardwarematige scanresolutie" langid="2"/>
+           <Name ID="7459" Value="Hardware Scanning Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8515558" Value="Ja" No="15929" CategoryFeatureGroup_ID="93">
+         <Feature ID="838">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3207" Value="Energy Star certified" langid="1"/>
+           <Name ID="3208" Value="Energy Star-certificaat" langid="2"/>
+           <Name ID="7596" Value="Energy Star certified" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8515559" Value="21.6 x 29.7 cm" No="116500" CategoryFeatureGroup_ID="94">
+         <Feature ID="592">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2715" Value="Maximum Scanning Size" langid="1"/>
+           <Name ID="2716" Value="Maximum scanformaat" langid="2"/>
+           <Name ID="7354" Value="Maximum Scanning Size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8515560" Value="36-bit colour" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="1650">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5145" Value="Depth" langid="1"/>
+           <Name ID="5146" Value="Diepte" langid="2"/>
+           <Name ID="8377" Value="Depth" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8515561" Value="1200 dpi" No="17000" CategoryFeatureGroup_ID="94">
+         <Feature ID="727">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2985" Value="Optical Scanning Resolution" langid="1"/>
+           <Name ID="2986" Value="Optische scanresolutie" langid="2"/>
+           <Name ID="7487" Value="Optical Scanning Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533749" Value="USB-compatibele Macintosh computer met Mac OS X 10.1.5, 10.2, 10.3 of hoger; 128 Mb RAM; 240 Mb schijfruimte; SVGA-monitor (800 x 600, 16-bits kleur); cd-rom drive; USB-poort" No="88" CategoryFeatureGroup_ID="92">
+         <Feature ID="493">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2517" Value="Minumum system requirements for Macintosh" langid="1"/>
+           <Name ID="2518" Value="Minumum systeemeisen voor Macintosh" langid="2"/>
+           <Name ID="7255" Value="Minumum system requirements for Macintosh" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533744" Value="USB-compatibele pc met Microsoft® Windows® 98, Me, 2000, XP (Professional en Home Edition) met Intel® Pentium® III 500-MHz, Celeron® of compatibele processor; 128 Mb RAM; 500 Mb vrije schijfruimte; Microsoft® Windows® Internet Explorer 5.01 SP2 of hoger; SVGA-monitor (800 x 600, 16-bits kleur); cd-rom drive; USB-poort" No="115914" CategoryFeatureGroup_ID="92">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533745" Value="Externe netadapter" No="39076" CategoryFeatureGroup_ID="93">
+         <Feature ID="514">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2559" Value="Power supply type" langid="1"/>
+           <Name ID="2560" Value="type voeding" langid="2"/>
+           <Name ID="7276" Value="type d'alimentation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533748" Value="1 Hi-Speed USB - compatibel met de USB 2.0 specificatie" No="15912" CategoryFeatureGroup_ID="91">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533747" Value="Hi-Speed USB  compatibel met de USB 2.0-specificatie" No="115999" CategoryFeatureGroup_ID="91">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533746" Value="Maximaal 15 W" No="0" CategoryFeatureGroup_ID="93">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533763" Value="4.2 kg" No="15931" CategoryFeatureGroup_ID="90">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533766" Value="15 tot 85% relatieve luchtvochtigheid" No="35" CategoryFeatureGroup_ID="315">
+         <Feature ID="563">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2657" Value="Recommended Humidity Operating Range" langid="1"/>
+           <Name ID="2658" Value="Aanbevolen relatieve luchtvochtigheid bij gebruik" langid="2"/>
+           <Name ID="7325" Value="Humidité de fonctionnement recommandée" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533764" Value="7000" No="100000" CategoryFeatureGroup_ID="90">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533765" Value="15 tot 85" No="15936" CategoryFeatureGroup_ID="1239">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533756" Value="&lt; 39 seconden" No="15920" CategoryFeatureGroup_ID="94">
+         <Feature ID="717">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2965" Value="Scan Speed (OCR, A4)" langid="1"/>
+           <Name ID="2966" Value="Scansnelheid (OCR, A4)" langid="2"/>
+           <Name ID="7477" Value="Scan Speed (OCR, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533759" Value="10 seconden" No="15919" CategoryFeatureGroup_ID="94">
+         <Feature ID="466">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2463" Value="Scan Speed in Preview Mode" langid="1"/>
+           <Name ID="2464" Value="Scansnelheid in previewmodus" langid="2"/>
+           <Name ID="7228" Value="Scan Speed in Preview Mode" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533758" Value="Scannen, kopiëren, HP Instant Share" No="115915" CategoryFeatureGroup_ID="315">
+         <Feature ID="474">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2479" Value="Button Functions" langid="1"/>
+           <Name ID="2480" Value="Knopfuncties" langid="2"/>
+           <Name ID="7236" Value="Button Functions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533757" Value="EMEA (CE verklaring van conformiteit), Rusland (GOST)" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="673">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2877" Value="Electromagnetic Compatibility" langid="1"/>
+           <Name ID="2878" Value="EMC" langid="2"/>
+           <Name ID="7433" Value="compatibilité électromagnétique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533750" Value="48-bits" No="115926" CategoryFeatureGroup_ID="94">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533751" Value="HP Image Zone software met HP Instant Share (voor Microsoft® Windows® en Macintosh) inclusief Readiris OCR voor Microsoft® Windows®, Readiris Pro 9 voor Macintosh, Readiris Pro 9 inclusief Arabische tekstherkenning voor Microsoft® Windows® (alleen optie ABU en B1P), Readiris Pro 9 inclusief Hebreeuwse tekstherkenning voor Microsoft® Windows® (alleen optie ACQ)" No="100030" CategoryFeatureGroup_ID="315">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533770" Value="10 tot 35º C niet-condenserend" No="0" CategoryFeatureGroup_ID="1239">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533769" Value="10 tot 35º C niet-condenserend" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="473">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2477" Value="Recommended Operating Temperature Range" langid="1"/>
+           <Name ID="2478" Value="Aanbevolen temperatuur bij gebruik" langid="2"/>
+           <Name ID="7235" Value="Recommended Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533768" Value="-40 - 70" No="15937" CategoryFeatureGroup_ID="1239">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533767" Value="0 tot 90% relatieve luchtvochtigheid" No="15939" CategoryFeatureGroup_ID="1239">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533762" Value="287 x 450 x 65 mm" No="100020" CategoryFeatureGroup_ID="90">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533761" Value="Input voltage 100 to 240 VAC (+/- 10%), 50/60 Hz (+/- 3 Hz)" No="15927" CategoryFeatureGroup_ID="93">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533760" Value="* Scansnelheden zijn mede afhankelijk van de complexiteit van het document." No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="1710">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5359" Value="Scan speed footnote" langid="1"/>
+           <Name ID="5360" Value="Scansnelheid voetnoot" langid="2"/>
+           <Name ID="8475" Value="Note de bas de page relative à la vitesse de numérisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533755" Value="&lt; 25 sec" No="115922" CategoryFeatureGroup_ID="94">
+         <Feature ID="827">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3185" Value="Scan Speed (4x6 Colour Photo)" langid="1"/>
+           <Name ID="3186" Value="Scansnelheid (4 x 6-inch kleurenfoto)" langid="2"/>
+           <Name ID="7586" Value="Scan Speed (4x6 Colour Photo)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533754" Value="Frontpaneel: knop voor scannen, kopiëren en HP Instant Share; HP Foto en imaging software" No="15916" CategoryFeatureGroup_ID="94">
+         <Feature ID="508">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2547" Value="Scan Input Modes" langid="1"/>
+           <Name ID="2548" Value="Invoermodi voor scannen" langid="2"/>
+           <Name ID="7270" Value="Modes de numérisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533753" Value="256" No="104" CategoryFeatureGroup_ID="94">
+         <Feature ID="54">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1445" Value="Gray scale levels" langid="1"/>
+           <Name ID="1446" Value="Gray scale levels" langid="2"/>
+           <Name ID="6735" Value="Gray scale levels" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533752" Value="Windows®: TIFF, TIFF compressed, Bitmap, DCX, PCS, JPEG, GIF, FlashPix, Plain Text, PDF, HTML, Rich Text; Macintosh: TIFF, PICT, JPEG, GIF, FlashPix, Plain Text, PDF, HTML, Rich Text" No="15925" CategoryFeatureGroup_ID="94">
+         <Feature ID="571">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2673" Value="Scan File Format" langid="1"/>
+           <Name ID="2674" Value="Bestandsformaat voor scannen" langid="2"/>
+           <Name ID="7333" Value="Format du fichier de numérisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9731060" Value="Ingangsspanning 100 tot 240 V (± 10%), 50/60 Hz (± 3 Hz)" No="0" CategoryFeatureGroup_ID="93">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9709430" Value="1 jaar hardwaregarantie plus telefonische support via HP Customer Care Centers; 5 dagen standaard exchange garantie (1 jaar); HP Care Pack voor upgrade naar 3 jaar exchange garantie op de volgende werkdag, gratis 24-uurs elektronische support op de volgende website: www.hp.com/support www.hp.com/support" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2138">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9588" Value="Service &amp; support" langid="1"/>
+           <Name ID="9589" Value="Service &amp; support" langid="3"/>
+           <Name ID="9590" Value="Service en support" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9730867" Value="Microsoft® Windows® 98, 2000, Me, XP Professional en Home Edition; Mac OS 9.1 of hoger, Mac OS X 10.1.5, 10.2 of hoger" No="100040" CategoryFeatureGroup_ID="92">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="197">
+         <Name ID="395" Value="scanners" langid="1"/>
+         <Name ID="396" Value="scanners" langid="2"/>
+         <Name ID="6270" Value="scanners" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

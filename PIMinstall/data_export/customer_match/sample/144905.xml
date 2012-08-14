@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="144905" Prod_id="9996507" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="Labeling kit Neato CD &amp; DVD" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="1280" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="167967" URL="" ShortDesc="&lt;BR&gt; 1 stuk." langid="2" LongDesc="&lt;BR&gt;Fellowes labeling kit Neato CD &amp; DVD &lt;br&gt;Wordt geleverd inclusief Media Face 4 software en &lt;br&gt;80 assortie labels. &lt;br&gt;" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="74" Name="Fellowes"/>
+       <Category ID="1010">
+         <Name ID="8888" Value="Label papers" langid="1"/>
+         <Name ID="8889" Value="Label papers" langid="3"/>
+         <Name ID="8890" Value="Label papers" langid="2"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="130904" Prod_id="73PF120100004" ThumbPic="http://www.icecat.biz/thumbs/130904.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/130904-4661.jpg" Name="MuVo Micro V200 MP3 Player 256MB FR NL" LowPic="http://www.icecat.biz/img/norm/low/130904.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="728" No="46">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="95" No="43">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="862" No="41">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1371" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="97" No="55">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="101" No="33">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="96" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="861" No="50">
+         <FeatureGroup ID="19">
+           <Name ID="5033" Value="Media formats" langid="1"/>
+           <Name ID="5034" Value="Mediaformaten" langid="2"/>
+           <Name ID="8328" Value="Media formats" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1383" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1033" No="1">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="151699" URL="http://www.creative.com/products/product.asp?category=213&amp;subcategory=215&amp;product=10732" ShortDesc="MuVo Micro V200 MP3 Player 256MB FR NL FM Radio and Voice Recorder - All in one! " langid="1" LongDesc="The MuVo® V200. A stylish and ultra light MP3 player, FM Radio and Voice Recorder - All in one! \nA compact device that lets you listen to your favorite music on the move  Creative MuVo\nV200. The Creative MuVo V200 lets you experience superb sound quality in one ultra compact, ultra cool, ultra light device. With its nice clean lines and hassle-free functionality, you can now listen to all your favourite radio stations and music tracks wherever you go. \n\nAnd it's immensely easy to use  with Drag-and-Drop functionality and cable-free connectivity, data and music file transfer has never been easier! Creative MuVo V200 features a built-in USB 2.0 connector, so you don't need a USB cable to connect it to a PC! Simply separate the memory module from the battery module and connect it to your PC to copy your data and audio files  it's as simple as that!\n\nThe MuVo V200 is available in 128MB, 256MB, 512MB and 1GB of flash memory to store hours and hours of songs." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9761464" Value="5-band custom equalizer &amp; 4 presets " No="100009" CategoryFeatureGroup_ID="728">
+         <Feature ID="1842">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5679" Value="Equalizer" langid="1"/>
+           <Name ID="5680" Value="Equalizer" langid="2"/>
+           <Name ID="8630" Value="Equalizer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761487" Value="" No="200" CategoryFeatureGroup_ID="95">
+         <Feature ID="1246">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="4033" Value="Maximum internal memory" langid="1"/>
+           <Name ID="4034" Value="Maximum intern geheugen" langid="2"/>
+           <Name ID="7999" Value="Maximum internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761488" Value="" No="79" CategoryFeatureGroup_ID="101">
+         <Feature ID="1622">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5055" Value="Headphone" langid="1"/>
+           <Name ID="5056" Value="Koptelefoon" langid="2"/>
+           <Name ID="8338" Value="Headphone" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761489" Value="" No="78" CategoryFeatureGroup_ID="101">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761490" Value="" No="66" CategoryFeatureGroup_ID="101">
+         <Feature ID="1311">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4163" Value="Connection to PC" langid="1"/>
+           <Name ID="4164" Value="Connection to PC" langid="2"/>
+           <Name ID="8062" Value="Connection to PC" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761456" Value="0.25" No="10100104" CategoryFeatureGroup_ID="861">
+         <Feature ID="1447">
+          <Measure ID="20" Sign="GB"/>
+           <Name ID="4438" Value="Opslagcapaciteit" langid="2"/>
+           <Name ID="4437" Value="Storage capacity" langid="1"/>
+           <Name ID="7133" Value="Storage capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761457" Value="Built-in microphone" No="100260" CategoryFeatureGroup_ID="97">
+         <Feature ID="85">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1507" Value="Sound recorder" langid="1"/>
+           <Name ID="1508" Value="Sound recorder" langid="2"/>
+           <Name ID="6762" Value="Sound recorder" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761458" Value="" No="100105" CategoryFeatureGroup_ID="728">
+         <Feature ID="1737">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5421" Value="Timer" langid="1"/>
+           <Name ID="5422" Value="Timer" langid="2"/>
+           <Name ID="7170" Value="Timer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761459" Value="USB" No="100101" CategoryFeatureGroup_ID="728">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761460" Value="Reversible LCD " No="100100" CategoryFeatureGroup_ID="862">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761461" Value="Creative MediaSource \n" No="100080" CategoryFeatureGroup_ID="728">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761462" Value="15" No="100060" CategoryFeatureGroup_ID="1383">
+         <Feature ID="435">
+          <Measure ID="46" Sign="hrs"/>
+           <Name ID="2237" Value="Battery maximum life" langid="1"/>
+           <Name ID="2238" Value="Batterij, maximale werkingsduur" langid="2"/>
+           <Name ID="7127" Value="Battery maximum life" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761463" Value="Microsoft® Windows® 98SE/2000/Me/XP \n" No="100033" CategoryFeatureGroup_ID="728">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761480" Value="" No="36" CategoryFeatureGroup_ID="97">
+         <Feature ID="1621">
+          <Measure ID="46" Sign="hrs"/>
+           <Name ID="5053" Value="Line in recording time" langid="1"/>
+           <Name ID="5054" Value="Line in opnametijd" langid="2"/>
+           <Name ID="8337" Value="Line in recording time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761481" Value="" No="34" CategoryFeatureGroup_ID="97">
+         <Feature ID="1142">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3825" Value="Sustained data rate" langid="1"/>
+           <Name ID="3826" Value="Sustained data rate" langid="2"/>
+           <Name ID="7896" Value="Sustained data rate" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761482" Value="" No="100" CategoryFeatureGroup_ID="728">
+         <Feature ID="1279">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4099" Value="Type of material" langid="1"/>
+           <Name ID="4100" Value="Type of material" langid="2"/>
+           <Name ID="8032" Value="Type of material" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761483" Value="" No="77" CategoryFeatureGroup_ID="728">
+         <Feature ID="250">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1867" Value="Bundled hardware" langid="1"/>
+           <Name ID="1868" Value="Gebundelde hardware" langid="2"/>
+           <Name ID="6942" Value="Bundled hardware" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761484" Value="" No="44" CategoryFeatureGroup_ID="728">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761485" Value="Built-in FM radio and recorder \nSkip-free audio, perfect for the active lifestyle \nSimple drag-and-drop for music and data files \nDisplays ID3 tags for song title \nReversible LCD for left or right handed operation \nConnects as a flash drive to store data files - without cables " No="30" CategoryFeatureGroup_ID="728">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761486" Value="" No="6" CategoryFeatureGroup_ID="728">
+         <Feature ID="1025">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3591" Value="Sound system microphone" langid="1"/>
+           <Name ID="3592" Value="Sound system microphone" langid="2"/>
+           <Name ID="7783" Value="Sound system microphone" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761465" Value="" No="100004" CategoryFeatureGroup_ID="728">
+         <Feature ID="1655">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5169" Value="Connectivity technology" langid="1"/>
+           <Name ID="5170" Value="Connectiviteit-technologie" langid="2"/>
+           <Name ID="8388" Value="Connectivity technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761466" Value="256" No="100300" CategoryFeatureGroup_ID="95">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761467" Value="" No="100110" CategoryFeatureGroup_ID="1371">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761468" Value="" No="100109" CategoryFeatureGroup_ID="1371">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761469" Value="350" No="100108" CategoryFeatureGroup_ID="1371">
+         <Feature ID="5">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="1292" Value="Processor-kloksnelheid" langid="2"/>
+           <Name ID="1291" Value="Processor clock speed" langid="1"/>
+           <Name ID="6663" Value="Processor clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761470" Value="Intel® Pentium® II AMD® K6®-2 " No="100107" CategoryFeatureGroup_ID="1371">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761471" Value="" No="100002" CategoryFeatureGroup_ID="1383">
+         <Feature ID="434">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2235" Value="Battery technlogy" langid="1"/>
+           <Name ID="2236" Value="Batterij, technologie" langid="2"/>
+           <Name ID="7126" Value="Battery technlogy" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761472" Value="1 x AAA battery" No="100001" CategoryFeatureGroup_ID="1383">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761473" Value="33" No="100047" CategoryFeatureGroup_ID="96">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761474" Value="" No="100040" CategoryFeatureGroup_ID="96">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761475" Value="MP3, WMA" No="280" CategoryFeatureGroup_ID="97">
+         <Feature ID="1022">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3585" Value="Audio format supported" langid="1"/>
+           <Name ID="3586" Value="Ondersteund audioformaat" langid="2"/>
+           <Name ID="7780" Value="Audio format supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761476" Value="90" No="103" CategoryFeatureGroup_ID="97">
+         <Feature ID="1573">
+          <Measure ID="76" Sign="dBA"/>
+           <Name ID="4897" Value="Signal-to Noise Ratio" langid="1"/>
+           <Name ID="4898" Value="Signaal/ruis-verhouding" langid="2"/>
+           <Name ID="7197" Value="Signal-to Noise Ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761477" Value="" No="101" CategoryFeatureGroup_ID="97">
+         <Feature ID="1605">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4973" Value="Sound output mode" langid="1"/>
+           <Name ID="4974" Value="Audio output mode" langid="2"/>
+           <Name ID="6581" Value="Sound output mode" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761478" Value="20" No="55" CategoryFeatureGroup_ID="97">
+         <Feature ID="1027">
+          <Measure ID="31" Sign="KHz"/>
+           <Name ID="3595" Value="Sound system maximum sampling rate" langid="1"/>
+           <Name ID="3596" Value="Audiosysteem maximum sampling rate" langid="2"/>
+           <Name ID="7785" Value="Sound system maximum sampling rate" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9761479" Value="" No="49" CategoryFeatureGroup_ID="97">
+         <Feature ID="1620">
+          <Measure ID="46" Sign="hrs"/>
+           <Name ID="5051" Value="Voice recording time" langid="1"/>
+           <Name ID="5052" Value="Spraak opnametijd" langid="2"/>
+           <Name ID="8336" Value="Voice recording time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="45" Name="Creative Labs"/>
+       <Category ID="850">
+         <Name ID="4840" Value="MP3-spelers of -recorders" langid="2"/>
+         <Name ID="4839" Value="MP3 players or recorders" langid="1"/>
+         <Name ID="7141" Value="MP3 players or recorders" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+use XML::LibXML;
+use XML::LibXML::Common;
+use Data::Dumper;
+
+my $file = $ARGV[0];
+
+my $parser = XML::LibXML->new();
+
+my $doc;
+
+eval {$doc = $parser->parse_file($file)} or die $@;
+
+print Dumper($doc);
+
+eval {$doc->validate($doc->externalSubset)};
+
+print $@."\n";
+
+#open(FILE,"<".$file);
+
+#while (<FILE>) {
+#    if ($_ =~ /\<Category.*Name=\".*\"/g) {
+#	print $..": ".$_."\n";
+#    }
+#}
+
+#close(FILE);

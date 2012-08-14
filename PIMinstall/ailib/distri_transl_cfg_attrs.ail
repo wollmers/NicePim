@@ -1,0 +1,12 @@
+{
+name: distri_transl_cfg_attrs;
+priority: 10;
+
+_resource_languages: select l.langid, v.value, dt.html from language l left join vocabulary v on l.sid=v.sid and v.langid = %%langid%% left join dictionary_text dt on l.langid=dt.langid and dt.dictionary_id= %%dictid%% and dt.distributor_id= %%distributor_id%% order by 1;
+_mapping_languages: v_langid, language, trans;
+_resource_languages_type: multi;
+
+_resource_distri: SELECT name, code FROM distributor WHERE distributor_id = %%distributor_id%%;
+_mapping_distri: distri, dcode;
+
+}

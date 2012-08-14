@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="124892" Prod_id="70SB035002007" ThumbPic="http://www.icecat.biz/thumbs/124892.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/124892.jpg" Name="SB AUDIGY 2 ZS PLATINUM" LowPic="http://www.icecat.biz/img/norm/low/124892.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="291" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="28" No="0">
+         <FeatureGroup ID="1">
+           <Name ID="4859" Value="Processor" langid="1"/>
+           <Name ID="4860" Value="Processor" langid="2"/>
+           <Name ID="7174" Value="Processor" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="30" No="2">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="29" No="3">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1213" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="144070" URL="http://www.creative.com/products/product.asp?prodid=4925" ShortDesc="SB AUDIGY 2 ZS PLATINUM NL (PC)" langid="1" LongDesc="The Sound Blaster® Audigy 2 ZS Platinum Pro is the ultimate 7.1 studio solution for musicians and audio enthusiasts. It supports ASIO 2.0 and SoundFont 2.1 and can record up to 6 simultaneous channels at 24-bit/96kHz. It supports 24-bit ADVANCED HD audio at 108dB SNR, and offers musicians extensive digital and analogue connectivity via its External I/O Hub. Breathtaking music playback is assured via Advanced Resolution DVD-Audio support at up to 24-bit/192kHz in stereo or 24-bit/96kHz in 5.1, together with full Windows Media 9 compatibility. Superior results in games and movies come from its support for EAX 4.0 ADVANCED HD, Dolby Digital EX and DTS-ES, plus the unique THX Console for precise speaker calibration via the included remote control.\n-External I/O Hub delivers optical and coaxial SPDIF, 3 analogue line-ins (or 2 line-ins and 1 mic in), full-size MIDI I/O, headphone output, 2 FireWire connectors and master volume control with push mute. \n-24-bit/96kHz ASIO 2.0 support for high-quality, ultra-low latency recording of up to 6 simultaneous channels. \n-Compact remote gives extensive control for playback and navigation of media \nSoundFont 2.1 support allows musicians and audio designers to create custom digital audio sample banks for use in music composition or recordings. \n-Unique THX Console allows users to set distance, volume level and angle of each speaker to create the perfect sweet-spot. \n-Extensive utilities include Audio Cleanup, for removal of clicks and background hiss; SVM, which equalises playback volume across an album or playlist; Crossfading which auto-fades between tracks and CMSS 3D, which allows users to up-mix stereo content to up to 7.1 channels.\n" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9403136" Value="24" No="10100100" CategoryFeatureGroup_ID="29">
+         <Feature ID="1611">
+          <Measure ID="50" Sign="bit"/>
+           <Name ID="4987" Value="Audio quality" langid="1"/>
+           <Name ID="4988" Value="Audio-kwaliteit" langid="2"/>
+           <Name ID="6579" Value="Audio quality" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403137" Value="24-bit Analog to Digital conversion during recording in 8, 16 or 24-bit at sampling rates of 8, 11.025, 16, 22.05, 24, 32, 44.1, 48, 64, 88.2 and 96kHz " No="100097" CategoryFeatureGroup_ID="29">
+         <Feature ID="1609">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4984" Value="Analoog-naar-Digitaal Conversie" langid="2"/>
+           <Name ID="4983" Value="Analog-to-Digital Conversion" langid="1"/>
+           <Name ID="6582" Value="Analog-to-Digital Conversion" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403138" Value="24-bit Digital-to-Analog conversion during playback with sampling rates of 8, 11.025, 16, 22.05, 24, 32, 44.1, 48, 64, 88.2 and 96kHz in 7.1 mode and up to 192kHz in stereo mode " No="100095" CategoryFeatureGroup_ID="29">
+         <Feature ID="1608">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4982" Value="Digitaal-naar-Analoog Conversie" langid="2"/>
+           <Name ID="4981" Value="Digital-to-Analog Conversion" langid="1"/>
+           <Name ID="6583" Value="Digital-to-Analog Conversion" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403139" Value="128 for Windows 98SE and Me, 256 for Windows 2000 SP3 and XP SP1 " No="100057" CategoryFeatureGroup_ID="30">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403140" Value="Processor: Genuine Intel® Pentium® II, Celeron 350MHz, AMD-K6® 450MHz or faster \nMotherboard: Intel®, AMD® or 100% compatible \nSystem RAM: 64MB for Windows® 98SE and ME, 128MB for Windows 2000 SP2 and XP \nHard Disk: 600MB free space \nOperating System: Windows 98SE, ME, 2000 SP2 or XP \nAvailable PCI 2.1 or higher compliant slot \nAvailable adjacent slot for Joystick/MIDI bracket (optional) \nHeadphones or amplified speakers (available separately) \nCD-ROM or DVD-ROM drive required for software installation" No="100053" CategoryFeatureGroup_ID="30">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403141" Value="" No="100040" CategoryFeatureGroup_ID="30">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403142" Value="Processor: Genuine Intel® Pentium® III 800 MHz or AMD Athlon 1 GHz or faster " No="100038" CategoryFeatureGroup_ID="30">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403143" Value="4096 free space (Disk Type: ATA 100, 7,200 rpm)" No="100035" CategoryFeatureGroup_ID="30">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403144" Value="" No="100002" CategoryFeatureGroup_ID="1213">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403145" Value="" No="100001" CategoryFeatureGroup_ID="1213">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403146" Value="Creative Driver &amp; Applications CD \nFeature Showcase Demonstration CD \nSoundFont Sample Banks \nCubasis VST 4.0 CE \nWavelab Lite 2.0 \nFL Studio 4 CE \nLara Croft Tomb Raider - The Angel of Darkness \nTom Clancy's Rainbow Six - Raven Shield" No="100058" CategoryFeatureGroup_ID="291">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403147" Value="" No="100050" CategoryFeatureGroup_ID="291">
+         <Feature ID="1509">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4715" Value="Supported channels" langid="1"/>
+           <Name ID="4716" Value="Supported channels" langid="2"/>
+           <Name ID="8305" Value="Supported channels" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403148" Value="-CD SPDIF cable .\n-AD_LINK cable .\n-Power Converter Cable .\n-3.5mm to 1/4 jack adapter ." No="100005" CategoryFeatureGroup_ID="291">
+         <Feature ID="1830">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5653" Value="Cables included" langid="1"/>
+           <Name ID="5654" Value="Cables included" langid="2"/>
+           <Name ID="8617" Value="Cables included" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403149" Value="" No="100000" CategoryFeatureGroup_ID="291">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403150" Value="" No="90" CategoryFeatureGroup_ID="29">
+         <Feature ID="1022">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3585" Value="Audio format supported" langid="1"/>
+           <Name ID="3586" Value="Ondersteund audioformaat" langid="2"/>
+           <Name ID="7780" Value="Audio format supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403151" Value="" No="81" CategoryFeatureGroup_ID="29">
+         <Feature ID="1607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4980" Value="Synthesizer" langid="2"/>
+           <Name ID="4979" Value="Synthesizer" langid="1"/>
+           <Name ID="6584" Value="Synthesizer" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403152" Value="" No="80" CategoryFeatureGroup_ID="29">
+         <Feature ID="1573">
+          <Measure ID="76" Sign="dBA"/>
+           <Name ID="4897" Value="Signal-to Noise Ratio" langid="1"/>
+           <Name ID="4898" Value="Signaal/ruis-verhouding" langid="2"/>
+           <Name ID="7197" Value="Signal-to Noise Ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403153" Value="" No="75" CategoryFeatureGroup_ID="29">
+         <Feature ID="1031">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3603" Value="Sound system direct 3D sound" langid="1"/>
+           <Name ID="3604" Value="Audiosysteem direct 3D geluid" langid="2"/>
+           <Name ID="7789" Value="Sound system direct 3D sound" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403154" Value="192" No="37" CategoryFeatureGroup_ID="29">
+         <Feature ID="1027">
+          <Measure ID="31" Sign="KHz"/>
+           <Name ID="3595" Value="Sound system maximum sampling rate" langid="1"/>
+           <Name ID="3596" Value="Audiosysteem maximum sampling rate" langid="2"/>
+           <Name ID="7785" Value="Sound system maximum sampling rate" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403155" Value="" No="41" CategoryFeatureGroup_ID="30">
+         <Feature ID="84">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1505" Value="Slot Type" langid="1"/>
+           <Name ID="1506" Value="Slot Type" langid="2"/>
+           <Name ID="6761" Value="Slot Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403156" Value="Joystick/MIDI bracket " No="66" CategoryFeatureGroup_ID="291">
+         <Feature ID="1342">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4225" Value="Midi/joystick port" langid="1"/>
+           <Name ID="4226" Value="Midi/joystick port" langid="2"/>
+           <Name ID="8093" Value="Midi/joystick port" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403157" Value="-Audigy 2 ZS External I/O Hub Front / Rear Panel Connectors:\nHeadphone Out (1/4 Stereo Jack) \nLine In 1 (1/4 Stereo Jack, shared with Microphone In with Gain Control) \nLine In 2 (1/4 Stereo Jack) \nLine In 3 (2 x RCA Jack) \nOptical SPDIF In/Out \nCoaxial SPDIF In/Out \nDigital Out for 5.1 support (6-channel SPDIF Output to Creative digital speakers) \n2 x FireWire® (IEEE® 1394) ports \nMIDI In / Out \nInfra-red Receiver \nAD_LINK 1 and AD_LINK 2 connectors.\n-FireWire® (IEEE® 1394) Connectivity:\nFireWire® (IEEE® 1394) / i-Link® compatible interface with up to 400Mbps transfer rate,\n-Sound Blaster Audigy 2 ZS Platinum Pro On-Board Connectors:\nLine level out (Front / Side / Rear / Center / Subwoofer) \nCD SPDIF in \nAux Audio in \nAD_LINK 1 and AD_LINK 2 connectors \nPower connector \n15-pin MIDI / Joystick port extension header.\n" No="60" CategoryFeatureGroup_ID="291">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403158" Value="" No="55" CategoryFeatureGroup_ID="291">
+         <Feature ID="250">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1867" Value="Bundled hardware" langid="1"/>
+           <Name ID="1868" Value="Gebundelde hardware" langid="2"/>
+           <Name ID="6942" Value="Bundled hardware" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403159" Value="Windows 98SE, ME, 2000 SP2 and XP  ./Sound Blaster MIDI and General MIDI /Plug and Play Sound Blaster PCI /EAX, EAX ADVANCED HD* /THX® /Microsoft® DirectSound®, DirectSound 3D &amp; derivatives /OpenAL /PCI 2.2 compliant /AC 97 compliant /Dolby Digital &amp; Dolby Digital EX /DTS Digital Surround® &amp; DTS-ES Extended Surround/Meridian Lossless Packing/ASIO® 2.0 Multi-channel (24-bit/96kHz) /SoundFont 2.1 /DVD-Audio &amp; Advanced Resolution DVD-Audio/Windows Media® Audio 9" No="4" CategoryFeatureGroup_ID="291">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403160" Value="Internet: 56kbps modem or faster and an active Internet connection" No="3" CategoryFeatureGroup_ID="291">
+         <Feature ID="1024">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3589" Value="Speakers" langid="1"/>
+           <Name ID="3590" Value="Speakers" langid="2"/>
+           <Name ID="7782" Value="Speakers" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403161" Value="" No="3" CategoryFeatureGroup_ID="291">
+         <Feature ID="1605">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4973" Value="Sound output mode" langid="1"/>
+           <Name ID="4974" Value="Audio output mode" langid="2"/>
+           <Name ID="6581" Value="Sound output mode" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403162" Value="SPDIF (Sony/Philips Digital Interface) input at up to 24-bit/ 96kHz quality " No="2" CategoryFeatureGroup_ID="291">
+         <Feature ID="990">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3521" Value="Interface type" langid="1"/>
+           <Name ID="3522" Value="Interfacetype" langid="2"/>
+           <Name ID="7748" Value="Interface type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9403163" Value="" No="1" CategoryFeatureGroup_ID="291">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="45" Name="Creative Labs"/>
+       <Category ID="173">
+         <Name ID="347" Value="Audio cards" langid="1"/>
+         <Name ID="348" Value="Audiokaarten" langid="2"/>
+         <Name ID="6248" Value="Audio cards" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomsql;
+use data_management;
+use strict;
+use Data::Dumper;
+
+#get all rows
+my $rows = &do_query("select product_id, supplier_id, prod_id from product order by product_id asc");
+
+#make products hash
+print "making products hash\n";
+my $products;
+foreach my $row(@$rows){
+	push @{$products->{$row->[1]}->{$row->[2]}}, $row->[0];
+}
+
+#print Dumper(\$products);
+
+#find duplicated
+my $duplicated;
+my $del_num = 0;
+my $debug = 0; #to debug if 1
+print "fined duplicated\n";
+
+foreach my $supplier_id(keys %$products){
+#	print "$supplier_id\n";
+	foreach my $prod_id(keys %{$products->{$supplier_id}}){
+#		print "\t$prod_id\n";
+		if($#{$products->{$supplier_id}->{$prod_id}} != 0){ 
+			foreach(my $cnt=1; $cnt <= $#{$products->{$supplier_id}->{$prod_id}}; $cnt++){
+				my $product_id = $products->{$supplier_id}->{$prod_id}->[$cnt];
+				$duplicated .= $product_id.",";
+				if(!$debug){
+					&delete_product($product_id);
+				}
+				$del_num++;
+			}
+			$duplicated =~ s/^(.+),$/$1/;
+			print "\t\t$supplier_id  $prod_id: $duplicated deleted\n";$duplicated = '';
+		}
+	}
+}
+print "products deleted: $del_num\n";

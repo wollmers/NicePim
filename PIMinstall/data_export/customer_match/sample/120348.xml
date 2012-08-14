@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="120348" Prod_id="931171-0914" ThumbPic="http://www.icecat.biz/thumbs/120348.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/120348-782.jpg" Name="V500 Cordless Notebook Mouse" LowPic="http://www.icecat.biz/img/low_pic/120348-8665.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="313" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="913" No="10">
+         <FeatureGroup ID="7">
+           <Name ID="4884" Value="Platform" langid="2"/>
+           <Name ID="4883" Value="Platform" langid="1"/>
+           <Name ID="7173" Value="Platform" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="915" No="9">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="863" No="8">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="864" No="4">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="914" No="3">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="865" No="6">
+         <FeatureGroup ID="36">
+           <Name ID="5181" Value="Color" langid="1"/>
+           <Name ID="5182" Value="Kleur" langid="2"/>
+           <Name ID="8394" Value="Color" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1376" No="11">
+         <FeatureGroup ID="49">
+           <Name ID="9699" Value="Input device" langid="1"/>
+           <Name ID="9700" Value="Input device" langid="3"/>
+           <Name ID="9701" Value="Input device" langid="2"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="138296" URL="" ShortDesc="V500 Cordless Notebook Mouse" langid="2" LongDesc="- Een ultradunne, draadloze optische muis voor notebooks \n- 4-dimensioneel scrollpaneel vindt het scrollwiel opnieuw uit \n- Behuizing kan uitgeklapt worden om bij gebruik in uw hand te passen, en opgevouwen worden voor onderweg \n- Draadloze micro-ontvanger van 2,4 GHz kan in de muis opgeborgen worden \n- Optische prestaties op elk oppervlak \n- Aan/uit-schakelaar optimaliseert batterijlevensduur \n- Ultradun aluminiumontwerp \n- USB-verbinding voor pc \n- Drie jaar fabrieksgarantie \n- Volledige productondersteuning \n\nDe V500 Cordless Notebook Mouse van Logitech levert optimale prestaties in een gestroomlijnd, ultradun ontwerp. De V500 brengt comfort en mobiliteit in balans dankzij zijn uitklapbare behuizing, die bij gebruik in de hand past en voor onderweg plat opgevouwen kan worden. De V500 zet de standaard voor professionele draadloze prestaties. Met het 4-dimensioneel scrollpaneel wordt het traditionele wiel compleet opnieuw uitgevonden  verschuif uw vinger gewoon om uiterst responsief verticaal en horizontaal te scrollen. De micro-ontvanger van 2,4 GHz biedt een lang bereik vrijwel zonder storing, en kan in de muis opgeborgen worden. De krachtige, optische motor kan op vrijwel elk oppervlak gebruikt worden. De gestroomlijnde behuizing is reisbestendig, met samengesmolten aluminium behuizing, batterijbesparende aan/uit-schakelaar en stroomstatusindicator. USB-verbinding. " WarrantyInfo="3 jaar garantie\n" PDFURL=""/>
+        <ProductDescription ID="151280" URL="" ShortDesc="V500 Cordless Notebook Mouse" langid="1" LongDesc="- An ultra-thin, cordless, optical, mouse for notebooks \n- 4-way scroll panel reinvents the scroll wheel \n- Chassis expands to fit your hand when in use, folds flat for travel \n- Cordless 2.4 GHz micro-receiver fits inside mouse for storage \n- All-terrain optical performance \n- On/off switch to optimise battery life \n- Ultra-thin aluminium design \n- USB connection for PC \n- Three-year manufacturer's guarantee \n- Full product support \n\nLogitechs V500 Cordless Notebook Mouse delivers maximum performance in a sleek, ultra-thin design. V500 balances comfort and mobility with its expandable chassis, which fits the hand when in use and folds flat for travel. Deployed, V500 sets the standard in enterprise-class cordless performance. The 4-way scroll panel totally reinvents the traditional wheel  simply slide your finger for hyper-responsive vertical and horizontal scrolling. The 2.4 GHz micro receiver provides long range with virtually no interference, and fits inside the mouse for storage. The all-terrain optical engine delivers superior surface coverage. The streamlined bodywork is road-worthy, with fused aluminum skin, battery-saving on-off switch, and power status indicator. USB connection. .\n" WarrantyInfo="3-year" PDFURL=""/>
+        <ProductFeature ID="9659599" Value="Windows® 98, 2000, Me, XP \nMacintosh® system with Mac® OS X+ " No="100002" CategoryFeatureGroup_ID="913">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659600" Value="" No="100009" CategoryFeatureGroup_ID="915">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659601" Value="" No="100006" CategoryFeatureGroup_ID="915">
+         <Feature ID="5">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="1292" Value="Processor-kloksnelheid" langid="2"/>
+           <Name ID="1291" Value="Processor clock speed" langid="1"/>
+           <Name ID="6663" Value="Processor clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659602" Value="" No="100005" CategoryFeatureGroup_ID="915">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659603" Value="" No="100005" CategoryFeatureGroup_ID="915">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659604" Value="USB" No="100026" CategoryFeatureGroup_ID="1376">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659605" Value="RF" No="100023" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1655">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5169" Value="Connectivity technology" langid="1"/>
+           <Name ID="5170" Value="Connectiviteit-technologie" langid="2"/>
+           <Name ID="8388" Value="Connectivity technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659606" Value="" No="100001" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5513" Value="Colour" langid="1"/>
+           <Name ID="5514" Value="Kleur" langid="2"/>
+           <Name ID="8548" Value="Colour" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659607" Value="" No="100003" CategoryFeatureGroup_ID="864">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659608" Value="" No="100002" CategoryFeatureGroup_ID="864">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659609" Value="AAA" No="100003" CategoryFeatureGroup_ID="914">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659610" Value="" No="100002" CategoryFeatureGroup_ID="914">
+         <Feature ID="434">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2235" Value="Battery technlogy" langid="1"/>
+           <Name ID="2236" Value="Batterij, technologie" langid="2"/>
+           <Name ID="7126" Value="Battery technlogy" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659611" Value="" No="100138" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1050">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3641" Value="Input devices description" langid="1"/>
+           <Name ID="3642" Value="Input devices description" langid="2"/>
+           <Name ID="7807" Value="Input devices description" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659612" Value="" No="100024" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1738">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5423" Value="Buttons quantity" langid="1"/>
+           <Name ID="5424" Value="Aantal knoppen" langid="2"/>
+           <Name ID="8482" Value="Buttons quantity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659613" Value="Setpoint software" No="100011" CategoryFeatureGroup_ID="313">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659614" Value="" No="100011" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1773">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="5519" Value="Movement resolution" langid="1"/>
+           <Name ID="5520" Value="Movement resolution" langid="2"/>
+           <Name ID="8551" Value="Movement resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659615" Value="Optical" No="100008" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1772">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5515" Value="Movement detection technology" langid="1"/>
+           <Name ID="5516" Value="Movement detection technology" langid="2"/>
+           <Name ID="8549" Value="Movement detection technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659616" Value="IBM® or compatible PC" No="50" CategoryFeatureGroup_ID="913">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659617" Value="" No="0" CategoryFeatureGroup_ID="913">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659618" Value="" No="75" CategoryFeatureGroup_ID="863">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659619" Value="" No="5" CategoryFeatureGroup_ID="863">
+         <Feature ID="1556">
+          <Measure ID="26" Sign=""/>
+           <Name ID="4836" Value="Inclusief kabel" langid="2"/>
+           <Name ID="4835" Value="Cable included" langid="1"/>
+           <Name ID="8159" Value="Cable included" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659620" Value="" No="4" CategoryFeatureGroup_ID="863">
+         <Feature ID="1266">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="4073" Value="Cable length" langid="1"/>
+           <Name ID="4074" Value="Cable length" langid="2"/>
+           <Name ID="8019" Value="Cable length" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659621" Value="" No="9" CategoryFeatureGroup_ID="914">
+         <Feature ID="1300">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4141" Value="Battery life" langid="1"/>
+           <Name ID="4142" Value="Accu levensduur" langid="2"/>
+           <Name ID="8052" Value="Battery life" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659622" Value="" No="44" CategoryFeatureGroup_ID="313">
+         <Feature ID="250">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1867" Value="Bundled hardware" langid="1"/>
+           <Name ID="1868" Value="Gebundelde hardware" langid="2"/>
+           <Name ID="6942" Value="Bundled hardware" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659623" Value="" No="25" CategoryFeatureGroup_ID="1376">
+         <Feature ID="440">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2247" Value="Pointing device" langid="1"/>
+           <Name ID="2248" Value="Pointing device" langid="2"/>
+           <Name ID="7132" Value="Pointing device" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659624" Value="" No="12" CategoryFeatureGroup_ID="1376">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659625" Value="" No="7" CategoryFeatureGroup_ID="313">
+         <Feature ID="1592">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4942" Value="Peripheral/ interface devices" langid="2"/>
+           <Name ID="4941" Value="Peripheral/ interface devices" langid="1"/>
+           <Name ID="6592" Value="Peripheral/ interface devices" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659626" Value="" No="4" CategoryFeatureGroup_ID="1376">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659627" Value="" No="1" CategoryFeatureGroup_ID="313">
+         <Feature ID="1394">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4329" Value="Deskbased Accessories Description" langid="1"/>
+           <Name ID="4330" Value="Deskbased Accessories Description" langid="2"/>
+           <Name ID="8145" Value="Deskbased Accessories Description" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659628" Value="" No="0" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1410">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4361" Value="Keyboard layout" langid="1"/>
+           <Name ID="4362" Value="Keyboard layout" langid="2"/>
+           <Name ID="8160" Value="Keyboard layout" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659629" Value="" No="0" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1411">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4363" Value="Keys" langid="1"/>
+           <Name ID="4364" Value="Keys" langid="2"/>
+           <Name ID="8161" Value="Keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9659630" Value="" No="0" CategoryFeatureGroup_ID="1376">
+         <Feature ID="1412">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4365" Value="Function keys" langid="1"/>
+           <Name ID="4366" Value="Function keys" langid="2"/>
+           <Name ID="8162" Value="Function keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="91" Name="Logitech"/>
+       <Category ID="195">
+         <Name ID="391" Value="computer mouses" langid="1"/>
+         <Name ID="392" Value="computermuizen" langid="2"/>
+         <Name ID="6268" Value="computer mouses" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

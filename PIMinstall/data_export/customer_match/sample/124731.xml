@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="124731" Prod_id="CSE-933S2-R760/B" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="CSE-933S2-R760 760W 14x1&amp;quot; SCA black" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="224" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="143901" URL="" ShortDesc="CSE-933S2-R760 760W 14x1&amp;quot; SCA black" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="253" Name="Supermicro"/>
+       <Category ID="106">
+         <Name ID="213" Value="hardware components" langid="1"/>
+         <Name ID="214" Value="hardware componenten" langid="2"/>
+         <Name ID="6179" Value="hardware components" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

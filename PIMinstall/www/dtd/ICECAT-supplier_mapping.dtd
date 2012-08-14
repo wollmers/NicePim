@@ -1,0 +1,21 @@
+<!ELEMENT ICECAT-interface (SupplierMappings)>
+
+<!ATTLIST ICECAT-interface
+                xmlns:xsi CDATA #IMPLIED
+		xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+
+<!ELEMENT SupplierMappings (SupplierMapping*)>
+
+<!ATTLIST SupplierMappings
+		Generated			CDATA #IMPLIED>
+
+<!ELEMENT SupplierMapping (Symbol)*>
+
+<!ATTLIST SupplierMapping 	
+		supplier_id			CDATA #REQUIRED
+		name				CDATA #IMPLIED>
+
+<!ELEMENT Symbol (#PCDATA)>
+
+<!ATTLIST Symbol
+		distributor_id CDATA #IMPLIED>

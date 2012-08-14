@@ -1,0 +1,487 @@
+#!/usr/bin/perl
+
+#$Id: new_products 3780 2011-02-03 15:32:14Z alexey $
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+#use lib '/home/alexey/icecat/bo/lib';
+
+use atomcfg;
+use atomlog;
+use data_management;
+use atomsql;
+use thumbnail;
+use atom_mail;
+use atom_util;
+use POSIX qw (strftime);
+use atom_misc;
+use Data::Dumper;
+use Spreadsheet::WriteExcel::Big;
+
+$| = 1;
+
+my $debug = 0;
+
+my $base_url = $atomcfg{'bo_host'};
+
+my %locale = (
+	'subj'=>['','ICEcat data update','ICEcat werk de productgegevens bij'],
+	'accept'=>['','Accept','Accepteren'],
+	'edit-post'=>['','Edit / Post complaint','Bewerk / Stuur uw opmerking'],
+	'partcode' =>['','Part code','Productcode'],
+	'prodname' =>['','Product name','Productnaam'],
+	'category' =>['','Category','Categorie'],
+	'actions' =>['','Actions','Actie']
+	);
+my $all_token_found=1;
+my %locale_dict=(
+	'subj'     =>['',dict_value('supplier_report_subj','en'),     dict_value('supplier_report_subj','nl')],
+	'accept'   =>['',dict_value('supplier_report_accept','en'),   dict_value('supplier_report_accept','nl')],
+	'edit-post'=>['',dict_value('supplier_report_edit_post','en'),dict_value('supplier_report_edit_post','nl')],
+	'partcode' =>['',dict_value('supplier_report_partcode','en'), dict_value('supplier_report_partcode','nl')],
+	'prodname' =>['',dict_value('supplier_report_prodname','en'), dict_value('supplier_report_prodname','nl')],
+	'category' =>['',dict_value('supplier_report_category','en'), dict_value('supplier_report_category','nl')],
+	'actions'  =>['',dict_value('supplier_report_actions','en'),  dict_value('supplier_report_actions','nl')]	
+);
+if($all_token_found){
+	%locale=%locale_dict;
+}
+
+sub dict_value{
+	my ($key,$lang)=@_;
+	my $value=&repl_ph('<DictItem lang="'.$lang.'">'.$key.'</DictItem>');
+	if(!$value){
+		$value=&repl_ph('<DictItem lang="en">'.$key.'</DictItem>');
+	}
+	if(!$value){
+		&errmail('alexey@bintime.com, '.$atomcfg{'bugreport_email'},'new_products failed!!! cant find column name '.$key.' in dictionary');
+		$all_token_found=undef;		
+		return '';
+	}else{
+		return $value;
+	}	
+} 
+
+my $aggregated_reports = {};
+
+print "new_products started...\n";
+
+my $users = &do_query('select user_id, login, user_group from users');
+my %user =  map { $_->[0] => $_->[1] } @$users;
+my %userg = map { $_->[0] => $_->[2] } @$users;
+
+
+my $report_missing;
+
+my $date = strftime("%Y%m%d", localtime(time - 24*60*60));
+my $date_dash = strftime("%Y-%m-%d", localtime(time - 24*60*60));
+
+my $products_tosend_in_html = {};
+
+my $queue_cnt = &do_query("select count(*) from vendor_notification_queue");
+my $queue = &do_query("select product_id, id from vendor_notification_queue");
+#my $queue = &do_query("select v.product_id, v.id from vendor_notification_queue v inner join product p using (product_id) where p.supplier_id=1278");
+
+#!!!tmp &do_statement("truncate table vendor_notification_queue");
+
+print "\ttotal = ".$queue_cnt->[0][0]." products\n";
+
+foreach my $row (@$queue) {
+	my $params = &do_query("select supplier_id, prod_id, publish from product where product_id='".$row->[0]."'");
+	next if ((!$params)||($params->[0][2] eq 'A'));
+	$products_tosend_in_html->{$params->[0][0]}->{$params->[0][1]} = $row->[0];
+}
+
+my $acknowl = &do_query("select acknowledge,supplier_id from supplier");
+#my $acknowl = &do_query("select acknowledge,supplier_id from supplier where supplier_id=1278");
+my $acknowledge;
+foreach (@$acknowl) {
+	$acknowledge->{$_->[1]}=$_->[0];
+}
+
+#my $curr_epoch=&do_query("SELECT UNIX_TIMESTAMP('2009-10-26')")->[0][0];
+my $curr_epoch=&do_query("SELECT UNIX_TIMESTAMP()")->[0][0];
+my $now_epoch=&do_query("SELECT UNIX_TIMESTAMP('".strftime ( "%Y-%m-%d", localtime( $curr_epoch ))."')")->[0][0];
+my $prev_monday=$now_epoch-604800;
+my @now_date=localtime($now_epoch);
+my $prev_day=$now_epoch-86400;
+my @last_month_date=@now_date;
+$last_month_date[4]=$last_month_date[4]-1;
+my $last_month_begin=&do_query("SELECT UNIX_TIMESTAMP('".strftime( "%Y-%m-%d %H:%M:%S",@last_month_date)."')")->[0][0];
+
+# send email to supplier with new products html description
+foreach my $supplier_id (keys %$products_tosend_in_html) {
+	foreach my $prod_id (keys %{$products_tosend_in_html->{$supplier_id}}) {
+		my $product_id  = $products_tosend_in_html->{$supplier_id}->{$prod_id};
+
+		# select products responsible user group, if 'supplier' or 'nogroup' then next
+		my $prod_responsible_user_group = &do_query("select u.user_group from product as p, users as u where p.product_id = $product_id and p.user_id = u.user_id");
+		if (($prod_responsible_user_group->[0][0] eq 'supplier') || ($prod_responsible_user_group->[0][0] eq 'nogroup')) {
+			print "\t$prod_id\033[31;1m supplier || nogroup\033[37;0m\n";
+			next;
+		}
+
+		# select acknowledge for supplier, if 'No' then next
+		if ($acknowledge->{$supplier_id} eq 'N') {
+			print "\t$prod_id\033[31;1m supplier isn't acknowledged\033[37;0m\n";
+			next;
+		}
+		
+		# select supplier managers, if no managers then next
+		my $managers = &do_query("select c.contact_id, c.email, scr.interval_id, scr.default_manager, scr.report_lang, scr.report_format, c.country_id, ti.name, c.person
+from supplier_users su
+inner join users u on su.user_id = u.user_id
+inner join contact c on u.pers_cid = c.contact_id
+inner join supplier_contact_report scr on c.supplier_contact_report_id = scr.supplier_contact_report_id
+JOIN time_interval ti on scr.interval_id = ti.interval_id
+where su.supplier_id = $supplier_id");
+
+		# if no managers then next
+		if (!$managers->[0][0]) {
+			print "\t\033[31;1mno managers for \033[37;0m$prod_id\n";
+			next;
+		}
+
+		my $managers4send;
+		foreach my $manager (@$managers) {
+			if (!$manager->[2]) {
+				print "\t$prod_id\033[31;1m manager $manager->[8] isn't acknowledged\033[37;0m\n";
+				next;
+			}
+
+			# check for proper country
+			if ($manager->[6]) {
+				unless (&do_query("select 1 from country_product where country_id=".$manager->[6]." and product_id=".$product_id)->[0][0]) { # manager doesn't support a product from country
+					print "\t$prod_id\033[31;1m manager $manager->[8] from another country\033[37;0m\n";
+					next;
+				}
+			}
+
+ 			# check the first day of month and monday
+ 			my $product_added_epoch = &do_query("select updated from vendor_notification_queue where product_id = $product_id")->[0][0];
+ 			if ($manager->[7] eq 'monthly' and $now_date[3]==1 and  
+				 $product_added_epoch>$last_month_begin and $product_added_epoch<=$now_epoch) {
+ 			}elsif ($manager->[7] eq 'weekly' and $now_date[6]==1 and 
+ 			       $product_added_epoch>$prev_monday and $product_added_epoch<=$now_epoch) {
+ 			}elsif ($manager->[7] eq 'daily' and 
+ 			       $product_added_epoch>$prev_day and $product_added_epoch<=$now_epoch) {
+ 			}else{
+				print "\t$prod_id\033[31;1m product for manager $manager->[8] skipped (doesn't match into time frames)\033[37;0m\n";
+ 				next;
+ 			}
+ 			
+			# check products category and family
+			my $prod_cat = &do_query("select catid from product where product_id = $product_id")->[0][0];			
+			my $prod_fam = &do_query("select family_id from product where product_id = $product_id")->[0][0];			
+			my $manager_cats = &do_query("select distinct catid, include_subcat from supplier_contact_category_family where contact_id = ".$manager->[0]." and catid != 1");
+			my $cat_good = 0;
+
+			if (!$manager_cats->[0]) { # any cat, any family 
+				my $another_cat = &do_query("select id from supplier_contact_category_family where catid = $prod_cat and contact_id = $manager->[0]");
+				if ($another_cat && $another_cat->[0][0]) {
+					my $another_fam = &do_query("select id from supplier_contact_category_family where family_id = $prod_fam and contact_id = $manager->[0]");
+					my $another_fam_hash;
+					foreach my $row (@$another_fam) {
+						$another_fam_hash->{$row->[0]} = 1;
+					}
+					if (&check_product_family($prod_fam, $another_fam_hash, $supplier_id, $manager->[0])) {
+						print "\t$prod_id\033[31;1m for manager $manager->[8] family checking failed\033[37;0m\n";
+						next;
+					}
+				}
+				push @$managers4send, {'email'=>$manager->[1],'lang'=>$manager->[4],'rtype'=>$manager->[5],'interval'=>$manager->[7]};
+				print "\t$prod_id\033[32;1m for manager $manager->[8] was added to report (1)\033[37;0m\n";
+				next;
+			}
+
+			foreach my $manager_cat (@$manager_cats) {
+				# load managers families for cat
+				my $manager_fams = &do_query("select family_id, include_subfamily from supplier_contact_category_family where contact_id = ".$manager->[0]." and catid = ".$manager_cat->[0]);		
+				my $manager_fams_hash;
+				foreach my $manager_fam (@$manager_fams) {
+					next if ($manager_fam->[0] == 1);
+					$manager_fams_hash->{$manager_fam->[0]}->{'inc'} = $manager_fam->[1];
+				}
+
+				# manager has another cat
+				if (($prod_cat != $manager_cat->[0]) && ($manager_cat->[1] eq 'N')) {
+					print "\t$prod_id\033[31;1m for manager $manager->[8] wrong category\033[37;0m\n";
+					next;
+				}
+
+				# manager has the same cat
+				if ($prod_cat == $manager_cat->[0]) {
+					# check products fam
+					if (&check_product_family($prod_fam, $manager_fams_hash, $supplier_id, $manager->[0])) {
+						push @$managers4send, {'email'=>$manager->[1],'lang'=>$manager->[4],'rtype'=>$manager->[5],'interval'=>$manager->[7]};
+						print "\t$prod_id\033[32;1m for manager $manager->[8] was added to report (2)\033[37;0m\n";
+						next;
+					}
+				}
+				# may be manager has parent category
+				if (($prod_cat != $manager_cat->[0]) && ($manager_cat->[1] eq 'Y')) {
+					my $parent_cat = $prod_cat;
+					my $count = 0;
+					while ($parent_cat != 1) {
+						$count++;
+						if ($count == 1000) {
+							print "ERROR! Dead loop => cat: $prod_cat, supp: $supplier_id, product_id: $product_id\n";
+							last;
+						};
+						# check if another manager has such cat(more detailed route), then last
+						my $another_yes = 0;
+						my $another_managers = &do_query("select sccf.id, scr.interval_id, c.contact_id
+from       supplier_contact_category_family sccf
+inner join contact c on sccf.contact_id = c.contact_id
+inner join supplier_contact_report scr on scr.supplier_contact_report_id = c.supplier_contact_report_id
+inner join users u on c.contact_id = u.pers_cid
+inner join supplier_users su on u.user_id = su.user_id
+where sccf.catid = $parent_cat and su.supplier_id = $supplier_id");
+
+						foreach my $another_manager (@$another_managers) {
+							if ($another_manager->[0] && ($another_manager->[2] != $manager->[0]) && ($another_manager->[1])) {
+								my $another_manager_fams = &do_query("select family_id from supplier_contact_category_family where contact_id = $manager->[0] and catid = $parent_cat");
+								my $another_manager_fams_hash;
+								foreach my $row (@$another_manager_fams) {
+									$another_manager_fams_hash->{$row->[0]} = 1;
+								}
+								if (&check_product_family($prod_fam, $another_manager_fams_hash, $supplier_id, $manager->[0])) {
+									$another_yes = 1;
+									last;
+								}
+							}
+						}
+						next if ($another_yes);
+						$parent_cat = &do_query("select pcatid from category where catid = $parent_cat")->[0][0];
+						last if (!$parent_cat);
+						if ($parent_cat == $manager_cat->[0]) {
+							if (&check_product_family($prod_fam, $manager_fams_hash, $supplier_id, $manager->[0])) {
+								push @$managers4send, { 'email' => $manager->[1],
+																				'lang' => $manager->[4],
+																				'rtype' => $manager->[5],
+																				'interval'=>$manager->[7] };
+								print "\t$prod_id\033[32;1m for manager $manager->[8] was added to report (3)\033[37;0m\n";
+								$cat_good = 1;
+								next;
+							}
+						}
+					}
+				} # if parent cat
+			} # foreach manager cat
+		} # foreach manager
+
+		if (!$managers->[0][0]) {
+			# may be default manager exist and has interval_id > 0
+		  my $def_manager = &do_query("select c.contact_id, c.email, scr.report_id, acr.report_lang, acr.report_format
+from       supplier_users su
+inner join users u on su.user_id=u.user_id
+inner join contact c on u.pers_cid = c.contact_id
+inner join supplier_contact_report scr on c.supplier_contact_report_id = scr.supplier_contact_report_id
+where su.supplier_id = $supplier_id and scr.default_manager = 'Y'");
+			next if (!$def_manager->[0][2]); # no managers
+			push @$managers4send, {'email'=>$def_manager->[0][1], 'lang'=>$def_manager->[0][3],'rtype'=>$def_manager->[0][4]};
+		}
+		
+		my @body;
+		$body[1] = `$atomcfg{'base_dir'}/bin/get_product_html_description $product_id`;		
+		if (length($body[1]) == 0) {
+			&log_printf("html description wasn't loaded for $prod_id($supplier_id)"); 
+			print("\nhtml description wasn't loaded for $prod_id($supplier_id)"); 
+			next;
+		}
+
+		#print "\nhtml description loaded for $prod_id($supplier_id)";
+		$body[2] = `$atomcfg{'base_dir'}/bin/get_product_html_description $product_id 2`;		
+		if (length($body[2]) == 0) {
+			$body[2]=$body[1];
+			print("\nWarning: Dutch html description wasn't loaded for $prod_id($supplier_id) - replaced by English");
+		}
+		my $product_name = &do_query("select name from product where product_id = $product_id")->[0][0];
+		
+		foreach my $manager4send (@$managers4send) {
+			my $lang = $manager4send->{'lang'};
+			my $to = $manager4send->{'email'};
+			if ($lang > 2) {
+				$lang = 1;
+			}
+			if ($manager4send->{'rtype'} eq 'html') {
+				my $mail = {
+					'to' => $to,
+					'from' => $atomcfg{'mail_from'},
+					'subject' => "$locale{subj}[$lang] $prod_id",
+					'text_body' => "$locale{subj}[$lang] $prod_id - $product_name",
+					'html_body' =>$body[$lang]
+				};
+
+				#$mail->{'to'} = 'dima@icecat.biz' if $debug;
+				$mail->{'to'} = 'alexey@bintime.com' if $debug;
+
+				&complex_sendmail($mail);
+#				&complex_sendmail($mail) if ($to =~ /icecat/);
+				print "mail sent from manager4send to $to product_id: $product_id \n";
+			}
+			else {
+				$aggregated_reports->{$to}->{'lang'} = $lang;
+				$aggregated_reports->{$to}->{'supplier_id'} = $supplier_id;
+				$aggregated_reports->{$to}->{'interval_str'}=&intervalToString($manager4send->{'interval'},$now_epoch,$prev_day,$prev_monday,$last_month_begin);
+				
+				push @{$aggregated_reports->{$to}->{'products'}},{'product_id'=>$product_id,'prod_id'=>$prod_id,'name'=>$product_name};
+			}
+		}
+	}
+}
+
+foreach my $to (keys %$aggregated_reports) {
+	my $lang = $aggregated_reports->{$to}->{'lang'};
+	my $lang_code = &do_query("select lower(short_code) from language where langid=$lang")->[0][0];
+	my $supplier_id = $aggregated_reports->{$to}->{'supplier_id'};
+	my $supp = &do_query("select s.name, u.login, u.password from supplier s left join users u using (user_id) where s.supplier_id=".$supplier_id)->[0];
+	my $supp_name = $supp->[0];
+	my $supp_login = &escape($supp->[1]);
+	my $supp_pass = &escape($supp->[2]);
+	my $base_url_local = $base_url;
+
+#	if ($supp_login) {
+#		$base_url_local =~ s/^(https?:\/\/)(.*)$/$1$supp_login:$supp_pass\@$2/s;
+#		print $supp_login." ".$supp_pass."\n";
+#	}
+
+	open my $fh, '>', \my $xls;
+	my $workbook = Spreadsheet::WriteExcel::Big->new($fh);
+	$workbook->set_custom_color(40, '#F2F2F2');
+	$workbook->set_custom_color(41, '#F0F4FF');
+
+	my %header = (bg_color=>41,border=>7,valign=>'vcenter',align=>'center',bold=>1);
+	my $sheet = $workbook->addworksheet($date_dash);
+	$sheet->activate();
+	$sheet->set_column(0,0,20);
+	$sheet->set_column(1,1,50);
+	$sheet->set_column(2,2,25);
+	$sheet->set_column(3,3,25);
+	$sheet->set_column(4,4,10);
+	$sheet->set_row(0,16);
+	$sheet->write_string(0,0,$locale{'partcode'}[$lang],$workbook->addformat(%header));
+	$sheet->write_string(0,1,$locale{'prodname'}[$lang],$workbook->addformat(%header));
+	$sheet->write_string(0,2,$locale{'category'}[$lang],$workbook->addformat(%header));
+	$sheet->merge_range(0,3,0,4,$locale{'actions'}[$lang],$workbook->addformat(%header));
+	my $row = 1;
+
+	foreach my $product (@{$aggregated_reports->{$to}->{'products'}}) {
+		my $catid = &do_query("select catid from product where product_id=".$product->{'product_id'})->[0][0];
+		my $prod_cat = &do_query("select value from category c,vocabulary v where langid=$lang and c.sid=v.sid and catid=$catid")->[0][0];
+		my $suser_id = &get_supplier_user_id($product->{'product_id'});
+		my $key_publish = &generate_html_key($product->{'product_id'}, 'publish_product', $suser_id);
+		my $key_edit = &generate_html_key($product->{'product_id'}, 'edit_product', $suser_id);
+		my $bg_color;
+
+		if ($row & 1 == 1) {
+			$bg_color='white';
+		}
+		else {
+			$bg_color=40;
+		}
+
+		$sheet->set_row($row,16);
+		$sheet->write_url($row,0,"http://icecat.biz/".$lang_code."/p/".&code($supp_name).
+											'/'.&code($product->{'prod_id'}).'/desc.htm',$product->{'prod_id'},
+											$workbook->addformat(bg_color=>$bg_color,border=>7,valign=>'vcenter',color=>'blue',underline=>1));
+		$sheet->write_string($row,1,$product->{'name'},
+												 $workbook->addformat(bg_color=>$bg_color,border=>7,valign=>'vcenter'));
+		$sheet->write_string($row,2,$prod_cat,
+												 $workbook->addformat(bg_color=>$bg_color,border=>7,valign=>'vcenter'));
+		$sheet->write_url($row,3,$base_url_local."feedback/redirect.cgi?key=".$key_edit,$locale{'edit-post'}[$lang],
+											$workbook->addformat(bg_color=>$bg_color,border=>7,valign=>'vcenter',align=>'center',color=>'blue',underline=>1));
+		$sheet->write_url($row,4,$base_url_local."feedback/redirect.cgi?key=".$key_publish,$locale{'accept'}[$lang],
+											$workbook->addformat(bg_color=>$bg_color,border=>7,valign=>'vcenter',align=>'center',color=>'blue',underline=>1));
+ 		$row++;
+  }
+
+  $workbook->close();
+
+	my $subject = join(' ',$supp_name,$locale{'subj'}[$lang],$aggregated_reports->{$to}->{'interval_str'});
+	my $mail = {
+		'to' => $to,
+		'from' => $atomcfg{'mail_from'},
+		'subject' => $subject,
+		'text_body' => $subject,
+		'attachment_name' => $subject.'.xls',
+		'attachment_content_type' => 'application/msexcell',
+		'attachment_body' => $xls
+	};
+
+	#$mail->{'to'} = 'dima@icecat.biz' if $debug;
+	$mail->{'to'} = 'alexey@bintime.com' if $debug;	
+
+	&complex_sendmail($mail);
+#	&complex_sendmail($mail) if ($to =~ /icecat/);
+
+	print "mail sent from aggregated_reports to $to\n ";
+}
+# all mails had been sent and it's beging of new month so clean up the table from two month age products
+my @two_month_end=@now_date;
+$two_month_end[4]=$two_month_end[4]-1;
+my $two_month_end=&do_query("SELECT UNIX_TIMESTAMP('".strftime( "%Y-%m-%d %H:%M:%S",@two_month_end)."')")->[0][0];
+if (($now_date[3]==1) && (!$debug)) {
+	print "cleaning up vendor_notification_queue from two month age products\n";
+	&do_statement("DELETE FROM vendor_notification_queue WHERE updated <= $two_month_end ");
+}
+
+print "END.\n";
+
+sub intervalToString{
+	my ($interval,$curr_time,$lastDayEnd,$lastWeekEnd,$lastMonthEnd)=@_;
+	my $from; my $to;
+	$to=  strftime ( "%Y-%m-%d",localtime( $curr_time )); 
+	if ($interval eq 'daily') {
+		$from=strftime ( "%Y-%m-%d",localtime( $lastDayEnd )); 
+	}
+	elsif ($interval eq 'weekly') {
+		$from=strftime ( "%Y-%m-%d",localtime( $lastWeekEnd ));	
+	}
+	elsif ($interval eq 'monthly') {
+		$from=strftime ( "%Y-%m-%d",localtime( $lastMonthEnd ));	
+	}
+	return 'from_'.$from.'_to_'.$to;
+};
+
+sub check_product_family {
+	my ($prod_fam, $man_fams, $supplier_id, $manager_id) = @_;
+	return 1 if (!$man_fams); # manager hasn't family, sent by cat
+	return 0 if ($man_fams && !$prod_fam); # product hasn't family ,but manager has
+	return 1 if ($prod_fam && (defined $man_fams->{$prod_fam})); # product has the same family as manager
+	if ($man_fams && $prod_fam && !(defined $man_fams->{$prod_fam})) {	# may be manager has parent family for products family
+		foreach my $man_fam (sort keys %$man_fams) {
+			my $inc = $man_fams->{$man_fam};
+			if ($inc =~ m/HASH/) {
+				if ($inc->{'inc'} eq 'Y') {
+					my $parent_fam = $prod_fam;
+					my $count=0;
+					while ($parent_fam != 1) {
+						$count++;
+						if ($count == 1000) {
+							print "ERROR! Dead loop => prod_fam: $prod_fam, supp: $supplier_id, manager: $manager_id\n";
+							return 0;
+						}
+						# check if another manager has such family(more detailed route), then return 0;
+						my $another_managers = &do_query("select sccf.id, scr.use4mail, c.contact_id
+from       supplier_contact_category_family sccf
+inner join contact c on sccf.contact_id = c.contact_id
+inner join supplier_contact_report scr on scr.supplier_contact_report_id = c.supplier_contact_report_id
+inner join users u on c.contact_id = u.pers_cid
+inner join supplier_users su on u.user_id = su.user_id
+where sccf.family_id = $parent_fam and su.supplier_id = $supplier_id");
+						foreach my $another_manager (@$another_managers) {
+							return 0 if ($another_manager->[0] && ($another_manager->[2] != $manager_id) && ($another_manager->[1]));
+						}
+						$parent_fam = &do_query("select parent_family_id from product_family where family_id = $parent_fam")->[0][0];
+						return 0 if (!$parent_fam); # product hasn't parent family
+						return 1 if ($parent_fam == $man_fam); # really, it was parent family
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}

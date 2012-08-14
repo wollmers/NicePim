@@ -1,0 +1,172 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib/';
+
+use strict;
+use atomsql;
+use data_management;
+
+STDOUT->autoflush(1);
+
+print "Started\n";
+
+#temporary for product
+my $tmp_product = &do_query("select product_id, prod_id from product where user_id = 1");
+my %hash_product = map{$_->[0] => $_->[1]} @$tmp_product;
+
+#temporary for product_related
+my $tmp_rel = &do_query("select distinct product_id from product_related");
+my %hash_rel = map{$_->[0] => 1} @$tmp_rel;
+
+my @dif_rel;
+#difference tmp_product with tmp_rel
+foreach my $product(keys %hash_product){
+ if(!exists $hash_rel{$product}){
+	push @dif_rel, $product;
+ }
+}
+print "\ndiff related: $#dif_rel";
+
+#temporary for product_bundled
+my $tmp_bun = &do_query("select distinct product_id from product_bundled");
+my %hash_bun = map{$_->[0] => 1} @$tmp_bun;
+
+my @dif_bun;
+#difference tmp_product with tmp_bun
+foreach my $product(keys %hash_product){
+ if(!exists $hash_bun{$product}){
+   push @dif_bun, $product;
+ }
+}
+print "\ndiff bundled: $#dif_bun";
+
+#make intersection related with bundled to file
+open(REL_BUN, "> ./rel_bun.txt") or die "\n can't open file: $!";
+foreach my $rel_product(@dif_rel){
+ if($dif_bun[$rel_product]){
+	print REL_BUN $rel_product."\n"	;
+ }
+}
+
+close(REL_BUN);
+print "\nfile for DB is ready";
+
+#create temporary from file
+&do_statement("create table temp_rel_bun (product_id int(13) primary key)");
+&do_statement("load data local infile './rel_bun.txt' into table temp_rel_bun lines starting by '' terminated by '\n'");
+print "\ndata loaded from table";
+
+
+print "\nselect prod_id by product_id(after bundled and related)\n";
+my $req3 = &do_query("select prod_id, supplier_id from product, temp_rel_bun where product.product_id = temp_rel_bun.product_id");
+my %sup_prid = map{$_->[1]."@".$_->[0] => $_->[0];} @$req3; 
+
+#drop temporary tables;
+&do_statement("drop table temp_rel_bun");
+print "\ntemporary tables droped";
+
+
+#reading data_source export file
+print "\nreading data_source export file\n";
+my %sup_prid_file = ();
+my $data_source_code = 'prijslijst.txt';
+
+my $base = '/home/pim/data_source/'.$data_source_code.'/';
+my $fn  = 'export_icecat_m.txt';
+my $prefs =  &load_data_source_prefs($data_source_code);
+my $lines = 0;
+if(!$prefs->{'data_source_id'}){
+ die "Can't load data source preferences for $data_source_code!\n";
+}
+print "\ndata_source export file ready";
+my $file  = &load_flat_file( $base.$fn, {
+                    "skip_header"    => 1,
+                    'map_by_header'  => 1,
+                    'delimiter' => "\t"
+					  });
+my $i = 0;
+print "\nflat file loaded";
+while($file->[$i]){
+  my $row = $file->[$i];
+	$i++;
+# we got vendor here and prod_id
+  my $vendor    = uc($row->{'vendor'});
+  my $prod_id   = uc($row->{'productcode vendor'});
+  my $s_desc    = $row->{'oms'};
+  my $l_desc    = $row->{'loms'};
+				
+  foreach my $item($vendor, $prod_id, $s_desc, $l_desc){
+    if($item eq 'NULL'){
+	      $item = '';
+ 	   }
+	}
+	my $supplier_id = $prefs->{'supplier_map'}->{uc($vendor)};
+	if($supplier_id eq '157'){
+	  next;
+	}
+  my $product =
+  {
+    "supplier_id"  => $supplier_id,
+    "prod_id"      => $prod_id
+  };
+	my $m_prod_id = &get_mapped_prod_id($product);
+	if($m_prod_id){
+		$prod_id = $m_prod_id;
+	}
+	$sup_prid_file{$supplier_id."@".$prod_id} = $prod_id;
+}												 						
+						
+#now we have two hashes for intersection(%sup_prid and %sup_prid_file)
+my $sum = 0;
+my %sup_prid_del = ();
+foreach my $supp(keys %sup_prid){
+  if($sup_prid_file{$supp} && ($sup_prid{$supp} == $sup_prid_file{$supp})){ 
+	  next;
+	}
+  else{
+	 $sup_prid_del{$supp} = $sup_prid{$supp};
+#	 print "$supp $sup_prid_del{$supp}\n";
+	 $sum++;
+ }
+}
+print "total product to delete is $sum\n";
+
+#select product_id by supplier_id and prod_id (products to delete)
+print "select product_id by supplier_id and prod_id (products to delete)\n";
+my $resp; my %del_pid; my $get_req; my $get_sup_name;
+foreach my $key(keys %sup_prid_del){
+ $key =~ /^(.+)@/; 
+ my $sup_id = $1; 
+ $resp = &do_query("select product_id from product where supplier_id = $sup_id and prod_id =".&str_sqlize($sup_prid_del{$key}));
+ $get_req = &do_query("select count(1) from request_product where rproduct_id = $resp->[0][0]");
+ $get_sup_name = &do_query("select name from supplier where supplier_id = $sup_id");
+ if($get_req->[0][0] == 0){
+#	 print "$sup_prid_del{$key}\t$get_req->[0][0]\t$get_sup_name->[0][0]\n";
+ 	 $del_pid{$resp->[0][0]} = 1;
+ }
+#exeption for Lenovo 
+ if($sup_id == 728){ $del_pid{$resp->[0][0]} = 1;}
+}
+
+my @del_pid = keys %del_pid;
+print "product to delete is $#del_pid\n";
+																																																																										
+#products request for products to delete for 3 month(90 days)
+#print "select request for 3 month\n";
+#foreach my $pid(@del_pid){
+# my $req4 = &do_query("select count(1) from request_product where rproduct_id = $pid and unix_timestamp() - date < 90*60*60*24");
+# my $num = $req4->[0][0];
+# if($num){
+#print "\t$pid = $num\n";
+# }
+#}										
+ 
+my $del_pid = join ",", @del_pid;
+#delete products 
+foreach my $dpid(@del_pid){
+print $hash_product{$dpid}."\n";
+	&delete_product($dpid);
+	print "\n$dpid deleted";
+}
+
+

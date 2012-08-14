@@ -1,0 +1,21 @@
+{
+name: product_features_public;
+priority: 10;
+
+_resource_product_features: select f_name.value, pf.value, ms.value, cf.no
+
+from product_feature pf
+inner join category_feature cf on cf.category_feature_id = pf.category_feature_id
+inner join feature f on f.feature_id = cf.feature_id
+inner join vocabulary as f_name on f.sid = f_name.sid and f_name.langid = %%langid%%
+left  join measure_sign ms on ms.measure_id = f.measure_id and ms.langid = %%langid%%
+
+where pf.product_id = %%product_id%% and pf.value <> '' order by cf.no
+
+_resource_product_features_type: multi;
+_resource_product_features_def_order: no;
+_resource_product_features_key: product_id;
+_resource_product_features_skey: product_feature_id;
+_mapping_product_features: feature_name, value, sign, no;
+
+}

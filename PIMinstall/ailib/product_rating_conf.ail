@@ -1,0 +1,13 @@
+{
+name: product_rating_conf;
+priority: 10;
+format_undef_values: yes;
+_resource_formula: select code,configuration, '%%formula%%', '%%period%%','%%email%%' from data_source where code='importance_index' 
+_resource_formula_type: single;
+_mapping_formula: code,configuration, formula, period,email;
+
+format_as_rating_formula: formula;
+format_as_rating_period: period;
+format_as_rating_email: email;
+
+}

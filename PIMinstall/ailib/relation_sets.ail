@@ -1,0 +1,109 @@
+{
+name: relation_sets;
+priority: 10;
+
+
+_resource_relation_group: select name from relation_group where relation_group_id=%%relation_group_id%%;
+_mapping_relation_group: relation_group_name;
+
+
+_resource_relation: select relation_id, relation_id, name from relation where relation_id=%%relation_id%%;
+_mapping_relation: set_amount, set_amount_2, relation_name;
+
+
+
+_resource_relation_include_set: select 1, 1, r.include_set_id, rs.relation_rule_id, rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date, s.name, pfv.value, cv.value, fv.value, if(rr.start_date = '0000-00-00','',rr.start_date), if(rr.end_date = '0000-00-00','',rr.end_date), 0
+from relation r
+inner join relation_set rs on r.include_set_id=rs.relation_set_id
+inner join relation_rule rr on rs.relation_rule_id=rr.relation_rule_id
+left  join supplier s using (supplier_id)
+left  join product_family pf on rr.supplier_family_id=pf.family_id left join vocabulary pfv on pf.sid=pfv.sid and pfv.langid=1
+left  join category c on rr.catid=c.catid left join vocabulary cv on c.sid=cv.sid and cv.langid=1
+left  join feature f using (feature_id) left join vocabulary fv on f.sid=fv.sid and fv.langid=1
+where relation_id=%%relation_id%%;
+_resource_relation_include_set_type: multi;
+_mapping_relation_include_set: left_right, include_exclude, relation_set_id, relation_rule_id, supplier_id, supplier_family_id, catid, feature_id, feature_value, exact_value, exact_value_show, prod_id, start_date, end_date, supplier_name, supplier_family_name, category_name, feature_name, start_date_show, end_date_show, amount;
+
+
+
+_resource_relation_exclude_set: select 1, 0, r.exclude_set_id, rs.relation_rule_id, rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date, s.name, pfv.value, cv.value, fv.value, if(rr.start_date = '0000-00-00','',rr.start_date), if(rr.end_date = '0000-00-00','',rr.end_date), 0
+from relation r
+inner join relation_set rs on r.exclude_set_id=rs.relation_set_id
+inner join relation_rule rr on rs.relation_rule_id=rr.relation_rule_id
+left  join supplier s using (supplier_id)
+left  join product_family pf on rr.supplier_family_id=pf.family_id left join vocabulary pfv on pf.sid=pfv.sid and pfv.langid=1
+left  join category c on rr.catid=c.catid left join vocabulary cv on c.sid=cv.sid and cv.langid=1
+left  join feature f using (feature_id) left join vocabulary fv on f.sid=fv.sid and fv.langid=1
+where relation_id=%%relation_id%%;
+_resource_relation_exclude_set_type: multi;
+_mapping_relation_exclude_set: left_right, include_exclude, relation_set_id, relation_rule_id, supplier_id, supplier_family_id, catid, feature_id, feature_value, exact_value, exact_value_show, prod_id, start_date, end_date, supplier_name, supplier_family_name, category_name, feature_name, start_date_show, end_date_show, amount;
+
+
+
+_resource_relation_include_set_2: select 0, 1, r.include_set_id_2, rs.relation_rule_id, rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date, s.name, pfv.value, cv.value, fv.value, if(rr.start_date = '0000-00-00','',rr.start_date), if(rr.end_date = '0000-00-00','',rr.end_date), 0
+from relation r
+inner join relation_set rs on r.include_set_id_2=rs.relation_set_id
+inner join relation_rule rr on rs.relation_rule_id=rr.relation_rule_id
+left  join supplier s using (supplier_id)
+left  join product_family pf on rr.supplier_family_id=pf.family_id left join vocabulary pfv on pf.sid=pfv.sid and pfv.langid=1
+left  join category c on rr.catid=c.catid left join vocabulary cv on c.sid=cv.sid and cv.langid=1
+left  join feature f using (feature_id) left join vocabulary fv on f.sid=fv.sid and fv.langid=1
+where relation_id=%%relation_id%%;
+_resource_relation_include_set_2_type: multi;
+_mapping_relation_include_set_2: left_right, include_exclude, relation_set_id, relation_rule_id, supplier_id, supplier_family_id, catid, feature_id, feature_value, exact_value, exact_value_show, prod_id, start_date, end_date, supplier_name, supplier_family_name, category_name, feature_name, start_date_show, end_date_show, amount;
+
+
+
+_resource_relation_exclude_set_2: select 0, 0, r.exclude_set_id_2, rs.relation_rule_id, rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date, s.name, pfv.value, cv.value, fv.value, if(rr.start_date = '0000-00-00','',rr.start_date), if(rr.end_date = '0000-00-00','',rr.end_date), 0
+from relation r
+inner join relation_set rs on r.exclude_set_id_2=rs.relation_set_id
+inner join relation_rule rr on rs.relation_rule_id=rr.relation_rule_id
+left  join supplier s using (supplier_id)
+left  join product_family pf on rr.supplier_family_id=pf.family_id left join vocabulary pfv on pf.sid=pfv.sid and pfv.langid=1
+left  join category c on rr.catid=c.catid left join vocabulary cv on c.sid=cv.sid and cv.langid=1
+left  join feature f using (feature_id) left join vocabulary fv on f.sid=fv.sid and fv.langid=1
+where relation_id=%%relation_id%%;
+_resource_relation_exclude_set_2_type: multi;
+_mapping_relation_exclude_set_2: left_right, include_exclude, relation_set_id, relation_rule_id, supplier_id, supplier_family_id, catid, feature_id, feature_value, exact_value, exact_value_show, prod_id, start_date, end_date, supplier_name, supplier_family_name, category_name, feature_name, start_date_show, end_date_show, amount;
+
+
+
+_resource_relation_fake: select 0, 0, 0, 0, 'relation_sets', 'manage_relation_set';
+_mapping_relation_fake: supplier, supplierfamily, category, feature, atom_name4abstract_rule, command_name4abstract_rule;
+
+format_as_relation_amount: amount;
+
+format_as_relation_set_amount: set_amount, set_amount_2;
+
+format_as_relation_exact_value_text: exact_value_show;
+
+
+format_as_dropdown: supplier, supplierfamily, category, feature;
+supplier_dropdown_select: select supplier_id, name from supplier order by name asc;
+supplierfamily_dropdown_select: select family_id, '' from product_family where 0;
+category_dropdown_select: select c.catid, v.value from category c inner join vocabulary v on c.sid=v.sid and v.langid=1 where catid!=1 order by v.value asc;
+feature_dropdown_select: select f.feature_id, v.value from feature f inner join vocabulary v on f.sid=v.sid and v.langid=1 order by v.value asc;
+
+category_dropdown_JavaScript: onChange="javascript\:categoryOnChange('%%sessid%%')";
+supplier_dropdown_JavaScript: onChange="javascript\:supplierOnChange('%%sessid%%')";
+supplierfamily_dropdown_JavaScript: disabled;
+feature_dropdown_JavaScript: onChange="javascript\:featureOnChange('%%sessid%%')";
+
+category_dropdown_width: 300;
+supplier_dropdown_width: 300;
+supplierfamily_dropdown_width: 300;
+feature_dropdown_width: 300;
+
+
+authorize_superuser: relation_id;
+authorize_supereditor: relation_id;
+authorize_category_manager: relation_id;
+authorize_editor: relation_id;
+authorize_relation: relation_id;
+authorize_guest: relation_id;
+authorize_shop: relation_id;
+
+authorize_submit_superuser: relation_id;
+authorize_submit_supereditor: relation_id;
+authorize_submit_category_manager: relation_id;
+}

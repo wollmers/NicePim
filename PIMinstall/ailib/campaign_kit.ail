@@ -1,0 +1,33 @@
+{
+name: campaign_kit;
+priority: 10;
+
+_resource_campaign_top: select name, short_description, long_description, link, start_date, end_date from campaign where campaign_id=%%campaign_id%%;
+_mapping_campaign_top: name, short_description, long_description, link, start_date, end_date;
+
+
+_resource_campaign_kit: select ck.product_id, p.prod_id, p.name, p.thumb_pic, clickthrough_count, p.product_id, s.name
+from campaign_kit ck
+inner join product p using (product_id)
+inner join supplier s using (supplier_id)
+where campaign_id=%%campaign_id%% and %%search_clause%%
+order by p.prod_id asc limit %%start_row%%,%%rows_number%%;
+_resource_campaign_kit_type: multi;
+_resource_campaign_kit_key: campaign_id;
+_mapping_campaign_kit: product_id, prod_id, name, thumb_pic, clickthrough_count, product_view, s_name;
+
+format_as_campaign_product_view: product_view;
+
+format_as_ssl_url: thumb_pic;
+
+authorize_superuser: product_id;
+authorize_supplier: product_id;
+authorize_supereditor: product_id;
+
+authorize_superuser_submit: product_id;
+authorize_supplier_submit: product_id;
+authorize_supereditor_submit: product_id;
+
+verify_deny_guest: yes;
+
+}

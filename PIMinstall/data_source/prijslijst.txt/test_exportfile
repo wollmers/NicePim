@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+use lib '/home/gcc/lib/';
+
+use strict;
+use data_management;
+
+
+my $fn = '/home/gcc/www/export/export_urls.txt';
+my $file  = &load_flat_file( $fn, {
+                                     "skip_header"    => 1,
+                                     'map_by_header'  => 1,
+                                  'delimiter' => "\t"
+																	} );
+																																																																										

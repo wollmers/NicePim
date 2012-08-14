@@ -1,0 +1,405 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="30051" Prod_id="PCGAAC19V3.CEL" ThumbPic="http://www.icecat.biz/thumbs/30051.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/30051.jpg" Name="AC adapter for the GRS and GRX series." LowPic="http://www.icecat.biz/img/norm/low/30051.jpg">
+        <ProductRelated ID="430498">
+         <Product ID="2701" Prod_id="PCGGRS515SP" ThumbPic="http://www.icecat.biz/thumbs/2701.jpg" Name="VAIO GRS515SP">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430497">
+         <Product ID="2702" Prod_id="PCGGRS515M.NL.CEK" ThumbPic="http://www.icecat.biz/thumbs/2702.jpg" Name="VAIO GRS515M">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430488">
+         <Product ID="2704" Prod_id="PCGGRX316MPNL.CEK" ThumbPic="http://www.icecat.biz/thumbs/2704.jpg" Name="VAIO GRX316MP">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430486">
+         <Product ID="12501" Prod_id="PCG-GRX516MD" ThumbPic="http://www.icecat.biz/thumbs/12501.jpg" Name="VAIO GRX516MD P4-1.8G 256MB (P4)">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430490">
+         <Product ID="12502" Prod_id="PCGGRX516SPNL" ThumbPic="http://www.icecat.biz/thumbs/12502.jpg" Name="VAIO GRX516SP P4 2000 512MB 60GBXP QW-EN">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430493">
+         <Product ID="12503" Prod_id="PCG-GRS515SP" ThumbPic="http://www.icecat.biz/thumbs/12503.jpg" Name="VAIO GRS515SP P4-1.8G (P4)">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430496">
+         <Product ID="16627" Prod_id="PCGGRS515M" ThumbPic="http://www.icecat.biz/thumbs/16627.jpg" Name="VAIO GRS515M P4 1800 256MB 30GB XP QWEN">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430489">
+         <Product ID="16628" Prod_id="PCGGRX516MD" ThumbPic="http://www.icecat.biz/thumbs/16628.jpg" Name="VAIO GRX516MD P4 1800 256MB 40GB XP QWEN">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430499">
+         <Product ID="36793" Prod_id="PCGGRS614MP.NL.CEK" ThumbPic="http://www.icecat.biz/thumbs/36793.jpg" Name="VAIO GRS614MP P4-1.8G">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430500">
+         <Product ID="36794" Prod_id="PCGGRS615SP.NL.CEK" ThumbPic="http://www.icecat.biz/thumbs/36794.jpg" Name="VAIO GRS615SP P4-2.0G">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430491">
+         <Product ID="36795" Prod_id="PCGGRX616MP.NL.CEK" ThumbPic="http://www.icecat.biz/thumbs/36795.jpg" Name="VAIO GRX616MP P4-2.0G">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430492">
+         <Product ID="36796" Prod_id="PCGGRX616SP.NL.CEK" ThumbPic="http://www.icecat.biz/thumbs/36796.jpg" Name="VAIO GRX616SP P4-2.4G">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430487">
+         <Product ID="37242" Prod_id="PCG-GRX616SP" ThumbPic="http://www.icecat.biz/thumbs/37242.jpg" Name="VAIO GRX616SP P4 2400 1GB 60GB WXPP EN">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430495">
+         <Product ID="37245" Prod_id="PCG-GRS615SP" ThumbPic="http://www.icecat.biz/thumbs/37245.jpg" Name="VAIO GRS615SP P4 2000 256MB 40GB EN">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="430494">
+         <Product ID="37247" Prod_id="PCG-GRS614MP" ThumbPic="http://www.icecat.biz/thumbs/37247.jpg" Name="VAIO GRS614MP P4 1800 256MB 30GB EN">
+          <Supplier ID="5" Name="Sony"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="706" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1345" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="875" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1323" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1173" No="0">
+         <FeatureGroup ID="35">
+           <Name ID="5167" Value="Networking" langid="1"/>
+           <Name ID="5168" Value="Networking" langid="2"/>
+           <Name ID="8387" Value="Networking" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="31229" URL="" ShortDesc="AC adapter for the GRS and GRX series. " langid="1" LongDesc="The AC adapter connects VAIO notebooks to the mains.\n\nIt has: \nInput: 100-240 V (AC) / 50-60 Hz \nOutput: 19.5 V (DC) / 4.1 A\n\n(It is only available as an accessory for the GRS and GRX series.) " WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="5961841" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1210">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3961" Value="Specification" langid="1"/>
+           <Name ID="3962" Value="Specification" langid="2"/>
+           <Name ID="7964" Value="Specification" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961839" Value="" No="100000" CategoryFeatureGroup_ID="706">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961842" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1211">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3963" Value="Number of batteries supported" langid="1"/>
+           <Name ID="3964" Value="Number of batteries supported" langid="2"/>
+           <Name ID="7965" Value="Number of batteries supported" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961843" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1212">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3965" Value="Supported batteries" langid="1"/>
+           <Name ID="3966" Value="Supported batteries" langid="2"/>
+           <Name ID="7966" Value="Supported batteries" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961844" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1213">
+          <Measure ID="46" Sign="hrs"/>
+           <Name ID="3967" Value="Charge time per battery (approx.)" langid="1"/>
+           <Name ID="3968" Value="Charge time per battery (approx.)" langid="2"/>
+           <Name ID="7967" Value="Charge time per battery (approx.)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961845" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1214">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3969" Value="Input power" langid="1"/>
+           <Name ID="3970" Value="Input power" langid="2"/>
+           <Name ID="7968" Value="Input power" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961846" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1215">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3971" Value="Power accessories output power" langid="1"/>
+           <Name ID="3972" Value="Power accessories output power" langid="2"/>
+           <Name ID="7969" Value="Power accessories output power" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961847" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1216">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3973" Value="Output cord" langid="1"/>
+           <Name ID="3974" Value="Output cord" langid="2"/>
+           <Name ID="7970" Value="Output cord" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961848" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1217">
+          <Measure ID="41" Sign="A"/>
+           <Name ID="3975" Value="Power accessories output current" langid="1"/>
+           <Name ID="3976" Value="Power accessories output current" langid="2"/>
+           <Name ID="7971" Value="Power accessories output current" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961849" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1218">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3977" Value="Regularity" langid="1"/>
+           <Name ID="3978" Value="Regularity" langid="2"/>
+           <Name ID="7972" Value="Regularity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961850" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1219">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3979" Value="Safety features" langid="1"/>
+           <Name ID="3980" Value="Safety features" langid="2"/>
+           <Name ID="7973" Value="Safety features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961851" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1220">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3981" Value="Power Accessories Certifications" langid="1"/>
+           <Name ID="3982" Value="Power Accessories Certifications" langid="2"/>
+           <Name ID="7974" Value="Power Accessories Certifications" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961835" Value="" No="100000" CategoryFeatureGroup_ID="875">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961836" Value="" No="100000" CategoryFeatureGroup_ID="875">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961852" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1221">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3983" Value="Power accessories compatibility" langid="1"/>
+           <Name ID="3984" Value="Power accessories compatibility" langid="2"/>
+           <Name ID="7975" Value="Power accessories compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961854" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1224">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3989" Value="Removable" langid="1"/>
+           <Name ID="3990" Value="Removable" langid="2"/>
+           <Name ID="7978" Value="Removable" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961840" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1157">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3855" Value="Vendor" langid="1"/>
+           <Name ID="3856" Value="Vendor" langid="2"/>
+           <Name ID="7911" Value="Vendor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961855" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1225">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3991" Value="Type of battery cell" langid="1"/>
+           <Name ID="3992" Value="Type of battery cell" langid="2"/>
+           <Name ID="7979" Value="Type of battery cell" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961856" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1226">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3993" Value="Number of Battery Cell" langid="1"/>
+           <Name ID="3994" Value="Number of Battery Cell" langid="2"/>
+           <Name ID="7980" Value="Number of Battery Cell" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961866" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1237">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4015" Value="Capacity" langid="1"/>
+           <Name ID="4016" Value="Capacity" langid="2"/>
+           <Name ID="7991" Value="Capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961857" Value="blak" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1228">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3997" Value="Case Colour" langid="1"/>
+           <Name ID="3998" Value="Case Colour" langid="2"/>
+           <Name ID="7982" Value="Case Colour" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961858" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1229">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3999" Value="Number of slots" langid="1"/>
+           <Name ID="4000" Value="Number of slots" langid="2"/>
+           <Name ID="7983" Value="Number of slots" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961859" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1230">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4001" Value="AC adapter bundled" langid="1"/>
+           <Name ID="4002" Value="Inclusief AC adapter" langid="2"/>
+           <Name ID="7984" Value="AC adapter bundled" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961860" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1231">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4003" Value="Power accessories stand by" langid="1"/>
+           <Name ID="4004" Value="Power accessories stand by" langid="2"/>
+           <Name ID="7985" Value="Power accessories stand by" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961861" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1232">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4005" Value="HDD Auto off" langid="1"/>
+           <Name ID="4006" Value="HDD Auto off" langid="2"/>
+           <Name ID="7986" Value="HDD Auto off" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961862" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1233">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4007" Value="Power accessories display auto off" langid="1"/>
+           <Name ID="4008" Value="Power accessories display auto off" langid="2"/>
+           <Name ID="7987" Value="Power accessories display auto off" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961863" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1234">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4009" Value="Throttling" langid="1"/>
+           <Name ID="4010" Value="Throttling" langid="2"/>
+           <Name ID="7988" Value="Throttling" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961864" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1235">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4011" Value="Hibernation" langid="1"/>
+           <Name ID="4012" Value="Hibernation" langid="2"/>
+           <Name ID="7989" Value="Hibernation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961865" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1236">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4013" Value="Battery saver" langid="1"/>
+           <Name ID="4014" Value="Battery saver" langid="2"/>
+           <Name ID="7990" Value="Battery saver" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961853" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1222">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3985" Value="Input voltage" langid="1"/>
+           <Name ID="3986" Value="Input voltage" langid="2"/>
+           <Name ID="7976" Value="Input voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961869" Value="19.5" No="100000" CategoryFeatureGroup_ID="706">
+         <Feature ID="1467">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="4632" Value="Output voltage" langid="2"/>
+           <Name ID="4631" Value="Output voltage" langid="1"/>
+           <Name ID="8059" Value="Output voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961868" Value="100-240" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1466">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="4630" Value="Input voltage" langid="2"/>
+           <Name ID="4629" Value="Input voltage" langid="1"/>
+           <Name ID="7916" Value="Input voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961837" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="904">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="3349" Value="AC adapter output voltage" langid="1"/>
+           <Name ID="3350" Value="AC adapter output voltage" langid="2"/>
+           <Name ID="7667" Value="AC adapter output voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961838" Value="" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="907">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="3355" Value="AC adapter weight" langid="1"/>
+           <Name ID="3356" Value="AC adapter gewicht" langid="2"/>
+           <Name ID="7670" Value="AC adapter weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="5961867" Value="" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1243">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4027" Value="Power supply input voltage" langid="1"/>
+           <Name ID="4028" Value="Power supply input voltage" langid="2"/>
+           <Name ID="7996" Value="Power supply input voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="827">
+         <Name ID="4583" Value="Power adapters or inverters" langid="1"/>
+         <Name ID="4584" Value="Power adapters or inverters" langid="2"/>
+         <Name ID="8258" Value="Power adapters or inverters" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

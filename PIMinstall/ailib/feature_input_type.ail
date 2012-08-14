@@ -1,0 +1,40 @@
+{
+name: feature_input_type;
+
+priority: 10;
+
+verify: feature_input_type_id;
+verify_submit: feature_input_type_id;
+
+verify_add: yes;
+verify_add_superuser: feature_input_type_id;
+verify_add_supereditor: feature_input_type_id;
+verify_add_category_manager: feature_input_type_id;
+
+verify_deny_guest: yes;
+
+authorize_superuser: feature_input_type_id;
+authorize_supereditor: feature_input_type_id;
+authorize_category_manager: feature_input_type_id;
+
+authorize_submit_superuser: feature_input_type_id;
+authorize_submit_supereditor: feature_input_type_id;
+authorize_submit_category_manager: feature_input_type_id;
+
+_resource_feature_input: select feature_input_type_id, type, name, pattern from feature_input_type where feature_input_type_id=%%feature_input_type_id%%;
+_resource_feature_input_type: single;
+_resource_feature_input_key: feature_input_type_id;
+_mapping_feature_input: feature_input_type_id, type, name, pattern;
+
+validate_as_mandatory: type, name;
+
+_insert_sequence: 1;
+
+_insert_table_1: feature_input_type;
+_insert_values_1: type, name, pattern;
+_insert_fields_1: type, name, pattern;
+_insert_key_1: feature_input_type_id;
+_update_sequence_1: yes;
+_delete_sequence_1: yes;
+
+}

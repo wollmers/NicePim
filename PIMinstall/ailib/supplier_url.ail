@@ -1,0 +1,35 @@
+{
+name: supplier_url;
+
+verify: supplier_id;
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: supplier_id;
+verify_add_supereditor: supplier_id;
+verify_add_category_manager: supplier_id;
+
+verify_deny_guest: yes;
+
+_resource_url: select id, url, country_id, country_id, description, v.value from 
+supplier_url as su, vocabulary as v, language as l where 
+su.langid = l.langid and l.sid = v.sid and v.langid = %%langid%% and supplier_id = %%supplier_id%%
+_resource_url_type: multi;
+_mapping_url: id, url, country, c_id, description, language;
+
+_format_as_supplier_country: country;
+_format_as_cutted_name: url;
+
+}

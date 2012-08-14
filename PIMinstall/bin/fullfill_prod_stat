@@ -1,0 +1,269 @@
+#!/usr/bin/perl
+
+#$Id: fullfill_prod_stat 3761 2011-01-26 09:43:20Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use atom_misc;
+use atom_util;
+
+use data_management;
+use stat_report;
+use icecat_util;
+
+use POSIX qw(strftime);
+use Data::Dumper qw(Dumper);
+
+my $multiprf = "_multiprf";
+my $one_day = 24 * 60 * 60;
+my $now = &do_query("select unix_timestamp()")->[0][0];
+
+my $product_statistic_seconds_behind = 14 * $one_day;
+my $product_statistic_start_ts =  $now - $product_statistic_seconds_behind;
+my $product_statistic_start_ts_YYYY = strftime ("%Y", localtime($product_statistic_start_ts));
+my $product_statistic_start_ts_MM = strftime ("%m", localtime($product_statistic_start_ts));
+my $product_statistic_now_YYYY = strftime ("%Y", localtime($now));
+my $product_statistic_now_MM = strftime ("%m", localtime($now));
+
+my $requests_selection_seconds_behind = 100 * $one_day;
+my $requests_selection_start_ts = $now - $requests_selection_seconds_behind;
+my $requests_selection_start_ts_YYYY = strftime ("%Y", localtime($requests_selection_start_ts));
+my $requests_selection_start_ts_MM = strftime ("%m", localtime($requests_selection_start_ts));
+my $requests_selection_now_YYYY = strftime ("%Y", localtime($now));
+my $requests_selection_now_MM = strftime ("%m", localtime($now));
+
+my $range = &YYYYMM_range($requests_selection_start_ts_YYYY, $requests_selection_start_ts_MM, $requests_selection_now_YYYY, $requests_selection_now_MM);
+my $range_product = &YYYYMM_range($product_statistic_start_ts_YYYY, $product_statistic_start_ts_MM, $product_statistic_now_YYYY, $product_statistic_now_MM);
+
+#print Dumper($range);
+#print Dumper($range_product);
+#die;
+
+$| = 1;
+
+print "Refresh product_statistic... ";
+
+
+# collect all users
+
+&do_statement("create temporary table tmp_users (user_id int(13) not null primary key, country_id int(13) not null, key (country_id, user_id))");
+&do_statement("insert into tmp_users(user_id, country_id)
+select u.user_id, c.country_id
+from users u
+left join contact c on u.pers_cid=c.contact_id
+where u.login='" . $multiprf . "' or u.subscription_level in (1,2,6)");
+
+
+# collect all statistics for data_prod_stat.xml
+
+# all stat
+&do_statement("drop temporary table if exists product_statistic_pre");
+&do_statement("create temporary table product_statistic_pre like product_statistic");
+
+# percountry stat
+&do_statement("drop temporary table if exists product_statistic_country_pre");
+&do_statement("create temporary table product_statistic_country_pre like product_statistic");
+&do_statement("alter table product_statistic_country_pre add column country_id int(13) not null default 0, add key (country_id, product_id)");
+
+my $yyyymm = undef;
+foreach $yyyymm (@$range_product) {
+
+	# all stat
+	&do_statement('insert into product_statistic_pre (product_id, score)
+select product_id, sum(count)
+from aggregated_request_stat_' . $yyyymm->[0] . $yyyymm->[1] . '
+inner join tmp_users using (user_id)
+where date > ' . $product_statistic_start_ts . '
+group by product_id');
+
+	# percountry stat
+	&do_statement('insert into product_statistic_country_pre (product_id, score, country_id)
+select product_id, sum(count), country_id
+from aggregated_request_stat_' . $yyyymm->[0] . $yyyymm->[1] . '
+inner join tmp_users using (user_id)
+where date > ' . $product_statistic_start_ts . ' and country_id > 0
+group by product_id, country_id');
+
+}
+
+&do_statement("truncate table product_statistic");
+#&delete_rows('product_statistic', ' 1');
+
+# fill product_statistic
+&do_statement("alter table product_statistic disable keys");
+&do_statement("insert into product_statistic(product_id,score) select product_id, sum(score) from product_statistic_pre group by product_id");
+&do_statement("alter table product_statistic enable keys");
+
+
+# fill product_statistic_country
+&do_statement("create table if not exists product_statistic_country like product_statistic_country_pre"); # once!!!
+&do_statement("truncate table product_statistic_country");
+#&delete_rows('product_statistic_country', ' 1');
+
+&do_statement("alter table product_statistic_country disable keys");
+&do_statement("insert into product_statistic_country(product_id,score,country_id) select product_id, sum(score), country_id from product_statistic_country_pre where country_id > 0 group by product_id, country_id");
+&do_statement("alter table product_statistic_country enable keys");
+
+print "DONE\n";
+
+print "Refill requests_selection... ";
+&do_statement('drop temporary table if exists requests_selection_pre');
+&do_statement('create temporary table requests_selection_pre (
+product_id int(13)  not null,
+count      int(13)  not null,
+key (product_id))');
+
+&do_statement('alter table requests_selection_pre disable keys');
+
+# calculate the aggregated_request_stat consequence
+
+foreach $yyyymm (@$range) {
+
+	&do_statement('insert into requests_selection_pre
+select product_id, sum(count)
+from aggregated_request_stat_' . $yyyymm->[0] . $yyyymm->[1] . '
+force index (date) where date > ' . $requests_selection_start_ts . '
+group by product_id');
+
+}
+
+&do_statement('alter table requests_selection_pre enable keys');
+
+&do_statement("drop temporary table if exists requests_selection");
+&do_statement("create temporary table requests_selection like requests_selection_pre");
+&do_statement('alter table requests_selection add unique key (product_id)');
+
+&do_statement("insert into requests_selection(product_id,count) select product_id, sum(count) from requests_selection_pre group by product_id");
+
+&do_statement('alter table requests_selection enable keys');
+
+print "DONE\n";
+
+# end of `calculate the aggregated_request_stat consequence`
+
+if (&do_query("select count(*) from requests_selection")->[0][0] > 0) {
+	print "Fill-up category_statistic... ";
+	&recursive_cat_stat_count(1);
+	print "DONE\n";
+}
+
+print "Product_statistic_dump... ";
+&product_statistic_dump_xml();
+
+&do_statement("drop temporary table requests_selection");
+print "DONE\n";
+
+sub recursive_cat_stat_count {
+	my ($catid, $diff) = @_;
+
+	my $score = 0;
+	my $local_score=0;
+
+	print $diff."(".$catid."\n";
+	my $root  = &do_query('select catid from category where pcatid='.$catid.' and catid<>1');
+
+	foreach (@$root) {
+		&do_statement('create temporary table if not exists tmp_category_statistics (product_id int(13) not null)');
+		&do_statement('insert ignore into tmp_category_statistics(product_id) select product_id from product where catid = '.$_->[0]);
+		&do_statement('alter table tmp_category_statistics add primary key (product_id)');
+		my $db_score = &do_query('select sum(s.count)
+from  requests_selection s
+inner join tmp_category_statistics p on p.product_id = s.product_id
+group by "1"')->[0][0];
+		&do_statement('drop temporary table if exists tmp_category_statistics');
+
+		$db_score = 0 if !$db_score;
+		$score += $db_score;
+		my $rec = &recursive_cat_stat_count($_->[0],$diff.'   ');
+		$score += $rec;
+		$local_score = $rec + $db_score;
+		&do_statement("replace into category_statistic(catid,score,updated) values(".$_->[0].",".$local_score.",NOW())");
+	}
+	print $diff.$catid.")\n";
+
+	return $score;
+}
+
+sub product_statistic_dump {
+	my ($country_id) = @_;
+
+  my $score;
+
+	&do_statement("create temporary table tmp_product (
+product_id  int(13)     not null,
+supplier_id int(13)     not null,
+prod_id     varchar(60) not null)");
+
+  my @arr = &get_primary_key_set_of_ranges('product','product',100000,'product_id');
+  foreach my $b_cond (@arr) {
+		&do_statement("insert into tmp_product(product_id, supplier_id, prod_id) select product_id, supplier_id, prod_id from product WHERE ".$b_cond);
+	}
+
+	&do_statement("alter ignore table tmp_product add primary key (product_id)");
+
+	my $prod_stat = &do_query("select p.product_id, p.prod_id, p.supplier_id, ps.score
+from tmp_product p
+left join product_statistic".($country_id ? '_country' : '')." ps on p.product_id = ps.product_id ".($country_id ? 'and ps.country_id = '.$country_id : '')." order by ps.score desc");
+
+	&do_statement("drop temporary table tmp_product");
+
+	foreach (@$prod_stat) {
+    my $stat;
+    $stat->{'product_id'}		=	$_->[0];
+    $stat->{'supplier_id'}	=	$_->[2];
+    $stat->{'prod_id'}			=	&str_xmlize($_->[1]);
+    $stat->{'score'}				=	$_->[3] || 0;
+    push @$score, $stat;
+	}
+
+  return $score;
+}
+
+sub product_statistic_dump_xml {
+	# make this dir once
+	`/bin/mkdir -p $atomcfg{'xml_path'}level4/stat`;
+
+	my $countries = &do_query("select country_id from product_statistic_country where country_id > 0 group by country_id order by country_id asc");
+	unshift @$countries, [ 0 ];
+
+	foreach my $country_id (@$countries) {
+
+		print Dumper($country_id);
+
+		my $country_code = uc(&do_query("select code from country where country_id = " . $country_id->[0])->[0][0]) || 'INT';
+
+		my $xml;
+		my $xml_path = $atomcfg{'xml_path'} . 'level4/' . ($country_id->[0] ? ( 'stat/data_prod_stat_' . $country_code ) : 'data_prod_stat' ) . '.xml';
+		my $xml_path_new = $xml_path . '.new';
+		my $xml_tmpl = &load_complex_template('xml/product_statistic_dump.xml');
+		$xml = $xml_tmpl->{'start_dump'} . "\n\t";
+		
+		my $score = &product_statistic_dump($country_id->[0]);
+		
+		foreach my $row (@$score) {
+			$xml .= &repl_ph($xml_tmpl->{'dump_row'}, $row);
+			$xml .= "\n\t";
+		}
+		chop $xml;
+		$xml .= $xml_tmpl->{'finish_dump'};
+		
+		open(XML, ">" . $xml_path_new);
+		binmode XML, ":utf8";
+		print XML $xml;
+		close XML;
+		
+		`/bin/mv -f $xml_path_new $xml_path`;
+		my $cmd = 'gzip -c ' . $xml_path . ' > ' . $xml_path . '.gz';
+		`$cmd`;
+
+	}
+	
+	return 1;
+} # sub product_statistic_dump_xml

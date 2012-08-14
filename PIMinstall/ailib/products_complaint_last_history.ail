@@ -1,0 +1,34 @@
+{
+ name: products_complaint_last_history;
+ 
+ _resource_history: select pch.id, pch.complaint_id, pc.subject, pch.message, v.value, pc.complaint_status_id, u.login, u.user_id, c.email, DATE_FORMAT(pch.date, '%d.%c.%Y %H:%i:%s') 	from product_complaint_history as pch, product_complaint as pc, users as u, contact as c, vocabulary as v, product_complaint_status as pcs  where pch.id = %%last_complaint_id%% and pch.complaint_id = pc.id and pc.complaint_status_id = pcs.code and pcs.sid = v.sid and v.langid = 1 and pch.user_id = u.user_id and u.pers_cid = c.contact_id
+ _mapping_history: hid, complaint_id, subject, message, status_name, status_id, uname, userid, uemail, date; 
+ 
+ _format_as_status_id: status_id;		 
+ _format_as_hsubject: subject;
+ _format_as_status_name: status_name;
+ _format_as_compl_msg: message, subject;
+ 
+ authorize_superuser: complaint_id, product_id;
+ authorize_supereditor: complaint_id, product_id;
+ authorize_category_manager: complaint_id, product_id;
+ authorize_editor: complaint_id, product_id;
+ authorize_guest: complaint_id, product_id;
+ authorize_supplier: complaint_id, product_id;
+ authorize_shop: complaint_id, product_id;
+		 
+ authorize_add_superuser: complaint_id, product_id;
+ authorize_add_supereditor: complaint_id, product_id;
+ authorize_add_category_manager: complaint_id, product_id;
+ authorize_add_editor: complaint_id, product_id;
+ authorize_add_guest: complaint_id, product_id;
+ authorize_add_shop: complaint_id, product_id;
+					
+ authorize_submit_superuser: complaint_id, product_id;
+ authorize_submit_supereditor: complaint_id, product_id;
+ authorize_submit_category_manager: complaint_id, product_id;
+ authorize_submit_editor: complaint_id, product_id;
+ authorize_submit_guest: complaint_id, product_id;
+ authorize_submit_shop: complaint_id, product_id;
+							  
+}

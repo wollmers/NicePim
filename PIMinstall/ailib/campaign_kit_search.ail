@@ -1,0 +1,10 @@
+{
+name: campaign_kit_search;
+priority: 10;
+
+_resource_campaign_kit_search: select '%%search_prod_id%%';
+_mapping_campaign_kit_search: search_prod_id;
+
+verify_deny_guest: yes;
+
+}

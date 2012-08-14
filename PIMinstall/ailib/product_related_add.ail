@@ -1,0 +1,40 @@
+{
+name: product_related_add;
+priority: 10;
+default_rows_number: 500;
+
+verify: product_id;
+verify_submit: product_id, cproduct_id;
+
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+
+_resource_rel: select 'dummy', 'dummy1', 'dummy2'
+_resource_rel_type: single;
+_mapping_rel: rel_product_id, supplier_id, prod_id;
+
+validate_as_mandatory: rel_product_id;
+
+ _insert_sequence: 1;
+ _insert_ignore_keys: yes;
+ 
+ _insert_table_1: product_related;
+ _insert_key_1: product_related_id;
+ _insert_values_1: product_id, rel_product_id;
+ _insert_fields_1: product_id, rel_product_id;
+ _insert_1_keep_unique: yes;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+
+
+}

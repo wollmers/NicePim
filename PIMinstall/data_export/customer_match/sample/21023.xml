@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="21023" Prod_id="1029A002AA" ThumbPic="http://www.icecat.biz/thumbs/21023.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/21023.jpg" Name="PAPER A4" LowPic="http://www.icecat.biz/img/norm/low/21023.jpg">
+        <ProductRelated ID="479996">
+         <Product ID="22833" Prod_id="1029A002" ThumbPic="http://www.icecat.biz/thumbs/22833.jpg" Name="Paper professional photo A4 15sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="479997">
+         <Product ID="22833" Prod_id="1029A002" ThumbPic="http://www.icecat.biz/thumbs/22833.jpg" Name="Paper professional photo A4 15sh">
+          <Supplier ID="10" Name="Canon"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="667" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="22061" URL="" ShortDesc="PAPER A4 PR-101                           NS (MSD)" langid="1" LongDesc="Canon printers are renowned for quality and results - especially when using genuine Canon consumables. Enjoy a wide range of Canon consumables - there's no time like the present to give your printer the finest it deserves.Use this top-quality photo paper to get crisp, vibrant, lifelike color images that will almost jump off the page. Make fun, personalized projects with your photos." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="7812747" Value="" No="117176" CategoryFeatureGroup_ID="667">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812746" Value="" No="17177" CategoryFeatureGroup_ID="667">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812755" Value="" No="23045" CategoryFeatureGroup_ID="667">
+         <Feature ID="530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2591" Value="Pallet Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2592" Value="Afmetingen pallet (B x D x H)" langid="2"/>
+           <Name ID="7292" Value="Pallet Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812754" Value="15" No="23046" CategoryFeatureGroup_ID="667">
+         <Feature ID="732">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2995" Value="Quantity per Pallet" langid="1"/>
+           <Name ID="2996" Value="Aantal per pallet" langid="2"/>
+           <Name ID="7492" Value="Quantité par palette" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812753" Value="" No="23048" CategoryFeatureGroup_ID="667">
+         <Feature ID="513">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2557" Value="Pallet Weight" langid="1"/>
+           <Name ID="2558" Value="Gewicht pallet" langid="2"/>
+           <Name ID="7275" Value="Pallet Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812756" Value="" No="45" CategoryFeatureGroup_ID="667">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812757" Value="" No="0" CategoryFeatureGroup_ID="667">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812758" Value="" No="0" CategoryFeatureGroup_ID="667">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812760" Value="" No="0" CategoryFeatureGroup_ID="667">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812759" Value="" No="0" CategoryFeatureGroup_ID="667">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812748" Value="A4 (210 x 297 mm)" No="100000" CategoryFeatureGroup_ID="667">
+         <Feature ID="60">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1457" Value="Maximum print size" langid="1"/>
+           <Name ID="1458" Value="Maximale printafmetingen" langid="2"/>
+           <Name ID="6740" Value="Maximum print size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812750" Value="245 g/m2" No="100000" CategoryFeatureGroup_ID="667">
+         <Feature ID="1692">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5321" Value="Weight printer media" langid="1"/>
+           <Name ID="5322" Value="Gewicht printermedia" langid="2"/>
+           <Name ID="8457" Value="Weight printer media" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812751" Value="" No="100000" CategoryFeatureGroup_ID="667">
+         <Feature ID="1697">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5331" Value="Maximum roll lenght" langid="1"/>
+           <Name ID="5332" Value="Maximum rollengte" langid="2"/>
+           <Name ID="8462" Value="Maximum roll lenght" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812752" Value="" No="100000" CategoryFeatureGroup_ID="667">
+         <Feature ID="1707">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5353" Value="Roll dimensions" langid="1"/>
+           <Name ID="5354" Value="Rol afmetingen" langid="2"/>
+           <Name ID="8472" Value="Roll dimensions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7812749" Value="" No="100000" CategoryFeatureGroup_ID="667">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="10" Name="Canon"/>
+       <Category ID="714">
+         <Name ID="2317" Value="Inkjet paper" langid="1"/>
+         <Name ID="2318" Value="Inkjet papier" langid="2"/>
+         <Name ID="7165" Value="Inkjet paper" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

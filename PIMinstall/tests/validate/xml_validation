@@ -1,0 +1,25 @@
+#!/usr/bin/perl -s
+
+use strict;
+
+use XML::SAX::ParserFactory;
+use XML::Validator::Schema;
+
+$|=1;
+
+my $xml = $ARGV[0];
+my $xsd = $ARGV[1];
+
+die unless $xml;
+
+my $validator = XML::Validator::Schema->new(file => $xsd);
+
+my $parser = XML::SAX::ParserFactory->parser(Handler => $validator);
+
+eval { $parser->parse_uri($xml) };
+
+die "File failed validation: $@" if $@;
+
+
+
+

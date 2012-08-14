@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+
+#$Id: load_prf_product_prices 1469 2009-03-31 16:39:51Z dima $
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomsql;
+use atomlog;
+use atomcfg;
+
+$| = 1;
+
+# prf connections
+#my $prf_mysql_shell = "/usr/bin/mysql -ugcc -pWV120xA gccdb1";
+my $prf_mysql_shell = "/usr/bin/mysql -ugcc -h192.168.1.231 prfdb_utf8";
+my $prf_mysql_table = "prices";
+my $prf_load_source_file = "/tmp/product_prf_prices_".$$;
+
+my $gcc_mysql_table = "product_prf_prices";
+
+ #######
+#       #
+# begin #
+#       #
+ #######
+
+print "Start \033[1m".$0."\033[0m:\n";
+
+# create a load data local infile source
+print "\tLoad data from prf database... ";
+my $cmd = $prf_mysql_shell." -e 'set names utf8; select product_id, min_price, middle_price, has_price from ".$prf_mysql_table."' > ".$prf_load_source_file;
+`$cmd`;
+print "\033[1mok\033[0m\n";
+
+# load prf data to icecat database
+print "\tSwap old and new tables with prices... ";
+#&do_statement("truncate table product_prf_prices");
+&do_statement("create table ".$gcc_mysql_table."_new like ".$gcc_mysql_table);
+print "load data, ";
+&do_statement("load data local infile '".$prf_load_source_file."' into table ".$gcc_mysql_table."_new ignore 1 lines");
+`/bin/rm -f $prf_load_source_file`;
+print "remane tables, ";
+&do_statement("rename table ".$gcc_mysql_table." to ".$gcc_mysql_table."_old, ".$gcc_mysql_table."_new to ".$gcc_mysql_table);
+&do_statement("drop table ".$gcc_mysql_table."_old");
+print "\033[1mok\033[0m\n";
+
+# done
+print "Done script\n\n";

@@ -1,0 +1,44 @@
+{
+name: generic_operation;
+
+priority: 10;
+
+verify: generic_operation_id;
+verify_submit: generic_operation_id;
+
+verify_add: yes;
+verify_add_superuser: generic_operation_id;
+verify_add_supereditor: generic_operation_id;
+verify_add_category_manager: generic_operation_id;
+
+verify_deny_guest: yes;
+
+authorize_superuser: generic_operation_id;
+authorize_supereditor: generic_operation_id;
+authorize_category_manager: generic_operation_id;
+
+authorize_submit_superuser: generic_operation_id;
+authorize_submit_supereditor: generic_operation_id;
+authorize_submit_category_manager: generic_operation_id;
+
+_resource_generic_operation: select generic_operation_id, name, code, parameter from generic_operation where generic_operation_id=%%generic_operation_id%%;
+_resource_generic_operation_type: single;
+_resource_generic_operation_key: generic_operation_id;
+_mapping_generic_operation: generic_operation_id, name, code, parameter;
+
+validate_as_mandatory: name;
+
+validate_as_numeric: parameter;
+
+store_as_generic_operation_set_code: code;
+
+_insert_sequence: 1;
+
+_insert_table_1: generic_operation;
+_insert_values_1: code, name, parameter;
+_insert_fields_1: code, name, parameter;
+_insert_key_1: generic_operation_id;
+_update_sequence_1: yes;
+_delete_sequence_1: yes;
+
+}

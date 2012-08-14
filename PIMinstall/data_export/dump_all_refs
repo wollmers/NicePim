@@ -1,0 +1,79 @@
+#!/usr/bin/perl
+
+#$Id: dump_all_refs 3602 2010-12-17 13:56:30Z dima $
+
+use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+use atom_misc;
+
+use icecat_util;
+use icecat_client;
+use icecat_server2;
+
+use Data::Dumper;
+
+$| = 1;
+
+my $hash = {
+	'MeasuresList' 								       => '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40',
+	'FeaturesList'								       => '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40',
+	'CategoriesList'							       => { 'langid' => '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40' },
+	'SuppliersList'								       => {},
+	'CategoryFeaturesList' 				       => { 'langid' => '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40' },
+	'SupplierProductFamiliesListRequest' =>	{ 'langid' => '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40' },
+	'LanguageList'								       => {},
+	'DistributorList'								     => {},
+	'FeatureValuesVocabularyList'	       => '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40'
+						};
+
+# mkdir
+my $cmd = '/bin/mkdir -p '.$atomcfg{'xml_path'}.'level4/refs';
+`$cmd`;
+
+my ($file,$file1,$response);
+
+foreach my $key (keys %$hash){
+		print "processing $key... ";
+    my $simple_hash = { $key => $hash->{$key} };
+
+		$file = $atomcfg{'xml_path'}."level4/refs/".$key.".xml.gz";
+
+		$response = &icecat_server_main_local(&build_message(&build_request($simple_hash,'icecat','BcW9NgnbMH',time)));
+
+		open OUT, "| /bin/gzip -c9 >".$file.".new";
+		binmode OUT, ":utf8";
+		print OUT $$response;
+		close OUT;
+
+		`/bin/mv -f $file.new $file`;
+
+		print "done\n";
+}
+
+print "processing \033[1mrefs\033[0m... ";
+
+$file1 = $atomcfg{'xml_path'}."level4/refs.xml";
+$file = $file1.".gz";
+
+my $xsd = "<ICECAT-interface " . &xsd_header('ICECAT-interface_response') . ">";
+
+$response = &icecat_server_main_local(&build_message(&build_request($hash,'icecat','BcW9NgnbMH',time)));
+$$response =~ s/<ICECAT-interface>/$xsd/s;
+
+open OUT, "| /bin/gzip -c9 >".$file.".new";
+binmode OUT, ":utf8";
+print OUT $$response;
+close OUT;
+
+#print $$response;
+
+`/bin/mv -f $file.new $file`;
+`/bin/cat $file | /bin/gzip -cd > $file1`;
+
+print "done\n";

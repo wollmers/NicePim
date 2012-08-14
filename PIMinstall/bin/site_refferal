@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use publisher;
+
+
+&generate_site_refferal();

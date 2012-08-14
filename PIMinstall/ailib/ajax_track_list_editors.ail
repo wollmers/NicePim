@@ -1,0 +1,11 @@
+{
+name: ajax_track_list_editors;
+
+_resource_editors: select u.user_id,u.login from track_list tl 
+				JOIN track_list_editor tle USING(track_list_id)
+				JOIN users u  ON u.user_id=tle.user_id 
+				where tl.track_list_id=%%track_list_id%% and %%search_clause%% ORDER BY u.login;
+_resource_editors_type: multi;
+_mapping_editors: user_id,login;
+
+}

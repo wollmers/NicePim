@@ -1,0 +1,38 @@
+{
+name: user_authority;
+priority: 10;
+
+_resource_user: select users.user_id, login, user_group, 'dummy', password from users  where user_id = %%edit_user_id%%
+_resource_user_type: single;
+_resource_user_key: edit_user_id;
+_mapping_user: edit_user_id, login, user_group, cnt, password;
+
+_resource_auth: select user_authority_id, user_id, catid, supplier_id, right from user_authority where user_id = %%edit_user_id%%  limit %%start_row%%,%%rows_number%%
+_resource_auth_type: single;
+_resource_auth_key: user_authority_id;
+_mapping_auth: user_authority_id, edit_user_id, catid, supplier_id, right;
+
+
+ _insert_sequence: 1;
+ 
+ _insert_table_1: user_authority;
+ _insert_key_1: user_authority_id;
+ _insert_values_1: edit_user_id, catid, supplier_id, right;
+ _insert_fields_1: user_id, catid, supplier_id, right;
+ _insert_1_keep_unique: yes;
+ _insert_1_unique_set: user_id, catid, supplier_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+
+
+validate_as_mandatory: catid, supplier_id;
+
+format_as_dropdown: supplier_id;
+supplier_id_dropdown_select: select supplier_id, vocabulary.value from supplier, vocabulary where supplier.name_sid = vocabulary.sid and vocabulary.langid = %%langid%%
+
+format_as_smart_dropdown: catid;
+catid_add_empty: Any category;
+
+ 
+format_as_user_rights: right;
+}

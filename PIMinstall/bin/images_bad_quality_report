@@ -1,0 +1,125 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomcfg;
+use atomsql;
+use atomlog;
+use strict;
+use GD;
+
+sub check_market_state
+{
+ my($product_id) = @_;
+ my $markets = &do_query("select country_id, existed, active from country_product where product_id = ".$product_id);
+	
+ if(!$markets->[0][0]){
+   return "no info";
+ }
+ 
+ foreach my $market(@$markets){
+  my $state = $market->[1];
+  my $active = $market->[2];
+ if($state&&$active){ return "YES";} #product present in market
+ else{ return "NO";} #product not present at market
+ }
+}
+
+sub check_image
+{
+ my($src_name) = @_;
+ my $src = GD::Image->new($src_name);
+ if(!$src){ 
+	 `convert -quality 99 $src_name jpeg:$src_name`;
+	  $src = GD::Image->new($src_name);
+ }
+ if(!$src){ return 0;}
+ return 1;
+}
+
+#=================="GET BAD IMAGES" SCRIPT===============
+
+&log_printf("\n'GET BAD IMAGES' script started");
+
+my $pic_data = &do_query("select login, s.name, p.prod_id, p.low_pic, p.high_pic, product_id from product as p,
+users as u, supplier as s where p.user_id = u.user_id and p.supplier_id = s.supplier_id");
+
+&log_printf("\nCYCLE started");
+
+GD::Image->trueColor(1);
+open(FILE, ">./BAD_IMAGES_REPORT.txt") or die "\ncan't create report file";
+print FILE "USER\tSUPPLIER\tProd_ID\tPICS\tMARKET";
+
+foreach my $pic(@$pic_data){
+ if(!$pic->[3]&&!$pic->[4]){ next;} #no images
+ 
+ my $product_id = $pic->[5];
+ my $login = $pic->[0];
+ my $supplier = $pic->[1];
+ my $prod_id = $pic->[2];
+ my $low_res = $pic->[3];
+ my $high_res = $pic->[4];
+ 
+ 
+ my $low_bad = 0; my $high_bad = 0;
+ if($low_res){
+	 my $low_path= $low_res;
+	 if($low_path =~ /http:\/\/data.icecat.biz/){
+		$low_path =~ s/http:\/\/data.icecat.biz/$atomcfg{'base_dir'}www/;
+	 }
+	 if($low_path =~ /http:\/\/icecat.biz/){
+		$low_path =~ s/http:\/\/icecat.biz/$atomcfg{'base_dir'}www/;
+	 }
+	 if($low_path =~ /http:\/\/www.icecat.nl/){
+		$low_path =~ s/http:\/\/www.icecat.nl/$atomcfg{'base_dir'}www/;
+	 }
+	 if($low_path =~ /http:\/\/icecat.nl/){
+		$low_path =~ s/http:\/\/icecat.nl/$atomcfg{'base_dir'}www/;
+	 }
+#	 &log_printf("\nPATH: $low_path");
+	 if(!&check_image($low_path)){ $low_bad = 1;}
+ }
+ if($high_res){
+	 my $high_path= $high_res;
+	 if($high_path =~ /http:\/\/data.icecat.biz/){
+		$high_path =~ s/http:\/\/data.icecat.biz/$atomcfg{'base_dir'}www/;
+	 }
+	 if($high_path =~ /http:\/\/icecat.biz/){
+		$high_path =~ s/http:\/\/icecat.biz/$atomcfg{'base_dir'}www/;
+	 }
+	 if($high_path =~ /http:\/\/www.icecat.nl/){
+		$high_path =~ s/http:\/\/www.icecat.nl/$atomcfg{'base_dir'}www/;
+	 }
+	 if($high_path =~ /http:\/\/icecat.nl/){
+		$high_path =~ s/http:\/\/icecat.nl/$atomcfg{'base_dir'}www/;
+	 }
+#	 &log_printf("\nPATH: $high_path");
+	 if(!&check_image($high_path)){ $high_bad = 1;}
+ }
+ 
+# &log_printf("\nLOW_BAD: $low_bad; HIGH_BAD: $high_bad\n");
+ 
+ my $str = $login."\t".$supplier."\t".$prod_id;
+ if(!$low_bad&&!$high_bad){ next;} #images are OK
+ if($low_bad&&$high_bad){ $str .= "\t".$low_res." ".$high_res;}
+ elsif($low_bad){ $str .= "\t".$low_res;}
+ elsif($high_bad){ $str .= "\t".$high_res;}
+  
+ $str .= "\t".&check_market_state($product_id)."\n";
+ 
+ print FILE $str;
+ &log_printf($str);
+}
+
+close(FILE);
+
+
+
+
+
+
+
+
+
+
+
+

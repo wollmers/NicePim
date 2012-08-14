@@ -1,0 +1,93 @@
+#!/usr/bin/perl
+
+#$Id: dump_campaigns 3035 2010-09-02 10:15:49Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+use atom_misc;
+
+use icecat_util;
+
+use Crypt::Lite;
+
+use Data::Dumper;
+
+$| = 1;
+
+my $crypt = Crypt::Lite->new( debug => 0, encoding => 'hex8' );
+my $phrase = 'ICEcat.biz is a cool catalogue!';
+my $seconds_per_day = 60 * 60 * 24;
+
+my $link = "http://bo.icecat.biz/feedback/do.cgi?campaign=";
+
+my ($products, $images, $suffix, $product_view);
+
+my $out = &xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"http://data.icecat.biz/dtd/ICECAT-campaigns.dtd\">\n".&source_message()."\n<ICECAT-interface>\n";
+
+my $country = &do_query("select c.country_id, v.value from country_popular cp inner join country c using (country_id) inner join vocabulary v on c.sid=v.sid and v.langid=1");
+
+my %cntr = map { $_->[0] => $_->[1] } @$country;
+$cntr{0} = 'International';
+
+my $campaigns = &do_query("select campaign_id, name, short_description, long_description, link, start_date, end_date, updated, user_id, country_id_set from campaign order by user_id asc, campaign_id asc");
+
+$out .= "<Campaigns>\n";
+
+foreach my $c (@$campaigns) {
+
+	my @hcs = map { $cntr{$_} } split ',', $c->[9];
+
+	$out .= &t(1)."<Campaign ID=\"".$c->[0]."\" User_ID=\"".$c->[8]."\" Name=\"".&str_xmlize($c->[1])."\" StartDate=\"".&str_xmlize($c->[5])."\" EndDate=\"".&str_xmlize($c->[6])."\" Updated=\"".&str_xmlize($c->[7])."\" Country=\"".&str_xmlize(join ',', @hcs)."\" LandingPage=\"\">\n";
+
+	$out .= &t(2)."<Title>".&str_xmlize($c->[2])."</Title>\n";
+	$out .= &t(2)."<Motivation><![CDATA[".$c->[3]."]]></Motivation>\n";
+
+	$images = &do_query("select campaign_gallery_id, logo_pic, thumb_pic from campaign_gallery where campaign_id=".$c->[0]." order by campaign_gallery_id asc");
+
+	if ($#$images > -1) {
+		$out .= &t(2)."<ImagesList>\n";
+		
+		foreach my $i (@$images) {
+			$out .= &t(3)."<Image ID=\"".$i->[0]."\" " . "LogoPic=\"".&str_xmlize($i->[1])."\" ThumbPic=\"".&str_xmlize($i->[2])."\" />\n";
+		}
+		
+		$out .= &t(2)."</ImagesList>\n";
+	}
+	else {
+		$out .= &t(2)."<ImagesList />\n";
+	}
+
+	$out .= &t(2)."<ProductsList>\n";
+	
+	$products = &do_query("select ck.product_id, 0, p.prod_id, (select s.name from supplier s where s.supplier_id=p.supplier_id) s_name, p.name, ck.clickthrough_count from campaign_kit ck inner join product p using (product_id) where ck.campaign_id=".$c->[0]);
+
+	foreach my $p (@$products) {
+		$suffix = $crypt->encrypt($p->[0], $phrase);
+		# product_view - begin (need to replace with the aggregated_request_stat_YYYYMM .. aggregated_request_stat_YYYYMM)
+		$product_view = &do_query("select count(*) from aggregated_request_stat where product_id=".$p->[0] . ( $c->[5] ? " and date >= " . $c->[5] : '' ) . ( $c->[6] ? " and date <= " . ($c->[6] + $seconds_per_day) : '' ))->[0][0] || '0';
+		# product_view - end
+		$out .= &t(3)."<Product ID=\"".$p->[0]."\" " . "ProdId=\"".&str_xmlize($p->[2])."\" Vendor=\"".&str_xmlize($p->[3])."\" Name=\"".&str_xmlize($p->[4])."\"" . " Link=\"" . ( $c->[4] ? &str_xmlize($link.$suffix) : "" ) . "\"" . " Clicks=\"".$p->[5]."\" Product_View=\"".$product_view."\" />\n";
+	}
+
+	$out .= &t(2)."</ProductsList>\n";
+
+	$out .= &t(1)."</Campaign>\n";
+}
+
+$out .= "</Campaigns>\n";
+
+$out .= "</ICECAT-interface>\n";
+
+binmode STDOUT, ":utf8";
+
+print STDOUT $out;
+
+sub t {
+	return "\t" x shift;
+}

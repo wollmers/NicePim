@@ -1,0 +1,18 @@
+{
+name: stat_reports;
+ priority: 100;
+
+_resource_stat_query: select  stat_query_id, code, period, email from stat_query where %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_stat_query_type: multi;
+_mapping_stat_query: stat_query_id, code, period, email;
+_resource_stat_query_def_order: code;
+_resource_stat_query_def_order_mode: D;
+
+format_as_assorted_list_element: period;
+
+authorize_superuser: stat_query_id;
+authorize_submit_superuser: stat_query_id;
+
+verify_deny_guest: yes;
+
+}

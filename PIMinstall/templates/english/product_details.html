@@ -1,0 +1,99 @@
+$$INCLUDE head2.html$$
+
+$$INCLUDE ajax_response.html$$
+
+{name: menu2;}
+<script type="text/javascript" src="/js/common.js"></script>
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="main" height="20">
+$$INCLUDE products_link.html$$
+{
+name: product_menu;
+class: menu;
+}
+    </td>
+  </tr>
+</table>
+
+{
+name: product_search;
+}
+
+{
+name: products;
+class: hidden;
+no_resource_exec: yes;
+}
+
+{
+name: errors;
+}
+
+{
+name: product;
+class: brief;
+}
+
+<h3>General</h3>
+
+<table class="invisible" width="100%">
+	<tr>
+			<td align="left" id="sdet">
+				<a href="%%base_url%%;product_id=%%product_id%%;tmpl=product_multimedia.html">Products multimedia</a>
+			</td>
+			<td align="right">
+				<form method="post" target="_blank" id="localizations_submit">
+					<input type="hidden" name="command" value="preview_apply_localizations">
+					<input type="hidden" name="atom_name" value="product_update_localizations">
+					<input type="hidden" name="product_id" value="%%product_id%%">
+					<input type="hidden" name="sessid" value="%%sessid%%">
+					<input type="hidden" name="tmpl" value="product_update_localizations.html">
+				</form>
+				<a class="linksubmit" onClick="javascript:document.getElementById('localizations_submit').submit();">Update localizations</a>&nbsp;&nbsp;
+				<a href="%%base_url%%;source_product_id=%%product_id%%;tmpl=product_copy.html">Copy this product</a>&nbsp;&nbsp;
+				<a href="%%base_url%%;tmpl=products_complaint.html;product_id=%%product_id%%;see=1;;user_id=%%user_id%%">See complaints</a>&nbsp;&nbsp;
+				<a href="%%base_url%%;tmpl=product_post_complain.html;product_id=%%product_id%%;;user_id=%%user_id%%">Post a complaint</a>&nbsp;&nbsp;
+				<a href="%%base_url%%;tmpl=product_history.html;product_id=%%product_id%%;;user_id=%%user_id%%">Product history</a>&nbsp;&nbsp;
+				<a href="%%base_url%%;product_id=%%product_id%%;tmpl=look_product_example.html;">Look into example</a>
+			</td>
+	</tr>
+</table>
+
+<br />
+
+{
+name: product;
+}
+
+<h3>EAN codes</h3>
+{
+name: product_ean_codes;
+}
+
+<h3>Descriptions</h3>
+{
+name: product_descriptions;
+}
+{
+name: product_description_new;
+class: details;
+}
+
+<h3>Features</h3>
+{
+name: product_features;
+}
+
+{
+name: ajax_product_features_local;
+}
+
+<h3>Related products</h3>
+{
+name: product_related;
+}
+
+$$INCLUDE footer2.html$$

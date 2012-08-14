@@ -1,0 +1,48 @@
+{
+
+ product_description_row: 	   <ProductDescription ID="%%ID%%" langid="%%langid%%">
+              <WarrantyInfo>%%WarrantyInfo%%</WarrantyInfo>
+              <ShortDesc>%%ShortDesc%%</ShortDesc>
+              <LongDesc>%%LongDesc%%</LongDesc>
+              <URL>%%URL%%</URL>
+            </ProductDescription>
+						
+ product_feature_row:        <ProductFeature No="%%No%%" ID="%%ID%%" CategoryFeatureGroup_ID="%%CategoryFeatureGroup_ID%%">
+          <Measure ID="%%Measure_ID%%"/>
+          <Feature ID="%%Feature_ID%%"/>
+          <Value>%%Value%%</Value>
+        </ProductFeature>
+
+ product_related_row:      <ProductRelated ID="%%ID%%">
+        <Product ID="%%Product_ID%%" Prod_id="%%prod_id%%" Supplier_ID="%%supplier_id%%"/>
+      </ProductRelated>
+ product_bundled_row:      <ProductBundled ID="%%ID%%">
+        <Product ID="%%Product_ID%%"/>
+      </ProductBundled>
+
+product_body: <Product Code="%%Code%%" Quality="%%Quality%%" ID="%%ID%%">
+        <ProductDescriptions>
+%%ProductDescriptions%%
+        </ProductDescriptions>
+    <ProductFeatures>
+%%ProductFeature%%
+    </ProductFeatures>
+    <ProductsRelated>
+%%ProductsRelated%%
+    </ProductsRelated>
+%%ProductBundled%%		
+    <Name>%%Name%%</Name>
+    <Prod_id>%%Prod_id%%</Prod_id>
+    <Supplier ID="%%Supplier_ID%%"/>
+    <ThumbPic>%%ThumbPic%%</ThumbPic>
+    <HighPic>%%HighPic%%</HighPic>		
+    <LowPic>%%LowPic%%</LowPic>
+    <Category ID="%%Category_ID%%"/>
+  </Product>
+ 
+ body:
+    <ProductsDump>
+      %%products%%
+    </ProductsDump>
+ 
+}

@@ -1,0 +1,63 @@
+/* ------------ HEADER ------------ */
+
+#page_header { width: 974px; height: 24px; margin: 0 auto; background-color: #0a3c7d; }
+#page_header table { width: 100%; height: 100%; }
+#page_header table td { padding: 0; }
+#page_header table td div.wrap { position: relative; height: 22px; text-align: center; padding: 2px 10px 0 10px; }
+#page_header table a, #page_header table a:visited { color: #ffffff; font-weight: bold; text-decoration: none; font-size: 10px; }
+
+#page_header table td div.leftbord { width: 3px; height: 23px; position: absolute; left: 0; top: 1px; background: url(/img/campaign_def/leftbord.gif); }
+#page_header table td div.rightbord { width: 4px; height: 23px; position: absolute; right: 0; top: 1px; background: url(/img/campaign_def/rightbord.gif); }
+
+#page_header table td.first div.leftbord { display: none; }
+#page_header table td.last div.rightbord { display: none; }
+
+#page_header table td.active, #page_header table td.dactive { background-color: #1e5aaa; }
+#page_header table td.active div.leftbord, #page_header table td.dactive div.leftbord { background: url(/img/campaign_def/leftbord_act.gif); }
+#page_header table td.active div.rightbord, #page_header table td.dactive div.rightbord { background: url(/img/campaign_def/rightbord_act.gif); }
+
+#bg_dots { width: 974px; height: 14px; background: url(/img/campaign_def/bg_dots.gif); }
+
+.linksubmit { color: #1553A4;  background-color: transparent;  text-decoration: underline; border: none; cursor: pointer;  }
+
+
+.request_graph {
+	margin-top:5px;
+	background-color: white;
+	border: #d5e9ff 3px groove;
+	width:400px;
+	display: none;
+}
+
+tr.feed_config_preview_header td{
+	font-size: 10pt;
+	font-weight: bold;
+}
+tr.feed_config_preview_err td{
+	border: 1px solid red;
+}
+.feed_config_preview_cont{
+	overflow: scroll; 
+	height: 200px; 
+	width: 1000px;
+	margin-left: 100px;	
+}
+.info_bold,table.feed_config_colums tr td{
+	font-size: 11px;
+	padding: 5px;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #E5EFF1;
+	height: 20px;
+	vertical-align: middle;
+}
+table.radio_block_table{
+	width: 100%;
+}
+.red{
+	color: red;
+}
+
+.feed_caption{
+ 	font-size: 12pt; font-weight: bold;
+}

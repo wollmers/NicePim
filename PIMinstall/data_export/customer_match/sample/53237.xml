@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="53237" Prod_id="503-00276" ThumbPic="http://www.icecat.biz/thumbs/53237.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/53237.jpg" Name="MS Ofc Student &amp; Teacher 2003 NL CD W32" LowPic="http://www.icecat.biz/img/norm/low/53237.jpg">
+        <ProductRelated ID="489566">
+         <Product ID="60843" Prod_id="503-00279" ThumbPic="http://www.icecat.biz/thumbs/60843.jpg" Name="STUDENT LIC DESKTOP">
+          <Supplier ID="100" Name="Microsoft"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="489562">
+         <Product ID="92464" Prod_id="503-00276+MOUSE" ThumbPic="http://www.icecat.biz/thumbs/92464.jpg" Name="K MS Off Student&amp;Teacher2003 NL CD+Mouse">
+          <Supplier ID="100" Name="Microsoft"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="489556">
+         <Product ID="92465" Prod_id="503-00279+MOUSE" ThumbPic="http://www.icecat.biz/thumbs/92465.jpg" Name="K MS Ofc Student&amp;Teacher2003 DE CD+Mouse">
+          <Supplier ID="100" Name="Microsoft"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="489567">
+         <Product ID="60843" Prod_id="503-00279" ThumbPic="http://www.icecat.biz/thumbs/60843.jpg" Name="STUDENT LIC DESKTOP">
+          <Supplier ID="100" Name="Microsoft"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="489563">
+         <Product ID="92464" Prod_id="503-00276+MOUSE" ThumbPic="http://www.icecat.biz/thumbs/92464.jpg" Name="K MS Off Student&amp;Teacher2003 NL CD+Mouse">
+          <Supplier ID="100" Name="Microsoft"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="489565">
+         <Product ID="92465" Prod_id="503-00279+MOUSE" ThumbPic="http://www.icecat.biz/thumbs/92465.jpg" Name="K MS Ofc Student&amp;Teacher2003 DE CD+Mouse">
+          <Supplier ID="100" Name="Microsoft"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="130" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1331" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="60050" URL="" ShortDesc="Stdnt Lic Dsktp 2003 Win32 Dutch CD" langid="1" LongDesc="Office Student and Teacher Edition 2003, a suite of popular Microsoft Office personal productivity applications, is priced affordably for teachers and students in grades K - 12 and institutions of higher education.Office 2003 products give you familiar, easy access to the programs you use every day - without having to learn how to use them all over again. Office 2003 provides you with the resources you need to help protect your family from annoying - and sometimes dangerous - junk e-mail messages." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="8060189" Value="CD-ROM" No="111227" CategoryFeatureGroup_ID="130">
+         <Feature ID="62">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1461" Value="Media" langid="1"/>
+           <Name ID="1462" Value="Media" langid="2"/>
+           <Name ID="6742" Value="Media" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8060190" Value="260" No="111226" CategoryFeatureGroup_ID="130">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8060191" Value="128" No="111225" CategoryFeatureGroup_ID="130">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8060192" Value="233 MHz " No="111224" CategoryFeatureGroup_ID="130">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8060193" Value="Microsoft Windows 2000 SP3, Microsoft Windows XP or later" No="111223" CategoryFeatureGroup_ID="130">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8060194" Value="PC" No="111222" CategoryFeatureGroup_ID="130">
+         <Feature ID="75">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1487" Value="Platform" langid="1"/>
+           <Name ID="1488" Value="Platform" langid="2"/>
+           <Name ID="6754" Value="Platform" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="8060195" Value="N" No="0" CategoryFeatureGroup_ID="130">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="100" Name="Microsoft"/>
+       <Category ID="12">
+         <Name ID="25" Value="Software suites" langid="1"/>
+         <Name ID="26" Value="Software suites" langid="2"/>
+         <Name ID="6085" Value="Software suites" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

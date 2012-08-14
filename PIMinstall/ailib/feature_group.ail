@@ -1,0 +1,75 @@
+{
+name: feature_group;
+priority: 10;
+
+verify: feature_group_id;
+verify_submit: feature_group_id;
+
+verify_add: yes;
+verify_add_superuser: feature_group_id;
+verify_add_supereditor: feature_group_id;
+verify_add_category_manager: feature_group_id;
+
+authorize_submit_superuser: feature_group_id;
+authorize_submit_supereditor: feature_group_id;
+authorize_submit_category_manager: feature_group_id;
+
+authorize_superuser: feature_group_id;
+authorize_supereditor: feature_group_id;
+authorize_category_manager: feature_group_id;
+authorize_editor: feature_group_id;
+authorize_supplier: feature_group_id;
+authorize_guest: feature_group_id;
+authorize_shop: feature_group_id;
+
+
+_resource_feature_group: select feature_group_id, sid, '1' from feature_group where feature_group.feature_group_id = %%feature_group_id%%
+_resource_feature_group_key: feature_group_id;
+_resource_feature_group_type: single;
+_mapping_feature_group: feature_group_id, sid,js_langid_array;
+
+format_as_js_langid_array: js_langid_array;
+
+_resource_label: select language.langid, vocabulary1.value, vocabulary.value, vocabulary.record_id
+from language
+left join feature_group
+on feature_group.feature_group_id = %%feature_group_id%%
+left join vocabulary
+on feature_group.sid = vocabulary.sid and language.langid = vocabulary.langid
+left join vocabulary as vocabulary1
+on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+order by language.langid
+_resource_label_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by language.langid
+_resource_label_type: multi;
+_resource_label_key: feature_group_id;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id;
+
+
+store_as_delete_also_category_feature_groups: feature_group_id;
+
+
+ _insert_sequence: 1,2,3;
+
+ _insert_table_1: sid_index;
+ _insert_values_1: dummy;
+ _insert_fields_1: dummy;
+ _insert_key_1: sid;
+ _delete_sequence_1: yes;
+  
+ _insert_table_2: vocabulary;
+ _insert_values_2: sid, _rotate_v_langid, _rotate_label;
+ _insert_fields_2: sid, langid, value;
+ _rotate_insert_2: label;
+ _insert_key_2: record_id;
+ _update_key_2: sid;
+ _update_sequence_2: yes;
+ _delete_sequence_2: yes; 
+ 
+ _insert_table_3: feature_group;
+ _insert_values_3: sid;
+ _insert_fields_3: sid;
+ _insert_key_3: feature_group_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

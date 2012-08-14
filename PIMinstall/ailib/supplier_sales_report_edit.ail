@@ -1,0 +1,45 @@
+{
+name:  supplier_sales_report_edit;
+
+verify: supplier_id;
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: supplier_id;
+verify_add_supereditor: supplier_id;
+verify_add_category_manager: supplier_id;
+
+_resource_sales_report_edit: select sales_report_id, mailto, mailcc, mailbcc, active, report_type_id from supplier_sales_report where sales_report_id = %%sales_report_id%%
+_resource_sales_report_edit_type: single;
+_resource_sales_report_edit_key: sales_report_id;
+_mapping_sales_report_edit: sales_report_id, mailto, mailcc, mailbcc, active, report_type_id;
+
+format_as_yes_no_select: active; 
+format_as_dropdown: report_type_id;
+report_type_id_dropdown_select: select report_type_id, report_type from report_type
+
+validate_as_mandatory: mailto;
+
+ _insert_sequence: 1;
+ 
+ _insert_table_1: supplier_sales_report;
+ _insert_values_1: supplier_id, mailto, mailcc, mailbcc, active, report_type_id; 
+ _insert_fields_1: supplier_id, mailto, mailcc, mailbcc, active, report_type_id;
+ _insert_key_1: sales_report_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes;
+ _insert_1_keep_unique: yes;
+ _insert_1_unique_set: report_type_id, supplier_id; 
+}

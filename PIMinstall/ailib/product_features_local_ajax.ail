@@ -1,0 +1,71 @@
+{
+name: product_features_local_ajax;
+priority: 10;
+
+default_rows_number: 500;
+
+verify: product_id;
+
+verify_submit: product_id;
+
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+_resource_product: select product_id, product_id, user_id, 'dummy' from product where product_id = %%product_id%%
+_resource_product_type: single;
+_resource_product_key: product_id;
+_mapping_product: product_id, fproduct_id, edit_user_id, feature_date;
+
+store_as_get_date: feature_date;
+
+_resource_product_features: select category_feature.category_feature_id, feature.type, product.user_id, 'dummy', 'dummy', product.product_id, feature.feature_id, feature_name.value, feature_name.value,	measure.sign, category_feature.no, feature.class, category_feature.searchable, (category_feature.searchable * 10000000 + (1 - feature.class) * 100000 + category_feature.no) as order_number,  group_name.value as grp_name, category_feature_group.no, feature.restricted_values, category_feature.restricted_search_values, category_feature.use_dropdown_input, category_feature.mandatory, category_feature.mandatory  
+
+from  
+	 vocabulary as feature_name, 
+	 feature, measure, 
+	 product, 
+	 category_feature, 
+	 feature_group, 
+	 category_feature_group, 
+	 vocabulary as group_name  
+
+where  
+
+category_feature.category_feature_group_id = category_feature_group.category_feature_group_id 
+and group_name.sid = feature_group.sid 
+  
+and category_feature_group.feature_group_id = feature_group.feature_group_id 
+and group_name.langid = %%langid%%	
+and product.catid = category_feature.catid 
+and product.product_id = %%product_id%% 
+and feature.feature_id = category_feature.feature_id 
+and feature.sid = feature_name.sid 
+and feature_name.langid = %%langid%% 
+and ( feature.class = '0'  or %%restrict%% ) 
+and measure.measure_id = feature.measure_id %%order_clause%% limit %%start_row%%,%%rows_number%%
+
+_resource_product_features_type: multi;
+_resource_product_features_def_order: class, group_no, group_name, searchable, order_number;
+_resource_product_features_def_order_mode: A,D,D,D,D;
+_resource_product_features_key: product_id;
+_resource_product_features_skey: product_feature_id;
+_mapping_product_features: category_feature_id, type, edit_user_id, _rotate_product_feature_id, _rotate_value, product_id, feature_id, feature_name, feature_name_value, sign, no, class, searchable, order_number, group_name, group_no, restricted_values, search_restricted_values, cat_feat_input_dropdown, cat_feat_mandatory, cat_feat_mandatory_star;
+
+format_as_product_feature_id: _rotate_product_feature_id;
+format_as_product_feature_name: feature_name;
+
+_resource_dummy: select 'dummy';
+_resource_dummy_type: single;
+_mapping_dummy: tab_feature_values;
+
+_format_as_tab_feature_value_ajaxed: tab_feature_values;
+}

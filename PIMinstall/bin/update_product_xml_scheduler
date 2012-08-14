@@ -1,0 +1,224 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+#use lib '/home/dima/gcc_svn/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use atom_misc;
+use atom_util;
+use data_management;
+use icecat_server2;
+use process_manager;
+
+$| = 1;
+
+my $messages = 1;
+my $time = 0;
+
+my $cmd = $atomcfg{'base_dir'}.'bin/update_product_xml_chunk';
+
+if (&get_running_perl_processes_number('update_product_xml_scheduler') != 1) {
+	print "'update_product_xml_scheduler' already running. exit.\n";
+  exit;
+}
+
+# cleanup finished processes
+&cleanup_process_queue;
+
+my $prods4update = $ARGV[0];
+if ($prods4update){
+
+my $data = &do_query("select product_id from $prods4update");
+foreach my $product(@$data){
+	my $product_id = $product->[0];
+	&queue_process("$cmd $product_id", {'product_id'=>$product_id,'process_class_id'=>1,'prio'=>1});
+}
+
+}else{
+
+	&mprint("\n*** update_product_xml_scheduler at ".gmtime()." ***\n");
+
+	&start; &mprint("\tCT `tmp_product_1`, ");
+	&do_statement("create temporary table tmp_product_1 (
+product_id int(13)      NOT NULL default '0',
+updated    int(14)      NOT NULL default '0',
+table_name varchar(120) NOT NULL default '',
+key (product_id,updated))");
+
+	&mprint("DK, ");
+
+	&do_statement("alter table tmp_product_1 disable keys");
+
+	&mprint("I:\n");
+
+	foreach my $table ('product','product_description','product_feature','product_related','product_gallery','product_multimedia_object','product_name','product_ean_codes') {
+		&mprint("`".$table."`, ");
+    my @arr = &get_primary_key_set_of_ranges('',$table,100000,'product_id');
+    my $b_cond;
+    foreach $b_cond (@arr) {
+			&do_statement("insert into tmp_product_1(product_id,updated,table_name) select product_id, unix_timestamp(max(updated)), ".&str_sqlize($table)." from ".$table." WHERE 1 AND ".$b_cond." group by 1");
+		}
+		if ($table eq 'product_related') {
+			my @arr = &get_primary_key_set_of_ranges('',$table,100000,'rel_product_id');
+			my $b_cond;
+			foreach $b_cond (@arr) {
+				&do_statement("insert into tmp_product_1(product_id,updated,table_name) select rel_product_id, unix_timestamp(max(updated)), ".&str_sqlize($table)." from ".$table." WHERE 1 AND ".$b_cond." group by 1");
+			}
+		}
+	}
+	
+	&mprint("EK ");
+	&do_statement("alter table tmp_product_1 enable keys");
+	&mprint(&done_stop);
+
+	&start; &mprint("\tCT `tmp_product_2`, I (group, max), ");
+	&do_statement("create temporary table tmp_product_2 (
+product_id int(13)      primary key,
+updated    int(13)      NOT NULL default '0',
+prio       int(3)       NOT NULL default '0',
+is_new     int(3)       NOT NULL default '2',
+user_id    int(13)      NOT NULL default '0',
+table_name varchar(120) NOT NULL default '',
+key (user_id),
+key (prio),
+key (product_id,updated,is_new))");
+
+	&do_statement("alter table tmp_product_2 disable keys");
+	&do_statement("insert into tmp_product_2(product_id,updated,prio,is_new,user_id) select product_id, max(updated), 0 as prio, 2 as is_new, 0 as user_id from tmp_product_1 group by product_id");
+	&do_statement("alter table tmp_product_2 enable keys");
+	&mprint(&done_stop);
+
+	&start; &mprint("\tU `tmp_product_2` -> S `product_modification_time`");
+	&do_statement("update tmp_product_2 tp2 inner join product_modification_time pmt on tp2.product_id=pmt.product_id set tp2.is_new = if(tp2.updated>pmt.modification_time,1,0)");
+	&mprint(&done_stop);
+
+	# new!.. we will update the table_name field
+	
+	&start; &mprint("\tUpdate table_name field");
+	&do_statement("update tmp_product_2 tp2 inner join tmp_product_1 tp1 using(product_id,updated) set tp2.table_name=tp1.table_name where tp2.is_new > 0");
+	&mprint(&done_stop);
+
+	# end of
+
+	&start; &mprint("\tCT `tmp_product`, I, ");
+	&do_statement("create temporary table tmp_product (
+`product_id` int(13) primary key,
+`user_id`    int(13) NOT NULL default '0',
+key (user_id))");
+
+	&do_statement("alter table tmp_product disable keys");
+
+	my @arr = &get_primary_key_set_of_ranges('','product',100000,'product_id');
+	my $b_cond;
+	foreach $b_cond (@arr) {
+		&do_statement("insert into tmp_product(product_id,user_id) select product_id, user_id from product WHERE ".$b_cond);
+	}
+
+#	&mprint("AT `tmp_product` ");
+	&do_statement("alter table tmp_product enable keys");
+#	&do_statement("alter table tmp_product add primary key (product_id), add key (user_id)");
+	&mprint(&done_stop);
+	
+	&start; &mprint("\tU `tmp_product_2` -> S `tmp_product` ");
+	&do_statement("update tmp_product_2 tp2 inner join tmp_product tp on tp.product_id=tp2.product_id set tp2.user_id=tp.user_id");
+	&mprint(&done_stop);
+
+	&start; &mprint("\tCT `tmp_product`, I, ");
+	&do_statement("create temporary table user_group_rate (
+user_id    int(13)     primary key,
+user_group varchar(50) not null default '',
+prio       int(3)      not null default 0,
+key (user_group))");
+	&do_statement("insert into user_group_rate(user_id,user_group,prio) select user_id, user_group, 0 from users");
+	&mprint(&done_stop);
+
+	&start; &mprint("U `user_group_rate` -> S `content_measure_index_map` ");
+	&do_statement("update user_group_rate ugr
+inner join user_group_measure_map ugmm on ugr.user_group=ugmm.user_group
+inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure
+set ugr.prio = if(cmim.quality_index>0,1,0)");
+	&mprint(&done_stop);
+
+	&start; &mprint("\tU `tmp_product_2` -> S `user_group_rate` ");
+	&do_statement("update tmp_product_2 tp2 inner join user_group_rate ugr on tp2.user_id=ugr.user_id set tp2.prio=ugr.prio");
+	&mprint(&done_stop);
+
+	&start; &mprint("\n\tS (Perl) `tmp_product_2` (where prio > 0), ");
+	my $data = &do_query("select product_id,is_new,table_name from tmp_product_2 where prio > 0");
+	my $is_new = &do_query("select count(product_id) from tmp_product_2 where prio > 0 and is_new > 0")->[0][0];
+	my $is_new_noxml = &do_query("select count(product_id) from tmp_product_2 where prio > 0 and is_new = 2")->[0][0];
+
+	&mprint("total products = ".($#$data+1).", new product = ".$is_new." (without xml = ".$is_new_noxml."):\n\n");
+
+#	$data = [[]]; # temporary
+
+	foreach my $p (@$data) {
+# disabled - causes too big load average (8.04.2010)
+#		if (!-e $atomcfg{'xml_path'}.'level4/INT/'.&get_smart_path($p->[0]).$p->[0].'.xml.gz') {
+#			&queue_process($cmd." ".$p->[0], {'product_id' => $p->[0], 'process_class_id' => 1, 'prio' => 2});
+#			next;
+#		}
+		if ($p->[1]) {
+			&queue_process($cmd." ".$p->[0], {'product_id' => $p->[0], 'process_class_id' => 1, 'prio' => $p->[1]});
+			if ($p->[1] == 2) {
+				&mprint("\033[1m".$p->[0]."\033[0m\t".$p->[2]."\n");
+			}
+			else {
+				&mprint($p->[0]."\t".$p->[2]."\n");
+			}
+		}
+	}
+	&mprint(&done_stop);
+
+	# add language-specific products to queue
+
+	my $actual_products = &do_query("SELECT product_id, group_concat(langid order by langid asc separator ',') FROM actual_product WHERE xml_updated = 0 GROUP BY product_id ORDER BY product_id DESC");
+
+	&mprint("\nLet's insert language-specific products to queue (\033[1m" . ($#$actual_products + 1) . "\033[0m products):\n");
+
+	foreach my $ap (@$actual_products) {
+		&queue_process($cmd." ".$ap->[0], { 'product_id' => $ap->[0], 'process_class_id' => 1, 'prio' => 1, 'langid_list' => $ap->[1] });
+		&do_statement("UPDATE actual_product SET xml_updated = 1 WHERE product_id = ".$ap->[0]); # disable 2nd usage
+		&mprint("\t".$ap->[0]."\tlanguage = ".$ap->[1]."\n");
+	}
+
+	&mprint("\nEND\n");
+}
+
+exit(0);
+
+
+ ######################
+##                    ##
+## miscellaneous subs ##
+##                    ##
+ ######################
+
+sub start {
+	$time = &POSIX::time();
+} # sub start
+
+sub stop {
+	return (&POSIX::time()-$time);
+} # sub stop
+
+sub done_stop {
+	my ($pre) = @_;
+	my $secs = &stop;
+	return $pre.($pre ? " " : "")."(".$secs." sec".($secs == 1 ? "" : "s").")\n";
+} # sub done_stop
+
+sub mprint {
+	print shift if ($messages);
+} # sub mprint
+
+ #######
+##     ##
+## end ##
+##     ##
+ #######

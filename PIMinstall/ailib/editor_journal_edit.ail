@@ -1,0 +1,57 @@
+{
+name: editor_journal_edit;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id;
+authorize_submit_supplier: product_id;
+
+
+_resource_editor_journal_edit: select ej.user_id, ej.product_id, ej.prod_id, 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy','dummy' from editor_journal as ej %%left_join_distri%% where user_id = %%editor_id%% 
+and %%from_date_prepared%% and %%to_date_prepared%% and
+%%search_editor_prepared%% and %%search_supplier_prepared%% and
+%%search_catid_prepared%% and %%search_prodid_prepared%% and %%search_changetype_prepared%% and ej.score = 1
+and %%search_distributor_prepared%% and %%search_isactive_prepared%%
+group by product_id limit %%start_row%%,%%rows_number%%;
+
+_resource_editor_journal_edit_type: multi;
+_resource_editor_journal_edit_nav_bar: select count(distinct ej.product_id)  from editor_journal as ej %%left_join_distri%%
+where ej.user_id = %%editor_id%% 
+and %%from_date_prepared%% and %%to_date_prepared%% and
+%%search_editor_prepared%% and %%search_supplier_prepared%% and
+%%search_catid_prepared%% and %%search_prodid_prepared%% and %%search_changetype_prepared%% and ej.score = 1
+and %%search_distributor_prepared%% and %%search_isactive_prepared%%
+_mapping_editor_journal_edit: editor_id, product_id, prodid, product, editor_product, descriptions, features, related, bundled, objects, gallery, ean_codes;
+
+_format_as_journal_product: editor_product;
+
+_resource_editor_journal_summary: select user_id, 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy', 'dummy' from editor_journal as ej %%left_join_distri%% where user_id = %%editor_id%%
+and %%from_date_prepared%% and %%to_date_prepared%% and
+%%search_editor_prepared%% and %%search_supplier_prepared%% and
+%%search_catid_prepared%% and %%search_prodid_prepared%% and %%search_changetype_prepared%% and ej.score = 1
+and %%search_distributor_prepared%% and %%search_isactive_prepared%%
+_resource_editor_journal_summary_type: single;
+_mapping_editor_journal_summary: editor_id, editor_product_summary, summary_product, summary_descriptions, summary_description_details, summary_features, summary_related, summary_objects, summary_gallery, summary_ean_codes;
+
+_format_as_journal_product_summary: editor_product_summary;
+}
+

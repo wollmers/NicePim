@@ -1,0 +1,278 @@
+cat	cat	supplier	num	data1	data2	prod_id
+Audio & Multimedia	Accessoires	Creative	60302	CreativeMT1200 Floorstand Pair	Suitable for all 5.1 speakers	51MZ0010AA003
+Audio & Multimedia	Accessoires	Fellowes	73453	Fellowes MP3 mini-Armband	BodyGlove MiniBag black/silver	75547
+Audio & Multimedia	Geluidskaarten	Creative	80741	Creative SB Audigy 2 ZS	Retail, Platinum	70SB035002007
+Audio & Multimedia	Headsets & microfoons	Philips	69729	Philips Headset Sport	Reflecting, ultra light	SBCHS520/00
+Audio & Multimedia	Headsets & microfoons	Sennheiser	74544	Sennheiser PC150 Headset	incl. microphone	PC150
+Audio & Multimedia	Headsets & microfoons	Creative	78220	Creative backphone HS-300	Headset	5002010000033
+Audio & Multimedia	Headsets & microfoons	Plantronics	78668	Plantronics Stereo Headset	Audio 60, incl. microphone	PLX-36968-02
+Audio & Multimedia	Headsets & microfoons	Zalman	79572	Zalman ZM-RS6F+M	Incl. 5.1 Surround Headphones	ZM-R56FM
+Audio & Multimedia	Kabels	A-merk	24555	Mini-jack/2 x Tulp Female 0.2m	AV	1103.4020I
+Audio & Multimedia	Kabels	Digiconnect	64004	Audio Extention Cable RCA 10m	2xRCA M - 2xRCA F. A11	A-607311
+Audio & Multimedia	MP3-Spelers	Apacer	75310	Apacer Audio Steno MP3-player	AP510, 256MB with speaker	AP510
+Audio & Multimedia	MP3-Spelers	Sony	75504	Sony NW-HD1 Mp3 Player	Portable Hard Disk Walkman	NW-HD1
+Audio & Multimedia	MP3-Spelers	MSI	77796	MSI MegaView 561, 20GB,	Mpeg4 player,mp3,3.5" TFT LCD	MEGAVIEW561
+Audio & Multimedia	MP3-Spelers	iriver	79943	Iriver IFP-999, 1GB MP3,	1,2 LCD,FM,WMA, Li-ion bat	IFP-999
+Audio & Multimedia	MP3-Spelers	Creative	80899	Creative MuVo V200 MP3	256 MB	73PF120100004
+Audio & Multimedia	Speakers	Philips	74940	Philips MMS 222/00C	6 Watt RMS, Graphite	MMS222/00C
+Audio & Multimedia	Speakers	Logitech	76099	Logitech X-530	5.1 speakers	970114-0914
+Audio & Multimedia	Webcams	Philips	48397	Philips Webcam ToUcam PRO II	USB Webcam, CIF 60 fr, mic.	PCVC840K
+Audio & Multimedia	Webcams	Logitech	78713	Logitech Quickcam Zoom	Retail	961372-0914
+Audio & Multimedia	Webcams	Creative	80901	Creative Webcam Live Pro	 	73VF008000005
+Basisonderdelen	Controllers	A-merk	27422	Multi I/O PCI card 2xSer+1xPar	Extra Com-port	22086
+Basisonderdelen	Controllers	ASUS	41646	ASUS Firewire card PCI OEM	1 external ports, 1 internal	90-CITA90-00UBN
+Basisonderdelen	DSK	Imation	57699	Imation diskettes 1,44 MB	10 Pcs, Neon color	11916
+Basisonderdelen	DSK	Sony	63562	Sony Diskettes 1,44 MB	10 Pcs	10MFD
+Basisonderdelen	Geheugen	Samsung	33515	SAMSUNG 256MB Rimm PC800	MR16R1628AFO-CM800(p4t533-c)	MR16R1628AFO-CM800
+Basisonderdelen	Geheugen	Corsair	80830	Corsair 1024MB DDR550 64MX64	Twinx,C2.5  Matched Pair	TWINX1024-4400C25
+Basisonderdelen	Koelers	CoolerMaster	75854	Coolermaster Hyper 48, LGA775	Socket 478/754/940/939/LGA775	KHC-L91-U1
+Basisonderdelen	Koelers	Zalman	78377	Zalman CNPS7700-Cu	Socket 478/ 754/ 775/ 939/940	CNPS7700-CU
+Basisonderdelen	Koelers	Supermicro	79370	Supermicro SNK-P0008A4 Cooler	Intel Xeon Active Cooler =>3U	SNK-P0008A4
+Basisonderdelen	Moederborden	MSI	80717	MSI K8N NEO4 Plat 54G, Nforce4	DDR400,SATA,2xGlan,PCI-X,939	K8NNEO4PLATINUM54G
+Basisonderdelen	Moederborden	ASUS	80733	ASUS A8N-SLI Del,Nforce4 U,939	SATA,Raid,1394,2xGlan,2x PCI-X	A8NSLI-DELUXE
+Basisonderdelen	Processoren	Intel	76013	Intel PIV 560 Skt 775 Box, HT	800MHz, 1MB Cache, (3,6GHz)	BX80547PG3600E S L7J9
+Basisonderdelen	Processoren	AMD	76785	AMD Athlon 64 3200+	3200+ 64bit Skt 939, Retail	ADA3200BIBOX
+BedieningSapphireparatuur	Accessoires	CoolerMaster	70156	Coolermaster Alloy X-Pad III	Alloy mouse pad	AMP-U03-UK
+BedieningSapphireparatuur	Gamecontrollers	Pyramat	80952	Pyramat Entertainment Mat	3 x 25 Watt, 2.1 Surround	PM300
+BedieningSapphireparatuur	Gamecontrollers	Logitech	80961	Logitech Driving Force	Racing Wheel	963257-0909
+BedieningSapphireparatuur	Kabels	Digiconnect	65251	USB to PS/2 Cable 0.19m	A Male - 2 x 6pin Female. C17	C-607617
+BedieningSapphireparatuur	Muis- & toetsenbordcombinaties	Microsoft	74616	Microsoft Wireless Desktop 3.0	OEM, PS/2 & USB, US Lay-out	DA9-00002
+BedieningSapphireparatuur	Muis- & toetsenbordcombinaties	Logitech	78924	Logitech Cordl.Desktop LX 300	Retail, USB, US-layout, Black	967545-0100
+BedieningSapphireparatuur	Muizen	Waterkoeling	54084	Wacom Volito	Valito tablet + Valito pen	FT-0405U
+BedieningSapphireparatuur	Muizen	Targus	54092	Targus Retractable Super Mouse	Optical	PAUM01E
+BedieningSapphireparatuur	Muizen	Logitech	70789	Logitech V500 for Notebooks	Retail /Cordless Optical	931171-0914
+BedieningSapphireparatuur	Muizen	Microsoft	75441	Microsoft Remote Control	With Receiver	A9O-00005
+BedieningSapphireparatuur	Toetsenborden	Cherry	41275	Cherry G83 Keyboard	Retail, PS/2, BE-layout	G83-6105LPNBE
+BedieningSapphireparatuur	Toetsenborden	Targus	54105	Targus USB Mini Keypad	 	PAUK10E
+BedieningSapphireparatuur	Toetsenborden	Microsoft	74261	Microsoft Digital Media Pro	Keyboard, Retail	BX1-00011
+BedieningSapphireparatuur	Toetsenborden	Logitech	78086	Logitech UltraX Keyboard	OEM, PS/2 & USB, US-Layout	967353-0100
+Behuizingen	Accessoires	AOpen	24601	AOpen Front USB+AUDIO Kit	 	60.96315.003
+Behuizingen	Accessoires	ASUS	66190	ASUS Terminator T2 3-1 Card	W-Lan / G-Lan / Firewire	T23-1CARD
+Behuizingen	Accessoires	Sunbeam	71845	Sunbeam Smart Fan Controller	Blue PY-B	PY-B
+Behuizingen	Accessoires	CoolerMaster	73912	Side panel/window for Stacker	Extra part for Stacker.	SPB-S01-E1
+Behuizingen	Barebones	MSI	61381	MSI MEGA PC 865 Luxury	Intel 865, Wirel + 6-1 Reader	MEGAPC865LUXURY
+Behuizingen	Barebones	ASUS	76523	ASUS S-presso S1-P112 Blue	PIV 478,VGA,Card-reader,Lan	SPRESSOP112
+Behuizingen	Barebones	Shuttle	79118	Shuttle SB81P,915G,Skt775,Sil	DL DDR400,PCI-X,Sil,256mb VGA	SB81P
+Behuizingen	Behuizingen	Sunbeam	47765	Sunbeam Transparant Casing	ATX, Acrylic White, AC-T	AC-T
+Behuizingen	Behuizingen	CoolerMaster	66034	Coolermaster Centurion 5	Tower Case,350W,Black	CAC-T05-UWB
+Behuizingen	Behuizingen	MyCom	74173	MyCom H600M P4/AMD ATX 350W	S.Mid.Tow,USB+Aud,A-Guide 1.1	91.96820.M08
+Behuizingen	Behuizingen	In-Win	76697	IN-WIN V564 Micro ATX, 300W	Black/Silver, Airduct, USB2.0	V-564T
+Behuizingen	Behuizingen	Chieftec	80590	Chieftec 19" Slide Rail 80cm	For 2U and for 4U	RSR-260
+Behuizingen	Behuizingen	AOpen	81197	AOpen H450B P4/AMD  BLACK	Micr.ATX,300W, Airduct, Pr.775	91.97420.B17
+Behuizingen	Koelers	CoolerMaster	43182	Coolermaster Neon Led Case Fan	Green 80x80x25x mm TLF-R82	TLF-R82-EG
+Behuizingen	Koelers	Sunbeam	71757	Sunbeam CCFL Fan Blue	80x80x25mm Blue CCFL Fan	CFK08-B
+Behuizingen	Koelers	Zalman	75686	Zalman ZM-MFC1	Multi Fan Controller 6 Fans	ZM-MFC1
+Behuizingen	Stroomvoorziening	APC	74608	APC Smart-UPS 750VA	SUA750I	SUA750I
+Behuizingen	Stroomvoorziening	Digiconnect	79564	Digiconnect Surge Protector	Expert, 8 outlets, tel., AV	F5C208NS2AV-TEL
+Behuizingen	Systemen	Shuttle	79169	Shuttle G4-8500GA,XP3200,1GB	200GB,16X DVDR,VGA,Crd,XPPro	G4-8500GA
+Behuizingen	Voedingen	A-merk	19553	PC Power supply ATX, 300W	300W	300PWSUPPLY
+Behuizingen	Voedingen	Zalman	67838	Zalman ZM400B-APS	Silent Power Supply 400W	ZM400B-APS
+Behuizingen	Voedingen	AOpen	72549	AOpen PSU ATX, 400W, 24p/20p	Ultra Silent+SATA Pow C,Retail	90.96608.D12
+Behuizingen	Voedingen	CoolerMaster	73891	Coolermaster PSU ATX, 450W	#ÈÌß?	RS-450-ACLY
+Behuizingen	Waterkoeling	Zalman	67811	Zalman ZM-GWB1	VGA Waterblock + 8 RAM sinks	ZM-GWB1
+Behuizingen	Waterkoeling	Koolance	69340	Koolance Liquid Cooling Case	PC2-650BU Blue	PC2-650BU
+Behuizingen	Waterkoeling	CoolerMaster	78297	Coolermaster Aquagate	Int./Ext Liquid Cooling System	ALC-U01
+CD & DVD	Accessoires	Apacer	70181	Apacer Disc Steno 5-1 CF Card	For CP80	98.10B40.100
+CD & DVD	CD-labeling	Sony	62682	Sony CD-Marker 4-pack	Red, Blue, Green and Black	4CDMARKER-BT
+CD & DVD	CD-labeling	Fellowes	68435	Fellowes CD/DVD labelsystem	Labelkit Retail, 80 Labels Big	9996507
+CD & DVD	CD-ReWriters	LG Electronics	58536	LG Combo 52x32x52x  16xDVD	OEM	GCC-4521BB
+CD & DVD	CD-ReWriters	ASUS	61161	ASUS Externe Writer USB 2.0	52X 32X 52X Retail, Quiet	CRW-5232A-U-QUIET
+CD & DVD	CD-ReWriters	AOpen	62906	AOpen Combo 52x32x52x16	COM5232 retail, Chameleon	91.5TD37.073
+CD & DVD	CD-ReWriters	Apacer	68865	Apacer Disc Steno CP80	52xCD,52XR,24RW,USB,CF	97.21204.010
+CD & DVD	CD-ROMS	LG Electronics	44476	LG CD-Rom 52-speed IDE OEM	Black	GCR-8520B/23B(ZWART)
+CD & DVD	CD-ROMS	ASUS	61170	ASUS CD-Rom 52 speed Ret.	CD-S520 Retail Silver, Quiet	CD-S520SILVERQUIET
+CD & DVD	DVD ReWriters	PLexmarktor	63503	Plextor DVD Writer, 12xPX-712A	Retail BLACK	PX-712A/T3B
+CD & DVD	DVD ReWriters	AOpen	69737	AOpen DVR16X Double Layer	16X +/- R, 8X +/- RW, Retail	DUW-1608
+CD & DVD	DVD ReWriters	Pioneer	71378	Pioneer DVD Bur DVR-108 OEM	16x+/-,4X+/-Double layer	DVD ReWriters-108
+CD & DVD	DVD ReWriters	Sony	72469	Sony DVD Bur Dual layer,16X+/-	Retail,DRU710A,8.5GB,2.4X DL	DRU710A
+CD & DVD	DVD ReWriters	MSI	75061	MSI DVDRW 16X +/- D. Layer Ret	16X24X16X40X Retail	DR16-B
+CD & DVD	DVD ReWriters	ASUS	78211	ASUS DVD Burner Ext. Ret. 16X	16X2,4X24X40X, USB2 / Firewire	DRW-1604P-D
+CD & DVD	DVD ReWriters	LG Electronics	79257	LG DVD RW+/- 16x Double Layer	16/16/4/40, OEM, 4163BB	GSA-4163BB
+CD & DVD	DVD-sPelikaners	ASUS	50411	ASUS DVD 16x48 IDE Retail	E616P1, BLACK	E616BLACK
+CD & DVD	DVD-sPelikaners	AOpen	56442	AOpen DVD 16x48 IDE Chameleon	DVD-1648 Pro, Retail	91.4ED37.077
+CD & DVD	DVD-sPelikaners	LG Electronics	74851	LG DVD 16x52 OEM	Zilver	GDR-8163SBB
+CD & DVD	DVD-sPelikaners	Sony	77198	SONY DVD 16x48 IDE Oem	DDU1613,white with black bazel	DDU1613B2
+CD & DVD	Lege CD's & DVD's	Nashua	53760	Nashua DVD-R 4.7GB, 4 speed	10 Pcs, Slim Jewelcase	N2094-010-4S
+CD & DVD	Lege CD's & DVD's	Verbatim	71984	Verbatim 8.5GB Dual Layer	Jewel Case, DVD R	043460-102
+CD & DVD	Lege CD's & DVD's	Sony	75424	Sony DVD+R 4.7GB, 8 speed	10 pcs. Slim Jewel Case	10DPR120SL
+CD & DVD	Lege CD's & DVD's	Imation	78799	Imation DVD+R 4.7GB, 8 speed	Spindle, 25 Pcs	20620
+CD & DVD	Lege CD's & DVD's	Philips	80311	Philips DVD+RW 4.7 Gb	4X, 10-spindle	DVDRW1S04/700
+CD & DVD	Standalone DVD	Yamada	65023	Yamada DVX 6600 MPEG4	MPEG1,2,4SP,4ASP,XviD,MP3,WMA	S1-YAMADA-DVX-6600
+CD & DVD	Standalone DVD	LG Electronics	69585	LG DVD recorder DR-4810S	DVD-R/RW, DivX, 2xSCRT, HiFi	DR-4810S
+CD & DVD	Tassen	Targus	81314	Targus Mach 2 CD Case	32 CD's - Blue/Grey - Nylon	EB1T97
+Digitale Camera's	Accessoires	HP	50032	HP Camera Starterpack	Incl bag, battery & loader	Y1789B
+Digitale Camera's	Batterijen	ASUS	25363	ASUS Li-Ion Accu B1	90-N4V1B1000	90-N4V1B1000
+Digitale Camera's	Batterijen	GP PowerBank	77518	GP PowerBank N-Lite	Incl. 4x NiMH Accu AA 1600 mAh	130.11GS160-C4
+Digitale Camera's	Digitale camera's	Yamada	70981	Yamada PowerCam 7600	4 Mpix, 3xOpt,16Mb,tv-out	60-DC-VQ4000Z
+Digitale Camera's	Digitale camera's	HP	73103	HP Photosmart R507	 	L1825A
+Digitale Camera's	Digitale camera's	Canon	73411	Canon PowerShot A400 Silver	3.1 Mpix - 16 MB CF - 2xOpt NL	9686A011AA
+Digitale Camera's	Digitale camera's	Fujitsu Siemens	74211	Fuji FinePix F450	5.3Mpix, 3.4xOpt-Zoom, 16Mb	104590
+Digitale Camera's	Digitale camera's	Sony	77833	SONY DSC-W1 Digital Camera	5.1 Mpixel,32MB Stick,2.5" LCD	DSCW1S.CEE5
+Digitale Camera's	Garantie	HP	21784	HP Warranty, PhotoSmart Camera	+2 Years, 7 Days Repairtime	H5643A/ABH
+Digitale Camera's	Tassen	Targus	55520	Targus Active Camera Case	Large - Black/Grey - Nylon	DPMC03
+Diversen	Accessoires	Digiconnect	76371	DigiConnect Legbord	Tray	BAS-LB300-1000
+Diversen	Kabels	CoolerMaster	34972	Coolermaster Round ATA cable	Retail TTC-A24, ATA 100/133	TTC-A24
+Diversen	Kabels	Digiconnect	79505	KVM Cables with Audio	USB, 1.8 meter	F1D9101N06
+Diversen	KVM Switches	NewStar	51271	NewStar KVM Switch, 4-Ports	NS411K, Incl. Cables	NS411K
+Diversen	KVM Switches	Digiconnect	79484	Digiconnect 2-Ports KVM Switch	Built-in Cables, PS/2	F1DK102PEA
+Diversen	Schoonmaakproducten	Controllers	75109	Sprayer KF Aeroclean	150 ml, dust off	52.1.010
+Diversen	USB-hubs & -kaarten	Edimax	37954	Edimax USB 2.0 PCI Card 4-port	 	EU-CV4P / EU-CV4N
+Diversen	USB-hubs & -kaarten	NewStar	58982	NewStar USB 2.0 Data Switch	4 ports	NS-USB421A
+Diversen	USB-hubs & -kaarten	Targus	68646	Targus  USB2.0 7-port Hub	powered	PAUH212EU
+Diversen	USB-hubs & -kaarten	Digiconnect	79530	Digiconnect 5-Ports PCI Card	USB 2.0, 1x int. 4x ext.	F5U220N
+Harde schijven	Accessoires	Promise	61209	Promise SuperSwap 1000	ATA-133 Removable HDD Rack	SUPERSWAP1000
+Harde schijven	Accessoires	Zalman	70931	Zalman ZM-2HC2	Heatpipe HarddiskCooler	ZM-2HC2
+Harde schijven	Accessoires	CoolerMaster	74333	Coolermaster Cooldrive 6	Functionpanel&Software, silver	LHD-V06
+Harde schijven	Accessoires	Apacer	75336	Apacer Share Steno HDD Enclos.	USB2,LCD,2.5",CD211	CD211
+Harde schijven	Accessoires	AOpen	77884	AOpen MVP Player,Mpeg4	USB2,Black,Rem C,6-1 reader	90.01747.002
+Harde schijven	Controllers	Adaptec	35537	Adaptec 2010S	 	DAC-0008
+Harde schijven	Controllers	Promise	61217	Promise FAST Trak S150TX4	32-Bit PCI SATA150 Raid Contr.	P29FX4100MM0000
+Harde schijven	Controllers	LSI	78246	LSI MegaRaid SCSI 320-4X	PCI-X, 128MB, LSMR3204X	LSM3204X
+Harde schijven	Externe harde schijven	MyCom	78959	MyCom Mobile Storage 4.0GB	USB2.0, 4200 RPM, Silver	Z40
+Harde schijven	Externe harde schijven	Western Digital	79695	WD 160gb Extern USB2, 7200rpm	WDXUB, dual option back up	WDXUB1600BBRNE
+Harde schijven	Harde schijven	Maxtor	76291	Maxtor 300Gb 7200rpm 16mb,SATA	Diamond Max 10	6B300S0
+Harde schijven	Harde schijven	Western Digital	78115	WD Raptor SATA 74GB Retail	10.000 RPM Incl SATA Cable	WD740GDRTL2
+Harde schijven	Notebook harde schijven	Toshiba	69825	Toshiba 60 GB notebook HDD	2,5"  9,5mm, 5400 rpm	MK6026GAX
+Harde schijven	SCSI harde schijven	Maxtor	81040	Maxtor Atlas 10KV 73Gb SCSI	SCA-2, 80 pins 8D073J0	8D073J0
+Mobiele opslag	Compact Flash	Apacer	36708	Apacer 512MB Compact Flash	Retail	91.20043.360
+Mobiele opslag	Geheugenkaartlezers	Digiconnect	72821	Evision Banknote Verifier	Checks for False Banknotes	DT-1054-3
+Mobiele opslag	Geheugenkaartlezers	Fujitsu Siemens	73752	Fuji DPC 8 in1 card reader	XD USB2.0 Multi card reader	DPC-8
+Mobiele opslag	Geheugenkaartlezers	Apacer	80565	Apacer MegaSteno MGA20	14 in 1 Card Reader, USB 2.0	MGA20
+Mobiele opslag	Multi Media	Apacer	62076	Apacer 256MB Multi Media Card	Retail	91.72563.010
+Mobiele opslag	Memory Stick	Sony	78764	Sony Memory Stick 512MB	Pro	MSX512S
+Mobiele opslag	Secure Digital	Apacer	70375	Apacer 1GB Secure Digital	Retail	91.81003.155
+Mobiele opslag	USB-hubs & -kaarten drives	Sony	60652	Sony Micro Vault Pro 128MB	Retail, with Memory Stick Slot	USM128MS
+Mobiele opslag	USB-hubs & -kaarten drives	MSI	63001	MSI Mega Cache 15, 1.5GB HDD	USB 2.0 /Cary Bag	MEGACHACHE15
+Mobiele opslag	USB-hubs & -kaarten drives	Swissbit	69657	Swissbit 128mb Extended	8 functions, retail	0.6026.TM1
+Mobiele opslag	XD	Fujitsu Siemens	65752	Fuji XD DPC-512Mb	 	DPC-512
+Monitoren & Beamers	Accessoires	Projecta	32651	Plafondbeugels Elpro Electrol	 	PASEL004
+Monitoren & Beamers	Accessoires	Startech	34171	StarTech Video splitter 1 to 8	8 port	ST128
+Monitoren & Beamers	Accessoires	A-merk	40133	HP-42DA10 Tablestand Deluxe	for HP-4200	HP42DA10
+Monitoren & Beamers	Accessoires	iiyama	58325	Iiyama High Adj Stand VESA	Black	STAND1-B
+Monitoren & Beamers	Accessoires	NewStar	69315	NewStar Plasma Wall mount	Plasma-W200, Adjustable	PLASMA-W200
+Monitoren & Beamers	Accessoires	LG Electronics	76857	LG Wall Mount RW-200	for RZ-30LZ50 and RZ-26LZ50	RW-200
+Monitoren & Beamers	Accessoires	Philips	77075	Philips bClever carryingbag	Nylon, for beamer and acces.	LCA1130
+Monitoren & Beamers	Beamers	Sony	76435	Sony VPL-CX70 Beamer	2000 ANSI Lumen, XGA, USB	VPL-CX70
+Monitoren & Beamers	Beamers	HP	77551	HP ep7112 DLP Beamer	Contrast 1600:1, SVGA, HDTV	L1750A
+Monitoren & Beamers	CRT monitoren	HP	70148	HP 17" V72 Pavilion CRT	 	P9611A#ABB
+Monitoren & Beamers	CRT monitoren	Samsung	71554	Samsung 17" 793 DF S/B	Silver / Black, DynaFlat	LE17KSBBQ
+Monitoren & Beamers	CRT monitoren	iiyama	77462	Iiyama 17" HF703-UTE FST	Flat High Brightness, 96Khz	HF703-UTE
+Monitoren & Beamers	CRT monitoren	LG Electronics	79708	LG 17" T710MH	Flatron, 85Hz, Speakers	T710MH
+Monitoren & Beamers	Kabels	Digiconnect	65189	DVI-A to VGA Convert Adapter	DVI-A Male - VGA 15pin F. V38	V-607438
+Monitoren & Beamers	LCD/TV-kaarten's	iiyama	54287	Iiyama 20.1" ProL C510T LCD/TV	4:3 TV, Speakers	C510T
+Monitoren & Beamers	LCD/TV-kaarten's	Samsung	62578	Samsung 17" 710MP LCD/TV	Silver, Tuner, Remote, Speaker	MH17ASSS
+Monitoren & Beamers	LCD/TV-kaarten's	LG Electronics	72637	LG 30" RZ-30LZ50 LCD/TV	1280*768, IPS	RZ-30LZ50
+Monitoren & Beamers	Plantronics	MyCom	63706	MyCom 42" Plasma -LGE KK Panel	852x480, 1200:1, 1000cd/m2	DWI-VPM424W
+Monitoren & Beamers	Plantronics	HYU	79071	Table Top Stand HYU 42" Plasma	Hyundia Table Top Stand	HYUNDAI OPTION 3
+Monitoren & Beamers	Plantronics	LG Electronics	79206	LG RZ-42PX12 42" Plasma	Incl Tuner, Speakers, PIP	RZ-42PX12
+Monitoren & Beamers	Plantronics	Pioneer	81402	Pioneer 43" Plasma PDP-43MXE1S	Silver 1024 x 768	PDP-43MXE1-S
+Monitoren & Beamers	Projectieschermen	Projecta	32213	Projecta SlimScreen	160 x 160 Matwit S	PSWWP002
+Monitoren & Beamers	TFT-monitoren	Fujitsu Siemens	53778	 Fujitsu Siemens C15-1 15" TFT	 	S26361-K940-V200
+Monitoren & Beamers	TFT-monitoren	e-yama	63124	e-yama 17" 17NE1-S TFT	Silver, Speakers, 14ms, High B	17NE1-S
+Monitoren & Beamers	TFT-monitoren	HP	75782	HP 19" F1904 Pavilion TFT	1280 x 1024	P8717AA#ABB
+Monitoren & Beamers	TFT-monitoren	Samsung	75897	Samsung 17" 172X TFT	DVI-D, 12ms,  1-3 def subpixel	DS17BSDS-1
+Monitoren & Beamers	TFT-monitoren	MyCom	75900	MyCom L710M 17" TFT	Silver, Speakers, 16ms	L710M
+Monitoren & Beamers	TFT-monitoren	iiyama	76961	Iiyama 17" E435S-B TFT	Black, DVI-D ,Speakers, 10ms	E435S-B
+Monitoren & Beamers	TFT-monitoren	Sony	79804	Sony 19" SDM-HS94P TFT	Black, X-Black LCD, DVI-D, 8ms	SDM-HS94P
+Monitoren & Beamers	TFT-monitoren	LG Electronics	81322	LG 19" L1930B TFT	Flatron, DVI-I, Black, 25ms	L1930B
+Netwerken & Modems	Accessoires	SMC	40061	SMC Analog Modem Splitter	CPF119F	CPF119F
+Netwerken & Modems	Accessoires	Supermicro	80979	Supermicro P4SCT+-O	Mainboard	MBD-P4SCT+-O
+Netwerken & Modems	Draadloos netwerk	MSI	35060	MSI Bluetooth USB adapter	Bluetooth Qualified	MS-6967
+Netwerken & Modems	Draadloos netwerk	A-merk	45938	W-LAN USB 32MB Pen drive	802.11b, 11mbit	SMC-WU28-1
+Netwerken & Modems	Draadloos netwerk	Intel	61137	Intel Pro Wireless 2200	mini PC Adapter 2200 B/G	WM3B2200BG
+Netwerken & Modems	Draadloos netwerk	Apacer	62834	Apacer Wireless Steno 256MB	Handy Steno 802.11b, 1Mbps	96.WS891.010
+Netwerken & Modems	Draadloos netwerk	SMC	63132	SMC W-LAN USB adapter	802.11G, 54Mbps	SMC2862W-G
+Netwerken & Modems	Draadloos netwerk	ASUS	69745	ASUS W-LAN 2.5" HDD Kabinet	WL-HDD, 802.11G	WL-HDD
+Netwerken & Modems	Draadloos netwerk	Philips	75395	Philips Wireless PCMCIA Adap.	802.11G, 54 Mbps	CPWNA100/00
+Netwerken & Modems	Draadloos netwerk	Edimax	75598	Edimax W-LAN Cardbus 32bit	802.11G, 54Mbps	EW-7108PCG
+Netwerken & Modems	Kabels	A-merk	55360	Crimping Tool RJ45 OEM	Stripping,Cutting OEM	P-0311052-TH
+Netwerken & Modems	Kabels	Digiconnect	78781	UTP CAT5e Coupler	RJ45 F - RJ45 F Extend. N37	N-607537
+Netwerken & Modems	Modems	Creative	34884	Creative Modem 56K V92 PCI OEM	Int PCI V92	7000000002167
+Netwerken & Modems	Modems	ASUS	47431	ADSL Ethernet Modem Annex B	RJ11 --> RJ45	AAM6310EV/Q/ANNEX B
+Netwerken & Modems	Modems	SMC	56506	SMC ADSL Router + 4 prt.Switch	Build-in ISDN modem, Annex B	SMC7204BRB
+Netwerken & Modems	Modems	ETE	62391	PCMCIA ISDN 128K Card	Billion	PCMCIA128
+Netwerken & Modems	Netwerkkaarten	SMC	62615	SMC Homeplug USB Adapter	14Mbps	SMCHP1D-USB
+Netwerken & Modems	Netwerkkaarten	Edimax	63538	Edimax Homeplug USB Adapter	14Mbps	HP-1001
+Netwerken & Modems	Servers	Supermicro	80645	Supermicro CSE-933S2-R760/B	Supermicro case	CSE-933S2-R760/B
+Netwerken & Modems	Switches & routers	SMC	43107	SMC Broadband Router + Switch	4 Ports 10/100, 1Port WAN	SMC7004VBR-EU
+Netwerken & Modems	Switches & routers	Edimax	77180	Edimax Broadbandrouter+Switch	10/100Mbps 4 Ports Kabel/ADSL	BR-6104K
+Notebooks & PDA's	Accessoires	HP	53161	HP Ipaq AC Adapter	For all Ipaq models	FA130A
+Notebooks & PDA's	Accessoires	TomTom	60513	TOMTOM HP2210 Car Kit	Pda holder, Car charger	4A00.115/3102.530
+Notebooks & PDA's	Accessoires	CoolerMaster	61882	Coolermaster CoolPad 1	alloy plate w/2 sil.side fan	PNC-U51-E1
+Notebooks & PDA's	Accessoires	Compal	73314	Compal AC Adapter	For CL51	71710130001
+Notebooks & PDA's	Accessoires	Nokia	74528	Nokia Accu for 3510i	850 li-ion BLC-2	NO32BAT010
+Notebooks & PDA's	Accessoires	Targus	74755	Targus Defcon VPCL-Cable Lock	Combination-Number Lock	PA492E
+Notebooks & PDA's	Accessoires	Toshiba	77753	Toshiba AC Adapter	For A60 serie	PA3381E-1ACA
+Notebooks & PDA's	Accessoires	ASUS	81218	ASUS MyPal A730 Large Battery	with backcover 1800 milliamper	90-A4N1B2000
+Notebooks & PDA's	Barebones	Compal	79329	Compal CL51A Barebone	BB-15" XGA For  Dothan core	CL51A-DOTHAN
+Notebooks & PDA's	Batterijen	Toshiba	78887	Toshiba Li-ion Accu	For A20-103 serie	PA3237U-1ACA
+Notebooks & PDA's	Batterijen	Sony	80400	Sony AC adapter 19V	For A-/ FR100-/ FR215H / FR215	PCGAAC19V3.CEL
+Notebooks & PDA's	Batterijen	ASUS	81015	ASUS Li-ion Accu W1 Serie	8-cell battery	90-N901B1000
+Notebooks & PDA's	Garantie	HP	39520	HP Warranty, Pavilion-notebook	+2 Years, 7 Days Repairtime	H7581A/ABH
+Notebooks & PDA's	Garantie	Sony	80768	Sony Extention Warranty Pack	2-year warranty	PCGEVPW2
+Notebooks & PDA's	Garantie	Toshiba	81226	Toshiba Cover All-Risk Insuran	1 year up to ˆ2400 incl tax	INSURA1NL-P
+Notebooks & PDA's	Geheugen	Corsair	77649	1024MB SODIMM DDR, 333	Corsair	VS1024SDS333
+Notebooks & PDA's	Navigatie	TomTom	69711	TOMTOM GO - external antenna	 	TO62DIV013
+Notebooks & PDA's	Navigatie	A-merk	75571	Re radiating antenne RA45	For Tomtom GO	IW62DIV001
+Notebooks & PDA's	Navigatie	Engine	81234	Engin Modulaire GPS set	voor HP iPAQ	2580000129195
+Notebooks & PDA's	Notebooks	Vobis	75281	Vobis Energy+ PM 725 DVDRW+/-	15"/1.6/512Mb/60Gb/DVDRW/WL/XP	CL51-PM725-DVDRW
+Notebooks & PDA's	Notebooks	HP	75766	HP Pavilion zd7340 17" TFT	PIV 3.06/512MB/60GB/WL/DVDRW	PH990EA
+Notebooks & PDA's	Notebooks	Sony	76486	Sony VAIO T1XP/ULV 733 DVRW +-	10"/1.1/512Mb/40Gb/WLBT/PRO UK	VGNT1XP/L.CEZ
+Notebooks & PDA's	Notebooks	Fujitsu Siemens	77622	Fujitsu Siemens Amilo M-7400D	C-M1.3GHz/256MB/30GB/WL/COMBO	CUZ:N-NDL-BTS-M001
+Notebooks & PDA's	Notebooks	Toshiba	80696	Toshiba Satellite M30X-130	15.4"/M735/512Mb/60Gb/DVDRW+/-	PSA72E-00Y021DU
+Notebooks & PDA's	Notebooks	ASUS	81146	ASUS M6822NE-LP/ 725 DVDRW DL	15"/1.6/512Mb/40Gb/WL/DVRW/PRO	M6822NE-LP
+Notebooks & PDA's	PDA's	ASUS	73461	ASUS MyPal A730 PDA 3.7" TFT	520MHz/64MB/CFSD/BT/1.3CAM	90A-S4N1005
+Notebooks & PDA's	PDA's	HP	75563	HP iPAQ RZ1710& Tomtom 3	Incl GPS, Holder & Charger	CO68045
+Notebooks & PDA's	PDA's	Palm	80602	PalmOne Zire31+ViaMichelin 2.5	Navigatie, GPS, Cradle	PL61ZIRE31GPS
+Notebooks & PDA's	Smartphones	HP	76881	HP iPAQ hx6340 GSM/PDA GPRS	OMAP 1510/BT/WL/64MB/SD/CF	HX6340
+Notebooks & PDA's	Smartphones	Nokia	80389	Nokia 6260 SMARTPHONE Silver	BT, VGA Camera, MP3	NOK1045006
+Notebooks & PDA's	SPA	ASUS	26104	ASUS Combo 8x8x4x24 Mod. B1/T9	Module B1/T94	90-N4Q1G1001
+Notebooks & PDA's	Tassen	Mitsubishi	72590	Notebookbag Action	Action model	F8E353EALRG
+Notebooks & PDA's	Tassen	Targus	81306	Targus Metro XL Notebook Case	17" Metro Luxe Black/Silver	TCG417
+Notebooks & PDA's	Toetsenborden	ASUS	63280	ASUS Notebook Keyboard	For M6 series, US-Layout	04-N951KUSA0
+Notebooks & PDA's	Toetsenborden	Toshiba	78879	Toshiba Notebook Keyboard	For Satellite A60-302	PL9001E-USE
+PC Systemen	Systemen	HP	75731	HP Media Center - m1190	Intel 530/512MB/200GB/DVDRW DL	PN240AA
+PC Systemen	Systemen	FIC	77500	MCE Spectra Barebone	W-lan,915GD2	73-14421-01
+PC Systemen	Systemen	Fujitsu Siemens	78465	FJS Scaleo P BP -  AMD Sempron	2600+/256MB/40GB/COMBO/Win XP	LKN:NDL-889210-003
+Printers & Scanners	All-in-one's	Canon	55941	Canon SmartBase MP370	USB,H	9016A032
+Printers & Scanners	All-in-one's	HP	76321	HP Photosmart 2710 all-in-one	USB 2.0, PhotoRet IV  WiFi NL	Q5552B
+Printers & Scanners	Inkcartridges	Canon	51086	Canon BCI-21e Printkop + cart	BC-21e Printkop + BCI-21BK/C	CAN22073
+Printers & Scanners	Inkcartridges	Epson	53014	Epson stylus C82/CX5200 Cyan	T042240	TO42240
+Printers & Scanners	Inkcartridges	Lexmark	53057	Lexmark 18L0032 Cartridge	Z55/Z65(n) Standard 500p black	18L0032
+Printers & Scanners	Inkcartridges	HP	72864	HP ink No.100 Grey Photo	C9368AE	C9368AE
+Printers & Scanners	Inkcartridges	Minolta	72928	Minolta magicolor 2300 OPC	QMS2500 45K	QMS25009
+Printers & Scanners	Inkcartridges	Pelikan	78844	Pelikan HP No.78 Bundel	HP DJ920C etc. + 3 Ringtones	345875
+Printers & Scanners	Kabels	A-merk	3341	Printercable 1.8 meter	 	1101.1118
+Printers & Scanners	Kabels	Digiconnect	64856	USB to par.Printer Cable 1.8m	A Male - 25pin Parallel M. C06	C-607606
+Printers & Scanners	LaserPrintersnters	HP	75580	HP LaserJet 2430dtn	USB 2.0, Parallel, 33ppm	Q5962A
+Printers & Scanners	Papier	HP	53153	HP Photo paper Glossy	A4, 25 Sheets, 175gr/m2	Q5437A
+Printers & Scanners	Papier	Canon	57672	Canon Photo Paper Pro	PR-101, A4, 15 sheets	1029A002AA
+Printers & Scanners	Papier	Pelikan	60476	Pelikan 2 x Photo Paper	2 x 20 sheets, 150 gr/m2	300007
+Printers & Scanners	Printers	HP	73074	HP DeskJet 6840	USB 2.0 PhotoRet III (IV) Wifi	C9031B
+Printers & Scanners	Printers	Dymo	74974	Dymo 330 Turbo Labelwriter	300dpi, 59MM	16462
+Printers & Scanners	Printers	Canon	80186	Canon PIXMA IP1500	USB2, MU	9319A017AA
+Printers & Scanners	Printerservers	Edimax	77171	Edimax Print Server 10/100Mbps	UTP, mini pocket size	PS-1203M
+Printers & Scanners	Scanners	HP	74624	HP ScanJet 3770C	USB 2.0 full speed	L1915A
+Printers & Scanners	Scanners	Canon	74675	Canon CanoScan Lide 35	-USB 2  1200x2400- EZ button,MU	9871A002AA
+Software	Kantoortoepassingen	Microsoft	53698	MS Office 2003 Standard NL	Student/Teacher License	503-00276
+Software	Multimedia	Microsoft	53284	Microsoft Encarta Lib. 2004	Dutch	844-00566
+Software	Multimedia	Data Becker	55079	DB  TV Fotoshow	Gouden Serie DVD Box	NL4480632
+Software	Multimedia	Ulead	74923	Ulead VideoStudio 8 NL	Retail	A28-480-0Q1
+Software	Multimedia	Pinnacle Systems	77585	Pinnacle Studio MediaSuite 9	Video Editing Software	202262056
+Software	Utilities	Norman	69032	Norman Pro Edition	Retail, Multi Lingual	PRO EDITION
+Software	Utilities	Symantec	77690	Symantec NSW 2005 NL Promo	CD / Retail Box / Spiderman 2	10322651-NL
+Systemen	Servers	Supermicro	80160	Superserver 7044A-82R/B	4U, Black	SYS-7044A-82RB
+Video- & TV-kaarten	Accessoires	MSI	65963	MSI MEGA PC TV out card	AGP, for Megapc 865	MEGAPCTVOUTCARD
+Video- & TV-kaarten	Kabels	A-merk	24521	Scart Cable / 3x Tulp 1.5m	AV	1101.4040S
+Video- & TV-kaarten	Kabels	Digiconnect	64194	Scart Cable standard 2m	Scart Male - Scart Male. V19	V-607419
+Video- & TV-kaarten	Koelers	Zalman	71714	Zalman ZM-RHS1	RAM Heatsinks	ZM-RHS1
+Video- & TV-kaarten	TV-kaarten	ASUS	47440	Asus TV Tuner Card Retail	TV FM Card PCI (PAL)	TV FM CARD/LP/P(W/I RC)/A
+Video- & TV-kaarten	TV-kaarten	PixelView	69518	Pixelview PlayTV Box 3, stereo	Stand alone TVtuner +Teletekst	PV-TV320
+Video- & TV-kaarten	TV-kaarten	Pinnacle Systems	75045	Pinnacle ShowCenter 11G	Digitale Mediaspeler Remote	202262038
+Video- & TV-kaarten	TV-kaarten	Hauppauge	77534	Hauppauge WinTV PVR 150MCE OEM	3 pack	1043
+Video- & TV-kaarten	Videokaarten	Sapphire	76806	Sapphire ATI 9550 Atl AGP	Tv-out, DVI, 256mb DDR Retail	11032-05-20
+Video- & TV-kaarten	Videokaarten	MSI	77868	MSI RX9250SE 128MB - Tvout	TV-out, 8xAGP	RX9250SE128MB
+Video- & TV-kaarten	Videokaarten	ASUS	79450	Asus Nvidia EN6200GE, 128MB	Tv-out, DVI,2*VGA,PCIX	6200GE128MB
+Video- & TV-kaarten	Videokaarten	AOpen	80282	Aopen 6200DV 256Mb,PCI-X	nVIDIA,Tvout,DVI,8X,DX9	91.05210.620
+Video- & TV-kaarten	Videobewerkingskaarten	AOpen	61541	Aopen VX2000 XRecorder	Rem. Control, USB 2.0	91.05446.221
+Video- & TV-kaarten	Videobewerkingskaarten	Pinnacle Systems	75037	Pinnacle MovieBox Del. 9 plus	AV I/O DV I/O, via USB2.0	202262073

@@ -1,0 +1,10 @@
+{
+name: trace_categories;
+
+_resource_cat: select catid from category where catid = %%pcatid%%
+_resource_cat_key: pcatid;
+_mapping_cat: trace;
+
+format_as_trace_categories: trace;
+trace_tree_select: select catid, vocabulary.value, pcatid from category, vocabulary where category.sid = vocabulary.sid and vocabulary.langid = %%langid%%  and category.catid <> 1
+}

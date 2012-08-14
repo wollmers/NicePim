@@ -1,0 +1,26 @@
+{
+name: product_maps;
+priority: 10;
+
+_resource_product_maps: select pm.product_map_id, pm.pattern, pm.code, s.name as supname, s2.name as map_supname, s.supplier_id
+from product_map pm
+left join supplier s  on s.supplier_id=pm.supplier_id
+left join supplier s2 on s2.supplier_id=pm.map_supplier_id
+where %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_product_maps_type: multi;
+_resource_product_maps_def_order: supplier_name;
+_mapping_product_maps: product_map_id, pattern, code, supplier_name, map_supplier_name, supplier_id;
+
+authorize_superuser: product_map_id;
+authorize_supereditor: product_map_id;
+authorize_category_manager: product_map_id;
+authorize_editor: product_map_id;
+authorize_supplier: product_map_id;
+authorize_guest: product_map_id;
+authorize_shop: product_map_id;
+
+authorize_submit_superuser: product_map_id;
+authorize_submit_supereditor: product_map_id;
+authorize_submit_category_manager: product_map_id;
+
+}

@@ -1,0 +1,179 @@
+#!/usr/bin/perl
+
+#$Id: import_images 413 2006-10-13 13:56:34Z dima $
+
+use lib '/home/gcc/lib';
+#use lib '/home/eugeniy/gcc/lib';
+
+use strict;
+use atomcfg;
+use thumbnail;
+use atomsql;
+use atomlog;
+use data_management;
+use LWP::Simple;
+#use Data::Dumper;
+#use icecat_util;
+
+my $data_source_code = 'prijslijst.txt';
+my $base = $atomcfg{'base_dir'}.'data_source/'.$data_source_code.'/';
+my $fn = $base.'export_icecat_m.txt';
+
+if(!-e $fn){ die "File $fn is absent!\n"; }
+
+my $shadow = {};
+$shadow->{'product_description'} = 1;
+$shadow->{'product'} = 1;
+$shadow->{'product_feature'} = 1;
+$shadow->{'feature'} = 1;
+$shadow->{'category_feature'} = 1;
+$shadow->{'feature_map'} = 1;
+$shadow->{'category_feature_group'} = 1;
+
+my $prefs =  &load_data_source_prefs($data_source_code,'', $shadow);
+if(!$prefs->{'data_source_id'}){ die "Can't load data source preferences for $data_source_code!\n"; }
+
+my %prio_cat = (
+								'TD' => 80,
+								'TB' => 70,
+								'CO' => 60,
+								'BW' => 50,
+								'IM' => 40,
+								'IB' => 30,
+								'DC' => 20,
+								'IC' => 10,
+								'TH' => 10,
+								'FV' => 6,
+								'AC' => 10,
+								'SC' => 10,
+								'EET'=> 5,
+								'QT' => 7
+							);
+
+&log_printf("loading flat file into temp table");
+
+&do_statement("create temporary table pricelist (
+ prodlevid varchar(255) NOT NULL default '',
+ prod_id varchar(255) NOT NULL default '',
+ vendor varchar(255) NOT NULL default '',
+ hfdcat varchar(255) NOT NULL default '',
+ cat varchar(255) NOT NULL default '',
+ name varchar(255) NOT NULL default '',
+ s_desc text NOT NULL default '',
+ l_desc text NOT NULL default '',
+ price varchar(20) NOT NULL default '',
+ stock varchar(10) NOT NULL default '',
+ distributor varchar(10) NOT NULL default '',
+ image text NOT NULL default '',
+ index (prod_id,vendor))");
+&do_statement("load data local infile '$fn' into table pricelist fields escaped by '' ignore 1 lines");
+&do_statement("update pricelist set prod_id=upper(prod_id)");
+
+my $all_prods_from_db = &do_query("select prod_id,vendor from pricelist group by vendor,prod_id");
+&log_printf("starting import images"); 
+
+foreach my $prod_from_db(@$all_prods_from_db){
+	my %data = &get_product_data($prod_from_db->[0],$prod_from_db->[1]);
+
+	foreach my $new_product (keys %data){
+		my %new_product = %{$data{$new_product}};
+		my $supplier_id = $new_product{'supplier_id'};
+		my $prod_id = $new_product{'prod_id'};
+		my $m_prod_id = &get_mapped_prod_id( {'supplier_id'=>$supplier_id,'prod_id'=>$prod_id} );
+		if($m_prod_id){ $prod_id = $m_prod_id; }
+		my $row = &do_query("select product_id,low_pic,high_pic,user_id from product where supplier_id=$supplier_id and prod_id=".&str_sqlize($prod_id));
+		my $product;
+		$product->{'product_id'} = $row->[0][0];
+		$product->{'low_pic'} = $row->[0][1];
+		$product->{'high_pic'} = $row->[0][2];
+		$product->{'user_id'} = $row->[0][3];
+
+		if (($product->{'user_id'} == 1)&&($product->{'product_id'})) { # user_id == nobody
+		    my %images = %{$new_product{'image'}};
+		    my @images;
+		    foreach my $distri (keys %images){
+			my $local_image = {};
+			$local_image->{'value'} = $images{$distri};
+			$local_image->{'distri_prio'} = $prio_cat{$distri};
+			push @images, $local_image;
+		    }
+		    &update_pics($product,&get_result_image(@images));
+		}
+	}
+}
+&log_printf("images imported");
+
+###################################################################################################
+
+sub get_product_data{
+  my ($prod_id,$vendor) = @_;
+  my %data;
+  my $data_from_db = &do_query("select vendor,distributor,image from pricelist where prod_id=".&str_sqlize($prod_id)." and vendor=".&str_sqlize($vendor));
+
+  foreach my $row(@$data_from_db){
+    my $supplier_id = $prefs->{'supplier_map'}->{uc($row->[0])};
+    next if(!$supplier_id);
+    next if($supplier_id eq '157');
+    next if($prod_id =~/^#/ or $prod_id =~/^$/);
+
+    my $distributor = $row->[1];
+    my $image = $row->[2];
+    $image =~ s/\n//gi;
+    my $key = $prod_id."_".$supplier_id;
+    my $product = {};
+    if(exists $data{$key}){ $product = $data{$key}; }
+    $product->{'supplier_id'} = $supplier_id;
+    $product->{'prod_id'} = $prod_id;
+    $product->{'image'}->{$distributor} = $image;
+    $data{$key} = $product;
+  }
+  return %data;
+}
+
+sub get_result_image{
+	my (@images) = @_;
+	my $result;
+	if(scalar(@images)==1){
+		$result = $images[0]
+	}else{
+		$result = $images[0];
+		foreach my $current_image(@images){
+			my $current_value = $current_image->{'value'};
+			$current_value =~ s/^\s//gi;
+			$current_value =~ s/\s$//gi;
+			my $result_value = $result->{'value'};
+			$result_value =~ s/^\s//gi;
+			$result_value =~ s/\s$//gi;
+			if($result_value){
+				if($current_value && $current_image->{'distri_prio'} > $result->{'distri_prio'}){
+					$result = $current_image;
+				}
+			}else{
+				$result = $current_image;
+			}
+		}
+	}
+	return $result->{'value'};
+}
+
+sub update_pics{
+  my ($product,$new_pic) = @_;
+	return if (!$new_pic || ($new_pic eq ''));
+
+	my $low_pic = $product->{'low_pic'};
+	my $low_pic_time = 0;
+	if($low_pic=~m/\.icecat\.biz\/img\/norm\/low\//){
+		$low_pic =~ s/^.+icecat\.biz(.+)/$atomcfg{'base_dir'}www$1/;
+		if(-e $low_pic){ $low_pic_time = (stat($low_pic))[9]; }
+	}
+
+	my $new_pic_time = (head($new_pic))[2];
+	if($new_pic_time && $new_pic_time > $low_pic_time){
+		$product->{'low_pic'} = $new_pic;
+		$product = &normalize_product_pics($product);
+	  &thumbnailize_product($product);
+		$low_pic = $product->{'low_pic'};
+		$low_pic =~ s/^.+icecat\.biz(.+)/$atomcfg{'base_dir'}www$1/;
+		if(-e $low_pic){ utime((stat($low_pic))[8], $new_pic_time, $low_pic); }
+	}
+}

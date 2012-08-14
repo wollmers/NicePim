@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="55538" Prod_id="INSURA1NL-P" ThumbPic="http://www.icecat.biz/thumbs/55538.jpg" Code="1" Quality="SUPPLIER" HighPic="http://www.icecat.biz/img/norm/high/55538.jpg" Name="Toshiba Computer Cover All-Risk verzekering (1 jaar - waarde tot 2.400 Euro incl. BTW)" LowPic="http://www.icecat.biz/img/norm/low/55538.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="686" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="62992" URL="" ShortDesc="SP:Toshiba Computer Cover All Risk Verz. 1 jaar. Verz. Band A (app. waarde inclBTW tot Â2.400) Nederland. Maximale klant verkoopprijs Â 85" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="2" Name="Toshiba"/>
+       <Category ID="788">
+         <Name ID="4493" Value="Hardware support" langid="1"/>
+         <Name ID="4494" Value="Hardware support" langid="2"/>
+         <Name ID="8221" Value="Hardware support" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

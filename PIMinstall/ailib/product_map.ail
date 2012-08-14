@@ -1,0 +1,44 @@
+{
+name: product_map;
+priority: 10;
+
+verify: product_map_id;
+authorize_superuser: product_map_id;
+authorize_supereditor: product_map_id;
+authorize_category_manager: product_map_id;
+authorize_editor: product_map_id;
+authorize_supplier: product_map_id;
+authorize_guest: product_map_id;
+authorize_shop; product_map_id;
+
+verify_submit: product_map_id;
+
+verify_add: yes;
+verify_add_superuser: product_map_id;
+
+_resource_product: select product_map_id, pattern, code, supplier_id, map_supplier_id from product_map where product_map_id = %%product_map_id%%
+_resource_product_type: single;
+_resource_product_key: product_map_id;
+_mapping_product: product_map_id, pattern, code, supplier_id, dest_supplier_id;
+
+authorize_submit_superuser: product_map_id;
+
+format_as_text: pattern;
+
+format_as_dropdown: supplier_id, dest_supplier_id;
+supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+
+dest_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+
+validate_as_mandatory: pattern, code;
+
+ _insert_sequence: 3;
+
+ _insert_table_3: product_map;
+ _insert_values_3: pattern, code, supplier_id, dest_supplier_id;
+ _insert_fields_3: pattern, code, supplier_id, map_supplier_id;
+ _insert_key_3: product_map_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

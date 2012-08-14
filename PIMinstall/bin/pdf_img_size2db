@@ -1,0 +1,98 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomlog;
+use atomsql;
+use atomcfg;
+
+
+my $pdf_go = 1;
+my $pic_go = 1;
+
+#=======================PDF
+if($pdf_go){
+ print "PDF started\n";
+ my $pdf_data = &do_query("select product_description_id, pd.product_id, pdf_url, prod_id from product_description as pd, product as p where pdf_url != '' and pd.product_id = p.product_id");
+
+# print "USER\tSUPPLIER\tPRODUCT\tPDF\tMARKET\n";
+ foreach my $pdf(@$pdf_data){
+	my $product_id = $pdf->[1];
+	my $pdf_url = $pdf->[2];
+	$pdf->[2] =~ /icecat.biz\/pdf\/(.+.pdf)$/;
+	my $pdf_path = $atomcfg{'base_dir'}."/www/pdf/".$1;
+	my $pdf_size = (-s $pdf_path);
+	if(!$pdf_size){ 
+	 my $data = &do_query("select login, s.name from product as p, users as u, supplier as s where p.product_id = $product_id and p.user_id = u.user_id and p.supplier_id = s.supplier_id");
+	 my $user = $data->[0][0];
+	 my $supplier = $data->[0][1];
+	 my $market = &check_market_state($product_id);
+#	 print "$user\t$supplier\t$product_id($pdf->[3])\t$pdf_url\t$market\n"; next;
+	}
+  &update_rows("product_description", "product_description_id = $pdf->[0]", {'pdf_size' => $pdf_size});
+ }
+}
+
+#=======================PIC
+if($pic_go){
+ print "LOW PICS started\n";
+ my $low_pic_data = &do_query("select product_id, low_pic, prod_id from product where low_pic != ''");
+ foreach my $pic(@$low_pic_data){
+	 &go_pic($pic, 'low_pic_size');
+ }
+ print "HIGH PICS started\n";
+ my $high_pic_data = &do_query("select product_id, high_pic, prod_id from product where high_pic != ''");
+ foreach my $pic(@$high_pic_data){
+	 &go_pic($pic, 'high_pic_size');
+ }
+ print "THUMB PICS started\n";
+ my $thumb_pic_data = &do_query("select product_id, thumb_pic, prod_id from product where thumb_pic != ''");
+ foreach my $pic(@$thumb_pic_data){
+	 &go_pic($pic, 'thumb_pic_size');
+ }
+}
+
+sub check_market_state
+{
+ my($product_id) = @_;
+ my $markets = &do_query("select country_id, existed, active from country_product where product_id = ".$product_id);
+	
+ if(!$markets->[0][0]){
+   return "no info";
+ }
+	 
+ foreach my $market(@$markets){
+  my $state = $market->[1];
+  my $active = $market->[2];
+	if($state&&$active){ return "YES";} #product present in market
+  else{ return "NO";} #product not present at market
+ }
+}
+
+sub go_pic
+{
+  my($pic, $size_field) = @_;
+	my $product_id = $pic->[0];
+	my $pic_path = $pic->[1];
+	if($pic_path =~ /http:\/\/data.icecat.biz/){
+	 $pic_path =~ s/http:\/\/data.icecat.biz/$atomcfg{'base_dir'}www\//;
+	};
+	if($pic_path =~ /http:\/\/icecat.biz/){
+	 $pic_path =~ s/http:\/\/icecat.biz/$atomcfg{'base_dir'}www\//;
+	};
+	if($pic_path =~ /http:\/\/icecat.nl/){
+	 $pic_path =~ s/http:\/\/www.icecat.nl/$atomcfg{'base_dir'}www\//;
+	};
+	if($pic_path =~ /http:\/\/www.icecat.nl/){
+	 $pic_path =~ s/http:\/\/www.icecat.nl/$atomcfg{'base_dir'}www\//;
+	};
+	my $pic_size = (-s $pic_path);
+	if(!$pic_size){ 
+	 my $data = &do_query("select login, s.name from product as p, users as u, supplier as s where p.product_id = $product_id and p.user_id = u.user_id and p.supplier_id = s.supplier_id");
+	 my $user = $data->[0][0];
+	 my $supplier = $data->[0][1];
+	 my $market = &check_market_state($product_id);
+#	 print "$user\t$supplier\t$product_id($pic->[2])\t$pic->[1]\t$market\n"; next;
+	 return;
+	}
+	&update_rows("product", "product_id = $product_id", {$size_field => $pic_size});
+}

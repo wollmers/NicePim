@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="133551" Prod_id="967545-0100" ThumbPic="http://www.icecat.biz/thumbs/133551.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/133551.jpg" Name="Cordless DT LX 300 US 105keys USB" LowPic="http://www.icecat.biz/img/norm/low/133551.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="312" No="43">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="868" No="50">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1375" No="46">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="932" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="931" No="3">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="933" No="2">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1374" No="55">
+         <FeatureGroup ID="49">
+           <Name ID="9699" Value="Input device" langid="1"/>
+           <Name ID="9700" Value="Input device" langid="3"/>
+           <Name ID="9701" Value="Input device" langid="2"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="154558" URL="http://www.logitech.de/index.cfm/products/details/ZA/EN,CRID=486,CONTENTID=9132" ShortDesc="Cordless Desktop LX 300 US layout 105keys USB Qwerty" langid="1" LongDesc="Cordless Desktop LX 300\n\nThe Logitech Cordless Desktop LX 300 frees your work space from wires, and lets you work with a newly empowered style. Keyboard provides media and communications controls, including music and video playback, e-mail launch, and Instant Messenger access. Distinctive, easier F-keys are programmable. Launch MS Office programs more easily. Premium cordless optical mouse gives you smooth, precise tracking, while keyboard provides a scroll wheel and Web page back. The LX 300 sets a higher standard for comfort and style. The new ultra-flat keyboard incorporates innovative refinements to key layout and feel. Logitechs secure wireless technology ensures completely reliable performance. \n\nPositioning: \nA cleaner cordless work space, plus leading-edge comfort\nGo cordless, simply and reliably\nOne-touch music, video, and Web navigation controls\nLaunch e-mail, Messenger, and MS applications more easily\nInnovative ultra-flat keyboard, plus cordless optical mouse\n\n" WarrantyInfo="5-year limited hardware warranty " PDFURL=""/>
+        <ProductFeature ID="9683504" Value="Cordless Desktop keyboard" No="100670" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1050">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3641" Value="Input devices description" langid="1"/>
+           <Name ID="3642" Value="Input devices description" langid="2"/>
+           <Name ID="7807" Value="Input devices description" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683510" Value="Windows 98SE, Windows ME, Windows 2000, or Windows XP " No="100000" CategoryFeatureGroup_ID="312">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683518" Value="" No="50" CategoryFeatureGroup_ID="312">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9666535" Value="1 USB port or 2 PS/2 ports " No="60" CategoryFeatureGroup_ID="1375">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683523" Value="N" No="0" CategoryFeatureGroup_ID="312">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683525" Value="" No="0" CategoryFeatureGroup_ID="312">
+         <Feature ID="1394">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4329" Value="Deskbased Accessories Description" langid="1"/>
+           <Name ID="4330" Value="Deskbased Accessories Description" langid="2"/>
+           <Name ID="8145" Value="Deskbased Accessories Description" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683528" Value="" No="0" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1412">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4365" Value="Function keys" langid="1"/>
+           <Name ID="4366" Value="Function keys" langid="2"/>
+           <Name ID="8162" Value="Function keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683526" Value="" No="0" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1410">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4361" Value="Keyboard layout" langid="1"/>
+           <Name ID="4362" Value="Keyboard layout" langid="2"/>
+           <Name ID="8160" Value="Keyboard layout" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683527" Value="" No="0" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1411">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4363" Value="Keys" langid="1"/>
+           <Name ID="4364" Value="Keys" langid="2"/>
+           <Name ID="8161" Value="Keys" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683524" Value="" No="0" CategoryFeatureGroup_ID="312">
+         <Feature ID="1266">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="4073" Value="Cable length" langid="1"/>
+           <Name ID="4074" Value="Cable length" langid="2"/>
+           <Name ID="8019" Value="Cable length" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683511" Value="2150" No="100000" CategoryFeatureGroup_ID="932">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683516" Value="" No="100005" CategoryFeatureGroup_ID="868">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683509" Value="" No="100000" CategoryFeatureGroup_ID="932">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683512" Value="" No="100040" CategoryFeatureGroup_ID="868">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683513" Value="" No="100039" CategoryFeatureGroup_ID="868">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683514" Value="" No="100038" CategoryFeatureGroup_ID="868">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683515" Value="" No="100037" CategoryFeatureGroup_ID="868">
+         <Feature ID="5">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="1292" Value="Processor-kloksnelheid" langid="2"/>
+           <Name ID="1291" Value="Processor clock speed" langid="1"/>
+           <Name ID="6663" Value="Processor clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683519" Value="" No="36" CategoryFeatureGroup_ID="1374">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683530" Value="" No="1" CategoryFeatureGroup_ID="931">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683529" Value="" No="2" CategoryFeatureGroup_ID="931">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683505" Value="Wireless" No="100034" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1655">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5169" Value="Connectivity technology" langid="1"/>
+           <Name ID="5170" Value="Connectiviteit-technologie" langid="2"/>
+           <Name ID="8388" Value="Connectivity technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683506" Value="" No="100033" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1738">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5423" Value="Buttons quantity" langid="1"/>
+           <Name ID="5424" Value="Aantal knoppen" langid="2"/>
+           <Name ID="8482" Value="Buttons quantity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683520" Value="" No="32" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1012">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3565" Value="Pointing device description" langid="1"/>
+           <Name ID="3566" Value="Pointing device description" langid="2"/>
+           <Name ID="7770" Value="Pointing device description" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683517" Value="4 AA batteries " No="100031" CategoryFeatureGroup_ID="933">
+         <Feature ID="908">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3357" Value="Battery type" langid="1"/>
+           <Name ID="3358" Value="Type batterij" langid="2"/>
+           <Name ID="7671" Value="Type de batterie" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683507" Value="" No="100030" CategoryFeatureGroup_ID="1374">
+         <Feature ID="1772">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5515" Value="Movement detection technology" langid="1"/>
+           <Name ID="5516" Value="Movement detection technology" langid="2"/>
+           <Name ID="8549" Value="Movement detection technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683521" Value="" No="29" CategoryFeatureGroup_ID="312">
+         <Feature ID="1592">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4942" Value="Peripheral/ interface devices" langid="2"/>
+           <Name ID="4941" Value="Peripheral/ interface devices" langid="1"/>
+           <Name ID="6592" Value="Peripheral/ interface devices" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683522" Value="" No="12" CategoryFeatureGroup_ID="1374">
+         <Feature ID="990">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3521" Value="Interface type" langid="1"/>
+           <Name ID="3522" Value="Interfacetype" langid="2"/>
+           <Name ID="7748" Value="Interface type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9683508" Value="" No="100002" CategoryFeatureGroup_ID="1374">
+         <Feature ID="474">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2479" Value="Button Functions" langid="1"/>
+           <Name ID="2480" Value="Knopfuncties" langid="2"/>
+           <Name ID="7236" Value="Button Functions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="91" Name="Logitech"/>
+       <Category ID="194">
+         <Name ID="389" Value="keyboards or keypads" langid="1"/>
+         <Name ID="390" Value="toetsenborden &amp; keypads" langid="2"/>
+         <Name ID="6267" Value="keyboards or keypads" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

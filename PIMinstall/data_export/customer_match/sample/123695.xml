@@ -1,0 +1,964 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="123695" Prod_id="C9031B" ThumbPic="http://www.icecat.biz/thumbs/123695.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP Deskjet 6840 printer" LowPic="http://www.icecat.biz/img/hp/low_res/c9031b_190x170.jpg">
+        <ProductRelated ID="572561">
+         <Product ID="1427" Prod_id="C3837A" ThumbPic="http://www.icecat.biz/thumbs/1427.jpg" Name="hp premium hoogglanzende film, wit, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572563">
+         <Product ID="1428" Prod_id="51634Z" ThumbPic="http://www.icecat.biz/thumbs/1428.jpg" Name="hp premium papier, A4 (200 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572565">
+         <Product ID="1431" Prod_id="CHP113" ThumbPic="http://www.icecat.biz/thumbs/1431.jpg" Name="hp office paper (quickpack), A4 (2500 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572569">
+         <Product ID="1434" Prod_id="C6951A" ThumbPic="http://www.icecat.biz/thumbs/1434.jpg" Name="HP Premium Plus fotopapier, matglanzend, A4 (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572571">
+         <Product ID="1435" Prod_id="C1821A" ThumbPic="http://www.icecat.biz/thumbs/1435.jpg" Name="hp bannerpapier, A4 (5 banners van 20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572572">
+         <Product ID="1709" Prod_id="C6045A" ThumbPic="http://www.icecat.biz/thumbs/1709.jpg" Name="hp fotowenskaarten, wit, half voorgevouwen, A4 (10 kaarten/enveloppen)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572574">
+         <Product ID="1710" Prod_id="C6042A" ThumbPic="http://www.icecat.biz/thumbs/1710.jpg" Name="hp matte wenskaarten, wit, kwart voorgevouwen, A4 (20 kaarten/enveloppen)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572564">
+         <Product ID="1981" Prod_id="CHP110" ThumbPic="http://www.icecat.biz/thumbs/1981.jpg" Name="hp office paper, A4 (500 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572567">
+         <Product ID="1982" Prod_id="C7040A" ThumbPic="http://www.icecat.biz/thumbs/1982.jpg" Name="HP Premium glanzend fotopapier">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572575">
+         <Product ID="1983" Prod_id="C6829A" ThumbPic="http://www.icecat.biz/thumbs/1983.jpg" Name="hp wenskaarten met reliëf, crème, half voorgevouwen A4 (20 sets)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572566">
+         <Product ID="2117" Prod_id="CHP210" ThumbPic="http://www.icecat.biz/thumbs/2117.jpg" Name="hp printing paper, A4 (500 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572573">
+         <Product ID="2120" Prod_id="C6050A" ThumbPic="http://www.icecat.biz/thumbs/2120.jpg" Name="hp t-shirt transfers, A4 (10 transfers)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572560">
+         <Product ID="2245" Prod_id="C6818A" ThumbPic="http://www.icecat.biz/thumbs/2245.jpg" Name="hp brochure en flyer papier, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572562">
+         <Product ID="2246" Prod_id="C1853A" ThumbPic="http://www.icecat.biz/thumbs/2246.jpg" Name="hp premium papier, extra zwaar, mat, A4 (100 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572568">
+         <Product ID="2252" Prod_id="C6832A" ThumbPic="http://www.icecat.biz/thumbs/2252.jpg" Name="hp premium plus glanzend fotopapier, A4 (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572580">
+         <Product ID="23618" Prod_id="C7894A" ThumbPic="http://www.icecat.biz/thumbs/23618.jpg" Name="hp glanzend fotopapier, 10 x 15 cm (60 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572579">
+         <Product ID="23619" Prod_id="C7891A" ThumbPic="http://www.icecat.biz/thumbs/23619.jpg" Name="hp glanzend fotopapier, 10 x 15 cm (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572570">
+         <Product ID="24038" Prod_id="Q1786A" ThumbPic="http://www.icecat.biz/thumbs/24038.jpg" Name="hp premium plus glanzend fotopapier, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572582">
+         <Product ID="24445" Prod_id="C7897A" ThumbPic="http://www.icecat.biz/thumbs/24445.jpg" Name="hp glanzend fotopapier, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572584">
+         <Product ID="24614" Prod_id="Q1979A" ThumbPic="http://www.icecat.biz/thumbs/24614.jpg" Name="HP Premium Plus glanzend fotopapier, 10 x 15 cm (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572581">
+         <Product ID="24617" Prod_id="Q1980A" ThumbPic="http://www.icecat.biz/thumbs/24617.jpg" Name="hp premium plus glanzend fotopapier, 10 x 15 cm (60 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572583">
+         <Product ID="24629" Prod_id="Q1981A" ThumbPic="http://www.icecat.biz/thumbs/24629.jpg" Name="HP Premium hoogglanzende witte film, A4 (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572578">
+         <Product ID="33279" Prod_id="C7031A" ThumbPic="http://www.icecat.biz/thumbs/33279.jpg" Name="HP Premium Plus transparanten, A4 (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572577">
+         <Product ID="33280" Prod_id="C3832A" ThumbPic="http://www.icecat.biz/thumbs/33280.jpg" Name="HP Premium transparanten, A4 (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572576">
+         <Product ID="33281" Prod_id="C3835A" ThumbPic="http://www.icecat.biz/thumbs/33281.jpg" Name="HP Premium transparanten, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572559">
+         <Product ID="33282" Prod_id="C7029A" ThumbPic="http://www.icecat.biz/thumbs/33282.jpg" Name="HP Premium Plus transparanten, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572589">
+         <Product ID="44795" Prod_id="Q2525A" ThumbPic="http://www.icecat.biz/thumbs/44795.jpg" Name="hp brochure en flyer papier, glanzend, drieslag, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572586">
+         <Product ID="46957" Prod_id="Q2507A" ThumbPic="http://www.icecat.biz/thumbs/46957.jpg" Name="hp premium plus fotopapier, matglanzend, 10 x 15 cm (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572587">
+         <Product ID="46967" Prod_id="Q2508A" ThumbPic="http://www.icecat.biz/thumbs/46967.jpg" Name="hp premium plus fotopapier, matglanzend, 10 x 15 cm (60 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572585">
+         <Product ID="46971" Prod_id="Q2503A" ThumbPic="http://www.icecat.biz/thumbs/46971.jpg" Name="hp premium plus glanzend fotopapier, 10 x 15 cm, zonder witrand (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572593">
+         <Product ID="49855" Prod_id="Q5437A" ThumbPic="http://www.icecat.biz/thumbs/49855.jpg" Name="hp fotopapier, glanzend, A4 (25 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572591">
+         <Product ID="52973" Prod_id="Q5433A" ThumbPic="http://www.icecat.biz/thumbs/52973.jpg" Name="hp premium fotopapier, matglanzend, A4 (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572590">
+         <Product ID="52974" Prod_id="Q2510A" ThumbPic="http://www.icecat.biz/thumbs/52974.jpg" Name="hp everyday fotopapier, matglanzend, enkelzijdig">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572592">
+         <Product ID="52990" Prod_id="Q5434A" ThumbPic="http://www.icecat.biz/thumbs/52990.jpg" Name="hp premium fotopapier, matglanzend, A4 (50 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572596">
+         <Product ID="65496" Prod_id="CHP610" ThumbPic="http://www.icecat.biz/thumbs/65496.jpg" Name="HP Everyday Inkjet papier, A4, 500 vel/riem, 80 gr/m2">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572588">
+         <Product ID="67257" Prod_id="Q2519A" ThumbPic="http://www.icecat.biz/thumbs/67257.jpg" Name="HP Premium fotopapier, glanzend, A4 (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="594208">
+         <Product ID="75956" Prod_id="U4780PA" ThumbPic="" Name="1 jaar post-warranty exchange op de volgende werkdag, hardwaresupport">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572600">
+         <Product ID="97449" Prod_id="CHP710" ThumbPic="http://www.icecat.biz/thumbs/97449.jpg" Name="HP All-In-One Printing Paper, A4, 80 gr/m2 (500 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572601">
+         <Product ID="97450" Prod_id="CHP712" ThumbPic="http://www.icecat.biz/thumbs/97450.jpg" Name="HP All-In-One Printing Paper, A4, 80 gr/m2 (250 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572594">
+         <Product ID="99001" Prod_id="Q5451A" ThumbPic="http://www.icecat.biz/thumbs/99001.jpg" Name="HP Everyday fotopapier, matglanzend, enkelzijdig, A4 (25 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572595">
+         <Product ID="99002" Prod_id="Q5441A" ThumbPic="http://www.icecat.biz/thumbs/99002.jpg" Name="HP Everyday fotopapier, 10 x 15 cm, 100 vel">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572597">
+         <Product ID="99003" Prod_id="Q5436A" ThumbPic="http://www.icecat.biz/thumbs/99003.jpg" Name="HP Premium Plus fotopapier, matglanzend, 10 x 15 met perforatietab, 20 vel">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572598">
+         <Product ID="101791" Prod_id="Q6551A" ThumbPic="http://www.icecat.biz/thumbs/101791.jpg" Name="HP Etiketten, 148 x 105 mm, A4, 25 vel">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="572599">
+         <Product ID="101896" Prod_id="Q6560A" ThumbPic="http://www.icecat.biz/thumbs/101896.jpg" Name="HP Etiketten, 38 x 21,2 mm, A4, 25 vel">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="542537">
+         <Product ID="124965" Prod_id="Q6572A" ThumbPic="http://www.icecat.biz/thumbs/124965.jpg" Name="HP Premium Plus fotopapier, glanzend 13 x 18 cm, zonder witrand (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="613148">
+         <Product ID="135661" Prod_id="U8133E" ThumbPic="" Name="3 jaar haal- en brengservice, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="554308">
+         <Product ID="18355" Prod_id="C6518A" ThumbPic="http://www.icecat.biz/thumbs/18355.jpg" Name="HP USB-kabel, 2 m">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526361">
+         <Product ID="24618" Prod_id="Q1991A" ThumbPic="http://www.icecat.biz/thumbs/24618.jpg" Name="HP Premium fotopapier, glanzend ,10 x 15 cm (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526365">
+         <Product ID="24619" Prod_id="Q1992A" ThumbPic="http://www.icecat.biz/thumbs/24619.jpg" Name="HP Premium fotopapier, glanzend ,10 x 15 cm (60 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526781">
+         <Product ID="102833" Prod_id="C8767EE" ThumbPic="http://www.icecat.biz/thumbs/102833.jpg" Name="HP Nr. 339 zwarte inktcartridge (21 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="597504">
+         <Product ID="44263" Prod_id="U4778A" ThumbPic="" Name="3 jaar exchange op de volgende werkdag, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="554348">
+         <Product ID="123615" Prod_id="Q3032A" ThumbPic="http://www.icecat.biz/thumbs/123615.jpg" Name="HP accessoire voor dubbelzijdig printen met kleine papierlade">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="554316">
+         <Product ID="53280" Prod_id="Q3447A" ThumbPic="http://www.icecat.biz/thumbs/53280.jpg" Name="HP Invoerlade voor 250 vel">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="597495">
+         <Product ID="61907" Prod_id="U4778E" ThumbPic="" Name="3 jaar exchange op de volgende werkdag, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="605272">
+         <Product ID="75956" Prod_id="U4780PA" ThumbPic="" Name="1 jaar post-warranty exchange op de volgende werkdag, hardwaresupport">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="597209">
+         <Product ID="79448" Prod_id="U8133A" ThumbPic="" Name="3 jaar haal- en brengservice, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="631229">
+         <Product ID="95945" Prod_id="U4780PE" ThumbPic="" Name="1 jaar post-warranty exchange op de volgende werkdag, hardwaresupport">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="612816">
+         <Product ID="135661" Prod_id="U8133E" ThumbPic="" Name="3 jaar haal- en brengservice, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526783">
+         <Product ID="111829" Prod_id="C8766EE" ThumbPic="http://www.icecat.biz/thumbs/111829.jpg" Name="HP Nr. 343 drie-kleuren inktcartridge (7 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526771">
+         <Product ID="111842" Prod_id="C9363EE" ThumbPic="http://www.icecat.biz/thumbs/111842.jpg" Name="HP Nr. 344 drie-kleuren inktcartridge (14 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526775">
+         <Product ID="111830" Prod_id="C9369EE" ThumbPic="http://www.icecat.biz/thumbs/111830.jpg" Name="HP Nr. 348 fotocartridge (13 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526376">
+         <Product ID="111831" Prod_id="C9368AE" ThumbPic="http://www.icecat.biz/thumbs/111831.jpg" Name="HP Nr. 100 grijze fotocartridge (15 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="526779">
+         <Product ID="111837" Prod_id="C8765EE" ThumbPic="http://www.icecat.biz/thumbs/111837.jpg" Name="HP Nr. 338 zwarte inktcartridge (11 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="542251">
+         <Product ID="124964" Prod_id="Q6573A" ThumbPic="http://www.icecat.biz/thumbs/124964.jpg" Name="HP Premium Plus fotopapier, glanzend, 10 x 30 cm, panorama (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="577917">
+         <Product ID="127834" Prod_id="Q6592A" ThumbPic="http://www.icecat.biz/thumbs/127834.jpg" Name="HP Brochure en flyer papier, mat, A4">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="550674">
+         <Product ID="127225" Prod_id="C8767EE#ABF" ThumbPic="http://www.icecat.biz/thumbs/102833.jpg" Name="HP Nr. 339 zwarte inktcartridge (21 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="577988">
+         <Product ID="127833" Prod_id="Q6601A" ThumbPic="http://www.icecat.biz/thumbs/127833.jpg" Name="HP Premium fotopapier, glanzend, 10 x 15 cm, zonder witrand (60 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="577966">
+         <Product ID="127827" Prod_id="Q6590A" ThumbPic="http://www.icecat.biz/thumbs/127827.jpg" Name="HP Superior inkjetpapier 180, mat, A4, drieslag">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="553841">
+         <Product ID="127914" Prod_id="C8765EE#ABB" ThumbPic="http://www.icecat.biz/thumbs/111837.jpg" Name="HP Nr. 338 zwarte inktcartridge (11 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="550680">
+         <Product ID="127260" Prod_id="C8765EE#ABF" ThumbPic="http://www.icecat.biz/thumbs/111837.jpg" Name="HP Nr. 338 zwarte inktcartridge (11 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="550684">
+         <Product ID="127261" Prod_id="C9363EE#ABF" ThumbPic="http://www.icecat.biz/thumbs/111842.jpg" Name="HP Nr. 344 drie-kleuren inktcartridge (14 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="553837">
+         <Product ID="127854" Prod_id="C9363EE#ABB" ThumbPic="http://www.icecat.biz/thumbs/111842.jpg" Name="HP Nr. 344 drie-kleuren inktcartridge (14 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="550689">
+         <Product ID="127262" Prod_id="C8766EE#ABF" ThumbPic="http://www.icecat.biz/thumbs/111829.jpg" Name="HP Nr. 343 drie-kleuren inktcartridge (7 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="577880">
+         <Product ID="127830" Prod_id="Q6593A" ThumbPic="http://www.icecat.biz/thumbs/127830.jpg" Name="HP Premium presentatiepapier, mat, A4">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="578009">
+         <Product ID="128032" Prod_id="Q5479A" ThumbPic="http://www.icecat.biz/thumbs/128032.jpg" Name="HP Premium fotopapier, glanzend, 10 x 15 cm, zonder witrand (20 vel)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="553845">
+         <Product ID="127925" Prod_id="C8766EE#ABB" ThumbPic="http://www.icecat.biz/thumbs/111829.jpg" Name="HP Nr. 343 drie-kleuren inktcartridge (7 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="553856">
+         <Product ID="127962" Prod_id="C8767EE#ABB" ThumbPic="http://www.icecat.biz/thumbs/102833.jpg" Name="HP Nr. 339 zwarte inktcartridge (21 ml)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="352" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="782" No="12">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="50" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="52" No="0">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="53" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="46" No="4">
+         <FeatureGroup ID="15">
+           <Name ID="5025" Value="Print speed" langid="1"/>
+           <Name ID="5026" Value="Printsnelheid" langid="2"/>
+           <Name ID="8324" Value="Print speed" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="47" No="5">
+         <FeatureGroup ID="16">
+           <Name ID="5027" Value="Print quality" langid="1"/>
+           <Name ID="5028" Value="Printkwaliteit" langid="2"/>
+           <Name ID="8325" Value="Print quality" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="48" No="3">
+         <FeatureGroup ID="17">
+           <Name ID="5029" Value="Output capacity" langid="1"/>
+           <Name ID="5030" Value="Uitvoercapaciteit" langid="2"/>
+           <Name ID="8326" Value="Output capacity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="49" No="1">
+         <FeatureGroup ID="18">
+           <Name ID="5031" Value="Input capacity" langid="1"/>
+           <Name ID="5032" Value="Invoercapaciteit" langid="2"/>
+           <Name ID="8327" Value="Input capacity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="51" No="0">
+         <FeatureGroup ID="19">
+           <Name ID="5033" Value="Media formats" langid="1"/>
+           <Name ID="5034" Value="Mediaformaten" langid="2"/>
+           <Name ID="8328" Value="Media formats" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="54" No="0">
+         <FeatureGroup ID="20">
+           <Name ID="5035" Value="Print technology" langid="1"/>
+           <Name ID="5036" Value="Printtechnologie" langid="2"/>
+           <Name ID="8329" Value="Print technology" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="825" No="0">
+         <FeatureGroup ID="38">
+           <Name ID="5189" Value="Sound emission" langid="1"/>
+           <Name ID="5190" Value="Sound emission" langid="2"/>
+           <Name ID="8398" Value="Sound emission" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="823" No="0">
+         <FeatureGroup ID="39">
+           <Name ID="5205" Value="Consumables" langid="1"/>
+           <Name ID="5206" Value="Consumables" langid="2"/>
+           <Name ID="8405" Value="Consumables" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="142440" URL="http://www.hp.com" ShortDesc="HP Deskjet 6840 Printer6840" langid="1" LongDesc="Print from wireless devices* or share your printer across a network with built-in Ethernet and 802.11g. Print at up to 30 ppm black/20 ppm colour; or produce professional-quality photos at up to 4800-optimised dpi**.Print directly from wireless devices* or share this outstanding inkjet printer across a home or small office network via built-in Ethernet or 802.11g wireless connectivity. Breakthrough print speeds of up to 30 ppm black and 20 ppm colour mean you get the job done faster, while automatic two-sided printing saves paper costs. This superb printer delivers professional-quality photos at up to 4800-optimised dpi** or optional 6-ink printing***, with borderless printing in all popular formats****.Fast Wi-Fi and network printing.Print from wireless devices* or share your printer across a network with built-in Ethernet and 802.11g. Print at up to 30 ppm black/20 ppm colour; or produce professional-quality photos at up to 4800-optimised dpi**.Fast Wi-Fi and network printing.Built-in networking, Wi-Fi wireless printing and breakthrough print speeds.Built-in networking, Wi-Fi wireless printing and breakthrough print speeds." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="148100" URL="http://www.hp.nl" ShortDesc="HP Deskjet 6840 kleuren-inkjetprinter6840" langid="2" LongDesc="Deze uitstekende inkjetprinter kan rechtstreeks vanaf draadloze apparaten* printen of in een klein thuis- of kantoornetwerk worden gedeeld via de ingebouwde Ethernet of 802.11g draadloze interface. Baanbrekende printsnelheden van 30 ppm in zwart en 20 ppm in kleur bekorten de printtijd en de automatische duplexmodule bespaart papierkosten. Deze schitterende printer produceert professionele foto's met tot 4800 dpi** geoptimaliseerde resolutie of optioneel met zes inktkleuren ***  in alle gangbare formaten met of zonder witranden****.Snel printen via Wi-Fi en het netwerk.Snel printen via Wi-Fi en het netwerk.Ingebouwde netwerkinterface, Wi-Fi draadloze interface en baanbrekende printsnelheden.Ingebouwde netwerkinterface, Wi-Fi draadloze interface en baanbrekende printsnelheden.Printen vanaf draadloze apparaten* of via het netwerk met ingebouwd Ethernet en 802.11g. Printen met snelheden tot 30 ppm in zwart en 20 ppm in kleur of professionele foto's produceren met tot 4800-dpi** geoptimaliseerde resolutie.Printen vanaf draadloze apparaten* of via het netwerk met ingebouwd Ethernet en 802.11g. Printen met snelheden tot 30 ppm in zwart en 20 ppm in kleur of professionele foto's produceren met tot 4800-dpi** geoptimaliseerde resolutie." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9730998" Value="Microsoft® Windows® 98, 98 SE, Me, 2000 Professional, XP; Mac OS v 9.1-9.2.2; Mac OS X v 10.1.5, v 10.2.3, v 10.3.x" No="100900" CategoryFeatureGroup_ID="50">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234831" Value="USB  compatibel met de USB 2.0 specificatie, draadloos 802.11g (802.11b compatibel), Ethernet, PictBridge" No="105264" CategoryFeatureGroup_ID="52">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234811" Value="27 sec" No="14365" CategoryFeatureGroup_ID="46">
+         <Feature ID="690">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2911" Value="Print Speed (Colour Photo, Draft Quality) on Photo Paper" langid="1"/>
+           <Name ID="2912" Value="Printsnelheid (kleurenfoto, concept) op fotopapier" langid="2"/>
+           <Name ID="7450" Value="Print Speed (Colour Photo, Draft Quality) on Photo Paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234843" Value="Standaard automatische duplexmodule, optionele automatische duplexmodule met kleine invoerlade, optionele invoerlade voor 250 vel" No="14320" CategoryFeatureGroup_ID="352">
+         <Feature ID="526">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2583" Value="Paper handling" langid="1"/>
+           <Name ID="2584" Value="Papierverwerking" langid="2"/>
+           <Name ID="7288" Value="Gestion du papier" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234834" Value="C8767EE HP Nr. 339 zwarte inktcartridge (21 ml), 800 pagina's*" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="605">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2741" Value="Page Yield High Capacity (Black and White)" langid="1"/>
+           <Name ID="2742" Value="Paginaopbrengst high-capacity (zwart)" langid="2"/>
+           <Name ID="7367" Value="Page Yield High Capacity (Black and White)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234824" Value="Papier: A4 210 x 297 mm, A5 148 x 210 mm, B5 182 x 257 mm, banners: A4 210 x 297 mm, transparanten: A4 210 x 297 mm, enveloppen: DL 220 x 110 mm, C6 114 x 162 mm, kaarten: A6 105 x 148.5 mm, etiketten: A4 210 x 297 mm, fotopapier: A4 210 x 297 mm, 100 x 150 mm (met of zonder scheurtab), 130 x 180 mm, 100 x 300 mm" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="820">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3171" Value="Recommended media" langid="1"/>
+           <Name ID="3172" Value="Aanbevolen media" langid="2"/>
+           <Name ID="7579" Value="Recommended media" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234842" Value="A4, A5, A6, B5, C6, DL, kwarto (21.6 x 27.9 cm), foto zonder witrand (A6, A5, A4, B5, 10 x 15 cm, 10 x 30 cm panorama)" No="14274" CategoryFeatureGroup_ID="51">
+         <Feature ID="769">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3069" Value="Standard Media Sizes" langid="1"/>
+           <Name ID="3070" Value="Standaard mediaformaten" langid="2"/>
+           <Name ID="7529" Value="Standard Media Sizes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234841" Value="77 x 127 tot 215 x 610 mm" No="14273" CategoryFeatureGroup_ID="51">
+         <Feature ID="458">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2447" Value="Custom Media Sizes" langid="1"/>
+           <Name ID="2448" Value="Formaten afwijkende media" langid="2"/>
+           <Name ID="7220" Value="Custom Media Sizes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234840" Value="HP Image Zone foto en imaging software" No="100040" CategoryFeatureGroup_ID="352">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234839" Value="Presentatiemodus: 38.8 dB(A)" No="14323" CategoryFeatureGroup_ID="352">
+         <Feature ID="585">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2701" Value="Acoustic Pressure Emissions" langid="1"/>
+           <Name ID="2702" Value="Geluidsdruk" langid="2"/>
+           <Name ID="7347" Value="Pression sonore émise" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234838" Value="Ingebouwd Wi-Fi 802.11g (802.11b compatibel) of Ethernet" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1104">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3749" Value="Networking features" langid="1"/>
+           <Name ID="3750" Value="Networking features" langid="2"/>
+           <Name ID="7859" Value="Networking features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234837" Value="Presentatiemodus: 5.1 B(A)" No="14307" CategoryFeatureGroup_ID="352">
+         <Feature ID="647">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2825" Value="Acoustic Power Emissions" langid="1"/>
+           <Name ID="2826" Value="Geluidskracht" langid="2"/>
+           <Name ID="7407" Value="Puissance sonore émise" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234830" Value="Gemiddeld 62.5 W (in gebruik), max. 5 W (standby)" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234829" Value="Externe" No="14625" CategoryFeatureGroup_ID="352">
+         <Feature ID="514">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2559" Value="Power supply type" langid="1"/>
+           <Name ID="2560" Value="type voeding" langid="2"/>
+           <Name ID="7276" Value="type d'alimentation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234828" Value="50" No="114321" CategoryFeatureGroup_ID="48">
+         <Feature ID="846">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="3223" Value="Standard Output Capacity" langid="1"/>
+           <Name ID="3224" Value="Standaard uitvoercapaciteit" langid="2"/>
+           <Name ID="7604" Value="Standard Output Capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234827" Value="Optional 250-sheet paper tray (A4), optional two-sided printing accessory with small paper tray (10 x 15 cm)" No="14639" CategoryFeatureGroup_ID="49">
+         <Feature ID="797">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3125" Value="Additional Paper Trays" langid="1"/>
+           <Name ID="3126" Value="Extra papierladen" langid="2"/>
+           <Name ID="7557" Value="Bacs à papier supplémentaires" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234826" Value="1" No="114281" CategoryFeatureGroup_ID="49">
+         <Feature ID="764">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3059" Value="Standard Paper Trays" langid="1"/>
+           <Name ID="3060" Value="Standaard papierladen" langid="2"/>
+           <Name ID="7524" Value="Standard Paper Trays" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234825" Value="Max. 150 (max. 400 met optionele papierlade voor 250 vel)" No="114316" CategoryFeatureGroup_ID="49">
+         <Feature ID="683">
+          <Measure ID="62" Sign="sheets"/>
+           <Name ID="2897" Value="Maximum Input Capacity" langid="1"/>
+           <Name ID="2898" Value="Maximum invoercapaciteit" langid="2"/>
+           <Name ID="7443" Value="Maximum Input Capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234823" Value="60 tot 90 gr/m2" No="14277" CategoryFeatureGroup_ID="51">
+         <Feature ID="842">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3215" Value="Recommended media weight" langid="1"/>
+           <Name ID="3216" Value="Aanbevolen mediagewicht" langid="2"/>
+           <Name ID="7600" Value="Recommended media weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234820" Value="Voor alle systemen: cd-rom drive; vrije USB-poort en USB-kabel voor directe aansluiting; voor netwerkaansluiting en draadloze functionaliteit is een werkend Ethernet of draadloos 802.11b/g netwerk vereist; 800 x 600 SVGA monitor met 16-bits kleuren. Voor pc-systemen: Intel® Pentium® II of Celeron® processor; Microsoft® Windows® 98, 98 SE, Me, 2000 Professional, XP (Windows® 3.1, 95, NT 4.0 of DOS worden niet ondersteund); 128 Mb RAM; 450 Mb vrije schijfruimte voor software-installatie (150 Mb voor basis software-installatie zonder HP Image Zone software); Microsoft® Internet Explorer 5.01 of hoger. Voor Mac-systemen: G3 processor; Mac OS X v 10.1.5, 10.2.3 en hoger, 10.3.x; Mac OS 9.1 en hoger (Mac OS 9.0 en lager of OS X v 10.2, 10.2.1, 10.2.2 worden niet ondersteund); 128 Mb RAM; 75 Mb vrije schijfruimte voor software-installatie, een webbrowse." No="114301" CategoryFeatureGroup_ID="50">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234819" Value="Met ingebouwd Ethernet (802.3) of draadloos netwerk (802.11g): TCP/IP: IP Direct Mode, Port 9100 Printing; Status, SNMP; Discovery, SLP en mDNS. Geavanceerde beveiliging: WEP (Wired Equivalent Privacy) zoals gedefinieerd in de 802.11b standaard (ondersteunt 802.11g) en WPA (Wi-Fi Protected Access); De WPA oplossing omvat twee componenten: Temporal Key Integrity Protocol (TKIP) encryptie, en 802.1x technologie. Auto IP. Apple Rendezvous" No="14607" CategoryFeatureGroup_ID="352">
+         <Feature ID="742">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3015" Value="Compatible Network Operating Systems" langid="1"/>
+           <Name ID="3016" Value="Compatibele netwerkbesturingssystemen" langid="2"/>
+           <Name ID="7502" Value="Compatible Network Operating Systems" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234818" Value="HP Photoret III (HP Photoret IV met optionele fotocartridge)" No="14302" CategoryFeatureGroup_ID="54">
+         <Feature ID="547">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2625" Value="Colour Printing Technology" langid="1"/>
+           <Name ID="2626" Value="Kleurenprinttechnologie" langid="2"/>
+           <Name ID="7309" Value="Colour Printing Technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234817" Value="±0.06 mm" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1703">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5345" Value="Print quality, vertical alignment accuracy" langid="1"/>
+           <Name ID="5346" Value="Printkwaliteit, nauwkeurigheid verticale uitlijning" langid="2"/>
+           <Name ID="8276" Value="Print quality, vertical alignment accuracy" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234816" Value="Tot 4800 x 1200 dpi geoptimaliseerde resolutie in kleur en 1200 dpi invoer bij printen vanaf een computer" No="14288" CategoryFeatureGroup_ID="47">
+         <Feature ID="479">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2489" Value="Print Quality (Colour, Best Quality)" langid="1"/>
+           <Name ID="2490" Value="Printkwaliteit (kleur, presentatie)" langid="2"/>
+           <Name ID="7241" Value="Print Quality (Colour, Best Quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234815" Value="Tot 1200 x 1200 dpi gerenderd" No="0" CategoryFeatureGroup_ID="47">
+         <Feature ID="1532">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4784" Value="Printkwaliteit (zwart, beste kwaliteit)" langid="2"/>
+           <Name ID="4783" Value="Print quality (black, best quality)" langid="1"/>
+           <Name ID="8237" Value="Print quality (black, best quality)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234814" Value="In 96 seconden" No="14366" CategoryFeatureGroup_ID="46">
+         <Feature ID="594">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2719" Value="Print Speed (Colour Photo, Best Quality) on Photo Paper" langid="1"/>
+           <Name ID="2720" Value="Printsnelheid (kleurenfoto, presentatie) op fotopapier" langid="2"/>
+           <Name ID="7356" Value="Print Speed (Colour Photo, Best Quality) on Photo Paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234813" Value="33 sec" No="0" CategoryFeatureGroup_ID="46">
+         <Feature ID="1537">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="4796" Value="Printsnelheid (kleurenfoto, snel standaardkwaliteit) op fotopapier" langid="2"/>
+           <Name ID="4795" Value="Print speed (colour photo, fast-normal quality) on photo paper" langid="1"/>
+           <Name ID="8227" Value="Print speed (colour photo, fast-normal quality) on photo paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234812" Value="53 sec" No="14391" CategoryFeatureGroup_ID="46">
+         <Feature ID="567">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2665" Value="Print Speed (Colour Photo, Normal Quality) on Photo Paper" langid="1"/>
+           <Name ID="2666" Value="Printsnelheid (kleurenfoto, standaard) op fotopapier" langid="2"/>
+           <Name ID="7329" Value="Print Speed (Colour Photo, Normal Quality) on Photo Paper" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234810" Value="20" No="14295" CategoryFeatureGroup_ID="46">
+         <Feature ID="460">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2451" Value="Print Speed (Colour, Draft Quality, A4)" langid="1"/>
+           <Name ID="2452" Value="Printsnelheid (kleur, concept, A4)" langid="2"/>
+           <Name ID="7222" Value="Print Speed (Colour, Draft Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234809" Value="30" No="14291" CategoryFeatureGroup_ID="46">
+         <Feature ID="826">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3183" Value="Print Speed (Black, Draft Quality, A4)" langid="1"/>
+           <Name ID="3184" Value="Printsnelheid (zwart, concept, A4)" langid="2"/>
+           <Name ID="7585" Value="Print Speed (Black, Draft Quality, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234808" Value="672 spuitmondjes voor zwarte inkt, 600 spuitmondjes voor kleureninkt, 600 spuitmondjes voor foto-inkt (optioneel)" No="14284" CategoryFeatureGroup_ID="54">
+         <Feature ID="453">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2437" Value="Print Head Nozzles" langid="1"/>
+           <Name ID="2438" Value="Spuitmondjes" langid="2"/>
+           <Name ID="7215" Value="Buses de tête d'impression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234807" Value="Thermische HP inkjettechnologie" No="5265" CategoryFeatureGroup_ID="54">
+         <Feature ID="78">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1493" Value="Print technology" langid="1"/>
+           <Name ID="1494" Value="Printtechnologie" langid="2"/>
+           <Name ID="6756" Value="Technologie d'impression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234806" Value="32" No="100025" CategoryFeatureGroup_ID="352">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234836" Value="C9363EE HP Nr. 344 drie-kleuren inktcartridge (14 ml), 450 pagina's*" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="872">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3275" Value="Page Yield High Capacity (Colour)" langid="1"/>
+           <Name ID="3276" Value="Paginaopbrengst high-capacity (kleur)" langid="2"/>
+           <Name ID="7630" Value="Page Yield High Capacity (Colour)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234835" Value="G3 processor; Mac OS v 9.1-9.2.2, OS X v 10.1.5, v 10.2.3, v 10.3.x, 128 Mb RAM; 75 Mb vrije schijfruimte voor software-installatie (Mac OS 9.0 en lager of OS X v 10.2, v 10.2.1, v 10.2.2 worden niet ondersteund)." No="14566" CategoryFeatureGroup_ID="50">
+         <Feature ID="493">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2517" Value="Minumum system requirements for Macintosh" langid="1"/>
+           <Name ID="2518" Value="Minumum systeemeisen voor Macintosh" langid="2"/>
+           <Name ID="7255" Value="Minumum system requirements for Macintosh" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234833" Value="1 USB  compatibel met de USB 2.0 specificatie, 1 Ethernet RJ-45, 1 PictBridge" No="14272" CategoryFeatureGroup_ID="52">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234832" Value="Ja" No="14308" CategoryFeatureGroup_ID="352">
+         <Feature ID="838">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3207" Value="Energy Star certified" langid="1"/>
+           <Name ID="3208" Value="Energy Star-certificaat" langid="2"/>
+           <Name ID="7596" Value="Energy Star certified" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234822" Value="8 ingebouwd, 4 elk in portrait en landscape oriëntatie. CG Times, CG Times Italic, Univers, Univers Italic, Courier, Courier Italic, Letter Gothic, Letter Gothic Italic" No="14319" CategoryFeatureGroup_ID="54">
+         <Feature ID="680">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2891" Value="Typefaces" langid="1"/>
+           <Name ID="2892" Value="Lettertypen" langid="2"/>
+           <Name ID="7440" Value="Polices de caractères" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234821" Value="Verbeterd HP PCL level 3" No="14324" CategoryFeatureGroup_ID="54">
+         <Feature ID="459">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2449" Value="Standard Printer Languages" langid="1"/>
+           <Name ID="2450" Value="Standaard printertalen" langid="2"/>
+           <Name ID="7221" Value="Standard Printer Languages" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234844" Value="EN55022: 1998/Klasse B/CISPR 22: 1997 Klasse B/CISPR 22: +A1 2000; EN55024: 1998; EN 61000-4-2: 1995; EN 61000-4-3: 1996; EN 61000-4-4: 1995; EN 61000-4-5: 1995; EN 61000-4-6: 1996; EN 61000-4-8: 1993; EN 610004-11: 1994; IEC/EN 61000-3-2: 1995/A14: 2000; IEC/EN 61000-3-3: 1995; IEC/EN 61000-3-2: 2000 (tweede editie); IEC/EN 61000-3-3: 1995 + A1: 2001; FCC Title 47 CFR, Part 15 Klasse B; EN 300 328-2 v 1.2.1 (2001-12) EN 301 489-17 v 1.2.1 (2002-04); nummer ­0984 CE0984" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="673">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2877" Value="Electromagnetic Compatibility" langid="1"/>
+           <Name ID="2878" Value="EMC" langid="2"/>
+           <Name ID="7433" Value="compatibilité électromagnétique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234845" Value="* Opbrengstcijfers zijn een benadering, gebaseerd op 5% dekking in zwart, en 15% dekking in kleur. Momenteel is er geen industriestandaard voor het meten van de paginaopbrengst van inktcartridges voor inkjetprinters. Opbrengstcijfers uit verschillende bronnen zijn niet altijd vergelijkbaar. De metingen worden door diverse factoren beïnvloed: het type document, de printmodus, drivers en omgevingscondities. En opbrengst is slechts een van de vele factoren die de totale printkosten beïnvloeden. Om printsystemen te vergelijken moeten consumenten naast de opbrengst ook andere factoren bekijken, zoals betrouwbaarheid, productiviteit en kwaliteit." No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="1704">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5347" Value="Page yield footnote" langid="1"/>
+           <Name ID="5348" Value="Paginaopbrengst voetnoot" langid="2"/>
+           <Name ID="8469" Value="Note de bas de page relative au nombre de pages imprimées" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234846" Value="HP garantie-uitbreidingen: U4778A/E (3 jaar exchange op de volgende werkdag); U4780PA/PE (1 jaar post-warranty exchange); alleen West-Europa: U8133A/E (3 jaar, met haal- en brengservice, omruilen/reparatie); alleen ISE: U4781A/E (3 jaar, retour naar HP)" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1880">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5787" Value="Services (supportpack)" langid="1"/>
+           <Name ID="5788" Value="Services (supportpack)" langid="2"/>
+           <Name ID="8681" Value="Services (supportpack)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234847" Value="HP Photoret III (HP Photoret IV with optional photo cartridge)" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1879">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="5785" Value="Print technology resolution" langid="1"/>
+           <Name ID="5786" Value="Printtechnologie resolutie" langid="2"/>
+           <Name ID="8680" Value="Résolution de la technologie d'impression" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234848" Value="Input voltage 100 to 240 VAC (+/- 10%), 50/60 Hz (+/- 3 Hz)" No="14283" CategoryFeatureGroup_ID="352">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234849" Value="532 x 231 x 467 mm" No="14331" CategoryFeatureGroup_ID="53">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234850" Value="15 tot 80" No="14346" CategoryFeatureGroup_ID="352">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234851" Value="20 tot 80% relatieve luchtvochtigheid, (niet-condenserend)" No="14347" CategoryFeatureGroup_ID="352">
+         <Feature ID="563">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2657" Value="Recommended Humidity Operating Range" langid="1"/>
+           <Name ID="2658" Value="Aanbevolen relatieve luchtvochtigheid bij gebruik" langid="2"/>
+           <Name ID="7325" Value="Humidité de fonctionnement recommandée" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234852" Value="5 tot 90% relatieve luchtvochtigheid, niet-condenserend" No="22135" CategoryFeatureGroup_ID="352">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234853" Value="15 tot 30" No="14344" CategoryFeatureGroup_ID="352">
+         <Feature ID="473">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2477" Value="Recommended Operating Temperature Range" langid="1"/>
+           <Name ID="2478" Value="Aanbevolen temperatuur bij gebruik" langid="2"/>
+           <Name ID="7235" Value="Recommended Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234854" Value="-40 - 60" No="14345" CategoryFeatureGroup_ID="352">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9234855" Value="15 to 35" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451485" Value="Ingangsspanning 100 tot 240 V (± 10%), 50/60 Hz (± 3 Hz)" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9562006" Value="Geavanceerd bedieningspaneel met inktniveau-indicator, statuslampjes voor netwerk en draadloze verbinding en annuleerknop." No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2084">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9248" Value="Control panel" langid="1"/>
+           <Name ID="9249" Value="Panneau de commande" langid="3"/>
+           <Name ID="9250" Value="Bedieningspaneel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451487" Value="8.5 kg" No="14335" CategoryFeatureGroup_ID="53">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451488" Value="6900" No="100000" CategoryFeatureGroup_ID="352">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9451486" Value="451 x 433 x 144 mm" No="100008" CategoryFeatureGroup_ID="53">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9607100" Value="451 x 433 x 144 mm" No="14405" CategoryFeatureGroup_ID="53">
+         <Feature ID="669">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="2869" Value="Maximum Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2870" Value="Maximum afmetingen (B x D x H)" langid="2"/>
+           <Name ID="7429" Value="Maximum Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9710025" Value="Eén jaar hardwaregarantie met service en support van HP Customer Care." No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="2138">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9588" Value="Service &amp; support" langid="1"/>
+           <Name ID="9589" Value="Service &amp; support" langid="3"/>
+           <Name ID="9590" Value="Service en support" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9746851" Value="IEC 60950: 1999 derde editie / EN 60950: 2000 (voor printers en adapters); IEC 60825-1: 1993 +A1; 1997 +A2: 2001 / EN 60825-1: 1994 / Klasse 1 voor LED's" No="0" CategoryFeatureGroup_ID="352">
+         <Feature ID="607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2745" Value="Safety" langid="1"/>
+           <Name ID="2746" Value="Veiligheid" langid="2"/>
+           <Name ID="7369" Value="Sécurité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="234">
+         <Name ID="469" Value="inkjet printers" langid="1"/>
+         <Name ID="470" Value="inkjetprinters" langid="2"/>
+         <Name ID="6307" Value="inkjet printers" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

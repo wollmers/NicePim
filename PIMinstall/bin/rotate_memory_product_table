@@ -1,0 +1,103 @@
+#!/usr/bin/perl
+
+#$Id: rotate_memory_product_table 3672 2011-01-10 12:24:15Z dima $
+
+# rotate_memory_product_table
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+#use lib '/home/alexey/icecat/bo/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+$| = 1;
+
+# begin
+
+ once_again:
+
+print "\033[1mSTART\033[0m: DT ";
+&do_statement("drop table if exists product_memory_new");
+
+print "CT ";
+&do_statement("create table product_memory_new (
+product_id  int(13)      not null default 0,
+supplier_id int(13)      not null default 0,
+catid       int(13)      not null default 0,
+user_id     int(13)      not null default 0,
+prod_id     varchar(64)  not null default '',
+name 	      varchar(235) not null default '',
+high_pic    varchar(255) not null default '',
+low_pic     varchar(255) not null default '',
+thumb_pic   varchar(255) default NULL,
+publish     char(1)      not null default 'Y',
+public      char(1)      not null default 'Y',
+date_added  date         default null,
+updated     timestamp    NOT NULL,
+pmt_modification_time int(13) NOT NULL default 0,
+high_pic_size    int(13) not null default 0,
+high_pic_width    int(13) not null default 0,
+high_pic_height    int(13) not null default 0,
+
+key (prod_id,supplier_id),
+key (product_id,supplier_id,catid),
+key (supplier_id,catid),
+key (name),
+key (catid,updated),
+key (updated),
+key (date_added),
+key (publish,public,product_id)) ENGINE = MyISAM");
+
+print "DK ";
+&do_statement("alter table product_memory_new disable keys");
+
+print "I(";
+
+my @arr = &get_primary_key_set_of_ranges('p','product',100000,'product_id');
+my $query;
+foreach my $b_cond (@arr) {
+
+	&do_statement("lock tables product p write, product_memory_new write, product_modification_time pmt write");
+	$query = "
+	    select p.product_id,p.supplier_id,p.catid,p.user_id,p.prod_id,p.name,p.high_pic,p.low_pic,p.thumb_pic,p.publish,p.public,p.date_added,p.updated,
+        IF(pmt.modification_time IS NULL OR pmt.modification_time = 0, UNIX_TIMESTAMP(p.updated), pmt.modification_time),
+        p.high_pic_size, p.high_pic_width, p.high_pic_height
+    from product p
+    left join product_modification_time pmt using (product_id)
+    where " . $b_cond;
+
+	&log_printf(&do_query_dump("explain ".$query));	
+	&do_statement("
+	    insert into product_memory_new 
+	    (
+	        product_id,supplier_id,catid,user_id,prod_id,name,high_pic,low_pic,thumb_pic,publish,public,date_added,updated,pmt_modification_time,
+	        high_pic_size, high_pic_width, high_pic_height
+	    ) 
+	    " . $query );	    
+	&do_statement("unlock tables");
+	
+	print ".";
+}
+
+print ") UT ";
+
+print "EK(";
+&do_statement("alter table product_memory_new enable keys");
+
+if (&do_query("show tables like 'product_memory'")->[0][0]) {
+	print ") RT2 ";
+	&do_statement("drop table if exists product_memory_old");
+	&do_statement("rename table product_memory to product_memory_old, product_memory_new to product_memory");
+}
+else {
+	print ") RT ";
+	&do_statement("rename table product_memory_new to product_memory");
+}
+
+goto once_again if &do_query("select count(*) from product_memory")->[0][0] == 0;
+
+print "\033[1mEND.\033[0m\n\n";

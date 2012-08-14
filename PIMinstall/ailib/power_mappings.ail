@@ -1,0 +1,27 @@
+{
+name: power_mappings;
+
+priority: 10;
+
+authorize_superuser: value_regexp_id;
+authorize_supereditor: value_regexp_id;
+authorize_category_manager: value_regexp_id;
+authorize_editor: value_regexp_id;
+authorize_supplier: value_regexp_id;
+authorize_guest: value_regexp_id;
+authorize_shop: value_regexp_id;
+
+authorize_submit_superuser: value_regexp_id;
+authorize_submit_supereditor: value_regexp_id;
+authorize_submit_category_manager: value_regexp_id;
+authorize_submit_editor: value_regexp_id # user_id == edit_user_id;
+authorize_submit_supplier: value_regexp_id # user_id == edit_user_id;
+
+_resource_power_mapping: select value_regexp_id, pattern, if(parameter1 = '',"",if(parameter2 = '',concat("(&nbsp;",parameter1,"&nbsp;)"),concat("(&nbsp;",parameter1,"&nbsp;,&nbsp;",parameter2,"&nbsp;)"))), value_regexp_id, value_regexp_id from value_regexp order by pattern asc;
+_resource_power_mapping_type: multi;
+_mapping_power_mapping: value_regexp_id, pattern, parameters, num_features, num_measures;
+
+_format_as_power_mapping_num_features: num_features;
+_format_as_power_mapping_num_measures: num_measures;
+
+}

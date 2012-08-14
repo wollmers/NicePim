@@ -1,0 +1,749 @@
+#!/usr/bin/perl
+
+#$Id: export_urls 3171 2010-09-29 14:26:16Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/gcc/lib';
+#use lib '/home/alexey/icecat/bo/lib';
+
+use strict;
+#use debug_lib;
+
+use atomsql;
+use atomlog;
+use atomcfg;
+use atom_misc;
+use data_management;
+use atom_misc;
+use icecat_util;
+use icecat_server2_repository;
+
+use XML::Simple;
+use Data::Dumper;
+use Encode;
+
+my $ONLY_FREE = $ARGV[0];
+
+my $data_source_code = 'prijslijst.txt';
+my $out_path = $atomcfg{'xml_export_path'};
+my $free_out_path = $out_path.'freeurls/';
+
+my $cmd = '';
+
+my $out_encoding = 'utf8'; # only utf8 or bytes
+$out_encoding = 'bytes' if ($out_encoding ne 'utf8');
+
+my $today = &format_date(time);
+$today =~ s/.{6}$/000000/;
+my $yesterday = &format_date(time-24*60*60);
+$yesterday =~ s/.{6}$/000000/;
+
+&make_authmysql_htaccess($out_path, {
+	'auth_name' => 'ICEcat Urls',
+	'user_table' => 'users',
+	'name_field' => 'login',
+	'pass_field' => 'password',
+	'condition' => "subscription_level in (1,2,4) and user_group='shop'"
+});
+&makedir($free_out_path);
+&make_authmysql_htaccess($free_out_path, {
+	'auth_name' => 'Open ICEcat Urls',
+	'user_table' => 'users',
+	'name_field' => 'login',
+	'pass_field' => 'password',
+	'condition' => "user_group='shop'"
+});
+
+my $urls_xml = 'export_urls.xml';
+my $urls_txt = 'export_urls.txt';
+my $suppliers_txt = 'export_suppliers.txt';
+my $urls_rich_xml = 'export_urls_rich.xml';
+my $urls_rich_txt = 'export_urls_rich.txt';
+
+my $missing; # missing structures
+my $lines = 0;
+my $i = 0;
+
+my $csv = {};
+   $csv->{'product_urls'} = [];
+   $csv->{'suppliers'} 		= [];
+
+my $prefs =  &load_data_source_prefs($data_source_code,	undef,
+											{ # don't load following tables
+												'product'								=> 1,
+												'product_descritption'	=> 1,
+												'product_feature'				=> 1
+											} );
+print "Loaded data source prefs\n";
+
+if(!$prefs->{'data_source_id'}){
+ die "Can't load data source preferences for $data_source_code!\n";
+}
+
+my %catid_by_uncatid = map { $_->{'uncatid'} => $_->{'catid'} } values %{$prefs->{'category'}};
+
+my $users = &do_query('select user_id, user_group from users');
+my %user = map { $_->[0] =>  $_->[1] } @$users;
+
+my $supps = &do_query('select supplier_id, name from supplier');
+my $spsupps = &do_query("select supplier_id from supplier where is_sponsor='Y'");
+my ($sponsor, $dist_condition, $prod_condition,@sponsors);
+foreach (@$spsupps) { $sponsor->{$_->[0]}=1; push @sponsors, $_->[0]; }
+$prod_condition = "supplier_id in (".join(',',@sponsors).") AND" if ($ONLY_FREE);
+
+# output formats
+
+my $generic_xml_fmt = 
+		{
+			'body_open'		=> &xml_utf8_tag.
+'<!DOCTYPE ICECAT-interface SYSTEM "http://data.icecat.biz/dtd/ICECAT-urls.dtd">'."\n".&source_message()."\n".'
+<ICECAT-interface '.&xsd_header('ICECAT-urls').'>'."\n",
+			'body_close'	=> "</ICECAT-interface>\n"
+		};
+
+my $supplier_xml_fmt = {
+			'body_open'		=>  "  <Suppliers>\n",
+			'body_close'	=>  "  </Suppliers>\n",
+
+			'line'	=> "      <Supplier supplier_id=\"%%supplier_id%%\" Name=\"%%Name%%\"/>\n"
+		};
+
+my $category_xml_fmt = {
+			'body_open'		=> " <CategoriesList>\n",
+			'body_close'	=> " </CategoriesList>\n",
+			'line'				=> " <Category ID=\"%%ID%%\" UNCATID=\"%%UNCATID%%\" ThumbPic=\"%%ThumbPic%%\" Searchable=\"%%Searchable%%\" LowPic=\"%%LowPic%%\">
+     <ParentCategory ID=\"%%ParentID%%\">
+      <Names>
+%%ParentCategoryName%%
+      </Names>
+     </ParentCategory>
+%%CategoryName%%
+    </Category>
+",
+      'name_value'	=> "        <Name ID=\"%%ID%%\" langid=\"%%langid%%\" Value=\"%%Value%%\"/>\n",
+		};
+
+my $product_url_fmt	=	{
+			'body_open'			=> "<ProductUrls>\n",
+			'body_close'		=> "</ProductUrls>\n",
+			'line'					=> "   <ProductUrl URL=\"%%URL%%\" Low_res_img=\"%%Low_res_img%%\" UNCATID=\"%%UNCATID%%\" Thumbnail_img=\"%%Thumbnail_img%%\" High_res_img=\"%%High_res_img%%\" Category_ID=\"%%Category_ID%%\" product_id=\"%%product_id%%\" model_name=\"%%model_name%%\" supplier_id=\"%%supplier_id%%\" original_supplier_id=\"%%original_supplier_id%%\" Quality=\"%%Quality%%\" prod_id=\"%%prod_id%%\" m_prod_id=\"%%m_prod_id%%\" Product_View=\"%%Product_View%%\" On_Market=\"%%on_market%%\" Updated=\"%%Updated%%\" %%ean_upcs%% %%country_market_set%%"
+			
+		};
+
+my $supplier_csv_header 		= ['supplier_id', 'Name'];
+my $product_url_csv_header	=	['product_id', 'prod_id', 'Quality', 'URL', 'supplier_id','High_res_img', 'Low_res_img', 'Thumbnail_img','UNCATID', 'Category_ID', 'm_prod_id', 'ean_upcs', 'model_name', 'original_supplier_id', 'product_view', 'on_market', 'country_market_set', 'Updated'];
+
+print "exporting suppliers\n";
+
+# opening output files
+if (!$ONLY_FREE) { # full xml urls
+	open(XMLOUT, ">".$out_path.$urls_xml.".new");
+	binmode(XMLOUT,":utf8");
+	open(ACTIVEXMLOUT, ">".$out_path."on_market.".$urls_xml.".new");
+	binmode(ACTIVEXMLOUT,":utf8");
+	open(DAILYXMLOUT, ">".$out_path."daily.".$urls_xml.".new");
+	binmode(DAILYXMLOUT,":utf8");
+}
+
+if (!$ONLY_FREE) { # full xml urls rich
+	open(XMLOUTRICH, ">".$out_path.$urls_rich_xml.".new");
+	binmode(XMLOUTRICH,":utf8");
+	open(ACTIVEXMLOUTRICH, ">".$out_path."on_market.".$urls_rich_xml.".new");
+	binmode(ACTIVEXMLOUTRICH,":utf8");
+	open(DAILYXMLOUTRICH, ">".$out_path."daily.".$urls_rich_xml.".new");
+	binmode(DAILYXMLOUTRICH,":utf8");
+}
+
+if (!$ONLY_FREE) { # full supplier csv
+	open(CSVSUPPOUT, ">".$out_path.$suppliers_txt.".new");
+	binmode(CSVSUPPOUT,$out_encoding);
+}
+
+# free xml urls rich
+open(FREE_XMLOUTRICH, ">".$free_out_path.$urls_rich_xml.".new");
+binmode(FREE_XMLOUTRICH,":utf8");
+open(FREE_ACTIVEXMLOUTRICH, ">".$free_out_path."on_market.".$urls_rich_xml.".new");
+binmode(FREE_ACTIVEXMLOUTRICH,":utf8");
+open(FREE_DAILYXMLOUTRICH, ">".$free_out_path."daily.".$urls_rich_xml.".new");
+binmode(FREE_DAILYXMLOUTRICH,":utf8");
+
+# free supplier csv
+open(FREE_CSVSUPPOUT, ">".$free_out_path.$suppliers_txt.".new");
+binmode(FREE_CSVSUPPOUT,$out_encoding);
+
+# printing standard headers
+&print_XMLOUT ($generic_xml_fmt->{'body_open'},1);
+&print_XMLOUTRICH ($generic_xml_fmt->{'body_open'},1);
+&print_ACTIVEXMLOUT ($generic_xml_fmt->{'body_open'},1);
+&print_ACTIVEXMLOUTRICH ($generic_xml_fmt->{'body_open'},1);
+&print_DAILYXMLOUT ($generic_xml_fmt->{'body_open'},1);
+&print_DAILYXMLOUTRICH ($generic_xml_fmt->{'body_open'},1);
+&print_CSVSUPPOUT (join("\t", @$supplier_csv_header)."\n",1);
+
+# starting the suppliers output
+&print_XMLOUT ($supplier_xml_fmt->{'body_open'},1);
+&print_XMLOUTRICH ($supplier_xml_fmt->{'body_open'},1);
+&print_ACTIVEXMLOUT ($supplier_xml_fmt->{'body_open'},1);
+&print_ACTIVEXMLOUTRICH ($supplier_xml_fmt->{'body_open'},1);
+&print_DAILYXMLOUT ($supplier_xml_fmt->{'body_open'},1);
+&print_DAILYXMLOUTRICH ($supplier_xml_fmt->{'body_open'},1);
+
+# output suppliers
+foreach my $row(@$supps){
+	my $out = &repl_ph($supplier_xml_fmt->{'line'} ,{ 'Name' => &str_xmlize($row->[1]), 'supplier_id' => $row->[0] });
+	&print_XMLOUT ($out, $sponsor->{$row->[0]});
+	&print_XMLOUTRICH ($out, $sponsor->{$row->[0]});
+	&print_ACTIVEXMLOUT ($out, $sponsor->{$row->[0]});
+	&print_ACTIVEXMLOUTRICH ($out, $sponsor->{$row->[0]});
+	&print_DAILYXMLOUT ($out, $sponsor->{$row->[0]});
+	&print_DAILYXMLOUTRICH ($out, $sponsor->{$row->[0]});
+	&print_CSVSUPPOUT (join("\t", @$row)."\n", $sponsor->{$row->[0]});
+}
+
+# done, closing csv file now
+if (!$ONLY_FREE) {
+	close CSVSUPPOUT;
+	$cmd = "mv -f ".$out_path.$suppliers_txt.".new ".$out_path.$suppliers_txt;
+	`$cmd`;
+}
+close FREE_CSVSUPPOUT;
+$cmd = "mv -f ".$free_out_path.$suppliers_txt.".new ".$free_out_path.$suppliers_txt;
+`$cmd`;
+
+# closing the supplier tag now
+&print_XMLOUT ($supplier_xml_fmt->{'body_close'},1);
+&print_XMLOUTRICH ($supplier_xml_fmt->{'body_close'},1);
+&print_ACTIVEXMLOUT ($supplier_xml_fmt->{'body_close'},1);
+&print_ACTIVEXMLOUTRICH ($supplier_xml_fmt->{'body_close'},1);
+&print_DAILYXMLOUT ($supplier_xml_fmt->{'body_close'},1);
+&print_DAILYXMLOUTRICH ($supplier_xml_fmt->{'body_close'},1);
+
+# Adding cats info
+ my $data = &do_query("select catid, ucatid, sid, tid, pcatid, searchable, low_pic, thumb_pic from category");
+ my $cat_name = {};
+ my $pcat_name = {};
+
+# building cats	names
+ my $cat_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.catid from category, vocabulary where vocabulary.sid = category.sid ");
+ foreach my $cat_row(@$cat_data){
+		 $cat_name->{$cat_row->[3]} .= &repl_ph($category_xml_fmt->{'name_value'}, 
+																				{ 'langid' 	=> 	$cat_row->[2],
+																					'Value'		=> 	&str_xmlize($cat_row->[0]),
+																					'ID'			=>	$cat_row->[1]
+																				});
+ }
+
+&print_XMLOUT ($category_xml_fmt->{'body_open'},1);
+&print_ACTIVEXMLOUT ($category_xml_fmt->{'body_open'},1);
+&print_DAILYXMLOUT ($category_xml_fmt->{'body_open'},1);
+
+my $c;
+
+foreach my $row (@$data) {
+	$c = &repl_ph($category_xml_fmt->{'line'},	{
+		'ID' => $row->[0],
+		'ParentID' => $row->[4],
+		'UNCATID' => $row->[1],
+		'ParentCategoryID' => $row->[4],
+		'LowPic' => &str_xmlize($row->[6]),
+		'ThumbPic' => &str_xmlize($row->[7]),
+		'CategoryName' => $cat_name->{$row->[0]},
+		'ParentCategoryName' => $cat_name->{$row->[4]},
+		'Searchable' 	=> $row->[5]
+								});
+	&print_XMLOUT ($c,1);
+	&print_ACTIVEXMLOUT ($c,1);
+	&print_DAILYXMLOUT ($c,1);
+}
+
+&print_XMLOUT ($category_xml_fmt->{'body_close'},1);
+&print_ACTIVEXMLOUT ($category_xml_fmt->{'body_close'},1);
+&print_DAILYXMLOUT ($category_xml_fmt->{'body_close'},1);
+
+# finished export of categories
+
+# now exporting products
+&print_XMLOUT ($product_url_fmt->{'body_open'},1);
+&print_XMLOUTRICH ($product_url_fmt->{'body_open'},1);
+&print_ACTIVEXMLOUT ($product_url_fmt->{'body_open'},1);
+&print_ACTIVEXMLOUTRICH ($product_url_fmt->{'body_open'},1);
+&print_DAILYXMLOUT ($product_url_fmt->{'body_open'},1);
+&print_DAILYXMLOUTRICH ($product_url_fmt->{'body_open'},1);
+
+if (!$ONLY_FREE) { # full csv urls (FULL & rich)
+	open(CSVOUT, ">".$out_path.$urls_txt.".new");
+	binmode(CSVOUT,$out_encoding);
+	open(ACTIVECSVOUT, ">".$out_path."on_market.".$urls_txt.".new");
+	binmode(ACTIVECSVOUT,$out_encoding);
+	open(DAILYCSVOUT, ">".$out_path."daily.".$urls_txt.".new");
+	binmode(DAILYCSVOUT,$out_encoding);
+
+	open(CSVOUTRICH, ">".$out_path.$urls_rich_txt.".new");
+	binmode(CSVOUTRICH,":utf8");
+	open(ACTIVECSVOUTRICH, ">".$out_path."on_market.".$urls_rich_txt.".new");
+	binmode(ACTIVECSVOUTRICH,":utf8");
+	open(DAILYCSVOUTRICH, ">".$out_path."daily.".$urls_rich_txt.".new");
+	binmode(DAILYCSVOUTRICH,":utf8");
+}
+
+# free csv urls (FULL & rich)
+open(FREE_CSVOUT, ">".$free_out_path.$urls_txt.".new");
+binmode(FREE_CSVOUT,$out_encoding);
+open(FREE_ACTIVECSVOUT, ">".$free_out_path."on_market.".$urls_txt.".new");
+binmode(FREE_ACTIVECSVOUT,$out_encoding);
+open(FREE_DAILYCSVOUT, ">".$free_out_path."daily.".$urls_txt.".new");
+binmode(FREE_DAILYCSVOUT,$out_encoding);
+
+open(FREE_CSVOUTRICH, ">".$free_out_path.$urls_rich_txt.".new");
+binmode(FREE_CSVOUTRICH,":utf8");
+open(FREE_ACTIVECSVOUTRICH, ">".$free_out_path."on_market.".$urls_rich_txt.".new");
+binmode(FREE_ACTIVECSVOUTRICH,":utf8");
+open(FREE_DAILYCSVOUTRICH, ">".$free_out_path."daily.".$urls_rich_txt.".new");
+binmode(FREE_DAILYCSVOUTRICH,":utf8");
+
+&print_CSVOUT (join("\t", @$product_url_csv_header)."\n",1);
+&print_ACTIVECSVOUT (join("\t", @$product_url_csv_header)."\n",1);
+&print_DAILYCSVOUT (join("\t", @$product_url_csv_header)."\n",1);
+&print_CSVOUTRICH (join("\t", @$product_url_csv_header)."\n",1);
+&print_ACTIVECSVOUTRICH (join("\t", @$product_url_csv_header)."\n",1);
+&print_DAILYCSVOUTRICH (join("\t", @$product_url_csv_header)."\n",1);
+
+my $exported;
+
+print "creating itmp_table for product\n";
+
+&do_statement("create temporary table itmp_fullfill_product (
+product_id       int(13)      NOT NULL default '0',
+original_prod_id varchar(255) NOT NULL default '',
+unique key (product_id,original_prod_id))");
+
+&do_statement("create temporary table itmp_product (
+product_id           int(13)      NOT NULL,
+name                 varchar(255) NOT NULL,
+user_id              int(13)      NOT NULL default 1,
+prod_id              varchar(60)  NOT NULL default '',
+catid                int(13)      NOT NULL default 0,
+supplier_id          int(13)      NOT NULL default 0,
+original_supplier_id int(13)      NOT NULL default 0,
+high_pic             varchar(255) NOT NULL default '',
+low_pic              varchar(255) NOT NULL default '',
+thumb_pic            varchar(255) default NULL,
+ean_upc_set          text,
+on_market            tinyint(1)  NOT NULL DEFAULT 0,
+agr_prod_count  	   int(11)     NOT NULL default 0,
+updated              int(13)     NOT NULL default 0,
+date_added           int(13)     NOT NULL default 0,
+country_market_set   text,
+PRIMARY KEY (`product_id`))");
+
+# split by id (1..100000, 100001..200000, 200001..300000 etc)
+my @arr = &get_primary_key_set_of_ranges('p','product_memory',100000,'product_id');
+
+foreach my $b_cond (@arr) {
+	&do_statement("insert into itmp_product(product_id,name,user_id,prod_id,catid,supplier_id,high_pic,low_pic,thumb_pic,agr_prod_count,updated,date_added)
+select p.product_id,p.name,p.user_id,p.prod_id,p.catid,p.supplier_id,p.high_pic,p.low_pic,p.thumb_pic,apc.count,p.pmt_modification_time,unix_timestamp(p.date_added) from product_memory p
+LEFT JOIN aggregated_product_count apc ON apc.product_id=p.product_id
+WHERE $prod_condition $b_cond");
+}
+
+# m_prod_id
+@arr = &get_primary_key_set_of_ranges(undef,'distributor_product',100000,undef);
+foreach my $b_cond (@arr) {
+	&do_statement("insert ignore into itmp_fullfill_product select product_id,original_prod_id from distributor_product where ".$b_cond);
+}
+&do_statement("insert ignore into itmp_fullfill_product select product_id,'' as original_prod_id from itmp_product");
+
+# original_supplier_id
+&do_statement("drop temporary table if exists itmp_distributor_product_with_original_supplier");
+&do_statement("create temporary table itmp_distributor_product_with_original_supplier (
+product_id int(13) primary key,
+original_supplier_id int(13) not null default 0)");
+&do_statement("insert ignore into itmp_distributor_product_with_original_supplier(product_id,original_supplier_id)
+select p.product_id, dp.original_supplier_id from distributor_product dp inner join product p using (product_id) where dp.original_supplier_id!=p.supplier_id and dp.original_supplier_id!=0");
+
+&do_statement("update itmp_product tp inner join itmp_distributor_product_with_original_supplier tdpwos using (product_id) set tp.original_supplier_id=tdpwos.original_supplier_id");
+&do_statement("drop temporary table if exists itmp_distributor_product_with_original_supplier");
+
+# ean/upc
+&do_statement("drop temporary table if exists itmp_product_ean_codes");
+&do_statement("create temporary table itmp_product_ean_codes (
+product_id int(13) NOT NULL default '0',
+ean_codes  text    NOT NULL default '',
+UNIQUE KEY (product_id))");
+
+&do_statement("insert into itmp_product_ean_codes(product_id,ean_codes)
+select straight_join p.product_id, GROUP_CONCAT(pec.ean_code SEPARATOR ';')
+from itmp_product p
+inner join product_ean_codes pec using (product_id)
+group by p.product_id");
+
+# update on_market
+&do_statement("drop temporary table if exists itmp_product_country");
+&do_statement("create temporary table itmp_product_country (
+`product_id`         int(13) primary key,
+`country_market_set` text) ENGINE=MyISAM");
+
+
+&do_statement("insert into itmp_product_country(product_id,country_market_set)
+select p.product_id, group_concat(c.code separator ';')
+from country_product p
+inner join country c using (country_id)
+where p.existed=1 and p.active=1
+group by p.product_id");
+
+
+&do_statement("update itmp_product p inner join itmp_product_country cp using (product_id) set p.country_market_set=cp.country_market_set, p.on_market=1");
+&do_statement("drop temporary table if exists itmp_product_country");
+
+# global select
+my $query = "select tp.product_id,tp.user_id,tp.prod_id,tp.catid,tp.supplier_id,tp.high_pic,tp.low_pic,tp.thumb_pic,tfp.original_prod_id,tpec.ean_codes,tp.name,tp.original_supplier_id,tp.agr_prod_count,tp.on_market,country_market_set,tp.updated,tp.date_added
+from itmp_product tp
+inner join itmp_fullfill_product tfp on tp.product_id=tfp.product_id
+left join itmp_product_ean_codes tpec on tp.product_id=tpec.product_id";
+	
+&log_printf("SQL QUERY DIRECTLY: ".$query.";");
+my $sth = $atomsql::dbh->prepare($query);
+my $rv = $sth->execute;
+&log_printf("SQL QUERY DIRECTLY: DONE");
+
+print "exporting\n";
+
+my $product;
+while ($product = $sth->fetchrow_arrayref) {
+	&print_product_data($product);
+}
+
+&do_statement("drop temporary table itmp_fullfill_product");
+&do_statement("drop temporary table itmp_product");
+
+&print_XMLOUT ($product_url_fmt->{'body_close'},1);
+&print_XMLOUT ($generic_xml_fmt->{'body_close'},1);
+&print_XMLOUTRICH ($product_url_fmt->{'body_close'},1);
+&print_XMLOUTRICH ($generic_xml_fmt->{'body_close'},1);
+&print_ACTIVEXMLOUT ($product_url_fmt->{'body_close'},1);
+&print_ACTIVEXMLOUT ($generic_xml_fmt->{'body_close'},1);
+&print_ACTIVEXMLOUTRICH ($product_url_fmt->{'body_close'},1);
+&print_ACTIVEXMLOUTRICH ($generic_xml_fmt->{'body_close'},1);
+&print_DAILYXMLOUT ($product_url_fmt->{'body_close'},1);
+&print_DAILYXMLOUT ($generic_xml_fmt->{'body_close'},1);
+&print_DAILYXMLOUTRICH ($product_url_fmt->{'body_close'},1);
+&print_DAILYXMLOUTRICH ($generic_xml_fmt->{'body_close'},1);
+
+if (!$ONLY_FREE) {
+	close XMLOUT;
+	close ACTIVEXMLOUT;
+	close DAILYXMLOUT;
+	close XMLOUTRICH;
+	close ACTIVEXMLOUTRICH;
+	close DAILYXMLOUTRICH;
+	close CSVOUT;
+	close ACTIVECSVOUT;
+	close DAILYCSVOUT;
+	close CSVOUTRICH;
+	close ACTIVECSVOUTRICH;
+	close DAILYCSVOUTRICH;
+
+	my @freepaths2move = (
+		$out_path.$urls_xml,
+		$out_path."on_market.".$urls_xml,
+		$out_path."daily.".$urls_xml,
+		$out_path.$urls_rich_xml,
+		$out_path."on_market.".$urls_rich_xml,
+		$out_path."daily.".$urls_rich_xml,
+		$out_path.$urls_txt,
+		$out_path."on_market.".$urls_txt,
+		$out_path."daily.".$urls_txt,
+		$out_path.$urls_rich_txt,
+		$out_path."on_market.".$urls_rich_txt,
+		$out_path."daily.".$urls_rich_txt
+		);
+
+	foreach (@freepaths2move) {
+		$cmd = "/bin/mv -f ".$_.".new ".$_;
+		`$cmd`;
+		log_printf($cmd);
+	}
+}
+
+close FREE_XMLOUTRICH;
+close FREE_ACTIVEXMLOUTRICH;
+close FREE_DAILYXMLOUTRICH;
+close FREE_CSVOUT;
+close FREE_ACTIVECSVOUT;
+close FREE_DAILYCSVOUT;
+close FREE_CSVOUTRICH;
+close FREE_ACTIVECSVOUTRICH;
+close FREE_DAILYCSVOUTRICH;
+
+my @paths2move = (
+	$free_out_path.$urls_rich_xml,
+	$free_out_path."on_market.".$urls_rich_xml,
+	$free_out_path."daily.".$urls_rich_xml,
+	$free_out_path.$urls_txt,
+	$free_out_path."on_market.".$urls_txt,
+	$free_out_path."daily.".$urls_txt,
+	$free_out_path.$urls_rich_txt,
+	$free_out_path."on_market.".$urls_rich_txt,
+	$free_out_path."daily.".$urls_rich_txt
+);
+
+foreach (@paths2move) {
+	$cmd = "/bin/mv -f ".$_.".new ".$_;
+	`$cmd`;
+	log_printf($cmd);
+}
+
+
+my @paths2gzip = (
+	$out_path.$urls_xml,
+	$out_path.$urls_rich_xml,
+	$out_path.$urls_txt,
+	$out_path.$urls_rich_txt,
+
+	$free_out_path.$urls_rich_xml,
+	$free_out_path.$urls_txt,
+	$free_out_path.$urls_rich_txt,
+
+	$out_path."on_market.".$urls_xml,
+	$out_path."on_market.".$urls_rich_xml,
+	$out_path."on_market.".$urls_txt,
+	$out_path."on_market.".$urls_rich_txt,
+
+	$free_out_path."on_market.".$urls_rich_xml,
+	$free_out_path."on_market.".$urls_txt,
+	$free_out_path."on_market.".$urls_rich_txt,
+
+	$out_path."daily.".$urls_xml,
+	$out_path."daily.".$urls_rich_xml,
+	$out_path."daily.".$urls_txt,
+	$out_path."daily.".$urls_rich_txt,
+
+	$free_out_path."daily.".$urls_rich_xml,
+	$free_out_path."daily.".$urls_txt,
+	$free_out_path."daily.".$urls_rich_txt
+);
+
+# gzipping
+foreach (@paths2gzip) {
+	$cmd = "/bin/cat ".$_." | gzip -9 > ".$_.".gz.new && /bin/mv -f ".$_.".gz.new ".$_.".gz";
+	`$cmd`;
+	log_printf($cmd);
+}
+
+print "everything is done\n";
+
+
+### print subs ###
+
+sub print_product_data {
+	my ($row) = @_;
+
+#	return unless ($row->[8]);
+
+#	print $row->[10] . "\n";
+
+	# do the utf8_on
+	for (my $i=0; $i <= $#$row; $i++) {
+		&Encode::_utf8_on($row->[$i]);
+	}
+
+	$row->[8] = $row->[2] unless ($row->[8]);
+	$row->[8] = uc($row->[8]);
+	return if ($exported->{$row->[8].$row->[2].$row->[4]});
+	return if ($row->[8] =~ m/\t/ || $row->[8] =~ m/^\#/);
+	
+	my $q_rate = &get_quality_measure($user{$row->[1]});
+
+	$row->[10] =~ s/\t//sg;
+	$row->[10] =~ s/\r//sg;
+	$row->[10] =~ s/\n//sg;
+	$row->[10] =~ s/\\$//s;
+	$row->[8] =~ s/\t//sg;
+	$row->[2] =~ s/\t//sg;
+	$row->[9] =~ s/\t//sg;
+
+	my $updated = &format_date($row->[15]);
+	my $date_added = &format_date($row->[16]);
+	
+	my $hash = {
+		'product_id'           => $row->[0], 
+		'prod_id'              => $row->[8],
+		'm_prod_id'            => $row->[2],
+		'model_name'		       => $row->[10],
+		'Quality'              => $q_rate,
+		'UNCATID'              => $prefs->{'category'}->{$row->[3]}->{'uncatid'},
+		'Category_ID'          => $row->[3],
+		'URL'                  => 'http://prf.icecat.biz/index.cgi?product_id='.$row->[0].';mi=start;smi=product;',
+		'supplier_id'          => $row->[4],
+		'High_res_img'         => $row->[5],
+		'Low_res_img'          => $row->[6],
+		'Thumbnail_img'        => $row->[7],
+		'ean_upcs'             => $row->[9] || '',
+		'original_supplier_id' => $row->[11] || $row->[4],
+		'Product_View'		     => $row->[12] || 0,
+		'on_market'		         => $row->[13] || 0,
+		'country_market_set'   => $row->[14] || '',
+		'Updated'              => $updated || 0
+		};
+	 
+	my @product_urls;
+	push @product_urls, $hash->{$_} foreach (@$product_url_csv_header);
+ 	&print_CSVOUT (join("\t",@product_urls)."\n", $sponsor->{$row->[4]}, $q_rate);
+ 	&print_ACTIVECSVOUT (join("\t",@product_urls)."\n", $sponsor->{$row->[4]}, $q_rate) if ($row->[13]);
+ 	&print_DAILYCSVOUT (join("\t",@product_urls)."\n", $sponsor->{$row->[4]}, $q_rate) if &is_daily({ 'updated' => $updated, 'date_added' => $date_added, 'quality' => $q_rate }, \$today, \$yesterday);
+
+	if ($q_rate ne 'NOEDITOR') {
+		&print_CSVOUTRICH (join("\t",@product_urls)."\n", $sponsor->{$row->[4]}, $q_rate);
+		&print_ACTIVECSVOUTRICH (join("\t",@product_urls)."\n", $sponsor->{$row->[4]}, $q_rate) if ($row->[13]);
+		&print_DAILYCSVOUTRICH (join("\t",@product_urls)."\n", $sponsor->{$row->[4]}, $q_rate) if &is_daily({ 'updated' => $updated, 'date_added' => $date_added, 'quality' => $q_rate }, \$today, \$yesterday);
+	}
+
+	# ean/upc
+	my $wasEan = 0;
+	if (($row->[8] eq $row->[2]) && ($row->[9])) {
+		$wasEan = 1;
+		$hash->{'ean_upcs'}= ">\n      <EAN_UPCS>\n";
+		my @eans = split ";", $row->[9];
+		foreach (@eans) {
+			$hash->{'ean_upcs'} .= "         <EAN_UPC Value=\"".&str_xmlize($_)."\"/>\n" if ($_);
+		}
+		$hash->{'ean_upcs'} .= "      </EAN_UPCS>\n";
+	}
+	else {
+		$hash->{'ean_upcs'}='';
+	}
+	
+	# creating country market tags
+	$hash->{'country_market_set'} = '';
+	if ($row->[14]) {
+		# collect Country-s 
+		$hash->{'country_market_set'}.=">\n" if !$wasEan;
+		my @countries = sort {$a cmp $b} split ";", $row->[14];
+		if ($#countries > -1) {			
+			$hash->{'country_market_set'}.="\t<Country_Markets>";
+			foreach my $country (@countries) {					
+				next unless ($country);
+				$hash->{'country_market_set'} .= "\n\t\t<Country_Market Value=\"".&str_xmlize($country)."\"/>";
+			} 
+			$hash->{'country_market_set'}.="\n\t</Country_Markets>\n</ProductUrl>\n";
+		}
+	}
+	elsif ($wasEan) {
+		$hash->{'country_market_set'} .= "</ProductUrl>\n";
+	}
+	else {
+		$hash->{'country_market_set'} .= "/>\n";
+	} 
+		
+	# end creating country market tags
+	foreach ('URL', 'High_res_img', 'Low_res_img', 'Thumbnail_img', 'prod_id', 'm_prod_id', 'model_name') {
+		$hash->{$_} = &str_xmlize($hash->{$_}) 
+	}
+	
+	&print_XMLOUT (&repl_ph($product_url_fmt->{'line'},$hash), $sponsor->{$row->[4]});
+	&print_ACTIVEXMLOUT (&repl_ph($product_url_fmt->{'line'},$hash), $sponsor->{$row->[4]}) if ($row->[13]);
+	&print_DAILYXMLOUT (&repl_ph($product_url_fmt->{'line'},$hash), $sponsor->{$row->[4]}) if (&is_daily({ 'updated' => $updated, 'date_added' => $date_added, 'quality' => $q_rate }, \$today, \$yesterday));
+
+	if ($q_rate ne 'NOEDITOR') {
+		&print_XMLOUTRICH (&repl_ph($product_url_fmt->{'line'},$hash), $sponsor->{$row->[4]});
+		&print_ACTIVEXMLOUTRICH (&repl_ph($product_url_fmt->{'line'},$hash), $sponsor->{$row->[4]}) if ($row->[13]);
+		&print_DAILYXMLOUTRICH (&repl_ph($product_url_fmt->{'line'},$hash), $sponsor->{$row->[4]}) if (&is_daily({ 'updated' => $updated, 'date_added' => $date_added, 'quality' => $q_rate }, \$today, \$yesterday));
+	}
+
+	$exported->{$row->[8].$row->[2].$row->[4]} = 1;
+}
+
+sub print_XMLOUT {
+	my ($str, $sponsor) = @_;
+	print XMLOUT $str if (!$ONLY_FREE);
+}
+
+sub print_ACTIVEXMLOUT {
+	my ($str, $sponsor) = @_;
+	print ACTIVEXMLOUT $str if (!$ONLY_FREE);
+}
+
+sub print_DAILYXMLOUT {
+	my ($str, $sponsor) = @_;
+	print DAILYXMLOUT $str if (!$ONLY_FREE);
+}
+
+sub print_XMLOUTRICH {
+	my ($str, $sponsor) = @_;
+	print XMLOUTRICH $str if (!$ONLY_FREE);
+	print FREE_XMLOUTRICH $str if ($sponsor);
+}
+
+sub print_ACTIVEXMLOUTRICH {
+	my ($str, $sponsor) = @_;
+	print ACTIVEXMLOUTRICH $str if (!$ONLY_FREE);
+	print FREE_ACTIVEXMLOUTRICH $str if ($sponsor);
+}
+
+sub print_DAILYXMLOUTRICH {
+	my ($str, $sponsor) = @_;
+	print DAILYXMLOUTRICH $str if (!$ONLY_FREE);
+	print FREE_DAILYXMLOUTRICH $str if ($sponsor);
+}
+
+sub print_CSVSUPPOUT {
+	my ($str, $sponsor) = @_;
+	
+	$str = &utf82latin($str) if ($out_encoding ne 'utf8');
+	print CSVSUPPOUT $str if (!$ONLY_FREE);
+	print FREE_CSVSUPPOUT $str if ($sponsor);
+}
+
+sub print_CSVOUT {
+	my ($str, $sponsor, $q_rate) = @_;
+	$q_rate=1 if (!$q_rate);
+
+	$str = &utf82latin($str) if ($out_encoding ne 'utf8');
+	print CSVOUT $str if (!$ONLY_FREE);
+	print FREE_CSVOUT $str if ($sponsor && ($q_rate ne 'NOEDITOR'));
+}
+
+sub print_CSVOUTRICH {
+	my ($str, $sponsor, $q_rate) = @_;
+	$q_rate=1 if (!$q_rate);
+
+	$str = &utf82latin($str) if ($out_encoding ne 'utf8');
+	print CSVOUTRICH $str if (!$ONLY_FREE);
+	print FREE_CSVOUTRICH $str if ($sponsor && ($q_rate ne 'NOEDITOR'));
+}
+
+sub print_ACTIVECSVOUT {
+	my ($str, $sponsor, $q_rate) = @_;
+	$q_rate=1 if (!$q_rate);
+
+	$str = &utf82latin($str) if ($out_encoding ne 'utf8');
+	print ACTIVECSVOUT $str if (!$ONLY_FREE);
+	print FREE_ACTIVECSVOUT $str if ($sponsor && ($q_rate ne 'NOEDITOR'));
+}
+
+sub print_ACTIVECSVOUTRICH {
+	my ($str, $sponsor, $q_rate) = @_;
+	$q_rate=1 if (!$q_rate);
+
+	$str = &utf82latin($str) if ($out_encoding ne 'utf8');
+	print ACTIVECSVOUTRICH $str if (!$ONLY_FREE);
+	print FREE_ACTIVECSVOUTRICH $str if ($sponsor && ($q_rate ne 'NOEDITOR'));
+}
+
+sub print_DAILYCSVOUT {
+	my ($str, $sponsor, $q_rate) = @_;
+	$q_rate=1 if (!$q_rate);
+
+	$str = &utf82latin($str) if ($out_encoding ne 'utf8');
+	print DAILYCSVOUT $str if (!$ONLY_FREE);
+	print FREE_DAILYCSVOUT $str if ($sponsor && ($q_rate ne 'NOEDITOR'));
+}
+
+sub print_DAILYCSVOUTRICH {
+	my ($str, $sponsor, $q_rate) = @_;
+	$q_rate=1 if (!$q_rate);
+
+	$str = &utf82latin($str) if ($out_encoding ne 'utf8');
+	print DAILYCSVOUTRICH $str if (!$ONLY_FREE);
+	print FREE_DAILYCSVOUTRICH $str if ($sponsor && ($q_rate ne 'NOEDITOR'));
+}

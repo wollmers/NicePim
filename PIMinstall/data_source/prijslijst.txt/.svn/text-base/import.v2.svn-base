@@ -1,0 +1,2278 @@
+#!/usr/bin/perl
+
+#$Id$
+
+use lib "/home/gcc/lib";
+#use lib "/home/dima/gcc_svn/lib";
+#use lib "/home/alex/icecat/bo/trunk/lib";
+use Getopt::Std;
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use data_management;
+use icecat_mapping;
+use icecat_util;
+
+use thumbnail;
+
+use POSIX qw(time sprintf);
+use Spreadsheet::WriteExcel;
+use HTML::Entities;
+
+use Data::Dumper;
+
+ ########
+##      ##
+## init ##
+##      ##
+ ########
+
+$| = 1;
+
+print "Import: ".&mark.$0.&unmark."\n\n";
+
+my $debug_iceimport_download = 0;
+my $debug_iceimport = 0;
+my $debug_prf = 0;
+my $debug_icecat = 0;
+
+my $ignore_ratio = 0;
+
+my $messages = 1;
+my $store_updated_products = 1;
+my $use_replace = 0;
+#my $dummy = 0;
+my $time = 0;
+
+my $data_source_code = "prijslijst.txt";
+my $data_source_id = 1;
+
+# filename
+my $base = $atomcfg{'base_dir'}."data_source/".$data_source_code."/";
+my $fn = "export_icecat_m.txt";
+my $fn_dates = "icecat_pricefile_modification.csv";
+my $load_data_rows = " (prodlevid,prod_id,vendor,hfdcat,cat,name,s_desc,l_desc,price,stock,distributor,image,ean_code)";
+my $truncated_names_file = $base."name_truncated_values";
+
+# prf connections
+#my $prf_mysql_shell = "/usr/bin/mysql -ugcc -pWV120xA gccdb1";
+my $prf_mysql_shell = "/usr/bin/mysql -ugcc -h192.168.1.231 prfdb_utf8";
+my $prf_mysql_table = "shops_imported_product_data";
+my $prf_load_source_file = "/tmp/prf2pricelist_".$$;
+
+# ICEcat.biz distributor_prefix
+my $prf_distri_prefix = 'PRF-';
+my $prf_long_distri_prefix = 'ICEcat.biz ';
+
+# ICEimport distri one to many code relations
+my $distri_code_relations = {
+	'CP' => 'MyCOP%',
+	'US' => 'US\_%',
+	'SE' => 'web2biz%',
+	'LYNX' => 'Lynx%',
+	'SCD' => 'Soluzion%',
+	'TDCH' => 'CGXTD%',
+	'ACN' => 'ACN\_%',
+	'TM' => 'TMB',
+	'DC' => 'DCB',
+	'IM' => 'IMUK',
+	'DIO' => 'Diode'
+};
+
+# reload product_memory
+my $reload_script = $atomcfg{'base_dir'}.'/bin/rotate_memory_product_table';
+unless (-e $reload_script) {
+	print "Unable to find reload script!.. Exiting.\n\n";
+	die;
+}
+
+# check the import starting
+
+&do_statement("update data_source set updated=now() where data_source_id=".$data_source_id);
+my $undefcat_value = '99999999';
+my $ignored_supplier_id = 157;
+my $nobody_user_id = &do_query("select user_id from users where login='nobody'")->[0][0];
+my $missing;
+
+my $swap;
+
+ #########
+##       ##
+## begin ##
+##       ##
+ #########
+
+
+## clean nonmapped mappings
+
+&start; &mprint("drop nonmapped symbols... ");
+&do_statement("delete from data_source_supplier_map where data_source_id=".$data_source_id." and supplier_id=0");
+&mprint("supplier ");
+&do_statement("delete from data_source_category_map where data_source_id=".$data_source_id." and catid=0");
+&mprint("category ");
+&mprint(&done_stop);
+
+## load data sources
+
+&start; &mprint("load data source preferences for `".$data_source_code."`... ");
+my $shadow;
+$shadow->{'product_feature'} = 1;
+$shadow->{'feature'} = 1;
+$shadow->{'product_description'} = 1;
+$shadow->{'category_feature'} = 1;
+$shadow->{'product'} = 1;
+$shadow->{'feature_map'} = 1;
+$shadow->{'category_feature_group'} = 1;
+
+my $prefs = &load_data_source_prefs($data_source_code,'',$shadow);
+if(!$prefs->{'data_source_id'}){
+	die "Can't load data source preferences for ".$data_source_code."!\n";
+}
+
+$prefs->{'total_products'} = 0;
+$prefs->{'updated_products'} = 0;
+$prefs->{'not_updated'} = 0;
+&mprint(&done_stop);
+
+## download import
+
+if (!$debug_iceimport_download) {
+	&start; &mprint("\ndownload import file from remote server: ".$fn.", ");
+	
+	my $ftphost = "ftp.iceshop.nl";
+	my $ftpname = "icecat";
+	my $ftppass = 'ser\&mar$';
+	
+	my $cmd = "/bin/rm -f ".$base.$fn." && /usr/bin/wget -q ftp://".$ftpname.":".$ftppass.'\@'.$ftphost."/".$fn.".gz -O ".$base.$fn.".gz -a ".$atomcfg{'logfile'};
+#	print $cmd."\n";
+	`$cmd`;
+
+	my $cmd2 = "/bin/gzip -d ".$base.$fn.".gz";
+#	print $cmd2."\n";
+	`$cmd2`;
+
+	&mprint($fn_dates." ");
+
+	$cmd = "/bin/rm -f ".$base.$fn_dates." && /usr/bin/wget -q ftp://".$ftpname.":".$ftppass.'\@'.$ftphost."/".$fn_dates." -O ".$base.$fn_dates." -a ".$atomcfg{'logfile'};
+#	print $cmd."\n";
+	`$cmd`;
+
+	&mprint(&done_stop);
+}
+
+die $fn." absent. Exit." unless (-e $base.$fn);
+
+my $plists = &distributor_pl_collect_pricelists($prefs);
+
+&preparing_pricelist_table(); # prepare pricelist table
+
+&ean_completion(); # prepare eans & complete prod_id & vendor feilds with proper values: if ean is valid and prod_id = '' complete prod_id + vendor from product table
+
+&CUSTOM_reporting_about_unmapped_MM_products(); # reporting about unmapped MM products (Peter Sol, 16.11.2009)
+
+&delete_fake_products(); # remove all trash
+
+&distributor_mapping(); # before create_product_original_data & before report mappings
+
+&supplier_mapping();
+
+&add_symbols_to_mapping($prefs, $missing, ['supplier']);
+
+&pricelist_prod_id_mapping();
+
+# added 28.09.2009, 15:42 by dima:
+# 1. trim prod_ids after mapping: 1st of all, make ' 123' => '123'
+# 2. To collect the list of products, that have empty partnumbers after mapping.
+&trim_get_empty_prod_ids_remove();
+
+&select_max_priority_products(); # and remove all void prod_ids
+
+&first_cat_mapping();
+
+&second_cat_mapping();
+
+&add_symbols_to_mapping($prefs, $missing, ['category']);
+
+&nonmapped_xls(); # making xls file with nonmapped products
+
+&ucatid_priority_selection(); # make a table with prod_id+supplier_id <-> catid (prio)
+
+&product_id_mapping();
+
+# import
+
+&update_products() if ($prefs->{'updated_products'}+$prefs->{'added_products'}); # product, product_description, product_ean_codes
+
+&update_distributor_product(); # after &update_products
+
+#&check_for_invalid_mappings(); # the new one: drop wrong m_prod_id -> prod_id
+
+&update_product_original_data(); # after &update_products
+
+&update_price_and_stock(); # after &update_products
+
+$prefs->{'ignore_attachment'} = 1;
+$prefs->{'ignore_attachment2'} = 0;
+$prefs->{'ignore_attachment3'} = 0;
+$prefs->{'ignore_attachment4'} = 0;
+
+# publish to the pub, instead of attachment
+$prefs->{'pub_attachment2'} = 1;
+$prefs->{'pub_attachment3'} = 1;
+$prefs->{'pub_attachment4'} = 1;
+
+$prefs->{'default_encoding'} = 'utf8';
+
+print "\n\nSending report... ";
+
+my $html_body = &send_report($prefs, $missing);
+
+print "done\n\nStoring report... ";
+
+open REPORT, ">".$base."import.v2.report";
+binmode REPORT, ":utf8";
+print REPORT $html_body;
+close REPORT;
+
+print "done\n\n";
+
+## images
+#&update_images(); # after &update_products
+
+print "pricelist import was finished\n\n";
+
+exit(0);
+
+ ###############
+##             ##
+## useful subs ##
+##             ##
+ ###############
+
+sub distributor_pl_collect_pricelists {
+	my ($prefs) = @_;
+	### this part is relative to pricelist requests #############
+
+	&start; &mprint("\n".&gmark."Prepare icecat pricelists: ".&unmark);
+
+	my ($fnn, $file, $plists);
+	my $pl_list = &do_query("select name, code, feed_url, feed_type, 
+							 is_first_header,feed_login,feed_pwd,delimiter,newline,escape,quote,user_choiced_file,
+							 country_col,ean_col,name_col,price_vat_col,price_novat_col,desc_col,stock_col,distri_prodid_col,brand_col,brand_prodid_col,category_col 
+							 from distributor_pl where active!=0");
+	
+	if ((!$debug_icecat) && ($pl_list->[0][0])) {
+		use pricelist;
+		use price_request;
+		use pricelist_custom_preprocessing;
+		my $base_data;
+
+#		print(Dumper($pl_list));
+
+		foreach my $pr (@$pl_list) {
+#			$fnn = $pr->[2];
+#			$fnn =~ s#.*//([^/]*?)/.*#$1#i unless ($fnn =~ s#.*//[^\.]*?\.([^/]*?)/.*#$1#i || s/.*/$pr->[2]/i);
+#			$fnn =~ s/[\?\:\@]//gsm;
+			$fnn = &refine_url4path($pr->[2]);
+			my $type = $pr->[3];
+			$file = $atomcfg{'session_path'}.$fnn;
+			$file = $file.".".$type;
+			&mprint("\n".$file." ");
+			`/bin/rm -f $file`;
+			my $sett = undef;
+
+			# check login / pass settings
+			if ($pr->[5] and $pr->[6]) {
+				$sett->{'pl_login'} = $pr->[5];
+				$sett->{'pl_pass'} = $pr->[6];
+			}
+			if ($sett->{'pl_login'}) {
+				&mprint(" using login `".$sett->{'pl_login'}."`");
+			}
+			$sett->{'distri_code'} = $pr->[1];
+			$sett->{'user_choiced_file'} = $pr->[11];
+			my $down = &download_pricelist($pr->[2], $file, $sett);
+			unless ($down == 1) {
+				$prefs->{'miss_pl_url'} .= $down.", ";
+				&mprint("\n".$down);
+				next;
+			}
+			$base_data = &load_pricelist_settings($pr->[1]);
+			my $done = undef;
+			$done = &make_efile($file, $base_data) if ($down == 1);
+			push @$plists,{'tmp_file'=>$file.'_parsed_pricelist.csv','csv_opt'=>$base_data,} if ($done);
+		}
+	}
+	&mprint(&done_stop(undef));
+
+	return $plists;
+}
+
+sub preparing_pricelist_table {
+	## tmp_distributor table (STAGE 0)
+	# tmp_distributor
+	&mprint("CT `tmp_distributor`, ");
+	&do_statement('drop table if exists tmp_distributor');
+	&do_statement("create table tmp_distributor (
+distributor_id int(13)      NOT NULL primary key,
+code           varchar(255) NOT NULL,
+name           varchar(100) NOT NULL,
+trust_level    int(13)      NOT NULL,
+langid         int(3)       NOT NULL,
+country_id     int(13)      NOT NULL,
+KEY (code))");
+	
+	&mprint("I ");
+	&do_statement("alter table tmp_distributor DISABLE KEYS");
+	&do_statement("insert into tmp_distributor(distributor_id,code,name,trust_level,langid,country_id)
+select distributor_id,code,name,trust_level,langid,country_id from distributor");
+	&do_statement("alter table tmp_distributor ENABLE KEYS");
+	&mprint(&done_stop);
+
+	## processing file (STAGE 1)
+	&start; &mprint("\n".&gmark."Prepare pricelist temporary table(-s): ".&unmark);
+
+	# cp $fn -> $fn."utf8"
+	&mprint("latin1 -> utf8, ");
+	my $cmd = "/bin/cp ".$base.$fn." ".$base.$fn.".utf8";
+	`$cmd`;
+	$cmd = "/usr/bin/recode latin1..utf8 ".$base.$fn.".utf8";
+	`$cmd`;
+
+	# create table for nonmapped products
+	&mprint("CT tmp_non_mapped_products, ");
+	&do_statement("drop temporary table if exists tmp_non_mapped_products");
+	&do_statement("create temporary table tmp_non_mapped_products(
+prod_id     varchar(235) not null default '',
+distributor varchar(100) not null default '',
+supplier    varchar(100) not null default '',
+category    varchar(250) not null default '')");
+
+  # create `pricelist` table with `icecat_export_m.txt` file data
+	&mprint("CT pricelist, ");
+	&do_statement("drop table if exists pricelist");
+	&do_statement("create table pricelist (
+pricelist_id    int(13)      unsigned NOT NULL PRIMARY KEY auto_increment,
+
+prodlevid   		varchar(255) NOT NULL default '',
+prod_id     		varchar(155) NOT NULL default '',
+vendor      		varchar(55)  NOT NULL default '',
+hfdcat      		varchar(255) NOT NULL default '',
+cat         		varchar(255) NOT NULL default '',
+name        		varchar(255) NOT NULL default '',
+s_desc      		text         NOT NULL,
+l_desc      		text         NOT NULL,
+price       		varchar(20)  NOT NULL default '',
+stock       		varchar(10)  NOT NULL default '',
+distributor 		varchar(30)  NOT NULL default '',
+image       		text         NOT NULL,
+ean_code    		varchar(13)  NOT NULL default '',
+
+supplier_id              int(13)      unsigned NOT NULL default 0,
+map_prod_id              varchar(155) NOT NULL default '',
+catid                    mediumint(7) unsigned NOT NULL default 0,
+distributor_id           int(13)      unsigned NOT NULL default 0,
+product_id               int(13)      unsigned NOT NULL default 0,
+prio                     tinyint(1)   unsigned NOT NULL default 1,
+user_id                  int(13)      unsigned NOT NULL default 0,
+desc_langid              smallint(5)  unsigned NOT NULL default 0,
+desc_updated             tinyint(1)   unsigned NOT NULL default 0,
+country_id               int(13)      unsigned NOT NULL default 0,
+cat_prio                 tinyint(1)   unsigned NOT NULL default 4,
+original_supplier_id     int(13)      unsigned NOT NULL default 0,
+desc_flag                tinyint(1)   unsigned NOT NULL default 0,
+ean_code_stripped        varchar(13)  NOT NULL default '',
+distributor_product_id   bigint(20)   unsigned NOT NULL default 0,
+product_original_data_id bigint(20)   unsigned NOT NULL default 0,
+`source_info` ENUM('iceimport','icecat','prf'),
+
+key (vendor,prod_id),
+key (cat),
+key (distributor),
+key (distributor,vendor),
+key (supplier_id),
+key (supplier_id,prod_id),
+key (supplier_id,map_prod_id),
+key (supplier_id,map_prod_id,prio),
+key (vendor,map_prod_id),
+key (product_id,prio),
+key (catid),
+key (distributor_id,product_id),
+key (product_id,distributor_id),
+key (product_id,distributor_id,prod_id),
+key (desc_flag),
+key (ean_code),
+key (ean_code_stripped),
+key (distributor_product_id),
+key (product_original_data_id),
+key (source_info, product_id)) ENGINE=MyISAM");
+
+	# disable keys
+	&do_statement("alter table pricelist DISABLE KEYS");
+
+	my ($count_before, $count_after);
+	
+	# ICEimport loading
+	if (!$debug_iceimport) {
+		&mprint("\nL (ICEimport export_icecat_m.txt products=");
+		&do_statement("load data local infile \"".$base.$fn.".utf8\" into table pricelist fields escaped by '' ignore 1 lines ".$load_data_rows. " SET source_info='iceimport'");
+		
+		# Sergey K. pricelist products adding to product table (as in PRF, already parsed) - temporary disabled
+		$count_before = &do_query("select count(*) from pricelist")->[0][0];
+		$count_after = 0;
+		&mprint(&mark . $count_before . &unmark . "), ");
+		
+		# remove utf8 file
+		&mprint("rm file, ");
+		$cmd = "/bin/rm -f ".$base.$fn.".utf8";
+		`$cmd`;
+	}
+
+	if ((!$debug_icecat) && ($#$plists > -1)) {
+		foreach my $pl (@$plists) {
+			my $cmd = "/bin/cp ".$pl->{'tmp_file'}." ".$pl->{'tmp_file'}.".utf8";
+			`$cmd`;
+			$cmd = "/usr/bin/recode latin1..utf8 ".$pl->{'tmp_file'}.".utf8";
+			`$cmd`;
+			&mprint("\nL (".$pl->{'tmp_file'}." products=");
+			if($pl->{'csv_opt'}->{'pl_format'} eq 'xls'){# file was converted before and default settings are used
+				$load_data_rows=~s/source_info='([\w]*)'/source_info='icecat'/; 
+				&do_statement("load data local infile \"".$pl->{'tmp_file'}.".utf8\" 
+						   		into table pricelist fields 
+						   		escaped by '' terminated by '\t' lines terminated by '\n' ".$load_data_rows." SET source_info='icecat'");
+			}else{	
+				my $sql='LOAD DATA LOCAL INFILE \''.$pl->{'tmp_file'}.'\' 
+				 INTO TABLE pricelist 
+				 FIELDS TERMINATED BY \''.$pl->{'csv_opt'}->{'delimeter'}.'\'				 		
+				 		ESCAPED BY '.&str_sqlize($pl->{'csv_opt'}->{'esc_c'}).'				 
+				 		OPTIONALLY ENCLOSED BY \'"\' 
+				 LINES 
+				 		TERMINATED BY \''.$pl->{'csv_opt'}->{'row_delimeter'}.'\'				 	 
+				 '.(($pl->{'csv_opt'}->{'first_row_as_header'}*1)?' IGNORE 1 LINES ':' ').get_sql_columns_assingment($pl->{'csv_opt'}); 
+				 &do_statement($sql);
+				
+			}
+			$cmd = "/bin/rm -f ".$pl->{'tmp_file'}.".utf8";
+			`$cmd`;
+			$cmd = "/bin/rm -f ".$pl->{'tmp_file'};
+			`$cmd`;
+			$count_after = &do_query("select count(*) from pricelist")->[0][0];
+			&mprint(&mark . ($count_after-$count_before) . &unmark . "), ");
+			$count_before = $count_after;
+		}
+	}
+	if (!$debug_prf) { # Load data from PRF specific table (from Vitaly's SQL server)
+		my ($sct, @n);
+		# required table
+		&mprint("desc PRF, ");
+		my $fields = &required_fields($prf_mysql_shell." -e 'desc ".$prf_mysql_table."'",
+																	{
+																		'prod_id' => 1,
+																		'vendor' => 1,
+																		'shop_icecat_login' => 1,
+																		'stock' => 1,
+																		'category' => 1,
+																		'ean' => 1,
+																		'name' => 1,
+																		'description' => 0,
+																		'image' => 0
+																	}); # returns hash, where key = 1 - present, 0 - absent
+		if ($fields) {
+			&mprint("show CT PRF, ");
+			# show create table - to copy it on our server
+			open SCT, $prf_mysql_shell." -e 'show create table ".$prf_mysql_table."' |";
+			binmode SCT, ":utf8";
+			my $i = 0;
+			foreach (<SCT>) {
+				if ($i) {
+					@n = split /\t/, $_;
+					$sct = $n[1];
+					last;
+				}
+				$i++;
+			}
+			close SCT;
+			
+			# replace create table name with create temporary table and others changes
+			$sct =~ s/CREATE TABLE \`$prf_mysql_table\`/CREATE TEMPORARY TABLE \`tmp_$prf_mysql_table\`/s; # ct -> ctt
+			$sct =~ s/auto_increment/default \'0\'/gs; # remove auto_increment
+			$sct =~ s/AUTO\_INCREMENT\=\d+//s;
+			$sct =~ s/\\n/\n/gs;
+			$sct =~ s/(PRIMARY\s)?KEY\s+?(\`.+?\`)?\s+?\(\`.+?\`\)\,?//gs;
+			$sct =~ s/,\s+?\)/\n\)/s;
+			
+			# create table
+#		print "query = ".$sct;
+			
+			&mprint("CT PRF, ");
+			&do_statement($sct);
+			
+			# create a load data local infile source
+			$cmd = $prf_mysql_shell." -e 'set names utf8; select * from ".$prf_mysql_table."' > ".$prf_load_source_file;
+			`$cmd`;
+			
+			# fullfill them
+			&mprint("\nL (Vitaly's PRF data), ");
+			&do_statement("load data local infile '".$prf_load_source_file."' into table tmp_".$prf_mysql_table." fields optionally enclosed by '\"' terminated by '".'\t'."' lines terminated by '".'\n'."'");
+			
+			# remove file
+			&mprint("rm prf file, ");
+			$cmd = '/bin/rm -f '.$prf_load_source_file;
+			`$cmd`;
+		}
+		
+		if (&do_query("select count(*) from tmp_".$prf_mysql_table)->[0][0]) {
+			# add needed & absent fields
+			&mprint("add fields to PRF, ");
+			foreach (keys %$fields) {
+				if ($fields->{$_} eq '0') {
+					&do_statement("alter table tmp_".$prf_mysql_table." add column ".$_." varchar(255) not null default ''");
+					if ($_ eq 'category') {
+						&do_statement("update tmp_".$prf_mysql_table." set category=".&str_sqlize($undefcat_value));
+					}
+					elsif ($_ eq 'name') {
+						&do_statement("update tmp_".$prf_mysql_table." set name=prod_id");
+					}
+				}
+			}
+#			&mprint("new table = ".$sct."\n\n");
+#			&mprint(&do_query_dump("select * from tmp_".$prf_mysql_table." limit 100"));
+		}
+		
+		# add PRF distributors
+		&do_statement("alter table tmp_".$prf_mysql_table." add key (shop_icecat_login)");
+		my $distris_array = &do_query("select distributor_id, country_id from tmp_distributor where code like '".$prf_distri_prefix."%'");
+		my %distris = map { $_->[1] => $_->[0] } @$distris_array;
+		
+#		&mprint("total distris = ".Dumper(\%distris));
+		
+		my $all_countries = &do_query("select distinct(c.country_id), co.code from tmp_".$prf_mysql_table." si inner join users u on si.shop_icecat_login=u.login inner join contact c on u.pers_cid=c.contact_id inner join country co using (country_id) where c.country_id!=0");
+		
+		&mprint("add new PRF distris: ");
+		foreach (@$all_countries) {
+			unless ($distris{$_->[0]}) {
+				&mprint($_->[1].", ");
+				&do_statement("insert into distributor(country_id,code,name,trust_level,langid) values(".$_->[0].",".&str_sqlize($prf_distri_prefix.$_->[1]).",".&str_sqlize($prf_long_distri_prefix.$_->[1]).",0,1)");
+			}
+		}
+		# add distri code to tmp table
+		&do_statement("alter table tmp_".$prf_mysql_table." add column distributor varchar(60) not null default ''");
+
+		&do_statement("update tmp_".$prf_mysql_table." si inner join users u on si.shop_icecat_login=u.login inner join contact c on u.pers_cid=c.contact_id inner join country co using (country_id) set si.distributor=CONCAT(".&str_sqlize($prf_distri_prefix).",co.code) where c.country_id!=0");
+		&mprint("found PRF products: ".&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." of ".&mark.&do_query("select count(*) from tmp_".$prf_mysql_table)->[0][0].&unmark.", ");
+
+		&do_statement("alter table tmp_".$prf_mysql_table." add key distributor (distributor)");
+
+		&do_statement("delete from tmp_".$prf_mysql_table." where distributor=''");
+		&mprint("remove bad products: ".&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark.", ");
+
+		# add to pricelist
+		&do_statement("insert into pricelist(prodlevid,prod_id,vendor,hfdcat,cat,name,s_desc,stock,distributor,image,ean_code,source_info)
+select prod_id,prod_id,vendor,category,category,name,description,stock,distributor,image,ean,'prf' from tmp_".$prf_mysql_table);
+		&mprint("add products to pricelist: ".&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark.", ");
+
+		&do_statement("drop temporary table if exists tmp_".$prf_mysql_table);
+		# end of PRF
+	}
+	else {
+		&mprint("bad PRF request - doing without it ");
+	}
+	&mprint(&done_stop);	
+} # sub preparing_pricelist_table
+
+sub ean_completion {
+	&start; &mprint("\n".&gmark."Complete prod_id + vendor data, using eans: ".&unmark);
+
+	&mprint("D '-' ");
+	&do_statement("update pricelist set ean_code = REPLACE(ean_code,'-','')");
+	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." updates, D (\\D+) ");
+
+	# remove incorrect ean code from table
+	&do_statement("update pricelist set ean_code = '' where ean_code NOT REGEXP '^[[:digit:]]+\$'");
+	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." updates,");
+#	&mprint("TRIM leading 0-es ");
+#
+#	# remove laeading zeroes
+#	&do_statement("update pricelist set ean_code = trim(leading '0' from ean_code)");
+#	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." updates,");
+	&mprint(" D (length < 12) ");
+
+	# remove all ean-codes wher length < 12
+	&do_statement("update pricelist set ean_code = '' where length(ean_code) < 12");
+	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." updates. prod_id 'null' -> ''");
+
+	# prod_id: 'null' -> ''
+	&do_statement("update pricelist set prod_id='' where trim(prod_id)='null'");
+
+	# calculate the number of ean != '' and prod_id = ''
+	&mprint(". The number of products-to-complete is: ".&mark.&do_query("select count(*) from pricelist where ean_code !='' and trim(prod_id) = ''")->[0][0].&unmark.". Let's complete: ");
+	
+	# completion
+	&reload_tmp_product;
+	&reload_tmp_supplier;
+
+	# do the better match, using additional eans without leading zeroes: we should add a product_ean_codes table copy with trimmed by leading zeroes ean_code with key & and additional pricelist table column, named ean_code without leading zeroes
+
+	# 1. pricelist
+	&do_statement("update pricelist set ean_code_stripped=trim(leading '0' from ean_code)");
+
+	# 2. product_ean_codes
+	&do_statement("drop temporary table if exists tmp_product_ean_codes");
+	&do_statement("create temporary table tmp_product_ean_codes like product_ean_codes");
+	&do_statement("alter table tmp_product_ean_codes drop column ean_id, drop column updated, drop key ean_code, add key (ean_code)");
+	&do_statement("alter table tmp_product_ean_codes disable keys");
+	&do_statement("insert ignore into tmp_product_ean_codes(product_id,ean_code) select distinct product_id,trim(leading '0' from ean_code) from product_ean_codes");
+	&do_statement("alter table tmp_product_ean_codes enable keys");
+
+	&do_statement("update pricelist p
+inner join tmp_product_ean_codes pec on p.ean_code_stripped=pec.ean_code
+inner join tmp_product tp on pec.product_id=tp.product_id
+inner join tmp_supplier s on tp.supplier_id=s.supplier_id
+set p.prod_id = tp.prod_id, p.vendor = s.name, p.product_id=tp.product_id
+where p.ean_code != '' and trim(p.prod_id) = ''");
+	
+	&mprint(&done_stop(&mark.&do_query("select row_count()")->[0][0].&unmark." products were completed"));
+
+	&do_statement("drop temporary table if exists tmp_product_ean_codes");
+} # sub ean_completion
+
+sub CUSTOM_reporting_about_unmapped_MM_products {
+	## reporting about unmapped MM products (Peter Sol, 16.11.2009)
+	&start; &mprint("\n".&gmark."Reporting about unmapped MM products: ".&unmark);
+
+	# deciding
+	my $mm_query = &do_query("select p.product_id, p.prod_id, p.ean_code, p.vendor, if(p.name != '', p.name, p.s_desc), (select d.name from distributor d where p.distributor=d.code) dist from pricelist p where p.product_id=0 and p.distributor like 'Media\_Market\_%' order by p.distributor asc");
+
+	if ($#$mm_query > -1) {
+		# initialize xls-es
+		open my $mm_absent_file, '>', \my $mm_absent;
+		my $mm_absent_workbook = Spreadsheet::WriteExcel::Big->new($mm_absent_file) or die("cannot create xls file\n");
+		
+		# Add and define a format
+		my $mm_absent_red_bold_format = $mm_absent_workbook->add_format(); # Add a format
+		$mm_absent_red_bold_format->set_bold();
+		$mm_absent_red_bold_format->set_color('red');
+		$mm_absent_red_bold_format->set_align('center');
+		
+		my ($mm_absent_worksheet, $mm_absent_ws_num, $mm_absent_row);
+		$mm_absent_row = 0;
+		$mm_absent_ws_num = -1;
+		
+		foreach my $r (@$mm_query) {
+			$mm_absent_row = 0 if $mm_absent_row == 65535;
+			if ($mm_absent_row == 0) {
+				$mm_absent_row = 1;
+				$mm_absent_ws_num++;
+				$mm_absent_worksheet->{$mm_absent_ws_num} = $mm_absent_workbook->add_worksheet();
+				$mm_absent_worksheet->{$mm_absent_ws_num}->activate();
+				$mm_absent_worksheet->{$mm_absent_ws_num}->write(0, 0, 'Product part code', $mm_absent_red_bold_format);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->write(0, 1, 'EAN', $mm_absent_red_bold_format);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->write(0, 2, 'Vendor', $mm_absent_red_bold_format);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->write(0, 3, 'Name', $mm_absent_red_bold_format);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->write(0, 4, 'Distributor', $mm_absent_red_bold_format);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->set_column(0, 0, 30);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->set_column(1, 1, 30);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->set_column(2, 2, 30);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->set_column(3, 3, 30);
+				$mm_absent_worksheet->{$mm_absent_ws_num}->set_column(4, 4, 30);
+			}
+			
+			my $col;			
+			for ($col=1; $col<6; $col++) {
+				$mm_absent_worksheet->{$mm_absent_ws_num}->write($mm_absent_row, $col-1, $r->[$col]);
+			}
+			$mm_absent_row++;
+		}
+		
+		$mm_absent_worksheet->{0}->activate();
+		$mm_absent_workbook->close();
+		
+		# send by mail
+		$prefs->{'attachment4_name'} = 'Media_Market_unmapped.xls';
+#		$prefs->{'attachment4_body'} = $mm_absent;
+		$prefs->{'attachment4_binmode'} = 'raw';
+
+		# store to the pub
+		open PUB, ">", $atomcfg{'pub_path'}.$prefs->{'attachment4_name'}.'.gz';
+		binmode PUB, ":raw";
+		print PUB &gzip_data($mm_absent,$prefs->{'attachment4_name'},'raw');
+		close PUB;
+	}
+
+	&mprint(&done_stop(undef));
+} # sub CUSTOM_reporting_about_unmapped_MM_products
+
+sub CUSTOM_reporting_about_mapped_MM_products {
+	## reporting about mapped MM products (Peter Sol, 16.11.2009)
+	&start; &mprint("\n".&gmark."Reporting about mapped MM products: ".&unmark);
+
+	# deciding
+	my $mm_query = &do_query("select p.product_id, p.map_prod_id, p.ean_code, (select s.name from supplier s where s.supplier_id=p.supplier_id) vendor, p.s_desc, (select d.name from distributor d where d.distributor_id=p.distributor_id) distributor from pricelist p where p.product_id!=0 and p.distributor like 'Media\_Market\_%' order by p.distributor asc");
+
+	if ($#$mm_query > -1) {
+		# initiialize xls-es
+		open my $mm_present_file, '>', \my $mm_present;
+		my $mm_present_workbook = Spreadsheet::WriteExcel::Big->new($mm_present_file) or die("cannot create xls file\n");
+
+		# Add and define a format
+		my $mm_present_red_bold_format = $mm_present_workbook->add_format(); # Add a format
+		$mm_present_red_bold_format->set_bold();
+		$mm_present_red_bold_format->set_color('red');
+		$mm_present_red_bold_format->set_align('center');
+		
+		my ($mm_present_worksheet, $mm_present_ws_num, $mm_present_row);
+		$mm_present_row = 0;
+		$mm_present_ws_num = -1;
+		
+		foreach my $r (@$mm_query) {
+			$mm_present_row = 0 if $mm_present_row == 65535;
+			if ($mm_present_row == 0) {
+				$mm_present_row = 1;
+				$mm_present_ws_num++;
+				$mm_present_worksheet->{$mm_present_ws_num} = $mm_present_workbook->add_worksheet();
+				$mm_present_worksheet->{$mm_present_ws_num}->activate();
+				$mm_present_worksheet->{$mm_present_ws_num}->write(0, 0, 'Product part code', $mm_present_red_bold_format);
+				$mm_present_worksheet->{$mm_present_ws_num}->write(0, 1, 'EAN', $mm_present_red_bold_format);
+				$mm_present_worksheet->{$mm_present_ws_num}->write(0, 2, 'Vendor', $mm_present_red_bold_format);
+				$mm_present_worksheet->{$mm_present_ws_num}->write(0, 3, 'Name', $mm_present_red_bold_format);
+				$mm_present_worksheet->{$mm_present_ws_num}->write(0, 4, 'Distributor', $mm_present_red_bold_format);
+				$mm_present_worksheet->{$mm_present_ws_num}->set_column(0, 0, 30);
+				$mm_present_worksheet->{$mm_present_ws_num}->set_column(1, 1, 30);
+				$mm_present_worksheet->{$mm_present_ws_num}->set_column(2, 2, 30);
+				$mm_present_worksheet->{$mm_present_ws_num}->set_column(3, 3, 30);
+				$mm_present_worksheet->{$mm_present_ws_num}->set_column(4, 4, 30);
+			}
+			
+			my $col;
+			for ($col=1; $col<6; $col++) {
+				$mm_present_worksheet->{$mm_present_ws_num}->write($mm_present_row, $col-1, $r->[$col]);
+			}
+			$mm_present_row++;
+		}
+		
+		$mm_present_worksheet->{0}->activate();
+		$mm_present_workbook->close();
+		
+		# send by mail
+		$prefs->{'attachment3_name'} = 'Media_Market_mapped.xls';
+#		$prefs->{'attachment3_body'} = $mm_present;
+		$prefs->{'attachment3_binmode'} = 'raw';
+
+		# store to the pub
+		open PUB, ">", $atomcfg{'pub_path'}.$prefs->{'attachment3_name'}.'.gz';
+		binmode PUB, ":raw";
+		print PUB &gzip_data($mm_present,$prefs->{'attachment3_name'},'raw');
+		close PUB;
+	}
+
+	&mprint(&done_stop(undef));
+} # sub CUSTOM_reporting_about_mapped_MM_products
+
+sub delete_fake_products {
+	&start; &mprint("\n".&gmark."Delete fake products: ".&unmark);
+
+	## delete fake products
+	my $total_worng_products = 0;
+	my $wrong_products = 0;
+	
+	&do_statement("CREATE temporary TABLE tmp_wrong_brands AS 
+				  (SELECT distributor,vendor,count(pricelist_id) as cnt FROM pricelist pl 
+				  WHERE vendor rlike '[0-9]{2,}' GROUP BY distributor,vendor HAVING cnt=1)");
+	&do_statement("ALTER TABLE tmp_wrong_brands ADD UNIQUE KEY(distributor,vendor)");					  
+	my $wrong_brands= &do_query('SELECT count(*) FROM tmp_wrong_brands')->[0][0];
+	if($wrong_brands){
+		$wrong_products=$wrong_brands;
+		&do_statement("UPDATE pricelist pl JOIN tmp_wrong_brands wb 
+							  ON wb.distributor=pl.distributor AND wb.vendor=pl.vendor 
+							  SET pl.prod_id='',pl.vendor=''");
+	}  
+	## filter void prod_ids
+	&mprint("D `pricelist` (prod_id like '') - ");
+	&do_statement("delete from pricelist where prod_id like ''");
+	$wrong_products = &do_query("select ROW_COUNT()")->[0][0];
+	$total_worng_products += $wrong_products;
+	&mprint(&mark.$wrong_products.&unmark." deleted, ");
+
+	## filter prod_ids with short length
+	&mprint("D `pricelist` (length(prod_id) <= 1) - ");
+	&do_statement("delete from pricelist where length(prod_id) <= 1");
+	$wrong_products = &do_query("select ROW_COUNT()")->[0][0];
+	$total_worng_products += $wrong_products;
+	&mprint(&mark.$wrong_products.&unmark." deleted, ");
+
+	## filter wrong prod_ids (using perlre)
+	&mprint("D `pricelist` (prod_id is wrong, using Perl) - ");
+	open(WRONG,">".$base."wrong.prodids");
+	binmode(WRONG,":utf8");
+	my $wrong = &do_query("select pricelist_id, prod_id from pricelist");
+	my $wrongcnt = 0;
+	foreach (@$wrong) {
+		unless (
+				($_->[1] =~ /[\#\*\-\+\s\,\.\(\)\\\/[:alnum:]]/i) &&
+				($_->[1] !~ /^[\/\-]+$/) &&
+				($_->[1] !~ /^,+$/)
+				) {
+			&do_statement("delete from pricelist where pricelist_id='".$_->[0]."'");
+			print WRONG $_->[1]."\n";
+			$wrongcnt++;
+		}
+	}
+	close WRONG;
+	$total_worng_products += $wrongcnt;	
+	&mprint(&mark.$wrongcnt.&unmark." deleted, ");
+
+	# remove products with cyrillic prod_ids
+	&mprint("D cyrillic symbols: ");
+	&do_statement("delete from pricelist where prod_id regexp '[\x{0400}-\x{052f}]'");
+	$wrong_products = &do_query("select ROW_COUNT()")->[0][0];
+	$total_worng_products += $wrong_products;
+	&mprint(&mark.$wrong_products.&unmark." products removed, ");
+
+	# remove products with HASHes
+	&mprint("D HASHes: ");
+	&do_statement("delete from pricelist where prod_id like 'HASH(%' or vendor like 'HASH(%' or cat like 'HASH(%' or name like 'HASH(%'");
+	$wrong_products = &do_query("select ROW_COUNT()")->[0][0];
+	$total_worng_products += $wrong_products;
+	&mprint(&mark.$wrong_products.&unmark." products removed, ");
+
+	# remove products with &nbsp;
+	&mprint("D \&nbsp;: ");
+	&do_statement("delete from pricelist where prod_id = '&nbsp;'");
+	$wrong_products = &do_query("select ROW_COUNT()")->[0][0];
+	$total_worng_products += $wrong_products;
+	&mprint(&mark.$wrong_products.&unmark." products removed. Total number of deleted wrong products is ".&mark.$total_worng_products.&unmark." ");
+	&mprint(&done_stop);
+	
+	# more fixes with pricelist
+	&start; &mprint(&gmark."More fixes: ".&unmark);
+
+	# remove '%aankoop!' descriptions
+	&mprint("remove '...aankoop!' descriptions... ");
+	&do_statement("update pricelist set s_desc='' where s_desc like '%aankoop!'");
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark." short descs updated, ");
+	&do_statement("update pricelist set l_desc='' where l_desc like '%aankoop!'");
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark." long descs updated. ");
+
+	# remove * from vendor (it is used for mappings only)
+	&mprint("remove " . &mark . "*" . &unmark . " from vendor (it is used for mappings only)... ");
+	&do_statement("update pricelist set vendor=replace(vendor,'*','') where vendor like '%*%'");
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark." updated. ");
+
+	# remove * from cat (it is used for mappings only)
+	&mprint("remove " . &mark . "*" . &unmark . " from cat (it is used for mappings only)... ");
+	&do_statement("update pricelist set cat=replace(cat,'*','') where cat like '%*%'");
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark." updated. ");
+
+	# HTML::Entites filter for prod_id
+	&mprint("filter HTML entities (got ");
+	my $html_entities_prod_ids = &do_query("select pricelist_id, prod_id from pricelist where prod_id like '%&%;%'");
+	&mprint(&mark. ($#$html_entities_prod_ids + 1) . &unmark . " prod_ids)... ");
+	my ($i, $new_prod_id);
+	foreach (@$html_entities_prod_ids) {
+		$new_prod_id = &decode_entities($_->[1]);
+		if ($new_prod_id ne $_->[1]) {
+			&do_statement("update pricelist set prod_id=".&str_sqlize($new_prod_id)." where pricelist_id=".$_->[0]);
+			$i++;
+		}
+	}
+	undef $html_entities_prod_ids;
+	undef $new_prod_id;
+	&mprint(&mark . $i . &unmark." updated. ");
+	undef $i;
+
+	# make prod_id, cat, vendor value UPPERCASE
+	&mprint("uppercase prod_id, cat, vendor, trim (CR & SPACE) name... ");
+	&do_statement("update pricelist set prod_id=upper(trim(' ' FROM trim('\r' FROM trim('\t' FROM prod_id)))), cat=upper(trim('\r' FROM cat)), vendor=upper(trim('\r' FROM vendor)), name=trim(' ' FROM name)");
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark." updated. ");
+
+	# make name=prod_id if name=''
+	&mprint("name equals prod_id, if name is void... ");
+	&do_statement("update pricelist set name=prod_id where name=''");
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark." updated. ");
+
+	# make cat=99999999 if cat=''
+	&mprint("U `pricelist` cat = ".&str_sqlize($undefcat_value).", if cat='', ");
+	&do_statement("update pricelist set cat=".&str_sqlize($undefcat_value)." where cat=''");
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark." updated. ");
+
+	# enable keys
+	&mprint("pricelist EK... ");
+	&do_statement("alter table pricelist ENABLE KEYS");
+	&mprint(&done_stop);
+
+	# total products count
+	$prefs->{'total_products'} = &do_query("select count(*) from pricelist")->[0][0];
+	&mprint("\n".&gmark."Total products: ".&unmark.&mark.$prefs->{'total_products'}.&unmark."\n\n");
+
+	## all others useful tmp tables
+	&reload_tmp_product; # product
+} # sub delete fake products
+
+sub supplier_mapping {
+	## preparing supplier mapping (STAGE 2)
+	&start; &mprint("\n".&gmark."Supplier mapping: ".&unmark);
+
+  # make tmp table with supplier_id mappings from `prijslijst.txt` data_source_supplier_map
+	&mprint("CT `tmp_supplier_map`, ");
+	&do_statement("CREATE TEMPORARY TABLE tmp_supplier_map (
+supplier_id      int(13)      NOT NULL DEFAULT 0,
+symbol           varchar(128) NOT NULL DEFAULT '',
+distributor_id   int(13)      NOT NULL DEFAULT 0,
+
+KEY (symbol, distributor_id),
+KEY (distributor_id))");
+
+	&mprint("I (exact), ");
+	&do_statement("ALTER TABLE tmp_supplier_map DISABLE KEYS");
+	&do_statement("INSERT INTO tmp_supplier_map(supplier_id, symbol, distributor_id)
+SELECT supplier_id, symbol, distributor_id FROM data_source_supplier_map WHERE data_source_id = ".$data_source_id." AND symbol NOT LIKE '%*%'");
+	&do_statement("ALTER TABLE tmp_supplier_map ENABLE KEYS");
+
+  # supplier EXACT mapping
+	&mprint("U (supplier, distri=*: ");
+	&do_statement("
+UPDATE     pricelist p
+INNER JOIN tmp_supplier_map tsm ON p.vendor = tsm.symbol AND p.distributor_id = tsm.distributor_id
+SET        p.supplier_id = tsm.supplier_id
+WHERE      p.distributor_id != 0 AND p.supplier_id = 0");
+
+	&mprint(&mark . &do_query("SELECT ROW_COUNT()")->[0][0] . &unmark . "), U (supplier, distri=0: ");
+
+#	&mprint("Q:\n\033[33m".&do_query_dump("explain select * from pricelist p inner join tmp_supplier_map tsm on p.vendor = tsm.symbol and tsm.distributor_id=0 where p.supplier_id = 0")."\033[37m\n");
+
+	&do_statement("
+UPDATE     pricelist p
+INNER JOIN tmp_supplier_map tsm ON p.vendor = tsm.symbol AND tsm.distributor_id = 0
+SET        p.supplier_id = tsm.supplier_id
+WHERE      p.supplier_id = 0");
+
+  # supplier PATTERN mapping
+	&mprint(&mark . &do_query("select row_count()")->[0][0] . &unmark . "), I (pattern), ");
+
+	&do_statement("ALTER TABLE tmp_supplier_map DISABLE KEYS");
+	&do_statement("TRUNCATE TABLE tmp_supplier_map");
+	&do_statement("INSERT INTO tmp_supplier_map(supplier_id, symbol, distributor_id)
+SELECT supplier_id, REPLACE(REPLACE(REPLACE(symbol,'%','\\%'),'_','\\_'),'*','%'), distributor_id FROM data_source_supplier_map WHERE data_source_id=".$data_source_id." AND symbol LIKE '%*%'");
+	&do_statement("ALTER TABLE tmp_supplier_map ENABLE KEYS");
+
+	&mprint("U (\033[31;1msupplier\033[37;0m, distri=*: ");
+
+	&do_statement("
+UPDATE     pricelist p
+INNER JOIN tmp_supplier_map tsm ON p.vendor LIKE tsm.symbol AND p.distributor_id = tsm.distributor_id
+SET        p.supplier_id = tsm.supplier_id
+WHERE      p.distributor_id != 0 AND p.supplier_id = 0");
+
+	&mprint(&mark . &do_query("SELECT ROW_COUNT()")->[0][0] . &unmark . "), U (\033[31;1msupplier\033[37;0m, distri=0: ");
+
+#	&mprint("Q:\n\033[33m".&do_query_dump("explain select * from pricelist p inner join tmp_supplier_map tsm on p.vendor like tsm.symbol and tsm.distributor_id=0 where p.supplier_id = 0")."\033[37m\n");
+
+	&do_statement("
+UPDATE     pricelist p
+INNER JOIN tmp_supplier_map tsm ON p.vendor LIKE tsm.symbol AND tsm.distributor_id = 0
+SET        p.supplier_id = tsm.supplier_id
+WHERE      p.supplier_id = 0");
+
+	&mprint(&mark . &do_query("SELECT ROW_COUNT()")->[0][0] . &unmark . "), U (exact from supplier table: ");
+
+	# pricelist <- supplier mapping - Matijs's complaint (2010-09-29, Gateway vendor absent)
+	&do_statement("ALTER TABLE tmp_supplier_map DISABLE KEYS");
+	&do_statement("TRUNCATE TABLE tmp_supplier_map");
+	&do_statement("INSERT INTO tmp_supplier_map(supplier_id, symbol)
+SELECT supplier_id, name FROM supplier");
+	&do_statement("ALTER TABLE tmp_supplier_map ENABLE KEYS");
+
+	&do_statement("
+UPDATE     pricelist p
+INNER JOIN tmp_supplier_map tsm ON p.vendor = tsm.symbol
+SET        p.supplier_id = tsm.supplier_id
+WHERE      p.supplier_id = 0");
+
+	&mprint(&mark . &do_query("SELECT ROW_COUNT()")->[0][0] . &unmark . "), ");
+
+	&do_statement("DROP TEMPORARY TABLE tmp_supplier_map");
+
+	# update original_supplier_id - it need for distributor_product table
+	&do_statement("UPDATE pricelist SET original_supplier_id = supplier_id");
+
+	## remove vendor name from product name s/^$vendor_name\s+//si;
+	&mprint("S (Perl) all prod_ids from pricelist (truncate vendor names from prod_id) ");
+	my $i = 0;
+	my $vendor_name_truncate = &do_query("select p.pricelist_id, p.name, s.name from pricelist p inner join supplier s using (supplier_id) where p.name like concat(s.name,' %')");
+	&mprint(&mark . ( $#$vendor_name_truncate + 1 ) . &unmark . " all prod_ids with the same symptoms ");
+
+	open TRV, ">".$truncated_names_file;
+	binmode TRV, ":utf8";
+	foreach (@$vendor_name_truncate) {
+		&do_query("select 1"); # pinging - the MySQL server can be timeouted!..
+		if ($_->[1] =~ /^$_->[2]\s+/i) {
+			$_->[1] =~ s/^$_->[2]\s+//i;
+			print TRV $_->[0]."\x01".$_->[1]."\x02";
+			$i++;
+		}
+	}
+	close TRV;
+
+	if ($i) {
+		&do_statement("drop temporary table if exists tmp_pricelist_name_truncated_values");
+		&do_statement("create temporary table tmp_pricelist_name_truncated_values (
+pricelist_id int(13)      not null default 0,
+name         varchar(255) not null default '',
+key (pricelist_id))");
+		&do_statement("alter table tmp_pricelist_name_truncated_values DISABLE KEYS");
+		&do_statement("load data local infile '".$truncated_names_file."' into table tmp_pricelist_name_truncated_values fields terminated by '\x01' lines terminated by '\x02'");
+		&do_statement("alter table tmp_pricelist_name_truncated_values ENABLE KEYS");
+		&do_statement("update pricelist p inner join tmp_pricelist_name_truncated_values tpntm using (pricelist_id) set p.name = tpntm.name");
+		&mprint(&done_stop(&mark.$i.&unmark." - counting, ".&mark . &do_query("select row_count()")->[0][0] . &unmark." - MySQL vendor truncated product names"));
+		&do_statement("drop temporary table if exists tmp_pricelist_name_truncated_values");
+	}
+	else {
+		&mprint(&done_stop("no truncating needed"));
+	}
+
+	## product wo supplier -> nonmapped products
+	&start; &mprint("\n".&gmark."Move supplierless products to nonnmapped table: ".&unmark);
+	&do_statement("insert IGNORE into tmp_non_mapped_products select prod_id, distributor, if(supplier_id=0,concat('unmapped:', vendor),vendor), cat from pricelist where supplier_id in (0,".$ignored_supplier_id.")");
+	&mprint(&done_stop(undef));
+
+  ## log ignored suppliers and delete them from pricelist
+	&start; &mprint("\n".&gmark."Log unmapped products & DELETE them: ".&unmark);
+	&mprint("S `pricelist` (supplier_id=0 || supplier_id=".$ignored_supplier_id.") ");
+	my $supplier_map_failed = &do_query("select p.prod_id,p.vendor,p.name,p.cat,p.supplier_id,td.name,p.distributor_id from pricelist p inner join tmp_distributor td using (distributor_id) where supplier_id in (0,".$ignored_supplier_id.")");
+	my $reason;
+	my $reason_0 = 'supplier missing';
+	my $reason_ign = 'Ignoring supplier: ';
+
+	foreach my $prod (@$supplier_map_failed) {
+		if ($prod->[4] == 0) {
+			$missing->{'supplier'}->{$prod->[1]}=$prod->[6];
+			$reason = $reason_0;
+		}
+		else {
+			$reason = $reason_ign.$prod->[1];
+		}
+		&log_ignored_product($prefs, {'productcode vendor' => $prod->[0],
+																	'supplier' => $prod->[1],
+																	'name' => $prod->[2],
+																	'subcat' => $prod->[3],
+																	'distributor' => $prod->[5]}, $reason);
+	}
+	&mprint(&done_stop);
+
+	# delete supplierless products
+	&mprint("\n" . &gmark . "Total unmapped products - `supplier missing`: " . &unmark . &mark . ( $#$supplier_map_failed + 1 ) . &unmark . "\n");
+	&start; &mprint("\nD `pricelist` (supplier_id=(0 || ".$ignored_supplier_id."))... ");
+	&do_statement("delete from pricelist where supplier_id=0");
+	&do_statement("delete from pricelist where supplier_id=".$ignored_supplier_id);
+	&mprint(&done_stop);
+
+	unless (&do_query("select count(*) from pricelist")->[0][0]) {
+		print "\033[31mpricelist failed!\n\033[0m\n\n";
+		die;
+	}
+} # sub supplier_mapping
+
+#sub first_prod_id_mapping {
+#  ## preparing prod_id mapping (STAGE 3)
+#  # first simple mapping!!!
+#	&start; &mprint("\n".&gmark."First prod_id mapping: ".&unmark);
+#	&mprint("U `pricelist` (map_prod_id=prod_id) ");
+#	&do_statement("update pricelist p inner join tmp_product tp on p.prod_id=tp.prod_id and p.supplier_id=tp.supplier_id set p.map_prod_id=p.prod_id where trim(p.prod_id)!=''");
+#	&mprint(&done_stop);
+#} # sub first_prod_id_mapping
+
+sub pricelist_prod_id_mapping {
+	&start; &mprint("\n".&gmark."prod_id mapping: ".&unmark);
+
+	&prod_id_mapping({'table' => 'pricelist', 'visual' => '1'});
+	&do_statement("update pricelist set supplier_id=map_supplier_id");
+	
+	print "\nFake prodid deleted: ".&do_query('SELECT count(*) FROM  pricelist  WHERE vendor=prod_id')->[0][0]."\n";
+	&do_statement('UPDATE pricelist SET prod_id=\'\', product_id=0, map_prod_id=\'\' WHERE vendor=prod_id');
+	print "\nFake prod id from mapping deleted: ".&do_query('SELECT count(*) FROM  pricelist p 
+															JOIN supplier s USING(supplier_id) 
+															WHERE s.name=p.prod_id')->[0][0]."\n";
+	&do_statement('UPDATE pricelist p JOIN supplier s USING(supplier_id) 
+				  SET p.prod_id=\'\',p.map_prod_id=\'\',p.product_id=0 WHERE s.name=p.prod_id');
+	&mprint(&done_stop);
+	&mprint("\n".&gmark."Total products before priority: ".&unmark.&mark.&do_query("select count(*) from pricelist")->[0][0].&unmark."\n");
+} # sub pricelist_prod_id_mapping
+
+sub trim_get_empty_prod_ids_remove {
+	&start; &mprint("\n".&gmark."Trim, get empty & remove: ".&unmark);
+
+	&mprint("update (trim), ");
+	&do_statement("update pricelist set map_prod_id=trim(map_prod_id) where map_prod_id like ' %' or map_prod_id like '% '"); # slow
+
+	&mprint("get the list -> to file (" . &mark);
+	open EMPTY_PRODIDS, ">".$base.$0.".empty.prodids";
+	binmode EMPTY_PRODIDS, ":utf8";
+	print EMPTY_PRODIDS &do_query_dump("select p.prodlevid, p.prod_id, p.vendor, p.map_prod_id, (select s.name from supplier s where s.supplier_id=p.supplier_id) s_name, p.name, p.distributor from pricelist p where p.map_prod_id = ''"); # slow
+	close EMPTY_PRODIDS;
+	&mprint(&do_query("select count(*) from pricelist where map_prod_id = ''")->[0][0] . &unmark . "), ");
+
+	&mprint("remove them, ");
+	&do_statement("delete from pricelist where map_prod_id = ''");
+
+	&mprint(&done_stop(&mark . &do_query("select row_count()")->[0][0] . &unmark . " products removed"));
+} # sub trim_get_empty_prod_ids_remove
+
+sub ucatid_priority_selection {
+	## create useful table with probably fake priorities
+	&start; &mprint("\n".&gmark."Now we select more priority catid from all catids: ".&unmark);
+	&mprint("CT `tmp_cat`, ");
+	&do_statement("drop temporary table if exists tmp_cat");
+	&do_statement("create temporary table tmp_cat (
+catid   int(13)      primary key,
+ucatid  varchar(255) NULL,
+rucatid varchar(255) NULL,
+prio    int(3)       NOT NULL default '0',
+key (rucatid))");
+	&mprint("I, ");
+	&do_statement("alter table tmp_cat DISABLE KEYS");
+	&do_statement("insert into tmp_cat(catid,ucatid,rucatid,prio) select catid,ucatid,REVERSE(ucatid),0 from category");
+	&do_statement("alter table tmp_cat ENABLE KEYS");
+#	&mprint("key (catid), (rucatid), ");
+#	&do_statement("alter table tmp_cat add primary key (catid), add key (rucatid)");
+
+	## update prios
+	&mprint("U `tmp_cat`, prio = 1 ");
+	&do_statement("update tmp_cat set prio=1 where rucatid like '00%'");
+	&mprint("2 ");
+	&do_statement("update tmp_cat set prio=2 where rucatid like '0000%'");
+	&mprint("3 ");
+	&do_statement("update tmp_cat set prio=3 where rucatid like '000000%'");
+	&mprint("4 ");
+	&do_statement("update tmp_cat set prio=4 where rucatid like '00000000'");
+	&mprint("5, ");
+	&do_statement("update tmp_cat set prio=5 where rucatid like '99999999'");
+
+	## update pricelist with prios
+	&mprint("U `pricelist` (cat_prio), ");
+	&do_statement("update pricelist p inner join tmp_cat tc using(catid) set p.cat_prio=tc.prio");
+	&do_statement("drop temporary table tmp_cat");
+
+	## pricelist_mirror - mirror of pricelist for updating priorities
+	&mprint("CT `pricelist_mirror`, ");
+	&do_statement("create temporary table pricelist_mirror (
+supplier_id     int(13)      NOT NULL default 0,
+map_prod_id       varchar(155) NOT NULL default '',
+catid           int(13)      NOT NULL default 0,
+cat_prio        int(3)       NOT NULL default 4,
+
+key (supplier_id,map_prod_id),
+key (catid))");
+
+	&mprint("DK, ");
+	&do_statement("alter table pricelist_mirror DISABLE KEYS");
+	&mprint("I, ");
+	&do_statement("insert into pricelist_mirror select supplier_id,map_prod_id,catid,cat_prio from pricelist where prio=0");
+	&mprint("EK, ");
+	&do_statement("alter table pricelist_mirror ENABLE KEYS");
+#	&mprint("key (supplier_id,map_prod_id), (catid), ");
+#	&do_statement("alter table pricelist_mirror add key (supplier_id,map_prod_id), add key (catid)");
+
+	## BIG FUNCTION - very big
+	&mprint("U `pricelist` (catid) - slow ");
+	&do_statement("update pricelist p
+inner join pricelist_mirror pm
+on p.map_prod_id=pm.map_prod_id and p.supplier_id=pm.supplier_id and p.prio=1
+set p.catid=if(p.cat_prio>pm.cat_prio,pm.catid,p.catid),
+p.cat_prio=if(p.cat_prio>pm.cat_prio,pm.cat_prio,p.cat_prio)");
+	&do_statement("drop temporary table pricelist_mirror");
+	&mprint(&done_stop);
+} # sub ucatid_priority_selection
+
+sub select_max_priority_products {
+  ## priorities for distrubutors (STAGE 6)
+
+	# select trust_levels from distributor table
+	&start; &mprint("\n".&gmark."Now we select more priority product from all products: ".&unmark);
+
+	# filtering products by max priority distribution
+	&mprint("CT `tmp_product_max_distribution`, ");
+	&do_statement("create temporary table tmp_product_max_distribution (
+pricelist_id int(13)      primary key,
+supplier_id  int(13)      NOT NULL,
+prod_id      varchar(155) NOT NULL,
+map_prod_id    varchar(155) NOT NULL,
+max_score    int(13)      NOT NULL,
+key (supplier_id,prod_id),
+key (supplier_id,map_prod_id))");
+
+	&mprint("I, ");
+	&do_statement("alter table tmp_product_max_distribution DISABLE KEYS");
+	&do_statement("insert into tmp_product_max_distribution(pricelist_id,supplier_id,prod_id,map_prod_id,max_score)
+select p.pricelist_id,p.supplier_id,p.prod_id,p.map_prod_id,max(td.trust_level)
+from pricelist p inner join tmp_distributor td on p.distributor=td.code
+group by p.supplier_id,p.map_prod_id");
+	&do_statement("alter table tmp_product_max_distribution ENABLE KEYS");
+	
+#	&mprint("index (pricelist_id), (supplier_id,prod_id), (supplier_id,map_prod_id), ");
+#	&do_statement("alter table tmp_product_max_distribution add primary key (pricelist_id), add key (supplier_id,prod_id), add key (supplier_id,map_prod_id)");
+	
+	# create left join table with NULL values, that must be deleted from pricelist table
+	&mprint("the total number of distributed products is ".&mark.&do_query("select count(*) from tmp_product_max_distribution")->[0][0].&unmark.", ");
+	&mprint("CT `tmp_for_deleting_lowpriority_prod_id`, ");
+	&do_statement("create temporary table tmp_for_deleting_lowpriority_prod_id (
+pricelist_id int(13)      primary key,
+supplier_id  int(13)      NOT NULL,
+prod_id      varchar(155),
+key (supplier_id,prod_id))");
+
+	&mprint("I, ");
+	&do_statement("alter table tmp_for_deleting_lowpriority_prod_id DISABLE KEYS");
+	&do_statement("insert into tmp_for_deleting_lowpriority_prod_id(pricelist_id,supplier_id,prod_id)
+select p.pricelist_id, tpmd.supplier_id, tpmd.prod_id from pricelist p
+left join tmp_product_max_distribution tpmd on p.pricelist_id=tpmd.pricelist_id");
+	&do_statement("alter table tmp_for_deleting_lowpriority_prod_id ENABLE KEYS");
+
+	# add indexes to this table
+	&mprint("the total number of lowpriority products is ".&mark.&do_query("select count(*) from tmp_for_deleting_lowpriority_prod_id where prod_id is NULL")->[0][0].&unmark.", ");
+#	&mprint("index (pricelist_id), (supplier_id,prod_id), ");
+#	&do_statement("alter table tmp_for_deleting_lowpriority_prod_id add primary key (pricelist_id), add index (supplier_id,prod_id)");
+
+	# delete all lowpriority products (prio = 0 - lowlevel product)
+	&mprint("U `pricelist` prio=0, ");
+	&do_statement("update pricelist p inner join tmp_for_deleting_lowpriority_prod_id tfdlpi on p.pricelist_id=tfdlpi.pricelist_id
+set p.prio=0 where tfdlpi.prod_id is NULL");
+	my $del_rows = &do_query("select ROW_COUNT()")->[0][0];
+	&do_statement("drop temporary table tmp_for_deleting_lowpriority_prod_id");
+	&do_statement("drop temporary table tmp_product_max_distribution");
+
+	# add key pricelist (product_id,prio)
+#	&mprint("key (product_id,prio), ");
+#	&do_statement("alter table pricelist add key (product_id,prio)");
+
+	&mprint("the total number of products from `pricelist` with low priority is ".&mark.$del_rows.&unmark.", ");
+	&mprint("the total number of distributed products in `pricelist` is ".&mark.&do_query("select count(*) from pricelist where prio=1")->[0][0].&unmark." ");
+	&mprint(&done_stop);
+
+	&start; &mprint("\n".&gmark."Log \#-ed products & DELETE them: ".&unmark);
+	&mprint("S `pricelist` (map_prod_id like '\#%'), ");
+	my $prod_id_map_ignored = &do_query("select prod_id,vendor,name,cat from pricelist where map_prod_id like '\#%' and prio=1");
+	foreach my $prod (@$prod_id_map_ignored) {
+		&log_ignored_product($prefs, {'productcode vendor' => $prod->[0],
+																	'supplier' => $prod->[1],
+																	'name' => $prod->[2],
+																	'subcat' => $prod->[3]}, '\#-ed product');
+	}
+
+	&mprint("U `pricelist` prio=0 (map_prod_id like '\#%'), ");
+	&do_statement("update pricelist set prio=0 where map_prod_id like '\#%' and prio=1");
+	&mprint(&done_stop("#-ed logged products number is ".&mark.($#$prod_id_map_ignored+1).&unmark));
+} # sub select_max_priority_products
+
+sub first_cat_mapping {
+	# first mapping
+	&start; &mprint("\n".&gmark."First catid mapping: ".&unmark);
+
+	&mprint("CT `tmp_category_map`, ");
+	&do_statement("create temporary table tmp_category_map (
+tmp_category_map_id int(13)      NOT NULL PRIMARY KEY auto_increment,
+catid               int(13)      NOT NULL default '0',
+symbol              varchar(255) NOT NULL default '',
+distributor_id      int(13)      NOT NULL default '0')");
+
+	# insert nonregexp values
+	&mprint("I (symbol not like '%*%'), ");
+	&do_statement("insert into tmp_category_map(tmp_category_map_id,catid,symbol,distributor_id)
+select '',catid,symbol,distributor_id from data_source_category_map where data_source_id=".$data_source_id." and symbol not like '%*%' order by catid");
+
+	# alter table keys
+	&mprint("key (catid), (symbol), ");
+	&do_statement("alter table tmp_category_map add key (catid), add key (symbol), add key (distributor_id)");
+
+	my $first_catid_mapped_count = 0;
+	my $increment = 0;
+	&mprint("U `pricelist` (catid), distributor_id = * - ");
+	&do_statement("update pricelist p inner join tmp_category_map tcm on p.cat=tcm.symbol and tcm.distributor_id=p.distributor_id set p.catid=tcm.catid where p.distributor_id!=0 and p.catid=0");
+	$increment = &do_query("select ROW_COUNT()")->[0][0];
+	$first_catid_mapped_count += $increment;
+	&mprint(&mark.$increment.&unmark." matches, ");
+
+	&mprint("U `pricelist` (catid), distributor_id = 0 - ");
+	&do_statement("update pricelist p inner join tmp_category_map tcm on p.cat=tcm.symbol and tcm.distributor_id=0 set p.catid=tcm.catid where p.catid=0");
+	$increment = &do_query("select ROW_COUNT()")->[0][0];
+	$first_catid_mapped_count += $increment;
+	&mprint(&mark.$increment.&unmark." matches, ");
+	
+	&mprint("U `pricelist` (catid), distributor_id != * - ");
+	&do_statement("update pricelist p inner join tmp_category_map tcm on p.cat=tcm.symbol and tcm.distributor_id!=p.distributor_id set p.catid=tcm.catid where p.distributor_id!=0 and p.catid=0");
+	$increment = &do_query("select ROW_COUNT()")->[0][0];
+	$first_catid_mapped_count += $increment;
+	&do_statement("drop temporary table tmp_category_map");
+	&mprint(&mark.$increment.&unmark." matches, ");
+
+#	&mprint("key (catid) ");
+#	&do_statement("alter table pricelist add key (catid)");
+	&mprint(&done_stop);
+
+	&mprint("\n".&gmark."CATID already mapped products \#1: ".&unmark.&mark.$first_catid_mapped_count.&unmark."\n");
+} # sub first_cat_mapping
+
+sub second_cat_mapping {
+	# making left patterm table
+	&start; &mprint("\n".&gmark."Second catid mapping: ".&unmark);
+
+	&mprint("CT `tmp_catid_patterns`, ");
+	&do_statement("create temporary table tmp_catid_patterns (
+tmp_catid_patterns_id       int(13)      not null primary key auto_increment,
+data_source_category_map_id int(13)      not null,
+catid                       int(13)      not null,
+left_mysql_pattern          varchar(255) not null,
+pattern                     varchar(255) not null,
+frequency                   int(13)      not null,
+distributor_id              int(13)      not null)");
+
+	# load local infile
+	&mprint("L (using sub &icecat2mysql_mapping), ");
+	&icecat2mysql_mapping({'data_source_code' => $data_source_code, 'metatags' => '*', 'mode' => 'like'},"select data_source_category_map_id,catid,symbol,frequency,distributor_id from data_source_category_map where data_source_id=".$data_source_id." and symbol like '%*%' and catid != 0 order by catid","tmp_catid_patterns");
+
+	# define 99999999's id
+	my $undefcat_id = &do_query("select catid from data_source_category_map where data_source_id=".$data_source_id." and symbol='".$undefcat_value."'")->[0][0];
+
+	# create a tmp pricelist table with catid=0 values
+	&mprint("CT `tmp_nonmapped_products`, ");
+	&do_statement("create temporary table tmp_nonmapped_products (
+pricelist_id   int(13)      not null primary key,
+cat            varchar(255) not null default '',
+catid          int(13)      not null default 0,
+mapped         tinyint(3)   not null default 0,
+distributor_id int(13)      not null default 0,
+key (cat),
+key (catid),
+key (mapped),
+key (distributor_id))");
+
+	&mprint("disable keys, ");
+	&do_statement("alter table tmp_nonmapped_products DISABLE KEYS");
+
+	&mprint("I (where catid=0), ");
+	&do_statement("insert into tmp_nonmapped_products(pricelist_id,cat,catid,mapped,distributor_id)
+select pricelist_id,cat,catid,0,distributor_id from pricelist where catid=0");
+
+	&mprint("enable keys, ");
+	&do_statement("alter table tmp_nonmapped_products ENABLE KEYS");
+
+	# second mapping
+	my $mappings = &do_query("select catid,left_mysql_pattern,tmp_catid_patterns_id,distributor_id from tmp_catid_patterns order by frequency desc");
+	my $freq = 0;
+	&mprint("U `tmp_nonmapped_products` (catid, using Perl): ");
+	foreach my $map (@$mappings) {
+		&do_statement("update tmp_nonmapped_products set mapped=1, catid=".$map->[0]." where mapped=0 and ".$map->[3]." in (0,distributor_id) and cat like ".&str_sqlize($map->[1]));
+		$freq = &do_query("select ROW_COUNT()")->[0][0];
+		if ($freq) {
+			&do_statement("update tmp_catid_patterns set frequency=".$freq." where tmp_catid_patterns_id=".$map->[2]);
+			&mprint("\033[1m".$map->[1]."\033[0m ".&mark.$freq.&unmark.", ");
+		}
+	}
+
+	&mprint("U `data_source_category_map` (update frequency statistic), ");
+	&do_statement("update data_source_category_map set frequency=0 where data_source_id=".$data_source_id);
+	&do_statement("update data_source_category_map dscm inner join tmp_catid_patterns tcp
+on dscm.data_source_category_map_id=tcp.data_source_category_map_id
+set dscm.frequency=tcp.frequency");
+	&do_statement("drop temporary table tmp_catid_patterns");
+
+	# update pricelist
+	&mprint("U `pricelist` ");
+	&do_statement("update pricelist p inner join tmp_nonmapped_products tnp on p.pricelist_id=tnp.pricelist_id set p.catid=tnp.catid where mapped=1 and tnp.catid!=0");
+	my $second_catid_mapped_count = &do_query("select ROW_COUNT()")->[0][0];
+	&do_statement("drop temporary table tmp_nonmapped_products");
+	&mprint(&done_stop);
+
+	&mprint("\n".&gmark."Catid already mapped products \#2: ".&unmark.&mark.$second_catid_mapped_count.&unmark."\n");
+
+	# reports about undefcat_values
+	&start; &mprint("\n".&gmark."LOG undefined categories: ".&unmark);
+	&mprint("S distinct `pricelist` (catid=0), ");
+	my $undef_cats = &do_query("select distinct p.prod_id,p.vendor,p.name,p.cat,td.name,p.distributor_id from pricelist p
+inner join tmp_distributor td using (distributor_id)
+where catid=0");
+	foreach (@$undef_cats) {
+		$missing->{'category'}->{$_->[3]}=$_->[5];
+		&log_ignored_product($prefs, {'productcode vendor' => $_->[0],
+																	'supplier' => $_->[1],
+																	'name' => $_->[2],
+																	'subcat' => $_->[3],
+																	'distributor' => $_->[4]}, "category missing");
+	}
+
+	&mprint("U `pricelist` (catid=".$undefcat_id.", if catid=0) ");
+	&do_statement("update pricelist set catid=".$undefcat_id." where catid=0");
+	&mprint(&done_stop);	
+} # sub second_cat_mapping
+
+sub distributor_mapping {
+	&start; &mprint("\n".&gmark."Distributor mapping: ".&unmark."U ");
+	&do_statement("update pricelist p inner join tmp_distributor td on p.distributor=td.code set p.distributor_id=td.distributor_id");
+	&mprint(&done_stop);
+
+	&start; &mprint("\n".&gmark."Add undefined distributors to report: ".&unmark." S, ");
+	my $undef_distris = &do_query("select distributor,count(*) from pricelist where distributor_id=0 group by distributor");
+	foreach (@$undef_distris) {
+		$missing->{'distributor'}->{$_->[0]} = $_->[1];
+	}
+	
+	&mprint("unmapped distri -> to non_mapped table, ");
+	&do_statement("insert IGNORE into tmp_non_mapped_products select prod_id, if(distributor_id=0,concat('unmapped:', distributor),distributor), vendor, cat from pricelist where distributor_id=0");
+
+	&mprint("D ");
+	&do_statement("delete from pricelist where distributor_id=0");
+
+	&mprint(&done_stop(&mark . &do_query("select row_count()")->[0][0] . &unmark . " products removed"));
+
+
+	&start; &mprint("\n".&gmark."Refresh distributor last import dates: ".&unmark."CT ");
+	&do_statement("drop temporary table if exists tmp_distributor_set");
+	&do_statement("create temporary table tmp_distributor_set (
+distributor_name varchar(255) not null default '',
+key (distributor_name))");
+	&mprint("I ");
+	&do_statement("insert into tmp_distributor_set(distributor_name) select distinct distributor from pricelist");
+	&mprint("U ");
+	&do_statement("update distributor d inner join tmp_distributor_set tds on d.code=tds.distributor_name set d.last_import_date=unix_timestamp()");
+	&do_statement("drop temporary table if exists tmp_distributor_set");
+	&mprint(&done_stop);
+
+
+	&start; &mprint("\n".&gmark."Refresh distributor ICEimport file creation dates: ".&unmark."CT ");
+	&do_statement("drop temporary table if exists tmp_distributor_file_creation_dates");
+	&do_statement("create temporary table tmp_distributor_file_creation_dates (
+distributor_name   varchar(120) not null default '',
+file_creation_date int(13)      not null default 0,
+key (distributor_name, file_creation_date))");
+
+	&mprint("L ");
+	&do_statement("load data local infile '".$base.$fn_dates."' into table tmp_distributor_file_creation_dates fields terminated by '\t' (distributor_name,file_creation_date)");
+
+	&mprint("D(filter) ");
+	&do_statement("delete from tmp_distributor_file_creation_dates where file_creation_date=0");
+
+	&mprint("U(=) ");
+	&do_statement("update distributor d
+inner join tmp_distributor_file_creation_dates tdfct on d.code=tdfct.distributor_name and d.file_creation_date!=tdfct.file_creation_date
+set d.file_creation_date=tdfct.file_creation_date");
+
+	&mprint("U(like: ");
+	while (my ($iceimport_distri_code, $icecat_distri_wildcard) = each(%$distri_code_relations)) {
+		&do_statement("update distributor d
+inner join tmp_distributor_file_creation_dates tdfct on d.code like ".&str_sqlize($icecat_distri_wildcard)." and tdfct.distributor_name=".&str_sqlize($iceimport_distri_code)." and d.file_creation_date!=tdfct.file_creation_date
+set d.file_creation_date=tdfct.file_creation_date");
+		&mprint($icecat_distri_wildcard."=".&mark.&do_query("select row_count()")->[0][0].&unmark." ");
+	}
+	&mprint(") ");
+
+	&do_statement("drop temporary table if exists tmp_distributor_file_creation_dates");
+	&mprint(&done_stop);
+} # sub distributor_mapping
+
+sub product_id_mapping {
+	&start; &mprint("\n".&gmark."Product_ID mapping: ".&unmark);
+	
+  # add product_id from tmp_product
+	&mprint("U `pricelist` (product_id,user_id), ");
+	&do_statement("update pricelist p inner join tmp_product tp on p.map_prod_id=tp.prod_id and p.supplier_id=tp.supplier_id set p.product_id=tp.product_id, p.user_id=tp.user_id");
+	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." updated, ");
+
+#	&mprint("key (product_id), ");
+#	&do_statement("alter table pricelist add key (product_id)");
+	&mprint(&done_stop);
+
+	# products to edit
+	$prefs->{'updated_products'} = &do_query("select count(*) from pricelist where product_id!=0 and prio=1")->[0][0];
+	&mprint("\n".&gmark."Products to EDIT: ".&unmark.&mark.$prefs->{'updated_products'}.&unmark."\n");
+
+	# products to add
+	$prefs->{'added_products'} = &do_query("select count(*) from pricelist where product_id=0 and prio=1")->[0][0];
+	&mprint(&gmark."Products to ADD : ".&unmark.&mark.$prefs->{'added_products'}.&unmark."\n");
+	&mprint(&gmark."Products IGNORED: ".&unmark.&mark.$prefs->{'ignored_products'}.&unmark."\n\n");
+
+	if (!$prefs->{'updated_products'} && ($prefs->{'added_products'} > 100000)) {
+		&log_printf("pricelist is damaged!..");
+		&mprint("Pricelist is damaged!.. we haven't updated products at all, exiting!..\n\n\n");
+		die;
+	}
+} # sub product_id_mapping
+
+sub update_products {
+	# update with fresh info about user_id for pricelist
+	&start; &mprint("\n".&gmark."Update with fresh info about user_id for pricelist: ".&unmark);
+	&reload_tmp_product;
+	&do_statement("update pricelist p inner join tmp_product tp on tp.product_id=p.product_id set p.prio=0
+where p.product_id!=0 and p.prio=1 and p.user_id=".$nobody_user_id." and tp.user_id!=".$nobody_user_id);
+
+	# check for user_id: update -> already_edited
+	&mprint("checking for already edited products count: ");
+	$prefs->{'not_updated'} = &do_query("select count(*) from pricelist where product_id!=0 and user_id!=".$nobody_user_id." and prio=1")->[0][0];
+	$prefs->{'updated_products'} -= $prefs->{'not_updated'};
+	&mprint(&mark.&done_stop($prefs->{'not_updated'}.&unmark." already edited products"));
+
+	# delete already edited products
+	&mprint("\n".&gmark."Delete already edited products from pricelist: ".&unmark);
+	&do_statement("update pricelist set prio=0 where product_id!=0 and user_id!=".$nobody_user_id);
+	&mprint(&done_stop);
+
+	# update products
+	&start; &mprint("\n".&gmark."UPDATE product: ".&unmark);
+	&mprint("U(nobody) ");
+	&do_statement("update product p inner join pricelist p2 on p.product_id=p2.product_id and p2.prio=1 set
+p.prod_id     = p2.map_prod_id,
+p.supplier_id = p2.supplier_id,
+p.name        = p2.name,
+p.catid       = p2.catid
+
+where p2.product_id != 0 and p.user_id = ".$nobody_user_id); # URGENT - always use where user_id = $nobody_user_id
+	&mprint(&done_stop(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." updated"));
+
+	# add products
+	&start; &mprint("\n".&gmark."INSERT product: ".&unmark);	
+	&mprint("LT ");
+	&do_statement("lock tables product WRITE, pricelist READ");
+	&mprint("A ");
+	&do_statement("insert IGNORE into product (supplier_id,prod_id,catid,user_id,name,date_added)
+select supplier_id,map_prod_id,catid,".$nobody_user_id.",name,now() from pricelist where product_id=0 and prio=1");
+	my $count_added_product = &do_query("select ROW_COUNT()")->[0][0];
+	&mprint("UT ");
+	&do_statement("unlock tables");
+
+	if ($count_added_product) {
+		# reload tmp_product
+		&reload_tmp_product;
+
+		# update pricelist with already added new product_ids
+		&mprint("U NEW (product_id) ");
+		&do_statement("update pricelist p inner join tmp_product tp on p.map_prod_id=tp.prod_id and p.supplier_id=tp.supplier_id set p.product_id=tp.product_id where p.product_id=0");
+	}
+	&mprint(&done_stop(&mark.$count_added_product.&unmark." added"));
+
+	## update output statistic file
+	&start; &mprint("\n".&gmark."Store stat for updated products into file... ".&unmark);
+	if ($store_updated_products) {
+		open(STAT, ">./import.statistic");
+		binmode STAT, ":utf8";
+		my $statistic = &do_query("select product_id, prio, map_prod_id, name, supplier_id, catid from pricelist order by product_id asc, prio desc");
+		print STAT "product_id\tprio\tprod_id\tname\tsupplier_id\tcatid\n";
+		foreach (@$statistic) {
+			print STAT join("\t",@$_)."\n";
+		}
+		close (STAT);
+	}
+	&mprint(&done_stop);
+
+	## update product_description
+
+  # update pricelist with description_id's langids
+	&start; &mprint("\n".&gmark."U pricelist (desc_langid): ".&unmark);
+	&do_statement("update pricelist p inner join tmp_distributor td on p.distributor=td.code set p.desc_langid=td.langid where p.prio=1");
+	&mprint(&done_stop);
+
+	# update s_desc && l_desc
+	&start; &mprint("\n".&gmark."Strip descriptions: ".&unmark."CT ");
+	&do_statement("create temporary table tmp_strip_descriptions (
+product_id int(13)      not null default '0' primary key,
+s_desc     varchar(255) not null default '',
+l_desc     varchar(255) not null default '')");
+	&mprint("I ");
+	&do_statement("insert into tmp_strip_descriptions(product_id,s_desc,l_desc)
+select product_id,s_desc,l_desc from pricelist where prio=1 and
+ ( s_desc REGEXP '<br><a href\\\=\\\"http\\\:\\\/\\\/www\\\.icecat\\\.biz'
+or l_desc REGEXP '<br><a href\\\=\\\"http\\\:\\\/\\\/www\\\.icecat\\\.biz')");
+	
+	# update pricelist with new values
+	&mprint("S(Perl) ");
+	my $to_regexp = &do_query("select product_id,s_desc,l_desc from tmp_strip_descriptions");
+	foreach my $p (@$to_regexp) {
+		$p->[1] =~ s/<br><a href\=\"http\:\/\/www\.icecat\.biz.*//msi;
+		$p->[2] =~ s/<br><a href\=\"http\:\/\/www\.icecat\.biz.*//msi;
+		&do_statement("update pricelist set s_desc=".&str_sqlize($p->[1]).", l_desc=".&str_sqlize($p->[2])." where product_id=".$p->[0]);
+	}
+	&do_statement("drop temporary table tmp_strip_descriptions");
+
+	# create desc_flag => s_desc != '' and prio=1
+#	&mprint("AT ");
+#	&do_statement("alter table pricelist add column desc_flag int(1) not null default 0");
+	&mprint("U ");
+	&do_statement("update pricelist set desc_flag = 1 where s_desc != '' and prio=1 and user_id in (0,".$nobody_user_id.")");
+#	&mprint("AT ");
+#	&do_statement("alter table pricelist add key (desc_flag)");
+	&mprint(&done_stop);
+
+	# now, make a description updation
+#
+# Commented out because of constant compaints that editorial descriptions get lost
+#
+
+#	&start; &mprint("\n".&gmark."UPDATE product_description: ".&unmark);
+#	&mprint("U ");
+#	&do_statement("update product_description pd
+#inner join pricelist p on p.product_id = pd.product_id and p.desc_langid = pd.langid
+#set pd.short_desc = p.s_desc, pd.long_desc = p.l_desc, p.desc_updated = 1
+#where p.desc_flag = 1 and p.product_id != 0");
+#	&mprint(&done_stop(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." updated"));
+
+	# description insertion
+	&start; &mprint("\n".&gmark."INSERT product_description: ".&unmark);
+	&mprint("I ");
+	&do_statement("insert IGNORE into product_description(product_id,langid,short_desc,long_desc)
+select p.product_id,p.desc_langid,p.s_desc,p.l_desc from pricelist p where p.desc_updated=0 and p.desc_flag=1 and p.product_id!=0");
+	&mprint(&done_stop(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." insterted"));
+
+	&CUSTOM_reporting_about_mapped_MM_products(); # reporting about mapped MM products (Peter Sol, 16.11.2009)
+
+	# check ean codes & clean wrong ones from table & also from ICEcat DB
+	# remove '-'-s from ean code from table
+	&start; &mprint("\n".&gmark."INSERT product_ean_codes: ".&unmark);
+
+	# update pricelist ean_code = '', for existed only
+	&mprint(", U (pricelist IJ product_ean_codes, ean_code = '') ");
+	&do_statement("update pricelist p inner join product_ean_codes pec using (ean_code) set p.ean_code=''");
+
+	# insert other else
+	&mprint(", I ign (into product_ean_codes) ");
+	&do_statement("insert ignore into product_ean_codes (product_id, ean_code) select product_id, ean_code from pricelist where ean_code != ''");
+
+	&mprint(&done_stop(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." inserts"));
+} # sub update_products
+
+sub update_distributor_product {
+	# s/^$dist_code-//
+	&start; &mprint("\n".&gmark."S pricelist (Perl: s/^\$dist_code-//): ".&unmark);
+	
+	my $slashes = &do_query("select pricelist_id,prodlevid,distributor from pricelist where prodlevid like '%-%'");
+	my $dc;
+	my $cnt = 0;
+	foreach (@$slashes) {
+		$dc = $_->[2];
+		if ($_->[1] =~ s/^${dc}-//) {
+			&do_statement("update pricelist set prodlevid=".&str_sqlize($_->[1])." where pricelist_id=".$_->[0]);
+			$cnt++;
+		}
+	}
+	&mprint(&done_stop(&mark.$cnt.&unmark." updated"));
+
+	# distributor_product import
+	&start; &mprint("\n".&gmark."REPLACE distributor_product: ".&unmark);
+
+	# checking for 65%
+	my $current_distris_amount = &do_query("select count(*) from distributor_product where active=1")->[0][0];
+	my $new_distris_amount = &do_query("select count(*) from pricelist")->[0][0];
+	my $ratio = $current_distris_amount ? ($new_distris_amount / $current_distris_amount) : 1;
+	if (($ratio < 0.65) && (!$ignore_ratio)) {
+		&mprint(&done_stop("skipped, ratio = ".&sprintf('%.2f',$ratio)));
+		return;
+	}
+	else {
+		&mprint("ratio = ".&sprintf('%.2f',$ratio)." ");
+	}
+
+	my $table_name = "distributor_product";
+	if (!$use_replace) {
+		$table_name = "tmp_distributor_product";
+		&mprint("CT, ");
+		&do_statement("drop table if exists ".$table_name);
+		&do_statement("create table ".$table_name." (
+  `distributor_product_id` bigint(20)   unsigned primary key auto_increment,
+  `distributor_id`         int(13)      unsigned NOT NULL default 0,
+  `product_id`             int(13)      unsigned NOT NULL default 0,
+  `stock`                  int(10)      unsigned NOT NULL default 0,
+  `dist_prod_id`           varchar(235) NOT NULL default '',
+  `original_prod_id`       varchar(255) NOT NULL default '',
+  `updated`                timestamp    NOT NULL default CURRENT_TIMESTAMP,
+  `active`                 tinyint(1)   unsigned NOT NULL default 0,
+  `original_supplier_id`   mediumint(7) unsigned NOT NULL default 0,
+
+UNIQUE KEY `original_prod_id` (`original_prod_id`, `distributor_id`, `product_id`),
+KEY `dist_prod_id`            (`dist_prod_id`, `distributor_id`, `product_id`),
+KEY `distributor_id`          (`distributor_id`,`product_id`,`active`),
+KEY `product_id`              (`product_id`,`active`),
+KEY `active`                  (`active`),
+KEY `updated`                 (`updated`)
+) ENGINE = InnoDB");
+
+		&mprint("disable keys, ");
+		&do_statement("alter table ".$table_name." DISABLE KEYS");
+
+		&mprint("I (long), ");
+		&do_statement("insert ignore into ".$table_name."(distributor_id,product_id,stock,dist_prod_id,original_prod_id,updated,active,original_supplier_id)
+select distributor_id,product_id,stock,dist_prod_id,original_prod_id,updated,0,original_supplier_id from distributor_product");
+
+#		&mprint("AT (auto_increment), ");
+#		&do_statement("update ".$table_name." set distributor_product_id = 0");
+#		&do_statement("alter IGNORE table ".$table_name." modify column distributor_product_id bigint(20) primary key auto_increment");
+#		&do_statement("alter table ".$table_name." AUTO_INCREMENT = ".(&do_query("select max(distributor_product_id) from distributor_product")->[0][0] + 1));
+
+#		&mprint("AT (UK x 2), "); - moved to create table
+#		&do_statement("alter table ".$table_name." add UNIQUE KEY `distributor_id` (`distributor_id`,`dist_prod_id`), add UNIQUE KEY `original_prod_id_2` (`original_prod_id`,`distributor_id`,`product_id`)");
+	}
+
+#	&mprint("U (active=0), ");
+#	&do_statement("update ".$table_name." set active=0");
+
+#	&mprint("R (long), ");
+#	&do_statement("replace into ".$table_name."(distributor_id,product_id,stock,dist_prod_id,original_prod_id,active,original_supplier_id)
+#select distributor_id,product_id,stock,prodlevid,prod_id,1,original_supplier_id from pricelist");
+#	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." replaces, ");
+
+	# R -> U + I
+
+	&mprint("R was splitted to: U (");
+
+	# something really wrong caused there: so, I'll split updates per each distributor
+
+	my $distris = &do_query("select distributor_id, code from distributor");
+	my $distri_count = 0;
+	my $distri_count_single = 0;
+
+	foreach my $distri (@$distris) {
+		&mprint($distri->[1]." = ");
+
+		&do_statement("update ".$table_name." dp
+inner join pricelist p on dp.product_id=p.product_id and dp.distributor_id=p.distributor_id and dp.original_prod_id=p.prod_id
+set dp.stock=p.stock, dp.dist_prod_id=p.prodlevid, dp.active=1, dp.original_supplier_id=p.original_supplier_id,
+p.distributor_product_id=dp.distributor_product_id
+where p.distributor_id=".$distri->[0]." and dp.distributor_id=".$distri->[0]);
+
+		$distri_count_single = &do_query("select ROW_COUNT()")->[0][0];
+		$distri_count += $distri_count_single;
+
+		&mprint(&mark.$distri_count_single.&unmark.", ");
+
+	}
+
+	&mprint("\b\b. Totaled ".&mark.$distri_count.&unmark." updates), and I (");
+
+	&do_statement("insert ignore into ".$table_name."(distributor_id,product_id,stock,dist_prod_id,original_prod_id,active,original_supplier_id)
+select distributor_id,product_id,stock,prodlevid,prod_id,1,original_supplier_id from pricelist where distributor_product_id=0");
+
+	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." inserts), ");
+	
+	&mprint("enable keys, ");
+	&do_statement("alter table ".$table_name." ENABLE KEYS");
+
+	if (!$use_replace) {
+#		&mprint("AT, ");
+#		&do_statement("alter table ".$table_name."
+#add KEY `product_id2` (`product_id`,`distributor_id`),
+#add KEY `dist_prod_id` (`dist_prod_id`)");
+		&do_statement("drop table if exists distributor_product_old");
+		&mprint("RT ");
+		&do_statement("rename table distributor_product to distributor_product_old, ".$table_name." to distributor_product");
+		&do_statement("drop table if exists distributor_product_old");
+#		&mprint("UT ");
+#		&do_statement("unlock tables");
+	}
+
+	# remove product_id=0 from distributor_product table
+	&mprint("DEL (product_id=0): ");
+	&do_statement("delete from distributor_product where product_id=0"); # quick & dirty solution. Further, I need to investigate this fact: Why the products with product_id=0 appear there.
+	&mprint(&mark.&do_query("select row_count()")->[0][0].&unmark." products removed ");
+
+	&mprint(&done_stop);
+
+	# product_active
+	&start; &mprint("\n".&gmark."Generate product_active: ".&unmark);
+	&do_statement("create table product_active_new like product_active");
+	&do_statement("insert into product_active_new(product_id,active,stock) select product_id, max(active), sum(stock) from distributor_product group by product_id");
+	my $pa_inserts = &do_query("select row_count()")->[0][0];
+	&do_statement("rename table product_active to product_active_old, product_active_new to product_active");
+	&do_statement("drop table product_active_old");
+	&mprint(&done_stop(&mark.$pa_inserts.&unmark." inserts"));
+} # sub update_distributor_product
+
+sub check_for_invalid_mappings {
+	&start; &mprint("\n".&gmark."Check for invalid mappings: ".&unmark);
+
+	my $number_of_deleted;
+
+	my $wrong = &do_query("select dp.original_prod_id, dp.original_supplier_id, (select group_concat(distinct dp2.product_id separator ',') from distributor_product dp2 where dp2.active=0 and dp.original_prod_id=dp2.original_prod_id and dp.original_supplier_id=dp2.original_supplier_id and dp.product_id!=dp2.product_id and dp2.product_id!=0 ) num_wrongs from distributor_product dp where dp.active=1 and dp.product_id!=0 group by 1,2 having num_wrongs!=''");
+
+	print &mark . ($#$wrong + 1) . &unmark . " wrong mappings detected. Processing: ";
+
+	foreach (@$wrong) {
+		&do_statement("delete from distributor_product where original_prod_id=".&str_sqlize($_->[0])." and original_supplier_id=".$_->[1]." and product_id in (".$_->[2].")");
+		print "\xB7";
+	}
+
+	print " ";
+
+	&mprint(&done_stop);
+} # sub check_for_invalid_mappings
+
+sub update_product_original_data {
+
+	# product_original_data	
+	&start; &mprint("\n".&gmark."REPLACE product_original_data: ".&unmark);
+	my $table_name = "product_original_data";
+	if (!$use_replace) {
+		$table_name = "tmp_product_original_data";
+		&mprint("CT, ");
+		&do_statement("drop table if exists ".$table_name);
+		&do_statement("create table ".$table_name." (
+  `product_original_data_id` bigint(20) unsigned primary key auto_increment,
+  `product_id` int(13) default NULL,
+  `distributor_id` int(13) default NULL,
+  `original_prodid` varchar(255) default NULL,
+  `original_cat` varchar(255) default NULL,
+  `original_vendor` varchar(255) default NULL,
+  `original_name` varchar(255) default NULL,
+
+UNIQUE KEY `distributor_id` (`distributor_id`, `product_id`),
+KEY `product_id` (`product_id`),
+KEY (`product_original_data_id`,`product_id`,`distributor_id`))");
+
+		&mprint("disable keys, ");
+		&do_statement("alter table ".$table_name." DISABLE KEYS");
+
+		&mprint("I, ");
+		&do_statement("insert into ".$table_name."(product_id,distributor_id,original_prodid,original_cat,original_vendor,original_name)
+select product_id,distributor_id,original_prodid,original_cat,original_vendor,original_name from product_original_data");
+
+#		&mprint("AT, ");
+#		&do_statement("update ".$table_name." set product_original_data_id = 0");
+#		&do_statement("alter IGNORE table ".$table_name." modify column product_original_data_id bigint(20) primary key auto_increment");
+#		&do_statement("alter table ".$table_name." AUTO_INCREMENT=".(&do_query("select max(product_original_data_id) from product_original_data")->[0][0] + 1));
+
+#		&mprint("AT, ");
+#		&do_statement("alter table ".$table_name." add UNIQUE KEY `product_id` (`product_id`,`distributor_id`)");
+	}
+
+#	&mprint("R ");
+#	&do_statement("replace into ".$table_name."(product_id,distributor_id,original_prodid,original_cat,original_vendor,original_name)
+#select product_id,distributor_id,prod_id,cat,vendor,name from pricelist");
+#	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." replaces, ");
+
+	# R -> U + I
+
+	&mprint("R was splitted to: U (");
+
+	# something really wrong caused there: so, I'll split updates per each distributor
+
+	my $distris = &do_query("select distributor_id, code from distributor");
+	my $distri_count = 0;
+	my $distri_count_single = 0;
+
+	foreach my $distri (@$distris) {
+		&mprint($distri->[1]." = ");
+
+		&do_statement("update ".$table_name." pod
+inner join pricelist p using (product_id,distributor_id)
+set pod.original_prodid=p.prod_id, pod.original_cat=p.cat, pod.original_vendor=p.vendor, pod.original_name=p.name,
+p.product_original_data_id=pod.product_original_data_id
+where pod.distributor_id=".$distri->[0]." and p.distributor_id=".$distri->[0]);
+
+		$distri_count_single = &do_query("select ROW_COUNT()")->[0][0];
+		$distri_count += $distri_count_single;
+
+		&mprint(&mark.$distri_count_single.&unmark.", ");
+	}
+
+	&mprint("\b\b. Totaled ".&mark.$distri_count.&unmark." updates), and I (");
+
+	&do_statement("insert ignore into ".$table_name."(product_id,distributor_id,original_prodid,original_cat,original_vendor,original_name)
+select product_id,distributor_id,prod_id,cat,vendor,name from pricelist where product_original_data_id=0");
+
+	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." inserts), ");
+
+	&mprint("enable keys, ");
+	&do_statement("alter table ".$table_name." ENABLE KEYS");
+
+	if (!$use_replace) {
+#		&mprint("AT, ");
+#		&do_statement("alter table ".$table_name." add KEY (`product_original_data_id`,`product_id`,`distributor_id`)");
+		&do_statement("drop table if exists product_original_data_old");
+		&mprint("RT ");
+		&do_statement("rename table product_original_data to product_original_data_old, ".$table_name." to product_original_data");
+		&do_statement("drop table product_original_data_old");
+#		&do_statement("unlock tables");
+		&mprint(&done_stop);
+	}
+} # update_product_original_data
+
+sub update_price_and_stock {
+	# fill country_id
+	&start; &mprint("\n".&gmark."UPDATE price & stock: ".&unmark);
+	&mprint("U (country_id), ");
+	&do_statement("update pricelist p inner join tmp_distributor td on p.distributor=td.code set p.country_id=td.country_id");
+	
+	# tmp table for country_product
+	&mprint("CT, ");
+	&do_statement("create temporary table tmp_country_product (
+product_id         int(13)     unsigned NOT NULL default 0,
+country_id         smallint(5) unsigned NOT NULL default 0,
+stock              int(10)                       default NULL,
+country_product_id bigint(20)  unsigned NOT NULL default 0,
+
+unique key (product_id,country_id),
+key (country_product_id)
+)");
+
+	# group by product_id,country_id
+	&mprint("I, ");
+	&do_statement("insert into tmp_country_product(product_id,country_id,stock)
+select product_id,country_id,sum(stock) from pricelist
+where country_id != 0
+group by product_id,country_id
+order by product_id,country_id");
+
+	# checking for 65%
+	my $current_countries_amount = &do_query("select count(*) from country_product where active=1")->[0][0];
+	my $new_countries_amount = &do_query("select count(*) from tmp_country_product")->[0][0];
+	my $ratio = $current_countries_amount ? ($new_countries_amount / $current_countries_amount) : 1;
+	if (($ratio < 0.65) && (!$ignore_ratio)) {
+		&mprint(&done_stop("skipped, ratio = ".&sprintf('%.2f',$ratio)));
+		return;
+	}
+	else {
+		&mprint("ratio = ".&sprintf('%.2f',$ratio)." ");
+	}
+
+	# replace R = U + I
+	&mprint("R (country_id): U (");
+#	&do_statement("replace country_product(product_id,country_id,stock,existed,active) select product_id,country_id,stock,1,1 from tmp_country_product");
+
+	my $countries = &do_query("select distinct country_id from country_product where country_id>0");
+	my $countries_count = 0;
+	my $countries_count_single = 0;
+
+	foreach my $cntr (@$countries) {
+		&mprint(&do_query("select code from country where country_id=".$cntr->[0])->[0][0]." = ");
+
+		&do_statement("update country_product cp
+inner join tmp_country_product tcp using (product_id,country_id)
+set cp.stock=tcp.stock, cp.existed=1, cp.active=1, tcp.country_product_id=cp.country_product_id
+where cp.country_id=".$cntr->[0]." and tcp.country_id=".$cntr->[0]);
+
+		$countries_count_single = &do_query("select row_count()")->[0][0];
+		$countries_count += $countries_count_single;
+		&mprint(&mark.$countries_count_single.&unmark.", ");
+	}
+
+	&mprint("\b\b. Totaled ".&mark.$countries_count.&unmark." updated), I (");
+
+	&do_statement("insert ignore country_product(product_id,country_id,stock,existed,active) select product_id,country_id,stock,1,1 from tmp_country_product where country_product_id=0");
+
+	&mprint(&mark.&do_query("select row_count()")->[0][0].&unmark." inserted), ");
+
+	# remove product_id=0 from country_product table
+	&mprint("DEL (product_id=0): ");
+	&do_statement("delete from country_product where product_id=0"); # quick & dirty solution. Further, I need to investigate this fact: Why the products with product_id=0 appear there.
+	&mprint(&mark.&do_query("select row_count()")->[0][0].&unmark." weird products removed, ");
+
+	# active=0 for nonimport products
+	&mprint("U (active=0), ");
+	&do_statement("update country_product cp
+left join tmp_country_product tcp
+on cp.product_id=tcp.product_id and cp.country_id=tcp.country_id
+set cp.active=0
+where tcp.stock is null");
+	&do_statement("drop temporary table tmp_country_product");
+
+	# tmp table for product_price
+	&mprint("CT, ");
+	&do_statement("create temporary table tmp_product_price (
+product_id int(13)       NOT NULL default '0',
+price      decimal(10,2) NOT NULL default '0',
+stock      int(13),
+primary key (product_id))");
+
+	# group by product_id,country_id
+	&mprint("I, ");
+	&do_statement("insert into tmp_product_price(product_id,price,stock)
+select product_id,max(price),sum(stock) from pricelist group by product_id order by product_id");
+
+	# stock=0 if stock<0
+	&mprint("U (stock=0 if stock<0), ");
+	&do_statement("update tmp_product_price set stock=0 where stock<0");
+
+	# price=0 if price<0
+	&mprint("U (price=0 if price<0), ");
+	&do_statement("update tmp_product_price set price=0 where price<0");
+
+	# group by product_id
+	&mprint("R ");
+	&do_statement("replace product_price(product_id,price,stock) select product_id,price,stock from tmp_product_price");
+	&mprint(&mark.&do_query("select ROW_COUNT()")->[0][0].&unmark." replaces, ");
+
+	# stock=0 for nonimport products
+	&mprint("U (stock=0) ");
+	&do_statement("update product_price pp
+left join tmp_product_price tpp
+on pp.product_id=tpp.product_id
+set pp.stock=0
+where tpp.stock is null");
+	&do_statement("drop temporary table tmp_product_price");
+	
+	&mprint("Update distributors with iceshop ");					
+	&do_statement("UPDATE distributor d
+				    JOIN pricelist pl ON pl.distributor_id=d.distributor_id
+					SET d.source=pl.source_info
+					WHERE pl.source_info='iceimport' and product_id!=0");
+
+	&mprint("Update distributors with prf ");
+	&do_statement("UPDATE distributor d
+				    JOIN pricelist pl ON pl.distributor_id=d.distributor_id
+					SET d.source=pl.source_info
+					WHERE pl.source_info='prf' and product_id!=0");
+	
+	&do_statement("UPDATE distributor_pl dpl
+				    JOIN distributor d ON d.group_code=dpl.code
+					SET dpl.active=IF(d.source='icecat',dpl.active,0)");
+	
+	&mprint(&done_stop);
+	
+	# debug
+#	print "product_id\tcountry_id\tsum(stock)\n";
+#	foreach (@$group_by_country) {
+#		print join("\t",@$_);
+#		print "\n";
+#	}
+	#debug
+#	die;
+} # sub update_price_and_stock
+
+sub update_images {
+	# add images (for now, only absent images will added)
+	&start; &mprint("\n".&gmark."INSERT images: ".&unmark);
+	&mprint("S ");
+	my $images = &do_query("select tp.product_id, p.image from pricelist p inner join tmp_product tp on p.product_id=tp.product_id and p.prio=1 and p.image!='' and tp.high_pic='' and p.image not like '%paperpoint%' and p.image not like 'http://%.icecat.biz/%");
+	my $total = $#$images+1;
+	&mprint("total = ".&mark.$total.&unmark.":\n");
+	my $i = 0;
+	foreach (@$images) {
+		$i++;
+		&thumbnailize_product(
+													&normalize_product_pics(
+																									{ "product_id" => $_->[0],
+																										"high_pic" => $_->[1] },
+																									'pricelist')
+													);
+		&mprint("\t#".&mark.$i.&unmark."/".&mark.$total.&unmark."\t".$_->[0]." ".$_->[1]."\n");
+	}
+	&mprint(&done_stop("(" . &mark . ($#$images+1) . &unmark . " new images)"));
+} # sub update_images
+
+sub reload_tmp_product {
+	# urge to reload product_memory
+#	`$reload_script`;
+
+	# product
+	&mprint("ICEcat: CT, ");
+	&do_statement("drop temporary table if exists tmp_product");
+	&do_statement("create temporary table tmp_product (
+`product_id`  int(13)      NOT NULL primary key,
+`prod_id`     varchar(60)  NOT NULL default '',
+`supplier_id` int(13)      NOT NULL default '0',
+`user_id`     int(13)      NOT NULL default '0',
+`high_pic`    varchar(255) NOT NULL default '',
+key (prod_id, supplier_id))");
+
+	&do_statement("alter table tmp_product DISABLE KEYS");
+	my $memory = '';
+#	if (&do_query("show tables like 'product_memory'")->[0][0]) { # prod_id & high_pic are absent - should be added to product_memory and removed from there
+#		$memory = '_memory';
+#	}
+	&mprint("I" . ( $memory ? " (\033[1mmemory table\033[0m)" : "" ) . ", ");
+	&do_statement("insert ignore into tmp_product(product_id,prod_id,supplier_id,user_id,high_pic) select product_id,prod_id,supplier_id,user_id,high_pic from product".$memory);
+	&do_statement("alter table tmp_product ENABLE KEYS");
+} # sub reload_tmp_product
+
+sub reload_tmp_supplier {
+	# product
+	&mprint("ICEcat: CT (tmp_supplier), ");
+	&do_statement("drop temporary table if exists tmp_supplier");
+	&do_statement("create temporary table tmp_supplier (
+`supplier_id` int(13)      NOT NULL primary key,
+`name`        varchar(255) NOT NULL default '',
+key (name))");
+
+	&do_statement("alter table tmp_supplier DISABLE KEYS");
+	&mprint("I, ");
+	&do_statement("insert ignore into tmp_supplier(supplier_id,name) select supplier_id,name from supplier");
+	&do_statement("alter table tmp_supplier ENABLE KEYS");	
+} # su reload_tmp_supplier
+
+sub log_ignored_product {
+	my ($prefs, $row, $text) = @_;
+	$prefs->{'ignored_products'}++;
+	push @{$prefs->{'ignored_products_list'}},
+	{
+		'prod_id'     => $row->{'productcode vendor'},
+		'name'        => $row->{'name'},
+		'ocat'        => $row->{'subcat'},
+		'reason'      => $text,
+		'supplier'    => $row->{'supplier'},
+		'distributor' => $row->{'distributor'}
+	};
+} # sub log_ignored_product
+
+sub required_fields {
+	my ($file, $fields) = @_;
+
+	my $their_fields = {};
+
+	open DESC, $file." |";
+	binmode DESC, ":utf8";
+	my $i = 0;
+	my @n;
+	foreach (<DESC>) {
+#		print $_;
+		if ($i) {
+			@n = split /\t/, $_;
+			$their_fields->{$n[0]} = $n[1];
+		}
+		$i++;
+#		print $i;
+	}
+	close DESC;
+
+#	&mprint("their_fields = ".Dumper($their_fields));
+
+	foreach (keys %$fields) {
+		if ((!defined $their_fields->{$_}) && ($fields->{$_} eq 1)) {
+			return undef;
+		}
+		$fields->{$_} = $their_fields->{$_} || 0;
+	}
+	return $fields;
+} # sub required_fields
+
+sub nonmapped_xls {
+	&do_statement("insert IGNORE into tmp_non_mapped_products select prod_id, distributor, vendor, if(catid=0,concat('unmapped:', cat),cat) from pricelist where catid=0");
+	
+#	my $file = $base.'nonmapped_products.xls';
+	open my $fh, '>', \my $xls;
+	my $workbook = Spreadsheet::WriteExcel::Big->new($fh) or die("cannot create xls file\n");
+
+  # Add and define a format
+	my $format = $workbook->add_format(); # Add a format
+	$format->set_bold();
+	$format->set_color('red');
+	$format->set_align('center');
+	my $format1 = $workbook->add_format();
+	$format1->set_bold();
+	
+	my $query = &do_query("select prod_id, distributor, supplier, category from tmp_non_mapped_products");
+	my $worksheet;
+
+	# init
+	my $ws_num = -1;
+	my $row = 0;
+
+	foreach my $data (@$query) {
+		$row = 0 if $row == 65535;
+		if ($row == 0) {
+			$row = 1;
+			$ws_num++;
+			$worksheet->{$ws_num} = $workbook->add_worksheet();
+			$worksheet->{$ws_num}->activate();
+			$worksheet->{$ws_num}->write(0, 0, 'Product part code', $format);
+			$worksheet->{$ws_num}->write(0, 1, 'Distributor', $format);
+			$worksheet->{$ws_num}->write(0, 2, 'Vendor', $format);
+			$worksheet->{$ws_num}->write(0, 3, 'Category', $format);
+			$worksheet->{$ws_num}->set_column(0, 0, 20);
+			$worksheet->{$ws_num}->set_column(1, 1, 20);
+			$worksheet->{$ws_num}->set_column(2, 2, 20);
+			$worksheet->{$ws_num}->set_column(3, 3, 20);
+		}
+
+		my $col;
+		for ($col=0; $col<4; $col++) {
+			if ($data->[$col] =~ s/^unmapped://) {
+				$worksheet->{$ws_num}->write($row, $col, $data->[$col], $format1);
+			}
+			else {
+				$worksheet->{$ws_num}->write($row, $col, $data->[$col]);
+			}
+#			&log_printf("row:[".$row."]column:[".$col."]Data: ".$data->[$col]."\n");
+		}
+
+		$row++;
+	}
+
+	$worksheet->{0}->activate() if $worksheet->{0};
+	$workbook->close();
+	
+	# send by mail
+	$prefs->{'attachment2_name'} = 'unmapped_products.xls';
+#	$prefs->{'attachment2_body'} = $xls;
+	$prefs->{'attachment2_binmode'} = 'raw';
+
+	# store to the pub
+	open NONMAPPED, ">", $atomcfg{'pub_path'}.$prefs->{'attachment2_name'}.'.gz';
+	binmode NONMAPPED, ":raw";
+	print NONMAPPED &gzip_data($xls,$prefs->{'attachment2_name'},'raw');
+	close NONMAPPED;
+} # sub nonmapped_xls
+
+ ######################
+##                    ##
+## miscellaneous subs ##
+##                    ##
+ ######################
+
+sub swap {
+	$swap = $swap eq '/' ? '\\' : '/';
+	print "\b".$swap;
+} # sub swap
+
+sub my_chomp {
+	my ($str) = @_;
+
+	$str =~ s/^\s+//s;
+	$str =~ s/\s+$//s;
+#	$str =~ s/[[:cntrl:]]//gs;
+
+	return $str;
+} # sub my_chomp
+
+sub start {
+	$time = &POSIX::time();
+} # sub start
+
+sub stop {
+	return (&POSIX::time()-$time);
+} # sub stop
+
+sub done_stop {
+	my $pre = shift;
+	my $secs = &stop;
+	return $pre.($pre ? " " : "")."(\033[31m".$secs."\033[37m sec".($secs == 1 ? "" : "s").")\n";
+} # sub done_stop
+
+sub mprint {
+	print shift if ($messages);
+} # sub mprint
+
+sub mark {
+	return "\033[33m\033[1m";
+} # sub mark
+
+sub unmark {
+	return "\033[0m\033[37m";
+} # sub unmark
+
+sub gmark {
+	return "\033[32m\033[1m";
+} # sub gmark
+
+sub nice_string {
+  join("",
+       map { $_ > 255 ?         # if wide character...
+               sprintf("\\x{%04X}", $_) : # \x{...}
+               chr($_) =~ /[[:cntrl:]]/ ? # else if control character ...
+               sprintf("\\x%02X", $_) : # \x..
+               quotemeta(chr($_)) # else quoted or as themselves
+             } unpack("U*", $_[0])); # unpack Unicode characters
+} # sub nice_string
+
+ #######
+##     ##
+## end ##
+##     ##
+ #######

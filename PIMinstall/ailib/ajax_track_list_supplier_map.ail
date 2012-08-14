@@ -1,0 +1,14 @@
+{
+name: ajax_track_list_supplier_map;
+
+priority: 10;
+
+_resource_supplier: select sm.supplier_id,sm.supplier_id,sm.track_list_supplier_map_id,s.name from track_list_supplier_map sm
+					LEFT JOIN supplier s ON sm.supplier_id=s.supplier_id  
+					where sm.track_list_supplier_map_id=%%track_list_supplier_map_id%% ;
+_mapping_supplier: map_supplier_id,supplier_id_raw,track_list_supplier_map_id,supplier_name;
+
+format_as_dropdown: map_supplier_id;
+map_supplier_id_dropdown_select: select distinct s.supplier_id, s.name from supplier s order by s.name;
+map_supplier_id_dropdown_width: 300;
+}

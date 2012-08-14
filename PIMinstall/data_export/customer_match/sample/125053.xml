@@ -1,0 +1,551 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="125053" Prod_id="L1825A" ThumbPic="http://www.icecat.biz/thumbs/125053.jpg" Code="1" Quality="SUPPLIER" HighPic="" Name="HP Photosmart R507 digitale camera met HP cameradock" LowPic="http://www.icecat.biz/img/hp/low_res/l1825a_190x170.jpg">
+        <ProductRelated ID="597434">
+         <Product ID="40849" Prod_id="U4798A" ThumbPic="" Name="3 jaar exchange op de volgende werkdag, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="597417">
+         <Product ID="61903" Prod_id="U4798E" ThumbPic="" Name="3 jaar exchange op de volgende werkdag, hardwaresupport (consument)">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="543095">
+         <Product ID="83080" Prod_id="C8912B" ThumbPic="http://www.icecat.biz/thumbs/83080.jpg" Name="HP Photosmart 3,3-V netadapter">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="543099">
+         <Product ID="98536" Prod_id="L1812A" ThumbPic="http://www.icecat.biz/thumbs/98536.jpg" Name="Lithium-ion batterij voor HP R-serie camera">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="543098">
+         <Product ID="98519" Prod_id="L1811A" ThumbPic="http://www.icecat.biz/thumbs/98519.jpg" Name="HP Photosmart luxe cameratas voor HP R-serie camera's">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="543097">
+         <Product ID="99005" Prod_id="L1810A" ThumbPic="http://www.icecat.biz/thumbs/99005.jpg" Name="HP Photosmart snellader-kit voor HP R-serie camera's">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="543096">
+         <Product ID="99004" Prod_id="C8887A" ThumbPic="http://www.icecat.biz/thumbs/99004.jpg" Name="HP Photosmart R-serie cameradock met afstandsbediening plus extra oplaadbare lithium-ion batterij">
+          <Supplier ID="1" Name="HP"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="622" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="42" No="60">
+         <FeatureGroup ID="3">
+           <Name ID="4863" Value="Memory" langid="1"/>
+           <Name ID="4864" Value="Geheugen" langid="2"/>
+           <Name ID="7176" Value="Memory" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="41" No="50">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="26" No="10">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="56" No="40">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="39" No="105">
+         <FeatureGroup ID="13">
+           <Name ID="5008" Value="Lenssysteem" langid="2"/>
+           <Name ID="5007" Value="Lens system" langid="1"/>
+           <Name ID="8187" Value="Lens system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="40" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="55" No="70">
+         <FeatureGroup ID="21">
+           <Name ID="5037" Value="Light exposure" langid="1"/>
+           <Name ID="5038" Value="Belichting" langid="2"/>
+           <Name ID="8330" Value="Light exposure" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="57" No="110">
+         <FeatureGroup ID="22">
+           <Name ID="5039" Value="Picture quality" langid="1"/>
+           <Name ID="5040" Value="Fotokwaliteit" langid="2"/>
+           <Name ID="8331" Value="Picture quality" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1279" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1196" No="0">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1160" No="0">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="144275" URL="kijk voor digitale camera-accessoires op: www.hp.com/eur/hpoptions" ShortDesc="HP Photosmart R507 digitale camera serieR507 met cameradock" langid="2" LongDesc="Deze pocket-formaat camera met zijn roestvrijstalen design en ergonomische grip is stijlvol en duurzaam. 4,1-MP resolutie en 21 x zoom (3 x optisch via Pentax-lens, 7 x digitaal) zorgen voor realistische foto's, HP Real Life technologies verbeteren de kwaliteit van uw foto's en HP Instant Share vergemakkelijkt het printen en e-mailen van foto's. Het bijgeleverde cameradock maakt het mogelijk om foto's met één druk op de knop over te brengen naar de pc, batterijen op te laden, of na aansluiting op de tv foto's te bekijken met behulp van de afstandsbediening.Pocket-formaat camera met 4,1-MP resolutie, 21 x zoom, HP Real Life technologies plus een cameradock.Realistische foto's  4,1 MP en 3 x optische zoom.Stijlvolle pocket-formaat camera met 4,1-MP resolutie, 21 x zoom en HP Real Life technologies.Compacte camera met een stijlvol roestvrijstalen design en een ergonomische grip. 4,1-MP resolutie, 21 x zoom (3 x optisch via Pentax-lens, 7 x digitaal) en HP Real Life technologies zoals Adaptive Lighting zorgen voor realistische foto's.Compacte camera met een stijlvol roestvrijstalen design. 4,1-MP resolutie, 21 x zoom en HP Real Life technologies zoals Adaptive Lighting zorgen voor realistische foto's. Cameradock om foto's met één druk op de knop over te brengen plus 2 lithium-ion batterijen zijn inbegrepen.4,1-MP resolutie en 3 x optische zoom; cameradock wordt bijgeleverd." WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="149868" URL="for digital camera accessories visit us at: www.hp.com/eur/hpoptions" ShortDesc="HP Photosmart R507 digital camera with HP camera dockR507 with dock" langid="1" LongDesc="Ultra-compact camera with stylish metal face and practical wave-style fingergrip. Take true-to-life photos with 4.1 MP resolution, 21x total zoom (3x optical Pentax lens, 7x digital) and HP Real Life technologies including Adaptive Lighting.Ultra-compact camera with stylish metal face. Take true-to-life photos with 4.1 MP resolution, 21x total zoom plus HP Real Life technologies including Adaptive Lighting. Includes dock for one-touch photo transfer plus 2 lithium-ion batteries.Pocket-sized camera with 4.1 MP, 21x total zoom, HP Real Life technologies and included dock.True-to-life photos  4.1 MP and 3x optical zoom.Stylish, pocket-sized camera with 4.1 MP, 21x total zoom and HP Real Life technologies.With its metal face and wave-style fingergrip, this pocket-sized camera combines style and durability. 4.1 MP resolution and 21x total zoom (3x optical Pentax lens, 7x digital) ensure true-to-life photos, while HP Real Life technologies improve the quality of your photos and HP Instant Share makes it easy to print or share by e-mail. The included dock enables one-touch photo transfer and battery recharging, and allows you to connect to the TV and view your photos using the remote control.4.1 MP and 3x optical zoom plus included dock." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9730919" Value="Microsoft® Windows® 98 SE, 2000, Me, XP (Home Edition en Professional); Macintosh OS X 10.1.5, 10.2 en hoger" No="100001" CategoryFeatureGroup_ID="26">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9753752" Value="SD/MMC kaarten om extra capaciteit toe te voegen" No="100000" CategoryFeatureGroup_ID="622">
+         <Feature ID="1633">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5095" Value="Upgrade type" langid="1"/>
+           <Name ID="5096" Value="Upgrade type" langid="2"/>
+           <Name ID="8353" Value="Upgrade type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9753753" Value="Normal (default), self-timer, self-timer (2 shots), burst, video" No="0" CategoryFeatureGroup_ID="622">
+         <Feature ID="2030">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9086" Value="Picture mode" langid="1"/>
+           <Name ID="9087" Value="Picture mode" langid="3"/>
+           <Name ID="9088" Value="Picture mode" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419892" Value="32" No="116039" CategoryFeatureGroup_ID="42">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419908" Value="~0.4 m tot oneindig (normaal), ~0.18 tot 0.5 m (macro), 0.06 tot 0.25 m (supermacro)" No="125599" CategoryFeatureGroup_ID="39">
+         <Feature ID="744">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3019" Value="Lens Focal Range" langid="1"/>
+           <Name ID="3020" Value="Focusbereik lens" langid="2"/>
+           <Name ID="7504" Value="Lens Focal Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419913" Value="1 tot 1/2000 seconde" No="125605" CategoryFeatureGroup_ID="55">
+         <Feature ID="834">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3199" Value="Mechanical Shutter" langid="1"/>
+           <Name ID="3200" Value="Mechanische sluiter" langid="2"/>
+           <Name ID="7593" Value="Mechanical Shutter" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419911" Value="3.8-cm diagonaal LCD kleurendisplay (502 x 240 = 120.480 dots)" No="125596" CategoryFeatureGroup_ID="41">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419912" Value="Pentax® lens, glas, automatische scherpstelling; totaal 21 x zoom (3 x optisch, 7 x digitaal), brandpuntsafstand 5.8 tot 17.4 mm; ca. 35 tot 105 mm (35-mm equivalent); f 2.6 tot f4.3 (groothoek), f4.8 tot f7.6 (tele)" No="125613" CategoryFeatureGroup_ID="39">
+         <Feature ID="576">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2683" Value="Lens System" langid="1"/>
+           <Name ID="2684" Value="Lenssysteem" langid="2"/>
+           <Name ID="7338" Value="Lens System" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419904" Value="kleur, zwart-wit, sepia" No="25587" CategoryFeatureGroup_ID="622">
+         <Feature ID="663">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2857" Value="Colour Control" langid="1"/>
+           <Name ID="2858" Value="Kleurinstelling" langid="2"/>
+           <Name ID="7423" Value="Contrôle des couleurs" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419902" Value="zwart: 8-bits (256 grijstinten), kleur: 36-bits" No="125590" CategoryFeatureGroup_ID="57">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419903" Value="4.2" No="10108702" CategoryFeatureGroup_ID="57">
+         <Feature ID="63">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1463" Value="Mega Pixel" langid="1"/>
+           <Name ID="1464" Value="Mega Pixel" langid="2"/>
+           <Name ID="6743" Value="Mega Pixel" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419910" Value="Toevoegen van datum en tijd" No="25597" CategoryFeatureGroup_ID="622">
+         <Feature ID="866">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3263" Value="Image control functions" langid="1"/>
+           <Name ID="3264" Value="Image control functions" langid="2"/>
+           <Name ID="7624" Value="Image control functions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419893" Value="512-Mb Secure Digital (SD) kaart of MultiMedia Card (MMC) kaart" No="0" CategoryFeatureGroup_ID="42">
+         <Feature ID="1246">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="4033" Value="Maximum internal memory" langid="1"/>
+           <Name ID="4034" Value="Maximum intern geheugen" langid="2"/>
+           <Name ID="7999" Value="Maximum internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419906" Value="± 3 EV in stappen van 1/3" No="125602" CategoryFeatureGroup_ID="55">
+         <Feature ID="670">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2871" Value="Light Exposure Correction" langid="1"/>
+           <Name ID="2872" Value="Belichtingscorrectie" langid="2"/>
+           <Name ID="7430" Value="Light Exposure Correction" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419907" Value="Automatisch (standaard), automatisch met anti rode ogen, flitser aan zonder anti rode ogen, flitser uit, nachtmodus met anti rode ogen" No="125600" CategoryFeatureGroup_ID="55">
+         <Feature ID="463">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2457" Value="Flash" langid="1"/>
+           <Name ID="2458" Value="Flits" langid="2"/>
+           <Name ID="7225" Value="Flash" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419905" Value="Gecentreerde AE-meting, AE-spotmeting, gemiddelde AE-meting" No="125603" CategoryFeatureGroup_ID="55">
+         <Feature ID="711">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2953" Value="Light Exposure Control" langid="1"/>
+           <Name ID="2954" Value="Belichtingsinstelling" langid="2"/>
+           <Name ID="7471" Value="Light Exposure Control" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419909" Value="Normaal (standaard), macro, supermacro" No="125598" CategoryFeatureGroup_ID="39">
+         <Feature ID="759">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3049" Value="Focus" langid="1"/>
+           <Name ID="3050" Value="Focus of scherpstelling of brandpuntsafstand" langid="2"/>
+           <Name ID="7519" Value="Focus" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419920" Value="Optische zoeker" No="100538" CategoryFeatureGroup_ID="39">
+         <Feature ID="1293">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4127" Value="Camera viewfinder" langid="1"/>
+           <Name ID="4128" Value="Camera viewfinder" langid="2"/>
+           <Name ID="8046" Value="Camera viewfinder" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419918" Value="Automatisch (standaard), ISO 100, 200, 400" No="125583" CategoryFeatureGroup_ID="55">
+         <Feature ID="694">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2919" Value="Light Exposure Rating" langid="1"/>
+           <Name ID="2920" Value="Mate van blootstelling aan licht" langid="2"/>
+           <Name ID="7454" Value="Light Exposure Rating" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419901" Value="USB-compatibele Macintosh computer met Mac OS X 10.1.5, 10.2 of hoger; 500-MHz PowerPC processor; QuickTime Versie 5.0.1 of hoger; 128 Mb RAM; 240 Mb vrije schijfruimte; SVGA-monitor (800 x 600, 16-bits kleur); cd-rom drive; vrije USB-poort; voor HP Memories Disc Creator zijn een cd-writer en 700 Mb extra vrije schijfruimte vereist" No="25614" CategoryFeatureGroup_ID="26">
+         <Feature ID="493">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2517" Value="Minumum system requirements for Macintosh" langid="1"/>
+           <Name ID="2518" Value="Minumum systeemeisen voor Macintosh" langid="2"/>
+           <Name ID="7255" Value="Minumum system requirements for Macintosh" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419900" Value="1 USB  compatibel met de USB 2.0 specificatie, 1 dockpoort" No="16034" CategoryFeatureGroup_ID="56">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419919" Value="Automatisch (standaard) of handmatig TTL (through-the-lens)" No="25611" CategoryFeatureGroup_ID="55">
+         <Feature ID="476">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2483" Value="Metering" langid="1"/>
+           <Name ID="2484" Value="Meting" langid="2"/>
+           <Name ID="7238" Value="Metering" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419898" Value="1 USB (compatibel met de USB 2.0 specificatie), dockpoort" No="108710" CategoryFeatureGroup_ID="56">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419894" Value="1 slot, compatibel met Secure Digital (SD) en MultiMediaCard (MMC)" No="25592" CategoryFeatureGroup_ID="42">
+         <Feature ID="672">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2875" Value="Memory slots" langid="1"/>
+           <Name ID="2876" Value="Geheugenslots" langid="2"/>
+           <Name ID="7432" Value="Emplacements mémoire" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419895" Value="Gemiddelde capaciteit voor niet-bewegende beelden per 32-Mb intern geheugen: &lt;br&gt;265 foto's (100 Kb) = VGA resolutie en 2-sterren compressie;&lt;br&gt; 45 foto's (600 Kb) = 2-MP resolutie en 2-sterren compressie (**- better)&lt;br&gt; 22 foto's (1.2 Mb) = 4-MP resolutie (standaard) en 2-sterren compressie (**- better)&lt;br&gt; 11 foto's (2.4 Mb) = 4-MP resolutie en 3-sterren compressie (*** - best)" No="25612" CategoryFeatureGroup_ID="42">
+         <Feature ID="481">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2493" Value="Storage media capacity" langid="1"/>
+           <Name ID="2494" Value="Capaciteit van opslagmedia" langid="2"/>
+           <Name ID="7243" Value="Storage media capacity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419914" Value="10" No="125610" CategoryFeatureGroup_ID="622">
+         <Feature ID="765">
+          <Measure ID="60" Sign="s"/>
+           <Name ID="3061" Value="Self Timer" langid="1"/>
+           <Name ID="3062" Value="Zelfontspanner" langid="2"/>
+           <Name ID="7525" Value="Déclencheur à retardement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419915" Value="0.66" No="25609" CategoryFeatureGroup_ID="55">
+         <Feature ID="664">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2859" Value="Shutter Lag" langid="1"/>
+           <Name ID="2860" Value="Sluitervertraging" langid="2"/>
+           <Name ID="7424" Value="Délai entre les prises de vue" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419917" Value="HP Image Zone software voor Microsoft® Windows® en Macintosh®, HP Memories Disc Creator en ArcSoft Panorama Maker 3.5" No="100070" CategoryFeatureGroup_ID="26">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419916" Value="21 x (3 x optisch, 7 x digitaal)" No="125606" CategoryFeatureGroup_ID="39">
+         <Feature ID="472">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2475" Value="Zoom Capability" langid="1"/>
+           <Name ID="2476" Value="Zoombereik" langid="2"/>
+           <Name ID="7234" Value="Zoom Capability" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419931" Value="15 tot 90% relatieve luchtvochtigheid" No="25633" CategoryFeatureGroup_ID="1196">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419927" Value="1.75 kg" No="25625" CategoryFeatureGroup_ID="40">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419930" Value="15 tot 85% relatieve luchtvochtigheid" No="25632" CategoryFeatureGroup_ID="1196">
+         <Feature ID="563">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2657" Value="Recommended Humidity Operating Range" langid="1"/>
+           <Name ID="2658" Value="Aanbevolen relatieve luchtvochtigheid bij gebruik" langid="2"/>
+           <Name ID="7325" Value="Humidité de fonctionnement recommandée" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419926" Value="309 x 195 x 117 mm" No="25620" CategoryFeatureGroup_ID="40">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419929" Value="15 tot 85" No="16075" CategoryFeatureGroup_ID="1196">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419928" Value="Camera: 157 gr met batterijen, cameradock: 108 gr" No="108711" CategoryFeatureGroup_ID="40">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9533817" Value="1 lithium-ion battery 1050mA (rechargeable), Universal AC power adapter: 100- to 240-VAC (50/60-Hz) input; 3.3-V AC, 2500-mA output" No="16046" CategoryFeatureGroup_ID="1160">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419924" Value="1 1050mA lithium-ion batterij (oplaadbaar), universele netadapter: 100 240 V (50/60 Hz) ingangsspanning; 3.3 V, 2500mA uitgangsspanning" No="0" CategoryFeatureGroup_ID="1160">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419925" Value="Camera: 87 x 57 x 28 mm, cameradock: 130 x 54 x 44 mm" No="108712" CategoryFeatureGroup_ID="40">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419921" Value="Automatisch (standaard), zon, schaduw, tungsten, fluorescerend, handmatig" No="25607" CategoryFeatureGroup_ID="55">
+         <Feature ID="682">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2895" Value="White Balance" langid="1"/>
+           <Name ID="2896" Value="Witbalans" langid="2"/>
+           <Name ID="7442" Value="Equilibrage des blancs" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419922" Value="JPEG (EXIF 2.2) voor niet-bewegende beelden; MPEG-1 voor videoclips" No="0" CategoryFeatureGroup_ID="622">
+         <Feature ID="774">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3079" Value="Export file formats" langid="1"/>
+           <Name ID="3080" Value="Exportbestandsformaten" langid="2"/>
+           <Name ID="7534" Value="Export file formats" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419923" Value="Gratis telefonische support voor standaard setup, installatie en probleemoplossing in Europa tijdens de garantieperiode. Gratis support via het web 24 uur per dag, 7 dagen per week op www.hp.com/support." No="4" CategoryFeatureGroup_ID="622">
+         <Feature ID="1880">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5787" Value="Services (supportpack)" langid="1"/>
+           <Name ID="5788" Value="Services (supportpack)" langid="2"/>
+           <Name ID="8681" Value="Services (supportpack)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419897" Value="1 oplaadbare lithium-ion batterij (HP Photosmart R07), 3.3-V netadapter" No="25631" CategoryFeatureGroup_ID="1160">
+         <Feature ID="514">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2559" Value="Power supply type" langid="1"/>
+           <Name ID="2560" Value="type voeding" langid="2"/>
+           <Name ID="7276" Value="type d'alimentation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419899" Value="Nee" No="16026" CategoryFeatureGroup_ID="622">
+         <Feature ID="838">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3207" Value="Energy Star certified" langid="1"/>
+           <Name ID="3208" Value="Energy Star-certificaat" langid="2"/>
+           <Name ID="7596" Value="Energy Star certified" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9419896" Value="USB-compatibele pc met Microsoft® Windows® 98, 98 SE, Me, 2000, XP (Professional en Home Edition); Pentium III, Celeron of compatibele CPU; Internet Explorer 5.01 SP2 of hoger; 128 Mb RAM; 700 Mb vrije schijfruimte; SVGA-monitor (800 x 600, 16-bits kleur); cd-rom drive; vrije USB-poort; voor HP Memories Disc Creator zijn een cd-writer en 700 Mb extra vrije schijfruimte vereist" No="116068" CategoryFeatureGroup_ID="26">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9709466" Value="Gratis telefonische support tijdens de garantieperiode voor standaard setup, installatie en probleemoplossing in Noord-Amerika, Europa en Azië Pacific. Gratis support via het web 24 uur per dag, 7 dagen per week op www.hp.com/support." No="0" CategoryFeatureGroup_ID="622">
+         <Feature ID="2138">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9588" Value="Service &amp; support" langid="1"/>
+           <Name ID="9589" Value="Service &amp; support" langid="3"/>
+           <Name ID="9590" Value="Service en support" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9753751" Value="32 Mb intern geheugen, uit te breiden tot 512 Mb via Secure Digital (SD)/MultiMediaCard (MMC) kaartslot" No="180" CategoryFeatureGroup_ID="42">
+         <Feature ID="584">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2699" Value="Memory Upgrade" langid="1"/>
+           <Name ID="2700" Value="Geheugenupgrade" langid="2"/>
+           <Name ID="7346" Value="Memory Upgrade" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9753754" Value="Auto (default), action, landscape, portrait, beach/snow, sunset, aperture priority, panorama" No="0" CategoryFeatureGroup_ID="622">
+         <Feature ID="1577">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4911" Value="Shooting modes" langid="1"/>
+           <Name ID="4912" Value="Shooting modes" langid="2"/>
+           <Name ID="6570" Value="Shooting modes" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9753755" Value="4.1 MP resolution 1/2.5&amp;quot; CCD" No="0" CategoryFeatureGroup_ID="622">
+         <Feature ID="1618">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="5017" Value="Optical sensor size" langid="1"/>
+           <Name ID="5018" Value="Optical sensor size" langid="2"/>
+           <Name ID="8320" Value="Optical sensor size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760482" Value="Normaal (standaard), zelfontspanner, zelfontspanner (2 opnamen), burst, video" No="100000" CategoryFeatureGroup_ID="622">
+         <Feature ID="1817">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5623" Value="Photo mode" langid="1"/>
+           <Name ID="5624" Value="Photo mode" langid="2"/>
+           <Name ID="8602" Value="Photo mode" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760483" Value="Automatisch (standaard), actie, landschap, portret, strand/sneeuw, zonsondergang, prioriteit voor diafragma, panorama" No="0" CategoryFeatureGroup_ID="622">
+         <Feature ID="2159">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9660" Value="Prerecord" langid="1"/>
+           <Name ID="9661" Value="Prerecord" langid="3"/>
+           <Name ID="9662" Value="Prerecord" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760484" Value="4.1-MP resolutie 1/2.5-inch CCD" No="528" CategoryFeatureGroup_ID="622">
+         <Feature ID="1283">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4107" Value="Camera CCD sensor" langid="1"/>
+           <Name ID="4108" Value="Camera CCD sensor" langid="2"/>
+           <Name ID="8036" Value="Camera CCD sensor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9760485" Value="1 lithium-ion batterij, 3.3-V netadapter" No="0" CategoryFeatureGroup_ID="622">
+         <Feature ID="1390">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4321" Value="Power source" langid="1"/>
+           <Name ID="4322" Value="Power source" langid="2"/>
+           <Name ID="8141" Value="Power source" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="1" Name="HP"/>
+       <Category ID="575">
+         <Name ID="1151" Value="digital cameras" langid="1"/>
+         <Name ID="1152" Value="digitale camera's" langid="2"/>
+         <Name ID="6627" Value="digital cameras" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

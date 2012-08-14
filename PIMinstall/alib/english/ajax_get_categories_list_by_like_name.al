@@ -1,0 +1,6 @@
+{
+name: ajax_get_categories_list_by_like_name;
+
+body:
+%%cat_names%%
+}

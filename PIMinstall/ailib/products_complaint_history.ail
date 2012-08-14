@@ -1,0 +1,44 @@
+{
+ name: products_complaint_history;
+ 
+ _resource_history: select product_complaint.id, subject, message, DATE_FORMAT(date, '%d.%c.%Y %H:%i:%s'), users.login, 
+ users.user_id, complaint_status_id, vocabulary.value, contact.email from 
+ product_complaint, vocabulary, product_complaint_status, users, contact
+ where product_complaint.id = %%last_complaint_id%% and 
+ product_complaint.complaint_status_id = product_complaint_status.code and 
+ product_complaint_status.sid = vocabulary.sid and vocabulary.langid = 1 and 
+ users.user_id = product_complaint.user_id and users.pers_cid = contact.contact_id;
+ _mapping_history: complaint_id, subject, message, date, uname, userid, status_id, status_name, uemail; 
+ 
+ _resource_funame: select u.login from users as u, product_complaint as pc  where u.user_id = pc.fuser_id and pc.id = %%last_complaint_id%%
+ _mapping_funame: funame;
+ 
+ _format_as_status_id: status_id;		 
+ _format_as_hsubject: subject;
+ _format_as_editor: funame;
+ _format_as_status_name: status_name;
+ _format_as_compl_msg: message, subject;
+
+ authorize_superuser: complaint_id, product_id;
+ authorize_supereditor: complaint_id, product_id;
+ authorize_category_manager: complaint_id, product_id;
+ authorize_editor: complaint_id, product_id;
+ authorize_guest: complaint_id, product_id;
+ authorize_shop: complaint_id, product_id;
+		 
+ authorize_add_superuser: complaint_id, product_id;
+ authorize_add_supereditor: complaint_id, product_id;
+ authorize_add_category_manager: complaint_id, product_id;
+ authorize_add_editor: complaint_id, product_id;
+ authorize_add_guest: complaint_id, product_id;
+ authorize_add_supplier: complaint_id, product_id;
+ authorize_add_shop: complaint_id, product_id;
+					
+ authorize_submit_superuser: complaint_id, product_id;
+ authorize_submit_supereditor: complaint_id, product_id;
+ authorize_submit_category_manager: complaint_id, product_id;
+ authorize_submit_editor: complaint_id, product_id;
+ authorize_submit_guest: complaint_id, product_id;
+ authorize_submit_shop: complaint_id, product_id;
+ 
+}

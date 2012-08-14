@@ -1,0 +1,37 @@
+{
+name: power_mapping;
+
+priority: 10;
+
+_resource_value_regexp: select concat(pattern," ",if(parameter1 = '',"",if(parameter2 = '',concat("(&nbsp;",parameter1,"&nbsp;)"),concat("(&nbsp;",parameter1,"&nbsp;,&nbsp;",parameter2,"&nbsp;)")))) from value_regexp where value_regexp_id=%%value_regexp_id%%;
+_mapping_value_regexp: pattern;
+
+_resource_feature_value_regexp: select feature_id, value
+from feature_value_regexp fvr
+inner join feature f using (feature_id)
+inner join vocabulary v on f.sid=v.sid and v.langid=1
+where value_regexp_id=%%value_regexp_id%%
+order by value asc;
+_resource_feature_value_regexp_type: multi;
+_resource_feature_value_regexp_key: value_regexp_id;
+_mapping_feature_value_regexp: feature_id, feature_name;
+
+_resource_measure_value_regexp: select measure_id, value
+from measure_value_regexp fvr
+inner join measure f using (measure_id)
+inner join vocabulary v on f.sid=v.sid and v.langid=1
+where value_regexp_id=%%value_regexp_id%%
+order by value asc;
+_resource_measure_value_regexp_type: multi;
+_resource_measure_value_regexp_key: value_regexp_id;
+_mapping_measure_value_regexp: measure_id, measure_name;
+
+authorize_superuser: feature_id, measure_id;
+authorize_supereditor: feature_id, measure_id;
+authorize_category_manager: feature_id, measure_id;
+authorize_editor: feature_id, measure_id;
+authorize_supplier: feature_id, measure_id;
+authorize_guest: feature_id, measure_id;
+authorize_shop: feature_id, measure_id;
+
+}

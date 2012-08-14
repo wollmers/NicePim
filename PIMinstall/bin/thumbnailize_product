@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use thumbnail;
+use atomcfg;
+use atomsql;
+use atomlog;
+use strict;
+
+my $product_id = $ARGV[0];
+
+my $data = &do_query("select low_pic, high_pic from product where product_id = $product_id");
+my $product;
+$product->{'product_id'} = $product_id;
+$product->{'low_pic'} = $data->[0][0];
+$product->{'high_pic'} = $data->[0][1];
+&thumbnailize_product($product);
+

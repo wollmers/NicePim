@@ -1,0 +1,25 @@
+{
+name: products_raiting_search;
+priority: 10;
+
+ _resource_params: select '%%search_status%%', '%%search_prod_id%%', '%%search_product_name%%', '%%search_ssupplier_id%%', '%%search_catid%%', '%%search_distributor_id%%', '%%search_country_id%%', '%%search_onstock%%', '%%search_onmarket%%', '%%search_owner_id%%'
+
+ _mapping_params: search_status, search_prod_id, search_product_name, search_ssupplier_id, search_catid, search_distributor_id, search_country_id, search_onstock, search_onmarket, search_owner_id;
+ 
+format_as_dropdown: search_ssupplier_id, search_distributor_id, search_country_id, search_owner_id;
+search_ssupplier_id_dropdown_select: select supplier_id, name from supplier order by name
+search_distributor_id_dropdown_select: select distributor_id, name from distributor order by name
+search_country_id_dropdown_select: select distinct c.country_id, v.value from country c inner join distributor using (country_id) inner join vocabulary v on c.sid=v.sid and v.langid=1 order by v.value
+search_owner_id_dropdown_select: select user_id, login from users where user_id in (select distinct user_id from product) order by login
+
+format_as_smart_dropdown: search_catid;
+search_catid_add_empty: Any category;
+search_catid_add_empty_value: 1;
+search_catid_allow_pcat_choice: Y;
+search_catid_smart_dropdown_attrs: style="width\: 308px;"
+		 
+format_as_input_checkbox_via_hidden: search_onstock, search_onmarket;
+
+verify_deny_guest: yes;
+		 
+}

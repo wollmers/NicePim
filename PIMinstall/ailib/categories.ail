@@ -1,0 +1,42 @@
+{
+name: categories;
+priority: 10;
+
+_resource_tcat: select pcatid from category where catid = %%pcatid%%;
+_mapping_tcat: top_catid;
+
+
+_resource_categories: select catid, pcatid, ucatid, vocabulary.value, catid, 'dummy', COUNT(virtual_category.virtual_category_id) as virtuals
+from category 
+INNER JOIN vocabulary ON (category.sid = vocabulary.sid)
+LEFT JOIN virtual_category ON (virtual_category.category_id = category.catid)
+where category.catid <> 1 
+and vocabulary.langid = %%langid%% 
+and %%pcatid_clause%% 
+and %%search_clause%% 
+GROUP BY catid
+limit %%start_row%%,%%rows_number%%
+
+_resource_categories_type: multi;
+_mapping_categories: catid, pcatid, ucatid, name, new_catid, fcnt, virtuals;
+
+format_as_new_catid: new_catid;
+format_as_vcatid_link: virtuals;
+format_as_fcnt: fcnt;
+
+authorize_superuser: catid;
+authorize_supereditor: catid;
+authorize_category_manager: catid;
+authorize_editor: catid;
+authorize_supplier: catid;
+authorize_guest: catid;
+authorize_shop: catid;
+
+authorize_submit_superuser: catid;
+authorize_submit_supereditor: catid;
+authorize_submit_category_manager: catid;
+
+}
+
+
+

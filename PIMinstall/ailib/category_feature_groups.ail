@@ -1,0 +1,29 @@
+{
+name: category_feature_groups;
+priority: 10;
+
+_resource_groups: select feature_group.feature_group_id, category_feature_group_id, vocabulary.value, category_feature_group.no 
+  								 from 
+									    category_feature_group, feature_group, vocabulary
+											  where  												category_feature_group.feature_group_id = feature_group.feature_group_id and category_feature_group.catid = %%catid%% and feature_group.sid = vocabulary.sid and vocabulary.langid = %%langid%% and %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+
+_resource_groups_type: multi;
+_resource_groups_def_order: nom,group_name;
+_resource_groups_def_order_mode:D,D;
+_resource_groups_key: catid;
+_mapping_groups: feature_group_id, category_feature_group_id, group_name, nom;
+
+
+authorize_superuser: category_feature_group_id, feature_group_id;
+authorize_supereditor: category_feature_group_id, feature_group_id;
+authorize_category_manager: category_feature_group_id, feature_group_id;
+authorize_editor: category_feature_group_id, feature_group_id;
+authorize_supplier: category_feature_group_id, feature_group_id;
+authorize_guest: category_feature_group_id, feature_group_id;
+authorize_shop: category_feature_group, feature_group_id;
+
+authorize_submit_superuser: category_feature_group_id, feature_group_id;
+authorize_submit_supereditor: category_feature_group_id, feature_group_id;
+authorize_submit_category_manager: category_feature_group_id, feature_group_id;
+
+}

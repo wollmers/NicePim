@@ -1,0 +1,37 @@
+{
+name: product_supplier_family_choose_ajax;
+
+priority: 10;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+
+_resource_supplier: select '%%supplier_id%%', '%%catid%%', '%%supplier_family_id%%';
+_mapping_supplier: supplier_id, catid, supplier_family_id;
+
+
+format_as_tree1: supplier_family_id;
+
+supplier_family_id_tree_select: select pf.family_id, v.value, pf.parent_family_id from product_family pf
+inner join vocabulary v on pf.sid = v.sid and v.langid = %%langid%%
+where pf.supplier_id = %%supplier_id%% and pf.family_id <> 1 %%additional_condition%%;
+
+supplier_family_id_tree_width: 300;
+
+}

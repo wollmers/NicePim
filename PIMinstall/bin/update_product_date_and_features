@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#$Id: update_product_date_and_features 2631 2010-05-31 08:58:12Z dima $
+
+/home/gcc/bin/update_feature_chunk
+/home/gcc/bin/update_product_date > /home/gcc/bin/update_product_date_log/`date +\%j.\%H:\%M`.cr

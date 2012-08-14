@@ -1,0 +1,28 @@
+{
+name: track_products_all;
+priority: 10000;
+format_undef_values: Y;
+_resource_track_products_all: select '',tp.track_product_id,tp.track_product_id,tp.track_product_id,tp.product_id,tp.feed_prod_id ,tp.rule_prod_id,tl.name,tl.rules,tp.rule_user_id,u.login,'',tp.name,s.name,tp.is_reverse_rule,pm.pattern,tp.supplier_id,u_orig.login,tp.is_reverse_rule,u_rule.login,tp.rule_status,tl.track_list_id from track_product tp
+						  JOIN track_list tl ON tl.track_list_id=tp.track_list_id
+						  JOIN users u ON tp.rule_user_id=u.user_id
+						  JOIN supplier s ON s.supplier_id=tp.supplier_id						  
+						  LEFT JOIN product_map pm ON tp.track_list_id=pm.track_list_id AND tp.supplier_id=pm.supplier_id AND pm.track_list_id!=0 
+						  LEFT JOIN product p ON p.product_id=tp.product_id
+						  LEFT JOIN users u_orig ON u_orig.user_id=p.user_id
+						  LEFT JOIN product p_rule ON tp.supplier_id=p_rule.supplier_id AND tp.rule_prod_id=p_rule.prod_id
+						  LEFT JOIN users u_rule ON u_rule.user_id=p_rule.user_id
+					      WHERE %%restrict%% and %%search_clause%% and tp.rule_prod_id!=''  
+					      and tp.track_list_id!=0
+					      GROUP BY tp.track_product_id %%order_clause%% limit %%start_row%%,%%rows_number%% 
+_resource_track_products_all_type: multi;
+_resource_track_products_all_def_order: product_id;
+_resource_track_products_all_def_order_mode: D;
+_mapping_track_products_all: button_type,track_product_id,track_product_id_clip,track_product_all_item_marked,product_id,feed_prod_id,rule_prod_id,name,rules,rule_user_id,rule_user,rule_txt,orig_name,rule_supplier,is_reverse_rule,pattern,supplier_id,current_user,rule_icon,feature_user,rule_status,track_list_id;
+format_as_track_list_prod_id_rule_text: rule_txt;
+format_as_clipboard_indicator: track_product_all_item_marked;
+clipboard_hide: No;
+format_as_button_type: button_type;
+format_as_track_product_rule_status: pattern;
+format_as_ids_save_for_clipboard:  track_product_id_clip;
+format_as_track_product_rule_icon: rule_icon;
+}

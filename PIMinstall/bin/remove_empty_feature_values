@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+
+#$Id: remove_empty_feature_values 3008 2010-08-27 11:10:26Z dima $
+
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+$| = 1;
+
+print "Start:\n\n";
+
+# remove empty features from product_feature
+
+print "\tremove empty values from product_feature table: ";
+
+&do_statement("delete from product_feature where value = ''");
+
+print &do_query("select row_count()")->[0][0] . " values were removed\n";
+
+# remove empty features from product_feature_local
+
+print "\tremove empty values from product_feature_local table: ";
+
+&do_statement("delete from product_feature_local where value = ''");
+
+print &do_query("select row_count()")->[0][0] . " values were removed\n";
+
+print "\nEnd\n\n";

@@ -1,0 +1,29 @@
+$$INCLUDE head2.html$$
+$$INCLUDE ajax_response.html$$
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="main" height="20">
+			$$INCLUDE product_families_link.html$$
+			{
+				name: trace_families;
+			}
+			<img src="/img/campaign_def/arrow.gif" width="9" alt=""/>&nbsp;<a class="linkmenu3" href="%%base_url%%;tmpl=series.html;supplier_id=%%supplier_id%%;family_id=%%family_id%%;catid=%%catid%%">Edit series</a>
+		</td>
+	</tr>
+</table>
+
+<br />
+
+{
+	name: errors;
+}
+
+{
+	name: series_edit;
+}
+
+$$INCLUDE footer2.html$$

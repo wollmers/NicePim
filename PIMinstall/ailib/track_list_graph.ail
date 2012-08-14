@@ -1,0 +1,15 @@
+{
+name: track_list_graph;
+priority: 1000;
+
+_resource_data: select tl.track_list_id,tl.name,tl.created,'[]','[]','',''
+				from track_list tl where tl.track_list_id=%%track_list_id%%;
+_resource_data_type: single;
+_mapping_data: track_list_id,name,created,axis,editors,avilable_user_id,occupied_user_id;
+
+format_as_track_list_graph_axis: axis;
+format_as_track_list_graph_editors: editors;
+format_as_dropdown_multi_pair_from_user_id_graph: avilable_user_id;
+format_as_dropdown_multi_pair_to_user_id_graph: occupied_user_id;
+
+}

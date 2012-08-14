@@ -1,0 +1,29 @@
+{
+name: default_warranty_info;
+priority: 10;
+
+_resource_default_warranty_info: SELECT default_warranty_info_id, supplier_id, catid, warranty_info, supplier_id, catid
+FROM default_warranty_info
+WHERE %%search_clause%% AND langid = 1;
+_resource_default_warranty_info_type: multi;
+_mapping_default_warranty_info: id, supplier_id, catid, w_text, supplier_id_num, catid_num;
+
+format_as_category: catid;
+format_as_supplier_name: supplier_id;
+
+
+_resource_add_new: SELECT 0, 0;
+_resource_add_new_type: single;
+_mapping_add_new: add_supplier_id, add_catid;
+
+format_as_dropdown: add_supplier_id;
+format_as_smart_dropdown: add_catid;
+
+add_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+
+add_supplier_id_dropdown_width: 200;
+add_catid_smart_dropdown_attrs: style="width\: 180px;" 
+
+
+}
+

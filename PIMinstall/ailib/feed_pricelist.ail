@@ -1,0 +1,45 @@
+{
+name:feed_pricelist;
+priority: 1000;
+
+_resource_data: select dp.distributor_pl_id,dp.delimiter,dp.feed_type,dp.newline,dp.feed_url,dp.user_choiced_file,dp.feed_pwd,dp.feed_login,dp.is_first_header,dp.escape,IF('%%group_code%%' like '\%\%group_code\%\%',dp.code,'%%group_code%%') as code,IF('%%group_code%%' like '\%\%group_code\%\%',dp.code,'%%group_code%%') as code,dp.
+				country_col,dp.ean_col,dp.name_col,dp.price_vat_col,dp.price_novat_col,dp.desc_col,dp.stock_col,dp.distri_prodid_col,dp.brand_col,dp.brand_prodid_col,dp.category_col,'',d.name,dp.active
+				from distributor_pl dp JOIN distributor d ON dp.code=d.group_code and d.distributor_id=%%distributor_id%% where dp.code='%%group_code%%' and d.group_code!='';
+_resource_data_type: single;
+_resource_data_imply_fields: yes;
+_resource_data_key: distributor_pl_id;
+_mapping_data: distributor_pl_id,delimiter,feed_type,newline,feed_url,user_choiced_file,feed_pwd,feed_login,is_first_header,escape,code,feed_config_id,country_col,ean_col,name_col,price_vat_col,price_novat_col,desc_col,stock_col,distri_prodid_col,brand_col,brand_prodid_col,category_col,link_to_coverage,name,active;
+
+validate_as_onechar: escape;
+validate_as_url_exists: feed_url;
+validate_as_csv_delimiter: delimiter;
+validate_as_pricelist_columns: ean_col;
+validate_as_pricelist_price: price_vat_col;
+
+
+country_col_autodetect_keys: country;
+ean_col_autodetect_keys: ean,upc,ean_code;
+name_col_autodetect_keys: name,title;
+price_vat_col_autodetect_keys: price_vat,price vat,with vat;
+price_novat_col_autodetect_keys: price_without_vat,price without vat;
+desc_col_autodetect_keys: description,manual;
+stock_col_autodetect_keys: stock,quantity;
+distri_prodid_col_autodetect_keys: distri_prodid;
+brand_col_autodetect_keys: manufacturer,brand,supplier,vendor;
+brand_prodid_col_autodetect_keys: prodid,partcode,mpn,sku,partnumber,manufacturer product code,model;
+category_col_autodetect_keys: category;
+
+format_as_csv_column_choice: country_col,ean_col,name_col,price_vat_col,price_novat_col,desc_col,stock_col,distri_prodid_col,brand_col,brand_prodid_col,category_col;
+format_as_link_to_coverage: link_to_coverage;
+store_as_pricelist_feed: feed_config_id;
+
+format_as_input_checkbox: active;
+
+ _insert_sequence: 1;
+ _insert_table_1: distributor_pl;
+ _insert_values_1: delimiter,feed_type,newline,feed_url,user_choiced_file,feed_pwd,feed_login,is_first_header,escape,group_code,country_col,ean_col,name_col,price_vat_col,price_novat_col,desc_col,stock_col,distri_prodid_col,brand_col,brand_prodid_col,category_col,code,active;
+ _insert_fields_1: delimiter,feed_type,newline,feed_url,user_choiced_file,feed_pwd,feed_login,is_first_header,escape,code,country_col,ean_col,name_col,price_vat_col,price_novat_col,desc_col,stock_col,distri_prodid_col,brand_col,brand_prodid_col,category_col,name,active;
+ _insert_key_1: distributor_pl_id;
+ _update_sequence_1: yes;
+
+}

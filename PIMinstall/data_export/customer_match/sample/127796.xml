@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="127796" Prod_id="9016A032" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="MP370 XL 18ppm 4800x1200dpi A4" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="343" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="147574" URL="" ShortDesc="MP370 XL 18ppm 4800x1200dpi A4" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9415349" Value="4800x1200" No="100000" CategoryFeatureGroup_ID="343">
+         <Feature ID="61">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="1459" Value="Maximum resolution" langid="1"/>
+           <Name ID="1460" Value="Maximale resolutie" langid="2"/>
+           <Name ID="6741" Value="Maximum resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="10" Name="Canon"/>
+       <Category ID="225">
+         <Name ID="451" Value="printers" langid="1"/>
+         <Name ID="452" Value="printers" langid="2"/>
+         <Name ID="6298" Value="printers" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

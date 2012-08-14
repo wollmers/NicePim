@@ -1,0 +1,15 @@
+{
+name: mail_dispatch_in;
+
+_resource_dispatch_in: select subject, plain_body, html_body, to_groups, to_emails, date_queued, date_delivered, message_type, attachment_name, status, 'dummy', salutation, footer from mail_dispatch where id = %%id%%;
+_resource_dispatch_type: single;	
+_mapping_dispatch_in: dispatch_subject, plain_body, html_body, dispatch_groups, dispatch_emails, date_queued, date_delivered, dispatch_message_type, dispatch_attachment_name, dispatch_status, formated_body, dispatch_salutation, dispatch_footer;
+
+_format_as_dispatch_to_groups: dispatch_groups;
+_format_as_date: date_queued, date_delivered;
+_format_as_dispatch_message_type: dispatch_message_type;
+_format_as_dispatch_attach: dispatch_attachment_name;
+_format_as_dispatch_emails: dispatch_emails;
+_format_as_dispatch_message: formated_body;
+
+}

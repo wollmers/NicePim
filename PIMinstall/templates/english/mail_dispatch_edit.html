@@ -1,0 +1,30 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+	<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="main" height="20">
+			$$INCLUDE users_menu_link.html$$
+			<img src="/img/campaign_def/arrow.gif" width="9" alt=""/>&nbsp;<a class="linkmenu3" href="%%base_url%%;tmpl=mail_dispatch_edit.html;">Edit mail dispatch</a>
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<div align=right><span><a class="linkmenu3" href="%%base_url%%;tmpl=mail_dispatch_log.html;">Mail dispatch log</a></span></div>
+
+{
+name: errors;
+}
+
+{
+name: mail_dispatch;
+}
+
+$$INCLUDE footer2.html$$

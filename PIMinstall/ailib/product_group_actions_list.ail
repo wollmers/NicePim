@@ -1,0 +1,42 @@
+{
+name: product_group_actions_list;
+
+_resource_dummy: select 'dummy1', 0, 1, 'dummy2';
+_mapping_dummy: search_category_list, search_supplier_list, search_owner_list, search_family_list;
+
+format_as_for_family_list: for_family_list;
+
+format_as_tree: search_family_list;
+format_as_smart_dropdown: search_category_list;
+
+search_category_list_add_empty: Select category...;
+search_category_list_allow_pcat_choice: N;
+search_category_list_smart_dropdown_attrs: style="width\: 280px;"
+
+search_category_list_tree_select: select catid, vocabulary.value, pcatid from category, vocabulary where category.sid = vocabulary.sid and vocabulary.langid = %%langid%%  and category.catid <> 1;
+
+search_family_list_tree_select: select distinct pf.family_id, v.value, pf.parent_family_id
+from product_family pf
+inner join vocabulary v on pf.sid = v.sid and v.langid = %%langid%%
+where pf.family_id > 1 and pf.supplier_id = %%supplier_id%%;
+
+format_as_dropdown: search_supplier_list,search_owner_list;
+search_supplier_list_dropdown_select: select supplier_id, name from supplier order by name;
+search_owner_list_dropdown_select: select user_id, login from users where user_group != 'shop' and user_group != 'exeditor' and user_id != 1 order by login;
+
+actions_list: category_list, supplier_list, owner_list, family_list, publish,public, delete;
+actions_denied_variants: category_list,delete#supplier_list,delete#owner_list,delete#family_list,delete#publish,delete#supplier_list,family_list#category_list,family_list;
+
+category_list_action: update product set catid = %%catid%% where product_id in(%%product_id%%);
+category_list_param: catid;
+supplier_list_action: update product set supplier_id = %%supplier_id%% where product_id in (%%product_id%%);
+supplier_list_param: supplier_id;
+owner_list_action: update product set user_id = %%user_id%% where product_id in (%%product_id%%);
+owner_list_param: user_id;
+family_list_action: update product set family_id = %%family_id%% where product_id in (%%product_id%%);
+family_list_param: family_id;
+
+delete_action: delete from product where product_id in (%%product_id%%);
+publis_param: ;
+
+}

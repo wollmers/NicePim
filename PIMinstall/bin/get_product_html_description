@@ -1,0 +1,285 @@
+#!/usr/bin/perl
+
+#$Id: get_product_html_description 3066 2010-09-13 11:05:32Z dima $
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib/';
+use lib '/home/pim/lib/';
+
+use atomcfg;
+use atomlog;
+use atom_util;
+use atom_engine;
+use atomsql;
+use atom_misc;
+use atom_html;
+
+#my $product_id=101407;
+#my $product_id=35938;
+my $product_id = $ARGV[0];
+if(!$product_id){ &log_printf("missing parameter in get_product_html_description"); exit;}
+my $langid = $ARGV[1];
+if(!$langid){ $langid=1; }
+if($langid>1){ $langid=2; }
+
+my $base_url = $atomcfg{'host'};
+
+#localized strings
+my @locale;
+
+$locale[1]={
+'English' => 'English',
+'French' => 'French',
+'Dutch' => 'Dutch',
+'description' => 'description',
+'warranty' => 'Warranty info',
+'supplier' => 'Supplier',
+'image' => 'Image',
+'partcode' => 'Part code',
+'prodname' => 'Product name',
+'bundled' => 'Bundled products',
+'related' => 'Related products',
+'accept' => 'Accept',
+'edit_product' => 'Edit product',
+'send_complaint' => 'Send a complaint to the editors'
+};
+
+$locale[2]={
+'English' => 'Engelse',
+'French' => 'Franse',
+'Dutch' => 'Nederlandse',
+'description' => 'beschrijving',
+'warranty' => 'Garantie info',
+'supplier' => 'Leverancier',
+'image' => 'Afbeelding',
+'partcode' => 'Productcode',
+'prodname' => 'Productnaam',
+'bundled' => 'Meegeleverde producten',
+'related' => 'Verwante producten',
+'accept' => 'OK',
+'edit_product' => 'Bewerk product',
+'send_complaint' => 'Stuur uw opmerking naar de beheerder'
+};
+
+#load product details
+my $product_details = &do_query("select p.product_id, p.name, prod_id, s.name, p.low_pic, p.high_pic from product as p, supplier as s where p.product_id = $product_id and p.supplier_id = s.supplier_id");
+my $pic = '';
+if($product_details->[0][5]){
+ $pic = "<a href='' onClick =\"javascript:win_open('$product_details->[0][5]')\"><img src='$product_details->[0][4]'  vspace=\"0\" hspace=\"0\" border=\"0\"></a>";
+}
+if($product_details->[0][4]){
+ $pic = "<img src='$product_details->[0][4]' vspace=\"0\" hspace=\"0\" border=\"0\">";
+}
+
+my $replases = {
+'pname' => $product_details->[0][1],
+'prod_id' => $product_details->[0][2],
+'sname' => $product_details->[0][3],
+'ppic' => $pic,
+'accept' => $locale[$langid]->{'accept'},
+'edit_product' => $locale[$langid]->{'edit_product'},
+'send_complaint' => $locale[$langid]->{'send_complaint'}
+};
+
+my $product_category = &do_query("select value from vocabulary, category, product where product.product_id = $product_id and product.catid = category.catid and category.sid = vocabulary.sid and vocabulary.langid = $langid");
+$replases->{"cname"} = $product_category->[0][0];
+$replases->{"base_url"} = $base_url;
+
+#load product descriptions in dif lang
+my $product_desc = &do_query("select pd.product_description_id, v.value, short_desc, long_desc, (unix_timestamp() - unix_timestamp(pd.updated))/(60*60*24) from product_description as pd, vocabulary as v, language as l where pd.product_id =$product_id and pd.langid = l.langid and l.sid = v.sid and v.langid = pd.langid");
+my $desc = '';
+foreach my $row(@$product_desc){
+ if($row->[1]){
+	$desc .= "<tr align=left  bgcolor='#999999'>
+	 <td class='mainboldlight'>$locale[$langid]->{$row->[1]} $locale[$langid]->{description}</td></tr>";
+	 if($row->[2]){
+#check updating date		
+		if($row->[4] < 1){ $row->[2] = "<b>$row->[2]</b>";}		
+		$desc .= "<tr align=left bgcolor='#FFFFFF' ><td class='main'>$row->[2]</td></tr>";
+	 }
+	 if($row->[3]){
+#check updating date		
+		if($row->[4] < 1){ $row->[3] = "<b>$row->[3]</b>";}		
+		$desc .= "<tr align=left  bgcolor='#FFFFFF'><td class='main'>$row->[3]</td></tr>";
+	 }
+ }
+}
+$replases->{"description"} = $desc;
+
+#load pdf_url and warranty_info
+my $prod_wd = &do_query("select warranty_info, pdf_url, (unix_timestamp() - unix_timestamp(updated))/(60*60*24*2) from product_description where product_id = $product_id and langid=$langid");
+my $warr = ''; my $purl = '';
+if(!$prod_wd->[0][0]) {
+	$prod_wd = &do_query("select warranty_info, pdf_url, (unix_timestamp() - unix_timestamp(updated))/(60*60*24*2) from product_description where product_id = $product_id and langid=1");
+}
+if($prod_wd->[0][0]){
+#check updating date
+ if($prod_wd->[0][2] < 1){ $prod_wd->[0][0] = "<b>$prod_wd->[0][0]</b>";}
+ $warr = "<tr class='mainboldlight' bgcolor='#999999'><td>$locale[$langid]->{warranty}</td></tr><tr align=left bgcolor='#FFFFFF' class='main'><td>$prod_wd->[0][0]</td></tr>";
+ $replases->{'warranty_info'} = $warr;
+}else{
+ $replases->{'warranty_info'} = '';
+}
+if($prod_wd->[0][1]){
+#check updating date
+ if($prod_wd->[0][2] < 1){ $prod_wd->[0][1] = "<b>$prod_wd->[0][1]</b>";}
+ $purl = "<a href='$prod_wd->[0][1]' class='mainbold'>$prod_wd->[0][1]</a>";
+ $replases->{'pdf_url'} = $purl;
+}else{
+ $replases->{'pdf_url'} = '';
+}
+
+#load product features
+my $prod_feat = &do_query("
+select
+ pf.value,
+ f_name.value,
+ m.sign,
+ cfg.feature_group_id,
+ (unix_timestamp() - unix_timestamp(pf.updated))/(60*60*24*2),
+ cfg.no,
+ (cf.searchable * 10000000 + (1 - f.class) * 100000 + cf.no)
+	 		
+from 
+ product_feature as pf,
+ category_feature as cf,
+ feature as f,
+ vocabulary as f_name,
+ measure as m,
+ vocabulary as m_name,
+ category_feature_group as cfg
+					 
+where 
+ pf.product_id = $product_id and
+ pf.value != '' and 
+ pf.category_feature_id = cf.category_feature_id and
+ cf.feature_id = f.feature_id and
+ f.sid = f_name.sid and f_name.langid = $langid and
+ f.measure_id = m.measure_id and 
+ m.sid = m_name.sid and m_name.langid = $langid and
+ cf.category_feature_group_id = cfg.category_feature_group_id");
+my $pfeat_hash;
+foreach my $row(@$prod_feat){
+ my $get_feat_group = &do_query("select value, fg.feature_group_id from vocabulary as v, feature_group as fg where fg.sid = v.sid and v.langid = $langid and fg.feature_group_id = $row->[3]");
+ my $features = {
+									'name' => $row->[1],
+									'value' => $row->[0],
+									'sign' => $row->[2],
+									'updated' => $row->[4],
+							    'f_no' => $row->[6]
+								} ;
+ if(!$pfeat_hash->{$get_feat_group->[0][1]}){				
+	$pfeat_hash->{$get_feat_group->[0][1]} = {
+																						'fg_name' => $get_feat_group->[0][0],
+																						'fg_no' => $row->[5]
+																					};
+ }																					
+ push @{$pfeat_hash->{$get_feat_group->[0][1]}->{'features'}}, $features;
+}
+#define features groups order
+my @sorted_features_groups = sort{$pfeat_hash->{$b}->{'fg_no'} <=> $pfeat_hash->{$a}->{'fg_no'}} keys %$pfeat_hash;
+#define features order in features group
+foreach my $fg_id (@sorted_features_groups){
+ my @sorted_features = sort{$a->{'f_no'} <=> $b->{'f_no'}} @{$pfeat_hash->{$fg_id}->{'features'}};
+ @{$pfeat_hash->{$fg_id}->{'features'}} = undef;
+ push @{$pfeat_hash->{$fg_id}->{'features'}}, @sorted_features;
+}
+my $pfeat_str = '';
+foreach my $fg_id(@sorted_features_groups){
+ my $fg_name = $pfeat_hash->{$fg_id}->{'fg_name'};
+ $pfeat_str .= "<tr bgcolor='#999999'><td colspan = 2 class='mainboldlight'><b>$fg_name</b></td></tr>\n";
+ foreach my $feature(@{$pfeat_hash->{$fg_id}->{'features'}}){
+	if($feature->{'value'} eq ''){ next;}
+#validate for numeric feature value
+	if(!($feature->{'value'} =~ /\d$/)){
+   $feature->{'sign'} = '';
+	}
+#check updating date
+	if($feature->{'updated'} < 1){
+	 $feature->{'value'} = "<b>$feature->{'value'}</b>";
+	 $feature->{'sign'} = "<b>$feature->{'sign'}</b>";
+	}
+	$pfeat_str .= "<tr><td width=20% class='mainboldlight' bgcolor='#999999'>$feature->{'name'}</td>	
+	<td bgcolor='#FFFFFF' class='main'>$feature->{'value'} $feature->{'sign'}</td></tr>\n";
+ }
+}
+$replases->{"features"} = $pfeat_str;
+
+#load bundled products
+my $bndl_prod = &do_query("select bndl.prod_id, bndl.name, bndl.low_pic, supplier.name from product_bundled, product as bndl, product, supplier where product_bundled.product_id = product.product_id and product_bundled.product_id = $product_id and bndl.product_id = product_bundled.bndl_product_id and product.supplier_id = supplier.supplier_id");
+my $bndl_prod_str = '';
+foreach my $row(@$bndl_prod){
+	my $bndl_img;
+	if($row->[2]){ $bndl_img = "<img src=".$row->[2].">";}
+  $bndl_prod_str .= "<tr bgcolor='#FFFFFF' align=center class='main'><td width=25%>$row->[3]</td><td td width=25%>$bndl_img</td>
+										<td td width=25%>$row->[0]</td><td td width=25% align='left'>$row->[1]</td></tr>";
+}
+if(length($bndl_prod_str) != 0){	
+ $replases->{'bundled'} = "<tr class='mainlight' bgcolor='#999999' align=center><th>$locale[$langid]->{supplier}</th>
+ <th>$locale[$langid]->{image}</th><th>$locale[$langid]->{partcode}</th><th>$locale[$langid]->{prodname}</th></tr>".$bndl_prod_str;
+ $replases->{'bundled_head'} = "<div class='titlegev'>&nbsp;&nbsp;$locale[$langid]->{bundled}</div><p>";
+}else{
+ $replases->{'bundled'} = '';
+ $replases->{'bundled_head'} = '';
+}
+
+#load related products
+my $rel_prod = &do_query("select rel.prod_id, rel.name, rel.low_pic, supplier.name from product_related, product as rel, product, supplier where product_related.product_id = product.product_id and  product_related.product_id = $product_id and rel.product_id = product_related.rel_product_id and product.supplier_id = supplier.supplier_id");
+my $rel_prod_str = '';
+foreach my $row(@$rel_prod){
+	my $rel_img = '';
+	
+	if($row->[2]){ $rel_img = "<img src=".$row->[2].">";}
+  $rel_prod_str .= "<tr bgcolor='#FFFFFF' align=center class='main'><td width=25%>$row->[3]</td><td td width=25%>$rel_img</td>
+										<td td width=25%>$row->[0]</td><td td width=25% align='left'>$row->[1]</td></tr>";
+	}
+if(length($rel_prod_str) != 0){	
+ $replases->{'related'} = "<tr class='mainlight' bgcolor='#999999' align=center><th>$locale[$langid]->{supplier}</th>
+ <th>$locale[$langid]->{image}</th><th>$locale[$langid]->{partcode}</th><th>$locale[$langid]->{prodname}</th></tr>".$rel_prod_str;
+ $replases->{'related_head'} = "<div class='titlegev'>&nbsp;&nbsp;$locale[$langid]->{related}</div><p>";
+}else{
+ $replases->{'related'} = '';
+ $replases->{'related_head'} = '';
+}
+
+#create buttons and links
+ #get supplier responsible user
+my $suser_id = &get_supplier_user_id($product_id);
+if(!$suser_id){
+	&log_printf("unspecified supplier's user_id!");
+	exit;
+}
+
+ #get key creating date
+my $key_date = `date +%Y%m%d%H%M%S`;
+ #get key
+my $key_publish = &generate_html_key($product_id, 'publish_product', $suser_id);
+my $key_edit = &generate_html_key($product_id, 'edit_product', $suser_id);
+my $key_send_complaint = &generate_html_key($product_id, 'send_product_complaint', $suser_id);
+
+$replases->{'suserid'} = $suser_id;
+$replases->{'product_id'} = $product_id;
+$replases->{'key_date'} = $key_date;
+$replases->{'key_edit'} = $key_edit;
+$replases->{'key_publish'} = $key_publish;
+$replases->{'key_send_complaint'} = $key_send_complaint;
+
+#open win script
+$replases->{'script'}	= '  
+function win_open(img){	
+ myWin= open("", "displayWindow", "width=500,height=400,status=yes,toolbar=yes,menubar=yes");
+ myWin.document.open();
+ myWin.document.write("<html><head><title>"+img+"</title>");
+ myWin.document.write("</head><body>");
+ myWin.document.write("<img src="+img+">");
+ myWin.document.write("</body></html>");
+ myWin.document.close();
+ }';
+
+&process_atom_ilib('product_html_email');
+$hl{'langid'} = 1;
+&process_atom_lib('product_html_email');
+my $body = &repl_ph($atoms->{'html'}->{'product_html_email'}->{'body'}, $replases);
+&log_printf("loaded html description for $product_details->[0][2]($product_details->[0][3])");							
+print "$body\n";

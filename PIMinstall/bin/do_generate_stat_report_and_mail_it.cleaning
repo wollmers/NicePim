@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+
+#$Id: do_generate_stat_report_and_mail_it.cleaning 2184 2010-01-27 22:55:41Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use process_manager;
+
+my $process_name = 'do_generate_stat_report_and_mail_it';
+my $table_name = 'generate_report_bg_processes';
+my $table_id = 'generate_report_bg_processes_id';
+
+my $procs = &do_query("select ".$table_id." from ".$table_name);
+
+foreach (@$procs) {
+	print "bg process ".$_->[0]."... ";
+	if (&get_running_perl_processes_number($process_name." ".$_->[0]) == 0) { # no running processes
+		&do_statement("delete from ".$table_name." where ".$table_id."=".$_->[0]);
+		print "is dead, removed\n";
+	}
+	else {
+		print "is running, skipped\n";
+	}
+}

@@ -1,0 +1,8 @@
+{
+ start_dump:<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+           <ICECAT-interface>;
+
+ dump_row: <ProductStatistic ID="%%product_id%%" Prod_id="%%prod_id%%" Score="%%score%%" Supplier_ID="%%supplier_id%%"/>;
+ finish_dump:</ICECAT-interface>;
+}

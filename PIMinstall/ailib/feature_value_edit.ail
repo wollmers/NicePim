@@ -1,0 +1,56 @@
+{
+name: feature_value_edit;
+priority: 10;
+
+verify: record_id;
+verify_submit: record_id;
+
+verify_add: yes;
+verify_add_superuser: record_id;
+verify_add_supereditor: record_id;
+
+authorize_submit_superuser: record_id;
+authorize_submit_supereditor: record_id;
+
+authorize_superuser: record_id;
+authorize_supereditor: record_id;
+authorize_category_manager: record_id;
+authorize_editor: record_id;
+authorize_supplier: record_id;
+authorize_guest: record_id;
+authorize_shop: record_id;
+
+_resource_vocabulary: select key_value,feature_values_group_id,'1' from feature_values_vocabulary where record_id='%%record_id%%'
+_resource_vocabulary_key: record_id;
+_resource_vocabulary_type: single;
+_mapping_vocabulary: key_value,feature_values_group_id,js_langid_array;
+format_as_js_langid_array: js_langid_array;
+_resource_label: select l.langid, v.value, fv.value, fv.record_id
+from language l
+left join feature_values_vocabulary fv
+on l.langid=fv.langid and fv.key_value='%%key_value%%'
+left join vocabulary v
+on v.langid=1 and v.sid=l.sid
+order by l.langid
+_resource_label_iq: select l.langid, v.value, NULL, NULL from vocabulary v, language l where v.langid=1 and l.sid=v.sid order by l.langid
+_resource_label_type: multi;
+_resource_label_key: key_value;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id;
+
+format_as_dropdown: feature_values_group_id;
+feature_values_group_id_dropdown_select: select feature_values_group_id, name from feature_values_group order by name
+store_as_feature_value: _rotate_label;
+
+
+ _insert_sequence: 1;
+
+ _insert_table_1: feature_values_vocabulary;
+ _insert_values_1: key_value, _rotate_v_langid, _rotate_label, feature_values_group_id;
+ _insert_fields_1: key_value, langid, value, feature_values_group_id;
+ _rotate_insert_1: label;
+ _insert_key_1: record_id;
+ _update_key_1: record_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes;
+
+}

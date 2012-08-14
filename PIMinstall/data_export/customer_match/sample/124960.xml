@@ -1,0 +1,817 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="124960" Prod_id="VPL-CX70" ThumbPic="http://www.icecat.biz/thumbs/124960.jpg" Code="1" Quality="ICECAT" HighPic="" Name="VPL-CX70 LCD XGA 2000ALu 2.9kg" LowPic="http://www.icecat.biz/img/low_pic/124960-5441.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="615" No="12">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1016" No="50">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1012" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1013" No="2">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1014" No="9">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1015" No="55">
+         <FeatureGroup ID="44">
+           <Name ID="5635" Value="Projector" langid="1"/>
+           <Name ID="5636" Value="Projector" langid="2"/>
+           <Name ID="8608" Value="Projector" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1017" No="44">
+         <FeatureGroup ID="45">
+           <Name ID="5641" Value="Video input" langid="1"/>
+           <Name ID="5642" Value="Video input" langid="2"/>
+           <Name ID="8611" Value="Video input" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="144160" URL="" ShortDesc="VPL-CX70 LCD projector XGA  panel 2000 ANSI lumen 2.9kg" langid="1" LongDesc="The Sony VPL-CX70 mobile projector combines a portable, stylish design with high brightness picture and easy to use Auto set-up features. Compact design, simple controls and quick startup will help you present like a pro - and bright, crisp images will make your content come alive. Designed to help the mobile professional deliver brilliant presentations at sales meetings, training seminars - even executive boardrooms.\n-Hi-Brightness, Compact Design\n2000 ANSI lumens brightness for any application packed into a compact and stylish design, perfect for the mobile professional.\n-Auto Set-up &amp; Simple Operation\nTake the hassle out of set up with Sonys unique Auto Set Up - Auto Lens, Auto Tilt, Auto Input Search, Auto Keystone, Auto pixel and now - Auto Focus in one easy touch of a button.\n-Whisper Quiet Fan Noise\nIncorporating the new high performance Qualia cooling system that produces only 30dB fan noise will not interfere with any presentation.\n-Instant Off &amp; Go\nNo waiting for projector to cool down with Sonys off &amp; go feature; simply turn off projector and your mobile  cooling fan continues to run even after power is off." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9366803" Value="0.79&amp;quot; XGA LCD Panel with M/L" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550366" Value="2000" No="10100278" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1181">
+          <Measure ID="90" Sign="ANSI lumens"/>
+           <Name ID="3903" Value="Projector brightness" langid="1"/>
+           <Name ID="3904" Value="Projector brightness" langid="2"/>
+           <Name ID="7935" Value="Projector brightness" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550367" Value="XGA" No="10100002" CategoryFeatureGroup_ID="1015">
+         <Feature ID="2111">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9461" Value="Native resolution" langid="1"/>
+           <Name ID="9462" Value="Native resolution" langid="3"/>
+           <Name ID="9463" Value="Native resolution" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550368" Value="Y" No="100300" CategoryFeatureGroup_ID="1015">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550369" Value="" No="100279" CategoryFeatureGroup_ID="1015">
+         <Feature ID="34">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1383" Value="Contrast ratio" langid="1"/>
+           <Name ID="1384" Value="Contrast ratio" langid="2"/>
+           <Name ID="6706" Value="Contrast ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550370" Value="" No="100277" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1180">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="3901" Value="Projector resolution" langid="1"/>
+           <Name ID="3902" Value="Projector resolution" langid="2"/>
+           <Name ID="7934" Value="Projector resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550371" Value="" No="100023" CategoryFeatureGroup_ID="1015">
+         <Feature ID="39">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1415" Value="Aspect ratio" langid="1"/>
+           <Name ID="1416" Value="Aspect ratio" langid="2"/>
+           <Name ID="6721" Value="Aspect ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550372" Value="" No="100021" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1825">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5643" Value="Throw ratio" langid="1"/>
+           <Name ID="5644" Value="Throw ratio" langid="2"/>
+           <Name ID="8612" Value="Throw ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550373" Value="48 to 92" No="100020" CategoryFeatureGroup_ID="1015">
+         <Feature ID="90">
+          <Measure ID="36" Sign="Hz"/>
+           <Name ID="1517" Value="Vertical scan range" langid="1"/>
+           <Name ID="1518" Value="Vertical scan range" langid="2"/>
+           <Name ID="6767" Value="Vertical scan range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550374" Value="" No="100019" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1826">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5645" Value="Zoom ratio" langid="1"/>
+           <Name ID="5646" Value="Zoom ratio" langid="2"/>
+           <Name ID="8613" Value="Zoom ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550375" Value="19 to 92" No="100000" CategoryFeatureGroup_ID="1015">
+         <Feature ID="35">
+          <Measure ID="31" Sign="KHz"/>
+           <Name ID="1387" Value="Horizontal scan range" langid="1"/>
+           <Name ID="1388" Value="Horizontale scan range" langid="2"/>
+           <Name ID="6708" Value="Horizontal scan range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550376" Value="" No="100000" CategoryFeatureGroup_ID="1015">
+         <Feature ID="37">
+          <Measure ID="32" Sign="o"/>
+           <Name ID="1393" Value="Viewing angle, horizontal" langid="1"/>
+           <Name ID="1394" Value="Viewing angle, horizontal" langid="2"/>
+           <Name ID="6710" Value="Viewing angle, horizontal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550377" Value="" No="100000" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1705">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5349" Value="Projected image size" langid="1"/>
+           <Name ID="5350" Value="Projectieformaat" langid="2"/>
+           <Name ID="8470" Value="Projected image size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550378" Value="" No="100013" CategoryFeatureGroup_ID="1017">
+         <Feature ID="1827">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5647" Value="Digital video format" langid="1"/>
+           <Name ID="5648" Value="Digital video format" langid="2"/>
+           <Name ID="8614" Value="Digital video format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550379" Value="Analog RGB/Component : HD 15pin" No="100003" CategoryFeatureGroup_ID="1017">
+         <Feature ID="1824">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5639" Value="Analogue video format" langid="1"/>
+           <Name ID="5640" Value="Analogue video format" langid="2"/>
+           <Name ID="8610" Value="Analogue video format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550380" Value="" No="100002" CategoryFeatureGroup_ID="1017">
+         <Feature ID="1823">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5637" Value="Analogue video signal" langid="1"/>
+           <Name ID="5638" Value="Analogue video signal" langid="2"/>
+           <Name ID="8609" Value="Analogue video signal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550381" Value="Analog RGB/Component : HD 15 pin / USB for mouse (Up, B type)  / Audio : Stereo mini Jack (variable out). " No="100275" CategoryFeatureGroup_ID="615">
+         <Feature ID="573">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2677" Value="Output" langid="1"/>
+           <Name ID="2678" Value="Uitvoer" langid="2"/>
+           <Name ID="7335" Value="Output" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550382" Value="" No="100272" CategoryFeatureGroup_ID="615">
+         <Feature ID="472">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2475" Value="Zoom Capability" langid="1"/>
+           <Name ID="2476" Value="Zoombereik" langid="2"/>
+           <Name ID="7234" Value="Zoom Capability" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550383" Value="" No="100023" CategoryFeatureGroup_ID="615">
+         <Feature ID="33">
+          <Measure ID="30" Sign="Mio"/>
+           <Name ID="1381" Value="Colors" langid="1"/>
+           <Name ID="1382" Value="Kleuren" langid="2"/>
+           <Name ID="6705" Value="Colors" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550384" Value="" No="100022" CategoryFeatureGroup_ID="615">
+         <Feature ID="1587">
+          <Measure ID="37" Sign="Ghz"/>
+           <Name ID="4931" Value="Bandwidth" langid="1"/>
+           <Name ID="4932" Value="Bandwidth" langid="2"/>
+           <Name ID="6598" Value="Bandwidth" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550385" Value="" No="100022" CategoryFeatureGroup_ID="615">
+         <Feature ID="1783">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5543" Value="Light source" langid="1"/>
+           <Name ID="5544" Value="Light source" langid="2"/>
+           <Name ID="8563" Value="Light source" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550386" Value="" No="100002" CategoryFeatureGroup_ID="615">
+         <Feature ID="1655">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5169" Value="Connectivity technology" langid="1"/>
+           <Name ID="5170" Value="Connectiviteit-technologie" langid="2"/>
+           <Name ID="8388" Value="Connectivity technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550387" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550388" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550389" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="550">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2631" Value="Light Exposure Type" langid="1"/>
+           <Name ID="2632" Value="Type belichting" langid="2"/>
+           <Name ID="7312" Value="Light Exposure Type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550390" Value="1.2 times zoom lens F 1.6 to 1.78, f=23.5 to 28.2mm, Powered" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="576">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2683" Value="Lens System" langid="1"/>
+           <Name ID="2684" Value="Lenssysteem" langid="2"/>
+           <Name ID="7338" Value="Lens System" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550391" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1453">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4563" Value="Accessory type" langid="1"/>
+           <Name ID="4564" Value="Accessory type" langid="2"/>
+           <Name ID="8249" Value="Accessory type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550392" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1650">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5145" Value="Depth" langid="1"/>
+           <Name ID="5146" Value="Diepte" langid="2"/>
+           <Name ID="8377" Value="Depth" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550393" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1665">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5197" Value="Handheld remote control" langid="1"/>
+           <Name ID="5198" Value="Handheld afstandsbediening" langid="2"/>
+           <Name ID="8402" Value="Contrôle à distance du portable" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550394" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1666">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5199" Value="Menu" langid="1"/>
+           <Name ID="5200" Value="Menu" langid="2"/>
+           <Name ID="8403" Value="Menu" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550395" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1685">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5307" Value="Lamp-door protection" langid="1"/>
+           <Name ID="5308" Value="Beschermd lampdeurtje" langid="2"/>
+           <Name ID="8450" Value="Lamp-door protection" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550396" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1686">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5309" Value="Color coordinates of white point" langid="1"/>
+           <Name ID="5310" Value="Kleurcoördinaten van white point" langid="2"/>
+           <Name ID="8451" Value="Color coordinates of white point" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550397" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1702">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5341" Value="Offset" langid="1"/>
+           <Name ID="5342" Value="Off-set" langid="2"/>
+           <Name ID="8467" Value="Offset" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550398" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1708">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5355" Value="Scalable resolution" langid="1"/>
+           <Name ID="5356" Value="Schaalbare resolutie" langid="2"/>
+           <Name ID="8473" Value="Scalable resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550399" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1715">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5369" Value="Uniformity" langid="1"/>
+           <Name ID="5370" Value="Eenvormigheid" langid="2"/>
+           <Name ID="8480" Value="Uniformité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550400" Value="" No="100000" CategoryFeatureGroup_ID="615">
+         <Feature ID="1867">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5741" Value="Mounting" langid="1"/>
+           <Name ID="5742" Value="Mounting" langid="2"/>
+           <Name ID="8658" Value="Mounting" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550401" Value="298x243.5x69" No="100260" CategoryFeatureGroup_ID="1012">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550402" Value="2900" No="100000" CategoryFeatureGroup_ID="1012">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550403" Value="" No="989" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1408">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4357" Value="Projector wireless communication features" langid="1"/>
+           <Name ID="4358" Value="Projector wireless communication features" langid="2"/>
+           <Name ID="8158" Value="Projector wireless communication features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550404" Value="" No="988" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1407">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4355" Value="Projector wireless communication type" langid="1"/>
+           <Name ID="4356" Value="Projector wireless communication type" langid="2"/>
+           <Name ID="8157" Value="Projector wireless communication type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550405" Value="" No="284" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1186">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="3913" Value="Projection camera pixels" langid="1"/>
+           <Name ID="3914" Value="Projection camera pixels" langid="2"/>
+           <Name ID="7940" Value="Projection camera pixels" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550406" Value="" No="283" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1185">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3911" Value="Projection camera" langid="1"/>
+           <Name ID="3912" Value="Projection camera" langid="2"/>
+           <Name ID="7939" Value="Projection camera" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550407" Value="" No="280" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1182">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3905" Value="Projector image format" langid="1"/>
+           <Name ID="3906" Value="Projector image format" langid="2"/>
+           <Name ID="7936" Value="Projector image format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550408" Value="" No="276" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1179">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3899" Value="Projector technology" langid="1"/>
+           <Name ID="3900" Value="Projector technology" langid="2"/>
+           <Name ID="7933" Value="Projector technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550409" Value="" No="0" CategoryFeatureGroup_ID="1015">
+         <Feature ID="822">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3175" Value="Surface treatment" langid="1"/>
+           <Name ID="3176" Value="Oppervlaktebewerking" langid="2"/>
+           <Name ID="7581" Value="Surface treatment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550410" Value="" No="0" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1566">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4877" Value="Brightness" langid="1"/>
+           <Name ID="4878" Value="Helderheid" langid="2"/>
+           <Name ID="7183" Value="Brightness" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550411" Value="" No="0" CategoryFeatureGroup_ID="1015">
+         <Feature ID="1603">
+          <Measure ID="34" Sign="cm"/>
+           <Name ID="4970" Value="Afmeting afbeelding" langid="2"/>
+           <Name ID="4969" Value="Picture size" langid="1"/>
+           <Name ID="6587" Value="Picture size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550412" Value=" Stereo mini Jack " No="1" CategoryFeatureGroup_ID="1016">
+         <Feature ID="1024">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3589" Value="Speakers" langid="1"/>
+           <Name ID="3590" Value="Speakers" langid="2"/>
+           <Name ID="7782" Value="Speakers" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550413" Value="NTSC,PAL,SECAM,NTSC4.43,PAL-M,PAL-N,PAL60" No="282" CategoryFeatureGroup_ID="615">
+         <Feature ID="1184">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3909" Value="Video compatibility mode" langid="1"/>
+           <Name ID="3910" Value="Video compatibility mode" langid="2"/>
+           <Name ID="7938" Value="Video compatibility mode" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550414" Value="" No="281" CategoryFeatureGroup_ID="615">
+         <Feature ID="1183">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3907" Value="Serial interface type" langid="1"/>
+           <Name ID="3908" Value="Serial interface type" langid="2"/>
+           <Name ID="7937" Value="Serial interface type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550415" Value="" No="274" CategoryFeatureGroup_ID="615">
+         <Feature ID="1178">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3897" Value="Other remarks" langid="1"/>
+           <Name ID="3898" Value="Overige opmerkingen" langid="2"/>
+           <Name ID="7932" Value="Other remarks" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550416" Value="" No="273" CategoryFeatureGroup_ID="615">
+         <Feature ID="1177">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3895" Value="Option type" langid="1"/>
+           <Name ID="3896" Value="Option type" langid="2"/>
+           <Name ID="7931" Value="Option type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550417" Value="" No="271" CategoryFeatureGroup_ID="615">
+         <Feature ID="1176">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3893" Value="Digital keystone correction" langid="1"/>
+           <Name ID="3894" Value="Digitale keystone-correctie" langid="2"/>
+           <Name ID="7930" Value="Digital keystone correction" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550418" Value="" No="270" CategoryFeatureGroup_ID="615">
+         <Feature ID="1175">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="3891" Value="Objective projection distance" langid="1"/>
+           <Name ID="3892" Value="Objective projection distance" langid="2"/>
+           <Name ID="7929" Value="Objective projection distance" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550419" Value="" No="269" CategoryFeatureGroup_ID="615">
+         <Feature ID="1174">
+          <Measure ID="54" Sign="m"/>
+           <Name ID="3889" Value="Objective picture size" langid="1"/>
+           <Name ID="3890" Value="Objective picture size" langid="2"/>
+           <Name ID="7928" Value="Objective picture size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550420" Value="" No="268" CategoryFeatureGroup_ID="615">
+         <Feature ID="1173">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="3887" Value="Objective focal length" langid="1"/>
+           <Name ID="3888" Value="Objective focal length" langid="2"/>
+           <Name ID="7927" Value="Objective focal length" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550421" Value="" No="267" CategoryFeatureGroup_ID="615">
+         <Feature ID="1172">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3885" Value="Lamp counter" langid="1"/>
+           <Name ID="3886" Value="Lamp counter" langid="2"/>
+           <Name ID="7926" Value="Lamp counter" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550422" Value="2000(High)/3000(Standard) hours" No="266" CategoryFeatureGroup_ID="615">
+         <Feature ID="1171">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3883" Value="Service life of lamp" langid="1"/>
+           <Name ID="3884" Value="Service life of lamp" langid="2"/>
+           <Name ID="7925" Value="Service life of lamp" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550423" Value="165" No="265" CategoryFeatureGroup_ID="615">
+         <Feature ID="1170">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="3881" Value="Lamp power" langid="1"/>
+           <Name ID="3882" Value="Lamp power" langid="2"/>
+           <Name ID="7924" Value="Lamp power" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550424" Value="UHP" No="264" CategoryFeatureGroup_ID="615">
+         <Feature ID="1169">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3879" Value="Lamp type" langid="1"/>
+           <Name ID="3880" Value="Lamp type" langid="2"/>
+           <Name ID="7923" Value="Lamp type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550425" Value="" No="263" CategoryFeatureGroup_ID="615">
+         <Feature ID="1168">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3877" Value="Input type" langid="1"/>
+           <Name ID="3878" Value="Input type" langid="2"/>
+           <Name ID="7922" Value="Input type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550426" Value="" No="262" CategoryFeatureGroup_ID="615">
+         <Feature ID="1167">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3875" Value="Extras type" langid="1"/>
+           <Name ID="3876" Value="Extras type" langid="2"/>
+           <Name ID="7921" Value="Extras type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550427" Value="" No="259" CategoryFeatureGroup_ID="615">
+         <Feature ID="954">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3449" Value="Expansion type" langid="1"/>
+           <Name ID="3450" Value="Uitbreiding type" langid="2"/>
+           <Name ID="7715" Value="Expansion type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550428" Value="" No="1" CategoryFeatureGroup_ID="615">
+         <Feature ID="771">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3073" Value="Form factor" langid="1"/>
+           <Name ID="3074" Value="Form factor" langid="2"/>
+           <Name ID="7531" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550429" Value="Supplied Accessories\nRemote Commander control unit, Monitor Cable, Soft Case, AA Size Battery (2), Air Filter, AC Power Cord, Application Software, Projector Station, Operation Manual, Quick Reference Sheet, Security Label" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550430" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550431" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="533">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2597" Value="Mean time between failures" langid="1"/>
+           <Name ID="2598" Value="Mean time between failure" langid="2"/>
+           <Name ID="7295" Value="Temps moyen de bon fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550432" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="585">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2701" Value="Acoustic Pressure Emissions" langid="1"/>
+           <Name ID="2702" Value="Geluidsdruk" langid="2"/>
+           <Name ID="7347" Value="Pression sonore émise" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550433" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2745" Value="Safety" langid="1"/>
+           <Name ID="2746" Value="Veiligheid" langid="2"/>
+           <Name ID="7369" Value="Sécurité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550434" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="673">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2877" Value="Electromagnetic Compatibility" langid="1"/>
+           <Name ID="2878" Value="EMC" langid="2"/>
+           <Name ID="7433" Value="compatibilité électromagnétique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550435" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550436" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="945">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3431" Value="Display typical contrast ratio" langid="1"/>
+           <Name ID="3432" Value="Beeldscherm, typische contrastratio" langid="2"/>
+           <Name ID="7706" Value="Display typical contrast ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550437" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550438" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1501">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4699" Value="LED indicators" langid="1"/>
+           <Name ID="4700" Value="LED-indicatoren" langid="2"/>
+           <Name ID="8298" Value="LED indicators" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550439" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1520">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4760" Value="Type scherm" langid="2"/>
+           <Name ID="4759" Value="Display type" langid="1"/>
+           <Name ID="8217" Value="Type d'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550440" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1591">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4940" Value="Statusindicatoren" langid="2"/>
+           <Name ID="4939" Value="Status indicators" langid="1"/>
+           <Name ID="6600" Value="Status indicators" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550441" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1602">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4968" Value="Formaat" langid="2"/>
+           <Name ID="4967" Value="Format" langid="1"/>
+           <Name ID="6588" Value="Format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550442" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1681">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5299" Value="Acoustic pressure emissions at peak" langid="1"/>
+           <Name ID="5300" Value="Acoustische druk-emissies, piekwaarde" langid="2"/>
+           <Name ID="8446" Value="Acoustic pressure emissions at peak" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550443" Value="1W (mono)" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1695">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5327" Value="Speakers and microphone" langid="1"/>
+           <Name ID="5328" Value="Luidprekers en microfoon" langid="2"/>
+           <Name ID="8460" Value="Haut-parleurs et micro" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550445" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1880">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5787" Value="Services (supportpack)" langid="1"/>
+           <Name ID="5788" Value="Services (supportpack)" langid="2"/>
+           <Name ID="8681" Value="Services (supportpack)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550446" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="1983">
+          <Measure ID="29" Sign=""/>
+           <Name ID="8942" Value="Display scanning frequency" langid="1"/>
+           <Name ID="8943" Value="Display scanning frequency" langid="3"/>
+           <Name ID="8944" Value="Display scanning frequency" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550447" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="2077">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9227" Value="Tilt angle" langid="1"/>
+           <Name ID="9228" Value="Tilt angle" langid="3"/>
+           <Name ID="9229" Value="Tilt angle" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550448" Value="" No="0" CategoryFeatureGroup_ID="615">
+         <Feature ID="2084">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9248" Value="Control panel" langid="1"/>
+           <Name ID="9249" Value="Panneau de commande" langid="3"/>
+           <Name ID="9250" Value="Bedieningspaneel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550449" Value="" No="285" CategoryFeatureGroup_ID="1014">
+         <Feature ID="445">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="2257" Value="Power consumption" langid="1"/>
+           <Name ID="2258" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7137" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550450" Value="" No="87" CategoryFeatureGroup_ID="1014">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550451" Value="Max. 240W, 9W (CX75) 4W (CX70)" No="0" CategoryFeatureGroup_ID="1014">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550452" Value="" No="100" CategoryFeatureGroup_ID="1013">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550453" Value="" No="90" CategoryFeatureGroup_ID="1013">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550454" Value="" No="89" CategoryFeatureGroup_ID="1013">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550455" Value="" No="0" CategoryFeatureGroup_ID="1013">
+         <Feature ID="473">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2477" Value="Recommended Operating Temperature Range" langid="1"/>
+           <Name ID="2478" Value="Aanbevolen temperatuur bij gebruik" langid="2"/>
+           <Name ID="7235" Value="Recommended Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550456" Value="" No="0" CategoryFeatureGroup_ID="1013">
+         <Feature ID="563">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2657" Value="Recommended Humidity Operating Range" langid="1"/>
+           <Name ID="2658" Value="Aanbevolen relatieve luchtvochtigheid bij gebruik" langid="2"/>
+           <Name ID="7325" Value="Humidité de fonctionnement recommandée" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550457" Value="" No="0" CategoryFeatureGroup_ID="1013">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550458" Value="" No="110" CategoryFeatureGroup_ID="1012">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9550459" Value="" No="0" CategoryFeatureGroup_ID="1012">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="5" Name="Sony"/>
+       <Category ID="567">
+         <Name ID="1135" Value="Computer screen projector" langid="1"/>
+         <Name ID="1136" Value="Computerschermprojectoren" langid="2"/>
+         <Name ID="6619" Value="Computer screen projector" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,27 @@
+{
+name: editor_journal_searchs;
+
+_resource_editor_journal_searchs: select %%to_year%%,%%to_month%%,%%to_day%%,%%from_year%%,%%from_month%%,%%from_day%%, %%search_catid%%, %%search_editor%%, %%search_supplier%%, %%search_prodid%%,%%search_distributor%%,%%search_isactive%%;
+_resource_editor_journal_searchs_type: single;
+_mapping_editor_journal_searchs: to_year, to_month, to_day, from_year, from_month, from_day, search_catid, search_editor, search_supplier, search_prodid,search_distributor,search_isactive;
+
+format_as_year: from_year, to_year;
+format_as_month: from_month, to_month;
+format_as_day: from_day, to_day;
+
+format_as_dropdown: search_supplier,search_distributor;
+format_as_restricted_user_choice: search_editor; 
+search_editor_dropdown_select: select user_id, login from users where user_group in ('editor', 'supereditor', 'category_manager', 'superuser') order by login;
+search_supplier_dropdown_select: select supplier_id, name from supplier order by name;
+search_distributor_dropdown_select: select  distributor_id,name from distributor order by name;
+
+
+format_as_smart_dropdown: search_catid;
+search_catid_allow_pcat_choice: Y;
+search_catid_add_empty: empty;
+search_catid_smart_dropdown_attrs: style="width\: 308px;"
+
+format_as_input_checkbox:search_isactive;
+
+}
+

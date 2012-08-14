@@ -1,0 +1,14 @@
+AuthName "XML server 3"
+AuthType Basic
+
+AuthBasicAuthoritative Off
+AuthMySQLHost 62.250.11.171
+AuthMySQLDB gccdb
+AuthMySQLUser gcc
+AuthMySQLPassword WV120xA
+AuthMySQLPwEncryption none
+AuthMySQLUserTable users
+AuthMySQLNameField login
+AuthMySQLPasswordField password
+
+require valid-user

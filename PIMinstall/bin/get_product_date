@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomsql;
+use data_management;
+use atomlog;
+use POSIX qw (strftime);
+
+if($ARGV[0] =~m/^\d+$/){
+
+	my $product_date = &get_product_date($ARGV[0]);
+	print  $product_date."\n";
+} else {
+ print "no product id given\n";
+}

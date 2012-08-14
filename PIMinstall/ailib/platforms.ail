@@ -1,0 +1,23 @@
+{
+name: platforms;
+priority: 10;
+
+_resource_platforms: select p.platform_id, p.name, (select count(*) from users u where u.platform=p.name) from platform p order by 3 desc, 2 asc;
+_resource_platforms_type: multi;
+_mapping_platforms: platform_id, name, count;
+
+authorize_superuser: platform_id;
+authorize_submit_superuser: platform_id;
+
+ _insert_sequence: 1;
+
+ _insert_table_1: platform;
+ _insert_values_1: platform_id, name;
+ _insert_fields_1: platform_id, name;
+ _insert_key_1: platform_id;
+ _update_key_1: platform_id;
+
+_update_sequence_1: yes;
+_delete_sequence_1: yes;
+
+}

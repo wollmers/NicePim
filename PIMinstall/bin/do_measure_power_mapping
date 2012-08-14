@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use thumbnail;
+use atomcfg;
+use atomsql;
+use atomlog;
+
+use process_manager;
+use icecat_mapping;
+
+my $measure_id = $ARGV[0];
+my $user_id = $ARGV[1];
+
+exit unless ($measure_id);
+exit unless ($measure_id == int($measure_id));
+exit unless ($user_id);
+
+my $already_have = &do_query("select * from value_regexp_bg_processes where measure_id=".$measure_id)->[0][0];
+exit if ($already_have); # if another process running per such measure - drop current process
+
+&do_statement("insert into value_regexp_bg_processes(measure_id,user_id,start_date,stage) values(".$measure_id.",".$user_id.",unix_timestamp(),'initialization')");
+
+my $id = &do_query("select last_insert_id()")->[0][0];
+
+&power_mapping_per_measure_for_BO({
+	'measure_id' => $measure_id,
+	'apply' => 'Y',
+	'useN' => 'Y',
+	'value_regexp_bg_processes_id' => $id
+	});
+
+END {
+	&do_statement("delete from value_regexp_bg_processes where value_regexp_bg_processes_id=".$id);
+}

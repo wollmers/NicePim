@@ -1,0 +1,31 @@
+{
+name: supplier_sales_report;
+
+verify: supplier_id;
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: supplier_id;
+verify_add_supereditor: supplier_id;
+verify_add_category_manager: supplier_id;
+
+verify_deny_guest: yes;
+
+_resource_sales_report: select sales_report_id,mailto,mailcc,mailbcc,active,report_type from supplier_sales_report as r, report_type as t where supplier_id = %%supplier_id%% and r.report_type_id = t.report_type_id
+_resource_sales_report_type: multi;
+_mapping_sales_report: sales_report_id,mailto,mailcc,mailbcc,active,report_type;
+
+format_as_yes_no_text: active;
+}

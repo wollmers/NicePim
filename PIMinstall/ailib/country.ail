@@ -1,0 +1,72 @@
+{
+name: country;
+priority: 10;
+
+verify: country_id;
+verify_submit: country_id;
+
+verify_add: yes;
+verify_add_superuser: country_id;
+verify_add_supereditor: country_id;
+verify_add_category_manager: country_id;
+
+authorize_submit_superuser: country_id;
+authorize_submit_supereditor: country_id;
+authorize_submit_category_manager: country_id;
+
+authorize_superuser: country_id;
+authorize_supereditor: country_id;
+authorize_category_manager: country_id;
+authorize_editor: country_id;
+authorize_supplier: country_id;
+authorize_guest: country_id;
+authorize_shop: country_id;
+
+_resource_country: select country_id, sid, code, ean_prefix, system_of_measurement,'1' from country where country.country_id = %%country_id%%
+_resource_country_key: country_id;
+_resource_country_type: single;
+_mapping_country: country_id, sid, code, ean_prefix, system_of_measurement,js_langid_array;
+
+format_as_js_langid_array: js_langid_array;
+
+_format_as_system_of_measurement: system_of_measurement;
+
+_resource_label: select language.langid, vocabulary1.value, vocabulary.value, vocabulary.record_id
+from language
+left join country
+on country.country_id = %%country_id%%
+left join vocabulary
+on country.sid = vocabulary.sid and language.langid = vocabulary.langid
+left join vocabulary as vocabulary1
+on vocabulary1.langid = %%langid%% and vocabulary1.sid = language.sid
+order by language.langid
+_resource_label_iq: select language.langid, vocabulary1.value, NULL, NULL from vocabulary as vocabulary1, language where vocabulary1.langid = %%langid%% and language.sid = vocabulary1.sid order by language.langid
+_resource_label_type: multi;
+_resource_label_key: country_id;
+_mapping_label:  v_langid, language, _rotate_label, _rotate_record_id;
+
+ _insert_sequence: 1,2,3;
+
+ _insert_table_1: sid_index;
+ _insert_values_1: dummy;
+ _insert_fields_1: dummy;
+ _insert_key_1: sid;
+ _delete_sequence_1: yes;
+  
+ _insert_table_2: vocabulary;
+ _insert_values_2: sid, _rotate_v_langid, _rotate_label;
+ _insert_fields_2: sid, langid, value;
+ _rotate_insert_2: label;
+ _insert_key_2: record_id;
+ _update_key_2: sid;
+ _update_sequence_2: yes;
+ _delete_sequence_2: yes; 
+ 
+ _insert_table_3: country;
+ _insert_values_3: sid, code, ean_prefix, system_of_measurement;
+ _insert_fields_3: sid, code, ean_prefix, system_of_measurement;
+ _insert_key_3: country_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

@@ -1,0 +1,24 @@
+{
+name: measures;
+priority: 10;
+
+_resource_measures: select m.measure_id, v.value, ms.value, m.system_of_measurement
+from measure m
+left  join measure_sign ms on m.measure_id=ms.measure_id and ms.langid=%%langid%%
+inner join vocabulary v on m.sid=v.sid and v.langid=%%langid%% AND %%search_clause%% 
+%%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_measures_type: multi;
+_resource_measures_def_order: name;
+_mapping_measures: measure_id, name, sign, system_of_measurement;
+
+authorize_superuser: measure_id;
+authorize_supereditor: measure_id;
+authorize_category_manager: measure_id;
+authorize_editor: measure_id;
+authorize_supplier: measure_id;
+authorize_guest: measure_id;
+authorize_shop: measure_id;
+
+authorize_submit_superuser: measure_id;
+authorize_submit_supereditor: measure_id;
+}

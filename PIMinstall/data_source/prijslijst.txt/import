@@ -1,0 +1,955 @@
+#!/usr/bin/perl
+
+#$Id: import 520 2007-02-05 15:19:12Z dima $
+
+use lib '/home/gcc/lib';
+
+use strict;
+#use debug_lib;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+use data_management;
+use Data::Dumper;
+
+
+use LWP::UserAgent;
+use icecat_util;
+
+
+my $data_source_code = 'prijslijst.txt';
+my $base = $atomcfg{'base_dir'}.'data_source/'.$data_source_code.'/';
+my $fn 	= 'export_icecat_m.txt';
+my $url = 'http://www.takeitnow.nl/'.$fn;
+
+
+
+my $debug = 0;
+my $dummy_run = 0;
+my $shadow = {};
+#$shadow->{'product_feature'} = 1;
+#$shadow->{'feature'} = 1;
+$shadow->{'product_description'} = 1;
+#$shadow->{'category_feature'} = 1;
+$shadow->{'product'} = 1;
+#$shadow->{'feature_map'} = 1;
+#$shadow->{'category_feature_group'} = 1;
+
+
+my $missing; # missing structures
+my $lines = 0;
+#&cat_mem_stat(__LINE__.'-'.__FILE__);
+my $prefs =  &load_data_source_prefs($data_source_code,'', $shadow);
+&log_printf("all prefs loaded");
+#$prefs->{'email'} = 'rodent@bk.ru';
+#&cat_mem_stat(__LINE__.'-'.__FILE__);
+#print &Dumper ( $prefs );
+if(!$prefs->{'data_source_id'}){
+	die "Can't load data source preferences for $data_source_code!\n";
+}
+
+
+# download import
+my $ftphost = 'ftp.iceshop.nl';
+my $ftpname = 'icecat';
+my $ftppass = 'ser&mar$';
+if(!$debug){
+	my $ua  = LWP::UserAgent->new;
+	$ua->agent("MyApp/0.1 ");
+	my $req = HTTP::Request->new(GET => "ftp://$ftpname:$ftppass\@$ftphost/$fn");
+	my $res = $ua->request($req);
+	if (!$res->is_success) {
+		die "Can't download file $fn from $ftpname!";
+	}
+	open(F, ">".$base.'/'.$fn);
+	print F $res->content;
+	close(F);
+}
+
+&download_file($url, $base.'/'.$fn, $debug);
+
+# processing file
+
+&log_printf("loading flat file into temp table");
+&load_last_snapshot($prefs);
+
+$prefs->{'total_products'} = 0;
+$prefs->{'updated_products'} = 0;
+$prefs->{'not_updated'} = 0;
+
+# building unspsc hash
+my %catid_by_uncatid = map { $_->{'uncatid'} => $_->{'catid'} } values %{$prefs->{'category'}};
+# making case insensitive alteration
+my $casein = {};
+foreach my $key(keys %{$prefs->{'category_map'}}){
+	$casein->{uc($key)} = $prefs->{'category_map'}->{$key} if($prefs->{'category_map'}->{$key});
+}
+
+my %prio_cat = (
+								'TD' => 80,
+								'TB' => 70,
+								'CO' => 60,
+								'BW' => 50,
+								'IM' => 40,
+								'IB' => 30,
+								'DC' => 20,
+								'IC' => 10,
+								'TH' => 10,
+								'FV' => 6,
+								'AC' => 10,
+								'SC' => 10,
+								'EET'=> 5,
+								'QT' => 7
+							);
+
+my $distributor_product = {}; # global hash for collect stock & price by product_id/distributor
+
+&do_statement("create temporary table pricelist (
+ prodlevid varchar(255) NOT NULL default '',
+ prod_id varchar(155) NOT NULL default '',
+ vendor varchar(55) NOT NULL default '',
+ hfdcat varchar(255) NOT NULL default '',
+ cat varchar(255) NOT NULL default '',
+ name varchar(255) NOT NULL default '',
+ s_desc text NOT NULL default '',
+ l_desc text NOT NULL default '',
+ price varchar(20) NOT NULL default '',
+ stock varchar(10) NOT NULL default '',
+ distributor varchar(30) NOT NULL default '',
+ image text NOT NULL default '',
+ ean_code char(13) NOT NULL default '',
+ index (vendor,prod_id)) DEFAULT CHARSET=latin1");
+&do_statement("load data local infile \"".$base.$fn."\" into table pricelist fields escaped by '' ignore 1 lines");
+&do_statement("alter table pricelist convert to character set utf8");
+&do_statement("update pricelist set prod_id=upper(prod_id)");
+&do_statement("create temporary table ean_tmp (prod_id varchar(235) primary key, ean_code char(13))");
+&do_statement("insert ignore into ean_tmp (prod_id, ean_code) select prod_id, ean_code from pricelist WHERE ean_code != ''");
+&do_statement("insert ignore into product_ean_codes (product_id, ean_code) select p.product_id, ean_code from product p JOIN ean_tmp e ON p.prod_id = e.prod_id");
+
+sub get_product_data{
+ my ($prod_id, $vendor) = @_;
+ my %data;
+ my $data_from_db = &do_query("select * from pricelist where prod_id=".&str_sqlize($prod_id)." and vendor = ".&str_sqlize($vendor));
+
+ foreach my $row(@$data_from_db){
+	my $distributor = $row->[10];
+	my $prodlevid = uc($row->[0]);
+	my $l_desc = $row->[7];
+	my $name = $row->[5];
+	my $cat = $row->[4];
+	$cat  =~s/[\s\t]*$//g;
+	$cat  =~s/^[\s\t]//g;
+	my $vendor = $row->[2];
+	my $s_desc = $row->[6];
+	my $stock = $row->[9];
+	my $price = $row->[8];
+#	my $image = $row->[11];
+#	$image =~ s/\n//gi;
+	my $tmp_for_log = {};
+	$tmp_for_log->{'productcode vendor'} = $prod_id;
+	$tmp_for_log->{'subcat'} = $cat; 
+	$tmp_for_log->{'name'} = $name;
+	$tmp_for_log->{'supplier'} = $vendor;
+
+	foreach my $item($vendor, $prod_id, $s_desc, $l_desc){
+		if($item eq 'NULL'){
+			$item = '';
+		}
+	}	
+
+# valid cat 
+# implement pattern categories &map_category(): 30.10.2006
+	my $catid = &map_category($cat) || $catid_by_uncatid{$cat} || $casein->{uc($cat)};
+	if(!$catid){
+		# this category is missing
+		$missing->{'category'}->{uc($cat)} = 1;
+		&log_ignored_product($prefs, $tmp_for_log, 'category missing');
+		next;
+	}
+
+# valid supplier
+	my $supplier_id;
+	if(! ($supplier_id = $prefs->{'supplier_map'}->{uc($vendor)}) && $vendor){
+		# missing this mapping
+		$missing->{'supplier'}->{uc($vendor)} = 1;
+		&log_ignored_product($prefs, $tmp_for_log, 'supplier missing');
+		next;
+	}
+	if($supplier_id eq '157'){
+		&log_printf('Ignoring supplier: '.$vendor);
+		&log_ignored_product($prefs, $tmp_for_log, 'Ignoring supplier: '.$vendor);
+		next;
+	}
+# prod_id not empty
+	if($prod_id =~/^#/ or $prod_id =~/^$/){
+	# omit this product
+		&log_ignored_product($prefs, $tmp_for_log, '#-ed product');
+		next;
+	}
+
+	my $key = $prod_id."_".$supplier_id;
+	my $product = {};
+	if ( exists ( $data{$key} ) ){
+		$product = $data{$key}; 
+	}
+
+	$product->{'prodlevid'}->{$distributor} = $prodlevid;
+	$product->{'l_desc'}->{$distributor} = $l_desc;
+	$product->{'s_desc'}->{$distributor} = $s_desc;
+	$product->{'cat'}->{$distributor}->{'value'} = $cat;
+	$product->{'cat'}->{$distributor}->{'catid'} = $catid;
+	$product->{'supplier_id'} = $supplier_id; 
+	$product->{'prod_id'} = $prod_id;
+	$product->{'distri'}->{$distributor} = 1;
+	$product->{'price'}->{$distributor} = $price;
+	$product->{'stock'}->{$distributor} = $stock;
+#	$product->{'image'}->{$distributor} = $image;
+	$product->{'name'}->{$distributor} = $name;
+	$product->{'distributor_name'}->{$distributor} = $name;
+	$product->{'distributor_prodid'}->{$distributor} = $prod_id;
+	$product->{'distributor_cat'}->{$distributor} = $cat;
+	$product->{'distributor_vendor'}->{$distributor} = $vendor;
+	$data{$key} = $product;
+ }
+ return %data;
+}
+
+my $all_prods_from_db = &do_query("select distinct prod_id, vendor from pricelist");
+
+&create_regexp_hash($prefs);
+
+&log_printf("starting import"); 
+
+foreach my $prod_from_db(@$all_prods_from_db){
+ my %data = &get_product_data($prod_from_db->[0], $prod_from_db->[1]);
+
+ foreach my $new_product (keys %data){
+	$prefs->{'total_products'}++;
+	my %new_product = %{$data{$new_product}};
+#	print &Dumper( \ %new_product );
+# choose l_desc
+
+	my %desc =  %{$new_product{'l_desc'}};
+	my @desc;
+	my @distri = keys ( %desc );
+	foreach my $distri ( @distri ){
+		my $local_l_desc = {};
+		$local_l_desc->{'value'} = $desc{$distri};
+		$local_l_desc->{'prio'} = $prio_cat{$distri};
+		push @desc, $local_l_desc;
+	}
+	my $result_desc = &get_result_desc ( @desc );
+	$desc{'result'} = $result_desc;
+	$new_product{'l_desc'} = \ %desc;
+
+
+#****************************************************
+#	if ( scalar(@distri) > 2 ){
+#		print $new_product."\n";
+#		print &Dumper ( \ %new_product );
+#	}
+#	next;
+#****************************************************	
+
+# choose s_desc
+
+	my %desc =  %{$new_product{'s_desc'}};
+	my @desc;
+	my @distri = keys ( %desc );
+	foreach my $distri ( @distri ){
+		my $local_s_desc = {};
+		$local_s_desc->{'value'} = $desc{$distri};
+		$local_s_desc->{'prio'} = $prio_cat{$distri};
+		push @desc, $local_s_desc;
+	}
+	my $result_desc = &get_result_desc ( @desc );
+	$desc{'result'} = $result_desc;
+	$new_product{'s_desc'} = \ %desc;
+
+
+#****************************************************
+#	if ( scalar(@distri) > 1 ){
+#		print $new_product."\n";
+#		print &Dumper ( \ %new_product );
+#	}
+#	next;
+#****************************************************	
+
+
+# choose name
+
+	my %name =  %{$new_product{'name'}};
+	my @name;
+	my @distri = keys ( %name );
+	foreach my $distri ( @distri ){
+		my $local_name = {};
+		$local_name->{'value'} = $name{$distri};
+		$local_name->{'prio'} = $prio_cat{$distri};
+		push @name, $local_name;
+	}
+	my $result_name = &get_result_desc ( @name );
+	$name{'result'} = $result_name;
+	$new_product{'name'} = \ %name;
+
+
+#****************************************************
+#	if ( scalar(@distri) > 1 ){
+#		print $new_product."\n";
+#		print &Dumper ( \ %new_product );
+#	}
+#	next;
+#****************************************************	
+
+	# choose category
+
+	my %categories;
+		%categories = %{$new_product{'cat'}}; 
+		my @distri = keys ( %categories );
+		my @categories;
+		foreach my $distri ( @distri ){
+			my $local_cat = {};
+			$local_cat->{'value'} = $categories{$distri}->{'value'};
+			$local_cat->{'distri_prio'} = $prio_cat{$distri};
+			$local_cat->{'type'} = &get_cat_type( $local_cat->{'value'});
+			$local_cat->{'catid'}  = $categories{$distri}->{'catid'};
+			push @categories, $local_cat;
+		}
+		my $result_cat = &get_result_cat ( @categories );
+		$categories{'result_catid'} = $result_cat->{'result_catid'};
+		$categories{'result_value'} = $result_cat->{'result_value'};
+		$new_product{'cat'} = \ %categories; 	
+
+#*********************************************************
+#	if ( $new_product  eq '10284456-IN'){
+#	if ( $new_product  eq '016154200'){
+#	if ( $new_product  eq '305444-001'){
+#		print &Dumper ( \ %new_product );
+#	}
+#*********************************************************
+
+# now all pictures are maintained in standalone script
+
+	# choose picture 
+#		my %images;
+#		%images = %{$new_product{'image'}};
+#		my @distri = keys ( %images );
+#		my @images;
+#		foreach my $distri ( @distri ){
+#			my $local_image = {};
+#			$local_image->{'value'} = $images{$distri};
+#			$local_image->{'distri_prio'} = $prio_cat{$distri};
+#			push @images, $local_image;
+#		}
+#		my $result_image = &get_result_image ( @images );
+#		$images{'result_image'} = $result_image;
+#		$new_product{'image'} = \ %images;
+
+#*******************************************************************
+#		my @distri = keys ( %{$new_product{'distri'}} );
+#		if ( scalar(@distri) == 4 && $new_product{'distri'}{'DC'} ){
+#			print &Dumper ( \ %new_product );
+#		}
+#		next;
+#*******************************************************************
+
+#*******************************************************************
+#		my @distri = keys ( %{$new_product{'distri'}} );
+#		if ( scalar(@distri) == 4 ){
+#			print &Dumper ( \ %new_product );
+#		}
+#		next;
+#*******************************************************************
+
+#print &Dumper ( \ %new_product );
+#next;
+
+# start import 
+
+	my $supplier_id = $new_product{'supplier_id'};
+	my $prod_id = $new_product{'prod_id'};
+	my $catid = $new_product{'cat'}{'result_catid'};
+
+#	&log_printf("product num $count: $supplier_id; $prod_id; $catid");
+
+
+	my $query = "select product_id, user_id from product where supplier_id=".&str_sqlize($supplier_id)." and prod_id=".&str_sqlize($prod_id);
+	my $res = &do_query ( $query );
+	if ($#$res == -1) {
+		my $product = { "supplier_id"  => $supplier_id, "prod_id"   => $prod_id};
+		my $m_prod_id = &get_mapped_prod_id($product);
+		if($m_prod_id){
+			&log_printf("Product '$prod_id' ==> '$m_prod_id'");
+			$prod_id = $m_prod_id;
+			$query = "select product_id, user_id from product where supplier_id=".&str_sqlize($supplier_id)." and prod_id=".&str_sqlize($prod_id);
+			$res = &do_query ( $query );
+		}
+	}
+
+	my $old_catid = $prefs->{'snapshot_category_map'}->{$new_product{'cat'}{'result_value'}};
+# select product_id 
+	my $product_id;
+	$product_id = $res->[0][0];
+	print "$product_id => $prod_id \n";
+	if ( $product_id ){
+	# suh product alredy exist
+		my $user = $res->[0][1];
+		if ( $user ne $prefs->{'user_id'} ){
+			# ovner is not nobodu
+			foreach my $distri(keys %{$new_product{'distributor_prodid'}}){
+			my $distri_id = &do_query("select distributor_id from distributor where code = ".&str_sqlize($distri))->[0][0];
+			if($distri_id){
+				my($oprodid, $ocat, $ovendor, $oname);
+				if($new_product{'distributor_name'}->{$distri}){ $oname = &str_sqlize($new_product{'distributor_name'}->{$distri});} else{ $oname = &str_sqlize('');}
+				if($new_product{'distributor_prodid'}->{$distri}){ $oprodid = &str_sqlize($new_product{'distributor_prodid'}->{$distri});} else{ $oprodid = &str_sqlize('');}
+				if($new_product{'distributor_cat'}->{$distri}){ $ocat = &str_sqlize($new_product{'distributor_cat'}->{$distri});} else{ $ocat = &str_sqlize('');}
+				if($new_product{'distributor_vendor'}->{$distri}){ $ovendor = &str_sqlize($new_product{'distributor_vendor'}->{$distri});} else{ $ovendor = &str_sqlize('');}
+				if(&do_query("select product_id from product_original_data where product_id = $product_id and distributor_id = $distri_id")->[0][0]){
+					&update_rows('product_original_data', "product_id = $product_id and distributor_id = $distri_id",
+					{'original_prodid' => $oprodid,
+					 'original_name' => $oname,
+					 'original_cat' => $ocat,
+					 'original_vendor' => $ovendor});
+				}else{
+					&insert_rows('product_original_data',
+					{'product_id' => $product_id,
+				 	 'distributor_id' => $distri_id,
+					 'original_prodid' => $oprodid,
+					 'original_name' => $oname,
+					 'original_cat' => $ocat,
+					 'original_vendor' => $ovendor});
+					}
+				}
+			}
+			my @distri = keys ( %{$new_product{'distri'} } );
+			foreach my $distributor ( @distri ){
+				my $stock = $new_product{'stock'}{$distributor};
+				my $price = $new_product{'price'}{$distributor};
+				my $prodlevid = $new_product{'prodlevid'}{$distributor};
+#				print $distributor."\n";
+#				print "Stock: ".$stock."\n";
+#				print "Price: ".$price."\n";
+				$distributor_product->{$product_id}->{'stock'}->{$distributor} = $stock;
+				$distributor_product->{$product_id}->{'price'} = $price;
+			#insert distributors data in distributor_product to get markets(in case if product already in database)
+				&insert_distributor($product_id, $prodlevid, $distributor, $stock);
+			}
+			$prefs->{'not_updated'} ++;
+			next;
+		}
+		# ovner is nobody 
+		if($catid ne $old_catid&&$old_catid){
+#			print $product_id."_".$catid."\n";
+			&delete_rows('product_feature', " product_id = ".$product_id);
+			delete $prefs->{'product_feature'}->{$product_id}
+		}
+	}
+	
+	# for nobody or new products 
+
+#	my $low_pic_now = '';	
+#	if ( $product_id ){
+#		$low_pic_now = &do_query ("select low_pic from product where product_id=$product_id")->[0][0];
+#	}
+#	my $change_image = 1;
+	my $hash = {};
+
+#	my $image = $new_product{'image'}{'result_image'};
+	my $name = $new_product{'name'}{'result'};
+#	if ( $low_pic_now && ( ! $change_image ) ){
+		$hash = {
+						'product_id'   => $product_id,
+						'prod_id'      => &str_sqlize($prod_id),
+						'supplier_id'  => $supplier_id,
+						'name'         => &str_sqlize($name),
+						'catid'        => $catid,
+						'user_id'      => $prefs->{'user_id'}
+		};	
+#	}else{
+#		$image =~ s/^\s//gi;
+#		$image =~ s/\s$//gi;
+#		# only once
+#		if ( ( ! $image ) && $low_pic_now ){
+#			$image = $low_pic_now;
+#		} 
+#		$hash = {
+#						'low_pic'      => &str_sqlize($image),
+#						'product_id'   => $product_id,
+#						'prod_id'      => &str_sqlize($prod_id),
+#						'supplier_id'  => $supplier_id,
+#						'name'         => &str_sqlize($name),
+#						'catid'        => $catid,
+#						'user_id'      => $prefs->{'user_id'}
+#		};
+#	}
+	
+	if($product_id){
+		 $prefs->{'updated_products'}++;
+	}else{
+		$prefs->{'added_products'}++;
+	}
+	&smart_update('product', 'product_id', $hash);
+	$product_id = $hash->{'product_id'};
+
+	if($product_id){
+	 foreach my $distri(keys %{$new_product{'distributor_prodid'}}){
+		my $distri_id = &do_query("select distributor_id from distributor where code = ".&str_sqlize($distri))->[0][0];
+		if($distri_id){
+			my($oprodid, $ocat, $ovendor, $oname);
+			if($new_product{'distributor_name'}->{$distri}){ $oname = &str_sqlize($new_product{'distributor_name'}->{$distri});} else{ $oname = &str_sqlize('');}
+			if($new_product{'distributor_prodid'}->{$distri}){ $oprodid = &str_sqlize($new_product{'distributor_prodid'}->{$distri});} else{ $oprodid = &str_sqlize('');}
+			if($new_product{'distributor_cat'}->{$distri}){ $ocat = &str_sqlize($new_product{'distributor_cat'}->{$distri});} else{ $ocat = &str_sqlize('');}
+			if($new_product{'distributor_vendor'}->{$distri}){ $ovendor = &str_sqlize($new_product{'distributor_vendor'}->{$distri});} else{ $ovendor = &str_sqlize('');}
+			if(&do_query("select product_id from product_original_data where product_id = $product_id and distributor_id = $distri_id")->[0][0]){
+				&update_rows('product_original_data', "product_id = $product_id and distributor_id = $distri_id",
+				{'original_prodid' => $oprodid,
+				 'original_name' => $oname,
+				 'original_cat' => $ocat,
+				 'original_vendor' => $ovendor});
+#				&log_printf("updated $product_id => $oprodid; $ovendor; $ovendor; $distri;");
+			}else{
+				&insert_rows('product_original_data',
+				{'product_id' => $product_id,
+			 	 'distributor_id' => $distri_id,
+				 'original_prodid' => $oprodid,
+				 'original_name' => $oname,
+				 'original_cat' => $ocat,
+				 'original_vendor' => $ovendor});
+#				&log_printf("inserted $product_id => $oprodid; $ovendor; $ovendor; $distri;");
+			}
+		}
+	 }
+	}
+
+	my @distri = keys ( %{$new_product{'distri'} } );
+	foreach my $distributor ( @distri ){
+		my $stock = $new_product{'stock'}{$distributor};
+		my $price = $new_product{'price'}{$distributor};
+		my $prodlevid = $new_product{'prodlevid'}{$distributor};
+		$distributor_product->{$product_id}->{'stock'}->{$distributor} = $stock;
+		$distributor_product->{$product_id}->{'price'} = $price;
+		#insert distributors data in distributor_product to get markets(in case if product is new)
+		&insert_distributor($product_id, $prodlevid, $distributor, $stock);
+	}
+
+
+			
+	if($dummy_run){
+		next;
+	}
+
+
+	# now updating product descriptions
+	my $s_desc = $new_product{'s_desc'}{'result'};
+	my $l_desc = $new_product{'l_desc'}{'result'};
+	$s_desc =~s/<br><a href\=\"http\:\/\/www\.icecat\.biz.*//msi;
+	$l_desc =~s/<br><a href\=\"http\:\/\/www\.icecat\.biz.*//msi;
+	my $query = "select product_description_id from product_description where langid=2 and product_id=$product_id";
+	my $product_description_id = &do_query($query)->[0][0];
+	my $d_hash = {
+								'product_description_id'   => $product_description_id,
+								'product_id'   => $product_id,
+								'langid'       => 2,
+								'short_desc'   => &str_sqlize($s_desc),
+								'long_desc'    => &str_sqlize($l_desc)	
+								};
+#	print &Dumper ( $d_hash );
+	if($d_hash->{'short_desc'}){
+		&smart_update('product_description', 'product_description_id', $d_hash);
+	}
+
+
+	my $active_symbol = {};
+	&build_active_symbol_hash($prefs, $active_symbol, $catid);
+#		&log_printf(Dumper($active_symbol));
+# unconditionally clearing the features
+#			&delete_rows('product_feature', " product_id = ".$product_id);
+#			delete $prefs->{'product_feature'}->{$product_id};
+	my $cdesc = $name.' '.$s_desc.' '.$l_desc;
+#		&log_printf($cdesc);
+   foreach my $keyword ( sort { length($b) <=> length($a) } keys %{$active_symbol}){
+	  my $r_keyword = $keyword;
+	  $r_keyword =~s/([^A-Za-z0-9])/\\$1/g;
+#			&log_printf($keyword);
+		if($cdesc=~s/$r_keyword//i){
+#			&log_printf($keyword.' matched');
+			foreach my $feature_mapping_catid(@{$active_symbol->{$keyword}}){
+#				&log_printf("using category $feature_mapping_catid");
+				foreach my $map_hash(@{$prefs->{'feature_map'}->{$keyword}->{$feature_mapping_catid}}){
+#					 &log_printf(Dumper($map_hash));
+					my $value = $map_hash->{'override_value_to'};
+					my $feature_id = $map_hash->{'feature_id'};
+					my $category_feature_id = $prefs->{'category_feature'}->{$catid}->{$feature_id};
+					 
+					if($value&&$category_feature_id){
+						&create_product_feature(
+							$prefs, $product_id, $category_feature_id, $value, $missing);
+					} else {
+						if(!$category_feature_id&&$feature_id){
+		 				 # missing category feature id
+#							 &log_printf('missing category feature '.$prefs->{'category'}->{$catid}->{'name'}.' - '.$prefs->{'feature'}->{$feature_id}->{'name'});
+							&put_missing_category_feature($prefs, $missing, $catid, $feature_id);
+						}
+					}
+				} # foreach
+			} # foreach
+		} # if
+	} # foreach 
+ }
+}
+# end of import
+&log_printf("import finished, starting to update market data"); 
+&update_price_stock();
+&log_printf("market data updated"); 
+
+# print Dumper($missing);
+
+# adding missing entries
+
+&add_symbols_to_mapping($prefs, $missing, ['supplier', 'category']);
+
+&delete_last_snapshot($prefs);
+&save_snapshot($prefs);
+
+# reporting 
+&send_report($prefs, $missing);
+&log_printf ("All done.");
+
+#print &Dumper ( $missing );
+
+###################################################################################################
+#
+#
+
+sub get_result_desc {
+	my ( @desc ) = @_;
+#	print &Dumper ( \ @desc );
+	my $result_desc = $desc[0];
+	my $l_desc;
+	if ( scalar (@desc) == 1 ){
+		$l_desc = $result_desc->{'value'};
+	}else{
+		foreach my $current_desc ( @desc ){
+			if ( &cmp_desc ( $result_desc, $current_desc ) ){
+				$result_desc = $current_desc;
+			}
+		}
+		$l_desc = $result_desc->{'value'};
+	}
+	$l_desc =~ s/<[^>]+>/ /gi;
+	return $l_desc;
+}
+sub cmp_desc {
+	my ( $first, $seccond ) = @_;
+	if ( $seccond->{'value'} eq '' ){
+		return 0;
+	}else{
+		if ( $first->{'value'} eq '' ){
+			return 1;
+		}else{
+			if ( $seccond->{'prio'} > $first->{'prio'} ){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
+	}
+	return 0;
+}
+
+sub get_result_cat {
+	my ( @catigories ) = @_;
+	my $result ={};
+	my $result_category = $catigories[0];
+	if ( scalar (@catigories) == 1 ){
+		$result->{'result_catid'} = $result_category->{'catid'};
+		$result->{'result_value'} = $result_category->{'value'};
+	}else{
+		foreach my $current_category ( @catigories ){
+			if ( &cmp_cat ( $result_category, $current_category ) ){
+				$result_category = $current_category;
+			}
+		}
+		$result->{'result_catid'} = $result_category->{'catid'};
+		$result->{'result_value'} = $result_category->{'value'};
+	}
+#	print &Dumper ( \ @catigories );
+	return $result;
+}
+sub cmp_cat (){
+	# if $second > $first return 1
+
+	my ( $first, $second ) = @_;
+	if ( $first->{'type'} eq $second->{'type'}){
+		if ( $first->{'type'} eq 'unspsc'){
+			my $length1;
+			my $length2;
+			if ( $first->{'value'} =~ m/(0*)$/){
+				$length1 = length ( $1 );
+			}else{
+				$length1 = 0;
+			}
+
+			if ( $second->{'value'} =~ m/(0*)$/) {
+				$length2 = length ( $1 );
+			}else{
+				$length2 = 0;
+			}
+			if ( $length2 < $length1 ){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			if ( $second->{'distri_prio'} >  $first->{'distri_prio'}){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
+	}else{
+	# if isset string tupe
+		if ( $second->{'type'} eq 'string'){
+			return 1;
+		}
+		if ( $first->{'type'} eq 'string' ){
+			return 0;
+		}
+	# if isset unspsc type
+		if ( $second->{'type'} eq 'unspsc'){
+			return 1;
+		}
+		if ( $first->{'type'} eq 'unspsc' ){
+			return 0;
+		}
+	# else unreal
+		return 0;
+	}
+	return 1;
+}
+
+sub get_cat_type {
+	my ( $value ) = @_;
+	my $type;
+	if ( $value =~ m/[0-9]{8}/){
+		if ( $value =~ m/99999999/ ){
+			$type = 'mini';
+		}else{
+			$type = 'unspsc'
+		}	
+	}else{
+		$type = 'string';
+	}
+
+}
+
+
+sub get_result_image (){
+	my ( @images ) = @_;
+	my $result;
+	if ( scalar (@images) == 1 ){
+		$result = $images[0]
+	}else{
+		$result = $images[0];
+		foreach my $current_image ( @images ){
+			my $current_value = $current_image->{'value'};
+			$current_value =~ s/^\s//gi;
+			$current_value =~ s/\s$//gi;
+			my $result_value = $result->{'value'};
+			$result_value =~ s/^\s//gi;
+			$result_value =~ s/\s$//gi;
+			if ( $result_value ){
+				if ( $current_value && $current_image->{'distri_prio'} > $result->{'distri_prio'} ){
+					$result = $current_image;
+				}
+			}else{
+				$result = $current_image;
+			}
+		}
+	}
+	return $result->{'value'};
+}
+
+###################################################################################################
+
+sub update_price_stock
+{
+	#using global hash: $distributor_product
+	my $country_product_pref = {};
+	my $country_product_2reset = {};
+	my $data = &do_query("select product_id,country_id,country_product_id,active from country_product");
+	foreach my $row (@$data){
+		$country_product_pref->{$row->[0].'-'.$row->[1]} = $row->[2];
+		if($row->[3]!=0){ $country_product_2reset->{$row->[2]} = 1; }
+	}
+
+	my $product_price_pref = {};
+	my $product_price_2reset = {};
+	$data = &do_query("select product_id,stock from product_price");
+	foreach my $row (@$data){
+		$product_price_pref->{$row->[0]} = 1;
+		if($row->[1]>0){ $product_price_2reset->{$row->[0]} = 1; }
+	}
+
+	my $distri_country_id = {};
+	$data = &do_query("select code,country_id from distributor");
+	foreach my $row (@$data){ $distri_country_id->{$row->[0]} = $row->[1]; }
+	&log_printf("marked data prefs loaded"); 
+
+	foreach my $product_id (keys %{$distributor_product}){
+		my $stock_by_country = {};
+		my $total_stock = 0;
+		#calculate stocks by country
+		foreach my $distri (keys %{$distributor_product->{$product_id}->{'stock'}}){
+			my $country_id = $distri_country_id->{$distri};
+			if($country_id){
+				my $distri_stock = $distributor_product->{$product_id}->{'stock'}->{$distri};
+				if(!$stock_by_country->{$country_id}){
+					$stock_by_country->{$country_id} = $distri_stock;
+				}else{
+					$stock_by_country->{$country_id} += $distri_stock;
+				}
+				$total_stock += $distri_stock;
+			}else{
+				&log_printf("WARNING! Missing distri code: $distri. Stock ignored.");
+			}
+		}
+		#update country_product info
+		foreach my $country_id (keys %{$stock_by_country}){
+			my $country_product_id = $country_product_pref->{$product_id.'-'.$country_id};
+			$stock_by_country->{$country_id} = 0 if ($stock_by_country->{$country_id} < 0);
+			if($country_product_id){
+				&update_rows("country_product","country_product_id=$country_product_id",{
+	        'existed' => 1,
+	        'active' => 1,
+	        'stock' => $stock_by_country->{$country_id}
+				});
+				delete $country_product_2reset->{$country_product_id};
+			}else{
+				&insert_rows("country_product",{
+					'country_id' => $country_id,
+					'product_id' => $product_id,
+					'existed' => 1,
+					'active' => 1,
+					'stock' => $stock_by_country->{$country_id}
+				});
+			}
+		}
+		#update product_price info
+		$total_stock = 0 if ($total_stock < 0);
+		if($product_price_pref->{$product_id}){
+	    &update_rows("product_price","product_id=$product_id",{
+	      'price' => $distributor_product->{$product_id}->{'price'},
+	      'stock' => $total_stock
+	    });
+	    delete $product_price_2reset->{$product_id};
+	  }else{
+	    &insert_rows("product_price",{
+				'product_id' => $product_id,
+	      'price' => $distributor_product->{$product_id}->{'price'},
+	      'stock' => $total_stock
+	    });
+	  }
+	 }
+
+	#reset country_product info for non imported products
+	my @country_product_ids = keys %{$country_product_2reset};
+	&log_printf("country_product_2reset: ".eval($#country_product_ids+1));
+	while ($#country_product_ids>=0){
+		my @ids;
+		foreach(1..1000){ if($#country_product_ids>=0){ push @ids, pop @country_product_ids; } }
+		my $ids = join(',',@ids);
+		&update_rows("country_product", "country_product_id in ($ids)", {'active'=>0});
+	}
+	#reset product_price info for non imported products
+	my @product_price_ids = keys %{$product_price_2reset};
+	&log_printf("product_price_2reset: ".eval($#product_price_ids+1));
+	while ($#product_price_ids>=0){
+		my @ids;
+		foreach(1..1000){ if($#product_price_ids>=0){ push @ids, pop @product_price_ids; } }
+		my $ids = join(',',@ids);
+		&update_rows("product_price", "product_id in ($ids)", {'stock'=>0});
+	}
+}
+
+
+
+sub insert_distributor
+{
+	my ($product_id, $prodlevid, $distributor, $stock) = @_;
+
+ #define products distributor
+	if(defined $distributor){
+		my $distributor_id = &do_query("select distributor_id,code from distributor where code =".&str_sqlize($distributor)." or name=".&str_sqlize($distributor));
+		my $dist_code = $distributor_id->[0][1];
+		my $distributor_id = $distributor_id->[0][0];
+		if(!$distributor_id){
+			&log_printf("WARNING: no data for $product_id distributor in database, stock ignored");
+			return ;
+		}
+   #smart updating
+		$prodlevid =~ s/^$dist_code-//; ## remove prefix with distributor's code if exist
+		$prodlevid = &str_sqlize($prodlevid);
+		my $exist = &do_query("select distributor_product_id from distributor_product where distributor_id = $distributor_id and dist_prod_id = $prodlevid");
+		my $hash = {
+     'distributor_product_id' => $exist->[0][0],
+     'distributor_id' => $distributor_id,
+     'product_id' => $product_id,
+     'dist_prod_id' => $prodlevid,
+     'stock' => $stock
+		};
+		&smart_update("distributor_product", "distributor_product_id", $hash);
+	}else{
+			&log_printf("WARNING: no data for $product_id distributor in import, stock ignored");
+	}
+  return 1;
+}
+
+
+sub log_ignored_product
+{
+my ($prefs, $row, $text) = @_;
+$prefs->{'ignored_products'}++;
+   push @{$prefs->{'ignored_products_list'}},
+      {
+       'prod_id'  => $row->{'productcode vendor'},
+       'name'     => $row->{'name'},
+       'ocat'     => $row->{'subcat'},
+       'reason'   => $text,
+			 'supplier' => $row->{'supplier'}
+      };
+
+}
+
+sub create_regexp_hash { # creating additional hash for category mapping
+	my ($prefs) = @_;
+
+	foreach my $value(keys %{$prefs->{'category_map'}}){
+		if ($value =~ m/\*/) {
+			$prefs->{'category_map_regexp'}->{$value} = 1;
+		}
+	}
+}
+
+sub map_category
+{
+    my ($category_string) = @_;
+	
+    if($prefs->{'category_map'}->{uc($category_string)}){
+		return $prefs->{'category_map'}->{uc($category_string)};
+    } else {
+		# trying to find mapping 
+		foreach my $value(keys %{$prefs->{'category_map_regexp'}}){
+			my $m_value = &match_cat_symbol_regexp($value, $category_string);
+			if($category_string ne $m_value){
+				# found mapping
+				&log_printf("found mapped cat for:\n$category_string \n-> $value");
+				return $prefs->{'category_map'}->{$value};
+			}
+		}
+		
+		$missing->{'category'}->{uc($category_string)} = 1;
+		&log_printf('missing cat '.$category_string);
+		return undef;
+    }
+}

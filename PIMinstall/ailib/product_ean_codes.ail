@@ -1,0 +1,46 @@
+{
+name: product_ean_codes;
+
+verify: product_id;
+verify_submit: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id, product_id # '1' == edit_user_id;
+authorize_submit_supplier: product_id;
+
+_resource_ean_codes: select ean_id, ean_code, '', '' from product_ean_codes where product_ean_codes.product_id=%%product_id%% order by ean_code;
+
+_resource_ean_codes_type: multi;
+_resource_ean_codes_key: product_id;
+_resource_ean_codes_skey: ean_id;
+_mapping_ean_codes: ean_id, ean_code, ean_country, nickname;
+format_as_ean_country: ean_country;
+format_as_ean_login: nickname;
+
+_resource_dummy: select '';
+_resource_dummy_type: singe;
+_mapping_dummy: edit_ean_code;
+
+validate_as_ean_code: edit_ean_code;
+validate_as_product_access: product_id;
+store_as_ean_code: edit_ean_code;
+
+ _insert_sequence: 1;
+ _insert_ignore_keys: yes;
+
+ _insert_table_1: product_ean_codes;
+ _insert_key_1: ean_id;
+ _insert_values_1: product_id, edit_ean_code;
+ _insert_fields_1: product_id, ean_code;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes;
+
+}

@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+
+#$Id: update_feature_chunk.all 1591 2009-05-13 14:21:04Z dima $
+
+use lib '/home/pim/lib/';
+#use lib '/home/dima/gcc_svn/lib/';
+
+use atomsql;
+use strict;
+use atomlog;
+use atom_commands;
+
+$| = 1;
+
+my $features = &do_query("select f.feature_id, min(x.updated) as x_upd, unix_timestamp(f.updated) as f_upd
+	from feature as f left join product_xmlfeature_cache as x using(feature_id)
+	group by f.feature_id");
+#my $features = &do_query("select feature_id from feature");
+
+print "\033[1mStart:\033[0m ";
+
+foreach (@$features) {
+	print $_->[0]." ";
+	&command_proc_update_feature_chunk($_->[0]);
+}
+
+print "\033[1mEnd.\033[0m\n\n";

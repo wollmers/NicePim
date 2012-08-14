@@ -1,0 +1,16 @@
+{
+ name: brand_invalid_partnumbers_search;
+ priority: 100;
+
+_resource_stat_params: select '%%search_prod_id%%', '%%search_supplier_id%%', '%%search_user_id%%';
+_mapping_stat_params: search_prod_id, search_supplier_id, search_user_id;
+
+format_as_dropdown: search_supplier_id, search_user_id;
+search_supplier_id_dropdown_select: select supplier_id, name from supplier where trim(prod_id_regexp) != '' order by name
+search_supplier_id_dropdown_width: 200;
+search_user_id_dropdown_select: select user_id, login from users where user_group in ('supereditor','category_manager','nogroup','superuser','editor','supplier','exeditor') order by login asc
+search_user_id_dropdown_width: 200;
+
+verify_deny_guest: yes;
+
+}

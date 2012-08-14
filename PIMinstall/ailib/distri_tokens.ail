@@ -1,0 +1,12 @@
+{
+name: distri_tokens;
+priority: 100;
+
+verify: distributor_id;
+authorize_superuser: distributor_id;
+
+_resource_tokens: select dtk.token, d.dictionary_id from distributor_tokens dtk JOIN dictionary d on dtk.token = d.code where distributor_id = %%distributor_id%%;
+_resource_tokens_type: multi;
+_mapping_tokens: token, dictid;
+
+}

@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+
+##
+## complete to the several langauges. currently, it has langid = 1 only
+##
+
+#$Id: dump_categories_and_features_xls 1998 2009-11-27 16:21:51Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use Spreadsheet::WriteExcel;
+
+use Data::Dumper;
+
+$| = 1;
+
+my $langid = 1;
+
+my $cfs = &do_query("select c.catid, c.ucatid, c.pcatid, cv.value, cfg.category_feature_group_id, fgv.value, f.feature_id, fv.value, f.type, f.class, f.limit_direction, cf.searchable, f.restricted_values, cf.mandatory, cf.use_dropdown_input, mv.value, ms.value, ".$langid."
+from category c
+left  join vocabulary cv               on c.sid = cv.sid and cv.langid = ".$langid."
+inner join category_feature cf         on c.catid = cf.catid
+inner join category_feature_group cfg  on cf.category_feature_group_id = cfg.category_feature_group_id and cfg.catid = c.catid
+inner join feature_group fg            on cfg.feature_group_id = fg.feature_group_id
+left  join vocabulary fgv              on fg.sid = fgv.sid and fgv.langid = ".$langid."
+inner join feature f                   on cf.feature_id = f.feature_id
+left  join vocabulary fv               on f.sid = fv.sid and fv.langid = ".$langid."
+left  join measure m                   on f.measure_id = m.measure_id
+left  join vocabulary mv               on m.sid = mv.sid and mv.langid = ".$langid."
+left  join measure_sign ms             on f.measure_id = ms.measure_id and ms.langid = ".$langid."
+where c.catid > 1
+order by c.catid asc, f.feature_id asc");
+
+unshift @$cfs, [['catid'],['ucatid'],['pcatid'],['category'],['category_feature_group_id'],['category_feature_group'],['feature_id'],['feature'],['feature_type'],['class'],['feature_limit_direction'],['searchable'],['feature_restricted_values'],['mandatory'],['use_dropdown_input'],['measure'],['measure_sign'],['langid']];
+
+open my $fh, '>', \my $xls;
+my $wb = Spreadsheet::WriteExcel->new($fh);
+my $ws = $wb->add_worksheet();
+my $ws0 = $ws;
+my $row = 0;
+
+foreach my $cf (@$cfs) {
+	my $col = 0;
+	foreach (@$cf) {
+		$ws->write($row, $col, $_);
+		$col++;
+	}
+	$row++;
+	if ($row == 65536) {
+		$row = 0;
+		$ws = $wb->add_worksheet();
+	}
+}
+$ws0->activate();
+$wb->close();
+
+binmode STDOUT, ":raw";
+print STDOUT $xls;

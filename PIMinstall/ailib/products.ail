@@ -1,0 +1,35 @@
+{
+name: products;
+priority: 10;
+
+
+_resource_products: select p.name, prod_id, date_added, %%order_fields%%, p.supplier_id, p.catid, p.product_id, p.product_id, '', p.user_id, p.product_id, '', '', '' from %%order_tables%% %%smart_search_tables%% %%filter_tables%% where 1 and %%restrict_clause%% %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_products_type: multi;
+_resource_products_def_order: prod_id;
+_resource_products_disable_sql_calc_found_rows: 1;
+_resource_products_order_by_tables_order_new_format: 1;
+_resource_products_order_by_tables_order_default: product;
+_resource_products_order_by_tables_order_supp_name: product inner join supplier using (supplier_id);
+_resource_products_order_by_tables_order_cat_name: vocabulary as cat_name inner join category on cat_name.sid=category.sid and cat_name.langid=1 inner join product using (catid);
+_resource_products_order_by_tables_order_user_name: users inner join product using (user_id);
+
+_mapping_products: product_name, prod_id, date_added, supp_name, user_name, cat_name, supplier_id, catid, product_id, cproduct_id, edit_user_group, edit_user_id, product_item_marked, button_type, product_screen_row, filter;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+authorize_submit_superuser: product_id, cproduct_id;
+authorize_submit_supereditor: product_id, cproduct_id;
+authorize_submit_category_manager: product_id, cproduct_id;
+authorize_submit_editor: product_id # user_id == edit_user_id, product_id # '1' == edit_user_id, product_id # '5' == edit_user_id, cproduct_id # user_id == edit_user_id, product_id # '19' == edit_user_id, product_id # 'category_manager' == edit_user_group;
+authorize_submit_supplier: product_id, cproduct_id;
+
+format_as_ids_save_for_clipboard: product_item_marked;
+format_as_button_type: button_type;
+format_as_product_screen_row: product_screen_row;
+}

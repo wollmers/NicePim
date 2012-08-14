@@ -1,0 +1,11 @@
+{
+name: product_description_menu;
+priority: 10;
+
+verify: product_description_id;
+verify_submit: product_description_id;
+
+
+$$INCLUDE product_description_general.ail$$
+
+}

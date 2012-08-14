@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+
+use lib '/home/gcc/lib';
+
+use strict;
+use atomsql;
+use data_management;
+
+my $data_source_code = 'prijslijst.txt';
+my $prefs =  &load_data_source_prefs($data_source_code);
+
+my $catun;
+
+my $rf = &do_query("select catid, ucatid from category");
+ foreach my $row(@$rf){
+   $catun->{$row->[1]} = $row->[0];
+ }
+
+my $cats  = &load_flat_file('cats.txt', { 
+																		 "skip_header"		=> 1,
+																		 'map_by_header'	=> 1,
+																		 'delimiter' => "\t"
+																		 } );
+
+my $inserted_rows = &do_query("select symbol, catid from data_source_category_map where data_source_id = $prefs->{'data_source_id'}");
+my %inserted = map { $_->[0] => $_->[1] } @$inserted_rows;
+my $inserted = \%inserted;
+
+foreach my $cat(@$cats){
+ if($catun->{$cat->{'UNSPSCID'}}){
+  # such category exists
+	if(	! $inserted->{$cat->{'TD'}}){
+		$inserted->{$cat->{'TD'}} = $catun->{$cat->{'UNSPSCID'}};
+		&insert_rows('data_source_category_map', 
+	 		{
+			'data_source_id' 	=> $prefs->{'data_source_id'},
+			'catid'						=> $catun->{$cat->{'UNSPSCID'}},
+			'symbol'					=> &str_sqlize($cat->{'TD'})
+		 });
+	 }
+ } else {
+  # ignoring
+	print "Don't now cat with ucatid $cat->{'UNSPSCID'}\n";
+ }
+}

@@ -1,0 +1,5 @@
+{
+name: category_features_batch;
+ custom_processing: yes;
+ priority: 100;
+}

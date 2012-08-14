@@ -1,0 +1,30 @@
+{
+name: product_supplier_choose_ajax;
+
+priority: 10;
+
+verify: product_id;
+verify_submit: product_id;
+
+verify_add: yes;
+verify_add_superuser: product_id;
+verify_add_supereditor: product_id;
+verify_add_category_manager: product_id;
+verify_add_editor: product_id;
+verify_add_supplier: product_id;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+authorize_shop: product_id;
+
+_resource_supplier: select '%%supplier_id%%';
+_mapping_supplier: supplier_id;
+
+format_as_dropdown: supplier_id;
+supplier_id_dropdown_select: select distinct s.supplier_id, s.name from supplier s %%additional_join%% order by s.name;
+supplier_id_dropdown_width: 300;
+}

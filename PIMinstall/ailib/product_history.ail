@@ -1,0 +1,25 @@
+{
+name: product_history;
+priority: 10;
+
+_resource_product_history: SELECT date, content_id, date, id, product_table_id, login, product_table, login, action_type, date, 'dummy'
+FROM editor_journal
+INNER JOIN users USING (user_id)
+WHERE product_id = %%product_id%%
+AND action_type >= 1 AND action_type <= 3
+ORDER BY 1 DESC;
+
+_resource_product_history_type: multi;
+_mapping_product_history: h_date, h_content_id, h_clever_date, h_id, h_product_table_id, h_user_name, h_product_table, h_row_format, h_action_type, h_date_abs, h_changes;
+
+format_as_clever_clock: h_clever_date;
+format_as_from_unixtime: h_date_abs;
+format_as_if_my_username: h_row_format;
+format_as_product_history_type: h_product_table;
+format_as_product_history_action: h_action_type;
+format_as_product_history_content: h_content_id;
+
+}
+
+
+

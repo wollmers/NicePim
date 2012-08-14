@@ -1,0 +1,12 @@
+{
+name: requests;
+priority: 10;
+default_rows_number: 50000;
+
+_resource_requests: select rproduct_id, rprod_id, rsupplier_id, rsupplier_name, count(rprod_id) as req_cnt_ from request_product where product_found = 0 and rprod_id <> '' group by rprod_id, rsupplier_id %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_requests_type: multi;
+_mapping_requests: rproduct_id, rprod_id, rsupplier_id, rsupplier_name, cnt;
+_resource_requests_def_order: cnt;
+_resource_requests_def_order_mode: D;
+
+}

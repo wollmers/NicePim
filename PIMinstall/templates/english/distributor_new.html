@@ -1,0 +1,42 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="main" height="20">
+			$$INCLUDE distributor_link.html$$
+{
+ name: distributor;
+ class: menu_edit;
+}
+		</td>
+	</tr>
+</table>
+
+<br />
+{
+name: warnings;
+}
+
+{
+name: errors;
+}
+
+{
+name: distributor;
+class: new;
+}
+<form method="get">
+{
+name: feed_config;
+}
+
+{
+name: feed_pricelist;
+class: new;
+}
+</form>
+$$INCLUDE footer2.html$$

@@ -1,0 +1,39 @@
+{
+name: feature_values;
+
+priority: 10;
+
+verify: feature_id;
+verify_submit: feature_id;
+
+
+_resource_feature_val: select value, 1, value, value, value, count(*),pf.product_feature_id
+from product_feature pf
+inner join category_feature cf on cf.category_feature_id = pf.category_feature_id
+inner join product p on p.catid = cf.catid and p.product_id = pf.product_id
+where cf.feature_id = %%feature_id%% GROUP BY value %%order_clause%% limit %%start_row%%,%%rows_number%%
+
+_resource_feature_val_type: multi;
+_resource_feature_val_key: feature_id;
+_resource_feature_val_def_order: value;
+_mapping_feature_val: value, value_hidden, old_value, display_value, raw_value, values_count,old_product_feature_id;
+
+_resource_stub: select 1;
+_mapping_stub: product_id;
+
+authorize_superuser: feature_id,product_id;
+authorize_supereditor: feature_id,product_id;
+authorize_category_manager: feature_id,product_id;
+authorize_submit_superuser: feature_id,product_id;
+authorize_submit_supereditor: feature_id,product_id;
+authorize_submit_category_manager: feature_id,product_id;
+
+authorize_by_field_only: product_id;
+
+_format_as_text: old_value, value;
+_format_as_display_text: display_value;
+_format_as_str_sqlize: raw_value;
+_format_as_URLEncode: raw_value;
+_format_as_power_mapping_value_get_from_params: value_hidden;
+
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="114065" Prod_id="PLASMA-W200" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="PLASMATV WALLMOUNT BRACKET" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="354" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="131955" URL="" ShortDesc="PLASMATV WALLMOUNT BRACKET ADJUSTABLE 20 DEGREES!UNIVERS   EN (NMS)" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="290" Name="Newstar"/>
+       <Category ID="236">
+         <Name ID="473" Value="chassis components" langid="1"/>
+         <Name ID="474" Value="chassis-componenten" langid="2"/>
+         <Name ID="6309" Value="chassis components" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

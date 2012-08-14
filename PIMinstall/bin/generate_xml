@@ -1,0 +1,107 @@
+#!/usr/bin/perl
+
+#$Id: generate_xml 2623 2010-05-26 13:26:34Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+use atomlog;
+use atomcfg;
+use icecat_server2_repository;
+use atomsql;
+use atom_util;
+use atom_misc;
+use icecat_util;
+use data_management;
+
+use Data::Dumper;
+
+$| = 1;
+
+my $table_name = &get_products_for_repository_via_index_cache({ 'updated' => 1, 'public' => 1, 'table_name' => 'itmp_product' }, 'progress');
+
+# generate indexes for INT & lang repositories
+my $langs = &do_query("SELECT langid, short_code FROM language WHERE published = 'Y'");
+my %lang_hash = map {$_->[0] => $_->[1]} @$langs;
+$lang_hash{0} = 'INT';
+
+my $daily_products = {};
+my $content = &create_index_files_from_index_cache(0, { 'on_market' => 1, 'table_name' => $table_name }, 'progress', $daily_products);
+print "\nDaily products detected : " . scalar (keys %$daily_products) . "\n";
+
+# print Dumper($content);
+
+&product_mapping_header_footer;
+&supplier_mapping_header_footer;
+
+&create_prodid_mapping(undef, { 'table_name' => $table_name });
+&create_supplier_mapping(undef, { 'table_name' => $table_name });
+
+my ($cgi_file, $cmd, $any_symbols, $xml);
+
+foreach my $langid (sort {$a <=> $b} keys %lang_hash) {
+
+	print "\n\t".$lang_hash{$langid}."(".$langid."):\t";
+	$cgi_file = $atomcfg{'xml_export_path'}.'level4/'.$lang_hash{$langid}."/files.index.cgi";
+
+	`/bin/ln -s -f $atomcfg{'www_path'}files.index.cgi $cgi_file`;
+	`/bin/mkdir -p $atomcfg{'xml_path'}level4/$lang_hash{$langid}`;
+	
+	# supplier_id => 0  - any supplier
+	# subscription_level => 0 - any access level
+
+	# to complete index files with specific per language products...
+	&create_specific_index_files_from_index_cache($langid, $daily_products, undef, 'progress');
+	
+	# store main indexes...
+	&store_index( {
+		path               => $atomcfg{'xml_path'} . 'level4/' . $lang_hash{$langid} . "/",
+		content            => $content,
+		langid             => $langid,
+		supplier_id        => 0,
+		subscription_level => 'all',
+		progress           => 'Y'
+								});
+	
+	# just complete daily files...
+	&store_specific_index( {
+		path               => $atomcfg{'xml_path'} . 'level4/' . $lang_hash{$langid} . "/", 
+		langid             => $langid,
+		supplier_id        => 0,
+		subscription_level => 'all',
+												 });
+
+	print "index, ";
+
+	&symlink($atomcfg{'xml_export_path'}, $atomcfg{'xml_path'}.'level4/'.$lang_hash{$langid}.'/', 'categories.xml');
+
+	# make product_mapping
+	&store_product_mapping($atomcfg{'xml_path'} . "/level4/" . $lang_hash{$langid}, 'do not delete'); # CHECK!!!
+
+	print "product mapping, ";
+
+	# make supplier_mapping (of prijslijst.txt data_source_supplier_mapping content)
+	&store_supplier_mapping($atomcfg{'xml_path'} . "/level4/" . $lang_hash{$langid}, 'do not delete'); # CHECK!!!
+
+	print "supplier mapping";
+}
+
+&product_mapping_header_footer_end;
+&supplier_mapping_header_footer_end;
+
+&product_mapping_end;
+&supplier_mapping_end;
+
+print "\n";
+
+# remove tmps
+
+my $cmd;
+
+foreach my $hndl (values %$content) {
+	$cmd = '/bin/rm -f '.$hndl->{'draftfilename'};
+	`$cmd`;
+}
+
+print "Done.\n";

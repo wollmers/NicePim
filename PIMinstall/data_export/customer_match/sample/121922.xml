@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="121922" Prod_id="PDP-43MXE1-S" ThumbPic="http://www.icecat.biz/thumbs/121922.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/121922.jpg" Name="PANTALLA PLASMA 43  SILVER" LowPic="http://www.icecat.biz/img/norm/low/121922.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="843" No="35">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="867" No="50">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="955" No="40">
+         <FeatureGroup ID="9">
+           <Name ID="4978" Value="Audiosysteem" langid="2"/>
+           <Name ID="4977" Value="Audio system" langid="1"/>
+           <Name ID="6585" Value="Audio system" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="954" No="30">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="953" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="957" No="15">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="956" No="20">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="139954" URL="" ShortDesc="PANTALLA PLASMA 43  SILVER 1024 X 768 PIXELS W O VIDEOCAR   NS (PC)" langid="1" LongDesc="Pioneer has drawn on its long experience in designing and manufacturing plasma displays to create this fourth generation that is ideally suited for a wide range of professional and public display applications. In addition to unrilvaled image accuracy and clarity, it offers the expandability, reliability and functionality that these types of applications demand. No matter where and how you use it, the PDP-43MXE1 will exceed your expectations for performance and versatility.\n-Available in Silver or Dark Grey with an option of either the RCA or BNC Connector Interface Card.\n-High reliability and durability.\n-The durability of a PDP is closely related to brightness management. Pioneer has developed a method of influencing the lifetime of the panel. Customers can select from brightness settings including a linear brightness mode that when applied can significantly increase panel life.\nA number of screen management functions also extend the durability of the displays. These include orbiter mode that automatically changes the display position,inverse mode that reverses the image and full mask that turns the entire screen into a single colour.\nEach feature can be controlled using a screen management timer. Brightness difference detection and automatic brightness adjustment circuitry further protect the screen by helping to prevent uneven phosphor wear.\n-Pure Drive Technology Delivers Stunningly Beautiful Images.\nPioneers Pure Drive technology encompasses the entire range of image generation and processing that gives the PDP-43MXE1 its astounding clear, smooth and natural picture.Unlike other PDP systems,Pure Drive maintains all signals in the digital domain, which eliminates loss, reduces distortion,and provides a far greater degree of control.\nAn important step in this process is ACE II (Advanced Continuos Emission II), which processes the basic colour elements enabling the reproduction of an astonishing\n1.07 billion colours and eliminates false contouring within the PDP. Other displays cant match Pioneers smoothness and subtlety of colour or Pioneers superb contrast\neven in dark scenes.\n-Super Clear Drive.\nAn important innovation is Super CLEAR Drive technology. It processes the basic colour elements enabling the reproduction of an astonishing 1.07 billion colours.\nIt also virtually eliminates false contouring and improves greyscale by increasing the gradation steps from 1/5000 to 1/32500. A stunning 1024 grey scales can now\nbe achieved and the overall effect ensures that alternative displays simply cannot match the subtlety of colour and superb contrast  even in dark scenes  offered by Pioneer.\n-Pure Colour Filter II.\nPioneers innovative Pure Colour Filter II greatly decreases external light reflectivity. The result is significantly higher contrast that provides an extremely clear\ndisplay even in light intensive environments. It also reduces the unnecessary frequency components of the red, green and blue signals to deliver improved colour\nreproduction and purity. The Pure Colour Filter II enables viewers to enjoy sharp pictures with no reduction in black contrast.\n-Brightness / Contrast.\nPioneer Plasmas are the brightest in the industry and have incredibly high contrast. The panels produce an astounding 1000 candela brightness and 1100:1 contrast ratio on the PDP-50MXE1 and 1100 candelas/1200:1 on the PDP-43MXE1.\n-DNR and MPEG Noise Reduction.\nDNR (Digital Noise Reduction) reduces background noise when receiving analogue PC and video inputs. MPEG NR is a new feature that reduces picture noise caused by MPEG compression.\n-Pure Cinema Mode.\nComplete synchronisation of images from PAL, NTSC and 24 frame film sources provide a perfect cinema experience.* Video signals can only be input after installation of an optional video expansion card (eg. Pioneer PDA-5003/4).\n-CTI Circuit and 10 bit Digital Chroma Decoder.\nThe Digital CTI (Colour Transient Improvement) and 10 bit decoder circuits significantly reduce colour noise and make colour edges smoother and sharper.\n-IP Conversion.\nInterlaced images are converted to progressive to remove jagged edges. This creates a high density video signal resulting in a more natural and crisp image.\n-Professional Features\nPioneer plasmas are renowned for their comprehensive functionality and wealth of professional features. These have been carefully designed to enable easy operation, installation and seamless integration into a wide range of business applications.\n-Intelligent Auto Setup.\nAuto Setup Mode: Allows instant onetouch screen synchronisation with a PC. Auto Adjust Mode: Detects the PC signal and automatically adjusts the position of the image on screen.\n-Point Zoom\nThe Enhanced Point Zoom function lets you instantly expand a PC image in three steps (1.5x, 2.0x, 3.0x), great for emphasising key points in presentations. The zoom navigation sub-display area makes it easy to confirm the expanded portion.\n-RS-232C Features.\nA supplied expansion card provides an RS-232C external control interface and combination terminals to permit operation of the unit from a remote PC or control system.\n-Energy Save Modes.\nIn addition to the standard operating mode the panels offer a choice of four energy save modes:\nPower Save: Maintains peak white performance whilst reducing power consumption by around 15 percent.\nIntermediate: Reduces power consumption further than power save mode, whilst maintaining strong peak white performance.\nLinear Brightness: Reduces the peak intensity of high brightness images, effectively improving screen life and minimising the possibility of image burn.\nAuto Brightness Control: A sensor automatically adjusts the brightness mode depending on room lighting." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9301657" Value="" No="100001" CategoryFeatureGroup_ID="867">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301658" Value="1024 (Hor.) x 768 (Vert.)" No="100000" CategoryFeatureGroup_ID="867">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301660" Value="1070x 98 x 630 " No="100001" CategoryFeatureGroup_ID="953">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301672" Value="33" No="2" CategoryFeatureGroup_ID="953">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301651" Value="43 (952.3 x 536.1mm)" No="10000100" CategoryFeatureGroup_ID="867">
+         <Feature ID="944">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="3429" Value="Display diagonal" langid="1"/>
+           <Name ID="3430" Value="Beeldscherm diagonaal" langid="2"/>
+           <Name ID="7705" Value="Display diagonal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301652" Value="16:9" No="100099" CategoryFeatureGroup_ID="867">
+         <Feature ID="39">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1415" Value="Aspect ratio" langid="1"/>
+           <Name ID="1416" Value="Aspect ratio" langid="2"/>
+           <Name ID="6721" Value="Aspect ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301653" Value="0.930 (Hor/RGB trio) x 0.698 (Ve" No="100098" CategoryFeatureGroup_ID="867">
+         <Feature ID="32">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1377" Value="Pixel pitch" langid="1"/>
+           <Name ID="1378" Value="Pixel pitch" langid="2"/>
+           <Name ID="6703" Value="Pixel pitch" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301654" Value="" No="100098" CategoryFeatureGroup_ID="867">
+         <Feature ID="34">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1383" Value="Contrast ratio" langid="1"/>
+           <Name ID="1384" Value="Contrast ratio" langid="2"/>
+           <Name ID="6706" Value="Contrast ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301662" Value="1100 cd/m2 (white peak)" No="98" CategoryFeatureGroup_ID="867">
+         <Feature ID="1566">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4877" Value="Brightness" langid="1"/>
+           <Name ID="4878" Value="Helderheid" langid="2"/>
+           <Name ID="7183" Value="Brightness" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301655" Value="" No="100097" CategoryFeatureGroup_ID="867">
+         <Feature ID="33">
+          <Measure ID="30" Sign="Mio"/>
+           <Name ID="1381" Value="Colors" langid="1"/>
+           <Name ID="1382" Value="Kleuren" langid="2"/>
+           <Name ID="6705" Value="Colors" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301666" Value="" No="95" CategoryFeatureGroup_ID="954">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301663" Value="" No="93" CategoryFeatureGroup_ID="955">
+         <Feature ID="1605">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4973" Value="Sound output mode" langid="1"/>
+           <Name ID="4974" Value="Audio output mode" langid="2"/>
+           <Name ID="6581" Value="Sound output mode" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301656" Value="" No="100092" CategoryFeatureGroup_ID="867">
+         <Feature ID="1684">
+          <Measure ID="32" Sign="o"/>
+           <Name ID="5305" Value="Viewing angle" langid="1"/>
+           <Name ID="5306" Value="Beeldhoek" langid="2"/>
+           <Name ID="8449" Value="Viewing angle" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301669" Value="" No="1" CategoryFeatureGroup_ID="956">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301671" Value="0-40" No="3" CategoryFeatureGroup_ID="957">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301670" Value="20-80" No="4" CategoryFeatureGroup_ID="957">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301664" Value="" No="4" CategoryFeatureGroup_ID="843">
+         <Feature ID="86">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1509" Value="Special features" langid="1"/>
+           <Name ID="1510" Value="Special features" langid="2"/>
+           <Name ID="6763" Value="Special features" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301659" Value="" No="100001" CategoryFeatureGroup_ID="843">
+         <Feature ID="560">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2651" Value="Input signal" langid="1"/>
+           <Name ID="2652" Value="Ingangssignaal" langid="2"/>
+           <Name ID="7322" Value="Input signal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301665" Value="" No="2" CategoryFeatureGroup_ID="843">
+         <Feature ID="1024">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3589" Value="Speakers" langid="1"/>
+           <Name ID="3590" Value="Speakers" langid="2"/>
+           <Name ID="7782" Value="Speakers" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301668" Value="AC 100-240V ± 10%, 50/60Hz" No="1" CategoryFeatureGroup_ID="956">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301667" Value="298 (0.8 at stand by)" No="2" CategoryFeatureGroup_ID="956">
+         <Feature ID="445">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="2257" Value="Power consumption" langid="1"/>
+           <Name ID="2258" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7137" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9301661" Value="33000" No="100001" CategoryFeatureGroup_ID="953">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="113" Name="Pioneer"/>
+       <Category ID="903">
+         <Name ID="5281" Value="Plasma display panels" langid="1"/>
+         <Name ID="5282" Value="Plasmaschermen" langid="2"/>
+         <Name ID="8437" Value="Plasma display panels" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

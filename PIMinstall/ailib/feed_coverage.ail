@@ -1,0 +1,26 @@
+{
+name: feed_coverage;
+priority: 1000;
+
+_resource_data: select '%%ean_col%%','%%brand_prodid_col%%','%%brand_col%%','%%feed_url%%','%%feed_config_id%%','%%delimiter%%','%%newline%%','%%escape%%',IF('%%user_choiced_file%%' like '\%\%user_choiced_file\%\%','','%%user_choiced_file%%'),IF('%%is_first_header%%' like '\%\%is\_first\_header\%\%','','%%is_first_header%%'),IF('%%user_email%%' like '\%\%user_email\%\%','','%%user_email%%'),'%%ean_spliter_choice%%','%%feed_ean_cols%%','%%report_type%%','','%%link_lang%%';  
+_resource_data_type: single;
+_resource_data_imply_fields: yes;
+_mapping_data: ean_col,brand_prodid_col,brand_col,feed_url,feed_config_id,delimiter,newline,escape,user_choiced_file,is_first_header,feed_ean_cols,report_type,summary_html,link_lang;
+
+validate_as_pricelist_columns: ean_col;
+validate_as_unmandatory_email: user_email;
+validate_as_onechar: escape;
+validate_as_url_exists: feed_url;
+validate_as_csv_delimiter: delimiter;
+
+ean_col_autodetect_keys: ean,upc,ean_code;
+brand_col_autodetect_keys: manufacturer,brand,supplier,vendor;
+brand_prodid_col_autodetect_keys: prodid,partcode,mpn,sku,partnumber,manufacturer product code,model;
+
+format_as_csv_column_choice: ean_col,brand_prodid_col,brand_col;
+format_as_coverage_summary: summary_html;
+format_as_custom_select:report_type;
+
+format_as_dropdown: link_lang;
+link_lang_dropdown_select: SELECT short_code,code FROM language WHERE published='Y' and langid!=1; 
+}

@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+
+use lib '/home/gcc/lib';
+
+use strict;
+#use debug_lib;
+
+use atomsql;
+use atomlog;
+use data_management;
+use Data::Dumper;
+
+my $prefs;
+
+	# now loading products info
+	my $data = &do_query("select supplier_id, prod_id, user_id, catid, product_id from product");
+	foreach my $row(@$data){
+		$prefs->{'product'}->{$row->[4]} = 
+		  {
+			  'user_id'		=>	$row->[2],
+				'catid'			=>	$row->[3],
+				'product_id'=> 	$row->[4]
+			};
+	}
+  
+	# product descriptions	
+	$data = &do_query("select product_id, product_description_id, langid from product_description");
+	foreach my $row(@$data){
+		$prefs->{'product_description'}->{$row->[0]}->{$row->[2]} = $row->[1];
+	}	
+	
+foreach my $d_prodid(keys %{$prefs->{'product_description'}}){
+ if(!$prefs->{'product'}->{$d_prodid}){
+  &delete_rows('product_description', " product_id = $d_prodid");
+ }
+}

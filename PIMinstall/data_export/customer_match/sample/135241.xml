@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="135241" Prod_id="345875" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="INK CARTRIDGE 3CLRS C6578AE" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="485" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="157658" URL="" ShortDesc="INK CARTRIDGE 3CLRS C6578AE F  HP DESKJET 9X0C SERIES        NS (MSD)" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="383" Name="Pelikan"/>
+       <Category ID="377">
+         <Name ID="755" Value="ink cartridges" langid="1"/>
+         <Name ID="756" Value="inktcartridges" langid="2"/>
+         <Name ID="6445" Value="ink cartridges" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

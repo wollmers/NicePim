@@ -1,0 +1,32 @@
+{
+name: contact;
+priority: 10;
+
+verify: edit_user_id;
+verify_submit: edit_user_id;
+
+verify_add: yes;
+verify_add_superuser: contact_id;
+
+
+_resource_contact: select mphone, fax, icq, contact_id, email,url,phone,person,city,street, nbr, zip, country_id from contact  where contact_id = %%contact_id%%
+_resource_contact_key: contact_id;
+_resource_contact_type: single;
+_mapping_contact: mphone, fax, icq, contact_id, email,url,phone,person,city,street, nbr, zip, country_id;
+
+
+ _insert_sequence: 1;
+ 
+ _insert_table_1: contact;
+ _insert_key_1: contact_id;
+ _insert_values_1: mphone, fax, icq, email,url,phone,person,city,street, nbr, zip, country_id;
+ _insert_fields_1: mphone, fax, icq, email,url,phone,person,city,street, nbr, zip, country_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes; 
+
+
+format_as_dropdown: country_id;
+country_id_dropdown_select: select country_id, vocabulary.value from country, vocabulary where country.sid = vocabulary.sid and langid = %%langid%% order by vocabulary.value
+
+validate_as_mandatory: email, person;
+}

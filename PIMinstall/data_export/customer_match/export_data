@@ -1,0 +1,122 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+ 
+use strict;
+#use debug_lib;
+
+use atomsql;
+use atomlog;
+use data_management;
+use atom_misc;
+
+my $base = '/home/pim/data_export/customer_match/';
+my $data_source = 'prijslijst.txt';
+my $fn  = 'selectie.txt';
+my $importfn = $base.'data_mapping.txt';
+my $warnfn = $base.'warning.txt';
+my $repository = $base."sample/";
+
+open(IMPORT, ">$importfn") or die "can't open $importfn\n";
+open(WARN, ">$warnfn") or die "can't open $warnfn\n";
+
+my $file  = &load_flat_file( $base.$fn, {
+                                 "skip_header"    => 1,
+	                               'map_by_header'  => 1,
+                                 'delimiter' => "\t"
+                     			 } );
+
+print("flat file loaded");
+
+my $i = 0;
+my $products;
+my $lines = 0;
+my $warn_cnt = 0;
+
+while($file->[$i]){
+  my $row = $file->[$i];
+	$i++;
+# processing service info
+									
+	$lines++;
+	
+  # we got supplier here and prod_id
+  my $prod_id   = uc($row->{'prod_id'});
+	my $supplier = uc($row->{'supplier'});
+	$supplier =~ m/(\S+)/; $supplier = $1;
+	
+#validate input
+  if(!$prod_id || !$supplier){
+	 print WARN "missing product code or supplier in $lines\n"; $warn_cnt++;
+   next;
+  }
+  
+# supplier validation 
+#supplier mapping
+  my $mapped_supplier_id = &do_query("select supplier_id from data_source_supplier_map where data_source_id = 1 and symbol =".&str_sqlize(uc($supplier)));
+	$mapped_supplier_id = $mapped_supplier_id->[0][0];
+	if(!$mapped_supplier_id){
+	 print WARN "mapping failed for supplier $supplier\n";  $warn_cnt++;
+	 next;
+	}				
+	my $supplier_id = $mapped_supplier_id;
+#  my $db_supplier_id = &do_query("select supplier_id from supplier where name =".&str_sqlize($supplier));
+#	$db_supplier_id = $db_supplier_id->[0][0];
+#	if(!$db_supplier_id){
+#	 print WARN "missing supplier $supplier in database\n";  $warn_cnt++;
+#	 next;
+#	}	
+	
+# got all keys to import products
+ 	 my $product =
+	 {
+	  "supplier_id"  => $supplier_id,
+	  "prod_id"      => $prod_id
+	 };
+
+#product validation
+	my $product_id = &do_query("select product_id from product where supplier_id = $supplier_id and prod_id = ".&str_sqlize($prod_id));
+	$product_id = $product_id->[0][0];
+	if(!$product_id){
+	 print WARN "missing product for $supplier $prod_id\n"; $warn_cnt++;
+	 next;
+	}	
+	
+# mapping prod_id to real product code
+	 my $m_prod_id = &get_mapped_prod_id($product);
+	 if($m_prod_id){
+	   &log_printf("Product '$prod_id' ==> '$m_prod_id'");
+	   $prod_id = $m_prod_id;
+	 }
+
+	$products->{$supplier_id}->{$prod_id} = $product_id;
+}
+
+my $prod_cnt = 0;
+
+print IMPORT "SupplierID\tProd_ID\tproduct_id\tLevel\n";
+foreach my $supplierid(keys %$products){
+ foreach my $prodid(keys %{$products->{$supplierid}}){
+#get info for products
+	my $product_id = $products->{$supplierid}->{$prodid};
+	$prod_cnt++;
+#get products level
+	my $ug = &do_query("select user_group from users, product where product_id = $product_id and product.user_id = users.user_id");	
+	my $level = &get_quality_index(&get_quality_measure($ug->[0][0]));	
+
+	my $sup_name = &do_query("select name from supplier where supplier_id = $supplierid");	
+	my $str = $sup_name->[0][0]."\t".$prodid."\t".$product_id."\t".$level."\n";
+	print IMPORT $str;	
+	my $cmd = "cp /home/pim/www/export/level4/repository/".$product_id.".xml ".$repository."".$product_id.".xml";
+	`$cmd`;
+ }
+}
+
+close(IMPORT);
+close(WARN);
+
+print("\nProducts loaded: $prod_cnt\nProducts warnings: $warn_cnt\n");
+																					 
+ 																				
+
+									

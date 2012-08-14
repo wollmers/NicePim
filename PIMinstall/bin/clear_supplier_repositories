@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use strict;
+use atomsql;
+use atomlog;
+use atomcfg;
+
+my $dir =  $atomcfg{'base_dir'}."/www/export/ibm/";
+
+opendir(DIRHANDLE, $dir) or die "couldn't open repository: $!";
+my $cnt = 0;
+my $filename;
+while ( defined ($filename = readdir(DIRHANDLE)) ) {
+   if(!open(FILE, $dir.$filename)){
+     unlink($dir.$filename);
+     print $dir.$filename.": unlinked\n";
+		 $cnt++;
+   }
+}
+closedir(DIRHANDLE);
+print "\ntotal unlinked: $cnt\n";
+																														

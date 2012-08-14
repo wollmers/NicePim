@@ -1,0 +1,41 @@
+<!ELEMENT ICECAT-interface (Campaigns)>
+<!ATTLIST ICECAT-interface
+					xmlns:xsi						CDATA #IMPLIED
+					xsi:noNamespaceSchemaLocation 	CDATA #IMPLIED>
+
+<!ELEMENT Campaigns (Campaign+)>
+
+<!ELEMENT Campaign (Title|Motivation|ImagesList|ProductsList)+>
+<!ATTLIST Campaign
+					ID          CDATA #REQUIRED
+					User_ID     CDATA #REQUIRED
+					Name				CDATA #REQUIRED
+					StartDate		CDATA #REQUIRED
+					EndDate			CDATA #REQUIRED
+					Updated			CDATA #REQUIRED
+					Country			CDATA #REQUIRED
+					LandingPage CDATA #REQUIRED>
+
+<!ELEMENT Title (#PCDATA)>
+
+<!ELEMENT Motivation (#PCDATA)>
+
+<!ELEMENT ImagesList (Image*)>
+
+<!ELEMENT Image EMPTY>
+<!ATTLIST Image
+					ID						CDATA #REQUIRED
+					LogoPic				CDATA #REQUIRED
+					ThumbPic			CDATA #REQUIRED>
+
+<!ELEMENT ProductsList (Product*)>
+
+<!ELEMENT Product EMPTY>
+<!ATTLIST Product
+					ID						CDATA #REQUIRED
+					ProdId				CDATA #REQUIRED
+					Vendor				CDATA #REQUIRED
+					Name					CDATA #REQUIRED
+					Link					CDATA #REQUIRED
+					Clicks				CDATA #REQUIRED
+					Product_View	CDATA #REQUIRED>

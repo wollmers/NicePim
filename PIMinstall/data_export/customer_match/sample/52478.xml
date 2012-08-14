@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="52478" Prod_id="844-00566" ThumbPic="http://www.icecat.biz/thumbs/52478.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/52478.jpg" Name="MS Encarta Ref Lib 2004 NL CD W32" LowPic="http://www.icecat.biz/img/norm/low/52478.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="217" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1234" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="59182" URL="" ShortDesc="Encarta Ref Lib 2004 NL CD" langid="1" LongDesc="Encarta Reference Library 2004 combines the resources of its award-winning encyclopedia with a variety of research and learning tools to deliver a complete reference resource for home or school use. Comprehensive homework tools integrate homework project and research starters with the Dictionary &amp; Thesaurus, Literature Guides and Chart Maker to create a complete research center to help students achieve greater success in the classroom. New to 2004 is a collection of videos from Discovery Channel and a new Visual Browser providing users with a rich and dynamic way to make learning fun." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="7935746" Value="CD-ROM" No="111227" CategoryFeatureGroup_ID="217">
+         <Feature ID="62">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1461" Value="Media" langid="1"/>
+           <Name ID="1462" Value="Media" langid="2"/>
+           <Name ID="6742" Value="Media" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7935747" Value="300" No="111226" CategoryFeatureGroup_ID="1234">
+         <Feature ID="66">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1469" Value="Minimal HD space" langid="1"/>
+           <Name ID="1470" Value="Minimale ruimte harde schijf" langid="2"/>
+           <Name ID="6746" Value="Minimal HD space" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7935749" Value="Intel Pentium - 200 MHz" No="111224" CategoryFeatureGroup_ID="1234">
+         <Feature ID="67">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1471" Value="Minimal processor" langid="1"/>
+           <Name ID="1472" Value="Minimale processor" langid="2"/>
+           <Name ID="6747" Value="Minimal processor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7935748" Value="64" No="111225" CategoryFeatureGroup_ID="1234">
+         <Feature ID="68">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1473" Value="Minimal RAM" langid="1"/>
+           <Name ID="1474" Value="Minimaal RAM" langid="2"/>
+           <Name ID="6748" Value="Minimal RAM" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7935750" Value="Microsoft Windows 2000 Professional , Microsoft Windows 98/ME, Microsoft Windows XP" No="111223" CategoryFeatureGroup_ID="1234">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7935751" Value="PC" No="111222" CategoryFeatureGroup_ID="1234">
+         <Feature ID="75">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1487" Value="Platform" langid="1"/>
+           <Name ID="1488" Value="Platform" langid="2"/>
+           <Name ID="6754" Value="Platform" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7935752" Value="Microsoft Windows 98/ME - RAM 32 MB - HD 300 MB\nMicrosoft Windows 2000 Professional - RAM 64 MB - HD 300 MB\nMicrosoft Windows XP - RAM 64 MB - HD 300 MB" No="100001" CategoryFeatureGroup_ID="1234">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7935753" Value="" No="50" CategoryFeatureGroup_ID="217">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="100" Name="Microsoft"/>
+       <Category ID="99">
+         <Name ID="199" Value="educational software" langid="1"/>
+         <Name ID="200" Value="educatieve software" langid="2"/>
+         <Name ID="6172" Value="educational software" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

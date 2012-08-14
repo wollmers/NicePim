@@ -1,0 +1,33 @@
+{
+
+name: category_feature_compare;
+
+priority: 10;
+
+authorize_superuser: product_id;
+authorize_supereditor: product_id;
+authorize_category_manager: product_id;
+authorize_editor: product_id;
+authorize_supplier: product_id;
+authorize_guest: product_id;
+
+authorize_submit_superuser: product_id;
+authorize_submit_supereditor: product_id;
+authorize_submit_category_manager: product_id;
+authorize_submit_editor: product_id # user_id == edit_user_id;
+authorize_submit_supplier: product_id # user_id == edit_user_id;
+
+
+_resource_category: select catid, pcatid, ucatid, vocabulary.value from category, vocabulary  where category.sid = vocabulary.sid and vocabulary.langid = %%langid%% and category.catid = %%catid%%
+_resource_category_type: single;
+_mapping_category: catid, pcatid, ucatid, category_name;
+
+
+_resource_products: select product.product_id, prod_id, product.product_id, product.catid from product where product.catid = %%catid%%
+_resource_products_type: multi;
+_resource_products_key: catid;
+_mapping_products: product_id, prod_id, values, catid;
+
+format_as_category_feature_values: values;
+
+}

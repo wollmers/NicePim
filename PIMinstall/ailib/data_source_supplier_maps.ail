@@ -1,0 +1,27 @@
+{
+name: data_source_supplier_maps;
+priority: 10;
+
+_resource_data_source_supplier_maps: select data_source_supplier_map_id, symbol, supplier.name, dist_name.name, dist_name.distributor_id from data_source_supplier_map
+left join supplier on supplier.supplier_id=data_source_supplier_map.supplier_id
+left join distributor dist_name using (distributor_id)
+where data_source_id=%%data_source_id%% and %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_data_source_supplier_maps_type: multi;
+_resource_data_source_supplier_maps_key: data_source_id;
+_resource_data_source_supplier_maps_def_order: symbol;
+_mapping_data_source_supplier_maps: data_source_supplier_map_id, symbol, supp_name, dist_name, distributor_id;
+
+authorize_superuser: data_source_supplier_map_id;
+authorize_supereditor: data_source_supplier_map_id;
+authorize_category_manager: data_source_supplier_map_id;
+authorize_editor: data_source_supplier_map_id;
+authorize_supplier: data_source_supplier_map_id;
+authorize_guest: data_source_supplier_map_id;
+
+authorize_submit_superuser: data_source_supplier_map_id;
+authorize_submit_supereditor: data_source_supplier_map_id;
+authorize_submit_category_manager: data_source_supplier_map_id;
+
+verify_deny_guest: yes;
+
+}

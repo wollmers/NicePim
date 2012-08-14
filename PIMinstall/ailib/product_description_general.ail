@@ -1,0 +1,16 @@
+_resource_product: select product_id, user_id from product where product_id = %%product_id%%
+_resource_product_type: single;
+_resource_product_key: product_id;
+_mapping_product: product_id, edit_user_id;
+
+_resource_language: select value from vocabulary, language where language.sid = vocabulary.sid and vocabulary.langid = %%langid%% and language.langid = %%edit_langid%%
+_resource_language_key: edit_langid;
+_mapping_language: language;
+
+_resource_description: select product_description.langid, product_description_id, product.product_id, product.user_id, short_desc, long_desc, name, low_pic, high_pic, warranty_info, official_url, pdf_url, manual_pdf_url, product_description.updated from product_description, product where product.product_id = product_description.product_id and product_description_id = %%product_description_id%%
+_resource_description_type: single;
+_resource_description_key: product_description_id;
+_mapping_description: edit_langid, product_description_id,  product_id, edit_user_id, short_desc, long_desc, name, low_pic, high_pic, warranty_info, official_url, pdf_url, manual_pdf_url, pd_updated;
+format_as_date_yyyy_dd_mm_hh_ss: pd_updated;
+format_as_marketing_text: long_desc;
+long_desc_style: width\: 650px\; height\: 250px;

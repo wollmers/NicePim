@@ -1,0 +1,60 @@
+{
+name: supplier;
+priority: 10;
+
+verify: supplier_id;
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+verify_submit: supplier_id;
+
+verify_add: yes;
+verify_add_superuser: supplier_id;
+verify_add_supereditor: supplier_id;
+verify_add_category_manager: supplier_id;
+
+verify_deny_guest: yes;
+
+_resource_supplier: select supplier_id, user_id, name, low_pic, low_pic, thumb_pic, acknowledge, is_sponsor, public_login, public_password, ftp_homedir, template, folder_name, suppress_offers, prod_id_regexp from supplier where supplier_id = %%supplier_id%%
+_resource_supplier_type: single;
+_resource_supplier_key: supplier_id;
+_mapping_supplier: supplier_id, edit_user_id, name, low_pic, low_pic_formatted, thumb_pic, acknowledge, is_sponsor, public_login, public_password, ftp_homedir, template, folder_name, suppress_offers, prod_id_regexp;
+
+validate_as_assigned_rows: supplier_id;
+supplier_id_assigned_tables: product, data_source_supplier_map;
+
+format_as_dropdown: edit_user_id;
+edit_user_id_dropdown_select: select u.user_id, u.login from users u inner join supplier_users su using (user_id) where u.user_group in ('supplier','nogroup') order by login
+format_as_not_null: low_pic, thumb_pic;
+
+low_pic_formatted_thumb_pic: thumb_pic;
+format_as_low_pic: low_pic_formatted;
+validate_as_uploaded_obj: low_pic;
+
+format_as_acknowledge: acknowledge, is_sponsor, suppress_offers;
+validate_as_mandatory: name;
+validate_as_sponsor: is_sponsor;
+
+store_as_list_of_templates: template, prod_id_regexp;
+store_as_folder_name: folder_name;
+store_as_supplier:name;
+
+ _insert_sequence: 3;
+
+ _insert_table_3: supplier;
+ _insert_values_3: edit_user_id, name, acknowledge, is_sponsor, public_login, public_password, ftp_homedir, template, folder_name, suppress_offers, prod_id_regexp;
+ _insert_fields_3: user_id, name, acknowledge, is_sponsor, public_login, public_password, ftp_homedir, template, folder_name, suppress_offers, prod_id_regexp;
+ _insert_key_3: supplier_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+ 
+}

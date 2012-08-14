@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+
+use lib '/home/pim/lib';
+use atomcfg;
+use atomsql;
+use atomlog;
+use Data::Dumper;
+
+##
+## delete all duplication values in data_source_feature_map, that suddenly insert in this table
+##
+## comparison for detect these duplications are:
+##  data_source_id, symbol, feature_id & catid are the same
+##
+
+my $res = &do_query("select data_source_feature_map_id, data_source_id, symbol, feature_id, catid from data_source_feature_map order by feature_id desc");
+
+print "total features_map = \t".$#$res."\n";
+
+my $delete_rows;
+my $n=0;
+
+for (my $i=0;$i<$#$res;$i++) {
+	my $array = [];
+	for (my $j=$i+1;$j<$#$res;$j++) {
+		if ($res->[$j][5] eq '1') { last; }
+		if (
+			($res->[$i][1] == $res->[$j][1]) &&
+			($res->[$i][2] eq $res->[$j][2]) &&
+			($res->[$i][3] eq $res->[$j][3]) &&
+			($res->[$i][4] eq $res->[$j][4])
+			) {
+			push @$array, $res->[$j][0];
+			$res->[$j][5] = '1';
+			$res->[$i][5] = '1';
+		}
+	}
+	if (@$array) {
+		push @$delete_rows, @$array;
+	}
+}
+print "\n";
+
+my $where = join(",",@$delete_rows);
+
+## DELETING!!!
+
+my $delete="delete from data_source_feature_map where data_source_feature_map_id in (".$where.")";
+&do_statement($delete);
+print $delete."\n\n";
+
+print "Done!..\n";

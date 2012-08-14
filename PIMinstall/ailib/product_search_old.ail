@@ -1,0 +1,27 @@
+{
+name: product_search_old;
+priority: 10;
+
+_resource_param: select %%search_supplier_id%%, %%search_catid%%, %%search_prod_id%%, %%search_product_name%%, %%search_edit_user_id%%, %%search_adv%%, %%search_to_year%%, %%search_to_month%%, %%search_to_day%%, %%search_from_year%%, %%search_from_month%%, %%search_from_day%%, %%search_period%%, '%%deep_search%%', '%%deep_search%%'
+_mapping_param: search_supplier_id, search_catid, search_prod_id, search_product_name, search_edit_user_id, search_adv, search_to_year, search_to_month, search_to_day, search_from_year, search_from_month, search_from_day, search_period, deep_search, deep_search_checked;
+
+format_as_dropdown: search_supplier_id, search_edit_user_id;
+search_supplier_id_dropdown_select: select supplier_id, name from supplier order by name
+search_supplier_id_dropdown_width: 200;
+
+search_edit_user_id_dropdown_select: select user_id, login from users where user_group = 'supereditor' or user_group = 'category_manager' or user_group = 'nogroup' or user_group = 'superuser' or user_group = 'editor' or user_group = 'supplier' or user_group = 'exeditor' order by login
+search_edit_user_id_dropdown_width: 200;
+
+format_as_assorted_list: search_period;
+format_as_year: search_from_year, search_to_year;
+format_as_month: search_from_month, search_to_month;
+format_as_day: search_from_day, search_to_day;
+
+format_as_tree: search_catid;
+search_catid_tree_select: select category.catid, vocabulary.value, 1 from category, vocabulary where category.catid <> 1 and category.sid = vocabulary.sid and vocabulary.langid = 1 and category.catid in (select distinct catid from product) order by vocabulary.value
+search_catid_tree_width: 200;
+
+format_as_checked_checkbox: deep_search_checked;
+
+format_as_checkbox: search_recurse_catid;
+}

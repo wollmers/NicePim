@@ -1,0 +1,60 @@
+$$INCLUDE head2.html$$
+
+<br />
+
+$$INCLUDE lang_pics.html$$
+
+<table border="0" cellpadding="0" cellspacing="0" width="750" align="center">
+  <tbody>
+  <tr>
+    <td colspan="3" align="center"><img height=17 src="img/bg_dot2.gif" width="750" alt="."></td></tr>
+  <tr>
+<tr><td colspan="3" align="center">
+
+{
+name: errors;
+}
+
+</td></tr>
+    <td valign="top" width="245">
+      <table class="invisible" width="252">
+        <tbody>
+        <tr>
+          <td colspan="2" width="246"></td>
+          <td rowspan="2" width="2"></td>
+				</tr>
+        <tr>
+          <td width="1"><img height="13" src="img/empty.gif" width="1" alt="&nbsp;"></td>
+          <td width="243">
+            <form method="POST" action="index.cgi">
+						  <input type="hidden" name="sessid" value="%%sessid%%">
+							<input type="hidden" name="command" value="login_user">
+							<input type="hidden" name="tmpl_if_success_cmd" value="products.html">
+							<input type="hidden" name="mi" value="products">
+              Username <input type="text" name="login" style="width: 170px;"><br />
+              Password <input type="password" name="password" style="width: 170px;"><br />
+							<input type="submit" value="Login" name="B1">
+            </form>
+          </td>
+				</tr>
+        <tr>
+          <td width="1"></td>
+          <td width="243"><font size="2" style="color: #0000ff; font-family: Verdana;">Forgotten your password?<br />Just enter your login name and click Login.</td>
+          <td width="2"></td>
+				</tr>
+				</tbody>
+			</table>
+		</td>
+  <td style="background-color: url('img/main_div.gif');" width="3"></td>
+  <td valign="top" width="477">
+    <table class="invisible">
+      <tbody>
+        <tr>
+          <td>
+            <font size="2" style="color: #b40000; font-family: Verdana; font-weight: bold;">ICECAT.BIZ</font>
+            <p><font size="2" style="font-family: Verdana;">ICEcat.biz is a rich content catalogue with complete, and standardized descriptions for the products of manufacturers.</font></p>
+            <p><font size="2" style="font-family: Verdana;">The content is provided to resellers and distributors, and to online webshops to provide consumers and buying professionals with complete, and accurate product descriptions, specifications and pictures. This to improve the online orientation and buying process.</font></td></tr></tbody></table></td></tr>
+  <tr>
+    <td colspan="3"><br />
+
+$$INCLUDE footer2.html$$

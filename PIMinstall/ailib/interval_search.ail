@@ -1,0 +1,12 @@
+{
+name: interval_search;
+priority: 10;
+
+_resource_interval_search: SELECT intervals,in_each,valid,invalid,updated FROM category_feature_interval WHERE category_feature_id = %%category_feature_id%%;
+_resource_interval_search_type: single;
+_mapping_interval_search: intervals, in_each, valid, invalid, updated;
+
+_format_as_interval_info: intervals;
+
+}
+

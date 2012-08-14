@@ -1,0 +1,45 @@
+{
+name: stock_report;
+
+ priority: 100;
+
+_resource_stock_report: select stock_report_id, supplier_id, mail_to, mail_cc, active, time from stock_report where stock_report_id=%%stock_report_id%%;
+_resource_stock_report_type: single;
+_resource_stock_report_key: stock_report_id;
+_mapping_stock_report: stock_report_id, supplier_id, mail_to, mail_cc, active, time;
+
+
+
+format_as_dropdown: supplier_id, time;
+supplier_id_dropdown_select: select supplier_id, name from supplier order by name asc;
+time_dropdown_select: select 'noon','noon' union select 'morning','morning' union select 'evening','evening';
+
+
+format_as_input_checkbox: active;
+
+validate_as_mandatory: supplier_id, mail_to, time;
+
+
+authorize_superuser: stock_report_id;
+authorize_submit_superuser: stock_report_id;
+
+
+verify: stock_report_id;
+verify_submit: stock_report_id;
+
+verify_add: yes;
+verify_add_superuser: stock_report_id;
+
+
+ _insert_sequence: 1;
+
+ _insert_table_1: stock_report;
+ _insert_values_1: supplier_id, mail_to, mail_cc, active, time;
+ _insert_fields_1: supplier_id, mail_to, mail_cc, active, time;
+ _insert_key_1: stock_report_id;
+ _update_sequence_1: yes;
+ _delete_sequence_1: yes;
+
+
+
+}

@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+
+use lib '/home/gcc/lib';
+
+use strict;
+#use debug_lib;
+
+use atomsql;
+use atomlog;
+use data_management;
+use Data::Dumper;
+use icecat_util;
+
+use XML::Simple;
+use Data::Dumper;
+
+
+
+my $data_source_code = 'prijslijst.txt';
+
+my $shadow = {};
+$shadow->{'product_feature'} = 1;
+$shadow->{'product'} = 1;
+$shadow->{'feature'} = 1;
+$shadow->{'product_description'} = 1;
+
+my $prefs =  &load_data_source_prefs($data_source_code, '', $shadow );
+my $missing; # missing structures
+my $lines = 0;
+
+if(!$prefs->{'data_source_id'}){
+ die "Can't load data source preferences for $data_source_code!\n";
+}
+
+my $export = {};
+my $supps = &do_query('select supplier_id, name from supplier');
+foreach my $row(@$supps){
+ push @{$export->{'Suppliers'}->{'Supplier'}}, { 'Name' => $row->[1], 'supplier_id' => $row->[0] };
+}
+
+
+foreach my $item(keys %{$prefs->{'supplier_map'}}){
+ push @{$export->{'SupplierMappings'}->{'SupplierMapping'}}, {'Symbol' => $item, 'supplier_id' => $prefs->{'supplier_map'}->{$item}};
+}
+
+
+print "Content-type: text/xml\n\n";
+
+my $xml = &build_message($export);
+print $$xml;

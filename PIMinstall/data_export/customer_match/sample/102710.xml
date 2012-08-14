@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="102710" Prod_id="PA3381E-1ACA" ThumbPic="" Code="1" Quality="SUPPLIER" HighPic="" Name="AC Adapter 120W" LowPic="">
+        <ProductRelated ID="574038">
+         <Product ID="129467" Prod_id="PSP30E-02F017G3" ThumbPic="http://www.icecat.biz/thumbs/129467.jpg" Name="Satellite P30-116">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="574050">
+         <Product ID="130792" Prod_id="PSA65E-01K032GR" ThumbPic="http://www.icecat.biz/thumbs/130792.jpg" Name="Satellite Pro A60:P4-532/XP Pro/15&amp;quot; TFT/40 GB/256+256 MB/CD-RW/DVD-ROM/LAN">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+        <ProductRelated ID="574029">
+         <Product ID="130787" Prod_id="PSA65E-01D02QGR" ThumbPic="http://www.icecat.biz/thumbs/130787.jpg" Name="Satellite Pro A60:P4 532/XP Pro/15&amp;quot; TFT/60 GB/256+256 MB/DVD-S-Multi/LAN">
+          <Supplier ID="2" Name="Toshiba"/>
+         </Product>
+        </ProductRelated>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="706" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1345" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="875" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1323" No="0">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1173" No="0">
+         <FeatureGroup ID="35">
+           <Name ID="5167" Value="Networking" langid="1"/>
+           <Name ID="5168" Value="Networking" langid="2"/>
+           <Name ID="8387" Value="Networking" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="116788" URL="" ShortDesc="Universal AC Adapter to power your notebook through your home or office electric socket. Three prong type (3-pin) AC Power Cable (not included)." langid="1" LongDesc="" WarrantyInfo="2 Years" PDFURL=""/>
+        <ProductFeature ID="7751435" Value="100~240V  50/60Hz&lt;BR&gt;\n120W (19V x 6.3A)" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="904">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="3349" Value="AC adapter output voltage" langid="1"/>
+           <Name ID="3350" Value="AC adapter output voltage" langid="2"/>
+           <Name ID="7667" Value="AC adapter output voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7751439" Value="API / LiteOn / Delta" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1157">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3855" Value="Vendor" langid="1"/>
+           <Name ID="3856" Value="Vendor" langid="2"/>
+           <Name ID="7911" Value="Vendor" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7751436" Value="100~240V  50/60Hz" No="0" CategoryFeatureGroup_ID="1323">
+         <Feature ID="1243">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4027" Value="Power supply input voltage" langid="1"/>
+           <Name ID="4028" Value="Power supply input voltage" langid="2"/>
+           <Name ID="7996" Value="Power supply input voltage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7751437" Value="150 x 65 x 36" No="100000" CategoryFeatureGroup_ID="875">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7751438" Value="Black" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="1228">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3997" Value="Case Colour" langid="1"/>
+           <Name ID="3998" Value="Case Colour" langid="2"/>
+           <Name ID="7982" Value="Case Colour" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="7751440" Value="650" No="0" CategoryFeatureGroup_ID="706">
+         <Feature ID="907">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="3355" Value="AC adapter weight" langid="1"/>
+           <Name ID="3356" Value="AC adapter gewicht" langid="2"/>
+           <Name ID="7670" Value="AC adapter weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="2" Name="Toshiba"/>
+       <Category ID="827">
+         <Name ID="4583" Value="Power adapters or inverters" langid="1"/>
+         <Name ID="4584" Value="Power adapters or inverters" langid="2"/>
+         <Name ID="8258" Value="Power adapters or inverters" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

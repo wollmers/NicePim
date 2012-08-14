@@ -1,0 +1,362 @@
+<!ELEMENT ICECAT-interface (Response|Product+)*>
+
+<!ATTLIST ICECAT-interface
+                xmlns:xsi CDATA #IMPLIED
+		xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+
+<!ELEMENT Response (DistributorList|LanguageList|MeasuresList|FeaturesList|CategoriesList|SuppliersList|CategoryFeaturesList|SupplierCategoriesList|ProductsList|ProductsListLookup|ProductsStatistic|DescribeProductsResponse|
+										StatisticQueryListResponse|StatisticQueryDatesListResponse|StatisticQueryDateDataReportResponse|
+										SupplierProductFamiliesList|
+										ProductsComplaintResponse|
+										FulltextProductsSearchResponse|
+										FeatureValuesVocabularyList
+										)*>
+    <!ATTLIST Response
+                Status              CDATA #REQUIRED
+        	Request_ID          CDATA #REQUIRED
+		ID                  CDATA #REQUIRED
+		Date                CDATA #REQUIRED
+		Error		    CDATA #IMPLIED>
+    
+<!ELEMENT FeatureValuesVocabularyList (FeatureValuesVocabulary+)*>
+
+<!ELEMENT FeatureValuesVocabulary (FeatureValue)*>
+
+<!ATTLIST FeatureValuesVocabulary
+					Key_Value			CDATA #REQUIRED
+					Group_ID			CDATA #REQUIRED>
+
+<!ELEMENT FeatureValue (#PCDATA)>
+
+<!ATTLIST FeatureValue
+					langid				CDATA #REQUIRED
+					ID						CDATA #REQUIRED>
+
+<!ELEMENT LanguageList (Language+)*>
+		
+<!ELEMENT Language (Name+)*>
+   <!ATTLIST  Language
+		ID    		CDATA #REQUIRED
+		Sid   		CDATA #IMPLIED
+	  Code    	CDATA #IMPLIED
+		ShortCode CDATA #IMPLIED>
+
+<!ELEMENT DistributorList (Distributor+)*>
+		
+<!ELEMENT Distributor EMPTY>
+<!ATTLIST     Distributor
+		ID    		CDATA #REQUIRED
+		Name   		CDATA #REQUIRED
+		Code 	    CDATA #REQUIRED>
+		
+<!ELEMENT MeasuresList (Measure)*>
+
+<!ELEMENT Measure (Signs|Sign|Names|Descriptions)*>
+    <!ATTLIST Measure
+                ID                  CDATA #REQUIRED
+		Sign		    CDATA #IMPLIED>
+		
+<!ELEMENT Signs (Sign)*>
+
+<!ELEMENT Sign (#PCDATA)>
+    <!ATTLIST Sign
+    ID                  CDATA #IMPLIED
+		langid              CDATA #IMPLIED
+		Value               CDATA #IMPLIED>
+
+<!ELEMENT Names (Name)*>
+
+<!ELEMENT Name (#PCDATA)>
+
+<!ATTLIST Name
+    ID                  CDATA #IMPLIED
+		langid              CDATA #IMPLIED
+		Value               CDATA #IMPLIED>
+
+<!ELEMENT Descriptions (Description)*>
+
+<!ELEMENT Description (#PCDATA)>
+    <!ATTLIST Description
+                ID                  CDATA #REQUIRED
+		langid              CDATA #REQUIRED
+		Value								CDATA #IMPLIED>
+
+<!ELEMENT FeaturesList (Feature)*>
+
+<!ELEMENT Feature (Measure|Names|RestrictedValues|Descriptions|RestrictedValue+|Name+)*>
+    <!ATTLIST Feature
+		ID                  CDATA #REQUIRED
+		LimitDirection	    CDATA #IMPLIED
+		Searchable	    CDATA #IMPLIED
+		CategoryFeatureGroup_ID CDATA #IMPLIED
+		No		    CDATA #IMPLIED
+		Class		    CDATA #IMPLIED
+		CategoryFeature_ID	CDATA #IMPLIED
+		Mandatory CDATA #IMPLIED
+		Use_Dropdown_Input CDATA #IMPLIED
+		Type	CDATA #IMPLIED>
+
+<!ELEMENT CategoriesList (Category)+>
+
+<!ELEMENT Category (Name+|ParentCategory|Description|Keywords|CategoryFeatureGroup+|UNCATID|Names|Feature+|VirtualCategories?)*> 
+    <!ATTLIST Category
+        	UNCATID             CDATA #IMPLIED
+	        Searchable          CDATA #IMPLIED
+	        Visible             CDATA #IMPLIED
+		Score		    CDATA #IMPLIED
+		ThumbPic            CDATA #IMPLIED
+		ID                  CDATA #REQUIRED
+		LowPic              CDATA #IMPLIED>
+
+<!ELEMENT Keywords EMPTY>
+<!ATTLIST Keywords
+		ID                  CDATA #IMPLIED
+		langid              CDATA #IMPLIED
+		Value		    CDATA #IMPLIED>
+
+<!ELEMENT ParentCategory (Names*)>
+    <!ATTLIST ParentCategory
+                ID                  CDATA #REQUIRED>
+
+<!ELEMENT SuppliersList (Supplier)*>
+
+<!ELEMENT Supplier (Name)*>
+    <!ATTLIST Supplier
+		Name		    CDATA #IMPLIED
+		LogoPic		CDATA #IMPLIED
+		Sponsor		CDATA #IMPLIED
+		ID		    CDATA #IMPLIED>
+
+<!ELEMENT CategoryFeaturesList (Category)+>
+    <!ATTLIST CategoryFeaturesList
+                Code              CDATA #IMPLIED>
+
+<!ELEMENT RestrictedValues (RestrictedValue)+>
+
+<!ELEMENT RestrictedValue (#PCDATA)>
+
+
+<!ELEMENT FeatureGroup (Name)+>
+    <!ATTLIST FeatureGroup
+            	ID               CDATA #IMPLIED>
+
+<!ELEMENT SupplierCategoriesList (Supplier|Category)*>
+    <!ATTLIST SupplierCategoriesList
+                Code             CDATA #IMPLIED>
+
+<!ELEMENT UNCATID (#PCDATA)>
+
+<!ELEMENT ProductsList (Product)+>
+
+<!ELEMENT Product (ProductRelated+|ProductBundled+|Supplier|ProductDescription+|SummaryDescription?|CategoryFeatureGroup+|ProductFeature+|Category|ProductFamily|ProductGallery|ProductMultimediaObject|EANCode*)* >
+    <!ATTLIST Product
+		Name		 CDATA #IMPLIED
+		Prod_id		 CDATA #IMPLIED
+		Quality		 CDATA #IMPLIED
+		Code		 CDATA #IMPLIED
+		HighPic		 CDATA #IMPLIED
+		ThumbPic	 CDATA #IMPLIED
+		ID		     CDATA #IMPLIED
+		LowPic		 CDATA #IMPLIED
+		Score		 CDATA #IMPLIED
+		ProductsDescription CDATA #IMPLIED
+		Relevance        CDATA #IMPLIED
+		LowPicSize		 CDATA #IMPLIED		
+		HighPicSize		 CDATA #IMPLIED
+		ThumbPicSize	 CDATA #IMPLIED
+		LowPicWidth		 CDATA #IMPLIED
+		LowPicHeight     CDATA #IMPLIED
+		HighPicWidth	 CDATA #IMPLIED
+		HighPicHeight    CDATA #IMPLIED
+		ErrorMessage	 CDATA #IMPLIED
+		Map_product_id		CDATA #IMPLIED
+		ReleaseDate		 CDATA #IMPLIED
+		Title		CDATA #IMPLIED
+		>
+
+<!ELEMENT VirtualCategories (VirtualCategory)*>
+<!ELEMENT VirtualCategory EMPTY>
+    <!ATTLIST VirtualCategory
+	    ID CDATA #IMPLIED
+	    Name CDATA #IMPLIED
+	>
+
+<!ELEMENT EANCode EMPTY>
+    <!ATTLIST EANCode
+			EAN              CDATA #IMPLIED>
+
+<!ELEMENT ProductRelated (Product)*>
+    <!ATTLIST ProductRelated
+    ID              CDATA #IMPLIED
+		Category_ID     CDATA #IMPLIED
+		Reversed				CDATA #IMPLIED
+		Preferred				CDATA #IMPLIED
+		Order						CDATA #IMPLIED>
+
+<!ELEMENT ProductBundled (Product)*>
+    <!ATTLIST ProductBundled
+                ID              CDATA #IMPLIED>
+
+<!ELEMENT ProductDescription EMPTY>
+    <!ATTLIST ProductDescription
+                    URL             CDATA #IMPLIED
+                    WarrantyInfo    CDATA #IMPLIED
+                    ID              CDATA #IMPLIED
+                    PDFURL          CDATA #IMPLIED
+                    PDFSize         CDATA #IMPLIED
+                    ManualPDFURL    CDATA #IMPLIED
+                    ManualPDFSize   CDATA #IMPLIED
+                    langid          CDATA #IMPLIED
+                    LongDesc        CDATA #IMPLIED
+                    ShortDesc       CDATA #IMPLIED>
+
+<!ELEMENT SummaryDescription (ShortSummaryDescription|LongSummaryDescription)+>
+
+<!ELEMENT LongSummaryDescription (#PCDATA)>
+    <!ATTLIST LongSummaryDescription
+                    langid               CDATA #IMPLIED>
+<!ELEMENT ShortSummaryDescription (#PCDATA)>
+    <!ATTLIST ShortSummaryDescription
+                    langid               CDATA #IMPLIED>
+
+<!ELEMENT CategoryFeatureGroup (FeatureGroup)*>
+    <!ATTLIST CategoryFeatureGroup
+                    No               CDATA #IMPLIED
+                    ID               CDATA #IMPLIED
+                    FeatureGroup     CDATA #IMPLIED>
+
+<!ELEMENT ProductFeature (Feature)*>
+    <!ATTLIST ProductFeature
+                    CategoryFeatureGroup_ID  CDATA #IMPLIED
+                    CategoryFeature_ID       CDATA #IMPLIED
+                    Value                    CDATA #IMPLIED
+                    Local_Value              CDATA #IMPLIED
+                    Presentation_Value       CDATA #IMPLIED
+                    No                       CDATA #IMPLIED
+                    ID                       CDATA #IMPLIED
+                    Local_ID                 CDATA #IMPLIED
+                    Localized                CDATA #IMPLIED
+                    Mandatory 				 CDATA #IMPLIED
+                    Translated               CDATA #IMPLIED>
+
+<!ELEMENT ProductsListLookup (Product)+>
+    <!ATTLIST ProductsListLookup
+                    Code            CDATA #IMPLIED>
+
+<!ELEMENT ProductsStatistic (Product)*>
+
+<!ELEMENT DescribeProductsResponse (DescribeProductResponse)*>
+
+<!ELEMENT DescribeProductResponse EMPTY>
+    <!ATTLIST DescribeProductResponse
+                    Product_id                 CDATA #IMPLIED
+                    Status                     CDATA #IMPLIED
+                    DescribeProductRequest_ID  CDATA #IMPLIED
+                    Error                      CDATA #IMPLIED>
+
+<!ELEMENT files (file)+>
+    <!ATTLIST files
+        Generated               CDATA #REQUIRED>
+
+<!ELEMENT file (#PCDATA)>
+    <!ATTLIST file
+	path                    CDATA #REQUIRED
+	Product_id      	CDATA #REQUIRED
+	Updated         	CDATA #REQUIRED
+	Quality         	CDATA #REQUIRED
+	Supplier_id     	CDATA #REQUIRED
+	Prod_ID         	CDATA #REQUIRED>
+
+<!ELEMENT ProductFamily (
+												 Supplier|
+		 										 Description|
+												 Name+|
+												 ParentProductFamily+|
+												 Series+)*>
+    <!ATTLIST ProductFamily
+		 ID                  CDATA #REQUIRED
+		 ThumbPic            CDATA #IMPLIED
+		 LowPic              CDATA #IMPLIED
+		 Category_ID	     CDATA #IMPLIED
+		 Name		     CDATA #IMPLIED>
+
+<!ELEMENT ParentProductFamily EMPTY>
+    <!ATTLIST ParentProductFamily
+                ID                  CDATA #REQUIRED>
+
+<!ELEMENT Series (Name+)*>
+	<!ATTLIST Series
+		ID                  CDATA #REQUIRED>
+
+<!ELEMENT SupplierProductFamiliesList (ProductFamily)*>
+
+<!ELEMENT StatisticQueryListResponse (StatisticQuery)*>
+	<!ELEMENT StatisticQuery EMPTY>
+		<!ATTLIST StatisticQuery
+							ID				CDATA #REQUIRED 
+							Code			CDATA #IMPLIED 
+							Period		CDATA #IMPLIED>
+
+<!ELEMENT StatisticQueryDatesListResponse (StatisticQueryDate)*>
+	<!ELEMENT StatisticQueryDate EMPTY>
+		<!ATTLIST StatisticQueryDate
+							ID								CDATA #REQUIRED
+							StatisticQuery_ID	CDATA #IMPLIED
+							Date							CDATA #IMPLIED
+							Period						CDATA #IMPLIED>
+
+<!ELEMENT StatisticQueryDateDataReportResponse (StatisticQueryDateDataReport)>
+	<!ELEMENT StatisticQueryDateDataReport (Body)>
+		<!ATTLIST StatisticQueryDateDataReport
+							StatisticQueryDate_ID	CDATA #REQUIRED
+							Date 				CDATA #REQUIRED
+							Code 				CDATA #REQUIRED
+							Period			CDATA #REQUIRED>
+
+		<!ELEMENT Body (Line)*>
+		<!ELEMENT Line EMPTY>
+			<!ATTLIST Line
+								Number	CDATA #IMPLIED
+								Level		CDATA #IMPLIED
+								Text		CDATA #REQUIRED
+								Count		CDATA #REQUIRED>
+
+
+<!ELEMENT ProductsComplaintResponse (ProductComplaintResponse)*>
+
+<!ELEMENT ProductComplaintResponse EMPTY>
+<!ATTLIST ProductComplaintResponse
+             		Product_id                 	CDATA #IMPLIED
+             		ComplaintStatus_ID          CDATA #IMPLIED
+             		ProductComplaintRequest_ID  CDATA #IMPLIED
+             		Error                      	CDATA #IMPLIED
+             		Confirmation                CDATA #IMPLIED>
+
+<!ELEMENT FulltextProductsSearchResponse (ProductsList)+>
+
+<!ELEMENT ProductGallery (ProductPicture)*>
+ <!ELEMENT ProductPicture EMPTY>
+	<!ATTLIST ProductPicture
+						ProductPicture_ID CDATA #REQUIRED
+						Pic CDATA #REQUIRED
+						ThumbPic CDATA #REQUIRED
+						PicHeight CDATA #REQUIRED
+						PicWidth CDATA #REQUIRED
+						Size CDATA #REQUIRED
+						ThumbSize CDATA #IMPLIED
+						>
+
+<!ELEMENT ProductMultimediaObject (MultimediaObject)*>
+ <!ELEMENT MultimediaObject EMPTY>
+	<!ATTLIST MultimediaObject
+						MultimediaObject_ID CDATA #REQUIRED
+						URL CDATA #REQUIRED
+						Description CDATA #REQUIRED
+						Size CDATA #REQUIRED
+						Date CDATA #REQUIRED
+						langid CDATA #REQUIRED
+						ContentType CDATA #REQUIRED
+						KeepAsURL CDATA #IMPLIED
+						Type CDATA #IMPLIED
+						Height CDATA #IMPLIED
+						Width CDATA #IMPLIED>

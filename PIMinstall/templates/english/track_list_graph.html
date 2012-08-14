@@ -1,0 +1,35 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="/js/jplot/excanvas.js"></script><![endif]-->
+<script language="javascript" type="text/javascript" src="/js/jplot/jquery-1.3.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="/js/jplot/jquery.jqplot.min.js"></script>
+<script language="javascript" type="text/javascript" src="/js/jplot/plugins/jqplot.cursor.min.js"></script>
+<script language="javascript" type="text/javascript" src="/js/jplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/js/jplot/jquery.jqplot.css" />
+
+<script type="text/javascript" src="/js/track_list.js"></script>
+<div id="page_content_wide">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="main" height="20">
+			<img src="/img/campaign_def/arrow.gif" width="9" alt=""/>&nbsp;<a href="%%base_url%%;mi=track_lists;tmpl=track_lists.html">Lists</a>
+			<img src="/img/campaign_def/arrow.gif" width="9" alt=""/>&nbsp;<a href="%%base_url%%;mi=track_lists;tmpl=track_list_graph.html;track_list_id=%%track_list_id%%">Statistic</a>
+    </td>
+  </tr>
+</table>
+{
+name: errors;
+}
+{
+name: warnings;
+}
+{
+name: track_list_graph;
+}
+
+
+$$INCLUDE footer2.html$$

@@ -1,0 +1,20 @@
+{
+name: relation_groups;
+priority: 10;
+
+_resource_relation_groups: select rg.relation_group_id, rg.name, if(rg.description='','(none)',rg.description), (select count(*) from relation r where r.relation_group_id=rg.relation_group_id) from relation_group rg order by name asc limit %%start_row%%, %%rows_number%%
+_resource_relation_groups_type: multi;
+_mapping_relation_groups: relation_group_id, name, description, amount;
+
+authorize_superuser: relation_group_id;
+authorize_supereditor: relation_group_id;
+authorize_category_manager: relation_group_id;
+authorize_editor: relation_group_id;
+authorize_relation: relation_group_id;
+authorize_guest: relation_group_id;
+authorize_shop: relation_group_id;
+
+authorize_submit_superuser: relation_group_id;
+authorize_submit_supereditor: relation_group_id;
+authorize_submit_category_manager: relation_group_id;
+}

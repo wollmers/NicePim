@@ -1,0 +1,850 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="122464" Prod_id="9871A002AA" ThumbPic="http://www.icecat.biz/thumbs/122464.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/high_pic/122464-7579.jpg" Name="CanoScan LiDE 35" LowPic="http://www.icecat.biz/img/norm/low/122464.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="315" No="20">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="92" No="22">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="91" No="6">
+         <FeatureGroup ID="12">
+           <Name ID="4996" Value="Connectiviteit" langid="2"/>
+           <Name ID="4995" Value="Connectivity" langid="1"/>
+           <Name ID="8182" Value="Connectivity" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="90" No="0">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="94" No="44">
+         <FeatureGroup ID="24">
+           <Name ID="5043" Value="Scanning" langid="1"/>
+           <Name ID="5044" Value="Scannen" langid="2"/>
+           <Name ID="6577" Value="Scanning" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="93" No="4">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1239" No="1">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="140598" URL="http://www.canon-europe.com/For_Home/Product_Finder/Scanners/Flatbed/CanoScan_LIDE_35/index.asp?ComponentID=204783&amp;SourcePageID=26537#1" ShortDesc="Canon LiDE35 1200 x 2400 dpi USB 2.0  scanner 48-bits input 48-/24-bits output" langid="1" LongDesc="Ultra-sleek, the LiDE 35 flatbed scanner delivers 1200 x 2400 resolution in a body only 38mm thick. Stylish and sophisticated, the scanner draws all power required from a USB 2.0 Hi-Speed interface.\n\nUltra slim\nUSB powered\nUSB 2.0 Hi-Speed\n1200x 2400 dpi LiDE sensor\n4 EZ buttons for one touch operation\nQARE Level 2 dust and scratch removal\nArcSoft, PhotoStudio, OmniPage SE\nMulti-photo mode\nZ-lid for thick documents\nStand for vertical scanning \n\nCompact performance\nWith its sleek lines and impossibly thin body, the LiDE 35 redefines desk top scanning. It is so sleek and light that with the supplied stand, it can be stored and operated on its side - saving you valuable desk space. And because it draws all the power it needs from the USB 2.0 Hi-Speed interface, you can do away with messy power cables.\n\nHigh resolution\nCanon's LiDE technology provides scans of up to 1200 x 2400 dpi and 48-bit colour.\n\nOne-touch scanning\nThe LiDE 35 comes with four EZ scan buttons that you configure to perform the functions you use most, such as scan, copy, file or e-mail. You can even set up a button to perform a scan straight to PDF function.\n\nMulti-Photo mode\nThe one-pass Multi-Photo feature allows you to create up to ten separate image files from a single pass of multiple photos, allowing you to open and work on each one individually. It includes a de-skew function to automatically straighten scanned images, so you don't have to waste valuable time carefully aligning photos prior to scanning.\n\nAdded software\nAs well as its advanced driver, the LiDE 35 includes Canon Toolbox; an intuitive, easy-to-use tool-bar that sits on the desktop and takes the complication out of scanning. A suite of powerful applications completes your scanning system, including Arcsoft PhotoStudio and PhotoBase for image editing, Omnipage SE for Optical Character Recognition and Adobe Photoshop Elements for photo image adjustment.\n\nConnectivity\nA USB 2.0 Hi-Speed interface allows scan speeds of up to four times that of conventional scanners. It also provides single cable connection for both power and data transfer, eliminating the need for a power plug, cable or transformer. The LiDE 35 also has Mac compatibility." WarrantyInfo="" PDFURL="http://www.icecat.biz/pdf/1/122464.pdf"/>
+        <ProductDescription ID="150919" URL="" ShortDesc="LiDE35 Scanner, 1200 x 2400 dpi USB 2.0 scanner 48-bits input 48-/24-bits output" langid="2" LongDesc="De ultraslanke CanoScan Lide35 flatbed scanner scant met een resolutie van 1200 x 2400 dpi en heeft een behuizing die slechts 38 mm dik is. Deze stijlvolle en elegante scanner wordt gevoed door een USB 2.0 Hi-Speed interface.\n \n \nKenmerken\n\n- Ultraslank \n- USB voeding \n- USB 2.0 Hi-Speed \n- 1200x 2400 dpi LiDE sensor \n- 4 'EZ' knoppen voor één-toets bediening \n- QARE Level 2 voor verwijderen van stof en krasjes \n- ArcSoft, PhotoStudio, OmniPage SE \n- Multifoto mode \n- Z-klep voor dikke documenten \n- Standaard voor verticaal scannen \n\n \nDe perfecte balans van stijl, snelheid &amp; kwaliteit\n \n  Compacte prestaties\nMet de slanke lijnen en onvoorstelbaar slanke behuizing toont de CanoScan Lide35 de nieuwe norm in desktop scanning. Deze scanner is zo slank en licht, dat deze met de meegeleverde standaard op een zijkant kunt plaatsen en gebruiken zodat u kostbare ruimte op uw bureau overhoudt. En omdat alle energie afkomstig is van de USB 2.0 Hi-Speed interface, is ook geen netsnoer nodig.\n\n  Hoge resolutie\nCanons LiDE technologie maakt scans met een resolutie van 1200 x 2400 dpi en 48-bits kleur.\n\n  Scannen met één druk op de toets\nDe CanoScan Lide35 is uitgevoerd met vier 'EZ' scantoetsen die u kunt configureren voor het uitvoeren van de meest gebruikte functies, zoals scannen, kopiëren, archiveren of e-mailen. U kunt een toets zelfs instellen om van de scan direct een PDF bestand te laten maken.\n\n  Multifoto mode\nDe Multifoto mode stelt u in staat maximaal tien foto's tegelijk te scannen tijdens één scanpassage en elke foto in een afzonderlijk bestand op te slaan. Dit inclusief een functie om automatisch de scheefstand van de gescande afbeeldingen te corrigeren, zodat u geen tijd hoeft te verliezen aan het uitlijnen van de foto's voordat u ze laat scannen.\n\n  Plus software\nNaast de geavanceerde driver wordt de CanoScan Lide35 geleverd met Canon Toolbox; een intuïtieve, gebruiksvriendelijke werkbalk op de desktop die het scannen zeer eenvoudig maakt. Een uitgebreide bundel met krachtige softwarepakketten completeert uw scansysteem, zoals Arcsoft PhotoStudio en PhotoBase voor beeldbewerking en Omnipage SE voor OCR.\n\n\n  Aansluitmogelijkheden\nEen USB 2.0 Hi-Speed interface staat garant voor scansnelheden die vier keer zo hoog zijn als bij traditionele scanners. Omdat er slechts één kabel nodig is voor zowel de voeding als de gegevensoverdracht, is geen wandcontactdoos, netsnoer of transformator nodig. De CanoScan Lide35 is ook compatibel met de Mac." WarrantyInfo="" PDFURL=""/>
+        <ProductFeature ID="9188393" Value="1200" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="61">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="1459" Value="Maximum resolution" langid="1"/>
+           <Name ID="1460" Value="Maximale resolutie" langid="2"/>
+           <Name ID="6741" Value="Maximum resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9197296" Value="Y" No="115926" CategoryFeatureGroup_ID="94">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9197297" Value="USB" No="15912" CategoryFeatureGroup_ID="91">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298789" Value="1200x2400" No="10115910" CategoryFeatureGroup_ID="94">
+         <Feature ID="699">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2929" Value="Hardware Scanning Resolution" langid="1"/>
+           <Name ID="2930" Value="Hardwarematige scanresolutie" langid="2"/>
+           <Name ID="7459" Value="Hardware Scanning Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298790" Value="A4 / Letter, 216 x 297mm" No="116500" CategoryFeatureGroup_ID="94">
+         <Feature ID="592">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2715" Value="Maximum Scanning Size" langid="1"/>
+           <Name ID="2716" Value="Maximum scanformaat" langid="2"/>
+           <Name ID="7354" Value="Maximum Scanning Size" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298791" Value="" No="115922" CategoryFeatureGroup_ID="94">
+         <Feature ID="827">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3185" Value="Scan Speed (4x6 Colour Photo)" langid="1"/>
+           <Name ID="3186" Value="Scansnelheid (4 x 6-inch kleurenfoto)" langid="2"/>
+           <Name ID="7586" Value="Scan Speed (4x6 Colour Photo)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298792" Value="" No="115921" CategoryFeatureGroup_ID="94">
+         <Feature ID="515">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2561" Value="Scan Speed (Black and White Drawing)" langid="1"/>
+           <Name ID="2562" Value="Scansnelheid (zwart-wit tekening)" langid="2"/>
+           <Name ID="7277" Value="Scan Speed (Black and White Drawing)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298793" Value="" No="115918" CategoryFeatureGroup_ID="94">
+         <Feature ID="598">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2727" Value="Scan Speed" langid="1"/>
+           <Name ID="2728" Value="Scansnelheid" langid="2"/>
+           <Name ID="7360" Value="Scan Speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298794" Value="Y" No="100100" CategoryFeatureGroup_ID="94">
+         <Feature ID="800">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3131" Value="Color Scanning" langid="1"/>
+           <Name ID="3132" Value="Kleurenscans" langid="2"/>
+           <Name ID="7560" Value="Numérisation couleur" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298795" Value="" No="100002" CategoryFeatureGroup_ID="94">
+         <Feature ID="1861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5725" Value="Illumination" langid="1"/>
+           <Name ID="5726" Value="Illumination" langid="2"/>
+           <Name ID="7200" Value="Illumination" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298796" Value="" No="100002" CategoryFeatureGroup_ID="94">
+         <Feature ID="1946">
+          <Measure ID="29" Sign=""/>
+           <Name ID="6047" Value="Density range" langid="1"/>
+           <Name ID="6048" Value="Density range" langid="2"/>
+           <Name ID="8803" Value="Density range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298797" Value="" No="100002" CategoryFeatureGroup_ID="94">
+         <Feature ID="1948">
+          <Measure ID="29" Sign=""/>
+           <Name ID="6053" Value="Film type" langid="1"/>
+           <Name ID="6054" Value="Film type" langid="2"/>
+           <Name ID="8806" Value="Film type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298798" Value="CIS" No="100001" CategoryFeatureGroup_ID="94">
+         <Feature ID="1574">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4900" Value="Sensor type" langid="2"/>
+           <Name ID="4899" Value="Sensor type" langid="1"/>
+           <Name ID="7201" Value="Sensor type" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298799" Value="" No="100001" CategoryFeatureGroup_ID="94">
+         <Feature ID="1945">
+          <Measure ID="60" Sign="s"/>
+           <Name ID="6045" Value="Scan time" langid="1"/>
+           <Name ID="6046" Value="Scan time" langid="2"/>
+           <Name ID="8802" Value="Scan time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298800" Value="For USB 2.0 Hi-Speed: Windows 2000 Pro, ME, XP (Home/Professional); CPU: Intel PIII, P4, Celeron (566 MHz or higher). AMD Athlon, Athlon MP/XP, Duron. 128MB RAM, USB port, CD ROM drive.\n\nFor USB: Windows 98, 2000 Pro, ME, XP (Home/Professional); CPU: Pentium II 233MHz or higher. 128 MB. USB port (standard equipped port), CD ROM drive.\n\nMac OS: 128 MB RAM\nUSB: PowerPC G3 with OS 10.1.3 or later OS 10.1.3 or later (Native).\nMac with USB 2.0 Hi-Speed: PowerPC G4 with OS 10.2.7 or later.  \n" No="115914" CategoryFeatureGroup_ID="92">
+         <Feature ID="861">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3253" Value="Minimum system requirements" langid="1"/>
+           <Name ID="3254" Value="Minimum systeemeisen" langid="2"/>
+           <Name ID="7619" Value="Minimum system requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298801" Value="Windows 98, 2000 Pro, ME, XP (Home/Professional)\n\nOS 10.1.3 or later (Native).\n\n\n\n" No="100040" CategoryFeatureGroup_ID="92">
+         <Feature ID="73">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1483" Value="Operating system" langid="1"/>
+           <Name ID="1484" Value="Besturingssysteem" langid="2"/>
+           <Name ID="6752" Value="Operating system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298802" Value="" No="115915" CategoryFeatureGroup_ID="315">
+         <Feature ID="474">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2479" Value="Button Functions" langid="1"/>
+           <Name ID="2480" Value="Knopfuncties" langid="2"/>
+           <Name ID="7236" Value="Button Functions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298803" Value="ArcSoft\nPhotoStudio\nCaere OmniPage SE software\n" No="100030" CategoryFeatureGroup_ID="315">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298804" Value="" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="6">
+          <Measure ID="19" Sign="MB"/>
+           <Name ID="1296" Value="Intern geheugen" langid="2"/>
+           <Name ID="1295" Value="Internal memory" langid="1"/>
+           <Name ID="6661" Value="Internal memory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298805" Value="" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="1650">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5145" Value="Depth" langid="1"/>
+           <Name ID="5146" Value="Diepte" langid="2"/>
+           <Name ID="8377" Value="Depth" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298806" Value="" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="1708">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5355" Value="Scalable resolution" langid="1"/>
+           <Name ID="5356" Value="Schaalbare resolutie" langid="2"/>
+           <Name ID="8473" Value="Scalable resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298807" Value="" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="1709">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5357" Value="Scan speed (ADF)" langid="1"/>
+           <Name ID="5358" Value="Scansnelheid (ADF)" langid="2"/>
+           <Name ID="8474" Value="Scan speed (ADF)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298808" Value="" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="1710">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5359" Value="Scan speed footnote" langid="1"/>
+           <Name ID="5360" Value="Scansnelheid voetnoot" langid="2"/>
+           <Name ID="8475" Value="Note de bas de page relative à la vitesse de numérisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298809" Value="" No="100000" CategoryFeatureGroup_ID="315">
+         <Feature ID="1714">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5367" Value="TWAIN version" langid="1"/>
+           <Name ID="5368" Value="TWAIN-versie" langid="2"/>
+           <Name ID="8479" Value="TWAIN version" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298810" Value="USB 2.0" No="115999" CategoryFeatureGroup_ID="91">
+         <Feature ID="21">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1341" Value="Interface" langid="1"/>
+           <Name ID="1342" Value="Interface" langid="2"/>
+           <Name ID="6686" Value="Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298811" Value="374 x 258 x 38" No="100020" CategoryFeatureGroup_ID="90">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298812" Value="1800" No="100000" CategoryFeatureGroup_ID="90">
+         <Feature ID="94">
+          <Measure ID="38" Sign="g"/>
+           <Name ID="1525" Value="Weight" langid="1"/>
+           <Name ID="1526" Value="Gewicht" langid="2"/>
+           <Name ID="6771" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298813" Value="" No="17000" CategoryFeatureGroup_ID="94">
+         <Feature ID="727">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="2985" Value="Optical Scanning Resolution" langid="1"/>
+           <Name ID="2986" Value="Optische scanresolutie" langid="2"/>
+           <Name ID="7487" Value="Optical Scanning Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298814" Value="" No="15960" CategoryFeatureGroup_ID="94">
+         <Feature ID="648">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2827" Value="Scan Speed System Set Up" langid="1"/>
+           <Name ID="2828" Value="Systeeminstelling voor de scansnelheid" langid="2"/>
+           <Name ID="7408" Value="Scan Speed System Set Up" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298815" Value="" No="15930" CategoryFeatureGroup_ID="94">
+         <Feature ID="537">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2605" Value="Scan type" langid="1"/>
+           <Name ID="2606" Value="type scan" langid="2"/>
+           <Name ID="7299" Value="type d'analyse" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298816" Value="" No="15925" CategoryFeatureGroup_ID="94">
+         <Feature ID="571">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2673" Value="Scan File Format" langid="1"/>
+           <Name ID="2674" Value="Bestandsformaat voor scannen" langid="2"/>
+           <Name ID="7333" Value="Format du fichier de numérisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298817" Value="" No="15924" CategoryFeatureGroup_ID="94">
+         <Feature ID="737">
+          <Measure ID="35" Sign="DPI"/>
+           <Name ID="3005" Value="Enhanced scanning resolution" langid="1"/>
+           <Name ID="3006" Value="Enhanced scanresolutie" langid="2"/>
+           <Name ID="7497" Value="Enhanced scanning resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298818" Value="" No="15920" CategoryFeatureGroup_ID="94">
+         <Feature ID="717">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2965" Value="Scan Speed (OCR, A4)" langid="1"/>
+           <Name ID="2966" Value="Scansnelheid (OCR, A4)" langid="2"/>
+           <Name ID="7477" Value="Scan Speed (OCR, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298819" Value="" No="15919" CategoryFeatureGroup_ID="94">
+         <Feature ID="466">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2463" Value="Scan Speed in Preview Mode" langid="1"/>
+           <Name ID="2464" Value="Scansnelheid in previewmodus" langid="2"/>
+           <Name ID="7228" Value="Scan Speed in Preview Mode" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298820" Value="" No="15916" CategoryFeatureGroup_ID="94">
+         <Feature ID="508">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2547" Value="Scan Input Modes" langid="1"/>
+           <Name ID="2548" Value="Invoermodi voor scannen" langid="2"/>
+           <Name ID="7270" Value="Modes de numérisation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298821" Value="" No="200" CategoryFeatureGroup_ID="94">
+         <Feature ID="813">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3157" Value="Scan speed (ADF, A4)" langid="1"/>
+           <Name ID="3158" Value="Scansnelheid (ADF, A4)" langid="2"/>
+           <Name ID="7573" Value="Scan speed (ADF, A4)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298822" Value="" No="104" CategoryFeatureGroup_ID="94">
+         <Feature ID="54">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1445" Value="Gray scale levels" langid="1"/>
+           <Name ID="1446" Value="Gray scale levels" langid="2"/>
+           <Name ID="6735" Value="Gray scale levels" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298823" Value="" No="94" CategoryFeatureGroup_ID="92">
+         <Feature ID="789">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3109" Value="Recommended System Requirements" langid="1"/>
+           <Name ID="3110" Value="Aanbevolen systeemspecificatie" langid="2"/>
+           <Name ID="7549" Value="Recommended System Requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298824" Value="" No="93" CategoryFeatureGroup_ID="92">
+         <Feature ID="795">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3121" Value="Recommended Macintosh System Requirements" langid="1"/>
+           <Name ID="3122" Value="Aanbevolen systeemspecificatie Macintosh-configuratie" langid="2"/>
+           <Name ID="7555" Value="Recommended Macintosh System Requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298825" Value="Y" No="90" CategoryFeatureGroup_ID="92">
+         <Feature ID="853">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3237" Value="Mac Compatibility" langid="1"/>
+           <Name ID="3238" Value="Mac-compatibiliteit" langid="2"/>
+           <Name ID="7611" Value="Mac Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298826" Value="" No="88" CategoryFeatureGroup_ID="92">
+         <Feature ID="493">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2517" Value="Minumum system requirements for Macintosh" langid="1"/>
+           <Name ID="2518" Value="Minumum systeemeisen voor Macintosh" langid="2"/>
+           <Name ID="7255" Value="Minumum system requirements for Macintosh" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298827" Value="" No="50" CategoryFeatureGroup_ID="92">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298828" Value="" No="16014" CategoryFeatureGroup_ID="315">
+         <Feature ID="590">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2711" Value="Duty Cycle Letter Size Pages Per Month" langid="1"/>
+           <Name ID="2712" Value="Printvolume per maand voor A4-formaat pagina's" langid="2"/>
+           <Name ID="7352" Value="Duty Cycle Letter Size Pages Per Month" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298829" Value="" No="16013" CategoryFeatureGroup_ID="315">
+         <Feature ID="785">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3101" Value="Supported Internet Fax Solutions" langid="1"/>
+           <Name ID="3102" Value="Ondersteunde internet-faxoplossingen" langid="2"/>
+           <Name ID="7545" Value="Supported Internet Fax Solutions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298830" Value="" No="16002" CategoryFeatureGroup_ID="315">
+         <Feature ID="656">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2843" Value="Send to PC" langid="1"/>
+           <Name ID="2844" Value="Verzenden naar de pc" langid="2"/>
+           <Name ID="7416" Value="Send to PC" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298831" Value="" No="16001" CategoryFeatureGroup_ID="315">
+         <Feature ID="482">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2495" Value="Send to Printers" langid="1"/>
+           <Name ID="2496" Value="Naar printers verzenden" langid="2"/>
+           <Name ID="7244" Value="Send to Printers" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298832" Value="" No="16000" CategoryFeatureGroup_ID="315">
+         <Feature ID="633">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2797" Value="Feed Speed (Black and White)" langid="1"/>
+           <Name ID="2798" Value="Invoersnelheid (zwart-wit)" langid="2"/>
+           <Name ID="7393" Value="Feed Speed (Black and White)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298833" Value="" No="15994" CategoryFeatureGroup_ID="315">
+         <Feature ID="526">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2583" Value="Paper handling" langid="1"/>
+           <Name ID="2584" Value="Papierverwerking" langid="2"/>
+           <Name ID="7288" Value="Gestion du papier" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298834" Value="" No="15983" CategoryFeatureGroup_ID="315">
+         <Feature ID="616">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2763" Value="Send to email (Digital Sender)" langid="1"/>
+           <Name ID="2764" Value="Naar e-mail verzenden (Digital Sender)" langid="2"/>
+           <Name ID="7377" Value="Send to email (Digital Sender)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298835" Value="" No="15982" CategoryFeatureGroup_ID="315">
+         <Feature ID="743">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3017" Value="Send To Other Application" langid="1"/>
+           <Name ID="3018" Value="Naar andere applicatie verzenden" langid="2"/>
+           <Name ID="7503" Value="Send To Other Application" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298836" Value="" No="15981" CategoryFeatureGroup_ID="315">
+         <Feature ID="604">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2739" Value="Send to Fax (Via Internet)" langid="1"/>
+           <Name ID="2740" Value="Naar fax verzenden (via Internet)" langid="2"/>
+           <Name ID="7366" Value="Send to Fax (Via Internet)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298837" Value="" No="15979" CategoryFeatureGroup_ID="315">
+         <Feature ID="464">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2459" Value="Digital Sender Feeding Speed Footnote" langid="1"/>
+           <Name ID="2460" Value="Voetnoot bij invoersnelheid Digital Sender" langid="2"/>
+           <Name ID="7226" Value="Digital Sender Feeding Speed Footnote" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298838" Value="" No="15978" CategoryFeatureGroup_ID="315">
+         <Feature ID="864">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="3259" Value="Feed Speed (Colour photo)" langid="1"/>
+           <Name ID="3260" Value="Invoersnelheid (kleurenfoto)" langid="2"/>
+           <Name ID="7622" Value="Feed Speed (Colour photo)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298839" Value="" No="15977" CategoryFeatureGroup_ID="315">
+         <Feature ID="691">
+          <Measure ID="59" Sign="ppm"/>
+           <Name ID="2913" Value="Feed Speed (Colour)" langid="1"/>
+           <Name ID="2914" Value="Invoersnelheid (kleur)" langid="2"/>
+           <Name ID="7451" Value="Feed Speed (Colour)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298840" Value="" No="15943" CategoryFeatureGroup_ID="315">
+         <Feature ID="823">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3177" Value="Auto Document Feeder Capacity" langid="1"/>
+           <Name ID="3178" Value="Capaciteit automatische documentinvoer" langid="2"/>
+           <Name ID="7582" Value="Capacité du chargeur automatique de documents" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298841" Value="" No="110" CategoryFeatureGroup_ID="315">
+         <Feature ID="544">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2619" Value="Photographic Format Types" langid="1"/>
+           <Name ID="2620" Value="Typen fotoformaat" langid="2"/>
+           <Name ID="7306" Value="Photographic Format Types" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298842" Value="" No="102" CategoryFeatureGroup_ID="315">
+         <Feature ID="547">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2625" Value="Colour Printing Technology" langid="1"/>
+           <Name ID="2626" Value="Kleurenprinttechnologie" langid="2"/>
+           <Name ID="7309" Value="Colour Printing Technology" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298843" Value="" No="54" CategoryFeatureGroup_ID="315">
+         <Feature ID="732">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2995" Value="Quantity per Pallet" langid="1"/>
+           <Name ID="2996" Value="Aantal per pallet" langid="2"/>
+           <Name ID="7492" Value="Quantité par palette" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298844" Value="" No="35" CategoryFeatureGroup_ID="315">
+         <Feature ID="563">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2657" Value="Recommended Humidity Operating Range" langid="1"/>
+           <Name ID="2658" Value="Aanbevolen relatieve luchtvochtigheid bij gebruik" langid="2"/>
+           <Name ID="7325" Value="Humidité de fonctionnement recommandée" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298845" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="445">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="2257" Value="Power consumption" langid="1"/>
+           <Name ID="2258" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7137" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298846" Value="5 to 35" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="473">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2477" Value="Recommended Operating Temperature Range" langid="1"/>
+           <Name ID="2478" Value="Aanbevolen temperatuur bij gebruik" langid="2"/>
+           <Name ID="7235" Value="Recommended Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298847" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="486">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="2503" Value="Case or Master Carton Weight" langid="1"/>
+           <Name ID="2504" Value="Gewicht doos of mastercarton" langid="2"/>
+           <Name ID="7248" Value="Case or Master Carton Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298848" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="607">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2745" Value="Safety" langid="1"/>
+           <Name ID="2746" Value="Veiligheid" langid="2"/>
+           <Name ID="7369" Value="Sécurité" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298849" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="672">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2875" Value="Memory slots" langid="1"/>
+           <Name ID="2876" Value="Geheugenslots" langid="2"/>
+           <Name ID="7432" Value="Emplacements mémoire" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298850" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="673">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2877" Value="Electromagnetic Compatibility" langid="1"/>
+           <Name ID="2878" Value="EMC" langid="2"/>
+           <Name ID="7433" Value="compatibilité électromagnétique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298851" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="777">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3085" Value="Case or Master Carton Quantity" langid="1"/>
+           <Name ID="3086" Value="Inhoud doos of mastercarton" langid="2"/>
+           <Name ID="7537" Value="Quantité dans la caisse ou le carton grand format" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298852" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="806">
+          <Measure ID="77" Sign="pages per month"/>
+           <Name ID="3143" Value="Duty Cycle" langid="1"/>
+           <Name ID="3144" Value="Duty Cycle" langid="2"/>
+           <Name ID="7566" Value="Duty Cycle" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298854" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="1880">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5787" Value="Services (supportpack)" langid="1"/>
+           <Name ID="5788" Value="Services (supportpack)" langid="2"/>
+           <Name ID="8681" Value="Services (supportpack)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298855" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="1988">
+          <Measure ID="29" Sign=""/>
+           <Name ID="8957" Value="Driver updates" langid="1"/>
+           <Name ID="8958" Value="Driver updates" langid="3"/>
+           <Name ID="8959" Value="Driver updates" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298856" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2006">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9011" Value="Image scaling/enlargement range" langid="1"/>
+           <Name ID="9012" Value="Image scaling/enlargement range" langid="3"/>
+           <Name ID="9013" Value="Image scaling/enlargement range" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298857" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2020">
+          <Measure ID="91" Sign="F"/>
+           <Name ID="9056" Value="Operating temperature range" langid="1"/>
+           <Name ID="9057" Value="Operating temperature range" langid="3"/>
+           <Name ID="9058" Value="Operating temperature range" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298858" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2056">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9164" Value="Remote front panel software" langid="1"/>
+           <Name ID="9165" Value="Panneau de commande à distance" langid="3"/>
+           <Name ID="9166" Value="Software voor remote bedieningspaneel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298859" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2078">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9230" Value="Transparency adapter" langid="1"/>
+           <Name ID="9231" Value="Adaptateur pour transparents" langid="3"/>
+           <Name ID="9232" Value="Transparantenadapter" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298860" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2084">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9248" Value="Control panel" langid="1"/>
+           <Name ID="9249" Value="Panneau de commande" langid="3"/>
+           <Name ID="9250" Value="Bedieningspaneel" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298861" Value="" No="15998" CategoryFeatureGroup_ID="91">
+         <Feature ID="786">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3103" Value="Network Ready" langid="1"/>
+           <Name ID="3104" Value="Netwerkklaar" langid="2"/>
+           <Name ID="7546" Value="Prêt pour le réseau" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298862" Value="" No="15980" CategoryFeatureGroup_ID="91">
+         <Feature ID="628">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2787" Value="Supported Network Fax Solutions" langid="1"/>
+           <Name ID="2788" Value="Ondersteunde netwerkfaxoplossingen" langid="2"/>
+           <Name ID="7388" Value="Supported Network Fax Solutions" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298863" Value="" No="92" CategoryFeatureGroup_ID="91">
+         <Feature ID="490">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2511" Value="TWAIN Compliance Interface" langid="1"/>
+           <Name ID="2512" Value="TWAIN-compatibele interface" langid="2"/>
+           <Name ID="7252" Value="TWAIN Compliance Interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298864" Value="" No="0" CategoryFeatureGroup_ID="91">
+         <Feature ID="1530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4780" Value="Optionele connectiviteit" langid="2"/>
+           <Name ID="4779" Value="Optional connectivity" langid="1"/>
+           <Name ID="8208" Value="Optional connectivity" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298865" Value="" No="39076" CategoryFeatureGroup_ID="93">
+         <Feature ID="514">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2559" Value="Power supply type" langid="1"/>
+           <Name ID="2560" Value="type voeding" langid="2"/>
+           <Name ID="7276" Value="type d'alimentation" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298866" Value="" No="15929" CategoryFeatureGroup_ID="93">
+         <Feature ID="838">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3207" Value="Energy Star certified" langid="1"/>
+           <Name ID="3208" Value="Energy Star-certificaat" langid="2"/>
+           <Name ID="7596" Value="Energy Star certified" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298867" Value="Powered by USB port" No="15927" CategoryFeatureGroup_ID="93">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298868" Value="2.5W Operation power, 1.5W Standby power" No="0" CategoryFeatureGroup_ID="93">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298869" Value="" No="0" CategoryFeatureGroup_ID="93">
+         <Feature ID="1242">
+          <Measure ID="44" Sign="W"/>
+           <Name ID="4025" Value="Power supply" langid="1"/>
+           <Name ID="4026" Value="Energiegebruik" langid="2"/>
+           <Name ID="7995" Value="Power supply" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298870" Value="" No="0" CategoryFeatureGroup_ID="93">
+         <Feature ID="1376">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4293" Value="Power management" langid="1"/>
+           <Name ID="4294" Value="Energiebeheer" langid="2"/>
+           <Name ID="8127" Value="Power management" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298871" Value="" No="15941" CategoryFeatureGroup_ID="1239">
+         <Feature ID="511">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2553" Value="Maximum Operating Temperature Range" langid="1"/>
+           <Name ID="2554" Value="Maximum temperatuur in bedrijf" langid="2"/>
+           <Name ID="7273" Value="Maximum Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298872" Value="" No="15939" CategoryFeatureGroup_ID="1239">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298873" Value="" No="15937" CategoryFeatureGroup_ID="1239">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298874" Value="10 - 90" No="15936" CategoryFeatureGroup_ID="1239">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298875" Value="" No="0" CategoryFeatureGroup_ID="1239">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298876" Value="" No="15931" CategoryFeatureGroup_ID="90">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298877" Value="" No="80" CategoryFeatureGroup_ID="90">
+         <Feature ID="669">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="2869" Value="Maximum Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2870" Value="Maximum afmetingen (B x D x H)" langid="2"/>
+           <Name ID="7429" Value="Maximum Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298878" Value="" No="60" CategoryFeatureGroup_ID="90">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298879" Value="" No="58" CategoryFeatureGroup_ID="90">
+         <Feature ID="530">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2591" Value="Pallet Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2592" Value="Afmetingen pallet (B x D x H)" langid="2"/>
+           <Name ID="7292" Value="Pallet Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298880" Value="" No="56" CategoryFeatureGroup_ID="90">
+         <Feature ID="513">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2557" Value="Pallet Weight" langid="1"/>
+           <Name ID="2558" Value="Gewicht pallet" langid="2"/>
+           <Name ID="7275" Value="Pallet Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298881" Value="" No="10" CategoryFeatureGroup_ID="90">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9298882" Value="" No="0" CategoryFeatureGroup_ID="90">
+         <Feature ID="751">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3033" Value="Case or Master Carton Dimensions (W x D x H)" langid="1"/>
+           <Name ID="3034" Value="Afmetingen doos of mastercarton (B x D x H)" langid="2"/>
+           <Name ID="7511" Value="Case or Master Carton Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9820932" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2138">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9588" Value="Service &amp; support" langid="1"/>
+           <Name ID="9589" Value="Service &amp; support" langid="3"/>
+           <Name ID="9590" Value="Service en support" langid="2"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="9820933" Value="" No="0" CategoryFeatureGroup_ID="315">
+         <Feature ID="2143">
+          <Measure ID="29" Sign=""/>
+           <Name ID="9609" Value="Technical features" langid="1"/>
+           <Name ID="9610" Value="Technical features" langid="3"/>
+           <Name ID="9611" Value="Technical features" langid="2"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="10" Name="Canon"/>
+       <Category ID="197">
+         <Name ID="395" Value="scanners" langid="1"/>
+         <Name ID="396" Value="scanners" langid="2"/>
+         <Name ID="6270" Value="scanners" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

@@ -1,0 +1,80 @@
+#!/usr/bin/perl
+
+#$Id: dump_categories_and_features_texs 3009 2010-08-27 13:30:37Z dima $
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomlog;
+use atomsql;
+
+use Spreadsheet::WriteExcel;
+
+use Data::Dumper;
+
+$| = 1;
+
+open my $fh, '>', \my $xls;
+my $wb = Spreadsheet::WriteExcel->new($fh);
+my $ws0 = undef;
+
+my $objects = [
+	{
+		'name' => 'category',
+		'id' => 'catid',
+	},
+	{
+		'name' => 'feature',
+		'id' => 'feature_id',
+	}
+	];
+
+my $langs = &do_query("select langid, code from language order by langid asc");
+
+foreach my $obj (@$objects) {
+	
+	my $f = '';
+	my $j = '';
+	my $h = [];
+	
+	push @$h, [ $obj->{name} ];
+	push @$h, [ 'tid' ];
+	foreach my $l (@$langs) {
+		$f .= ', t'.$l->[0].'.value';
+		$j .= 'left join tex t'.$l->[0].' on t.tid=t'.$l->[0].'.tid and t'.$l->[0].'.langid = '.$l->[0].' ';
+		push @$h, [ $l->[1] ];
+	}
+	
+	my $cfs = &do_query("select t.".$obj->{id}.", t.tid ".$f." from ".$obj->{name}." t ".$j);
+	
+	unshift @$cfs, $h;
+	
+	my $ws = $wb->add_worksheet($obj->{name});
+	$ws0 = $ws unless $ws0;
+
+	my $row = 0;
+	
+	foreach my $cf (@$cfs) {
+		my $col = 0;
+		foreach (@$cf) {
+			$ws->write($row, $col, $_);
+			$col++;
+		}
+		$row++;
+		if ($row == 65536) {
+			$row = 0;
+			$ws = $wb->add_worksheet();
+		}
+	}
+	
+}
+# end
+
+$ws0->activate();
+$wb->close();
+
+binmode STDOUT, ":raw";
+print STDOUT $xls;

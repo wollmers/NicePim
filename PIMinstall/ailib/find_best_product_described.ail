@@ -1,0 +1,13 @@
+{
+name: find_best_product_described;
+priority: 10;
+
+_resource_products: SELECT product_id, product_id, user_id, catid, supplier_id FROM product WHERE product_id=%%product_id%%;
+
+_mapping_products: product, product_id, user, ctgr, brand;
+
+format_as_product_lookup: product;
+
+authorize_by_field_only: product_id;
+
+}

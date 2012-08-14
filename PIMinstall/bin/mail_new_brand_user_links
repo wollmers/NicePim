@@ -1,0 +1,147 @@
+#!/usr/bin/perl
+
+#$Id: mail_new_brand_user_links 3762 2011-01-26 11:32:47Z dima $
+
+use strict;
+
+use vars qw($Bin $Script);
+BEGIN { ($Bin, $Script) = split /([^\/\\]+)$/, $0 }
+use lib $Bin . '../lib';
+
+use atomsql;
+use atomlog;
+use atomcfg;
+
+use atom_mail;
+use atom_misc;
+
+use Term::ANSIColor qw(:constants);
+
+use Data::Dumper;
+
+print BOLD . WHITE . "Starting " . $0 . RESET . "\n";
+
+# 1. Settings: superuser login, email
+
+my $dryrun = 1;
+
+my $login = 'root';
+my $user_id = &do_query("select user_id from users where login = ".&str_sqlize($login))->[0][0];
+my $email = 'dima@icecat.biz' ||
+	&do_query("select c.email from contact c inner join users u on c.contact_id = u.pers_cid where u.user_id = ".$user_id)->[0][0]; # got from user's contact, if empty
+
+my $add_brands = '';
+my $link_brands_users = '';
+my $already_linked_brands_users = '';
+
+my $brands2report = {};
+
+# 2. Cleaning
+
+my $users = &do_query("select user_id, requested_suppliers from users where trim(requested_suppliers) != ''");
+
+foreach my $user (@$users) {
+
+
+	my $user_login = &do_query("select login from users where user_id = " . $user->[0])->[0][0];
+	
+	$user->[1] =~ s/^'(.+)'$/$1/gs;
+	my @s_ids = split /,/, $user->[1];
+	my $new_rs = '';
+
+	print BOLD . MAGENTA . "\t" . $user_login . RESET . "\n";
+
+	foreach my $s_id (@s_ids) {
+
+		next unless $s_id;
+
+		# 2.1. Clean wrong IDs
+
+	once_again:
+
+		if ($s_id =~ /^\d+$/) { # ID
+			my $s_name = &do_query("select name from supplier where supplier_id = " . $s_id)->[0][0];
+			if ($s_name) { # brand is present - need to add an ability to link them
+
+				if (&do_query("select 1 from supplier_users where supplier_id = ".$s_id." and user_id = ".$user->[0])->[0][0]) {
+					# the link is already present
+
+					$already_linked_brands_users .= "User <b>".$user_login."</b> and brand <b>".$s_name."</b> are already linked</br>\n";
+
+					print BOLD . "\t\t" . GREEN . $user_login . WHITE . ' & '. GREEN . $s_name . WHITE . ' are already linked' . RESET . "\n";
+				}
+				else {
+					my $key = &generate_html_key(1, 'link_brand_and_user;supplier_id='.$s_id.';user_id_new='.$user->[0], $user_id);
+					
+					$link_brands_users .= "User <b>".$user_login."</b> wants to be manager of the brand <b>".$s_name."</b>. <a href=\"".$atomcfg{'bo_host'}."feedback/redirect.cgi?key=".$key."\">Accept new brand manager</a><br/>\n";
+
+					print BOLD . "\t\t" . YELLOW . $user_login . WHITE . ' & '. YELLOW . $s_name . WHITE . ' must be linked' . RESET . "\n";
+
+					$new_rs .= $s_id . ',';
+				}
+			}
+			else { # brand is absent - need to remove this link
+			}
+		}
+		else {
+			$s_id =~ s/^'(.+)'$/$1/gs;
+			$s_id =~ s/\\'/'/gs;
+			$s_id =~ s/^\s+|\s+$//gs;
+			next unless $s_id;
+
+			my $s_id_new = &do_query("select supplier_id from supplier where name = ".&str_sqlize($s_id))->[0][0];
+			if ($s_id_new) { # the brand is already exists - need to try once again
+				$s_id = $s_id_new;
+				goto once_again;
+			}
+			else { # a new brand. need to add it before...
+				unless ($brands2report->{$s_id}) {
+					my $key = &generate_html_key(1, 'add_brand;name='.&escape($s_id), $user_id);
+
+					$add_brands .= "The brand <b>".$s_id."</b> is entered by user <b>".$user_login."</b>. <a href=\"".$atomcfg{'bo_host'}."feedback/redirect.cgi?key=".$key."\">Accept new brand</a><br/>\n";
+
+					$brands2report->{$s_id} = 1;
+				}
+				$new_rs .= &str_sqlize($s_id) . ',';
+					
+				print BOLD . "\t\t" . RED . $s_id . WHITE . ' must be added before' . RESET . "\n";
+			}
+		}
+
+		# 2.2. Update users info
+
+		$new_rs =~ s/,$//s;
+
+		&do_statement("update users set requested_suppliers = ".&str_sqlize($new_rs)." where user_id = ".$user->[0]) if $new_rs && !$dryrun;
+	}
+
+}
+
+# 4. Preparing the report
+
+my $html_report = "<html>
+<head><title>ICEcat.biz brand+user report</title></head>
+<body>
+<h2>Brands to add</h2>
+".$add_brands."<br/></br/>
+<h2>Brands and users to link</h2>
+".$link_brands_users."<br/></br/><br/>
+<!--<h2>Already linked brands and users</h2>
+".$already_linked_brands_users."<br/></br/>-->
+</body>
+</html>
+";
+
+# 5. Send the report
+
+print "\n";
+print BOLD . WHITE . "\tEmail sending" . RESET . "\n";
+
+&complex_sendmail({
+	'from' => 'info@icecat.biz',
+	'to' => $email,
+	'subject' => 'Brands / users registration report',
+	'html_body' => $html_report
+});
+
+print BOLD . WHITE . "Finished" . RESET . "\n\n";

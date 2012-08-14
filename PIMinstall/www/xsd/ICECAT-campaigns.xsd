@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="ICECAT-interface">
+		<xs:complexType>
+		  <xs:all>
+			<xs:element name="Campaigns" type="Campaigns"/>
+		  </xs:all>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="Campaigns">
+	  <xs:sequence>
+		<xs:element name="Campaign" type="Campaign" maxOccurs="unbounded" />
+	  </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Campaign">
+	  <xs:all>
+		<xs:element name="Title" type="xs:string"/>
+		<xs:element name="Motivation" type="xs:string" />
+		<xs:element name="ImagesList" type="ImagesList" />
+		<xs:element name="ProductsList" type="ProductsList" />
+	 </xs:all>
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+		<xs:attribute name="User_ID" type="xs:integer" use="required" />
+		<xs:attribute name="Name" type="xs:string" use="required" />
+		<xs:attribute name="StartDate" type="xs:integer" />
+		<xs:attribute name="EndDate" type="xs:integer" />
+		<xs:attribute name="Updated" type="xs:string" />
+		<xs:attribute name="Country" type="xs:string" use="required" />
+		<xs:attribute name="LandingPage" type="xs:anyURI" />
+	</xs:complexType>
+	
+	<xs:complexType name="ImagesList">
+	  <xs:sequence>
+		<xs:element name="Image" type="Image" minOccurs="0" maxOccurs="unbounded" />
+	  </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Image">
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+		<xs:attribute name="LogoPic" type="xs:anyURI" use="required" />
+		<xs:attribute name="ThumbPic" type="xs:anyURI" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="ProductsList">
+	  <xs:sequence>
+		<xs:element name="Product" type="Product" minOccurs="0" maxOccurs="unbounded" />
+	  </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Product">
+		<xs:attribute name="ID" type="xs:integer" use="required" />
+		<xs:attribute name="ProdId" type="xs:string" use="required" />
+		<xs:attribute name="Vendor" type="xs:string" use="required" />
+		<xs:attribute name="Name" type="xs:string" use="required" />
+		<xs:attribute name="Link" type="xs:anyURI" />
+		<xs:attribute name="Clicks" type="xs:integer" use="required" />
+		<xs:attribute name="Product_View" type="xs:integer" use="required" />
+	</xs:complexType>
+
+</xs:schema>

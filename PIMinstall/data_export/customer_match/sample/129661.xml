@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="129661" Prod_id="202262056" ThumbPic="" Code="1" Quality="NOEDITOR" HighPic="" Name="Studio MediaSuite v9 NL DVD" LowPic="">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="161" No="0">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1329" No="0">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="150175" URL="" ShortDesc="Studio MediaSuite 9.0 NL + Corel PhotoBook + SteinBerg WaveLab Lite + Instant DVD Recorder + Instant copy + Pinnalce MediaManager" langid="2" LongDesc="" WarrantyInfo="" PDFURL=""/>
+      <ProductFeature/>
+       <Supplier ID="31" Name="Pinnacle"/>
+       <Category ID="43">
+         <Name ID="87" Value="multimedia software" langid="1"/>
+         <Name ID="88" Value="multimedia-software" langid="2"/>
+         <Name ID="6116" Value="multimedia software" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

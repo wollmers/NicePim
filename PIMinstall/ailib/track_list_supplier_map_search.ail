@@ -1,0 +1,10 @@
+{
+name: track_list_supplier_map_search;
+priority: 10;
+
+_resource_params: select '%%search_symbol%%','%%search_client_id%%';
+_mapping_params: search_symbol,search_client_id;
+
+format_as_dropdown: client_id,search_client_id;
+search_client_id_dropdown_select: select user_id, login from users u JOIN track_list_supplier_map sm ON sm.client_id=u.user_id where user_group = 'shop' GROUP BY u.user_id; 
+}

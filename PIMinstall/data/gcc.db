@@ -1,0 +1,1606 @@
+create table xmlcheck (
+    filename varchar(255) NOT NULL,
+    expire int (11) NOT NULL,
+    zerofile tinyint(4) NOT NULL,
+    indexfile tinyint(4) NOT NULL,
+    dtdvalid tinyint(4) NOT NULL,
+    checklinks tinyint(4) NOT NULL
+);
+
+alter table `xmlcheck` add `xsdvalid` tinyint(4) NOT NULL default '0';
+
+create table localization (
+    supplier_id int(13) NOT NULL,
+    template varchar(255) NOT NULL
+);
+
+alter table localization add localization_id int(13) not null auto_increment, add primary key (localization_id);
+
+drop table localization;
+
+alter table supplier add template text;
+
+alter table product_interest_score modify product_id int(13) not null;
+
+alter table product_related add preferred_option int(1) default 0;
+
+create table vendor_notification_queue (
+id int(13) not null auto_increment primary key,
+product_id int(13) not null unique,
+updated int(11) not null
+);
+
+alter table category modify ucatid varchar(255) default NULL UNIQUE KEY;
+
+CREATE TABLE `user_group_measure_map` (
+  `user_group` varchar(50) NOT NULL default '',
+  `measure` varchar(50) NOT NULL default 'NOEDITOR',
+  KEY `user_group` (`user_group`,`measure`)
+);
+
+CREATE TABLE `content_measure_index_map` (
+  `content_measure` varchar(50) NOT NULL default 'NOEDITOR',
+  `quality_index` int(3) NOT NULL default '0',
+  KEY `content_measure` (`content_measure`,`quality_index`)
+);
+
+create table language_blacklist (
+language_blacklist_id int(13) not null auto_increment,
+langid int(3) not null,
+value varchar(255) not null default '',
+primary key (language_blacklist_id),
+key (langid,value)
+);
+
+alter table distributor add column trust_level int(13) not null default '0', add column langid int(3) not null default '0';
+
+alter table product_original_data drop key product_id;
+
+alter table product_original_data add unique key (product_id,distributor_id);
+
+alter ignore table category_keywords add unique key (langid,category_id);
+
+alter table data_source_category_map add column frequency int(13) not null default '0';
+
+create table product_related_hpprovisioner (
+		product_related_id int(13) not null primary key
+);
+
+alter table contact add column company varchar(255) default NULL;
+
+create table request_repository (
+request_repository_id int(13) not null primary key auto_increment,
+date int(13) not null default '0',
+user_id int(13) not null default '0',
+product_id int(13) not null default '0',
+key (date));
+
+create table product_modification_time (
+product_id int(13) not null default '0' primary key,
+modification_time int(13) not null default '0');
+
+alter table language add column published char(1) not null default 'N';
+
+CREATE TABLE `ajax_usage` (
+  `ajax_usage` int(11) NOT NULL auto_increment,
+  `ip` varchar(64) default NULL,
+  `func` varchar(64) default NULL,
+  `updated` timestamp(14) NOT NULL,
+  PRIMARY KEY  (`ajax_usage`),
+  KEY `ajax` (`ip`,`func`),
+  KEY `updated` (`updated`));
+
+alter table product_modification_time add column picture_content_length int(13) not null default '0';
+
+alter table data_source_category_map add column distributor_id int(13) not null default '0';
+alter table data_source_category_map add key (distributor_id);
+alter table data_source_supplier_map add column distributor_id int(13) not null default '0';
+alter table data_source_supplier_map add key (distributor_id);
+
+alter table data_source_feature_map add column distributor_id int(13) not null default '0';
+alter table data_source_feature_map add key (distributor_id);
+
+create table feature_autonaming (
+	feature_autonaming_id int(13) not null primary key auto_increment,
+	feature_id            int(13) not null default '0',
+	langid                int(3)  not null default '0',
+	data_source_id        int(13) not null default '0',
+	unique key (feature_id,langid)
+);
+
+alter ignore table vocabulary drop key sid_2, add unique key sid_2 (sid,langid);
+
+alter table category_feature add column `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+
+create table measure_sign (
+  measure_sign_id int(13) not null auto_increment,
+  measure_id      int(13) not null default '0',
+  langid          int(13) not null default '0',
+  value           varchar(255) not null default '',
+  primary key     (measure_sign_id),
+  unique key      (measure_id,langid)
+);
+
+alter table measure drop column sign;
+
+alter ignore table data_source_feature_map add unique key (data_source_id,symbol(255),feature_id,catid,distributor_id);
+
+alter table product_multimedia_object add column `keep_as_url` int(1) NOT NULL default '0';
+alter table product_multimedia_object add column `type` enum('standard','presentation','movie') NOT NULL default 'standard';
+alter table product_multimedia_object add column `height` int(13) NOT NULL default '0';
+alter table product_multimedia_object add column `width` int(13) NOT NULL  default '0';
+
+/* product bullets */
+
+create table product_bullet_group (
+  product_bullet_group_id int(13)      not null primary key auto_increment,
+  code                    varchar(255) not null default '',
+  langid                  int(5)       not null default '0',
+  name                    varchar(255) not null default '',
+  key (code),
+  key (product_bullet_group_id,langid)
+);
+
+create table product_bullet (
+  product_bullet_id       int(13)      not null primary key auto_increment,
+  product_id              int(13)      not null default '0',
+  product_bullet_group_id int(13)      not null default '0',
+  code                    varchar(255) not null default '',
+  langid                  int(5)       not null default '0',
+  value                   varchar(255) not null default '',
+  key (product_id),
+  key (product_id,langid),
+  key (product_bullet_group_id),
+  key (code)
+);
+
+alter table data_source_feature_map add column only_product_values tinyint not null default '0';
+
+alter table distributor_product add column tinyint not null default '0';
+
+alter table product_modification_time add column picture_high_md5_checksum char(32) null, add column picture_low_md5_checksum char(32) null;
+
+alter table contact add column sector_id int(13) not null default '0';
+
+create table sector (
+sector_id int(13) not null primary key auto_increment,
+dummy     char(1) null);
+
+create table sector_name (
+sector_name_id int(13)      not null primary key auto_increment,
+sector_id      int(13)      not null default '0',
+langid         int(5)       not null default '1',
+name           varchar(255) not null default '',
+key (sector_id,langid));
+
+alter ignore table data_source_category_map add unique key (data_source_id,symbol(255),distributor_id);
+
+alter table measure add column pattern varchar(255) not null default '';
+
+alter table feature add column pattern varchar(255) not null default '';
+
+create table feature_input_type (
+feature_input_type_id int(13)      not null primary key auto_increment,
+type                  varchar(255) not null unique key,
+name                  varchar(255) not null default '',
+pattern               varchar(255) not null default '');
+
+insert ignore into feature_input_type(type,name,pattern) values('textarea','Text area',''),('text','Text line',''),('y_n','Yes/No',''),('y_n_o','Yes/No/Optional',''),('dropdown','Dropdown',''),('numerical','Numerical','#'),('range','Range','#-#'),('ratio','Ratio','#/#'),('3d','3 dimensions','#x#x#'),('2d','2 dimensions','#x#');
+
+create table value_regexp (
+value_regexp_id int(13)      not null primary key auto_increment,
+pattern         varchar(255) not null default '') ENGINE = InnoDB;
+
+create table feature_value_regexp (
+id              int(13) not null primary key auto_increment,
+value_regexp_id int(13) not null default '0',
+feature_id      int(13) not null default '0',
+no              int(13) not null default '0',
+key (value_regexp_id),
+key (feature_id,no)) ENGINE = InnoDB;
+
+create table measure_value_regexp (
+id              int(13) not null primary key auto_increment,
+value_regexp_id int(13) not null default '0',
+measure_id      int(13) not null default '0',
+no              int(13) not null default '0',
+key (value_regexp_id),
+key (measure_id,no)) ENGINE = InnoDB;
+
+create table generic_operation (
+generic_operation_id int(13)      not null primary key auto_increment,
+name                 varchar(255) not null default '',
+code                 varchar(255) not null default '',
+unique key (code));
+
+create table value_regexp_log (
+id        int(13)      NOT NULL PRIMARY KEY auto_increment,
+ext_value text,
+pattern   varchar(255) NOT NULL default '',
+int_value text,
+`type`    enum('feature','measure') default NULL,
+updated   timestamp    NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+key (ext_value(255)),
+key (pattern),
+key (int_value(255))) ENGINE = InnoDB;
+
+drop table product_related_hpprovisioner;
+alter table product_related add column hpprovisioner int(1) default '0';
+alter table product_related add key (hpprovisioner);
+
+alter table product drop key fulltext_name;
+alter table product                ENGINE = InnoDB;
+alter table product_name           ENGINE = InnoDB;
+alter table product_feature        ENGINE = InnoDB;
+alter table product_related        ENGINE = InnoDB;
+alter table product_description    ENGINE = InnoDB;
+alter table product_feature_local  ENGINE = InnoDB;
+alter table product_interest_score ENGINE = InnoDB;
+alter table product_statistic      ENGINE = InnoDB;
+alter table product_ean_codes      ENGINE = InnoDB;
+alter table users                  ENGINE = InnoDB;
+
+## reversed table product_description_reverse
+create table product_description_reverse (
+product_description_id int(13)      NOT NULL primary key,
+pdf_url                varchar(255) NOT NULL default '',
+manual_pdf_url         varchar(255) NOT NULL default '',
+key (pdf_url),
+key (manual_pdf_url)) ENGINE=InnoDB;
+
+# initial product_description_reverse filling
+insert into product_description_reverse(product_description_id,pdf_url,manual_pdf_url) select product_description_id,REVERSE(pdf_url),REVERSE(manual_pdf_url) from product_description where pdf_url != '' or manual_pdf_url != '';
+
+## reversed table category_reverse
+create table category_reverse (
+catid     int(13)      NOT NULL primary key,
+low_pic   varchar(255) NOT NULL default '',
+thumb_pic varchar(255) default '',
+key (low_pic),
+key (thumb_pic)) ENGINE=MyISAM;
+
+# initial category_reverse filling
+insert into category_reverse(catid,low_pic,thumb_pic) select catid,REVERSE(low_pic),REVERSE(thumb_pic) from category where low_pic != '' or thumb_pic != '';
+
+## reversed table product_reverse
+create table product_reverse (
+product_id int(13)      NOT NULL primary key,
+low_pic    varchar(255) NOT NULL default '',
+high_pic   varchar(255) NOT NULL default '',
+thumb_pic  varchar(255) default '',
+key (low_pic),
+key (high_pic),
+key (thumb_pic)) ENGINE=InnoDB;
+
+# initial product_reverse filling
+insert into product_reverse(product_id,low_pic,high_pic,thumb_pic) select product_id,REVERSE(low_pic),REVERSE(high_pic),REVERSE(thumb_pic) from product where low_pic != '' or high_pic != '' or thumb_pic != '';
+
+# add product_deleted table
+DROP TABLE IF EXISTS `product_deleted`;
+CREATE TABLE `product_deleted`(
+`product_id` int(13) NOT NULL,
+`del_time` timestamp NOT NULL default CURRENT_TIMESTAMP,
+`catid` int(13) NOT NULL default '0',
+`name` varchar(255) NOT NULL,
+`supplier_id` int(13) NOT NULL default '0',
+`user_id` int(13) NOT NULL default '0',
+`prod_id` varchar(235) NOT NULL default '',
+PRIMARY KEY  (`product_id`),
+KEY `del_time` (`del_time`),
+KEY `supplier_id` (`supplier_id`)
+)ENGINE=MyISAM CHARSET=utf8;
+
+## reversed table product_family_reverse
+create table product_family_reverse (
+family_id int(17)      NOT NULL primary key,
+low_pic           varchar(255) default NULL,
+thumb_pic         varchar(255) default NULL,
+key (low_pic),
+key (thumb_pic)) ENGINE=MyISAM;
+
+# initial product_family_reverse filling
+insert into product_family_reverse(family_id,low_pic,thumb_pic) select family_id,REVERSE(low_pic),REVERSE(thumb_pic) from product_family where low_pic != '' or thumb_pic != '';
+
+## reversed table supplier_reverse
+create table supplier_reverse (
+supplier_id int(13) NOT NULL primary key,
+low_pic             varchar(255) default NULL,
+thumb_pic           varchar(255) default NULL,
+key (low_pic),
+key (thumb_pic)) ENGINE=MyISAM;
+
+# initial supplier_reverse filling
+insert into supplier_reverse(supplier_id,low_pic,thumb_pic) select supplier_id,REVERSE(low_pic),REVERSE(thumb_pic) from supplier where low_pic != '' or thumb_pic != '';
+
+## reversed table product_gallery_reverse
+create table product_gallery_reverse (
+id         int(13)      NOT NULL primary key,
+link       varchar(255) NOT NULL default '',
+thumb_link varchar(255) NOT NULL default '',
+key (link),
+key (thumb_link)) ENGINE=MyISAM;
+
+# initial product_gallery_reverse filling
+insert into product_gallery_reverse(id,link,thumb_link) select id,REVERSE(link),REVERSE(thumb_link) from product_gallery where link != '' or thumb_link != '';
+
+## reversed table product_multimedia_object_reverse
+create table product_multimedia_object_reverse (
+id   int(13)      NOT NULL primary key,
+link varchar(255) NOT NULL default '',
+key (link)) ENGINE=MyISAM;
+
+# initial product_multimedia_object_reverse filling
+insert into product_multimedia_object_reverse(id,link) select id,REVERSE(link) from product_multimedia_object where link != '';
+
+alter table product_feature_local add key (product_id,category_feature_id,langid);
+
+alter table product_modification_time ENGINE=InnoDB;
+
+alter table product_original_data ENGINE=InnoDB;
+
+alter table product_original_data add key (product_id);
+
+alter table product_feature_local drop key product_id;
+alter ignore table product_feature_local add unique key (`category_feature_id`,`product_id`,`langid`);
+alter table product_feature_local add key (product_id);
+alter table product_feature_local drop key product_feature_id2;
+alter table product_feature_local drop key product_id_2;
+alter table product_feature_local add key (product_id,langid);
+alter table product_feature_local add column `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+
+create table diagnostics_type (
+diagnostics_type_id int(13)      not null auto_increment,
+code                varchar(60)  not null default '',
+description         varchar(255) not null default '',
+primary key (diagnostics_type_id),
+unique key (code)) ENGINE=InnoDB;
+
+insert into diagnostics_type(code,description) values
+('queue',          'XML repository publication queue'),
+('full_index',     'files.index publication for FullICEcat'),
+('free_index',     'files.index publication for OpenICEcat'),
+('import',         'Various autoimports'),
+('xmlcheck',       'XML repository syntax/validation checking script'),
+('disk_free_space','Free space checking'),
+('server_ping',    'Server online checking'),
+('server_loading', 'Server loading'),
+('apache_log',     'Statistics httpd logs checking');
+
+create table diagnostics_status (
+diagnostics_status_id int(13)      not null auto_increment,
+code                  varchar(60)  not null default '',
+description           varchar(255) not null default '',
+colour                char(7)      not null default '#FFFFFF',
+primary key (diagnostics_status_id),
+unique key (code)) ENGINE=InnoDB;
+
+insert into diagnostics_status(code,description,colour) values
+('disabled',     'Disabled',              '#AAAAAA'),
+('temp_disabled','Temporary disabled',    '#EAEAEA'),
+('not_yet',      'Did not start yet',     '#DDEEFF'),
+('in_process',   'Already in process',    '#66AAEE'),
+('successfull',  'Finished successfully', '#B6D7A8'),
+('ok',           'OK',                    '#B6D7A8'),
+('warning',      'Warning' ,              '#EA9999'),
+('error',        'Error',                 '#E06666'),
+('syntax_error', 'Syntax error',          '#EE0000');
+
+create table diagnostics (
+diagnostics_id        int(13)      not null auto_increment,
+name                  varchar(255) not null default '',
+diagnostics_type_id   int(13)      not null default '0',
+diagnostics_status_id int(13)      not null default '0',
+started_date          timestamp    not null default 0,
+finished_date         timestamp    not null default 0,
+updated               timestamp    NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+warning               int(13)      default NULL,
+error                 int(13)      default NULL,
+config_field          varchar(255) default NULL,
+primary key (diagnostics_id),
+unique key (name),
+key (diagnostics_type_id),
+key (diagnostics_status_id)) ENGINE=InnoDB;
+
+create table diagnostics_log (
+diagnostics_log_id int(13)      NOT NULL auto_increment,
+diagnostics_id        int(13)   NOT NULL default '0',
+diagnostics_status_id int(13)   NOT NULL default '0',
+updated               timestamp NOT NULL default CURRENT_TIMESTAMP,
+primary key (diagnostics_log_id),
+key (diagnostics_id),
+FOREIGN KEY (diagnostics_id) REFERENCES diagnostics(diagnostics_id) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+
+alter table category_feature add unique key (feature_id,catid);
+alter table category_feature drop key feature_id_2;
+
+alter table supplier_contact add column `company` varchar(255) default NULL after `person`;
+alter table supplier_contact add column `address` varchar(255) default NULL after `company`;
+alter table supplier_contact add column `zip`     varchar(80)  default NULL after `company`;
+alter table supplier_contact add column `city`    varchar(255) default NULL after `zip`;
+alter table supplier_contact add column `fax`     varchar(255) default NULL after `telephone`;
+
+alter table feature_value_regexp add column `active` char(1) NOT NULL default 'N';
+alter table feature_value_regexp add key `active` (`active`);
+alter table measure_value_regexp add column `active` char(1) NOT NULL default 'N';
+alter table measure_value_regexp add key `active` (`active`);
+
+alter table generic_operation add column `parameter` tinyint(1) NOT NULL default '0';
+
+create table value_regexp_bg_processes (
+value_regexp_bg_processes_id int(13)      not null primary key auto_increment,
+measure_id                   int(13)      not null default '0',
+user_id                      int(13)      not null default '0',
+start_date                   int(13)      not null default '0',
+stage                        varchar(255) not null default '',
+max_value                    int(13)      not null default '0',
+current_value                int(13)      not null default '0',
+key (measure_id),
+key (user_id));
+
+alter table product modify column publish char(1) NOT NULL default 'Y';
+
+alter table product modify column publish char(1) NOT NULL default 'N';
+
+alter table product add column public char(1) NOT NULL default 'Y' after publish;
+
+create table features_to_reupdate (
+id          int(13) not null primary key auto_increment,
+feature_id  int(13) not null default '0',
+supplier_id int(13) not null default '0',
+unique key (feature_id,supplier_id),
+key (supplier_id));
+
+alter table value_regexp add column `parameter1` varchar(255) NOT NULL default '' after `pattern`;
+alter table value_regexp add column `parameter2` varchar(255) NOT NULL default '' after `parameter1`;
+
+alter table value_regexp ENGINE='InnoDB';
+alter table feature_value_regexp ENGINE='InnoDB';
+alter table measure_value_regexp ENGINE='InnoDB';
+
+alter table feature_value_regexp add FOREIGN KEY (value_regexp_id) REFERENCES value_regexp(value_regexp_id) ON DELETE CASCADE ON UPDATE CASCADE;
+alter table measure_value_regexp add FOREIGN KEY (value_regexp_id) REFERENCES value_regexp(value_regexp_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+alter table data_source add column updated timestamp not null;
+
+alter table product_related drop key hpprovisioner, add key (hpprovisioner,product_id), drop key product_id_2;
+
+alter table users modify user_group varchar(255) NOT NULL default 'shop';
+
+alter table session ENGINE=InnoDB;
+
+create table product_toshiba (
+prod_id  varchar(60) not null default '',
+langid   int(13)     not null default '0',
+modified date        not null,
+key (prod_id, langid));
+
+create table generate_report_bg_processes (
+generate_report_bg_processes_id int(13)      not null primary key auto_increment,
+bg_user_id                      int(13)      not null default '0',
+bg_start_date                   int(13)      not null default '0',
+bg_stage                        varchar(255) not null default '',
+bg_max_value                    int(13)      not null default '0',
+bg_current_value                int(13)      not null default '0',
+key (bg_user_id));
+
+alter table supplier add column folder_name varchar(255) not null default '';
+alter table supplier add key (folder_name);
+
+alter table product_description add column manual_pdf_url varchar(255) NOT NULL default '';
+alter table product_description add column manual_pdf_size int(13) default '0';
+
+alter table stat_query add column request_country_id int(13) NULL;
+
+create table slave_status (
+			 slave_status_id    int(13)     NOT NULL PRIMARY KEY auto_increment,
+			 ip                 varchar(15) NOT NULL default '',
+			 device             varchar(60) NOT NULL default '',
+			 server_load        float       NOT NULL default 0.00,
+			 threads            int(5)      NOT NULL default 0,
+			 seconds_behind     int(13)     NOT NULL default 0,
+			 free_disk          float       NOT NULL default 0.00,
+			 blocked            tinyint(1)  NOT NULL default 0,
+			 replication_status tinyint(1)  NOT NULL default 0,
+			 updated            timestamp   NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
+);
+
+alter table product_related change column hpprovisioner data_source_id int(13) NOT NULL default 0;
+
+create table relation_group (
+			 relation_group_id int(13)      not null primary key auto_increment,
+			 name              varchar(255) not null default '',
+			 description       varchar(255) not null default ''
+);
+
+create table relation (
+			 relation_id         int(13)      not null primary key auto_increment,
+
+			 relation_group_id   int(13)      not null default 0,
+
+			 name                varchar(255) not null default '',
+
+			 include_set_id      int(13)      not null default 0,
+			 exclude_set_id      int(13)      not null default 0,
+
+			 include_set_id_2    int(13)      not null default 0,
+			 exclude_set_id_2    int(13)      not null default 0,
+
+			 key (relation_group_id),
+			 key (include_set_id),
+			 key (exclude_set_id),
+			 key (include_set_id_2),
+			 key (exclude_set_id_2)
+);
+
+create table relation_rule (
+			 relation_rule_id   int(13)      not null primary key auto_increment,
+
+			 supplier_id        int(13)      not null default 0,
+			 supplier_family_id int(13)      not null default 0,
+			 catid              int(13)      not null default 0,
+			 feature_id         int(13)      not null default 0,
+			 feature_value      varchar(255) not null default '',
+			 exact_value        tinyint(1)   not null default 0,
+
+			 prod_id            varchar(60)  not null default '',
+
+			 start_date         date         not null default '0000-00-00',
+			 end_date           date         not null default '0000-00-00',
+
+			 key (supplier_id, catid, feature_id, feature_value),
+			 key (catid, feature_id),
+			 key (feature_id, feature_value),
+			 key (feature_value),
+			 key (prod_id)
+);
+
+create table relation_set (
+			 id int(13) not null primary key auto_increment,
+			 relation_set_id int(13) not null default 0,
+			 relation_rule_id int(13) not null default 0,
+
+			 unique key (relation_set_id, relation_rule_id),
+			 key (relation_rule_id, relation_set_id)
+);
+
+alter table distributor_product add column original_prod_id varchar(255) not null default '' after dist_prod_id;
+alter ignore table distributor_product add unique key (original_prod_id, distributor_id, product_id);
+
+alter table supplier add column suppress_offers char(1) not null default 'N';
+
+insert into relation_group(relation_group_id,name,description) values(1,'Individual relation','The general group');
+
+create table relation_exact_values (
+			 exact_value      tinyint(1)  not null primary key auto_increment,
+			 exact_value_text varchar(60) not null default ''
+);
+
+insert into relation_exact_values(exact_value_text) values('like mode'),('exact matching'),('more than'),('less than'),('non-equal');
+
+alter table relation_rule modify column exact_value tinyint(1) not null default 1;
+alter table relation_rule add key (exact_value);
+
+CREATE TABLE `aggregated_product_count` (
+`product_id` int(13) NOT NULL default '0',
+`count` int(10) NOT NULL default '0',
+`updated` timestamp NOT NULL ,
+ PRIMARY KEY  (`product_id`)
+  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO aggregated_product_count (product_id,count) SELECT product_id,sum(count) FROM aggregated_request_stat GROUP BY product_id; 
+
+create table stock_report (
+stock_report_id      int(13) primary key auto_increment,
+supplier_id int(13)  not null default 0,
+mail_to varchar(255) not null default '',
+mail_cc varchar(255) not null default '',
+active  tinyint(1)   not null default 0,
+unique key (supplier_id)) ENGINE=MyISAM;
+
+alter table stock_report add column updated timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+alter table stock_report add column time varchar(7) not null default 'noon';
+
+alter table product add key (supplier_id,catid);
+
+alter table country_product add key (existed,active);
+
+alter ignore table process_queue add unique key (process_class_id,command,product_id);
+
+alter table product_feature_local add key (langid);
+
+
+create table compression_types (
+compression_types_id int(13)     primary key auto_increment,
+type                 varchar(24)  not null default '',
+description          varchar(255) not null default '',
+email_postscriptum   text);
+
+insert into compression_types(type,description,email_postscriptum)
+values('','no compression (not recommended)',''),
+('gz','GNU zip compression (gzip)','If you can\'t open the Gzipped (gz) file, use the free download of IZarc:\nhttp://www.izarc.org/'),
+('zip','Zip compression (zip)','If you can\'t open the Zipped (zip) file, use the free download of IZarc:\nhttp://www.izarc.org/'),
+('bz2','Bzip2 compression (bz2)','If you can\'t open the Bzipped2 (bz2) file, use the free download of Bzip2 for Windows:\nhttp://gnuwin32.sourceforge.net/packages/bzip2.htm');
+
+alter table stat_query add column email_attachment_compression varchar(5) not null default 'gz';
+
+CREATE TABLE `product_prf_prices` (
+  `product_id`   int(13) primary key,
+  `min_price`    decimal(8,2) NOT NULL default '0.00',
+  `middle_price` decimal(8,2) NOT NULL default '0.00',
+  `has_price`    int(1) NOT NULL default '0'
+);
+
+create table product_summary_description (
+product_summary_description_id int(13)   primary key auto_increment,
+product_id                     int(13)   not null default '0',
+langid                         int(5)    not null default '0',
+short_summary_description      text,
+long_summary_description       text,
+updated                        timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+unique key (product_id,langid)) ENGINE=InnoDB;
+
+alter table distributor_product add column original_supplier_id int(13) not null default '0';
+
+CREATE TABLE IF NOT EXISTS `distributor_pl` (
+  `distributor_pl_id` int(13) NOT NULL auto_increment,
+  `code` varchar(255) NOT NULL default '',
+  `name` varchar(255) NOT NULL default '',
+  `langid` int(11) NOT NULL default '0',
+  `active` tinyint(1) NOT NULL default '1',
+  `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `feed_url` varchar(255) NOT NULL,
+  `feed_type` varchar(10) NOT NULL,
+  `is_first_header` int(1) NOT NULL default '1',
+  `feed_login` varchar(250) NOT NULL,
+  `feed_pwd` varchar(250) NOT NULL,
+  `delimiter` varchar(250) NOT NULL,
+  `newline` varchar(250) NOT NULL,
+  `escape` varchar(1) NOT NULL default '\\',
+  `quote` varchar(1) NOT NULL default '"',
+  `user_choiced_file` varchar(250) NOT NULL default '',
+  `country_col` int(11) NOT NULL default '0',
+  `ean_col` int(11) NOT NULL default '0',
+  `name_col` int(11) NOT NULL default '0',
+  `price_vat_col` int(11) NOT NULL default '0',
+  `price_novat_col` int(11) NOT NULL default '0',
+  `desc_col` int(11) NOT NULL default '0',
+  `stock_col` int(11) NOT NULL default '0',
+  `distri_prodid_col` int(11) NOT NULL default '0',
+  `brand_col` int(11) NOT NULL default '0',
+  `brand_prodid_col` int(11) NOT NULL default '0',
+  `category_col` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`distributor_pl_id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+alter table product_summary_description add key (langid);
+
+alter table product_map add column map_supplier_id int(13) NOT NULL default '0';
+
+alter table distributor_pl add column `active` tinyint(1) NOT NULL default '1' after langid, add column `coverage` mediumtext after active;
+
+create table product_gallery_imported (
+product_gallery_imported_id int(13)     primary key auto_increment,
+product_id									int(13)     not null default 0,
+type												varchar(60) not null default '',
+content_length							int(13)     not null default 0,
+data_source_id              int(13)     not null default 0,
+product_gallery_id          int(13)     not null default 0,
+unique key (product_id,type),
+key (data_source_id),
+key (product_gallery_id)) ENGINE=InnoDB;
+
+alter ignore table product_gallery add unique key (product_id,link);
+
+CREATE TABLE `subscription_levels`(
+  `subscription_level` tinyint(2) NOT NULL default '0',
+  `value` varchar(12) NOT NULL default 'None',
+  PRIMARY KEY (`subscription_level`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO subscription_levels(subscription_level,value) values
+('0','None'),('1','URL'),('2','URL+PRF'),('4','Database'),('5','XML free'),('6','URL free');
+
+alter table product_name add column `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+
+create table campaign (
+campaign_id       int(13)      primary key auto_increment,
+name              varchar(255) not null default '',
+short_description varchar(255) not null default '',
+long_description  text,
+link              varchar(255) not null default '',
+start_date        int(13)      not null default 0,
+end_date          int(13)      not null default 0,
+updated           timestamp    NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+user_id           int(13)      not null default 0,
+country_id_set    varchar(255) not null default '0',
+key (user_id)) ENGINE=InnoDB;
+
+create table campaign_kit (
+campaign_kit_id    int(13)      primary key auto_increment,
+campaign_id        int(13)      not null default 0,
+product_id         int(13)      not null default 0,
+clickthrough_count int(13)      not null default 0,
+updated            timestamp    NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+unique key (campaign_id, product_id),
+key (product_id),
+key (clickthrough_count)) ENGINE=InnoDB;
+
+
+alter table product_multimedia_object add key (product_id,langid);
+alter table product_multimedia_object add column data_source_id int(13) not null default 0, add key (data_source_id,product_id);
+alter table product_multimedia_object add key (type);
+
+
+create table product_memory (
+product_id  int(13) not null default 0,
+supplier_id int(13) not null default 0,
+catid       int(13) not null default 0,
+user_id     int(13) not null default 0,
+prod_id     varchar(64) not null default '',
+name        varchar(235) not null default '',
+high_pic    varchar(255) not null default '',
+KEY (prod_id,supplier_id),
+key (product_id,supplier_id,catid),
+key (supplier_id,catid),
+KEY (name),
+key (catid)) ENGINE = MyISAM;
+
+create table product_local (
+product_local_id int(13) primary key auto_increment,
+product_id       int(13) not null default 0,
+product_id_local int(13) not null default 0,
+supplier_id      int(13) not null default 0,
+
+unique key (product_id,product_id_local),
+key (product_id_local),
+key (supplier_id)) ENGINE = MyISAM;
+
+
+create table country_popular (
+country_popular_id int(13) primary key auto_increment,
+country_id         int(13) not null default 0,
+unique key (country_id));
+
+alter ignore table data_source_supplier_map add unique key (symbol(255),data_source_id,distributor_id);
+
+alter table supplier add column last_name varchar(255) NOT NULL default '';
+
+alter table product_feature_local add key (langid, product_feature_local_id);
+
+alter table product_price modify column price decimal(10,2) not null default 0.0;
+
+CREATE TABLE `campaign_gallery` (
+  `campaign_gallery_id` int(13) NOT NULL auto_increment,
+  `campaign_id` int(13) NOT NULL default '0',
+  `logo_pic` varchar(255) NOT NULL default '',
+  `thumb_pic` varchar(255) default NULL,
+  PRIMARY KEY  (`campaign_gallery_id`)
+);
+
+create table campaign_gallery_reverse (
+  `campaign_gallery_id` int(13)      NOT NULL primary key,
+  `logo_pic`            varchar(255) NOT NULL default '',
+  `thumb_pic`           varchar(255) default NULL,
+	key (logo_pic),
+	key (thumb_pic)
+);
+
+# initial campaign_gallery_reverse filling
+
+insert into campaign_gallery_reverse(campaign_gallery_id,logo_pic,thumb_pic) select campaign_gallery_id,REVERSE(logo_pic),REVERSE(thumb_pic) from campaign_gallery where logo_pic != '' or thumb_pic is not null;
+
+alter table contact add column email_subscribing enum('Y','N') not null default 'Y';
+
+alter table contact add key (email);
+
+alter table mail_dispatch add column salutation varchar(255) not null default '', add column footer text, add column sent_emails int(13) not null default 0;
+CREATE TABLE `time_interval` (
+  `interval_id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`interval_id`)
+);
+ALTER TABLE supplier_contact ADD COLUMN interval_id int(11) NOT NULL;
+ALTER TABLE supplier_contact ADD INDEX interval_id (interval_id);
+INSERT INTO `time_interval` (`interval_id`, `name`) VALUES(2, 'weekly'),(1, 'monthly'),(3, 'daily');
+
+CREATE TABLE `product_active` (
+  `product_id` int(13) NOT NULL default '0',
+  `active` int(1) NOT NULL default '0',
+  `stock` int(13) NOT NULL default '0',
+  KEY `product_id` (`product_id`,`active`),
+  KEY `active` (`active`)
+) ENGINE=MyISAM;
+
+alter table supplier add column prod_id_regexp text;
+
+ALTER TABLE distributor ADD direct TINYINT(1) NOT NULL DEFAULT '0';
+
+alter table distributor_product modify column distributor_product_id bigint(20) not null auto_increment;
+
+alter table distributor modify column code varchar(60) not null default '';
+
+alter table distributor drop key code_2;
+
+CREATE TABLE `soap_session` (
+`user_id` INT( 13 ) NOT NULL ,
+`session_id` VARCHAR( 255 ) NOT NULL DEFAULT '',
+PRIMARY KEY ( `user_id` ) ,
+INDEX ( `session_id` )
+);
+
+alter table aggregated_request_stat drop key date, add key product_id_date (product_id,date), add key date (date);
+
+alter table stat_query add column product_distributor_id int(13) not null default 0, add column product_country_id int(13) not null default 0, add column product_onstock tinyint(1) not null default 0;
+
+alter table product add key (`supplier_id`,`product_id`);
+
+alter table stat_query add column supplier_type enum('','Y','N') not null default '';
+
+create table product_wrong_partcodes (
+product_wrong_partcodes_id int(13) primary key auto_increment,
+product_id                 int(13) not null default 0,
+supplier_id                int(13) not null default 0,
+
+key (product_id,supplier_id),
+key (supplier_id)) ENGINE = MyISAM;
+
+alter table country add column system_of_measurement enum('metric','imperial') not null default 'metric';
+
+alter table product_multimedia_object modify column type enum('standard','presentation','movie','literature') NOT NULL default 'standard';
+
+alter table measure add column system_of_measurement enum('metric','imperial') not null default 'metric';
+
+create table measure_related (
+measure_related_id int(13) primary key auto_increment,
+measure_id         int(13) not null default 0,
+related_measure_id int(13) not null default 0,
+factor             decimal(18,10) not null default 0,
+term               decimal(8,3)   not null default 0,
+unique key (measure_id,related_measure_id),
+key (related_measure_id));
+
+insert into measure_related(measure_id,related_measure_id,factor,term)
+values(34,16,0.393700787402,0),(24,16,0.0393700787402,0),(16,34,2.54,0),(17,127,2.20462262185,0),(38,147,0.0352739619496,0),(147,38,28.349523125,0),(127,17,0.45359237,0);
+
+alter table product_multimedia_object modify column type varchar(255) not null default 'standard';
+
+alter table distributor add column last_import_date int(13) not null default 0;
+
+alter table distributor add column file_creation_date int(13) not null default 0;
+
+alter table `stat_query` add column include_top_product int(1) not null default 1;
+alter table `stat_query` add column include_top_cats int(1) not null default 1;
+alter table `stat_query` add column include_top_owner int(1) not null default 0;
+alter table `stat_query` add column include_top_supplier int(1) not null default 0;
+
+alter table generate_report_bg_processes add column bg_end_date  int(13) not null default 0;
+
+INSERT INTO `gccdb1`.`product_family` (
+`family_id` ,
+`parent_family_id` ,
+`supplier_id` ,
+`sid` ,
+`tid` ,
+`low_pic` ,
+`thumb_pic` ,
+`catid`
+)
+VALUES (
+'1', '0', '0', '0', '0', NULL , NULL , '0'
+);
+ ALTER TABLE `pricelist` ADD `source_info` ENUM('iceshop','icecat','prf');
+
+
+
+create view view_product_free as select product_id from product inner join supplier using (supplier_id) where is_sponsor='Y';
+
+create view view_product_described as select product_id from product inner join users using (user_id) inner join user_group_measure_map ugmm using(user_group) inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure where cmim.quality_index > 0;
+
+alter table users add column user_supplier_id int(13) not null default 0, add key (supplier_id);
+
+create table platform (
+platform_id int(13)      primary key auto_increment,
+name        varchar(100) not null default '',
+unique key (name)) ENGINE = MyISAM;
+
+insert into platform(name) values('osCommerce'),('Magento'),('prestashop'),('Batavi'),('xtCart'),('Quotewerks'),('zencart'),('virtuemart');
+
+create table product_high_pic_dimensions (
+product_id int(13) primary key,
+width      int(13) not null default 0,
+height     int(13) not null default 0,
+key wp (width, product_id),
+key hwp (height, width, product_id)
+) ENGINE=MyISAM;
+
+	alter table category add column visible int(3) NOT NULL default '0', add key visible (visible,catid);
+	update category set visible = searchable, updated = updated;
+	
+	create table brand_assigned_users (
+	brand_assigned_users_id int(13) primary key auto_increment,
+	user_id                 int(13) not null default 0,
+	supplier_id             int(13) not null default 0,
+	key (user_id, supplier_id),
+	key (supplier_id)
+	) ENGINE=InnoDB;
+
+ALTER TABLE `distributor` ADD `source` ENUM( 'iceshop', 'icecat', 'prf' ) NOT NULL default 'icecat';
+
+ALTER TABLE `distributor` ADD `group_code` VARCHAR( 255 ) NOT NULL DEFAULT ''
+
+
+
+ALTER TABLE `stat_query` ADD `include_top_request_country` INT( 1 ) NOT NULL DEFAULT '0'
+
+
+alter ignore table product_name add unique key (langid,product_id), add key (product_id), drop key product_id2;
+
+CREATE TABLE `category_feature_interval` (
+`category_feature_interval_id` int(13) NOT NULL AUTO_INCREMENT,
+`category_feature_id` int(13) NOT NULL DEFAULT '0',
+`intervals` mediumtext,
+`in_each` mediumtext,
+`valid` int(13),
+`invalid` int(13),
+`updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (`category_feature_interval_id`),
+UNIQUE KEY `category_feature_id` (`category_feature_id`)
+);
+
+ALTER TABLE product ADD (high_pic_width int(13) NOT NULL DEFAULT '0', high_pic_height int(13) NOT NULL DEFAULT '0', low_pic_width int(13) NOT NULL DEFAULT '0', low_pic_height int(13) NOT NULL DEFAULT '0');
+
+ALTER TABLE product_gallery ADD thumb_size int(15) NOT NULL DEFAULT '0';
+
+CREATE TABLE `virtual_category_product` (
+`virtual_category_product_id` int(13) NOT NULL AUTO_INCREMENT,
+`product_id` int(13) NOT NULL DEFAULT '0',
+`virtual_category_id` int(13) NOT NULL DEFAULT '0',
+PRIMARY KEY (`virtual_category_product_id`),
+UNIQUE KEY `vcatid` (`product_id`, `virtual_category_id`)
+);
+
+CREATE TABLE `virtual_category` (
+`virtual_category_id` int(13) NOT NULL AUTO_INCREMENT,
+`name` varchar(255) NOT NULL DEFAULT '',
+`category_id` int(13) NOT NULL DEFAULT '0',
+PRIMARY KEY (`virtual_category_id`)
+);
+
+INSERT INTO product_family SET family_id = 1, parent_family_id = 0;
+
+create table request_history (
+login    char(40)      not null,
+password enum('Y','N') not null default 'N',
+ip       char(15)      not null,
+url      varchar(255)  not null,
+date     int(13)       not null
+) ENGINE=MyISAM;
+
+alter table request_history add key (login), add key (ip), add key (date);
+
+alter table product modify column `publish` char(1) NOT NULL default 'Y';
+
+update product set publish='Y', updated=updated where publish in ('',' ','N');
+
+alter table product add key (publish,public,product_id);
+
+ALTER TABLE category_feature_interval ADD column invalid_values mediumtext NOT NULL;
+
+alter table product_family add column data_source_id int(13) not null default 0, add column symbol varchar(120) not null default '', add key (data_source_id), add key (symbol);
+
+create table update_product_md5_cache (
+update_product_md5_cache_id int(13)     primary key auto_increment,
+table_name                  varchar(60) not null default '',
+table_id                    bigint(20)  not null default 0,
+md5_hash                    char(32)    not null default '',
+size                        int(13)     not null default 0,
+unique key (table_name,table_id),
+key (md5_hash,table_name,table_id));
+
+alter table language add key (short_code);
+
+alter table update_product_md5_cache add column updated timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+
+alter table process_queue modify column id bigint(20) not null auto_increment;
+
+alter table product_html_key add key (html_key);
+
+alter table product_related add `order` smallint(5) unsigned not null default 65535;
+
+alter table product_related modify preferred_option tinyint(1) not null default 0;
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `track_column_name` (
+  `track_column_name_id` int(13) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `order` int(3) NOT NULL,
+  `symbol` varchar(255) NOT NULL,
+  `is_restricted` int(1) NOT NULL default '0',
+  PRIMARY KEY  (`track_column_name_id`),
+  UNIQUE KEY `symbol` (`symbol`)
+);
+
+INSERT INTO `track_column_name` (`track_column_name_id`, `name`, `order`, `symbol`, `is_restricted`) VALUES
+(2, 'Real Supplier', 2, 'supplier_name', 0),
+(3, 'Original Supplier', 3, 'feed_supplier', 0),
+(4, 'Original Partnumber', 4, 'feed_prod_id', 0),
+(5, 'Map', 5, 'is_rule_confirmed', 0),
+(6, 'Part number', 6, 'map_prod_id', 0),
+(7, 'Original eans', 7, 'eans_joined', 0),
+(8, 'Name', 8, 'name', 0),
+(9, 'Remarks', 9, 'remarks', 0),
+(10, 'ext_col1', 10, 'ext_col1', 1),
+(11, 'ext_col2', 11, 'ext_col2', 1),
+(12, 'ext_col3', 12, 'ext_col3', 1),
+(13, 'Found eans', 13, 'extr_ean', 1),
+(14, 'Owner', 14, 'extr_login', 1),
+(15, 'Found languages', 15, 'extr_langs', 1),
+(16, 'PDF languages', 16, 'extr_pdf_langs', 1),
+(17, 'Manuals languages', 17, 'extr_man_langs', 1),
+(18, 'Found related', 18, 'extr_rel_count', 1),
+(19, 'Added', 19, 'extr_date_added', 1),
+(20, 'Features', 20, 'extr_feat_count', 1),
+(21, 'Quality', 21, 'extr_quality', 1),
+(22, 'Link', 22, 'link_to_product', 0);
+(23, 'Action', 1, 'is_parked', 0),
+
+
+CREATE TABLE IF NOT EXISTS `track_list` (
+  `track_list_id` int(13) NOT NULL auto_increment,
+  `feed_config_id` varchar(50) NOT NULL,
+  `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `feed_url` varchar(255) NOT NULL,
+  `feed_type` varchar(10) NOT NULL,
+  `is_first_header` int(1) NOT NULL default '1',
+  `feed_login` varchar(250) NOT NULL,
+  `feed_pwd` varchar(250) NOT NULL,
+  `delimiter` varchar(250) NOT NULL,
+  `newline` varchar(250) NOT NULL,
+  `escape` varchar(1) NOT NULL default '\\',
+  `quote` varchar(1) NOT NULL default '"',
+  `user_choiced_file` varchar(250) NOT NULL default '',
+  `ean_cols` varchar(30) NOT NULL,
+  `name_col` int(11) NOT NULL default '0',
+  `brand_col` int(11) NOT NULL default '0',
+  `brand_prodid_col` int(11) NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `deadline_date` int(15) NOT NULL default '0',
+  `created` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `user_id` int(13) NOT NULL default '0',
+  `priority` enum('1','2','3') NOT NULL default '3',
+  `is_open` int(1) NOT NULL default '1',
+  `reminder_period` int(10) NOT NULL default '0',
+  `ext_col1` int(5) NOT NULL default '0',
+  `ext_col2` int(5) NOT NULL default '0',
+  `ext_col3` int(11) NOT NULL default '0',
+  `ext_col1_name` varchar(255) NOT NULL default '',
+  `ext_col2_name` varchar(255) NOT NULL default '',
+  `ext_col3_name` varchar(255) NOT NULL default '',
+  `rules` text NOT NULL,
+  `goal_coverage` int(5) NOT NULL default '100',
+  PRIMARY KEY  (`track_list_id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `track_list_editor` (
+  `track_list_editor_id` int(13) NOT NULL auto_increment,
+  `track_list_id` int(13) NOT NULL,
+  `user_id` int(13) NOT NULL,
+  `updated` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`track_list_editor_id`),
+  UNIQUE KEY `owner` (`track_list_id`,`user_id`),
+  KEY `track_list_id` (`track_list_id`,`user_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `track_list_lang` (
+  `track_list_editor_id` int(13) NOT NULL auto_increment,
+  `track_list_id` int(13) NOT NULL,
+  `langid` int(13) NOT NULL,
+  `updated` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`track_list_editor_id`),
+  UNIQUE KEY `lang` (`track_list_id`,`langid`),
+  KEY `track_list_id` (`track_list_id`,`langid`)
+);
+
+CREATE TABLE IF NOT EXISTS `track_product` (
+  `track_product_id` int(13) NOT NULL auto_increment,
+  `track_list_id` int(13) NOT NULL,
+  `product_id` int(13) NOT NULL default '0',
+  `feed_prod_id` varchar(255) NOT NULL default '',
+  `by_ean_prod_id` int(1) NOT NULL default '0',
+  `map_prod_id` varchar(250) NOT NULL,
+  `feed_supplier` varchar(255) NOT NULL default '',
+  `is_reverse_rule` int(1) NOT NULL default '1',
+  `rule_prod_id` varchar(255) NOT NULL default '',
+  `rule_user_id` int(13) NOT NULL default '0',
+  `supplier_id` int(13) NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `ext_col1` varchar(255) NOT NULL default '',
+  `ext_col2` varchar(255) NOT NULL default '',
+  `ext_col3` varchar(255) NOT NULL default '',
+  `remarks` text NOT NULL,
+  `is_parked` int(1) NOT NULL default '0',
+  `quality` varchar(40) NOT NULL default '',
+  `described_date` datetime NOT NULL,
+  `updated` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
+  `extr_langs` varchar(255) NOT NULL default '',
+  `extr_pdf_langs` varchar(255) NOT NULL,
+  `extr_man_langs` varchar(255) NOT NULL,
+  `extr_rel_count` int(5) default NULL,
+  `extr_feat_count` int(5) default NULL,
+  `extr_quality` varchar(40) NOT NULL default '',
+  `track_product_status` varchar(40) NOT NULL default '',
+  `eans_joined` varchar(255) NOT NULL default '',
+  `extr_ean` varchar(15) default NULL,
+  PRIMARY KEY  (`track_product_id`),
+  KEY `product_id_indx` (`product_id`),
+  KEY `track_list_id_indx` (`track_list_id`),
+  KEY `supplier_id` (`supplier_id`),
+  KEY `rule_user_id` (`rule_user_id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `track_product_ean` (
+  `track_product_ean_id` int(13) NOT NULL auto_increment,
+  `track_product_id` int(13) NOT NULL,
+  `ean` varchar(50) NOT NULL default '',
+  `product_id` varchar(13) NOT NULL default '0',
+  PRIMARY KEY  (`track_product_ean_id`),
+  KEY `track_product_id` (`track_product_id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `track_restricted_columns` (
+  `track_restricted_columns_id` int(13) NOT NULL auto_increment,
+  `track_list_id` int(13) NOT NULL,
+  `track_column_name_id` int(13) NOT NULL,
+  PRIMARY KEY  (`track_restricted_columns_id`),
+  UNIQUE KEY `track_list_id` (`track_list_id`,`track_column_name_id`),
+  KEY `track_column_name_id` (`track_column_name_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `track_user_columns` (
+  `track_user_columns_id` int(13) NOT NULL auto_increment,
+  `user_id` int(13) NOT NULL,
+  `track_list_id` int(13) NOT NULL,
+  `track_column_name_id` int(13) NOT NULL,
+  PRIMARY KEY  (`track_user_columns_id`),
+  UNIQUE KEY `user_id` (`user_id`,`track_list_id`,`track_column_name_id`),
+  KEY `track_column_name_id` (`track_column_name_id`)
+);
+
+alter table product_html_key add key (date);
+
+ALTER TABLE `track_product` ADD `rule_supplier_id` INT( 13 ) NOT NULL DEFAULT '0' AFTER `map_prod_id` 
+
+ALTER TABLE `track_product` ADD `park_cause` ENUM( 'noinfo', 'prod_id', 'other', '' ) NOT NULL DEFAULT '' AFTER `is_parked`  
+UPDATE `track_column_name` SET `name` = 'Map' WHERE `track_column_name`.`track_column_name_id` =5 LIMIT 1 ;
+
+ALTER TABLE `users` ADD `logo_pic` VARCHAR( 255 ) NOT NULL DEFAULT '',
+ADD `is_implementation_partner` INT( 1 ) NOT NULL DEFAULT '0'=======
+
+ALTER TABLE `users` ADD `logo_pic` VARCHAR( 255 ) NOT NULL DEFAULT '',ADD `is_implementation_partner` TINYINT( 1 ) NOT NULL DEFAULT '0'
+
+UPDATE `track_column_name` SET `name` = 'File''s Part Numper' WHERE `track_column_name`.`track_column_name_id` =4 LIMIT 1 ;
+UPDATE `track_column_name` SET `name` = 'Map Part Number' WHERE `track_column_name`.`track_column_name_id` =5 LIMIT 1 ;
+UPDATE `track_column_name` SET `name` = 'Mapped Part Number' WHERE `track_column_name`.`track_column_name_id` =6 LIMIT 1 ;
+
+INSERT INTO `gccdb1`.`feature_input_type` (`type` ,`name` ,`pattern`)VALUES ('multi_dropdown', 'Multi feature', '');
+ALTER TABLE `users` ADD `logo_pic` VARCHAR( 255 ) NOT NULL DEFAULT '', ADD `is_implementation_partner` TINYINT( 1 ) NOT NULL DEFAULT '0';
+
+alter table request_repository modify column request_repository_id bigint(20) not null auto_increment;
+
+
+update track_column_name SET symbol='feed_supplier'  WHERE track_column_name_id=3;
+update track_column_name SET name='Brand'  WHERE track_column_name_id=2;
+update track_column_name SET name='Original Part Number'  WHERE symbol='feed_prod_id';
+update track_column_name SET name='Part Number'  WHERE symbol='map_prod_id';
+update track_column_name SET name='Original EANs'  WHERE symbol='extr_ean';
+delete from  track_column_name WHERE symbol='is_parked';
+insert into track_column_name (`name`,`order`,`symbol`,is_restricted) values ('Action',1,'actions',0);
+
+
+CREATE TABLE `google_translations` (
+ `google_translations_id` int(13) NOT NULL auto_increment,
+ `source_text` mediumtext NOT NULL,
+ `source_text_md5` varchar(100) NOT NULL,
+ `source_langid` int(13) NOT NULL,
+ `trans_text` mediumtext NOT NULL,
+ `trans_text_md5` varchar(100) NOT NULL,
+ `trans_langid` int(13) NOT NULL,
+ PRIMARY KEY  (`google_translations_id`),
+ UNIQUE KEY `source_text_md5` (`source_text_md5`,`source_langid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+
+DROP TABLE IF EXISTS `default_warranty_info`;
+CREATE TABLE `default_warranty_info` (
+`default_warranty_info_id` int(13) NOT NULL AUTO_INCREMENT,
+`supplier_id` int(13) NOT NULL DEFAULT '0',
+`catid` int(13) NOT NULL DEFAULT '0',
+`langid` int(13) NOT NULL DEFAULT '0',
+`warranty_info` mediumtext NOT NULL,
+PRIMARY KEY (`default_warranty_info_id`),
+UNIQUE KEY `default_warranty_info_key` (`catid`,`supplier_id`,`langid`)
+);
+
+ALTER TABLE distributor ADD sync tinyint NOT NULL DEFAULT 1;
+ALTER TABLE distributor ADD visible tinyint NOT NULL DEFAULT 0;
+
+CREATE TABLE `actual_product` (
+`actual_product_id` int(13) NOT NULL AUTO_INCREMENT,
+`product_id` int(13) NOT NULL DEFAULT '0',
+`langid` int(13) NOT NULL DEFAULT '0',
+`updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`actual_product_id`),
+UNIQUE KEY `pair` (`product_id`,`langid`)
+) ENGINE=MyISAM;
+
+CREATE TABLE `product_index_cache` (
+`product_index_cache_id` int(13)     NOT NULL AUTO_INCREMENT,
+`product_id`             int(13)     NOT NULL DEFAULT '0',
+`xml_info`               mediumtext,
+`csv_info`               mediumtext,
+`updated`                timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`product_index_cache_id`),
+KEY `product_id` (`product_id`),
+KEY `updated` (`updated`)
+) ENGINE=MyISAM;
+
+ALTER TABLE product ADD high_pic_origin varchar(255) NOT NULL DEFAULT '';
+ALTER TABLE product_gallery ADD link_origin varchar(255) NOT NULL DEFAULT '';
+ALTER TABLE product_multimedia_object ADD link_origin varchar(255) NOT NULL DEFAULT '';
+
+alter table data_source_category_map add column unused int(13) not null default 0;
+
+ALTER TABLE `distributor` CHANGE `source` `source` ENUM('iceimport','icecat','prf')  NOT NULL default 'icecat';
+update `distributor` set source='iceimport' where source='';
+
+DROP TABLE IF EXISTS `editor_journal_product_feature_pack`;
+CREATE TABLE `editor_journal_product_feature_pack` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `data` text NOT NULL DEFAULT '',
+  PRIMARY KEY (`content_id`)
+);
+
+DROP TABLE IF EXISTS `editor_journal_product_feature_local_pack`;
+CREATE TABLE `editor_journal_product_feature_local_pack` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `data` text NOT NULL DEFAULT '',
+  PRIMARY KEY (`content_id`)
+);
+
+DROP TABLE IF EXISTS `editor_journal_product`;
+CREATE TABLE editor_journal_product (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(13) NOT NULL DEFAULT '0',
+  `prod_id` varchar(60) NOT NULL DEFAULT '',
+  `catid` int(13) NOT NULL DEFAULT '0',
+  `user_id` int(13) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `low_pic` varchar(255) NOT NULL DEFAULT '',
+  `high_pic` varchar(255) NOT NULL DEFAULT '',
+  `publish` char(1) NOT NULL DEFAULT '',
+  `public` char(1) NOT NULL DEFAULT '',
+  `thumb_pic` varchar(255) NOT NULL DEFAULT '',
+  `family_id` int(13) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`content_id`)
+);
+
+DROP TABLE IF EXISTS `editor_journal_product_name`;
+CREATE TABLE `editor_journal_product_name` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `langid` smallint(5) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`content_id`)  
+);
+
+DROP TABLE IF EXISTS `editor_journal_product_description`;
+CREATE TABLE `editor_journal_product_description` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `langid` int(13) NOT NULL DEFAULT '0',
+  `short_desc` varchar(3000) NOT NULL DEFAULT '',
+  `long_desc` mediumtext NOT NULL DEFAULT '',
+  `official_url` varchar(255) NOT NULL DEFAULT '',
+  `warranty_info` mediumtext NOT NULL DEFAULT '',
+  `pdf_url` varchar(255) NOT NULL DEFAULT '',
+  `manual_pdf_url` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`content_id`) 
+);
+
+DROP TABLE IF EXISTS `editor_journal_product_multimedia_object`;
+CREATE TABLE `editor_journal_product_multimedia_object` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `short_descr` mediumtext NOT NULL DEFAULT '',
+  `langid` int(13) NOT NULL DEFAULT 0,
+  `content_type` varchar(255) NOT NULL DEFAULT '',
+  `keep_as_url` tinyint(1) NOT NULL DEFAULT 0,
+  `type` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`content_id`)
+);
+
+DROP TABLE IF EXISTS `editor_journal_product_ean_codes`;
+CREATE TABLE `editor_journal_product_ean_codes` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `ean_code` char(13) NOT NULL DEFAULT '',
+  PRIMARY KEY (`content_id`)
+);
+
+DROP TABLE IF EXISTS `editor_journal_product_related`;
+CREATE TABLE `editor_journal_product_related` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  `rel_product_id` int(13) NOT NULL DEFAULT 0,
+  `rel_product_name` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`content_id`)
+);
+
+DROP TABLE IF EXISTS `editor_journal_product_gallery`;
+CREATE TABLE `editor_journal_product_gallery` (
+  `content_id` int(13) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`content_id`)
+);
+
+ALTER TABLE editor_journal ADD action_type int(13) NOT NULL DEFAULT 0, ADD content_id int(13) NOT NULL DEFAULT 0;
+UPDATE editor_journal SET content_id = 0, action_type = 0;
+
+DROP TABLE IF EXISTS `editor_journal_custom`;
+CREATE TABLE `editor_journal_custom` (
+  `id` int(13) NOT NULL AUTO_INCREMENT,
+  `table_name` varchar(30) NOT NULL DEFAULT '',
+  `content_id` int(13) NOT NULL DEFAULT 0,
+  `data` text NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+);
+
+ALTER TABLE `generate_report_bg_processes` ADD `connection_id` BIGINT( 25 ) NOT NULL DEFAULT '0';
+
+# BEGIN: remove duplicated keys
+
+ALTER TABLE `product` DROP INDEX `supplier_id`, DROP INDEX `supplier_id_3`, ADD INDEX `supplier_id_3` (`supplier_id`), DROP INDEX `publish`, ADD INDEX `publish` (`publish`,`public`);
+ALTER TABLE `product_bullet` DROP INDEX `product_id`;
+ALTER TABLE `product_family_nestedset` DROP INDEX `id_name`;
+ALTER TABLE `product_feature_local` DROP INDEX `langid_2`;
+ALTER TABLE `product_gallery` DROP INDEX `product_id`;
+ALTER TABLE `product_interest_score` DROP INDEX `status2`, ADD INDEX `status2` (`status`);
+ALTER TABLE `track_list_editor` DROP INDEX `track_list_id`;
+ALTER TABLE `track_list_lang` DROP INDEX `track_list_id`;
+alter table product drop key supplier_id_3;
+
+# END: remove duplicated keys
+
+ALTER TABLE editor_journal_product_gallery ADD link varchar(255) NOT NULL DEFAULT '';
+ALTER TABLE editor_journal_product_multimedia_object ADD link varchar(255) NOT NULL DEFAULT '';
+
+ALTER TABLE product_description ADD (pdf_url_origin varchar(255) NOT NULL DEFAULT '', manual_pdf_url_origin varchar(255) NOT NULL DEFAULT '');
+
+alter table product_deleted add column `map_product_id` int(13) NOT NULL default '0', add key (map_product_id,product_id);
+
+CREATE TABLE `dictionary` (`dictionary_id` int(11) NOT NULL auto_increment,`code` varchar(255) NOT NULL, `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP, `name` varchar(255) NOT NULL default '', `dictionary_group_id` int(11) NOT NULL default '0', PRIMARY KEY  (`dictionary_id`), UNIQUE KEY `code` (`code`));
+CREATE TABLE `dictionary_text` (`dictionary_text_id` int(11) NOT NULL auto_increment, `dictionary_id` int(11) NOT NULL, `html` text NOT NULL, `langid` int(11) NOT NULL default '0', PRIMARY KEY  (`dictionary_text_id`), KEY `dictonary_id` (`dictionary_id`));
+create table dictionary_group (dictionary_group_id int(11) not null auto_increment,value varchar(255) not null default '', PRIMARY KEY(dictionary_group_id));
+INSERT INTO `dictionary_group` (`dictionary_group_id` ,`value`)VALUES (NULL , 'Emails'), (NULL , 'Ice Import distributor');
+ 
+
+alter table editor_journal engine=innodb;
+
+DROP TABLE IF EXISTS product_restrictions;
+CREATE TABLE product_restrictions (
+`id` int(13) NOT NULL AUTO_INCREMENT,
+`supplier_id` int(13) NOT NULL DEFAULT 0,
+`langid` int(13) NOT NULL DEFAULT 0,
+`subscription_level` int(13) NOT NULL DEFAULT 0,
+PRIMARY KEY (`id`),
+UNIQUE KEY `supplier_id` (`supplier_id`, `langid`)
+);
+
+DROP TABLE IF EXISTS product_restrictions_details;
+CREATE TABLE product_restrictions_details (
+`id` int(13) NOT NULL AUTO_INCREMENT,
+`restriction_id` int(13) NOT NULL DEFAULT 0,
+`product_id` int(13) NOT NULL DEFAULT 0,
+PRIMARY KEY (`id`),
+KEY `supplier_id` (`restriction_id`)
+);
+
+alter table vocabulary add column `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+add column last_published timestamp NOT NULL;
+
+alter table measure_sign add column `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+add column last_published timestamp NOT NULL;
+
+alter table product_ean_codes add key (updated);
+alter table aggregated_product_count add key (updated);
+
+alter ignore table tex add unique key (langid,tid);
+
+ALTER TABLE `track_list` ADD `start_update` DATETIME NOT NULL DEFAULT 0,ADD `end_update` DATETIME NOT NULL DEFAULT 0;
+INSERT INTO `track_column_name` (`track_column_name_id` ,`name` ,`order` ,`symbol` ,`is_restricted`)VALUES (NULL , 'Modified by', '23', 'changer', '0');
+ALTER TABLE `track_product` ADD `changer` INT( 11 ) NOT NULL DEFAULT '0';
+ALTER TABLE `track_product` ADD `changer_action` VARCHAR( 255 ) NOT NULL DEFAULT '';
+
+alter table feature add key (sid);
+alter table measure add key (sid), add key (tid), add key (updated), add key (last_published);
+alter table vocabulary add key (updated), add key (last_published);
+alter table product drop key catid, add key (catid, updated), add key (updated);
+alter table feature_group add key (sid);
+
+alter table actual_product add column xml_updated tinyint(1) not null default 0, add key (xml_updated), add key (`langid`,`product_id`,`updated`);
+
+alter table process_queue add column langid_list varchar(255) not null default '';
+
+alter table user_group_measure_map add key (measure);
+
+alter table content_measure_index_map add key (quality_index);
+
+CREATE TABLE `distributor_tokens` (`distributor_token_id` int(13) NOT NULL auto_increment, `distributor_id` int(13) NOT NULL, `token` varchar(255) NOT NULL, PRIMARY KEY  (`distributor_token_id`), UNIQUE KEY `token2`(`distributor_id`,`token`), KEY (`token`));
+
+ALTER TABLE distributor MODIFY sync TINYINT(4) DEFAULT NULL;
+
+ALTER TABLE mail_dispatch ADD COLUMN single_email varchar(70) default NULL AFTER to_emails;
+ALTER TABLE mail_dispatch ADD COLUMN country_id int(11) default NULL AFTER single_email;
+
+alter table process_queue engine=InnoDB;
+alter table process_queue drop key process_class_id, add unique key process_class_id (process_class_id, command, product_id, langid_list);
+
+alter table product add key (catid,supplier_id,product_id);
+
+/* brand page. BEGIN */
+
+ALTER TABLE contact ADD COLUMN position varchar(255) default NULL;
+ALTER TABLE contact ADD COLUMN supplier_contact_report_id int(13) NOT NULL default 0, add key (supplier_contact_report_id, contact_id);
+
+CREATE TABLE supplier_users (
+supplier_users_id int(13) primary key auto_increment,
+supplier_id       int(13) not null default 0,
+user_id           int(13) not null default 0,
+unique key (supplier_id, user_id),
+key (user_id));
+
+CREATE TABLE supplier_contact_report (
+supplier_contact_report_id int(13)     primary key auto_increment,
+default_manager            varchar(2)  default 'N',
+use4mail                   varchar(2)  default 'N',
+interval_id                int(11)     NOT NULL default 0,
+report_lang                int(3)      NOT NULL default 1,
+report_format              varchar(10) NOT NULL default 'html',
+key (interval_id, supplier_contact_report_id));
+
+/* brand page. END */
+
+ALTER TABLE `data_source_feature_map` ADD `used_in` INT( 13 ) NOT NULL DEFAULT '1';
+
+CREATE TABLE `data_source_feature_map_info` (
+ `data_source_feature_map_info_id` int(13) NOT NULL auto_increment,
+ `data_source_feature_map_id` int(13) NOT NULL,
+ `langid` int(13) NOT NULL,
+ `example_values` text,
+ `measure_sign` varchar(255) NOT NULL default '',
+ `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+ PRIMARY KEY  (`data_source_feature_map_info_id`),
+ UNIQUE KEY `data_source_feature_map_id` (`data_source_feature_map_id`,`langid`)
+) ENGINE=MyISAM;
+
+CREATE TABLE `data_source_feature_map_replaces` (
+ `id` int(13) NOT NULL auto_increment,
+ `data_source_feature_map_info_id` int(13) NOT NULL,
+ `value` varchar(255) NOT NULL default '',
+ PRIMARY KEY  (`id`),
+ UNIQUE KEY `data_source_feature_map_info_id` (`data_source_feature_map_info_id`,`value`)
+) ENGINE=MyISAM;
+
+ALTER TABLE dictionary_text ADD distributor_id INT(13) NOT NULL, ADD UNIQUE KEY (dictionary_id, langid, distributor_id);
+
+ALTER TABLE language ADD backup_langid INT(3);
+
+/* Testseek. BEGIN */
+
+CREATE TABLE product_review (
+product_review_id     int(13)      primary key auto_increment,
+product_id            int(13)      not null default 0,
+langid                int(13)      not null default 0,
+review_group          varchar(60)  not null default '',
+review_code           varchar(60)  not null default '',
+review_id             int(13)      not null default 0,
+score                 int(13)      not null default 0,
+url                   varchar(255) not null default '',
+logo_url              varchar(255) not null default '',
+value                 text,
+value_good            text,
+value_bad             text,
+postscriptum          text,
+review_award_name     varchar(120) not null default '',
+high_review_award_url varchar(255) not null default '',
+low_review_award_url  varchar(255) not null default '',
+date_added            date,
+updated               timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+unique key (product_id, review_id, langid),
+key (date_added),
+key (review_group, product_id));
+
+CREATE TABLE product_award (
+product_award_id int(13) primary key auto_increment,
+product_id       int(13) not null default 0,
+award_group      varchar(60)  not null default '',
+award_code       varchar(60)  not null default '',
+award_name       varchar(120) not null default '',
+high_award_url   varchar(255) not null default '',
+low_award_url    varchar(255) not null default '',
+updated          timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+unique key (product_id, award_code),
+key (award_group, product_id));
+
+/* Testseek. END */
+
+alter table process_queue add key (langid_list);
+
+alter table aggregated_request_stat modify column `count` mediumint(8) unsigned not null default 0, modify column `date` int(11) unsigned not null default 0, modify column `user_id` mediumint(8) unsigned not null default 0;
+
+alter table product_deleted add key (prod_id, supplier_id);
+
+alter table product_active add primary key (product_id), add key (active, product_id), drop key product_id, drop key active;
+
+ALTER TABLE `product_map` ADD `track_list_id` INT( 13 ) NOT NULL DEFAULT 0;
+create table track_list_entrusted_users (user_id int(13) not null, PRIMARY KEY (user_id));
+create table track_list_supplier_map (track_list_supplier_map_id int(13) not null auto_increment,symbol varchar(255) not null, supplier_id int(13) not null default 0, client_id int(13) not null,UNIQUE KEY(symbol,client_id),KEY(symbol), PRIMARY KEY(track_list_supplier_map_id));
+ALTER TABLE `track_list` ADD `client_id` INT( 13 ) NOT NULL DEFAULT '0',ADD INDEX ( `client_id` ); 
+ALTER TABLE `track_product` ADD INDEX ( `rule_prod_id` );
+ALTER TABLE `track_product` ADD `rule_status` INT( 3 ) NOT NULL DEFAULT '0';
+
+create table ean_codes_20101130 as Select * from product_ean_codes;
+UPDATE IGNORE product_ean_codes SET ean_code=LPAD(ean_code,13,'0') WHERE length(ean_code)<13 and ean_code!='';
+delete from product_ean_codes where length(ean_code)<13;
+
+CREATE TABLE `default_warranty_info` (
+  `default_warranty_info_id` int(13) NOT NULL auto_increment,
+  `supplier_id` int(13) NOT NULL default '0',
+  `catid` int(13) NOT NULL default '0',
+  `langid` int(13) NOT NULL default '0',
+  `warranty_info` mediumtext NOT NULL,
+  PRIMARY KEY  (`default_warranty_info_id`),
+  UNIQUE KEY `default_warranty_info_key` (`catid`,`supplier_id`,`langid`)
+) ENGINE=MyISAM;
+
+CREATE TABLE `update_product_md5_cache` (
+  `update_product_md5_cache_id` int(13) NOT NULL auto_increment,
+  `table_name` varchar(60) NOT NULL default '',
+  `table_id` bigint(20) NOT NULL default '0',
+  `md5_hash` char(32) NOT NULL default '',
+  `size` int(13) NOT NULL default '0',
+  `updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`update_product_md5_cache_id`),
+  UNIQUE KEY `table_name` (`table_name`,`table_id`),
+  KEY `md5_hash` (`md5_hash`,`table_name`,`table_id`)
+) ENGINE=MyISAM;
+ALTER TABLE `google_translations` DROP INDEX `source_text_md5` ,ADD UNIQUE `source_text_md5` ( `source_text_md5` , `source_langid` , `trans_langid` ); 
+create table product_import_subscription (
+			 product_import_subscription_id int(13)      primary key auto_increment,
+			 prod_id												varchar(60)  not null,
+			 supplier_id                    int(13)      not null,
+			 langid													tinyint(1)   not null,
+			 subscription										varchar(255) not null,
+			 updated												timestamp		 NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+
+			unique key (prod_id, supplier_id, langid),
+			key (langid),
+			key (supplier_id, prod_id)
+) ENGINE=MyISAM;
+
+alter ignore table product_deleted modify column prod_id varchar(60) not null default '';
+
+ALTER TABLE product ADD COLUMN series_id INT(17) NOT NULL DEFAULT 1;
+CREATE TABLE product_series ( series_id INT(17) NOT NULL PRIMARY KEY AUTO_INCREMENT, sid INT(13) NOT NULL, tid INT(13) NOT NULL, supplier_id INT(17) NOT NULL, catid INT(13) NOT NULL, family_id INT(17) NOT NULL, KEY (sid), KEY (supplier_id), KEY (family_id) );
+INSERT INTO product_series VALUES (1, 0, 0, 0, 0, 0);
+
+ALTER TABLE product ADD COLUMN checked_by_supereditor TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE editor_journal_product ADD COLUMN series_id INT(17) NOT NULL, ADD COLUMN checked_by_supereditor TINYINT(1) NOT NULL;
+CREATE TABLE product_words (product_words_id int(13) NOT NULL auto_increment, 
+                                                                                  product_id int(13) not null, 
+                                                                                  word varchar(255) not null default '',
+                                                                                  word_rev varchar(255) not null default '',
+                                                                                  PRIMARY KEY(product_words_id),
+                                                                                  UNIQUE KEY(product_id,word),
+                                                                                  KEY(word),
+                                                                                  KEY(word_rev));
+CREATE TABLE cache_atom_resource_count (select_count int(13) not null default 0,`updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,search_param_md5 varchar(255) not null default '',UNIQUE KEY(search_param_md5(255)));
+DROP TABLE sys_preference;
+CREATE TABLE multi_families_supplier ( supplier_id INT(13) NOT NULL PRIMARY KEY );

@@ -1,0 +1,42 @@
+{
+name: track_list_settings;
+priority: 1000;
+
+_resource_data: select tl.track_list_id,tl.name,tl.reminder_period,deadline_date,tl.rules,tl.priority,goal_coverage,is_open,
+				'','','','','',client_id
+				from track_list tl where tl.track_list_id=%%track_list_id%%;
+_resource_data_type: single;
+_resource_data_imply_fields: yes;
+_resource_data_key: track_list_id;
+_mapping_data: track_list_id,name,reminder_period,deadline_date,rules,priority,goal_coverage,is_open,avilable_user_id,occupied_user_id,avilable_langid,occupied_langid,restricted_col,client_id;
+
+def_multidropdown_width: 200;
+def_multidropdown_size: 20;
+format_as_dropdown_multi_pair_from_user_id: avilable_user_id;
+format_as_dropdown_multi_pair_to_user_id: occupied_user_id;
+format_as_dropdown_multi_pair_from_langid: avilable_langid;
+format_as_dropdown_multi_pair_to_langid: occupied_langid;
+format_as_track_list_restricted_cols: restricted_col;
+
+format_as_input_checkbox: is_open;
+deadline_date_year_year_plus: 2;
+format_as_unixdate_three_dropdowns: deadline_date;
+format_as_custom_select: priority; 
+format_as_dropdown: client_id;
+client_id_dropdown_select: select user_id, login from users where user_group = 'shop' and subscription_level=4 ORDER BY login; 
+
+store_as_unixdate_three_dropdowns: deadline_date;
+
+validate_as_mandatory: name,goal_coverage,client_id;
+validate_as_numeric: reminder_period;
+validate_as_tree_part_date: deadline_date;
+validate_as_mandatory_number: goal_coverage;
+
+_insert_sequence: 1;
+_insert_table_1: track_list;
+_insert_values_1: name,reminder_period,deadline_date,rules,priority,goal_coverage,is_open,client_id;
+_insert_fields_1: name,reminder_period,deadline_date,rules,priority,goal_coverage,is_open,client_id;
+_insert_key_1: track_list_id;
+_update_sequence_1: yes;
+_delete_sequence_1: yes;
+}

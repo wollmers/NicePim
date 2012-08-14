@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+
+#$Id: dump_all_features 3602 2010-12-17 13:56:30Z dima $
+
+use lib '/home/pim/lib';
+
+use strict;
+use icecat_util;
+use icecat_client;
+
+use atomsql;
+use atomcfg;
+use atomlog;
+use Data::Dumper;
+
+my $hash = {
+ 						'FeaturesList' => '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40'
+						};
+
+my $message = &build_message(&build_request($hash,'icecat','BcW9NgnbMH',time));
+ print $$message."\n\n";
+my $url = $atomcfg{host}."xml_server2.cgi";
+
+my $response = &post_message($$message, $url, 1);
+open(OUT, ">./dump_all_features.xml.gz");
+binmode(OUT,":bytes");
+print OUT $response;
+close(OUT);
+
+print "done\n";
+

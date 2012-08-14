@@ -1,0 +1,135 @@
+#!/usr/bin/perl
+
+#$Id: update_product_date 3069 2010-09-14 08:57:52Z dima $
+
+#use lib '/home/dima/gcc_svn/lib/';
+use lib '/home/pim/lib/';
+
+use atomsql;
+use atomlog;
+use strict;
+
+use atom_util;
+
+$| = 1;
+
+my $now = localtime;
+print "--- $now ---\n";
+
+
+################### DATE FROM MEASURES
+
+my $measure_date = &do_query("select measure_id from measure where unix_timestamp(updated) > last_published");
+my $measures = "(";
+
+foreach my $measure (@$measure_date) {
+	next unless (&diff_table_md5('measure',$measure->[0]));
+	$measures .= $measure->[0].",";
+} 
+
+$measures =~ s/,$//;
+$measures .= ")";
+
+# measures were updated
+if ($measures ne '()') {
+ &update_rows("feature", "measure_id in $measures", {'updated' => 'NOW()'});
+
+ print "MEASURES: $measures\n";
+
+ # update measures 'last_published'
+ &update_rows("measure", "measure_id in $measures", {'last_published' => 'unix_timestamp()'});
+ &update_table_md5('measure',$measures);
+}
+
+
+################### DATE FROM FEATURES
+
+my $feature_date = &do_query("select feature_id from feature where unix_timestamp(updated) > last_published");
+
+my $features = "(";
+
+foreach my $feature (@$feature_date) {
+	next unless (&diff_table_md5('feature',$feature->[0]));
+	$features .= $feature->[0].",";
+} 
+
+$features =~ s/,$//;
+$features .= ")";
+
+# features where updated then update category 'updated'
+
+if ($features ne '()') {
+	my $feature_categories = &do_query("select distinct c.catid
+from       category c
+inner join category_feature cf on c.catid = cf.catid
+inner join feature f           on cf.feature_id = f.feature_id
+where f.feature_id in $features");
+
+	my $categories = "(";
+
+	foreach my $category (@$feature_categories) {
+		$categories .= $category->[0].",";
+	}
+
+	$categories =~ s/,$//;
+	$categories .= ")";
+
+	&update_rows("category", "catid in $categories", {'updated' => 'NOW()'});
+	
+	print "FEATURES: $features\n";
+
+	# update features 'last_published'
+	&update_rows("feature", "feature_id in $features", {'last_published' => 'unix_timestamp()'});
+	&update_table_md5('feature',$features);
+}
+
+
+################### DATE FROM CATEGORY
+
+my $category_date = &do_query("select catid from category where unix_timestamp(updated) > last_published");
+my $categories = "(";
+
+#print ">>> cats_to_update " . ($#$category_date + 1) . "\n";
+
+foreach my $category (@$category_date) {
+	next unless (&diff_table_md5('category',$category->[0]));
+	$categories .= $category->[0].",";
+}
+
+$categories =~ s/,$//;
+$categories .= ")";
+
+# categories were updated then update product 'updated'
+if ($categories ne '()') {
+	&update_rows("product", "catid in $categories", {'updated' => 'NOW()'});
+	
+	print "CATEGORIES: $categories\n";
+	
+	# update categories 'last_published'
+	&update_rows("category", "catid in $categories", {'last_published' => 'unix_timestamp()'});
+	&update_table_md5('category',$categories);
+} 
+
+
+################### DATE FROM SUPPLIER (last_published -> last_name)
+
+# my $supplier_date = &do_query("select supplier_id from supplier where unix_timestamp(updated) > last_published");
+my $supplier_name = &do_query("select supplier_id from supplier where name != last_name");
+
+my $suppliers = "(";
+
+foreach my $supplier (@$supplier_name) {
+	$suppliers .= $supplier->[0].",";
+}
+
+$suppliers =~ s/,$//;
+$suppliers .= ")";
+
+# suppliers' names were updated then updated product 'updated'
+if ($#$supplier_name != -1) {
+	&update_rows("product", "supplier_id in $suppliers", {'updated' => 'NOW()'});
+	print "SUPPLIERS: $suppliers\n";
+
+	# update suppliers 'last_name'
+	&update_rows("supplier", "supplier_id in $suppliers", {'last_name' => 'name'});
+}

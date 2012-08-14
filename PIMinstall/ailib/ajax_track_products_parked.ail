@@ -1,0 +1,18 @@
+{
+name: ajax_track_products_parked;
+
+_resource_data: select tp.track_product_id,tp.remarks,tp.park_cause,tp.is_parked,tp.extr_quality,tp.rule_prod_id,tp.map_prod_id,
+				tp.track_list_id,u_ch.login,tp.changer_action				 
+				from track_product tp 
+				LEFT JOIN users u_ch ON u_ch.user_id=tp.changer
+				where track_product_id=%%track_product_id%%;
+_resource_data_type: single;
+_resource_data_key: track_product_id;
+_mapping_data: track_product_id,remarks,park_cause,is_parked_html,extr_quality_raw,rule_prod_id,map_prod_id,track_list_id,changer,changer_action;
+format_as_track_product_park_cause: park_cause; 
+format_as_track_product_parked: is_parked_html;
+format_as_hide_track_products_col: changer; 
+}
+
+format_as_input_checkbox: is_parked;
+is_parked_checked_by_default: N;

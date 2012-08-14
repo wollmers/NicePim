@@ -1,0 +1,265 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use lib '/home/pim/lib/';
+use atomsql;
+use serialize_data;
+
+use Data::Dumper;
+
+if (scalar @ARGV != 1) {
+    usage();
+}
+
+my $check_mode;
+my $debug_out = 0;
+my $p_limit = 100_000_000_000;
+
+if ($ARGV[0] eq 'TEST') {
+    $check_mode = 1;
+}
+elsif ($ARGV[0] eq 'CONVERT') {
+    $check_mode = 0;
+}
+else {
+    usage();
+}
+
+
+
+# this request specify a set of 'product_id'-s for processing
+# by default we should extract all existed products
+my $products = do_query("
+    SELECT DISTINCT product_id
+    FROM editor_journal
+    WHERE product_table = 'product_feature'
+");
+
+
+
+my $pid;
+my $report = '';
+
+my $total = 0;
+my @saved_params;
+my $action_type;
+
+my $pure_new_style = 0;
+my $pure_old_style = 0;
+my $converted_style = 0;
+my $unknown_style = 0;
+
+foreach my $p (@$products) {
+
+    $pid = $p->[0];
+    
+    #
+    # certain query
+    #
+    
+    my $ans2 = do_query("
+        SELECT GROUP_CONCAT(id), GROUP_CONCAT(product_table_id), date, user_id
+        FROM editor_journal
+        WHERE product_id = $pid
+        AND product_table = 'product_feature'
+        GROUP BY 3,4
+    ");
+    
+    $report = "product_id = $pid : ";
+    
+    $total++;
+    
+    #
+    # 'check_only' mode or 'update' mode
+    #
+    
+    if ($check_mode) {
+        foreach my $tr (@$ans2) {
+            my @ej_ids = split ',' , $tr->[0];
+            
+            foreach my $ej_id (@ej_ids) {
+                my $test = do_query("
+                    SELECT product_table_id, content_id
+                    FROM editor_journal
+                    WHERE id = $ej_id
+                ");
+                
+                if ( ($test->[0]->[0] != 0) and ($test->[0]->[1] == 0) ) {
+                    $pure_old_style++;
+                }
+                elsif ( ($test->[0]->[0] == 0) and ($test->[0]->[1] != 0) ) {
+                    $converted_style++;
+                }
+                elsif ( ($test->[0]->[0] != 0) and ($test->[0]->[1] != 0) ) {
+                    $pure_new_style++;
+                }
+                else {
+                    $unknown_style++;
+                    # print Dumper($test) . "\n" if ($debug_out);
+                }
+            }
+        }
+    }
+    else {
+        # process several groups of 'product_feature' records
+        my $pf_count;
+        my $packs = 0;
+        my $content_id;
+        $action_type = 1;
+        
+        foreach my $tr (@$ans2) {
+            my @pf_recs = split ',' , $tr->[0];
+            my @pf_ids = split ',' , $tr->[1];
+            
+            # if already converted
+            if (scalar @pf_recs == 1) {
+                my $test = do_query("
+                    SELECT product_table_id, content_id
+                    FROM editor_journal
+                    WHERE id = " . $pf_recs[0]
+                );
+                if ( ($test->[0]->[0] == 0) and ($test->[0]->[1] != 0) ) {
+                    print "Skipped\n";
+                    next;
+                }
+            }
+            
+            $pf_count = scalar @pf_recs;
+        
+            # add to report
+            $report .=  $pf_count . " ";
+            $packs++;
+        
+            # convert block
+            $content_id = add_ej_pf_pack(@pf_ids);
+            @saved_params = mass_kill(@pf_recs);
+            add_instead($content_id, $action_type, \@saved_params);
+        
+            # rest EJ records for this product will have 'update' type
+            $action_type = 3;
+        }
+    }
+    
+    # print "$report\n" if ($debug_out);
+    # print "---------------------------------------\n" if ($debug_out);
+    
+    # if limit
+    if ($total == $p_limit) {
+        last;
+    }
+}
+
+# print summary
+
+print "TOTAL products processed : $total\n" if ($debug_out);
+
+if ($check_mode) {
+    print "PURE OLD  style ej records : " . $pure_old_style . "\n";
+    print "PURE NEW  style ej records : " . $pure_new_style . "\n";
+    print "CONVERTED style ej records : " . $converted_style . "\n";
+    print "UNKNONW   style ej records : " . $unknown_style . "\n";
+}
+
+exit 0;
+
+# ------------------------------------------------
+# subs
+
+sub add_ej_pf_pack {
+    my @pf_ids = @_;
+    
+    # make stub
+    my $h = {};
+    foreach my $pf (@pf_ids) {
+        $h->{$pf} = '1' . "\n" . '2';
+    }
+    print Dumper($h) . "\n" if ($debug_out);
+    my $st = "INSERT INTO editor_journal_product_feature_pack (data) VALUES (" . str_sqlize(ser_pack($h)) . ")";
+    do_statement($st);
+    print "$st\n" if ($debug_out);
+    
+    my $content_id = do_query('SELECT LAST_INSERT_ID()')->[0]->[0]; 
+    return $content_id;
+}
+
+sub mass_kill {
+    my @ids = @_;
+
+    my $st;
+    my @saved_params;
+    my $is_saved = 0;
+    
+    foreach my $id (@ids) {
+        if (! $is_saved) {
+            my $sp = do_query("
+                SELECT supplier_id, prod_id, catid, date, product_id, user_id
+                FROM editor_journal
+                WHERE id = $id
+            ");
+            push @saved_params, $sp->[0]->[0]; # supplier_id
+            push @saved_params, $sp->[0]->[1];
+            push @saved_params, $sp->[0]->[2];
+            push @saved_params, $sp->[0]->[3];
+            push @saved_params, $sp->[0]->[4];
+            push @saved_params, $sp->[0]->[5]; # user_id
+            
+            $is_saved = 1;
+        }
+    
+        my $st = "DELETE FROM editor_journal WHERE id = $id";
+        do_statement($st);
+        print $st . "\n" if ($debug_out);
+    }
+    
+    return @saved_params;
+}
+
+sub add_instead {
+    my ($content_id, $action_type, $saved_params) = @_;
+    
+    my $supplier_id = $saved_params->[0];
+    my $prod_id = $saved_params->[1];
+    my $catid = $saved_params->[2];
+    my $date = $saved_params->[3];
+    my $product_id = $saved_params->[4];
+    my $user_id = $saved_params->[5];
+    
+    my $st = "INSERT INTO editor_journal (
+        user_id,
+        product_table,
+        product_table_id,
+        date,
+        product_id,
+        supplier_id,
+        prod_id,
+        catid,
+        score,
+        action_type,
+        content_id
+    ) VALUES (
+        $user_id,
+        'product_feature',
+        0,
+        $date,
+        $product_id,
+        $supplier_id,
+        " . str_sqlize($prod_id) . ",
+        $catid,
+        0,
+        $action_type,
+        $content_id
+    )";
+    
+    print "$st\n" if ($debug_out);
+    do_statement($st);
+    
+    return;
+}
+
+sub usage {
+    print "Usage : test_and_convert_ej <TEST|CONVERT>\n";
+    exit 0;
+}
+

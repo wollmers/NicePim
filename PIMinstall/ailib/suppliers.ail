@@ -1,0 +1,32 @@
+{
+name: suppliers;
+priority: 10;
+
+_resource_suppliers: select supplier_id, name, supplier_id from supplier where %%restrict%% and %%search_clause%% %%order_clause%% limit %%start_row%%,%%rows_number%% 
+_resource_suppliers_type: multi;
+_resource_suppliers_def_order: name;
+_mapping_suppliers: supplier_id, name, family_count;
+
+_format_as_family_count: family_count;
+
+authorize_superuser: supplier_id;
+authorize_supereditor: supplier_id;
+authorize_category_manager: supplier_id;
+authorize_editor: supplier_id;
+authorize_supplier: supplier_id;
+authorize_guest: supplier_id;
+authorize_shop: supplier_id;
+
+suppliers_restrict_editor: 1
+suppliers_restrict_guest: 0
+suppliers_restrict_shop: 1
+suppliers_restrict_supplier: user_id = %%user_id%%
+suppliers_restrict_supereditor: 1
+suppliers_restrict_category_manager: 1
+suppliers_restrict_superuser: 1
+
+authorize_submit_superuser: supplier_id;
+authorize_submit_supereditor: supplier_id;
+authorize_submit_category_manager: supplier_id;
+
+}

@@ -1,0 +1,77 @@
+{
+name: data_source_feature_map;
+priority: 10;
+
+verify: data_source_feature_map_id;
+authorize_superuser: data_source_feature_map_id;
+authorize_supereditor: data_source_feature_map_id;
+authorize_category_manager: data_source_feature_map_id;
+authorize_editor: data_source_feature_map_id;
+authorize_supplier: data_source_feature_map_id;
+authorize_guest: data_source_feature_map_id;
+
+authorize_submit_superuser: data_source_feature_map_id;
+authorize_submit_supereditor: data_source_feature_map_id;
+authorize_submit_category_manager: data_source_feature_map_id;
+
+
+verify_submit: data_source_feature_map_id;
+
+verify_add: yes;
+verify_add_superuser: data_source_feature_map_id;
+verify_add_supereditor: data_source_feature_map_id;
+verify_add_category_manager: data_source_feature_map_id;
+
+verify_deny_guest: yes;
+
+_resource_data_source_feature_map: select format, coef, catid, data_source_id, data_source_id, data_source_feature_map_id, symbol, symbol, feature_id, override_value_to, only_product_values, used_in from data_source_feature_map where data_source_feature_map_id = %%data_source_feature_map_id%%
+_resource_data_source_feature_map_type: single;
+_resource_data_source_feature_map_key: data_source_feature_map_id;
+_mapping_data_source_feature_map: format, coef, catid, data_source_id, data_source_id_select, data_source_feature_map_id, symbol, strip_feature_name, feature_id, override_value_to, only_product_values,used_in;
+
+format_as_text: symbol;
+
+format_as_strip_text: strip_feature_name;
+strip_feature_name_pattern: ^.*?\/(.*)\/.*?$;
+
+_resource_measure_id: select '';
+_mapping_measure_id: measure_id;
+
+format_as_measure_dropdown: measure_id;
+measure_id_dropdown_select: select m.measure_id, v.value, ms.value from measure m inner join vocabulary v on m.sid = v.sid and v.langid = %%langid%% left join measure_sign ms on ms.measure_id = m.measure_id and ms.langid = %%langid%% order by v.value
+
+format_as_dropdown: feature_id, data_source_id_select;
+feature_id_dropdown_select: select feature_id, concat(vocabulary.value,'(',measure_name.value,')') from feature, vocabulary, vocabulary as measure_name, measure where feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = %%langid%% and vocabulary.sid = feature.sid and vocabulary.langid = %%langid%%  order by vocabulary.value
+data_source_id_select_dropdown_select: select data_source_id, code from data_source order by code asc
+
+format_as_smart_dropdown: catid;
+catid_add_empty: Any category;
+catid_add_empty_value:1;
+catid_allow_pcat_choice: Y;
+
+format_as_input_checkbox: only_product_values;
+
+validate_as_mandatory: feature_id, symbol;
+validate_as_numeric: coef,format;
+
+store_as_force_HP_products_update: only_product_values;
+
+_resource_feature_info: select fm.data_source_feature_map_info_id,langid,example_values,GROUP_CONCAT(fmr.value separator '\n'),l.code,'dummy' from 
+						data_source_feature_map_info fm JOIN language l USING(langid)
+						LEFT JOIN  data_source_feature_map_replaces fmr ON fm.data_source_feature_map_info_id=fmr.data_source_feature_map_info_id 
+						WHERE fm.data_source_feature_map_id=%%data_source_feature_map_id%%
+						GROUP BY fm.data_source_feature_map_info_id;
+_resource_feature_info_type: multi;
+_mapping_feature_info: data_source_feature_map_info_id,langid,example_values,measure_signs_db,lang_code,measure_signs;
+format_as_DS_feature_measure: measure_signs;
+				  
+ _insert_sequence: 3;
+
+ _insert_table_3: data_source_feature_map;
+ _insert_values_3: symbol, feature_id, data_source_id, override_value_to, catid, coef, format, only_product_values;
+ _insert_fields_3: symbol, feature_id, data_source_id, override_value_to, catid, coef, format, only_product_values;
+ _insert_key_3: data_source_feature_map_id;
+ _update_sequence_3: yes;
+ _delete_sequence_3: yes; 
+  
+ }

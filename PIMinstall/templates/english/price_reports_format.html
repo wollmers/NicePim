@@ -1,0 +1,113 @@
+<tr>
+	<td  style="font-size: 100%;">Price list URL (http / ftp)</td>
+	<td  style="font-size: 100%;"><input type="text" name="pl_url"  id="pl_url" value="%%pl_url%%" style="width:300px"></td>
+</tr>
+<tr>
+	<td  style="font-size: 100%;">or upload file</td>
+	<td  style="font-size: 100%;"><input type="file" name="pl_url_filename" id="pl_url_filename" value="%%pl_url_filename%%" style="width:300px"></td>
+</tr>
+<tr>
+	<td style="font-size: 100%;">Need authorization?(is necessary if specials characters are present)<input type="checkbox" id="sel_auth" name="sel_auth" %%auth_checked%% onclick="is_auth();" /></td>
+	<td id="show_auth" style="visibility:hidden;"><div style="align:center; margin:0px;">Login:&#8194;&#8194;&#8194;&#8194;<input type="text" value="%%pl_login%%" id="pl_login" name="pl_login"></div><br />
+		<div style="align:center; margin:0px;">Password:<input type="text" value="%%pl_pass%%" id="pl_pass" name="pl_pass"></div>
+	</td>
+</tr>
+<tr>
+	<td><b>Make a preview before analyzing or saving settings</b></td>
+	<td><input type="submit" name="subminPR"  value="Preview"></td>
+</tr>
+<!--tr>    
+		<td  style="font-size: 100%;">Launch price list autoimport</td>
+<td  style="font-size: 100%;"><input type="submit" name="subminPR" value="Import" onclick="form.submit()"></td>
+</tr-->
+<tr>
+	<td style="font-size: 100%;">Send detailed report into e-mail (leave blank if don't need):</td>
+	<td style="font-size: 100%;"><input type="text" width="200" name="mail_rep" id="mail_rep" ></td>
+</tr>
+<tr>
+	<td  style="font-size: 100%;">Launch automatic price list analysis</td>
+	<td  style="font-size: 100%;"><input type="button" name="analyze_pl" id="analyze_pl" value="Analyze" onclick="return analize();"><td>
+</tr>
+<tr style="display:" id="show_set">
+	<td>Display pricelist settings</td>
+	<td><input type="button" value="Display settings" class="bt" onClick="show_settings();"></td>
+</tr>
+<tr style="display: none" id="hide_set">
+	<td>Hide pricelist settings</td>
+	<td><input type="button" value="Hide settings" class="bt" onClick="hide_settings();"></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr style="display: none" id="pl_formats">
+	<td  style="font-size: 100%;">Price list format</td>
+  <td  style="font-size: 100%;">
+    <select class="smallform" name="pl_format" id="pl_format_select" onchange="chose_url_format();">
+			<option/>
+      <option value="csv" %%select_format_csv%% >CSV format</option>
+      <option value="xml" %%select_format_xml%% >XML format</option>
+	    <option value="xls" %%select_format_xls%% >Excel format</option>
+    </select>
+	</td>
+</tr>
+<!-- CSV -->
+<tr style="display: none" id="csv_block1">
+	<td colspan="2"><table class="tbl-block">
+			<tr style="display: none" id="csv_block2">
+				<td  style="font-size: 100%;" width="40%">The first row is the header</td>
+				<td  style="font-size: 100%;" colspan="2"><input name="first_row_as_header" id="first_row_csv" type="checkbox" %%first_row_csv_checked%% ></td>
+			</tr>
+			<tr style="display: none" id="csv_block3">
+				<td  style="font-size: 100%;">New line</td>
+				<td  style="font-size: 100%;" colspan="2">
+					<select class="smallform" name="row_delimeter" id="rdelimeter_select">
+						<option value='\n' %%row_n%% >[\n]</option>
+						<option value='\r\n' %%row_nr%% >[\r\n]</option>
+					</select>
+				</td>
+			</tr>
+			<tr style="display: none" id="csv_block4">
+				<td  style="font-size: 100%;">Delimiter</td>
+				<td  style="font-size: 100%;">
+					<input type="radio" name="delimeter" id='\t' value="\t"> \t (tab)
+					<br>
+					<input type="radio" name="delimeter" id=';' value=";"> ; (semicolon)
+					<br>
+					<input type="radio" name="delimeter" id=',' value=","> , (comma)
+				</td>
+				<td  style="font-size: 100%;" valign="bottom">
+					<input type="radio" name="delimeter" id='|' value="|"> | (vertical line)
+					<br>
+					<input type="radio" name="delimeter" id='||' value="||"> || (double vertical line)
+					<br>
+					<input type="radio" name="delimeter" id="own_del" value="own"> another variant: <input type="text" name="own_delimeter" id="own_delimeter" value="" size="4">
+				</td>
+			</tr>
+			<tr style="display: none" id="csv_block5">
+			  <td style="font-size: 100%;">Escape character (if there is any)</td>
+				<td style="font-size: 100%;" colspan="2"><input type="text" name="esc_c" id="esc_c" value="" size="4" /></td>
+			</tr>
+	</table></td>
+</tr>
+<!-- XML -->
+<tr style="display: none;" id="xml_block">
+	<td  style="font-size: 100%;">XML path</td>
+	<td  style="font-size: 100%;"><input type="text" name="xml_path" id="xml_path" style="width:300px" value="%%xml_path%%"></td>
+</tr>
+<!-- EXEL -->
+<tr style="display: none;" id="xls_block">
+	<td  style="font-size: 100%;">The first row is the header</td>
+	<td  style="font-size: 100%;"><input name="first_row_as_header" id="first_row_xls" type="checkbox" %%first_row_xls_checked%%></td>
+</tr>
+<!-- ---- -->
+<tr style="display: none" id="settings_button">
+	<td>Save settings of the current pricelist for further using.</td>
+	<td align="left">
+		<input type="button" name="save" value="Save settings" onclick="save_settings();">
+	</td>
+</tr>
+<tr style="display: none" id="columns_text">
+	<td align="center" class="ds_header" colspan="2">
+		<br />
+		<b>Columns to be assigned</b>
+	</td>
+</tr>
+</table>

@@ -1,0 +1,60 @@
+#!/usr/bin/perl
+
+#$Id: export_product_reviews2repo 3423 2010-11-10 15:30:05Z dima $
+
+use strict;
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+$| = 1;
+
+print "export_product_reviews2repo started:\n";
+
+my $index_name = 'ProductReviewsIndex';
+
+my $path = $atomcfg{'xml_path'};
+my $prf_path = $atomcfg{'xml_path'}.'level4/prf';
+my $script = $atomcfg{'base_dir'}.'data_export/export_product_reviews_index';
+
+my $langids = &do_query("select langid, short_code from language where published='Y' order by langid asc");
+unshift @$langids, [ 0, uc('INT') ];
+
+my $subscriptions = [
+	{
+		'name'   => 'Full',
+		'folder' => 'level4/',
+		'param'  => 1
+	},
+	{
+		'name'   => 'Open',
+		'folder' => 'freexml.int/',
+		'param'  => 1
+	}
+	];
+
+foreach my $l (@$langids) {
+	foreach my $s (@$subscriptions) {
+		print "\t".$l->[1]." ".$s->{'name'}."... ";
+		`$script $s->{'param'} $l->[0] > $path$s->{'folder'}$l->[1]/$index_name.xml.new`;
+		`mv -f $path$s->{'folder'}$l->[1]/$index_name.xml.new $path$s->{'folder'}$l->[1]/$index_name.xml`;
+		`cat $path$s->{'folder'}$l->[1]/$index_name.xml | gzip -9 > $path$s->{'folder'}$l->[1]/$index_name.xml.gz.new`;
+		`mv -f $path$s->{'folder'}$l->[1]/$index_name.xml.gz.new $path$s->{'folder'}$l->[1]/$index_name.xml.gz`;
+		print "done\n";
+	}
+}
+
+# for Vitaly
+
+print "\tPRF... ";
+`$script 0 0 > $prf_path/$index_name.xml.new`;
+`mv -f $prf_path/$index_name.xml.new $prf_path/$index_name.xml`;
+`cat $prf_path/$index_name.xml | gzip -9 > $prf_path/$index_name.xml.gz.new`;
+`mv -f $prf_path/$index_name.xml.gz.new $prf_path/$index_name.xml.gz`;
+print "done\n";
+
+print "End\n\n";

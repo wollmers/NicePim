@@ -1,0 +1,31 @@
+$$INCLUDE head2.html$$
+
+{name: menu2;}
+
+<div id="page_content">
+
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="main" height="20">
+			$$INCLUDE products_complaint_menu_link.html$$
+		</td>
+	</tr>
+</table>
+
+<br />
+<span><a class="linkmenu3" href="%%base_url%%;tmpl=products_complaint_details.html;complaint_id=%%complaint_id%%">Edit complaint</a></span>
+>
+<span><a class="linkmenu3" href="%%base_url%%;tmpl=products_complaint_history.html;complaint_id=%%complaint_id%%">Respond</a></span>
+><br><br>
+{
+name: errors;
+}
+{
+name: products_complaint_history;
+}
+{
+name: email;
+class: complain;
+}
+
+$$INCLUDE footer2.html$$

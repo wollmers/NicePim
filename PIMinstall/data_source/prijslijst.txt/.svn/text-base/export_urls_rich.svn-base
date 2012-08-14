@@ -1,0 +1,230 @@
+#!/usr/bin/perl
+
+use lib '/home/gcc/lib';
+
+use strict;
+#use debug_lib;
+
+use atomsql;
+use atomlog;
+use atomcfg;
+use data_management;
+use Data::Dumper;
+use atom_misc;
+use icecat_util;
+
+use XML::Simple;
+use Data::Dumper;
+
+
+
+my $data_source_code = 'prijslijst.txt';
+
+my $base = '/home/gcc/data_source/'.$data_source_code.'/';
+my $fn 	= 'export_icecat_m.txt'; 
+
+my $fout1 = $atomcfg{'base_dir'}.'www/export/export_urls_rich.xml';
+my $fout2 = $atomcfg{'base_dir'}.'www/export/export_urls_rich.txt';
+
+my $prefs =  &load_data_source_prefs($data_source_code);
+my $missing; # missing structures
+my $lines = 0;
+my $i = 0;
+
+my $csv = {};
+   $csv->{'product_urls'} = [];
+   $csv->{'suppliers'} 		= [];
+	 
+if(!$prefs->{'data_source_id'}){
+ die "Can't load data source preferences for $data_source_code!\n";
+}
+
+my $file  = &load_flat_file( $base.$fn, { 
+																		 "skip_header"		=> 1,
+																		 'map_by_header'	=> 1,
+																		 'delimiter' => "\t"
+																		 } );
+
+
+# global param
+my $catid;
+my $tin_prods = {};
+
+while($file->[$i]){
+  my $row = $file->[$i];
+	if(ref($row) ne 'HASH'){ next }
+	$i++;
+# processing service info
+  my $td_cat_name = $row->{'subcat'};
+  $catid = $prefs->{'category_map'}->{$td_cat_name};
+  if(!$catid){
+  # this category is missing
+	$missing->{'category'}->{$td_cat_name} = 1;
+  }
+ 
+ $lines++;
+
+  # we got vendor here and prod_id
+	my $vendor 		= $row->{'vendor'};
+	my $prod_id		= uc($row->{'productcode vendor'});
+	my $s_desc   	= $row->{'oms'};
+	my $name	   	= $row->{'name'};	
+	my $l_desc   	= $row->{'loms'};
+  
+	foreach my $item($vendor, $prod_id, $s_desc, $l_desc){
+		if($item eq 'NULL'){
+			$item = '';
+		}
+	}
+	
+	# now validation vendor mapping
+	my $supplier_id;
+	
+	if(! ($supplier_id = $prefs->{'supplier_map'}->{uc($vendor)}) && $vendor){
+	 # missing this mapping
+	 $missing->{'supplier'}->{uc($vendor)} = 1;
+	}
+	
+	if($prod_id =~/^#/ || $prod_id =~/\t/ ){
+	 # omit this product
+	 next;
+	}
+	
+	if($supplier_id eq '157'){
+	 &log_printf('Ignoring supplier: '.$vendor);
+	 next;
+	}
+	
+  if($supplier_id&&$prod_id&&$catid){
+
+	 my $product = 
+	    {
+			 "supplier_id" 	=> $supplier_id,
+			 "prod_id"			=> $prod_id
+			};
+
+	 my $m_prod_id = &get_mapped_prod_id($product);
+	 
+	 $tin_prods->{$supplier_id}->{$prod_id} = $m_prod_id || $prod_id;
+
+	
+	}
+}
+
+my $users = &do_query('select user_id, user_group from users');
+my %user = map { $_->[0] =>  $_->[1] } @$users;
+
+
+my $export = {};
+my $supps = &do_query('select supplier_id, name from supplier');
+foreach my $row(@$supps){
+ push @{$export->{'Suppliers'}->{'Supplier'}}, { 'Name' => $row->[1], 'supplier_id' => $row->[0] };
+ push @{$csv->{'suppliers'}},  { 'Name' => $row->[1], 'supplier_id' => $row->[0] };
+}
+
+my $adds = &do_query("select product_id,high_pic, low_pic, thumb_pic from product");
+my %img = map { $_->[0] => {
+																'high_pic'	=> $_->[1],
+																'low_pic'		=> $_->[2],
+																'thumb_pic' => $_->[3]
+															} } @$adds;
+
+my $exported = {};
+
+foreach my $supplier_id(keys %$tin_prods){
+ foreach my $prod_id(keys %{$tin_prods->{$supplier_id}}){ 
+   my $m_prod_id = $tin_prods->{$supplier_id}->{$prod_id};
+   my $product_id = $prefs->{'product'}->{$supplier_id}->{$m_prod_id}->{'product_id'};
+   
+	 if(!$product_id || $prod_id =~m/\t/ || $prod_id =~m/^#/){
+	   next;
+	 }
+	 
+	 $exported->{$supplier_id}->{$prod_id} = 1;
+	 
+	 my $q_rate;
+	 my $ug = $user{$prefs->{'product'}->{$supplier_id}->{$m_prod_id}->{'user_id'}} ;
+	 
+	 $q_rate = &get_quality_measure($ug);
+	 next if ($q_rate eq 'NOEDITOR');
+   	 
+	 my $hash =
+	   {
+		   'product_id' 	=> $product_id, 
+			 'prod_id'			=> $prod_id,
+			 'm_prod_id'		=> $m_prod_id,
+			 'Quality'			=> $q_rate,
+#			 'UNCATID'			=> $prefs->{'category'}->{$prefs->{'product'}->{$supplier_id}->{$m_prod_id}->{'catid'}}->{'uncatid'},
+			 'URL'					=> "http://prf.icecat.biz/index.cgi?product_id=$product_id;mi=start;smi=product;",
+			 'supplier_id' 	=> $supplier_id,
+			 'High_res_img' => $img{$product_id}->{'high_pic'},
+			 'Low_res_img' 	=> $img{$product_id}->{'low_pic'},
+			 'Thumbnail_img' => $img{$product_id}->{'thumb_pic'}
+		 };
+	 push @{$export->{'ProductUrls'}->{'ProductUrl'}}, $hash; 		 
+	 push @{$csv->{'product_urls'}}, $hash;
+	}
+}
+
+
+foreach my $supplier_id(keys %{$prefs->{'product'}}){
+ foreach my $prod_id(keys %{$prefs->{'product'}->{$supplier_id}}){ 
+   if($exported->{$supplier_id}->{$prod_id}){
+	  next;
+	 }
+   if($prod_id =~m/\t/ || $prod_id =~m/^#/){
+	      next;
+   }
+					 
+	 	 $exported->{$supplier_id}->{$prod_id} = 1;
+   my $product_id = $prefs->{'product'}->{$supplier_id}->{$prod_id}->{'product_id'};
+
+	 my $q_rate;
+	 my $ug = $user{$prefs->{'product'}->{$supplier_id}->{$prod_id}->{'user_id'}} ;
+	 
+	 $q_rate = &get_quality_measure($ug);	 
+	 
+   next if ($q_rate eq 'NOEDITOR');
+
+	 my $hash = 
+	   {
+		   'product_id' 	=> $product_id, 
+			 'prod_id'			=> $prod_id,
+			 'Quality'			=> $q_rate,
+#			 'UNCATID'			=> $prefs->{'category'}->{$prefs->{'product'}->{$supplier_id}->{$prod_id}->{'catid'}}->{'uncatid'},
+			 'URL'					=> "http://prf.icecat.biz/index.cgi?product_id=$product_id;mi=start;smi=product;",
+			 'supplier_id' 	=> $supplier_id,
+			 'High_res_img' => $img{$product_id}->{'high_pic'},
+			 'Low_res_img' 	=> $img{$product_id}->{'low_pic'},
+			 'Thumbnail_img' => $img{$product_id}->{'thumb_pic'}
+		 };
+         push @{$export->{'ProductUrls'}->{'ProductUrl'}}, $hash;
+         push @{$csv->{'product_urls'}}, $hash;
+
+	}
+}
+
+
+
+open(FH, '>'.$fout1.'.gz');
+my $xmlref = &build_message($export);
+print FH &gzip_data($$xmlref);
+
+close(FH);
+
+
+open(FH, '>'.$fout1);
+binmode(FH,":utf8");
+print FH $$xmlref;
+close(FH);
+
+
+&write_out_flat_file($fout2, 
+    ['product_id', 'prod_id', 'Quality', 
+		 'URL', 'supplier_id','High_res_img', 'Low_res_img', 'Thumbnail_img',
+		 ], $csv->{'product_urls'}, 
+		  {
+			 'delimiter' => "\t",
+			 'write_header' => 1,
+			}
+		);

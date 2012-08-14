@@ -1,0 +1,103 @@
+<!ELEMENT ICECAT-interface (Response)>
+
+<!ATTLIST ICECAT-interface
+                xmlns:xsi CDATA #IMPLIED
+		xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+
+<!ELEMENT Response (ProductsDump)>
+    <!ATTLIST Response
+		Status              CDATA #REQUIRED
+		Request_ID          CDATA #REQUIRED
+		ID                  CDATA #REQUIRED
+		Date                CDATA #REQUIRED>
+		
+<!ELEMENT ProductsDump (Product)+>		
+
+<!ELEMENT Product (ProductDescriptions|ProductFeatures|ProductsRelated|Name|Prod_id|Supplier|ThumbPic|HighPic|LowPic|Category)*>
+    <!ATTLIST Product 
+		Code		    CDATA #IMPLIED
+		Quality		    CDATA #IMPLIED
+		ID		    CDATA #REQUIRED
+		Prod_id		    CDATA #IMPLIED
+		Supplier	    CDATA #IMPLIED
+		Supplier_ID	    CDATA #IMPLIED>
+
+<!ELEMENT ProductDescriptions (ProductDescription)*>		
+
+<!ELEMENT ProductDescription (WarrantyInfo|ShortDesc|LongDesc|URL)*>		
+    <!ATTLIST ProductDescription
+		ID                  CDATA #REQUIRED
+		langid 		    CDATA #REQUIRED>
+
+<!ELEMENT WarrantyInfo (#PCDATA)>		
+
+<!ELEMENT ShortDesc (#PCDATA)>		
+
+<!ELEMENT LongDesc (#PCDATA)>		
+
+<!ELEMENT URL (#PCDATA)>		
+
+<!ELEMENT ProductFeatures (ProductFeature)*>
+
+<!ELEMENT ProductFeature (Measure+|Value|Feature+)*>
+    <!ATTLIST ProductFeature 
+	        No		    CDATA #REQUIRED
+		ID		    CDATA #REQUIRED
+		CategoryFeatureGroup_ID CDATA #REQUIRED>
+
+<!ELEMENT Measure EMPTY>		
+    <!ATTLIST Measure 
+		ID                  CDATA #REQUIRED>
+
+<!ELEMENT Feature EMPTY>
+    <!ATTLIST Feature
+                ID                  CDATA #REQUIRED>
+		    
+		
+<!ELEMENT Value (#PCDATA)>		
+
+<!ELEMENT ProductsRelated (ProductRelated)*>
+
+<!ELEMENT ProductRelated (Product)*>
+       <!ATTLIST  ProductRelated 
+               ID                   CDATA #REQUIRED>
+
+<!ELEMENT ProductsBundled (ProductBudled)*>
+
+<!ELEMENT ProductBundled (Product)*>
+       <!ATTLIST  ProductBundled
+               ID                   CDATA #REQUIRED
+	       Product_ID	    CDATA #IMPLIED>		       
+
+<!ELEMENT Name (#PCDATA)>	       
+
+<!ELEMENT Prod_id (#PCDATA)>	       
+
+<!ELEMENT Supplier (#PCDATA)>	       
+    <!ATTLIST Supplier
+		ID		    CDATA #REQUIRED>
+
+<!ELEMENT ThumbPic (#PCDATA)>	       
+
+<!ELEMENT HighPic (#PCDATA)>	       
+<!ELEMENT LowPic (#PCDATA)>	       
+
+<!ELEMENT Category (#PCDATA)>	       
+    <!ATTLIST Category
+                ID                  CDATA #REQUIRED>
+		    
+<!ELEMENT ProductStatistic (#PCDATA)>	       
+ <!ATTLIST ProductStatistic
+               ID                  CDATA #REQUIRED
+	       Prod_id 		   CDATA #IMPLIED
+	       Supplier_ID         CDATA #IMPLIED
+	       Score 	           CDATA #IMPLIED>	
+		    
+
+
+
+
+
+
+		
+								    

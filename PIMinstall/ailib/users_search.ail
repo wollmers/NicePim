@@ -1,0 +1,16 @@
+{
+name: users_search;
+priority: 10;
+
+_resource_dummy: select '%%search_login%%', '%%search_email%%', '%%search_subscription_level%%', '%%search_user_group%%', '%%search_user_partner_id%%', '%%search_user_country_id%%', '%%search_url%%', '%%search_country%%'
+_mapping_dummy: search_login, search_email, search_subscription_level, search_user_group, search_user_partner_id, search_user_country_id, search_url, search_country;
+
+format_as_dropdown: search_user_country_id, search_user_partner_id,search_subscription_level,search_user_group;
+search_user_partner_id_dropdown_select: select user_id, login from users where user_group='partner' order by login;
+search_subscription_level_dropdown_select: select subscription_level, value from subscription_levels;
+search_user_group_dropdown_select: select distinct(user_group),user_group from users where user_group <> '';
+search_user_country_id_dropdown_select: 
+SELECT c.country_id, v.value 
+FROM country c 
+LEFT JOIN vocabulary v on c.sid = v.sid and v.langid=1
+}

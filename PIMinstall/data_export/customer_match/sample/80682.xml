@@ -1,0 +1,577 @@
+<?xml version="1.0"?>
+<!DOCTYPE ICECAT-interface>
+	<ICECAT-interface>
+      <Product ID="80682" Prod_id="MH17ASSS" ThumbPic="http://www.icecat.biz/thumbs/80682.jpg" Code="1" Quality="ICECAT" HighPic="http://www.icecat.biz/img/norm/high/80682.jpg" Name="17IN 1280X1024 W  TUNER" LowPic="http://www.icecat.biz/img/norm/low/80682.jpg">
+      <ProductRelated/>
+      <ProductBundled/>
+        <CategoryFeatureGroup ID="340" No="4">
+         <FeatureGroup ID="0">
+           <Name ID="5073" Value="Technical details" langid="1"/>
+           <Name ID="5074" Value="Technische details" langid="2"/>
+           <Name ID="8345" Value="Technical details" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="100" No="10">
+         <FeatureGroup ID="5">
+           <Name ID="4867" Value="Display" langid="1"/>
+           <Name ID="4868" Value="Beeldscherm" langid="2"/>
+           <Name ID="7178" Value="Display" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1207" No="6">
+         <FeatureGroup ID="8">
+           <Name ID="4886" Value="Systeemvereisten" langid="2"/>
+           <Name ID="4885" Value="System requirements" langid="1"/>
+           <Name ID="7172" Value="System requirements" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="98" No="1">
+         <FeatureGroup ID="14">
+           <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+           <Name ID="5024" Value="Gewicht en omvang" langid="2"/>
+           <Name ID="8323" Value="Weight &amp; dimensions" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="907" No="7">
+         <FeatureGroup ID="23">
+           <Name ID="5041" Value="Bandwidth" langid="1"/>
+           <Name ID="5042" Value="Bandbreedte" langid="2"/>
+           <Name ID="8332" Value="Bandwidth" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="99" No="5">
+         <FeatureGroup ID="27">
+           <Name ID="5049" Value="Energy management" langid="1"/>
+           <Name ID="5050" Value="Energiebeheer" langid="2"/>
+           <Name ID="8335" Value="Energy management" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1205" No="3">
+         <FeatureGroup ID="28">
+           <Name ID="5068" Value="Enviromental parameters" langid="2"/>
+           <Name ID="5067" Value="Enviromental parameters" langid="1"/>
+           <Name ID="8342" Value="Enviromental parameters" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <CategoryFeatureGroup ID="1204" No="2">
+         <FeatureGroup ID="29">
+           <Name ID="5069" Value="Power" langid="1"/>
+           <Name ID="5070" Value="Power" langid="2"/>
+           <Name ID="8343" Value="Power" langid="3"/>
+         </FeatureGroup>
+        </CategoryFeatureGroup>
+        <ProductDescription ID="92491" URL="http://www.samsungelectronics.co.uk/cgi-bin/ecuk/product/product_detail.jsp?BV_SessionID=@@@@1330551969.1077707665@@@@&amp;BV_EngineID=cccfadckkfejmgfcfekcefedffgdfmh.0&amp;prod_id=MH17ASSS" ShortDesc="17IN 1280X1024 W  TUNER SAMSUNG 710MP MM SILV LCD TCO95  IN (PC)" langid="1" LongDesc="MODEL- 710MP              VENDOR- SAMSUNG\n\nFEATURES- SyncMaster 710MP- Silver finish                                 \n       The Samsung SyncMaster 710MP is a 17-inch TFT-LCD display delivering \n        next-generation TV functionality with its built-in TV tuner. This \n        display is a three in one TFT allowing computer, video and TV \n        inputs. It features a 450:1 contrast ratio, 1280 x 1024 resolution, \n        0.264 pixel pitch and viewing angle of 150/120 degrees.     " WarrantyInfo="" PDFURL=""/>
+        <ProductDescription ID="99335" URL="http://www.samsungelectronics.co.uk/cgi-bin/ecuk/product/product_detail.jsp?BV_SessionID=@@@@1330551969.1077707665@@@@&amp;BV_EngineID=cccfadckkfejmgfcfekcefedffgdfmh.0&amp;prod_id=MH17ASSS" ShortDesc="17IN 1280X1024 W  TUNER SAMSUNG 710MP MM SILV LCD TCO95  IN (PC)" langid="0" LongDesc="MODEL- 710MP              VENDOR- SAMSUNG\n\nFEATURES- SyncMaster 710MP- Silver finish                                 \n       The Samsung SyncMaster 710MP is a 17-inch TFT-LCD display delivering \n        next-generation TV functionality with its built-in TV tuner. This \n        display is a three in one TFT allowing computer, video and TV \n        inputs. It features a 450:1 contrast ratio, 1280 x 1024 resolution, \n        0.264 pixel pitch and viewing angle of 150/120 degrees.     " WarrantyInfo="3 years " PDFURL=""/>
+        <ProductFeature ID="6109518" Value="LCD" No="118000" CategoryFeatureGroup_ID="100">
+         <Feature ID="83">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1503" Value="Display" langid="1"/>
+           <Name ID="1504" Value="Beeldscherm" langid="2"/>
+           <Name ID="6760" Value="Display" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6109516" Value="1280X1024" No="117500" CategoryFeatureGroup_ID="100">
+         <Feature ID="80">
+          <Measure ID="39" Sign="px"/>
+           <Name ID="1497" Value="Resolution" langid="1"/>
+           <Name ID="1498" Value="Resolutie" langid="2"/>
+           <Name ID="6757" Value="Resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6109517" Value="17" No="10117404" CategoryFeatureGroup_ID="100">
+         <Feature ID="15">
+          <Measure ID="16" Sign="&amp;quot;"/>
+           <Name ID="1321" Value="Display size" langid="1"/>
+           <Name ID="1322" Value="Afmetingen scherm" langid="2"/>
+           <Name ID="6678" Value="Taille de l'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115390" Value="" No="117430" CategoryFeatureGroup_ID="100">
+         <Feature ID="46">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1429" Value="Color" langid="1"/>
+           <Name ID="1430" Value="Kleur" langid="2"/>
+           <Name ID="6727" Value="Color" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115391" Value="16.7" No="117420" CategoryFeatureGroup_ID="100">
+         <Feature ID="33">
+          <Measure ID="30" Sign="Mio"/>
+           <Name ID="1381" Value="Colors" langid="1"/>
+           <Name ID="1382" Value="Kleuren" langid="2"/>
+           <Name ID="6705" Value="Colors" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115392" Value="389x402x206 " No="100050" CategoryFeatureGroup_ID="98">
+         <Feature ID="49">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1435" Value="Dimensions W x D x H" langid="1"/>
+           <Name ID="1436" Value="Afmetingen B x D x H" langid="2"/>
+           <Name ID="6730" Value="Dimensions W x D x H" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115393" Value="5.8" No="40" CategoryFeatureGroup_ID="98">
+         <Feature ID="14">
+          <Measure ID="17" Sign="Kg"/>
+           <Name ID="1319" Value="Weight" langid="1"/>
+           <Name ID="1320" Value="Gewicht" langid="2"/>
+           <Name ID="6677" Value="Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115394" Value="" No="117407" CategoryFeatureGroup_ID="340">
+         <Feature ID="32">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1377" Value="Pixel pitch" langid="1"/>
+           <Name ID="1378" Value="Pixel pitch" langid="2"/>
+           <Name ID="6703" Value="Pixel pitch" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115395" Value="" No="117406" CategoryFeatureGroup_ID="340">
+         <Feature ID="489">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2509" Value="User controls" langid="1"/>
+           <Name ID="2510" Value="Gebruikersknoppen" langid="2"/>
+           <Name ID="7251" Value="User controls" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115396" Value="Analogue &amp; TV " No="117403" CategoryFeatureGroup_ID="340">
+         <Feature ID="560">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2651" Value="Input signal" langid="1"/>
+           <Name ID="2652" Value="Ingangssignaal" langid="2"/>
+           <Name ID="7322" Value="Input signal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115397" Value="25" No="100170" CategoryFeatureGroup_ID="340">
+         <Feature ID="1516">
+          <Measure ID="27" Sign="ms"/>
+           <Name ID="4752" Value="Responstijd" langid="2"/>
+           <Name ID="4751" Value="Response time" langid="1"/>
+           <Name ID="8223" Value="Response time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115398" Value="31-81 " No="100160" CategoryFeatureGroup_ID="340">
+         <Feature ID="35">
+          <Measure ID="31" Sign="KHz"/>
+           <Name ID="1387" Value="Horizontal scan range" langid="1"/>
+           <Name ID="1388" Value="Horizontale scan range" langid="2"/>
+           <Name ID="6708" Value="Horizontal scan range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115399" Value="56 ~ 75" No="100150" CategoryFeatureGroup_ID="340">
+         <Feature ID="90">
+          <Measure ID="36" Sign="Hz"/>
+           <Name ID="1517" Value="Vertical scan range" langid="1"/>
+           <Name ID="1518" Value="Vertical scan range" langid="2"/>
+           <Name ID="6767" Value="Vertical scan range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115400" Value="" No="100100" CategoryFeatureGroup_ID="340">
+         <Feature ID="91">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1519" Value="Viewable size Horizontal" langid="1"/>
+           <Name ID="1520" Value="Viewable size Horizontal" langid="2"/>
+           <Name ID="6768" Value="Viewable size Horizontal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115401" Value="" No="100090" CategoryFeatureGroup_ID="340">
+         <Feature ID="92">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="1521" Value="Viewable size Vertical" langid="1"/>
+           <Name ID="1522" Value="Viewable size Vertical" langid="2"/>
+           <Name ID="6769" Value="Viewable size Vertical" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115402" Value="150" No="100085" CategoryFeatureGroup_ID="340">
+         <Feature ID="37">
+          <Measure ID="32" Sign="o"/>
+           <Name ID="1393" Value="Viewing angle, horizontal" langid="1"/>
+           <Name ID="1394" Value="Viewing angle, horizontal" langid="2"/>
+           <Name ID="6710" Value="Viewing angle, horizontal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115403" Value="120" No="100080" CategoryFeatureGroup_ID="340">
+         <Feature ID="38">
+          <Measure ID="32" Sign="o"/>
+           <Name ID="1395" Value="Viewing angle, vertical" langid="1"/>
+           <Name ID="1396" Value="Viewing angle, vertical" langid="2"/>
+           <Name ID="6711" Value="Viewing angle, vertical" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115404" Value="270" No="100070" CategoryFeatureGroup_ID="340">
+         <Feature ID="1389">
+          <Measure ID="43" Sign="cd/m²"/>
+           <Name ID="4319" Value="LCD monitor brightness" langid="1"/>
+           <Name ID="4320" Value="LCD monitor brightness" langid="2"/>
+           <Name ID="8140" Value="LCD monitor brightness" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115405" Value="450:1 " No="100067" CategoryFeatureGroup_ID="340">
+         <Feature ID="34">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1383" Value="Contrast ratio" langid="1"/>
+           <Name ID="1384" Value="Contrast ratio" langid="2"/>
+           <Name ID="6706" Value="Contrast ratio" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115406" Value="2 speakers x 1.5 watts per channel   " No="100065" CategoryFeatureGroup_ID="340">
+         <Feature ID="442">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2251" Value="Sound system" langid="1"/>
+           <Name ID="2252" Value="Audiosysteem" langid="2"/>
+           <Name ID="7134" Value="Sound system" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115407" Value="" No="100060" CategoryFeatureGroup_ID="340">
+         <Feature ID="251">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1869" Value="Bundled software" langid="1"/>
+           <Name ID="1870" Value="Gebundelde software" langid="2"/>
+           <Name ID="6943" Value="Bundled software" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115408" Value="" No="100000" CategoryFeatureGroup_ID="1207">
+         <Feature ID="5">
+          <Measure ID="18" Sign="Mhz"/>
+           <Name ID="1292" Value="Processor-kloksnelheid" langid="2"/>
+           <Name ID="1291" Value="Processor clock speed" langid="1"/>
+           <Name ID="6663" Value="Processor clock speed" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115409" Value="" No="100000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1594">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4945" Value="Video in" langid="1"/>
+           <Name ID="4946" Value="Video in" langid="2"/>
+           <Name ID="6607" Value="Video in" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115410" Value="" No="100000" CategoryFeatureGroup_ID="98">
+         <Feature ID="1649">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5143" Value="Width" langid="1"/>
+           <Name ID="5144" Value="Breedte" langid="2"/>
+           <Name ID="8376" Value="Width" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115411" Value="" No="100000" CategoryFeatureGroup_ID="98">
+         <Feature ID="1650">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5145" Value="Depth" langid="1"/>
+           <Name ID="5146" Value="Diepte" langid="2"/>
+           <Name ID="8377" Value="Depth" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115412" Value="" No="100000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1684">
+          <Measure ID="32" Sign="o"/>
+           <Name ID="5305" Value="Viewing angle" langid="1"/>
+           <Name ID="5306" Value="Beeldhoek" langid="2"/>
+           <Name ID="8449" Value="Viewing angle" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115413" Value="" No="100000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1687">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5311" Value="Display moving angle" langid="1"/>
+           <Name ID="5312" Value="Draaihoek scherm" langid="2"/>
+           <Name ID="8452" Value="Display moving angle" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115414" Value="" No="100000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1694">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5325" Value="Faceplate treatment" langid="1"/>
+           <Name ID="5326" Value="Faceplate treatment" langid="2"/>
+           <Name ID="8459" Value="Faceplate treatment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115415" Value="" No="100000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1701">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5339" Value="Mounting interface" langid="1"/>
+           <Name ID="5340" Value="Montage-interface" langid="2"/>
+           <Name ID="8466" Value="Mounting interface" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115416" Value="" No="100000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1706">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5351" Value="Refresh response time" langid="1"/>
+           <Name ID="5352" Value="Refresh responstijd" langid="2"/>
+           <Name ID="8471" Value="Refresh response time" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115417" Value="" No="100012" CategoryFeatureGroup_ID="907">
+         <Feature ID="1587">
+          <Measure ID="37" Sign="Ghz"/>
+           <Name ID="4931" Value="Bandwidth" langid="1"/>
+           <Name ID="4932" Value="Bandwidth" langid="2"/>
+           <Name ID="6598" Value="Bandwidth" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115418" Value="" No="0" CategoryFeatureGroup_ID="100">
+         <Feature ID="1519">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4758" Value="Scherm" langid="2"/>
+           <Name ID="4757" Value="Display description" langid="1"/>
+           <Name ID="8218" Value="Affichage" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115419" Value="" No="0" CategoryFeatureGroup_ID="100">
+         <Feature ID="1520">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4760" Value="Type scherm" langid="2"/>
+           <Name ID="4759" Value="Display type" langid="1"/>
+           <Name ID="8217" Value="Type d'écran" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115420" Value="" No="0" CategoryFeatureGroup_ID="100">
+         <Feature ID="1604">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4971" Value="Recommended resolution" langid="1"/>
+           <Name ID="4972" Value="Aanbevolen resolutie" langid="2"/>
+           <Name ID="6580" Value="Recommended resolution" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115421" Value="" No="34" CategoryFeatureGroup_ID="99">
+         <Feature ID="1376">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4293" Value="Power management" langid="1"/>
+           <Name ID="4294" Value="Energiebeheer" langid="2"/>
+           <Name ID="8127" Value="Power management" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115422" Value="" No="19" CategoryFeatureGroup_ID="99">
+         <Feature ID="780">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3091" Value="Power requirements" langid="1"/>
+           <Name ID="3092" Value="Energievereisten" langid="2"/>
+           <Name ID="7540" Value="Power requirements" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115423" Value="" No="0" CategoryFeatureGroup_ID="99">
+         <Feature ID="893">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3327" Value="Power consumption" langid="1"/>
+           <Name ID="3328" Value="Stroomverbruik" langid="2"/>
+           <Name ID="7656" Value="Consommation électrique" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115424" Value="" No="27" CategoryFeatureGroup_ID="98">
+         <Feature ID="582">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2695" Value="Package Dimensions (W x D x H)" langid="1"/>
+           <Name ID="2696" Value="Afmetingen verpakking (B x D x H)" langid="2"/>
+           <Name ID="7344" Value="Package Dimensions (W x D x H)" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115425" Value="" No="25" CategoryFeatureGroup_ID="98">
+         <Feature ID="762">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3055" Value="Package Weight" langid="1"/>
+           <Name ID="3056" Value="Gewicht verpakking" langid="2"/>
+           <Name ID="7522" Value="Package Weight" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115426" Value="" No="45000" CategoryFeatureGroup_ID="340">
+         <Feature ID="1380">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4301" Value="Monitor front panel controls" langid="1"/>
+           <Name ID="4302" Value="Monitor front panel controls" langid="2"/>
+           <Name ID="8131" Value="Monitor front panel controls" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115427" Value="" No="44000" CategoryFeatureGroup_ID="340">
+         <Feature ID="470">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2471" Value="I/O Ports" langid="1"/>
+           <Name ID="2472" Value="I/O-poorten" langid="2"/>
+           <Name ID="7232" Value="I/O Ports" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115428" Value="" No="29580" CategoryFeatureGroup_ID="340">
+         <Feature ID="822">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3175" Value="Surface treatment" langid="1"/>
+           <Name ID="3176" Value="Oppervlaktebewerking" langid="2"/>
+           <Name ID="7581" Value="Surface treatment" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115429" Value="" No="17409" CategoryFeatureGroup_ID="340">
+         <Feature ID="775">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3081" Value="Plug and Play" langid="1"/>
+           <Name ID="3082" Value="plug-en-play" langid="2"/>
+           <Name ID="7535" Value="plug and play" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115430" Value="" No="17408" CategoryFeatureGroup_ID="340">
+         <Feature ID="608">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2747" Value="Regulatory" langid="1"/>
+           <Name ID="2748" Value="Regulatory" langid="2"/>
+           <Name ID="7370" Value="Regulatory" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115431" Value="" No="69" CategoryFeatureGroup_ID="340">
+         <Feature ID="1625">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5079" Value="Wall mountable" langid="1"/>
+           <Name ID="5080" Value="Wall mountable" langid="2"/>
+           <Name ID="8346" Value="Wall mountable" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115432" Value="" No="66" CategoryFeatureGroup_ID="340">
+         <Feature ID="1624">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5061" Value="Monitor base" langid="1"/>
+           <Name ID="5062" Value="Monitor base" langid="2"/>
+           <Name ID="8341" Value="Monitor base" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115433" Value="" No="44" CategoryFeatureGroup_ID="340">
+         <Feature ID="250">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1867" Value="Bundled hardware" langid="1"/>
+           <Name ID="1868" Value="Gebundelde hardware" langid="2"/>
+           <Name ID="6942" Value="Bundled hardware" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115434" Value="" No="35" CategoryFeatureGroup_ID="1205">
+         <Feature ID="621">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2773" Value="Non-Operating Humidity" langid="1"/>
+           <Name ID="2774" Value="Relatieve luchtvochtigheid bij opslag" langid="2"/>
+           <Name ID="7381" Value="Humidité hors fonctionnement" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115435" Value="" No="33" CategoryFeatureGroup_ID="1205">
+         <Feature ID="511">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="2553" Value="Maximum Operating Temperature Range" langid="1"/>
+           <Name ID="2554" Value="Maximum temperatuur in bedrijf" langid="2"/>
+           <Name ID="7273" Value="Maximum Operating Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115436" Value="" No="31" CategoryFeatureGroup_ID="1205">
+         <Feature ID="703">
+          <Measure ID="64" Sign="%"/>
+           <Name ID="2937" Value="Operating Humidity Range" langid="1"/>
+           <Name ID="2938" Value="Relatieve luchtvochtigheid, in bedrijf" langid="2"/>
+           <Name ID="7463" Value="Operating Humidity Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115437" Value="" No="21" CategoryFeatureGroup_ID="1205">
+         <Feature ID="757">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3045" Value="Storage Temperature Range" langid="1"/>
+           <Name ID="3046" Value="Temperatuur bij opslag" langid="2"/>
+           <Name ID="7517" Value="Storage Temperature Range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115438" Value="" No="17" CategoryFeatureGroup_ID="340">
+         <Feature ID="645">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2821" Value="NO LABEL" langid="1"/>
+           <Name ID="2822" Value="NO LABEL" langid="2"/>
+           <Name ID="7405" Value="NO LABEL" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115439" Value="" No="10" CategoryFeatureGroup_ID="340">
+         <Feature ID="734">
+          <Measure ID="29" Sign=""/>
+           <Name ID="2999" Value="Chassis Type" langid="1"/>
+           <Name ID="3000" Value="Type behuizing" langid="2"/>
+           <Name ID="7494" Value="Type de châssis" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115440" Value="TCO 99 " No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="249">
+          <Measure ID="29" Sign=""/>
+           <Name ID="1865" Value="Certification" langid="1"/>
+           <Name ID="1866" Value="Certificering" langid="2"/>
+           <Name ID="6941" Value="Certification" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115441" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="438">
+          <Measure ID="24" Sign="mm"/>
+           <Name ID="2243" Value="Display viewable area HxV" langid="1"/>
+           <Name ID="2244" Value="Beeldscherm viewable area HxV" langid="2"/>
+           <Name ID="7130" Value="Display viewable area HxV" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115442" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="793">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3117" Value="Compliance Industry Standards" langid="1"/>
+           <Name ID="3118" Value="Standaard" langid="2"/>
+           <Name ID="7553" Value="Compliance Industry Standards" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115443" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="890">
+          <Measure ID="29" Sign=""/>
+           <Name ID="3321" Value="Compatibility" langid="1"/>
+           <Name ID="3322" Value="Compatibiliteit" langid="2"/>
+           <Name ID="7653" Value="Compatibility" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115444" Value="" No="0" CategoryFeatureGroup_ID="1205">
+         <Feature ID="1112">
+          <Measure ID="65" Sign="&amp;deg;C"/>
+           <Name ID="3765" Value="Operating temperature range" langid="1"/>
+           <Name ID="3766" Value="Operating temperature range" langid="2"/>
+           <Name ID="7867" Value="Operating temperature range" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115445" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="1371">
+          <Measure ID="42" Sign="V"/>
+           <Name ID="4283" Value="Monitor video input signal" langid="1"/>
+           <Name ID="4284" Value="Monitor video input signal" langid="2"/>
+           <Name ID="8122" Value="Monitor video input signal" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115446" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="1379">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4299" Value="Ergonomics" langid="1"/>
+           <Name ID="4300" Value="Ergonomics" langid="2"/>
+           <Name ID="8130" Value="Ergonomics" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115447" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="1464">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4625" Value="Height" langid="1"/>
+           <Name ID="4626" Value="Hoogte" langid="2"/>
+           <Name ID="8271" Value="Height" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115448" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="1566">
+          <Measure ID="29" Sign=""/>
+           <Name ID="4877" Value="Brightness" langid="1"/>
+           <Name ID="4878" Value="Helderheid" langid="2"/>
+           <Name ID="7183" Value="Brightness" langid="3"/>
+         </Feature>
+        </ProductFeature>
+        <ProductFeature ID="6115449" Value="" No="0" CategoryFeatureGroup_ID="340">
+         <Feature ID="1695">
+          <Measure ID="29" Sign=""/>
+           <Name ID="5327" Value="Speakers and microphone" langid="1"/>
+           <Name ID="5328" Value="Luidprekers en microfoon" langid="2"/>
+           <Name ID="8460" Value="Haut-parleurs et micro" langid="3"/>
+         </Feature>
+        </ProductFeature>
+       <Supplier ID="26" Name="Samsung"/>
+       <Category ID="222">
+         <Name ID="445" Value="flat panel displays" langid="1"/>
+         <Name ID="446" Value="monitoren TFT" langid="2"/>
+         <Name ID="6295" Value="flat panel displays" langid="3"/>
+       </Category>
+      </Product>
+
+</ICECAT-interface>

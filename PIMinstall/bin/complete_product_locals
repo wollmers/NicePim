@@ -1,0 +1,145 @@
+#!/usr/bin/perl
+
+#$Id: complete_product_locals 2084 2009-12-19 15:07:24Z dima $
+
+#
+# complete_product_locals
+#
+# create table product_local (
+# product_local_id int(13) primary key,
+# product_id       int(13) not null default 0,
+# product_id_local int(13) not null default 0,
+# supplier_id      int(13) not null default 0,
+#
+# unique key (product_id,product_id_local),
+# key (product_id_local),
+# key (supplier_id)) ENGINE = MyISAM;
+#
+
+#use lib '/home/dima/gcc_svn/lib';
+use lib '/home/pim/lib';
+
+use strict;
+
+use atomcfg;
+use atomsql;
+use atomlog;
+
+$| = 1;
+
+# begin
+
+my $supplier_id = $ARGV[0];
+
+$supplier_id = undef if $supplier_id !~ /^\d+(,\d+)*$/;
+
+print "\033[1mLet's start\033[0m:\n";
+
+my $supps = &do_query("select supplier_id, template, name from supplier where template != ''" . ($supplier_id ? " and supplier_id in (".$supplier_id.")" : ''));
+my ($prods, $q, $t, @ts, $got, $p_id, $i, $j, $cnt);
+my $h;
+
+open TMP, ">/tmp/product_locals_".$$;
+binmode TMP, ":utf8";
+
+foreach my $s (@$supps) {
+
+	print "Start new vendor: \033[1m".$s->[2]."\033[0m (\033[1m";
+
+	$prods = &do_query("select prod_id, product_id from product_memory where supplier_id = ".$s->[0]);
+
+	print ($#$prods+1);
+	print "\033[0m products got), ";
+
+	@ts = split '\n', $s->[1];
+
+	$t = $ts[0];
+
+	print "template is `\033[1m".$t."\033[0m`, ";
+
+	foreach my $p (@$prods) {
+		$q = $p->[0];
+		if ($q =~ /$t$/) {
+			$q =~ s/^(.*?)($t)$/$1/;
+			$h->{$q} = 0;
+		}
+		else {
+			$h->{$p->[0]} = $p->[1] unless defined $h->{$p->[0]};
+		}
+	}
+
+	# now, we have %$h. each element has values: product_id - if non-like to the template, and 0 - if like (key eq the main part of the template)...
+
+	print "all needed products were collected, now we want to collect all products: ";
+
+	$i = 0;
+	$cnt = 0;
+	my $xlike;
+
+	while (my ($x, $y) = each %$h) {
+		print " \033[33;1m".$cnt."\033[37;0m " unless ($cnt % 1000);
+		$cnt++;
+		$p_id = &do_query("select product_id from product_memory where prod_id = ".&str_sqlize($x))->[0][0];
+		unless ($p_id) {
+			print " \033[31m".$x."\033[37m ";
+			next;
+		}
+		if ($y) {
+			print ".";
+			$i++;
+			print TMP "\x01".$p_id."\x01".$p_id."\x01".$s->[0]."\x02";
+		}
+		else {
+			$xlike = $x;
+			$xlike =~ s/%/\\%/g; # for proper like only, escape % & _
+			$xlike =~ s/_/\\_/g;
+			my $q = "select product_id, prod_id from product_memory where supplier_id=".$s->[0]." and prod_id like ".&str_sqlize($xlike.'%')." and (prod_id REGEXP ".&str_sqlize('^'.$x.&perl2mysql($t))." OR prod_id = ".&str_sqlize($x).")";
+			$got = &do_query($q);
+#			print "\n".$q."\n";
+			$j = 0;
+			foreach (@$got) {
+				if (($_->[1] =~ /$t$/) || ($_->[1] eq $x)) {
+					$i++;
+					$j++;
+					print TMP "\x01".$p_id."\x01".$_->[0]."\x01".$s->[0]."\x02";
+				}
+			}
+			print " \033[32;1m".$x."\033[37;0m ";
+			print $j." ";
+			undef $got;
+		}
+	}
+
+	print " (collect \033[1m".$i."\033[0m products) done.\n";
+
+	undef $h;
+	undef $prods;
+}
+
+close TMP;
+
+print "\nNow, we are creating a new product_local table... ";
+
+&do_statement("drop table if exists product_local_new");
+&do_statement("create table product_local_new like product_local");
+&do_statement("alter table product_local_new DISABLE KEYS");
+&do_statement("load data local infile '/tmp/product_locals_".$$."' into table product_local_new fields terminated by '\x01' lines terminated by '\x02'");
+`rm -f /tmp/product_locals_$$`;
+print "EK ";
+&do_statement("alter table product_local_new ENABLE KEYS");
+&do_statement("drop table if exists product_local_old");
+print "RT ";
+&do_statement("rename table product_local to product_local_old, product_local_new to product_local");
+
+print "done\n\n\n";
+
+# subs
+
+sub perl2mysql {
+	my $perl = shift;
+
+	$perl =~ s/\\w/[[:alnum:]]/gs;
+	$perl =~ s/\\d/[[:digit:]]/gs;
+
+	return $perl;
+} # sub perl2mysql

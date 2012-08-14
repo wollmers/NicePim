@@ -1,0 +1,24 @@
+{
+name: feature_values_vocabulary;
+priority: 10;
+
+_resource_vocabulary: select record_id,v.key_value,value,name,v.feature_values_group_id,localized_bits,'' from localized_bits inner join feature_values_vocabulary v using(key_value) left join feature_values_group using(feature_values_group_id) where %%search_clause%% and langid=1 %%order_clause%% limit %%start_row%%,%%rows_number%%
+_resource_vocabulary_type: multi;
+_resource_vocabulary_def_order: group_name,eng_value;
+_resource_vocabulary_bitwise_search: yes;
+_resource_vocabulary_bitwise_field: localized_bits;
+_mapping_vocabulary: record_id,key_value, eng_value, group_name, feature_values_group_id, localized_bits, localized;
+
+format_as_localized: localized;
+
+authorize_superuser: record_id;
+authorize_supereditor: record_id;
+authorize_category_manager: record_id;
+authorize_editor: record_id;
+authorize_supplier: record_id;
+authorize_guest: record_id;
+authorize_shop: record_id;
+
+authorize_submit_superuser: record_id;
+authorize_submit_supereditor: record_id;
+}

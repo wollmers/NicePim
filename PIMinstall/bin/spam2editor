@@ -1,0 +1,153 @@
+#!/usr/bin/perl
+
+#$Id: spam2editor 2206 2010-02-09 17:55:25Z dima $
+
+use lib '/home/pim/lib';
+use atomcfg;
+use atomsql;
+use atom_misc;
+use atomlog;
+use atom_util;
+use atom_mail;
+use atom_format;
+use POSIX;
+
+&load_email_template("email_complaint");
+
+#select complaint for period < (today - 24hours)
+my $complaints4spam = &do_query("select id, user_id from product_complaint where  unix_timestamp(date) < (unix_timestamp() - 60*60*24)  and complaint_status_id = 1");
+
+my $report;
+
+foreach my $complaint(@$complaints4spam){
+ my $mail;
+ $cid = $complaint->[0];
+ $uid = $complaint->[1];
+ 
+ $ug = &do_query("select user_group from users where user_id = $uid")->[0][0];
+ if($ug != 'editor'){ next;}
+
+ $mail->{'html_body'} = &get_complaint_email_body($atoms, $cid, 1); 
+ $mail->{'text_body'} = &html2text($mail->{'html_body'});
+
+ my $cstatus = &do_query("select v.value from product_complaint as pc,
+ product_complaint_status as pcs, vocabulary as v where pc.complaint_status_id =
+ pcs.code and pcs.sid = v.sid and v.langid = 1 and pc.id = ".$cid)->[0][0];
+
+ if($cstatus ne 'New'){ next;}
+	
+ $mail->{'subject'} = "Complaint $cid: ".$cstatus;
+ $mail->{'to'} =  &do_query("select contact.email from contact, users, product_complaint where product_complaint.id = $cid and users.user_id =product_complaint.user_id  and users.pers_cid = contact.contact_id")->[0][0];
+ $mail->{'from'} = $atomcfg{'complain_from'};
+	 
+ my $max_history = &do_query("select max(id) from product_complaint_history where complaint_id = $cid")->[0][0];
+ $main->{'reply_to'} = &do_query("select c.email from product_complaint_history as pch,
+ users as u, contact as c where pch.id = $max_history and pch.user_id =
+ u.user_id and u.pers_cid = c.contact_id")->[0][0];
+	 
+ &complex_sendmail($mail);
+ 
+}
+
+$report->{'html_body'} = "
+<html>
+ <title>ICEcat complaints report</title>
+ <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">
+ <LINK  href=\"main.css\" rel=stylesheet type=text/css>
+ <body>
+		 
+<table width=\"740\" border=\"0\" cellspacing=\"1\" cellpadding=\"3\" align='center' class=\"maintxt\"\  bgcolor='#EBEBEB'>
+  <tr align=center bgcolor=\"#99CCFF\">
+    <td>Date</td>
+    <td>ID</td>
+		<td>Product</td>
+		<td>Prod ID</td>
+    <td>Subject</td>
+    <td>Editor</td>
+    <td>Sender</td>
+    <td>Status</td>
+  </tr>
+";
+
+my $complaints4report = &do_query("
+select pc.id, p.name, pc.prod_id, pc.subject, pc.date, u.login,
+ v.value, u1.login, pc.internal, u.user_id, complaint_status_id from
+ product_complaint as pc, product as p, supplier as s,  users as u, users as u1,
+ vocabulary as v,  product_complaint_status as pcs  where pc.product_id = p.product_id
+ and pc.supplier_id = s.supplier_id and pc.user_id = u.user_id and  pc.complaint_status_id =
+ pcs.code and pcs.sid = v.sid and  v.langid = 1 and pc.fuser_id = u1.user_id
+ and pc.product_id and  unix_timestamp(pc.date) < (unix_timestamp() - 60*60*24) order by pc.date desc");
+
+		
+foreach $complaint(@$complaints4report){
+
+ $ug = &do_query("select user_group from users where user_id = ".$complaint->[9])->[0][0];
+ if($ug != 'editor'){ next;} #only to editors
+ 
+ if($complaint->[10] != 1){ next;} #only New complaints
+
+ my $hash; $hash->{'complaint_email'} = 1; $hash->{'status_id'} = 1;
+ my $hash2; $hash2->{'internal'} = $complaint->[8]; $hash2->{'prod_id'} = $complaint->[2];
+ $report->{'html_body'} .= "
+   <tr bgcolor=\"white\" nowrap>
+     <td align=center bgcolor=\"white\" width=\"80\">".&get_date($complaint->[0])."</td>
+	   <td align=center bgcolor=\"white\" >".$complaint->[0]."</td>
+     <td width=\"250\">".$complaint->[1]."</a></td>
+     <td>".&get_internal($hash2)."</td>
+		 <td width=\"150\">".$complaint->[3]."</td>
+     <td>".$complaint->[5]."</td>
+		 <td>".$complaint->[7]."</td>
+		 <td>".&format_as_status_name($complaint->[6],,,$hash)."</td>
+   </tr>
+ ";
+}
+
+$report->{'html_body'} .= "</table></body></html>";
+
+$report->{'text_body'} = &html2text($report->{'html_body'});
+my $date = strftime ( "%Y-%m-%d", localtime(time));
+$report->{'subject'} = "Open complaints report for $date";
+$report->{'to'} = &do_query("select c.email from users as u, contact as c , sys_preference as sp where  sp.name='default_superuser_id' and sp.value = u.user_id and u.pers_cid = c.contact_id")->[0][0];
+$report->{'from'} = $atomcfg{'complain_from'};
+&complex_sendmail($report);
+
+
+
+sub get_date{
+ my ($value) = @_;
+ my $get_date = &do_query("select unix_timestamp() - unix_timestamp(date) from product_complaint where id=$value");
+ my $date = $get_date->[0][0];
+ my $hours = sprintf("%1.f",$date/(60*60));
+ my $days = sprintf("%1.f",$date/(60*60*24));
+ if($hours < 24){
+	#as hours
+  if(($hours == 1) || ($hours < 1)){
+	   $value = "1 hour ago";
+  }else{
+	   $value = "$hours hours ago"
+  }
+ }else{
+  if($days == 1){
+     $value = "1 day ago";
+  }else{
+     $value = "$days days ago"
+  }
+ }
+ return $value;
+}
+																
+sub get_internal
+{
+ my ($hash) = @_;
+ if($hash->{'internal'} == 1){ $hash->{'prod_id'} =  "<font color=blue>".$hash->{'prod_id'}."</font>";}
+ if($hash->{'internal'} == 0){ $hash->{'prod_id'} =  "<font color=black>".$hash->{'prod_id'}."</font>";};
+ return $hash->{'prod_id'};
+}
+					
+
+
+
+
+
+
+

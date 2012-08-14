@@ -1,0 +1,10 @@
+{
+ name: stat_reports_search;
+ priority: 100;
+
+_resource_stat_params: select '%%search_code_email%%';
+_mapping_stat_params: search_code_email;
+
+verify_deny_guest: yes;
+
+}
