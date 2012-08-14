@@ -10,11 +10,11 @@ my $parser = XML::LibXML->new();
 
 my $doc;
 
-eval {$doc = $parser->parse_file($file)} or die $@;
+eval { $doc = $parser->parse_file($file) } or die $@;
 
 print Dumper($doc);
 
-eval {$doc->validate($doc->externalSubset)};
+eval { $doc->validate($doc->externalSubset) };
 
 print $@."\n";
 

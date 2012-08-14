@@ -1,7 +1,5 @@
 package atom_engine;
 
-#$Id: atom_engine.pm 3680 2011-01-11 13:09:26Z alexey $
-
 use strict;
 
 use atomcfg;

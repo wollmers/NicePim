@@ -3,7 +3,6 @@
 use strict;
 
 use lib "/home/pim/lib";
-#use lib "/home/dima/gcc_svn/lib";
 
 use atomcfg;
 use atomlog;
@@ -13,7 +12,7 @@ use Image::Magick;
 
 # begin
 
-my $images = &do_query("select p.product_id, p.prod_id, (select s.name from supplier s where s.supplier_id=p.supplier_id), p.low_pic from product p where low_pic != ''");
+my $images = do_query("select p.product_id, p.prod_id, (select s.name from supplier s where s.supplier_id=p.supplier_id), p.low_pic from product p where low_pic != ''");
 
 #$images = [
 #	[1,'AB','HP','./wartermark_absent.jpg'],

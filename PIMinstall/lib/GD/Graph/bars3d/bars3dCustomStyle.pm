@@ -34,8 +34,8 @@ sub x_axis_styles{
 # This is a complete overhaul of the original GD::Graph::bars
 # design, because all versions (overwrite = 0, 1, 2) 
 # require that the bars be drawn in a loop of point over sets
-sub draw_data
-{
+
+sub draw_data {
 	my $self = shift;
 	my $g = $self->{graph};
 
@@ -65,25 +65,27 @@ sub draw_data
 			my @rgb;
 			if( $self->{cycle_clrs} ) {
 				@rgb = $self->pick_data_clr( $i + 1 );
-			} else {
+			} 
+			else {
 				@rgb = $self->pick_data_clr( $j );
 				if(ref($self->x_axis_styles()) eq 'ARRAY' and ref($self->x_axis_styles()->[$i]) and ref($self->x_axis_styles()->[$i]->rgb()) eq 'ARRAY' and scalar(@{$self->x_axis_styles()->[$i]->rgb()})==3){
 					@rgb = @{$self->x_axis_styles()->[$i]->rgb};# apply styles if any
 				}
-			} # end if
+			} 
 			my $dsci = $self->set_clr( @rgb );
 			if( $self->{'3d_shading'} ) {
 				$self->{'3d_highlights'}[$dsci] = $self->set_clr( $self->_brighten( @rgb ) );
 				$self->{'3d_shadows'}[$dsci]    = $self->set_clr( $self->_darken( @rgb ) );
-			} # end if
+			} 
 			
 			# contrib "Bremford, Mike" <mike.bremford@gs.com>
 			my $brci;
 			if( $self->{cycle_clrs} > 1 ) {
 				$brci = $self->set_clr($self->pick_data_clr($i + 1));
-			} else {
+			} 
+			else {
 				$brci = $self->set_clr($self->pick_border_clr($j));
-			} # end if
+			} 
 
 
 			# get coordinates of top and center of bar
@@ -106,20 +108,17 @@ sub draw_data
             ($r) = $self->val_to_pixel($i + 1, $value, $j);
          }
 
-			if( (ref $self eq 'GD::Graph::mixed') || ($overwrite >= 1) )
-			{
+		if ( (ref $self eq 'GD::Graph::mixed') || ($overwrite >= 1) ) {
             if ($self->{rotate_chart}) {
                $bottom = $t + $self->{x_step}/2 - $bar_s + $x_offset;
                $t = $t - $self->{x_step}/2 + $bar_s + $x_offset;
             }
-            else 
-				{
+            else {
 				   $l = $xp - $self->{x_step}/2 + $bar_s + $x_offset;
 				   $r = $xp + $self->{x_step}/2 - $bar_s + $x_offset;
 				}
 			}
-			else
-			{
+			else {
             if ($self->{rotate_chart}) {
 					warn "base is $t";
 					$bottom = $t - $self->{x_step}/2 
@@ -130,8 +129,7 @@ sub draw_data
 					   - $bar_s + $x_offset;
 					warn "top bottom is ($t, $bottom)";
             }
-            else 
-				{
+            else {
 					$l = $xp 
 						- $self->{x_step}/2
 						+ ($j - 1) * $self->{x_step}/$self->{_data}->num_sets()
@@ -146,13 +144,14 @@ sub draw_data
 			if ($value >= 0) {
 				# draw the positive bar
 				$self->draw_bar( $g, $l, $t, $r, $bottom-$y_offset, $dsci, $brci, 0 )
-			} else {
+			}
+			else {
 				# draw the negative bar
 				$self->draw_bar( $g, $l, $bottom-$y_offset, $r, $t, $dsci, $brci, -1 )
-			} # end if
+			} 
 
-		} # end for
-	} # end for
+		} 
+	} 
 
 
 	# redraw the 'zero' axis, front and right
@@ -165,7 +164,7 @@ sub draw_data
 			$self->{right}, $self->{zeropoint}, 
 			$self->{right}+$self->{depth_3d}, $self->{zeropoint}-$self->{depth_3d}, 
 			$self->{fgci} );
-	} # end if
+	} 
 
 	# redraw the box face
 	if ( $self->{box_axis} ) {
@@ -173,7 +172,7 @@ sub draw_data
 		$g->rectangle($self->{left}, $self->{top}, $self->{right}, $self->{bottom}, $self->{fgci});
 		$g->line($self->{right}, $self->{top}, $self->{right} + $self->{depth_3d}, $self->{top} - $self->{depth_3d}, $self->{fgci});
 		$g->line($self->{right}, $self->{bottom}, $self->{right} + $self->{depth_3d}, $self->{bottom} - $self->{depth_3d}, $self->{fgci});
-	} # end if
+	} 
 
 	return $self;
 	
@@ -182,8 +181,7 @@ sub draw_data
 
 
 
-sub plot
-{
+sub plot {
 	
 	
 	my $self = shift;
@@ -193,7 +191,7 @@ sub plot
     $self->init_graph()                 or return;
     $self->setup_text()                 or return;
     my %legend_styles;
-    if($self->{_x_styles}){
+    if($self->{_x_styles}) {
 		foreach my $style(@{$self->{_x_styles}}){
 			$legend_styles{$style->legend_name()}=$style if UNIVERSAL::can($style,'isa') and $style->can('legend_name') and ref($style->rgb()) eq 'ARRAY';	
 		}
@@ -201,27 +199,27 @@ sub plot
 	my @legend_names=keys(%legend_styles);
 	
 	my $saved_legend=$self->{legend};
-	if(ref($self->{legend}) eq 'ARRAY'){
+	if (ref($self->{legend}) eq 'ARRAY') {
 		push(@{$self->{legend}},@legend_names);
-	}else{
+	}
+	else {
 		$self->{legend}=\@legend_names;
 	}
 	#setup_legend check for length of data array when calculate sizes of text spacing etc.
 	#we need to trick it to take into account our styled legend in calculations     
-	for(my $i=0;$i<@legend_names;$i++){
+	for (my $i=0;$i<@legend_names;$i++) {
 		push(@{$self->{_data}},'dummy');
 	}
 
     $self->setup_legend();
     # now remove our dummy data sets 
-	for(my $i=0;$i<@legend_names;$i++){
+	for (my $i=0;$i<@legend_names;$i++) {
 		pop(@{$self->{_data}});
 	}
     
     $self->setup_coords()               or return;
     $self->draw_text();
-    unless (defined $self->{no_axes})
-    {
+    unless (defined $self->{no_axes}) {
         $self->draw_axes();
         $self->draw_ticks()             or return;
     }
@@ -251,8 +249,8 @@ sub draw_legend_from_style{
 	
 	my %legend_styles;
 	
-	foreach my $style(@{$self->{_x_styles}}){
-		$legend_styles{join('-',@{$style->rgb()})}=$style if UNIVERSAL::can($style,'isa') and $style->can('rgb') and ref($style->rgb()) eq 'ARRAY';	
+	for my $style(@{$self->{_x_styles}}){
+		$legend_styles{join('-',@{$style->rgb()})} = $style if UNIVERSAL::can($style,'isa') and $style->can('rgb') and ref($style->rgb()) eq 'ARRAY';	
 	}
 	my $saved_colors=$self->{dclrs};
 	$self->{dclrs}=[];
@@ -275,8 +273,7 @@ sub draw_legend_from_style{
 
         $x += $self->{lg_el_width};
 
-        if (++$row > $self->{lg_cols})
-        {
+        if (++$row > $self->{lg_cols}) {
             $row = 1;
             $y += $self->{lg_el_height};
             $x = $xl;
@@ -286,8 +283,8 @@ sub draw_legend_from_style{
     $self->{dclrs}=$saved_colors;;	
 }
 
-sub draw_legend_marker_rgb # data_set_number, x, y and use RGB array 
-{
+# data_set_number, x, y and use RGB array
+sub draw_legend_marker_rgb {
     my $self = shift;
     my $colour = shift;
     my $x = shift;
@@ -311,4 +308,5 @@ sub draw_legend_marker_rgb # data_set_number, x, y and use RGB array
         $self->{acci}
     );
 }
+
 1;

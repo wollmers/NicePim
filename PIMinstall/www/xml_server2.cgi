@@ -16,5 +16,5 @@ alarm 60;
 #} else {
 use icecat_server2;
 use atom_html;
-&icecat_server_main();
+icecat_server_main();
 #}

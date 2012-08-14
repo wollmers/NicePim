@@ -1,10 +1,7 @@
 #!/usr/bin/perl
 
-#$Id: TP-Link_image_updater 3484 2010-11-23 18:37:15Z dima $
-
 use strict;
 
-#use lib '/home/dima/gcc_svn/lib';
 use lib '/home/pim/lib';
 
 use atomlog;
@@ -21,7 +18,7 @@ my $picts_dir = $atomcfg{'base_dir'}.'tests/TP-Link/TP-LINK_Pictures/';
 
 my $suffix = 'TP-LINK';
 
-my $supplier_id = &do_query("select supplier_id from supplier where name = ".&str_sqlize($suffix))->[0][0];
+my $supplier_id = do_query("select supplier_id from supplier where name = " . str_sqlize($suffix))->[0][0];
 
 die unless $supplier_id;
 
@@ -31,7 +28,7 @@ closedir DIR;
 
 my $dup = {};
 
-foreach (@files) {
+for (@files) {
 	my $fullpath;
 	$fullpath = $picts_dir.$_;
 	my $prod_id;
@@ -48,11 +45,15 @@ foreach (@files) {
 
 	print $prod_id . " " . $prod_id_2 . "\n";
 
-	my $prods = &do_query("select product_id from product where supplier_id= ".$supplier_id." and prod_id in (".&str_sqlize($prod_id).",".&str_sqlize($prod_id_2).") and user_id > 1 and high_pic not like ".&str_sqlize('%'.$suffix.'%'));
-	foreach (@$prods) {
+	my $prods = do_query(
+	   "select product_id from product where supplier_id= ".$supplier_id
+	   ." and prod_id in (". str_sqlize($prod_id).",". str_sqlize($prod_id_2)
+	   .") and user_id > 1 and high_pic not like " . str_sqlize('%'.$suffix.'%'));
+
+	for (@$prods) {
 		print "\t" . $_->[0] . "\n";
-		my $thumb = &thumbnailize_product (
-			&normalize_product_pics( { 'product_id' => $_->[0], 'high_pic' => $fullpath }, $suffix)
+		my $thumb = thumbnailize_product (
+			normalize_product_pics( { 'product_id' => $_->[0], 'high_pic' => $fullpath }, $suffix)
 			);
 	}
 }

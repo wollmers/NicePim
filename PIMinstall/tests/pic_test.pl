@@ -207,7 +207,7 @@ sub init_log {
     	    # all components in this message shuld be without spaces
 	        my %mess = @_;
 	        if ($mess{'message'} !~ /^---/ ) {
-	            my @arr = split / /, $mess{'message'};
+	            my @arr = split(/ /, $mess{'message'});
     		    return sprintf("%4s %10s %18s %18s %18s %8s %s >> %s\n", $arr[0], $arr[1], $arr[2], $arr[3], $arr[4], $arr[5], $arr[6], $arr[7]);
 	        } 
 	        else {

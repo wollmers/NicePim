@@ -1,5 +1,8 @@
 #!/usr/bin/perl
-use lib "/home/alexey/icecat/bo/lib";
+
+
+#use lib "/home/alexey/icecat/bo/lib";
+
 use atom_mail;
 use atomcfg;
 my $mail={
@@ -41,7 +44,7 @@ $mail->{'html_body'}='<b>Hello Matijs</b><br/>This is test email. It was sent to
 					  <b>some text</b><br/>&nbsp;</div>';
 $mail->{"subject"}="Test message from icecat team";
 print "\tsending text/html with emmbeded image and attachments\n";
-&simple_sendmail($mail);
+simple_sendmail($mail);
 
 
 

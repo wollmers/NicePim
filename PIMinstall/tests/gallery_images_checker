@@ -21,7 +21,7 @@ $| = 1;
 
 my $cache = $atomcfg{base_dir}.'tests/gallery_images_checker_cache/';
 
-my $galleries = &do_query("select id, link, product_id from product_gallery where link != '' and link not like '%Brodit%'");
+my $galleries = do_query("select id, link, product_id from product_gallery where link != '' and link not like '%Brodit%'");
 
 my ($type, $fn, $pic_hash, $dst_link, $rand_index);
 
@@ -47,20 +47,20 @@ foreach my $g (@$galleries) {
 
 		srand;
 		$rand_index = int(rand(10000));
-    while (&do_query("select id from product_gallery_reverse where link like REVERSE('%".$g->[2]."_".$rand_index.".jpg')")->[0][0]) {
+    while (do_query("select id from product_gallery_reverse where link like REVERSE('%".$g->[2]."_".$rand_index.".jpg')")->[0][0]) {
       srand;
       $rand_index = int(rand(10000));
     }
 
 
-		$pic_hash = &get_gallery_pic_params($fn);
-    $dst_link = &add_image($fn,'img/gallery/',$atomcfg::targets,$g->[2].'_'.$rand_index.'.jpg');
+		$pic_hash = get_gallery_pic_params($fn);
+    $dst_link = add_image($fn,'img/gallery/',$atomcfg::targets,$g->[2].'_'.$rand_index.'.jpg');
 
-		&do_statement("update product_gallery set link=".&str_sqlize($dst_link)." where id=".$g->[0]);
+		do_statement("update product_gallery set link=". str_sqlize($dst_link)." where id=".$g->[0]);
 		
-    my $thumb = &thumbnailize_product_gallery({'gallery_id' => $g->[0], 'product_id' => $g->[2], 'gallery_pic' => $dst_link});
+    my $thumb = thumbnailize_product_gallery({'gallery_id' => $g->[0], 'product_id' => $g->[2], 'gallery_pic' => $dst_link});
 
-		&update_rows("product_gallery", "id = ".$g->[0], $pic_hash);
+		update_rows("product_gallery", "id = ".$g->[0], $pic_hash);
 
 		print " " . $g->[1] . "\t" . ( length($type) ? "\033[1mPNG\033[0m" : 'JPEG' ) . " ";
 

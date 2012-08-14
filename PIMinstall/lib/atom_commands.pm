@@ -209,7 +209,7 @@ sub command_proc_set_rating_formula{
 	}
 	my $formula=$hin{'formula'};
 	my @allowed_vars=('stock','price','product_requested');
-	foreach my $allowed_var (@allowed_vars){
+	for my $allowed_var (@allowed_vars){
 		$formula=~s/$allowed_var/1/gsi;
 	}
 	my $result=&do_query('SELECT '.$formula)->[0][0];
@@ -270,7 +270,7 @@ sub command_proc_set_entrusted_editor{
 	&lp(Dumper(\@assigned_users));
 	my $values='';
 	my $insert_sql='INSERT INTO track_list_entrusted_users (user_id) VALUES ';		
-	foreach my $user_id(@assigned_users){
+	for my $user_id(@assigned_users){
 		$values.=" ($user_id),";
 			
 	}
@@ -410,7 +410,7 @@ sub command_proc_update_ds_measure_sign{
 	if($hin{'atom_update'} and scalar(@user_errors)<1){
 		my @measure_keys=grep(/^measure_sign_[\d]+$/,keys(%hin));
 		my $ds_feature_mapping_info_id;
-		foreach my $measure_key(@measure_keys){
+		for my $measure_key(@measure_keys){
 			if($measure_key=~/^measure_sign_([\d]+)$/){
 				$ds_feature_mapping_info_id=$1;
 			}else{
@@ -423,7 +423,7 @@ sub command_proc_update_ds_measure_sign{
 				if(scalar(@measure_signs)>0){
 					&do_statement('DELETE FROM data_source_feature_map_replaces WHERE data_source_feature_map_info_id='.$ds_feature_mapping_info_id);
 				}
-				foreach my $measure_sign (@measure_signs){
+				for my $measure_sign (@measure_signs){
 					&do_statement('INSERT INTO data_source_feature_map_replaces (value,data_source_feature_map_info_id) VALUES
 								  ('.&str_sqlize($measure_sign).','.$ds_feature_mapping_info_id.')');
 
@@ -444,7 +444,7 @@ sub command_proc_update_ds_measure_sign{
 
 sub command_proc_dictionary_cleanup_html{
 	my @hin_keys=keys(%hin);
-	foreach my $hin_key (@hin_keys){
+	for my $hin_key (@hin_keys){
 		if($hin_key=~/^_rotate_html_[\d]+$/ and $hin{$hin_key}=~/<p>/gs and $hin{$hin_key}!~/<p\s[^>]+?>/gs){
 			my @all_tags=$hin{$hin_key}=~/<[^\>\<]+?>/gs;
 			my @p_tags=$hin{$hin_key}=~/<[\/]{0,1}p>/gs;
@@ -534,7 +534,7 @@ sub command_proc_merge_platforms {
 #	log_printf("DV: default platform = ".$default_platform);
 
 	# check for default in the list
-	foreach (@list) {
+	for (@list) {
 		$defInTheList = 1 if $default_platform eq $_;
 		return 0 unless /^\d+$/;
 	}
@@ -556,7 +556,7 @@ sub command_proc_merge_platforms {
 #	log_printf("DV: delete platforms in platform = ". &do_query("select row_count()")->[0][0] ." times");
 
 	# all ok, let's update the user table
-	foreach (keys %namesList) {
+	for (keys %namesList) {
 		next if $platform_name eq $_;
 		&do_statement("update users set platform=".&str_sqlize($platform_name)." where platform=".&str_sqlize($_)." and platform != ''");
 #		log_printf("DV: update platforms in users (".$_.") = ". &do_query("select row_count()")->[0][0] ." times");
@@ -654,7 +654,7 @@ sub command_proc_manage_campaign_kit {
 			my $product_ids = &get_product_id_list_from_prod_id_set($hin{'prod_id'} || $hin{'prod_id_set'},{ 'supplier_id' => $supplier_id }); # returned { set, not defined }
 			my $actually_added = &do_query("select count(*) from campaign_kit where campaign_id=".$id)->[0][0];
 
-			foreach (split / /, $product_ids->{'set'}) {
+			for (split / /, $product_ids->{'set'}) {
 				&do_statement("insert ignore into campaign_kit(campaign_id,product_id) values(".$id.",".$_.")");
 				# stats
 			}
@@ -719,7 +719,7 @@ sub command_proc_manage_relation_group {
 
 			my $prods;
 
-			foreach (@$r_ids) {
+			for (@$r_ids) {
 				$prods = &get_product_relations_set_amount($_->[0], '', 1);
 				&do_statement("insert ignore into itmp_product2update values (".join('),(',@$prods).")");
 				$prods = &get_product_relations_set_amount($_->[0], '_2', 1);
@@ -762,7 +762,7 @@ sub _remove_relation {
 	return undef unless $id;
 
 	my $ids = &do_query('select include_set_id, exclude_set_id, include_set_id_2, exclude_set_id_2 from relation where relation_id='.$id)->[0];
-	foreach (0..3) {
+	for (0..3) {
 		&do_statement('delete from relation_set where relation_set_id='.$ids->[$_]) if $ids->[$_];
 	}
 
@@ -898,7 +898,7 @@ sub command_proc_manage_relation_set {
 
 	# add or edit or del
 	if ($hin{'action'} eq 'add') {
-		foreach (@$relation_rule_ids) {
+		for (@$relation_rule_ids) {
 			$ie_id = &do_query('select '.$ie_name.' from relation where relation_id='.$hin{'relation_id'})->[0][0];
 			if ($ie_id) { # existed set
 				&do_statement('insert ignore into relation_set(relation_set_id,relation_rule_id) values('.$ie_id.','.$_.')');
@@ -959,12 +959,12 @@ sub new_relation_rule_id {
 	my $set = $hin{'prodid_set'}->[0] ? $hin{'prodid_set'} : [ $hin{'prodid'} ];
 	my $out;
 
-	foreach my $prod_id (@$set) {
+	for my $prod_id (@$set) {
 		# add ALL product with same prod_id and many suppliers
 		my $suppliers = $hin{'supplier'} ? [ [ $hin{'supplier'} ] ] : &do_query("select supplier_id from product where trim(prod_id) != '' and prod_id=".&str_sqlize($prod_id));
 		$suppliers = [ [ 0 ] ] unless $suppliers->[0][0];
 
-		foreach my $supplier (@$suppliers) {
+		for my $supplier (@$suppliers) {
 			my $id = &do_query("select relation_rule_id from relation_rule where supplier_id=".$supplier->[0].
 												 " and supplier_family_id=".$hin{'supplierfamily'}.
 												 " and catid=".             $hin{'category'}.
@@ -1143,7 +1143,7 @@ sub command_proc_movement_value_regexp {
 
 	my @orderedListArr = split /;/, $orderedList;
 
-	foreach (@orderedListArr) {
+	for (@orderedListArr) {
 		next unless $_;
 		&do_statement("update ".$name."_value_regexp set no=".$i." where id=".$_);
 		$i++;
@@ -1285,7 +1285,7 @@ if($hin{'reload'} && $hin{'data_source_id'}){
 
 	my $data = &do_query("select symbol, data_source_category_map_id from data_source_category_map where data_source_id = ".&str_sqlize($data_source_id)." and distributor_id=".$distributor_id." order by symbol");
 
-	foreach my $row(@$data){
+	for my $row(@$data){
 	  my $value = $row->[0];
 		my $m_value = &match_cat_symbol_regexp($pattern, $value);
 
@@ -1311,7 +1311,7 @@ if( ($hin{'atom_submit'} || $hin{'atom_update'}) && $hin{'data_source_id'} &&
 
 	my $data = &do_query("select symbol, data_source_category_map_id from data_source_category_map where data_source_id = ".&str_sqlize($data_source_id)." and distributor_id=".$distributor_id." order by symbol");
 
-	foreach my $row(@$data){
+	for my $row(@$data){
 	  my $value = $row->[0];
 		my $m_value = &match_cat_symbol_regexp($pattern, $value);
 
@@ -1374,7 +1374,7 @@ sub command_proc_preview_apply_localizations {
 		my $regexps = '';
 
 		if ($#templs>-1) {
-	    foreach my $template (@templs) {
+	    for my $template (@templs) {
 				$template =~ s/\s+//;
 				my $lr = str_unsqlize($template);
 				if ($lr eq '') { next; }
@@ -1407,7 +1407,7 @@ sub command_proc_preview_apply_localizations {
 		}
 
 		my $num = 0;
-		foreach my $row(@$data) {
+		for my $row(@$data) {
 	    if ($row->[0] == $hin{'product_id'}) {
 				$lrow = $localization_disable_row;
 	    }
@@ -1517,7 +1517,7 @@ where tp.mapped=1 order by tp.prod_id, tp.supplier_id");
 	my ($s_id, $p_id, $ar, $q);
 	$s_id = 0; $p_id=''; $ar = [];
 
-	foreach my $prod (@$prods,(['',0])) {
+	for my $prod (@$prods,(['',0])) {
 
 #		&log_printf("DV: ".$s_id." ".$prod->[1].", ".$p_id." ".$prod->[0]);
 
@@ -1527,7 +1527,7 @@ where tp.mapped=1 order by tp.prod_id, tp.supplier_id");
 
 			&solve_product_ambugiuty($ar);
 
-			foreach my $p (sort { $a->{'best'} <=> $b->{'best'} } @$ar) {
+			for my $p (sort { $a->{'best'} <=> $b->{'best'} } @$ar) {
 				if ($type eq 'preview') {
 					if ($p->{'best'}) {
 						$preview_rows .= &repl_ph($preview_row_best, {'supplier_name' => $p->{'supplier_name'}, 'm_supplier_name' => $p->{'map_supplier_name'}, 'm_prod_id' => $p->{'prod_id'}, 'old_prod_id' => $p->{'old_prod_id'}, 'login' => $p->{'login'}, 'user_group' => $p->{'user_group'}});
@@ -1768,7 +1768,7 @@ sub command_proc_merge_features_in_category {
 		my $query;
 		$query = "select data_source_id from data_source";
 		my $ds_array = &do_query ( $query );
-		foreach my $ds ( @$ds_array ){
+		for my $ds ( @$ds_array ){
 			my $ds_id = $ds->[0];
 			if ( &feature_isset( $ds_id, $src_feature_id, $cat_id ) ){
 				&create_feature_in_category ( $ds_id, $src_feature_id, $cat_id );
@@ -1805,7 +1805,7 @@ sub create_feature_in_category (){
 	}else{
 		$query = "select data_source_id, symbol, override_value_to,feature_id,catid, coef, format  from data_source_feature_map where catid=1 and feature_id=$feature_id and data_source_id=$data_source_id";
 		my $rows = &do_query ( $query );
-		foreach my $row ( @{$rows} ){
+		for my $row ( @{$rows} ){
 			my $new_data_source = &str_sqlize ( $row->[0] );
 			my $new_symbol = &str_sqlize ( $row->[1] );
 			my $new_override_value_to = &str_sqlize ( $row->[2] );
@@ -1855,7 +1855,7 @@ sub command_proc_htpass_add_user {
 		}
 		my @fa = <HTFILE>;
 		my @na;
-		foreach my $ae (@fa) {
+		for my $ae (@fa) {
 	    if ($ae =~ /$hin{'login'}:/) {
 				&log_printf("$ae login exist");
 				$ex = 1;
@@ -1878,7 +1878,7 @@ sub command_proc_htpass_add_user {
 				}
 				my @fa = <HTFILE1>;
 				my @na;
-				foreach my $ae (@fa) {
+				for my $ae (@fa) {
 					if ($ae =~ /$hin{'login'}:/) {
 						&log_printf("$ae login exist");
 						next;
@@ -2198,7 +2198,7 @@ sub update_product_bg {
 sub get_rating_catid_restrict{
 		my @null_stock_categories=('software licenses/upgrades','warranty & support extensions');
 		my @null_stock_catids;
-		foreach my $nullStockCateg (@null_stock_categories){ 
+		for my $nullStockCateg (@null_stock_categories){ 
 			my $null_stock_catid=&do_query('SELECT catid FROM category c 
 										JOIN vocabulary v ON v.sid=c.sid and v.langid=1 
 										WHERE v.value ='.&str_sqlize($nullStockCateg))->[0][0];
@@ -2479,7 +2479,7 @@ sub get_receivers_for_mail_dispatch {
 		$extra_where = ' country_id = '.&str_sqlize($country).' AND ';
 	}
 
-	foreach my $group_value(@groups_values){
+	for my $group_value(@groups_values){
 		if($hin{$group_value} == 1){
 			$hin{'dispatch_send_to_values'} .= "$group_value,";
 
@@ -2489,7 +2489,7 @@ sub get_receivers_for_mail_dispatch {
 
 			my $persons_details = &do_query("select person, user_group, email from users, contact where $where and users.pers_cid = contact.contact_id");
 
-			foreach my $person(@$persons_details){
+			for my $person(@$persons_details){
 				$hash->{'dispatch_persons'} .= "<option value='$person->[2]'>".$person->[0]." [".$person->[1]."]"." (".$person->[2].")</option>\n";
 				$hash->{'dispatch_emails'} .= $person->[2].",";
 			}
@@ -2498,7 +2498,7 @@ sub get_receivers_for_mail_dispatch {
 
 	if($hin{'dispatch_one_address_check'} == 1){
 		my @addresses = split(",", $hin{'dispatch_one_address'});
-		foreach my $address(@addresses){
+		for my $address(@addresses){
 			$hash->{'dispatch_persons'} .= "<option value='$address'>".$address."</option>\n";
 		}
 		$hash->{'dispatch_emails'} .= $hin{'dispatch_one_address'};
@@ -2612,7 +2612,7 @@ sub command_proc_product_group_action {
 
 	my @actual_actions;
 
-	foreach my $action (@group_actions) {
+	for my $action (@group_actions) {
 		if ($hin{$action} == 1) {
 			push @actual_actions, $action;
 		}
@@ -2628,8 +2628,8 @@ sub command_proc_product_group_action {
 	# check for denied actions pares
 	my @errors;
 
-	foreach my $action1 (@actual_actions) {
-		foreach my $action2 (@actual_actions) {
+	for my $action1 (@actual_actions) {
+		for my $action2 (@actual_actions) {
 			if ($denied_actions{$action1.",".$action2}) {
 				push @errors, $atoms->{'default'}->{'errors'}->{'group_actions'}."(".$atoms->{'default'}->{'product_group_actions_list'}->{$action1}.",".$atoms->{'default'}->{'product_group_actions_list'}->{$action2}.")";
 			}
@@ -2645,7 +2645,7 @@ sub command_proc_product_group_action {
 	my @product_ids = split(",", $hin{'product_id_list'});
 	my %changed_poducts;
 
-	foreach my $action (@actual_actions) {
+	for my $action (@actual_actions) {
 		# &log_printf("DV action: ".$action);
 
 		if ($action eq 'supplier_list') {
@@ -2653,7 +2653,7 @@ sub command_proc_product_group_action {
 			my $list_merges = '';
 			my $dst_list_merges = '';
 
-			foreach my $product_id (@product_ids) {
+			for my $product_id (@product_ids) {
 				my $data = &get_row('product',"product_id = '$product_id'");
 				my $prod_id = $data->{'prod_id'};
 				$data = &get_row('product',"supplier_id = '$hin{'search_supplier_list'}' and prod_id = '$prod_id'");
@@ -2689,7 +2689,7 @@ sub command_proc_product_group_action {
 
 					my $merges = '';
 
-					foreach my $src_product_id (@arr_merges) {
+					for my $src_product_id (@arr_merges) {
 						my $prods;
 						my $src_data = &do_query("select product_id, product.supplier_id, product.prod_id, product.user_id, users.user_group, users.login, supplier.name from product, users, supplier where product.supplier_id = supplier.supplier_id and users.user_id = product.user_id and product_id = '".$src_product_id."' ")->[0];
 						push @$prods, {
@@ -2721,7 +2721,7 @@ sub command_proc_product_group_action {
 
 						&data_management::solve_product_ambugiuty($prods);
 
-						foreach my $row (@$prods) {
+						for my $row (@$prods) {
 							# $mapped_flag = 1;
 							if ($row->{'best'}) {
 								$mergings_rows .= &repl_ph($mergings_row_best, $row);
@@ -2889,7 +2889,7 @@ where p.product_id = ".&str_sqlize($arr_dst_list_merges[$i]))->[0];
 		}
 
 		#if ($iatoms->{'product_group_actions_list'}->{$action.'_param'} eq 'script') {			
-		#	foreach my $product_id (@product_ids) {
+		#	for my $product_id (@product_ids) {
 		#		my $statement = &repl_ph($iatoms->{'product_group_actions_list'}->{$action.'_action'}, {
 		#			'product_id' => $product_id
 		#														 });
@@ -2900,7 +2900,7 @@ where p.product_id = ".&str_sqlize($arr_dst_list_merges[$i]))->[0];
 		#	next;
 		#}
 		if ($action eq 'public' or $action eq 'publish' ) {
-			foreach my $product_id (@product_ids) {
+			for my $product_id (@product_ids) {
 				my $sql_pub;
 				if($action eq 'public'){
 					$sql_pub=' public='.&str_sqlize($hin{'search_public'}).' '
@@ -2917,7 +2917,7 @@ where p.product_id = ".&str_sqlize($arr_dst_list_merges[$i]))->[0];
 
 		if ($USER->{'user_group'} eq 'category_manager') {
 			if ($action eq 'category_list') {
-				foreach my $product_id (@product_ids) {
+				for my $product_id (@product_ids) {
 					my $prod = get_row('product',"product_id = $product_id");
 					my $prod_uid = $prod->{'user_id'};
   		            my $prod_usr = get_row('users',"user_id = $prod_uid");
@@ -2938,7 +2938,7 @@ where p.product_id = ".&str_sqlize($arr_dst_list_merges[$i]))->[0];
 				next;
 			}
 			## other actions
-			foreach my $pid (@product_ids) {
+			for my $pid (@product_ids) {
 				$changed_poducts{$pid}=1;
 			}
 		}
@@ -2957,7 +2957,7 @@ where p.product_id = ".&str_sqlize($arr_dst_list_merges[$i]))->[0];
 		    # log_printf(Dumper(\%hin));
 			my $null_stock_catids=get_rating_catid_restrict();
 			my $formula_params=&get_rating_params();
-			foreach my $product_id (@product_ids) {
+			for my $product_id (@product_ids) {
 				&data_management::conform_product_feature_catid($product_id);
 				update_null_stock_rating($null_stock_catids,$hin{'search_'.$action},$product_id,$formula_params);
 				# if update virtual categories
@@ -2966,7 +2966,7 @@ where p.product_id = ".&str_sqlize($arr_dst_list_merges[$i]))->[0];
                 if ($is_vcats) {
 
                     # subroutine 'update_virtual_...' is oriented for 'vcat_' but we have 'search_vcat_' keys
-                    foreach (keys %hin) {
+                    for (keys %hin) {
                         if (/^search_vcat_(.+)$/) {
                             $hin{'vcat_' . $1} = $hin{$_};
                         }
@@ -2977,10 +2977,10 @@ where p.product_id = ".&str_sqlize($arr_dst_list_merges[$i]))->[0];
 	        }
 		}
 
-	} # foreach for all actions
+	} # for for all actions
 
 	if ($USER->{'user_group'} eq 'category_manager') {
-		foreach my $pid (keys %changed_poducts) { ## log changed products to editors journal
+		for my $pid (keys %changed_poducts) { ## log changed products to editors journal
 			&command_proc_add2editors_journal($pid);
 		}
 	}
@@ -3003,7 +3003,7 @@ sub command_proc_product_complaint_group_action {
 	 my %denied_actions = map{$_ => 1} @denied_actions;
 	 &log_printf(Dumper(\@denied_actions));
 	 my @actual_actions;
-	 foreach my $action(@group_actions){
+	 for my $action(@group_actions){
 		 if($hin{$action} == 1){
 			 push @actual_actions, $action;
 	 }}
@@ -3017,8 +3017,8 @@ sub command_proc_product_complaint_group_action {
 
 	 #check for denied actions pares
 	 my @errors;
-	 foreach my $action1(@actual_actions){
-		 foreach my $action2(@actual_actions){
+	 for my $action1(@actual_actions){
+		 for my $action2(@actual_actions){
 			if($denied_actions{$action1."#".$action2}){
 				push @errors, $atoms->{'default'}->{'errors'}->{'group_actions'}."(".$atoms->{'default'}->{'product_complaint_group_actions_list'}->{$action1}.",".$atoms->{'default'}->{'product_complaint_group_actions_list'}->{$action2}.")";
 	 }}}
@@ -3028,7 +3028,7 @@ sub command_proc_product_complaint_group_action {
 		 return 0;
 	 }
 
-	 foreach my $action (@actual_actions){
+	 for my $action (@actual_actions){
 		 my $statement = &repl_ph($iatoms->{'product_complaint_group_actions_list'}->{$action.'_action'}, {
 			 $iatoms->{'product_complaint_group_actions_list'}->{$action.'_param'} => $hin{'search_'.$action},
 			 'complaint_id' => $hin{'complaint_id_list'}
@@ -3066,7 +3066,7 @@ sub command_proc_track_product_all_group_action {
 	 my %denied_actions = map{$_ => 1} @denied_actions;
 	 &log_printf(Dumper(\@denied_actions));
 	 my @actual_actions;
-	 foreach my $action(@group_actions){
+	 for my $action(@group_actions){
 		 if($hin{$action} == 1){
 			 push @actual_actions, $action;
 	 }}
@@ -3080,8 +3080,8 @@ sub command_proc_track_product_all_group_action {
 
 	 #check for denied actions pares
 	 my @errors;
-	 foreach my $action1(@actual_actions){
-		 foreach my $action2(@actual_actions){
+	 for my $action1(@actual_actions){
+		 for my $action2(@actual_actions){
 			if($denied_actions{$action1."#".$action2}){
 				push @errors, $atoms->{'default'}->{'errors'}->{'group_actions'}."(".$atoms->{'default'}->{'track_products_all_actions'}->{$action1}.",".$atoms->{'default'}->{'track_products_all_actions'}->{$action2}.")";
 	 }}}
@@ -3092,14 +3092,14 @@ sub command_proc_track_product_all_group_action {
 	 }
 	 use track_lists;
 	 my $params_cleaned=$hin{'track_product_id_list'};
-	 foreach my $action (@actual_actions){
+	 for my $action (@actual_actions){
 	 	 my @ids=split(',',$params_cleaned);
 	 	 if($action eq 'delete'){
-	 	 	foreach my $id (@ids){	 	 		 
+	 	 	for my $id (@ids){	 	 		 
 	 	 		delete_track_product_rule($id);
 	 	 	}
 	 	 }elsif($action eq 'add_mapping'){
-			 foreach my $id (@ids){
+			 for my $id (@ids){
 			 	&lp('----->>>>>>>>>>>>>>>>>>>>>>>>'.$id);
 			 	add_track_product_rule($id);
 			 }		 	
@@ -3121,7 +3121,7 @@ sub command_proc_track_product_group_action{
 	 my %denied_actions = map{$_ => 1} @denied_actions;
 	 &log_printf(Dumper(\@denied_actions));
 	 my @actual_actions;
-	 foreach my $action(@group_actions){
+	 for my $action(@group_actions){
 		 if($hin{$action} == 1){
 			 push @actual_actions, $action;
 	 }}
@@ -3135,8 +3135,8 @@ sub command_proc_track_product_group_action{
 
 	 #check for denied actions pares
 	 my @errors;
-	 foreach my $action1(@actual_actions){
-		 foreach my $action2(@actual_actions){
+	 for my $action1(@actual_actions){
+		 for my $action2(@actual_actions){
 			if($denied_actions{$action1."#".$action2}){
 				push @errors, $atoms->{'default'}->{'errors'}->{'group_actions'}."(".$atoms->{'default'}->{'track_products_actions'}->{$action1}.",".$atoms->{'default'}->{'track_products_actions'}->{$action2}.")";
 	 }}}
@@ -3147,16 +3147,16 @@ sub command_proc_track_product_group_action{
 	 }
 	 my $params_cleaned=$hin{'track_product_id_list'};	 
 	 my @ids=split(',',$params_cleaned);
-	 foreach my $action (@actual_actions){
+	 for my $action (@actual_actions){
 	 	 if($action eq 'park'){
-			 foreach my $id (@ids){
+			 for my $id (@ids){
 			 	my $is_parked=&do_query('SELECT is_parked FROM track_product WHERE track_product_id='.$id)->[0][0];
 			 	if(!$is_parked){
 			 		&do_statement("UPDATE track_product SET is_parked=1,remarks=".&str_sqlize($hin{'remarks'}).",changer=$USER->{'user_id'},changer_action='Parks product' WHERE track_product_id=".$id);
 			 	}# nothing to park
 			 }		 		 	 	
 	 	 }elsif($action eq 'unpark'){
-			 foreach my $id (@ids){
+			 for my $id (@ids){
 			 	my $was_parked=&do_query('SELECT is_parked FROM track_product WHERE track_product_id='.$id)->[0][0];
 			 	if($was_parked){			 	
 			 		&do_statement("UPDATE track_product SET is_parked=0,remarks='',changer=$USER->{'user_id'},changer_action='Unparks product' WHERE track_product_id=".$id);
@@ -3533,7 +3533,7 @@ sub command_proc_add2editors_journal {
     # add fake ID for already removed record
     if ($hash2insert->{'product_table'} eq 'product_gallery') {
         # fake ID
-        # just to enter into 'foreach' loop below
+        # just to enter into 'for' loop below
         if ($hin{'atom_submit'} eq 'Delete picture') {
             $product_table_ids = [ [ 0 ] ];
         }
@@ -3574,7 +3574,7 @@ sub command_proc_add2editors_journal {
     my $del_counter = 0;
     my $all_counter = 0;
 
-    foreach my $product_table_id (@$product_table_ids) {
+    for my $product_table_id (@$product_table_ids) {
 
 	    $hash2insert->{'product_table_id'} = $product_table_id->[0];
 
@@ -3612,7 +3612,7 @@ sub command_proc_add2editors_journal {
 	            # log_printf("ARG = " . $cfid);
 	            # log_printf(Dumper($hin{'prev_feature_values'} ) );
 	            my $arr_ref = $hin{'prev_feature_values'};
-	            foreach (@$arr_ref) {
+	            for (@$arr_ref) {
 	                if ($_->[0] == $cfid) {
 	                    return $_->[1];
 	                }
@@ -3758,7 +3758,7 @@ sub command_proc_add2editors_journal {
 	        my $ids = do_query($req);
 
             # if present any changes into 'product_name'
-            foreach my $pn_id (@$ids) {
+            for my $pn_id (@$ids) {
 
                 # get current from product_name
                 my $name_rec = get_certain_product_name($pn_id->[0]);
@@ -3776,7 +3776,7 @@ sub command_proc_add2editors_journal {
 
                         # select value with certain langid
                         my $arr_ref = $hin{'prev_product_name'};
-                        foreach (@$arr_ref) {
+                        for (@$arr_ref) {
                             if ($_->[1] == $name_rec->[0]->[1]) {
                                 $p_name = $_->[0];
                                 last;
@@ -3832,7 +3832,7 @@ sub command_proc_add2editors_journal {
                 my $arg = shift;
                 my $res = {};
                 my ($langid, $val);
-                foreach (@$arg) {
+                for (@$arg) {
                     $langid = $_->[1];
                     $val = $_->[0];
                     $res->{$langid} = $val;
@@ -3844,13 +3844,13 @@ sub command_proc_add2editors_journal {
             my $ns_now = $sql_ans2hash->($pname_now);
 
             my $deleted = {};
-            foreach (keys %$ns_prev) {
+            for (keys %$ns_prev) {
                 if ( ($ns_prev->{$_}) and (! $ns_now->{$_}) ) {
                     $deleted->{$_} = $ns_prev->{$_};
                 }
             }
 
-            foreach (keys %$deleted) {
+            for (keys %$deleted) {
                 # insert into EJ_product_name
                 insert_into_ej_product_name($deleted->{$_}, $_);
                 my $id = do_query('SELECT LAST_INSERT_ID()');
@@ -3972,7 +3972,7 @@ sub command_proc_add2editors_journal {
 	            # log_printf("ARG = " . $cfid);
 	            # log_printf(Dumper($hin{'prev_feature_local_values'} ) );
 	            my $arr_ref = $hin{'prev_feature_local_values'};
-	            foreach (@$arr_ref) {
+	            for (@$arr_ref) {
 	                if ($_->[0] == $cfid) {
 	                    return $_->[1];
 	                }
@@ -4315,7 +4315,7 @@ sub command_proc_add_related_batch {
 		my $bg_result;
 
 		# update product relations
-		foreach my $pid (@$set_of_product_ids) {
+		for my $pid (@$set_of_product_ids) {
 
 #			log_printf("dumper victim = ".Dumper($rel_product_ids));
 
@@ -4382,7 +4382,7 @@ sub command_proc_insert_tab_feature_value_old {
 	&process_atom_ilib('errors');
 	&process_atom_lib('errors');
 	my $features = &do_query("select product_feature_id, category_feature_id from product_feature where product_id = ".$hin{'product_id'});
-	foreach my $feature(@$features){
+	for my $feature(@$features){
 		my $value = $hin{$tab_id.'tab_'.$tab_id.'_'.$feature->[1]};
 		if(!$value && $hin{'tab_feature_value_mandatory_'.$feature->[1]}){
    	 push @user_errors, &repl_ph($atoms->{'default'}->{'errors'}->{'missing_mandatory_feature_value_tab'},
@@ -4400,8 +4400,8 @@ sub command_proc_insert_tab_feature_value_old {
 	pfl.langid from product_feature_local as pfl where
 	pfl.product_id = ".$hin{'product_id'});
 	my $local_feats_hash;
-	foreach my $f(@$local_feats){ $local_feats_hash->{$f->[0]} = $f;}
-	foreach my $feature(@$features){
+	for my $f(@$local_feats){ $local_feats_hash->{$f->[0]} = $f;}
+	for my $feature(@$features){
 	 my $value = $hin{$tab_id.'tab_'.$tab_id.'_'.$feature->[1]};
 	 if(!$value&&$local_feats_hash->{$feature->[1]}->[1]){
 		&delete_rows("product_feature_local", "category_feature_id
@@ -4435,7 +4435,7 @@ sub command_proc_insert_tab_feature_value {
 		my $features = &do_query("select category_feature_id from product inner join category_feature using (catid) where product_id = ".$hin{'product_id'});
 		my $values;
 		delete $hl{'tab_feature_value_error'};
-		foreach my $feature (@$features) {
+		for my $feature (@$features) {
 			my $value = &icecat_util::get_corrected_product_feature_value($hin{$tab_id.'tab_'.$tab_id.'_'.$feature->[0]}, $tab_id);
 			$values->{$feature->[0]} = $value;
 			$hs{'tab_'.$tab_id.'_feature_value_error_'.$feature->[0]} = $hin{$tab_id.'tab_'.$tab_id.'_'.$feature->[0]};
@@ -4457,7 +4457,7 @@ sub command_proc_insert_tab_feature_value {
 		}
 
 		# clean sessions
-		foreach (values %$values) {
+		for (values %$values) {
 			delete $hs{'tab_'.$tab_id.'_feature_value_error_'.$_};
 		}
 		&smart_update_feature_local($hin{'product_id'},$values,$tab_id);
@@ -4468,7 +4468,7 @@ sub command_proc_insert_tab_feature_value {
 sub command_proc_insert_tab_name {
 	my $values = &do_query("SELECT l.langid, pn.name from language l 
 		LEFT JOIN product_name pn ON pn.product_id=" . $hin{'product_id'} . " AND pn.langid=l.langid");
-	foreach my $val (@$values) {
+	for my $val (@$values) {
 		my $prodname = $hin{'value_tab_' . $val->[0]};
 		if ( !$prodname && defined $val->[1] ) {
 			&do_statement("delete from product_name where product_id=" . $hin{'product_id'} . " and langid=" . $val->[0]);
@@ -4486,7 +4486,7 @@ sub command_proc_update_users_repo_access{
 	my $langs = &do_query("select langid, short_code from language order by langid asc");
 	my $uid = &do_query("select user_id from users where login = ".&str_sqlize($hin{'login'}))->[0][0];
 	my $langs2ins;
-  foreach my $lang(@$langs) {
+  for my $lang(@$langs) {
 		if ($hin{'repository_'.$lang->[0]}) {
 			$langs2ins .= '1';
 		}
@@ -4503,7 +4503,7 @@ sub command_proc_update_users_repo_access{
 
 	if ($hin{'subscription_level'} != 4) {
 		$langs2ins = '';
-		foreach my $lang(@$langs) {
+		for my $lang(@$langs) {
 			$langs2ins .= '0';
 		}
 		$langs2ins = '0'.$langs2ins;
@@ -4528,7 +4528,7 @@ where f.feature_id = $f_id and f.sid = v.sid");
 	my %names = map{$_->[1] => $_ } @$names;
 	my $exist;
 
-	foreach my $lang (keys %names) {
+	for my $lang (keys %names) {
 		my $chunk = "<Name ID=\"%%id%%\" Value=\"%%val%%\" langid=\"%%langid%%\"/>";
 		$chunk = &repl_ph( $chunk, {
 			'id' => $names{$lang}->[3],
@@ -4579,7 +4579,7 @@ where f.feature_id = $f_id and f.sid = v.sid");
  		  my $related = $hin{'related_batch'};
    		$related =~ s/\s+/~/g;
    		my @related_arr = split("~", $related);
-    	foreach my $related(@related_arr){
+    	for my $related(@related_arr){
       		$hin{'gallery_pic'}=$related;
 		      &command_proc_get_gallery_pic();
 		      &command_proc_add2editors_journal();
@@ -4592,7 +4592,7 @@ sub command_proc_product2vendor_notification_queue {
 	my $product_id = $hin{'product_id'};
 	my $tables = ['product','product_name','product_description','product_feature','product_related','product_gallery','product_multimedia_object'];
 	my $max_timestamp = 0;
-	foreach my $table (@$tables) {
+	for my $table (@$tables) {
 		my $data = &do_query("select product_id, unix_timestamp(updated) from $table where product_id ='".$product_id."'");
 		if ($max_timestamp < $data->[0][1]) {
 			$max_timestamp = $data->[0][1];
@@ -4653,7 +4653,7 @@ sub command_proc_add_new_feature {
 			$hin{'feature_id'} = &do_query("select LAST_INSERT_ID()")->[0][0];
 			&do_statement("insert into vocabulary(sid,langid,value) values('".$sid."','".$main_lang."','".$hin{'feature_name'}."')");
 			my $langs = &do_query("select langid from language where langid!=".$main_lang);
-			foreach (@$langs) {
+			for (@$langs) {
 				&do_statement("insert into feature_autonaming(feature_id,langid,data_source_id)
 												values('".$hin{'feature_id'}."','".$_->[0]."','".$hin{'data_source_id'}."')") if ($hin{'data_source_id'});
 			}
@@ -4699,7 +4699,7 @@ sub translate_table{
 		if(ref($result_hash) ne 'HASH'){# if group transaltion failed try to translate them one by one 
 			&lp('---------->>>>>>>>>>>>>>>>>>>> group trasnlation failed. transaltion one by one...');
 			$result_hash={};
-			foreach my $src_text (@toTranslate){
+			for my $src_text (@toTranslate){
 				my $tmp_result=&translate_from_google([$src_text],1,$langid);
 				if(ref($tmp_result) eq 'HASH'){
 					$result_hash->{$src_text}=$tmp_result->{$src_text};
@@ -4708,7 +4708,7 @@ sub translate_table{
 				}
 			};
 		}
-		foreach my $src_str (@toTranslate){
+		for my $src_str (@toTranslate){
 			$result_hash->{$src_str}=&trim($result_hash->{$src_str});
 			$result_hash->{$src_str}=~s/\.$//;			
 			&do_statement("UPDATE $table_name SET trans_value=".&str_sqlize($result_hash->{$src_str})."
@@ -4717,7 +4717,7 @@ sub translate_table{
 		$indx+=$limit;
 	}
 	#my $rows=&do_query("SELECT en_value  FROM $table_name");
-	#foreach my $row (@$rows){ 
+	#for my $row (@$rows){ 
 	#	my $src_str=$row->[0];
 	#	my $result_hash=&translate_from_google([$src_str],1,$langid);
 	#	next if ref($result_hash) ne 'HASH';
@@ -4766,7 +4766,7 @@ sub command_proc_lang_export()
 
 	# &log_printf("========= GET SELECTED LANGUAGES =============");
 
-	foreach my $value(@$lng_arr) {
+	for my $value(@$lng_arr) {
 		if (($hin{$value->[0]}) && ($hin{$value->[0]} eq 'true')) {
 			push (@$lng, $value->[0]);
 		}
@@ -4839,7 +4839,7 @@ sub command_proc_lang_export()
 				my $out = $workbook->add_worksheet("Category " . $date);
 				$out->write(0,0,"sid");
 				my $trans_table='aaa_tmp_trans_values';
-				foreach my $i(@$lng) {
+				for my $i(@$lng) {
 					translate_table($trans_table,'sid','',$i,"SELECT c.sid,v_en.value FROM category c 
 												JOIN vocabulary v_en ON c.sid=v_en.sid AND v_en.langid=1
 												LEFT JOIN vocabulary v ON c.sid=v.sid AND v.langid=$i 
@@ -4860,7 +4860,7 @@ sub command_proc_lang_export()
 				$dout->write(0,1, "Category Name");
 				my $cat_col=1;
 				my $trans_table='aaa_tmp_trans_values';
-				foreach my $i(@$lng) {
+				for my $i(@$lng) {
 					translate_table($trans_table,'sid','',$i,"SELECT c.sid,v_en.value FROM category c 
 												JOIN vocabulary v_en ON c.sid=v_en.sid AND v_en.langid=1
 												LEFT JOIN vocabulary v ON c.sid=v.sid AND v.langid=$i 
@@ -4882,7 +4882,7 @@ sub command_proc_lang_export()
 				$out->write(0,0,"tid");
 				$out->write(0,1, "Category Name");
 				$col = 2;
-				foreach my $i(@$lng) {
+				for my $i(@$lng) {
 						&generate_xls($out,'category_descript',$i,$col, {
 								'init_id' => $init_id
 								});
@@ -4903,7 +4903,7 @@ sub command_proc_lang_export()
 				my $out = $workbook->add_worksheet("Feature " . $date);
 				$out->write(0,0,"sid");
 				my $trans_table='aaa_tmp_trans_values';
-				foreach my $i(@$lng) {
+				for my $i(@$lng) {
 					translate_table($trans_table,'sid','',$i,"SELECT f.sid,v_en.value FROM feature f 
 												JOIN vocabulary v_en ON f.sid=v_en.sid AND v_en.langid=1
 												LEFT JOIN vocabulary v ON f.sid=v.sid AND v.langid=$i 
@@ -4923,7 +4923,7 @@ sub command_proc_lang_export()
 				$dout->write(0,1, "Feature Name");
 				my $trans_table='aaa_tmp_trans_values';
 				my $feat_col=1;
-				foreach my $i(@$lng) {
+				for my $i(@$lng) {
 					translate_table($trans_table,'sid','',$i,"SELECT f.sid,v_en.value FROM feature f 
 												JOIN vocabulary v_en ON f.sid=v_en.sid AND v_en.langid=1
 												LEFT JOIN vocabulary v ON f.sid=v.sid AND v.langid=$i 
@@ -4945,7 +4945,7 @@ sub command_proc_lang_export()
 				$out->write(0,0,"tid");
 				$out->write(0,1, "Feature Name");
 				$col = 2;
-				foreach my $i(@$lng) {
+				for my $i(@$lng) {
 					&generate_xls($out,'feature_descript',$i,$col, {
 								'init_id' => $init_id
 								});
@@ -4965,7 +4965,7 @@ sub command_proc_lang_export()
 				my $sheet = [];
 				my $trans_table='aaa_tmp_trans_values';
 				
-				foreach my $i(@$lng) {
+				for my $i(@$lng) {
 					translate_table($trans_table,'sid','',$i,"SELECT f.sid,v_en.value FROM feature f 
 												JOIN vocabulary v_en ON f.sid=v_en.sid AND v_en.langid=1
 												LEFT JOIN vocabulary v ON f.sid=v.sid AND v.langid=$i 
@@ -5000,7 +5000,7 @@ sub command_proc_lang_export()
 					$out2->write(0,0,"tid");
 					$out2->write(0,1, "Feature Name");
 					$col = 2;
-					foreach my $i(@$lng) {
+					for my $i(@$lng) {
 						&generate_xls($out2,'feature_descript',$i,$col, {
 								'init_id' => $init_id
 								});
@@ -5021,7 +5021,7 @@ sub command_proc_lang_export()
 			my $init_id = 'true'; # we shall init id column only once
 			my $trans_table='aaa_tmp_trans_values';
 			my $feat_col=1;			
-			foreach my $i(@$lng) {
+			for my $i(@$lng) {
 				translate_table($trans_table,'sid','',$i,"SELECT f.sid,v_en.value FROM feature_group f 
 												JOIN vocabulary v_en ON f.sid=v_en.sid AND v_en.langid=1
 												LEFT JOIN vocabulary v ON f.sid=v.sid AND v.langid=$i 
@@ -5044,7 +5044,7 @@ sub command_proc_lang_export()
                 my $col = 1;
 				my $init_id = 'true'; # we shall init id column only once
 				my $trans_table='aaa_tmp_trans_values';
-                foreach my $i(@$lng) {
+                for my $i(@$lng) {
 				translate_table($trans_table,'sid','',$i,"SELECT m.sid,v_en.value FROM measure m 
 												JOIN vocabulary v_en ON m.sid=v_en.sid AND v_en.langid=1
 												LEFT JOIN vocabulary v ON m.sid=v.sid AND v.langid=$i 
@@ -5068,7 +5068,7 @@ sub command_proc_lang_export()
             my $col = 1;
 			my $init_id = 'true'; # we shall init id column only once
 			my $trans_table='aaa_tmp_trans_values';
-            foreach my $i(@$lng) {
+            for my $i(@$lng) {
 				translate_table($trans_table,'key_value','varchar(255)',$i,"SELECT f_en.key_value,f_en.key_value FROM feature_values_vocabulary f_en							 
 												LEFT JOIN feature_values_vocabulary f_loc  ON f_en.key_value = f_loc.key_value and f_loc.langid = $i
 												WHERE f_en.langid=1 and (f_loc.value is NULL or f_loc.value='')");													
@@ -5091,7 +5091,7 @@ sub command_proc_lang_export()
 			my $col = 1;
 			my $init_id = 'true'; # we shall init id column only once
 			my $trans_table='aaa_tmp_trans_values';
-			foreach my $i(@$lng) {
+			for my $i(@$lng) {
 				translate_table($trans_table,'measure_id','',$i,"SELECT m.measure_id,ms.value FROM measure m 
 												JOIN measure_sign ms ON ms.measure_id=m.measure_id and ms.langid=1
 												LEFT JOIN measure_sign ms_loc ON ms_loc.measure_id=m.measure_id and ms_loc.langid=$i 
@@ -5115,7 +5115,7 @@ sub command_proc_lang_export()
                 my $col = 1;
 				my $init_id = 'true'; # we shall init id column only once
 				my $trans_table='aaa_tmp_trans_values';
-                foreach my $i(@$lng) {
+                for my $i(@$lng) {
 					translate_table($trans_table,'sector_id','',$i,"SELECT s.sector_id,sn.name FROM sector s 
 												JOIN sector_name sn ON sn.sector_id=s.sector_id and sn.langid=1
 												LEFT JOIN sector_name sn_loc ON sn_loc.sector_id=s.sector_id and sn_loc.langid=$i 
@@ -5170,7 +5170,7 @@ sub command_proc_distri_data_export {
 
 	my $suppliers = "=";
 	my @sup_ids = split(/\x0/, $hin{supplier_id});
-	foreach (@sup_ids) {
+	for (@sup_ids) {
 		$suppliers .= "$_ OR supplier_id=" if $_;
 	}
 	$suppliers =~ s/\ OR\ supplier_id=$//; # delete the last OR statement
@@ -5204,7 +5204,7 @@ sub command_proc_distri_data_export {
 	my $part = 1;
 	my $out = &new_worksheet();
 
-	foreach my $value(@$query) {
+	for my $value(@$query) {
 		my $col = 0;
 		$out->write_string($row,$col++,$value->[0]);
 		$out->write_string($row,$col++,$value->[1]);
@@ -5260,7 +5260,7 @@ sub command_proc_distri_save_attrs {
 	return if ($hin{"label_1"} eq ''); # english name can't be empty
 
 	# build hash of values need to be updated
-	foreach my $i(@$lang_ids) {
+	for my $i(@$lang_ids) {
 		$values->{$i->[0]} = $hin{"label_$i->[0]"};
 	}
 
@@ -5325,12 +5325,12 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0, $value->[0]);	# print sid
 			}			
 		}
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]);	# print value
 			$out->write($row,$col+1,$value->[2],$flags->{'google_format'});	# print google translation 
 			$row++;
@@ -5348,18 +5348,18 @@ sub generate_xls()
 
 		my $init_tid = $flags->{'init_id'};
 		if ($init_tid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0 , $value->[0]);# print tid
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row++,$col, $value->[1]);	# print value
 		}
 		if ($init_tid eq 'true') {
 			$row = 1;
-			foreach my $ct_nam(@$ctgr_nam_query) {
+			for my $ct_nam(@$ctgr_nam_query) {
 				$out->write($row++,1, $ct_nam->[0]);# print category name
 			}
 		}
@@ -5384,13 +5384,13 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0, $value->[0]);	# print sid
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]); 	# print value
 			$out->write($row,$col+1, $value->[2],$flags->{'google_format'}); 	# print value
 			$row++;
@@ -5408,19 +5408,19 @@ sub generate_xls()
 
 		my $init_tid = $flags->{'init_id'};
 		if ($init_tid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0 , $value->[0]);# print tid
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row++,$col, $value->[1]);	# print value
 		}
 
 		if ($init_tid eq 'true') {
 			$row = 1;
-			foreach my $feat_name(@$feat_nam_query) {
+			for my $feat_name(@$feat_nam_query) {
 				$out->write($row++,1, $feat_name->[0]);	# print feature name
 			}
 		}
@@ -5436,7 +5436,7 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query)
+			for my $value(@$query)
 			{
 				$out->write($row++,0, $value->[0]);	# print sid
 			}
@@ -5444,7 +5444,7 @@ sub generate_xls()
 
 		$row = 1;
 		my $ans;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]);
 			# deferred writing
 			$all->[$row]->[0] = $value->[0];
@@ -5478,13 +5478,13 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0, $value->[0]);	# print sid
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]);
 			$out->write($row,$col+1, $value->[2],$flags->{'google_format'});
 			$row++;
@@ -5501,13 +5501,13 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0, $value->[0]);
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]);
 			$out->write($row,$col+1, $value->[2],$flags->{'google_format'});
 			$row++;
@@ -5525,13 +5525,13 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0, $value->[0]);
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]);
 			$out->write($row,$col+1, $value->[2],$flags->{'google_format'});
 			$row++;
@@ -5547,13 +5547,13 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0, $value->[0]);
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]);
 			$out->write($row,$col+1, $value->[2],$flags->{'google_format'});
 			$row++;
@@ -5571,13 +5571,13 @@ sub generate_xls()
 
 		my $init_sid = $flags->{'init_id'};
 		if ($init_sid eq 'true') {
-			foreach my $value(@$query) {
+			for my $value(@$query) {
 				$out->write($row++,0, $value->[0]);
 			}
 		}
 
 		$row = 1;
-		foreach my $value(@$query) {
+		for my $value(@$query) {
 			$out->write($row,$col, $value->[1]);
 			$out->write($row,$col+1, $value->[2],$flags->{'google_format'});
 			$row++;
@@ -5599,7 +5599,7 @@ sub command_proc_lang_import {
 	my $database_langs=&do_query('SELECT langid FROM language');
 	my $langs;
 
-	foreach my $i (@{$database_langs}) {
+	for my $i (@{$database_langs}) {
 		if ($hin{'lang_'.$i->[0]}) {
 			my $lang_id=$hin{'lang_'.$i->[0]};
 			$lang_id=~s/lang_//g;
@@ -5670,10 +5670,10 @@ sub command_proc_lang_import {
 	if (@keys!=0) {
 		$hin{'import'}.="<h3>Errors have been found</h3>";
 
-		foreach (keys %{$err_sheets}) {
+		for (keys %{$err_sheets}) {
 			$hin{'import'}.="The $_ sheet has following errors: ";
 
-			foreach ( @{$err_sheets->{$_}}) {
+			for ( @{$err_sheets->{$_}}) {
 				$hin{'import'}.="<p><font size='2' style=\"color:red\">
 			    	<ul>
 				    <li>".$_."</li>
@@ -5739,7 +5739,7 @@ sub create_transl_csv(){
 		my $foundKey;
 		my $foundFile;
 		#	Do given sheet relate to one of the given keys in the hash $keys_files
-		foreach my $key (keys %{$keys_files}){
+		for my $key (keys %{$keys_files}){
 			if(&getVal($sheet->{Cells}[0][0]) ne $key and &getVal($sheet->{Cells}[0][1]) ne $key){
 				$key_col=undef;
 			}else{
@@ -5756,7 +5756,7 @@ sub create_transl_csv(){
 		# check if sequence of language names in the first row of sheet match to first sheet's language sequence - $langNameSequence
 		if($langNameSequence){# be sure we are not checking first sheet
 			my $tmap = get_lang_col_offset($sheet);
-			foreach (keys %{$langNameSequence}){
+			for (keys %{$langNameSequence}){
 				if(&getVal($sheet->{Cells}[0][$_+$tmap+$sign]) ne $langNameSequence->{$_}){
 					push(@errors,$errorMsgs->{'wrongSequence'}.$sheet->{Name});
 					$key_col=undef;
@@ -5780,7 +5780,7 @@ sub create_transl_csv(){
 	my $key_name;
 	my $langNameSequence;
 
-	foreach my $sheet (@{$excel->{Worksheet}}){
+	for my $sheet (@{$excel->{Worksheet}}){
 		my $result=check_sheet($sheet,$errorMsgs,$keys_files,$langNameSequence);
 		my $key_col=$result->{'key_column'};
 		my $csv_file=$result->{'csv_file'};
@@ -5788,32 +5788,32 @@ sub create_transl_csv(){
 		#we need to figure out first sheet to remember its language names
 		if($sheet->{Name} eq @{$excel->{Worksheet}}[0]->{Name}) {
 			$sign -= $tmap;
-			foreach my $lang_pos (keys %{$langs}){
+			for my $lang_pos (keys %{$langs}){
 				$langNameSequence->{$lang_pos}=&getVal($sheet->{Cells}[0][$lang_pos]);
 			}
 		}
 		if(defined($key_col)){
 				my $csv_str;
-				foreach my $lang_pos (keys %{$langs}){# iterate through langs given from user input
+				for my $lang_pos (keys %{$langs}){# iterate through langs given from user input
 					$csv_str='';
 					if ($langs->{$lang_pos}==1){# we should ignore such langs. 1 means not to import
 						next;
 					}
-					foreach my $row ($sheet->{MinRow}+1 .. $sheet->{MaxRow}){ #first row of the sheet is a header
+					for my $row ($sheet->{MinRow}+1 .. $sheet->{MaxRow}){ #first row of the sheet is a header
 							$csv_str=&getVal($sheet->{Cells}[$row][$key_col]).$hin{'csvd'}.
 									 &getVal($sheet->{Cells}[$row][$lang_pos+$tmap+$sign]).$hin{'csvd'}.
 									 $langs->{$lang_pos}.$hin{'csvd'}.
 									 $sheet->{Name}.$hin{'csvn'};#$sheet->{Name} is used only in statistic puprose
 							print $csv_file $csv_str;
 						}
-				}#foreach langs
+				}#for langs
 		}else {
 			$err_sheets->{$sheet->{Name}}=\@{$result->{'errors'}};
 		}
 			#print $csv_file "\n\n" if $csv_file;
 	}
 
-	foreach my $key (keys %{$keys_files}){
+	for my $key (keys %{$keys_files}){
 		close($keys_files->{$key})
 	}
 	return $err_sheets;
@@ -5838,7 +5838,7 @@ sub _import
 		if($unmatched_by_pk/$total_count>0.07){# 0.07 it should be in a config
 			log_printf("delete_unmatched_keys: key_name = ".$key_name.", table_name = ".$table_name.". Percentage is: ".($unmatched_by_pk * 100 / $total_count)." %");
 			my @err_sheets_to_return;
-			foreach(@{$err_sheets}){# this ugly procesing is needed to implode array elements with 'join' function
+			for(@{$err_sheets}){# this ugly procesing is needed to implode array elements with 'join' function
 				push(@err_sheets_to_return,$_->[0]);
 			}
 			return \@err_sheets_to_return;
@@ -5852,7 +5852,7 @@ sub _import
 					   			  WHERE tmp.value rlike '[?][^?]*[?]' GROUP BY sheet_name");
 		if(scalar(@$err_sheets)>0){# we have ? in the value
 			my @err_sheets_to_return;
-			foreach(@{$err_sheets}){# this ugly procesing is needed to implode array elements with 'join' function
+			for(@{$err_sheets}){# this ugly procesing is needed to implode array elements with 'join' function
 				push(@err_sheets_to_return,$_->[0]);
 			}
 			return \@err_sheets_to_return;
@@ -6027,7 +6027,7 @@ sub _import
 									  FROM import_temp WHERE value=''
 									  GROUP BY sheet_name ORDER BY sheet_name");
 	my $i=0;
-	foreach(@{$goodRowsBySheet}){
+	for(@{$goodRowsBySheet}){
 		my $unimported_html="<li><b>Quantity of records which have not been imported:
 								</b>$ignoreRowsBySheet->[$i][1]</li>" if $ignoreRowsBySheet->[$i][1];
 		$report.="<p><font size='2'>
@@ -6096,15 +6096,15 @@ sub command_proc_imp_prev {
 		my $oFmtJ = Spreadsheet::ParseExcel::FmtUnicode->new(Unicode_Map=>'UTF8');
 		my $excel = Spreadsheet::ParseExcel::Workbook->Parse($import_file,$oFmtJ);
 
-		foreach my $sheet (@{$excel->{Worksheet}}) {
+		for my $sheet (@{$excel->{Worksheet}}) {
 			&log_printf("Sheet: $sheet->{Name}");
 			$sheet->{MaxRow} ||= $sheet->{MinRow};
 			$type = $sheet->{Cells}[0][0]->{Val};
 
-			foreach my $row ($sheet->{MinRow} .. $sheet->{MaxRow}) {
+			for my $row ($sheet->{MinRow} .. $sheet->{MaxRow}) {
 				$sheet->{MaxCol} ||= $sheet->{MinCol};
 
-				foreach my $col ($sheet->{MinCol} ..  $sheet->{MaxCol}) {
+				for my $col ($sheet->{MinCol} ..  $sheet->{MaxCol}) {
 					my $cell = $sheet->{Cells}[$row][$col];
 
 					if ($cell) {
@@ -6172,7 +6172,7 @@ sub command_proc_imp_prev {
 			my $scr_des = "\nfunction deselect() {";
 
 			# while (defined($import[0]->{$p}))
-			foreach my $first_row (keys %{$import[0]}) {
+			for my $first_row (keys %{$import[0]}) {
 				if (($import[0]->{$first_row} ne 'sid') &&
 					($import[0]->{$first_row} ne 'id') &&
 					($import[0]->{$first_row} ne 'tid') &&
@@ -6200,7 +6200,7 @@ sub command_proc_imp_prev {
 				$div .= "\n<div id='" . $import[0]->{$first_row} . "' style='display: none;' name='$first_row'><hr>";
 
 				#while (defined($import[$pos]->{$p}))
-				foreach my $row_num (@import) {
+				for my $row_num (@import) {
 					$div .= $row_num->{$first_row} . ";&nbsp; ";
 					$pos++;
 				}
@@ -6254,7 +6254,7 @@ sub command_proc_blacklist_update
 
 	&do_statement("TRUNCATE TABLE $table");
 
-	foreach my $id (@$langid)
+	for my $id (@$langid)
 	{
 		$lng = $id->[0];
 		if (defined($hin{$lng}))
@@ -6263,7 +6263,7 @@ sub command_proc_blacklist_update
 
 			#$hin{'text'} = $words;
 
-			foreach my $word (@$words)
+			for my $word (@$words)
 			{
 				&do_statement("INSERT INTO $table SET langid = " . &str_sqlize($lng) . ", value = " . &str_sqlize($word)) if ($word ne " ");
 			}
@@ -6348,7 +6348,7 @@ sub command_proc_coverage_report_from_file {
 			$eans_cols{$hin{'ean_col'}}=1;
 		}
 		$ean_set=$ean_column."=CONCAT( ";
-		foreach my $ean_col(keys(%eans_cols)){
+		for my $ean_col(keys(%eans_cols)){
 			$ean_set.='TRIM(@VAR'.$ean_col."),'".(',')."',";
 		}
 		$ean_set=~s/,[^,]*,$//;
@@ -6560,7 +6560,7 @@ sub command_proc_send_email_about_custom_value_in_select {
 
 	# get custom values, which was entered by user
 	my @custom_list = ();
-	foreach (keys %hin) {
+	for (keys %hin) {
 	    if (/^(.*)_use_custom$/) {
 		unshift @custom_list, $1;
 	    }
@@ -6620,7 +6620,7 @@ sub command_proc_send_email_about_custom_value_in_select {
 
 	my $new_custom_values = 0;
 	# loop for processing each custom value
-	foreach (@custom_list) {
+	for (@custom_list) {
 
 	    # get if from para name
 	    /_(\d+)$/;
@@ -6728,7 +6728,7 @@ sub command_proc_update_sector_name_table {
 
     # get keys from hin
     my @used_langids = ();
-    foreach (keys %hin) {
+    for (keys %hin) {
     	if (/^value_(\d+)$/) {
 	        unshift @used_langids, $1;
     	}
@@ -6738,7 +6738,7 @@ sub command_proc_update_sector_name_table {
     my $list = do_query("SELECT name FROM sector_name WHERE langid = 1 AND sector_id != $sector_id ");
 
     my ($st, $ans, $sector_name_id);
-    foreach (@used_langids) {
+    for (@used_langids) {
 
 	    # log_printf($hin{'value_' . $_});
 
@@ -6752,7 +6752,7 @@ sub command_proc_update_sector_name_table {
 	    $nm =~ s/\s+$//;
 
 	     if ($_ == 1) {
-            foreach my $eng_name (@$list) {
+            for my $eng_name (@$list) {
                 if ($eng_name->[0] eq $nm) {
                     &process_atom_ilib('errors');
                     &process_atom_lib('errors');
@@ -6828,7 +6828,7 @@ sub command_proc_merge_sectors {
 
     # get a set of ids for megre
     my @set = ();
-    foreach (keys %hin) {
+    for (keys %hin) {
 	if (/^checked_sector_(\d+)$/) {
 	    if (($1 == 1) && ($target != 1)) {
 		log_printf("Target sector should be IT in this case");
@@ -6848,7 +6848,7 @@ sub command_proc_merge_sectors {
     log_printf("Merge sector(s) with id(s) : @set");
     log_printf("To a target sector with an id : $target");
 
-    foreach (@set) {
+    for (@set) {
 	next if ($_ == $target);
 	do_statement("UPDATE contact SET sector_id = $target WHERE sector_id = " . $_);
         delete_sector($_);
@@ -6867,7 +6867,7 @@ sub command_proc_add_custom_sector {
     # check for duplicate
     $ans = do_query('SELECT name FROM sector_name WHERE langid = 1');
     my $skip_insert = 0;
-    foreach (@$ans) {
+    for (@$ans) {
 	if ($eng_name eq $_->[0]) {
 	    # log_printf("Duplicate English name !!!");
 	    $skip_insert = 1;
@@ -6925,7 +6925,7 @@ sub update_virtual_categories_for_certain_product {
 
     # add new set
     my $vcatid;
-    foreach (keys %hin) {
+    for (keys %hin) {
         if (/^vcat_/) {
             # log_printf($_ .  " " . $hin{$_} );
             $vcatid = $hin{$_};
@@ -7000,7 +7000,7 @@ sub command_proc_save_track_list_settings{
 		my $values='';
 		my $editors_before=&do_query("SELECT user_id FROM track_list_editor WHERE track_list_id=$hin{'track_list_id'}");
 		my %editors_before_map=map {$_->[0]=>1} @$editors_before;
-		foreach my $user_id(@assigned_users){
+		for my $user_id(@assigned_users){
 			$values.=" ($hin{'track_list_id'} , $user_id) ,";
 			unless($editors_before_map{$user_id}){# send notification to new added user
 				my $editor_info=&do_query("SELECT c.person,c.email,u.login FROM users u
@@ -7025,7 +7025,7 @@ sub command_proc_save_track_list_settings{
 		# PROCESS ASSIGNED LANGUAGES
 		my @assigned_langs=$hin{'REQUEST_BODY'}=~/occupied_langid=([\d]+)/gs;
 		$values='';
-		foreach my $langid(@assigned_langs){
+		for my $langid(@assigned_langs){
 			$values.=" ($hin{'track_list_id'} , $langid) ,";
 		}
 		$values=~s/,$//;
@@ -7212,14 +7212,14 @@ sub command_proc_update_default_warranty_info {
     my $supplier_id = $hin{'supplier_id'};
 
     my @langs = ();
-    foreach (keys %hin) {
+    for (keys %hin) {
         if (/^w_text_(\d+)$/) {
             push @langs, $1;
             # log_printf($hin{'w_text_' . $1});
         }
     }
 
-    foreach my $l (@langs) {
+    for my $l (@langs) {
 
         # if exists
         my $is_present = do_query("
@@ -7345,7 +7345,7 @@ sub command_proc_save_values_for_history_product_feature_local {
     my $langid = 0;
 
     # get langid
-    foreach (keys %hin) {
+    for (keys %hin) {
         if (/^(\d+)tab_\1_/) {
             $langid = $1;
             last;
@@ -7372,7 +7372,7 @@ sub command_proc_update_remote_distributor {
 
     my %countries;
     my $countries = do_query("SELECT country_id, code FROM country");
-    foreach (@$countries) {
+    for (@$countries) {
         $countries{$_->[0]} = $_->[1];
     }
     my $local_country_id = $countries{ $hin{'country_id'} };
@@ -7531,7 +7531,7 @@ sub command_proc_remove_stat_report{
 	my $ps_strs=`ps aux | grep  'do_generate_stat_report_and_mail_it $report_id'`;
 	my @ps_arr=split("\n",$ps_strs);
 	my $result_ps_str;
-	foreach my $ps_str (@ps_arr){
+	for my $ps_str (@ps_arr){
 		if($ps_str!~/grep/ and $ps_strs=~/do_generate_stat_report_and_mail_it/){
 			$result_ps_str=$ps_str;
 		}
@@ -7648,7 +7648,7 @@ sub command_proc_add_new_product_restrictions {
     my $pids = $res->[0];
 
     # add restriction details
-    foreach my $id (@$pids) {
+    for my $id (@$pids) {
         do_statement("
             INSERT INTO product_restrictions_details (restriction_id, product_id)
             VALUE ($rest_id, $id)
@@ -7685,7 +7685,7 @@ sub command_proc_update_certain_product_restriction {
 
     # put pids into hash
     my %p;
-    foreach my $id (@$pids) {
+    for my $id (@$pids) {
         $p{$id} = 1;
     }
 
@@ -7697,7 +7697,7 @@ sub command_proc_update_certain_product_restriction {
     ");
 
     # delete already existed from hash
-    foreach my $id_ref (@$existed) {
+    for my $id_ref (@$existed) {
         if ($p{$id_ref->[0]}) {
             delete $p{$id_ref->[0]};
         }
@@ -7705,7 +7705,7 @@ sub command_proc_update_certain_product_restriction {
 
     # bulk insert
     my $c = 0;
-    foreach my $id (keys %p) {
+    for my $id (keys %p) {
         do_statement("
             INSERT INTO product_restrictions_details (restriction_id, product_id)
             VALUE ($rest_id, $id)
@@ -7721,20 +7721,21 @@ sub command_proc_save_backup_languages {
     my $langs = do_query("SELECT langid FROM language ORDER BY 1");
     my $backup_hash = {};
     my $i = 0;
-    foreach (@$langs) {
-	unless ($backup_list->[$i]) {
-	    $backup_hash->{$_->[0]} = 'NULL';
-	} else {
-	    $backup_hash->{$_->[0]} = $backup_list->[$i];
-	}
-	$i++;
+    for (@$langs) {
+    	unless ($backup_list->[$i]) {
+    	    $backup_hash->{$_->[0]} = 'NULL';
+    	}
+    	else {
+    	    $backup_hash->{$_->[0]} = $backup_list->[$i];
+    	}
+    	$i++;
     }
-    foreach (keys %$backup_hash) {
-	my $backup_id = do_query("SELECT backup_langid FROM language WHERE langid = $_")->[0]->[0];
-	$backup_id = 'NULL' unless ($backup_id);
-	unless ($backup_id == $backup_hash->{$_}) {
-	    do_statement("UPDATE language SET backup_langid = $backup_hash->{$_} WHERE langid = $_");
-	}
+    for (keys %$backup_hash) {
+    	my $backup_id = do_query("SELECT backup_langid FROM language WHERE langid = $_")->[0]->[0];
+    	$backup_id = 'NULL' unless ($backup_id);
+    	unless ($backup_id == $backup_hash->{$_}) {
+    	    do_statement("UPDATE language SET backup_langid = $backup_hash->{$_} WHERE langid = $_");
+    	}
     }
     return 0;
 }
@@ -7745,7 +7746,7 @@ sub command_proc_series {
 	    $hin{'exchange_series'} and
 	    $hin{'series_id'}
 	) {
-		&do_statement("UPDATE product SET series_id=$hin{'exchange_series'} WHERE series_id=$hin{'series_id'}");
+		do_statement("UPDATE product SET series_id=$hin{'exchange_series'} WHERE series_id=$hin{'series_id'}");
 	}
 	return 1;
 }

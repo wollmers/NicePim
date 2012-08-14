@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# @author <vadim@bintime.com>
+
 use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
@@ -35,7 +35,7 @@ $format->set_font('Lucida Sans');
 $format->set_size('11');
 
 print BOLD WHITE "::Detecting " . SUPPLIER . " id ... ", RESET;
-my $supplier_id = &do_query("SELECT supplier_id FROM supplier WHERE name=" . &str_sqlize(SUPPLIER))->[0]->[0];
+my $supplier_id = do_query("SELECT supplier_id FROM supplier WHERE name=" . &str_sqlize(SUPPLIER))->[0]->[0];
 if ( $supplier_id ) {
 	print BOLD WHITE "[ ", BOLD GREEN, "success", BOLD WHITE, " ]", RESET, "\n";
 } else {
@@ -44,7 +44,7 @@ if ( $supplier_id ) {
 }
 
 print BOLD WHITE "::Executing main query ... ", RESET;
-my $query_result = &do_query("SELECT p.prod_id, p.name, v.value, u.login FROM editor_journal ej JOIN product p USING (product_id) JOIN users u ON u.user_id=p.user_id JOIN user_group_measure_map ugmm USING (user_group) JOIN product_family pf ON pf.family_id=p.family_id AND pf.supplier_id=p.supplier_id JOIN vocabulary v USING (sid) WHERE v.langid=1 AND YEAR(FROM_UNIXTIME(ej.date))=" . YEAR . " AND p.supplier_id=" . $supplier_id . " AND ugmm.measure='ICECAT' GROUP BY 1");
+my $query_result = do_query("SELECT p.prod_id, p.name, v.value, u.login FROM editor_journal ej JOIN product p USING (product_id) JOIN users u ON u.user_id=p.user_id JOIN user_group_measure_map ugmm USING (user_group) JOIN product_family pf ON pf.family_id=p.family_id AND pf.supplier_id=p.supplier_id JOIN vocabulary v USING (sid) WHERE v.langid=1 AND YEAR(FROM_UNIXTIME(ej.date))=" . YEAR . " AND p.supplier_id=" . $supplier_id . " AND ugmm.measure='ICECAT' GROUP BY 1");
 if ( scalar @$query_result ) {
 	print BOLD WHITE "[ ", BOLD GREEN, "success", BOLD WHITE, " ]", RESET, "\n";
 } else {
@@ -62,7 +62,7 @@ my $result_cnt = scalar @$query_result;
 my $current_result = 0;
 my $part = 1;
 my $ri = 1; # row index
-my $out = &create_my_worksheet( $workbook, SUPPLIER . ' products', $part, $columns );
+my $out = create_my_worksheet( $workbook, SUPPLIER . ' products', $part, $columns );
 
 print BOLD WHITE "::Saving results ... [0]", RESET;
 
@@ -73,7 +73,7 @@ foreach my $row ( @$query_result ) {
 		$ci++
 	}
 	if ( ++$ri >= XLS_MAX_ROWS ) {
-		$out = &create_my_worksheet( $workbook, SUPPLIER . ' products', ++$part, $columns );
+		$out = create_my_worksheet( $workbook, SUPPLIER . ' products', ++$part, $columns );
 		$ri = 1;
 	}
 	my $percent = sprintf( "%2d", ++$current_result * 100 / $result_cnt );
@@ -136,6 +136,6 @@ sub send_mail {
 				'attachment_cotent_type'=> 'application/x-gzip',
 				'attachment_body'		=> $file
 				};
-	&complex_sendmail($mail);
+	complex_sendmail($mail);
 	print BOLD WHITE "#-----\nFor detailed information - check your email box at <" . $to . ">", RESET, "\n";
 }

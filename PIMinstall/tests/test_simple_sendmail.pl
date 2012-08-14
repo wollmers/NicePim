@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
-use lib "/home/alex/icecat/bo/trunk/lib";
+#use lib "/home/alex/icecat/bo/trunk/lib";
+
 use Data::Dumper;
 use Time::HiRes;
 use atomsql;
@@ -40,11 +41,11 @@ my $mail={
 	'html_body'=>'<b>OKййй</b>'
 };
 $mail->{"subject"}=" text/html";
-&simple_sendmail($mail);
+simple_sendmail($mail);
 $mail->{"subject"}=" text/plain";
 $mail->{'text_body'}=$mail->{'html_body'};
 $mail->{'html_body'}='';
-&simple_sendmail($mail);
+simple_sendmail($mail);
 $mail->{'html_body'}=$mail->{'text_body'};
 $mail->{'text_body'}='';
 
@@ -73,7 +74,7 @@ $mail->{'attachment2_body'}=$xls;
 $mail->{'attachment2_name'}="text.xls";
 $mail->{'attachment2_content_type'}="application/ms-excel";
 
-&simple_sendmail($mail);
+simple_sendmail($mail);
 
 $mail->{'subject'}='text/plain and attachment';
 $mail->{'text_body'}=$mail->{'html_body'};
@@ -83,7 +84,7 @@ $mail->{'attachment_body'}='';
 $mail->{'attachment_name'}='';
 $mail->{'attachment_content_type'}='';
 
-&simple_sendmail($mail);
+simple_sendmail($mail);
 
 print "\n---------->".(Time::HiRes::time()-$time_start);
 

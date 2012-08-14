@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# @author <vadim@bintime.com>
+
 use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
@@ -16,17 +16,18 @@ use constant EMAIL_FROM		=> 'info@icecat.biz';
 use constant EMAIL_SUBJ		=> "1027655: Create report with Tacens products";
 
 print BOLD WHITE "::Executing main query ... ", RESET;
-my $query_result = &do_query("SELECT p.prod_id, 'stub' FROM product p JOIN supplier s USING(supplier_id) WHERE s.name='Tacens' AND p.user_id <> 1");
+my $query_result = do_query("SELECT p.prod_id, 'stub' FROM product p JOIN supplier s USING(supplier_id) WHERE s.name='Tacens' AND p.user_id <> 1");
 if ( scalar @$query_result ) {
 	print BOLD WHITE "[ ", BOLD GREEN, "success", BOLD WHITE, " ]", RESET, "\n";
-} else {
+} 
+else {
 	print BOLD WHITE "[ ", BOLD RED, "No results", BOLD WHITE, " ]", RESET, "\n";
 	exit;
 }
 
 foreach ( @$query_result ) {
 	my $prod_id = $_->[0];
-	$prod_id = &encode_url($prod_id);
+	$prod_id = encode_url($prod_id);
 	my $url = 'http://icecat.es/ES/p/Tacens/' . $prod_id . '/desc.htm';
 	$_->[1] = $url;
 }
@@ -63,14 +64,14 @@ my $out = &create_my_worksheet( $workbook, 'Tacens products', $part, $columns );
 
 print BOLD WHITE "::Saving results ... [0]", RESET;
 
-foreach my $row ( @$query_result ) {
+for my $row ( @$query_result ) {
 	my $ci = 0; # column index
 	foreach my $col ( @$row ) {
 		$out->write_string( $ri, $ci, $row->[$ci], $format);
 		$ci++
 	}
 	if ( ++$ri >= XLS_MAX_ROWS ) {
-		$out = &create_my_worksheet( $workbook, 'Tacens products', ++$part, $columns );
+		$out = create_my_worksheet( $workbook, 'Tacens products', ++$part, $columns );
 		$ri = 1;
 	}
 	my $percent = sprintf( "%2d", ++$current_result * 100 / $result_cnt );
@@ -85,7 +86,8 @@ qx(gzip -f $xls);
 my $attachment = $xls . '.gz';
 if ( -e $attachment ) {
 	print BOLD WHITE "[ ", BOLD GREEN, "success", BOLD WHITE, " ]", RESET, "\n";
-} else {
+} 
+else {
 	print BOLD WHITE "[ ", BOLD RED, "fail", BOLD WHITE, " ]", RESET, "\n";
 	exit;
 }
@@ -105,7 +107,7 @@ sub create_my_worksheet {
 	$format->set_size('12');
 	my $col = 0;
 	if ( ref $columns eq 'ARRAY' ) {
-		foreach my $col_hash ( @$columns ) {
+		for my $col_hash ( @$columns ) {
 			next unless ref $col_hash eq 'HASH';
 			foreach my $col_name ( keys %$col_hash ) {
 				$out->write_string(0, $col, $col_name, $format);
@@ -133,6 +135,6 @@ sub send_mail {
 				'attachment_cotent_type'=> 'application/x-gzip',
 				'attachment_body'		=> $file
 				};
-	&complex_sendmail($mail);
+	complex_sendmail($mail);
 	print BOLD WHITE "#-----\nFor detailed information - check your email box at <" . $to . ">", RESET, "\n";
 }

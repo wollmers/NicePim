@@ -3,7 +3,6 @@
 use strict;
 
 use lib "/home/pim/lib";
-#use lib "/home/dima/gcc_svn/lib";
 
 use atomcfg;
 use atomlog;
@@ -13,7 +12,7 @@ use Image::Magick;
 
 # begin
 
-my $images = &do_query("select product_id, prod_id, low_pic, high_pic from product where low_pic != '' and high_pic != '' and supplier_id = 1");
+my $images = do_query("select product_id, prod_id, low_pic, high_pic from product where low_pic != '' and high_pic != '' and supplier_id = 1");
 
 print "Total pics: " . ($#$images + 1) . "\n";
 

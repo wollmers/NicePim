@@ -1,8 +1,10 @@
 #!/usr/bin/perl
-# @author <vadim@bintime.com>
+
 use lib "/home/pim/lib";
+
 use strict;
 use warnings;
+
 use Benchmark;
 use atomsql;
 use atom_mail;
@@ -24,18 +26,18 @@ use constant EMAIL_TO					=> 'blackchval@gmail.com,alexandr_kr@icecat.biz,alena@
 use constant EMAIL_FROM					=> 'info@icecat.biz';
 use constant EMAIL_SUBJ					=> "Product family in model name";
 
-&sql_backup_tables();
-&sql_alter_product_table();
-&sql_create_product_series_table();
+sql_backup_tables();
+sql_alter_product_table();
+sql_create_product_series_table();
 my $sr_list = &get_restricted_supplier_id_list();
-&send_mail( EMAIL_TO, EMAIL_FROM, EMAIL_SUBJ, &form_report( &update_all() ) );
+send_mail( EMAIL_TO, EMAIL_FROM, EMAIL_SUBJ, &form_report( &update_all() ) );
 exit;
 ####################
 sub update_all {
 	my $families_del_list = {};
 	
 	# select all families on international language
-	my $families = &sql_select_all_inter_families(INTER_LANGID);
+	my $families = sql_select_all_inter_families(INTER_LANGID);
 	return unless ref $families->[0] eq 'ARRAY';
 	my $report_data = {};
 	my $fam_cnt     = scalar @$families || 1;
@@ -47,14 +49,14 @@ sub update_all {
 	foreach my $fam (@$families) {
 		my $family_id        = $fam->[0];
 		my $family           = $fam->[1];
-		my $parent_family_id = &sql_select_parent_family_id($family_id);
+		my $parent_family_id = sql_select_parent_family_id($family_id);
 
 		# select all products with this family
-		my $products = &sql_select_all_products_with_family($family_id);
+		my $products = sql_select_all_products_with_family($family_id);
 		next unless ref $products eq 'ARRAY';
 
 		# we shouldn't split family that has children or it's parent is root
-		if ( &sql_has_family_children($family_id)
+		if ( sql_has_family_children($family_id)
 			 || $parent_family_id == ROOT_FAMILY_ID )
 		{
 			my $prod_cnt     = scalar @$products || 1;
@@ -72,7 +74,7 @@ sub update_all {
 				$current_prod++;
 
 				if ( $percent > $percent_prev ) {
-					&animate_product_update();
+					animate_product_update();
 				}
 				$percent_prev = $percent;
 			} ## end foreach my $product (@$products)
@@ -90,12 +92,12 @@ sub update_all {
 				my $brand_id   = $product->[3];
 				my $catid      = $product->[4];
 				my $prod_id    = $product->[5];
-				my $c = &find_common_and_non_common_part( $family, $model );
+				my $c = find_common_and_non_common_part( $family, $model );
 				my $nc = $c->[1]; # non common family part of family and model
 				my $series;
 
 				if (ALLOW_MODEL_IN_SERIES) {
-					$series = &get_series($family);
+					$series = get_series($family);
 				} else {
 					$series = &get_series($nc);
 				}
@@ -103,10 +105,10 @@ sub update_all {
 				# if this family has series included
 				if ($series) {
 					my $new_family_id = $parent_family_id;
-					my $new_family    = &sql_select_family($new_family_id);
-					my $new_catid     = &sql_get_family_category_id( $new_family_id );
+					my $new_family    = sql_select_family($new_family_id);
+					my $new_catid     = sql_get_family_category_id( $new_family_id );
 					goto NO_SERIES if $new_catid != $catid;
-					$c = &find_common_and_non_common_part( $family,
+					$c = find_common_and_non_common_part( $family,
 														   $new_family );
 					$series = $c->[1];
 
@@ -118,17 +120,17 @@ sub update_all {
 					if (DROP_SERIES_FROM_FAMILY) {
 						if ( $new_family =~ /\s+series$/gi ) {
 							$new_family =~ s/\s+series$//gi;
-							&sql_update_family($new_family_id, $new_family);
+							sql_update_family($new_family_id, $new_family);
 						}
 					}
 					my $title = &join_brand_family_and_model( $brand, $new_family, $model );
 					my $series_id
-						= &sql_insert_series( $series, $brand_id, $catid,
+						= sql_insert_series( $series, $brand_id, $catid,
 											  $new_family_id, INTER_LANGID );
 					&sql_update_product( $product_id, $new_family_id, $series_id );
 					$families_del_list->{$family_id} = 1;    # we should delete this family
 					push @{ $report_data->{$brand} },
-						&insert_report_data( $prod_id, $family, $new_family,
+						insert_report_data( $prod_id, $family, $new_family,
 											 $series,  $model,  $title );
 				} else {
 				NO_SERIES:
@@ -137,7 +139,7 @@ sub update_all {
 					= sprintf( "%2d", $current_prod * 100 / $prod_cnt );
 				$current_prod++;
 				if ( $percent > $percent_prev ) {
-					&animate_product_update();
+					animate_product_update();
 				}
 				$percent_prev = $percent;
 			} ## end foreach my $product (@$products)
@@ -156,7 +158,7 @@ sub update_all {
 	$time_start  = new Benchmark;
 
 	foreach ( keys %$families_del_list ) {
-		&sql_delete_family($_);
+		sql_delete_family($_);
 		my $percent = sprintf( "%2d", $current_fam * 100 / $fam_cnt );
 		print BOLD GREEN "\b\b\b$percent%", RESET;
 		$current_fam++;
@@ -421,11 +423,11 @@ sub get_restricted_supplier_id_list {
 	my $supplier_id_list = "";
 	foreach (@$suppliers) {
 		s/^\s+|\s+$//g;
-		my $supplier_id = &sql_select_supplier_id($_);
+		my $supplier_id = sql_select_supplier_id($_);
 		unless ($supplier_id) {
-			print BOLD RED, ' ' . &str_sqlize($_) . ' ', RESET, "\n";
+			print BOLD RED, ' ' . str_sqlize($_) . ' ', RESET, "\n";
 		} else {
-			print BOLD GREEN, ' ' . &str_sqlize($_) . ' ', RESET, "\n";
+			print BOLD GREEN, ' ' . str_sqlize($_) . ' ', RESET, "\n";
 			$supplier_id_list .= $supplier_id . ',';
 		}
 	} ## end foreach (@$suppliers)
@@ -438,7 +440,7 @@ sub get_restricted_supplier_id_list {
 } ## end sub get_restricted_supplier_id_list
 ######################### SQL section ##########################################
 sub sql_select_all_inter_families {
-	return &do_query(
+	return do_query(
 		"SELECT pf.family_id, v.value FROM product_family pf JOIN vocabulary v USING (sid) WHERE v.langid="
 			. shift
 			. " AND pf.supplier_id NOT IN ("
@@ -447,18 +449,18 @@ sub sql_select_all_inter_families {
 } ## end sub sql_select_all_inter_families
 
 sub sql_get_family_category_id {
-	return &do_query("SELECT catid FROM product_family WHERE family_id=" . shift)->[0]->[0];	
+	return do_query("SELECT catid FROM product_family WHERE family_id=" . shift)->[0]->[0];	
 } ## end sub sql_get_family_category_id
 
 sub sql_has_family_children {
-	my $children = &do_query(
+	my $children = do_query(
 				"SELECT family_id FROM product_family WHERE parent_family_id="
 					. shift )->[0];
 	return 1 if ( ref $children eq 'ARRAY' );
 } ## end sub sql_has_family_children
 
 sub sql_select_all_products_with_family {
-	return &do_query(
+	return do_query(
 		"SELECT p.product_id, p.name, s.name, s.supplier_id, p.catid, p.prod_id FROM product p JOIN product_family pf USING (family_id, supplier_id, catid) JOIN supplier s USING (supplier_id) WHERE pf.family_id="
 			. shift
 			. " AND p.supplier_id NOT IN ("
@@ -467,26 +469,26 @@ sub sql_select_all_products_with_family {
 } ## end sub sql_select_all_products_with_family
 
 sub sql_select_all_products_with_null_family {
-	return &do_query(
+	return do_query(
 		"SELECT p.product_id, p.name, s.name, p.prod_id FROM product p JOIN supplier s USING (supplier_id) WHERE (p.family_id=1 OR p.family_id=0) AND p.supplier_id NOT IN ("
 			. $sr_list
 			. ")" );
 } ## end sub sql_select_all_products_with_null_family
 
 sub sql_select_parent_family_id {
-	return &do_query(
+	return do_query(
 				"SELECT parent_family_id FROM product_family WHERE family_id="
 					. shift )->[0]->[0];
 } ## end sub sql_select_parent_family_id
 
 sub sql_select_family {
-	return &do_query(
+	return do_query(
 		"SELECT v.value FROM product_family pf JOIN vocabulary v USING (sid) WHERE family_id="
 			. shift )->[0]->[0];
 } ## end sub sql_select_family
 
 sub sql_select_supplier_id {
-	return &do_query(
+	return do_query(
 		 "SELECT supplier_id FROM supplier WHERE name=" . &str_sqlize(shift) )
 		->[0]->[0];
 } ## end sub sql_select_supplier_id
@@ -494,20 +496,20 @@ sub sql_select_supplier_id {
 sub sql_insert_series {
 	my ( $series, $brand_id, $catid, $family_id, $langid ) = @_;
 	return if DISABLE_SQL_STMT;
-	my $series_exist_id = &do_query(
+	my $series_exist_id = do_query(
 		"SELECT series_id FROM product_series ps JOIN vocabulary v USING (sid) WHERE v.langid="
 			. $langid
 			. " AND v.value="
 			. &str_sqlize($series) )->[0]->[0];
 	return $series_exist_id if $series_exist_id;
-	&do_statement("INSERT INTO sid_index (dummy) values (1)");
-	my $sid = &do_query("SELECT LAST_INSERT_ID()")->[0]->[0];
-	&do_statement(
+	do_statement("INSERT INTO sid_index (dummy) values (1)");
+	my $sid = do_query("SELECT LAST_INSERT_ID()")->[0]->[0];
+	do_statement(
 		"INSERT INTO product_series (supplier_id, catid, family_id, sid)
 		VALUES (" . $brand_id . "," . $catid . "," . $family_id . "," . $sid . ")"
 	);
-	my $series_id = &do_query("SELECT LAST_INSERT_ID()")->[0]->[0];
-	&do_statement(
+	my $series_id = do_query("SELECT LAST_INSERT_ID()")->[0]->[0];
+	do_statement(
 		"INSERT INTO vocabulary (sid, langid, value)
 		VALUES (" . $sid . "," . $langid . "," . &str_sqlize($series) . ")" );
 	return $series_id;
@@ -516,7 +518,7 @@ sub sql_insert_series {
 sub sql_update_product {
 	my ( $product_id, $family_id, $series_id ) = @_;
 	return if DISABLE_SQL_STMT;
-	&do_statement(   "UPDATE product SET family_id="
+	do_statement(   "UPDATE product SET family_id="
 				   . $family_id
 				   . ", series_id="
 				   . $series_id
@@ -589,7 +591,7 @@ sub sql_alter_product_table {
 	print BOLD WHITE "::Alter product table ... ", RESET;
 	my $time_start = new Benchmark;
 	unless ( $series_exists ) {
-		&do_statement(
+		do_statement(
 			"ALTER TABLE product 
 			ADD COLUMN series_id INT(17) NOT NULL DEFAULT 1"
 		);
@@ -611,7 +613,7 @@ sub sql_create_product_series_table {
 	return if DISABLE_SQL_STMT;
 	print BOLD WHITE "::Creating product_series table ... ", RESET;
 	unless ( &do_query("SHOW TABLES LIKE 'product_series'")->[0]->[0] ) {
-		&do_statement(
+		do_statement(
 			"CREATE TABLE product_series ( series_id INT(17) NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 			sid INT(13) NOT NULL, 
 			tid INT(13) NOT NULL, 
@@ -622,7 +624,7 @@ sub sql_create_product_series_table {
 			KEY (supplier_id), 
 			KEY (family_id) )"
 		);
-		&do_statement("INSERT INTO product_series VALUES (1, 0, 0, 0, 0, 0)");
+		do_statement("INSERT INTO product_series VALUES (1, 0, 0, 0, 0, 0)");
 	} ## end unless ( &do_query("SHOW TABLES LIKE 'product_series'"...
 	if ( &do_query("SHOW TABLES LIKE 'product_series'")->[0]->[0] ) {
 		print BOLD WHITE "[ ", BOLD GREEN, "Success", BOLD WHITE, " ]", RESET, "\n";
@@ -635,15 +637,15 @@ sub sql_create_product_series_table {
 sub sql_delete_family {
 	my $family_id = shift;
 	return if DISABLE_SQL_STMT;
-	&delete_element( 'product_family', 'family_id', 'parent_family_id',
+	delete_element( 'product_family', 'family_id', 'parent_family_id',
 					 $family_id, 'value', 'vocabulary', 'sid' );
-	&do_statement(  "DELETE FROM product_family WHERE family_id=" . $family_id );
+	do_statement(  "DELETE FROM product_family WHERE family_id=" . $family_id );
 } ## end sub sql_delete_family
 
 sub sql_update_family {
 	my ($family_id, $family_name) = @_;
 	return if DISABLE_SQL_STMT;
-	&do_statement("UPDATE vocabulary v JOIN product_family pf USING(sid)
+	do_statement("UPDATE vocabulary v JOIN product_family pf USING(sid)
 		SET v.value=" . &str_sqlize($family_name) .
 		" WHERE pf.family_id=" . $family_id . " AND v.langid=" . INTER_LANGID);
 }

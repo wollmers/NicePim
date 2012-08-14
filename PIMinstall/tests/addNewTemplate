@@ -4,12 +4,12 @@
 
 use strict;
 
-#use lib "/home/pim/lib";
-use lib "/home/dima/gcc_svn/lib";
+use lib "/home/pim/lib";
+#use lib "/home/dima/gcc_svn/lib";
 
 # begin
 
-my $new_template_name = lc($ARGV[0]);
+my $new_template_name = lc( $ARGV[0] );
 my $force = $ARGV[1];
 
 chomp($new_template_name);
@@ -32,7 +32,7 @@ binmode TMPL, ":utf8";
 
 print TMPL '$$INCLUDE head2.html$$
 
-{name: menu2;}
+{ name: menu2; }
 
 <div id="page_content">
 

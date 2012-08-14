@@ -57,13 +57,13 @@ sub ajax {
 		'get_google_translations'=>1
 	};
 	# Make some logging here
-	&log_printf("Started AJAX logging");
+	log_printf("Started AJAX logging");
 
 	# Parsing the input of the client
-	&html_start;
+	html_start;
 
-	&log_printf("request = ".Dumper($hin{'request'}));
-#	&log_printf("request_body = ".Dumper($hin{REQUEST_BODY}));
+	log_printf("request = ".Dumper($hin{'request'}));
+#	log_printf("request_body = ".Dumper($hin{REQUEST_BODY}));
 
 	$ajax_request = $hin{'REQUEST_BODY'};
 	my $response = [];
@@ -82,7 +82,7 @@ sub ajax {
 		next unless $1;
 		$key =~ s/^http\:\/\/.*?\/index\.cgi\?(.*)$/$1/s;
 		$hin{$key} = $value;
-		&log_printf("key|value = '".$key."' | '".$value."'");
+		log_printf("key|value = '".$key."' | '".$value."'");
 	}
 
 	$ajax_request = $ajax_request->{Request};
@@ -94,17 +94,17 @@ sub ajax {
 
 	if ($ajax_request->{Function}) {
 
-		&do_statement('DELETE FROM ajax_usage WHERE updated < from_unixtime(unix_timestamp() - 60)');
+		do_statement('DELETE FROM ajax_usage WHERE updated < from_unixtime(unix_timestamp() - 60)');
 		# Lets check that we have not too much requests
 		my $max_requests_per_minute = 600;
-		my $counted = &do_query("SELECT count(*) FROM ajax_usage WHERE ip = ".&str_sqlize($ENV{REMOTE_ADDR})." AND func = ". &str_sqlize($ajax_request->{Function}))->[0][0];
+		my $counted = do_query("SELECT count(*) FROM ajax_usage WHERE ip = ".str_sqlize($ENV{REMOTE_ADDR})." AND func = ". str_sqlize($ajax_request->{Function}))->[0][0];
 
 		if ($counted > $max_requests_per_minute) {
 			# Aha, we caught you :)
 			$spam = 1;
 		}
 
-		&insert_rows('ajax_usage', {
+		insert_rows('ajax_usage', {
 			'ip'      => str_sqlize($ENV{REMOTE_ADDR}), 
 			'func'    => str_sqlize($ajax_request->{Function}),
 			'updated' => 'now()'
@@ -115,16 +115,16 @@ sub ajax {
 
 	my $output = 'No response';
 
-#	&log_printf($ajax_request->{Function});
+#	log_printf($ajax_request->{Function});
 
 	if ($functions_hash->{$ajax_request->{Function}}) {
 	    # log_printf(Dumper(\%hin));
-		$output = &atom_main_ajaxed();
+		$output = atom_main_ajaxed();
 	}
 
 	$hin{'additional'} = $hin{'tag_id'};
 
-	&output_txt(&pack_response($output));
+	output_txt(pack_response($output));
 }
 
 ##################################################################################################
@@ -147,7 +147,7 @@ sub pack_response {
 
 sub output {
 	my $hash      = shift;
-	my $response  = &xml_utf8_tag;
+	my $response  = xml_utf8_tag;
 	$response .= "<AjaxResponse>\n";
 	my $i = 0;
 	
@@ -162,7 +162,7 @@ sub output {
 	}
 	$response .= "</AjaxResponse>\n";
 
-#  	&log_printf('>>>>>>>>>>>>>>> res = '.$response);
+#  	log_printf('>>>>>>>>>>>>>>> res = '.$response);
 	
 	print $response;
 #	exit;
@@ -188,8 +188,8 @@ sub output_txt {
 		}
 	}
  	
-	$response = &gzip_data($response);
-#  	&log_printf('>>>>>>>>>>>>>>> res = '.$response);
+	$response = gzip_data($response);
+#  	log_printf('>>>>>>>>>>>>>>> res = '.$response);
 	print $response;
 #	exit;
 }
@@ -199,8 +199,8 @@ sub output_txt {
 sub error {
 	my $error = shift;
 	my $text  = '';
-	&log_printf("Error: " . $error);
-	$text .= &xml_utf8_tag;
+	log_printf("Error: " . $error);
+	$text .= xml_utf8_tag;
 	$text .= "<AjaxResponse>\n";
 	$text .= "<Error>" . $error . "</Error>\n";
 	$text .= "</AjaxResponse>\n";

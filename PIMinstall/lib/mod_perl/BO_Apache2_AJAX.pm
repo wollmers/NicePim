@@ -18,7 +18,7 @@ use ajax;
 sub handler {
 
     my $r = shift;
-	&atomsql::init_connection();
+	atomsql::init_connection();
 #    open(atomlog::log_fh,">>".$atomcfg{'logfile'});
     
     # adapter for mod_perl and current CGI interface
@@ -38,7 +38,8 @@ sub handler {
 		
 		$r->rflush();		
     $r->write($answer);
-	&atomsql::close_connection();
+	atomsql::close_connection();
+	
     return Apache2::Const::OK;
 }
 

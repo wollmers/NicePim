@@ -1,7 +1,10 @@
 #!/usr/bin/perl
+
 # @author <vadim@bintime.com>
+
 use strict;
 use warnings;
+
 use Term::ANSIColor qw(:constants);
 use Spreadsheet::WriteExcel;
 use lib "/home/pim/lib";
@@ -21,24 +24,26 @@ use constant EMAIL_FROM		=> 'info@icecat.biz';
 use constant EMAIL_SUBJ		=> "1026845: Create a list with feature values";
 
 print BOLD WHITE "::Detecting category id for '" . CATEGORY . "' ...", RESET;
-my $catid = &do_query("SELECT catid FROM category c JOIN vocabulary v USING (sid) WHERE v.langid=1 AND v.value=" . &str_sqlize(CATEGORY))->[0]->[0];
+my $catid = do_query("SELECT catid FROM category c JOIN vocabulary v USING (sid) WHERE v.langid=1 AND v.value=" . str_sqlize(CATEGORY))->[0]->[0];
 unless ( $catid ) {
 	print BOLD WHITE "[ ", BOLD RED, "fail", BOLD WHITE, " ]", RESET, "\n";
 	exit;
-} else {
+} 
+else {
 	print BOLD WHITE "[ ", BOLD GREEN, "success", BOLD WHITE, " ]", RESET, "\n";
 }
 
 print BOLD WHITE "::Detecting each id from supplier's list ...", RESET, "\n";
-my $suppliers = [ split /,/, SUPPLIER ];
+my $suppliers = [ split(/,/, SUPPLIER) ];
 my $supplier_id_list = "";
-foreach ( @$suppliers ) {
+for ( @$suppliers ) {
 	s/^\s+|\s+$//g;
-	my $supplier_id = &do_query("SELECT supplier_id FROM supplier WHERE name=" . &str_sqlize($_))->[0]->[0];
+	my $supplier_id = do_query("SELECT supplier_id FROM supplier WHERE name=" . &str_sqlize($_))->[0]->[0];
 	unless ( $supplier_id ) {
-		print BOLD RED, ' ' . &str_sqlize($_) . ' ', RESET, "\n";
-	} else {
-		print BOLD GREEN, ' ' . &str_sqlize($_) . ' ', RESET, "\n";
+		print BOLD RED, ' ' . str_sqlize($_) . ' ', RESET, "\n";
+	} 
+	else {
+		print BOLD GREEN, ' ' . str_sqlize($_) . ' ', RESET, "\n";
 		$supplier_id_list .= $supplier_id . ',';
 	}
 }
@@ -49,15 +54,15 @@ unless ( $supplier_id_list ) {
 }
 
 print BOLD WHITE "::Detecting each feature id from feature's list ...", RESET, "\n";
-my $features = [ split /,/, FEATURE ];
+my $features = [ split( /,/, FEATURE) ];
 my $feature_id_list = "";
-foreach ( @$features ) {
+for ( @$features ) {
 	s/^\s+|\s+$//g;
-	my $feature_id = &do_query("SELECT feature_id FROM feature JOIN vocabulary v USING(sid) WHERE v.langid=1 AND v.value=" . &str_sqlize($_))->[0]->[0];
+	my $feature_id = do_query("SELECT feature_id FROM feature JOIN vocabulary v USING(sid) WHERE v.langid=1 AND v.value=" . str_sqlize($_))->[0]->[0];
 	unless ( $feature_id ) {
-		print BOLD RED, ' ' . &str_sqlize($_) . ' ', RESET, "\n";
+		print BOLD RED, ' ' . str_sqlize($_) . ' ', RESET, "\n";
 	} else {
-		print BOLD GREEN, ' ' . &str_sqlize($_) . ' ', RESET, "\n";
+		print BOLD GREEN, ' ' . str_sqlize($_) . ' ', RESET, "\n";
 		$feature_id_list .= $feature_id . ',';
 	}
 }
@@ -68,13 +73,20 @@ unless ( $feature_id_list ) {
 }
 
 print BOLD WHITE "::Executing main query ... ", RESET;
-my $query_result = &do_query("SELECT u.login, FROM_UNIXTIME(ej.date), s.name, " . &str_sqlize(CATEGORY) . ", v.value, pf.value FROM editor_journal ej JOIN product p USING (product_id) JOIN supplier s ON s.supplier_id=p.supplier_id JOIN users u ON u.user_id=p.user_id JOIN user_group_measure_map ugmm USING (user_group) JOIN product_feature pf ON p.product_id=pf.product_id JOIN category_feature cf USING (category_feature_id) JOIN feature f USING (feature_id) JOIN vocabulary v USING (sid) WHERE v.langid=1 AND p.supplier_id IN (" . $supplier_id_list . ") AND ugmm.measure=" . &str_sqlize(UGMM) . " AND ej.date BETWEEN UNIX_TIMESTAMP(" . &str_sqlize(START_DATE) . ") AND UNIX_TIMESTAMP(" . END_DATE . ") AND f.feature_id IN (" . $feature_id_list . ") AND p.catid=" . $catid . " ORDER BY 2 DESC");
+my $query_result = do_query("SELECT u.login, FROM_UNIXTIME(ej.date), s.name, " 
+    . str_sqlize(CATEGORY) 
+    . ", v.value, pf.value FROM editor_journal ej JOIN product p USING (product_id) JOIN supplier s ON s.supplier_id=p.supplier_id JOIN users u ON u.user_id=p.user_id JOIN user_group_measure_map ugmm USING (user_group) JOIN product_feature pf ON p.product_id=pf.product_id JOIN category_feature cf USING (category_feature_id) JOIN feature f USING (feature_id) JOIN vocabulary v USING (sid) WHERE v.langid=1 AND p.supplier_id IN (" . $supplier_id_list . ") AND ugmm.measure=" 
+    . str_sqlize(UGMM) . " AND ej.date BETWEEN UNIX_TIMESTAMP(" 
+    . str_sqlize(START_DATE) . ") AND UNIX_TIMESTAMP(" . END_DATE . ") AND f.feature_id IN (" 
+    . $feature_id_list . ") AND p.catid=" . $catid . " ORDER BY 2 DESC");
 if ( scalar @$query_result ) {
 	print BOLD WHITE "[ ", BOLD GREEN, "success", BOLD WHITE, " ]", RESET, "\n";
-} else {
+} 
+else {
 	print BOLD WHITE "[ ", BOLD RED, "No results", BOLD WHITE, " ]", RESET, "\n";
 	exit;
 }
+
 ################ Saving result ################################
 my $workbook  = eval { Spreadsheet::WriteExcel->new(XLS_REPORT); };
 if ( $@ ) {
@@ -114,7 +126,7 @@ my $result_cnt = scalar @$query_result;
 my $current_result = 0;
 my $part = 1;
 my $ri = 1; # row index
-my $out = &create_my_worksheet( $workbook, 'Journal', $part, $columns );
+my $out = create_my_worksheet( $workbook, 'Journal', $part, $columns );
 
 print BOLD WHITE "::Saving results ... [0]", RESET;
 
@@ -125,7 +137,7 @@ foreach my $row ( @$query_result ) {
 		$ci++
 	}
 	if ( ++$ri >= XLS_MAX_ROWS ) {
-		$out = &create_my_worksheet( $workbook, 'Journal', ++$part, $columns );
+		$out = create_my_worksheet( $workbook, 'Journal', ++$part, $columns );
 		$ri = 1;
 	}
 	my $percent = sprintf( "%2d", ++$current_result * 100 / $result_cnt );
@@ -140,12 +152,13 @@ qx(gzip -f $xls);
 my $attachment = $xls . '.gz';
 if ( -e $attachment ) {
 	print BOLD WHITE "[ ", BOLD GREEN, "success", BOLD WHITE, " ]", RESET, "\n";
-} else {
+} 
+else {
 	print BOLD WHITE "[ ", BOLD RED, "fail", BOLD WHITE, " ]", RESET, "\n";
 	exit;
 }
 
-&send_mail( EMAIL_TO, EMAIL_FROM, EMAIL_SUBJ, $attachment);
+send_mail( EMAIL_TO, EMAIL_FROM, EMAIL_SUBJ, $attachment);
 exit;
 
 ################################################################################
@@ -188,6 +201,6 @@ sub send_mail {
 				'attachment_cotent_type'=> 'application/x-gzip',
 				'attachment_body'		=> $file
 				};
-	&complex_sendmail($mail);
+	complex_sendmail($mail);
 	print BOLD WHITE "#-----\nFor detailed information - check your email box at <" . $to . ">", RESET, "\n";
 }

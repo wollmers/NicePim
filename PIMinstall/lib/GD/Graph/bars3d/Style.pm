@@ -6,10 +6,10 @@
 
 package GD::Graph::bars3d::Style;
 
-sub new{
+sub new {
 	my $package=shift;
 	my %params=@_;
-	my $self={
+	my $self = {
 		_rgb=>$params{'rgb'},
 		_font=>$params{'font'},
 		_legend_name=>$params{'legend_name'},
@@ -19,32 +19,35 @@ sub new{
 	return $self;
 }
 
-sub rgb{
+sub rgb {
 	my($self,$color)=@_;
-	if(defined($color)){
-		$self->{_rgb}=$color;
+	if (defined($color)){
+		$self->{_rgb} = $color;
 		return $self;
-	}else{
+	}
+	else{
 		return $self->{_rgb};
 	}
 }
 
-sub font{
+sub font {
 	my($self,$font)=@_;
-	if(defined($font)){
-		$self->{_font}=$font;
+	if (defined($font)) {
+		$self->{_font} = $font;
 		return $self;
-	}else{
+	}
+	else{
 		return $self->{_font};
 	}
 }
 
 sub legend_name{
 	my($self,$name)=@_;
-	if(defined($name)){
-		$self->{_legend_name}=$name;
+	if (defined($name)) {
+		$self->{_legend_name} = $name;
 		return $self;
-	}else{
+	}
+	else {
 		return $self->{_legend_name};
 	}
 }

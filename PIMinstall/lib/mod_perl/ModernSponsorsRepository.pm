@@ -14,8 +14,6 @@ use Apache2::Connection;
 use Apache2::Const -compile => qw(OK NOT_FOUND FORBIDDEN AUTH_REQUIRED);
 
 use lib '/home/pim/lib';
-#use lib '/home/dima/gcc_svn/lib';
-#use lib '/home/alex/icecat/bo/trunk/lib';
 
 use atomlog;
 use atomcfg;
@@ -33,16 +31,16 @@ sub handler {
 	$r->ap_auth_type('Basic');
 	
 	goto skip_slave;
-	my $slave_ip = &do_query("select SQL_CACHE ip from slave_status limit 1")->[0][0];
+	my $slave_ip = do_query("select SQL_CACHE ip from slave_status limit 1")->[0][0];
 
 	if ($slave_ip) {
-		&register_slave('slave1',$slave_ip,$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'});
+		register_slave('slave1',$slave_ip,$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'});
 #		log_printf("DV: register slave: ".$slave_ip);
-		&unregister_main();
+		unregister_main();
 	}
 	else {
-#		&log_printf('!!! SLAVE NOT FOUND !!!');
-		&register_slave('slave1',$atomcfg{'dbhost'},$atomcfg{'dbuser'},$atomcfg{'dbpass'});
+#		log_printf('!!! SLAVE NOT FOUND !!!');
+		register_slave('slave1',$atomcfg{'dbhost'},$atomcfg{'dbuser'},$atomcfg{'dbpass'});
 	}
 
  skip_slave:
@@ -62,7 +60,7 @@ sub handler {
 	# Now, we have user, password, remote_ip, remote_host
 	# NEW!!!
 	if ($res != Apache2::Const::OK) {
-		&log_printf("DV ".$login.": weird get_basic_auth_pw() \$res wrong auth: ".$login.", ".$pass.", ".$ip);
+		log_printf("DV ".$login.": weird get_basic_auth_pw() \$res wrong auth: ".$login.", ".$pass.", ".$ip);
 		return $res;
 	}
 
@@ -73,7 +71,7 @@ sub handler {
 	# prepare path
 	$path =~ s/\/{2,}/\//gs;
 
-	&log_printf("URL(".$path.") access: login=".$login.", password=".$pass.", ip=".$ip.", host=".$host);
+	log_printf("URL(".$path.") access: login=".$login.", password=".$pass.", ip=".$ip.", host=".$host);
 
 	# parse path
 	my @a = split /\//, $path;
@@ -104,7 +102,7 @@ sub handler {
 		if ($type =~ /^vendor(\.int)?$/) {
 			# supplier_id
 			$supplier_name = shift @a;
-			$supplier_id = &do_query("select SQL_CACHE supplier_id from supplier where folder_name=".&str_sqlize($supplier_name))->[0][0];
+			$supplier_id = do_query("select SQL_CACHE supplier_id from supplier where folder_name=".str_sqlize($supplier_name))->[0][0];
 		}
 		
 		# get lang (complicated, should be simpler)
@@ -124,7 +122,7 @@ sub handler {
 				$lang = 'DE' if ($lang eq 'GE');
 				$lang = 'SV' if ($lang eq 'SE');
 #				$lang = uc $lang;
-				$langid = &do_query("select langid from language where short_code=" . (uc &str_sqlize($lang)))->[0][0] || -1;
+				$langid = do_query("select langid from language where short_code=" . (uc str_sqlize($lang)))->[0][0] || -1;
 				if ($langid == -1) {
 					unshift @a, $lang; # bring non-language to their place
 					$lang = '';
@@ -135,7 +133,7 @@ sub handler {
 			$lang = '';
 		}
 		
-		if (&get_auth($type,$login,$pass,$ip,$host,$langid,$supplier_id,$path)) {
+		if (get_auth($type,$login,$pass,$ip,$host,$langid,$supplier_id,$path)) {
 
 			# get item type
 			while (1) {
@@ -147,9 +145,9 @@ sub handler {
 			if ((!$item) && ($langid != -1)) {
 				$item = 'daily.index.xml'; # like a DirectoryIndex
 			}
-			$item_path = &get_item_path($type,$item,$supplier_id,$supplier_name,$lang,$login);
+			$item_path = get_item_path($type,$item,$supplier_id,$supplier_name,$lang,$login);
 
-			&log_printf("item path = ".$item_path);
+			log_printf("item path = ".$item_path);
 
 			# get XML
 			if ($item_path) {
@@ -183,26 +181,26 @@ sub handler {
 						else { # file is broken - reloading
 							if ($product_id) {
 								$cmd = $atomcfg{'base_dir'}.'bin/update_product_xml_chunk';
-								&queue_process($cmd." ".$product_id, { 'product_id' => $product_id, 'process_class_id' => 1, 'prio' => 2 });
+								queue_process($cmd." ".$product_id, { 'product_id' => $product_id, 'process_class_id' => 1, 'prio' => 2 });
 							}
 							$result = Apache2::Const::NOT_FOUND;
 						}
 					}
 					else {
-						&set_content_type($r,$item_path);
+						set_content_type($r,$item_path);
 						my (undef,undef,undef,undef,undef,undef,undef,$size,undef,$mtime,undef,undef,undef) = stat($item_path);
 						$r->set_content_length($size) if $r->can('set_content_length');
 						$r->set_last_modified($mtime) if $r->can('set_last_modified');;
 						$r->rflush();
 						$r->sendfile($item_path);
 					}
-					#&log_printf("send from: ".$item_path);
+					#log_printf("send from: ".$item_path);
 				}
 				elsif ((-d $item_path) && ($item_path =~ /\/(csv|prf|refs|level4|freexml|freexml\.int|vendor|vendor\.int)\/*/)) {
 					$result = Apache2::Const::OK;
 					$r->content_type("text/html; charset=utf-8");
 					$r->rflush();
-					$r->write(&get_index_html($path, $item_path));
+					$r->write(get_index_html($path, $item_path));
 				}else{					
 					goto PRINT_XML;
 				} 
@@ -216,12 +214,12 @@ sub handler {
 
 					if ($new_item_path =~ /(\d+)\.xml.*$/i) {
 						$product_id = $1;
-						my $new_product_id=&do_query("SELECT p.product_id from product_deleted pd 
+						my $new_product_id = do_query("SELECT p.product_id from product_deleted pd 
 							   JOIN product p ON pd.map_product_id=p.product_id
 							   WHERE pd.product_id=$product_id and pd.product_id!=pd.map_product_id");
 						
 						if (scalar(@$new_product_id) > 0) {
-							$new_item_path = $atomcfg{'xml_path'}.'level4/'.$lang.'/'.&get_smart_path($new_product_id->[0][0]).$new_product_id->[0][0].'.xml.gz';
+							$new_item_path = $atomcfg{'xml_path'}.'level4/'.$lang.'/'.get_smart_path($new_product_id->[0][0]).$new_product_id->[0][0].'.xml.gz';
 						}
 						if (-e $new_item_path) {
 							$err_xml = '<ICECAT-interface><Product Code="-1" ID="?'.$product_id.'?" ErrorMessage="Product was replaced with" Map_product_id="'.$new_product_id->[0][0].'"/></ICECAT-interface>';
@@ -283,16 +281,16 @@ sub get_auth {
 
 	my $ips = " or 0";
 	my $prf2host = '';
-	if ($atomcfg{'datahost'}) { $ips .= " or ".&str_sqlize($atomcfg{'datahost'})."=".&str_sqlize($ip); }
-	if ($atomcfg{'datahost2'}) { $ips .= " or ".&str_sqlize($atomcfg{'datahost2'})."=".&str_sqlize($ip); }
-	if ($atomcfg{'prf2host'}) { $prf2host = " or ".&str_sqlize($atomcfg{'prf2host'})."=".&str_sqlize($ip); }
+	if ($atomcfg{'datahost'}) { $ips .= " or ".str_sqlize($atomcfg{'datahost'})."=".str_sqlize($ip); }
+	if ($atomcfg{'datahost2'}) { $ips .= " or ".str_sqlize($atomcfg{'datahost2'})."=".str_sqlize($ip); }
+	if ($atomcfg{'prf2host'}) { $prf2host = " or ".str_sqlize($atomcfg{'prf2host'})."=".str_sqlize($ip); }
 
 	# preparing expiration request
-	my $exp_date = " and (trim(login_expiration_date)='' or login_expiration_date is null or unix_timestamp(login_expiration_date) >= unix_timestamp(".&str_sqlize($atomsql::current_day)."))";
+	my $exp_date = " and (trim(login_expiration_date)='' or login_expiration_date is null or unix_timestamp(login_expiration_date) >= unix_timestamp(".str_sqlize($atomsql::current_day)."))";
 
 	if ($type eq 'freexml') { # get freexml file
 	brand_assigned_users:
-		unless (&do_query("select 1 from users where login=".&str_sqlize($login)." and password=".&str_sqlize($pass)." and (subscription_level in (1,2,4,5) or ".&str_sqlize($ip)."=".&str_sqlize($atomcfg{'prfhost'}).$prf2host.$ips.") and user_group='shop'".$exp_date)->[0][0]) {
+		unless (do_query("select 1 from users where login=".str_sqlize($login)." and password=".str_sqlize($pass)." and (subscription_level in (1,2,4,5) or ".str_sqlize($ip)."=".str_sqlize($atomcfg{'prfhost'}).$prf2host.$ips.") and user_group='shop'".$exp_date)->[0][0]) {
 			return 0;
 		}
 	}
@@ -300,19 +298,19 @@ sub get_auth {
 		unless ($supplier_id) {
 			return 0;
 		}
-		unless (&do_query("select 1 from supplier where supplier_id=".$supplier_id." and public_login=".&str_sqlize($login)." and public_password=".&str_sqlize($pass))->[0][0]) {
+		unless (do_query("select 1 from supplier where supplier_id=".$supplier_id." and public_login=".str_sqlize($login)." and public_password=".str_sqlize($pass))->[0][0]) {
 
 			# check the brand assigned users
-			if (&do_query("select 1 from brand_assigned_users bau inner join users u using (user_id) where bau.supplier_id=".$supplier_id." and u.login=".&str_sqlize($login))->[0][0]) {
+			if (do_query("select 1 from brand_assigned_users bau inner join users u using (user_id) where bau.supplier_id=".$supplier_id." and u.login=".str_sqlize($login))->[0][0]) {
 				goto brand_assigned_users;
 			}
 			return 0;
 		}
 	}
 	elsif ($type eq 'level4') { # get level4 file
-		if ($ip) { $ips .= " or access_restriction_ip like ".&str_sqlize("%".$ip."%"); }
-		if ($host) { $ips .= " or access_restriction_ip like ".&str_sqlize("%".$host."%"); }
-		unless (&do_query("select 1 from users where login=".&str_sqlize($login)." and password=".&str_sqlize($pass)." and ((subscription_level=4 and (access_restriction=0 ".$ips.") and access_repository like ".&str_sqlize($any_symbols."1%").") or (subscription_level in (1,2) and (".&str_sqlize($atomcfg{'prfhost'})."=".&str_sqlize($ip).$prf2host."))) and user_group='shop'".$exp_date)->[0][0]) {
+		if ($ip) { $ips .= " or access_restriction_ip like ".str_sqlize("%".$ip."%"); }
+		if ($host) { $ips .= " or access_restriction_ip like ".str_sqlize("%".$host."%"); }
+		unless (do_query("select 1 from users where login=".str_sqlize($login)." and password=".str_sqlize($pass)." and ((subscription_level=4 and (access_restriction=0 ".$ips.") and access_repository like ".str_sqlize($any_symbols."1%").") or (subscription_level in (1,2) and (".str_sqlize($atomcfg{'prfhost'})."=".str_sqlize($ip).$prf2host."))) and user_group='shop'".$exp_date)->[0][0]) {
 			return 0;
 		}
 	}
@@ -323,15 +321,15 @@ sub get_auth {
 sub add2request_history {
 	my ($login, $pass, $ip, $url) = @_;
 
-	my $login_pass_match = &do_query("select 'Y' from users where login=".&str_sqlize($login)." and password=".&str_sqlize($pass))->[0][0] || 'N';
+	my $login_pass_match = do_query("select 'Y' from users where login=".str_sqlize($login)." and password=".str_sqlize($pass))->[0][0] || 'N';
 	
-	&do_statement("insert delayed into request_history(login,password,ip,url,date) values(".&str_sqlize($login).",".&str_sqlize($login_pass_match).",".&str_sqlize($ip).",".&str_sqlize($url).",unix_timestamp())");
+	do_statement("insert delayed into request_history(login,password,ip,url,date) values(".str_sqlize($login).",".str_sqlize($login_pass_match).",".str_sqlize($ip).",".str_sqlize($url).",unix_timestamp())");
 } # sub add2request_history
 
 sub get_item_path {
 	my ($type,$item,$supplier_id,$supplier_name,$lang,$login) = @_;
 
-#	&log_printf("type/lang/item: ".$type." ".$lang." ".$item);
+#	log_printf("type/lang/item: ".$type." ".$lang." ".$item);
 
 	my $product_table_postfix = '_memory';
 
@@ -348,13 +346,13 @@ sub get_item_path {
 
 		# allow or deny?
 		if ($type eq 'freexml') { # get freexml file
-			$allow = &do_query("select 1 from product".$product_table_postfix." p inner join supplier s using (supplier_id) where p.product_id=".$product_id." and p.public!='L' and p.publish!='N' and s.is_sponsor='Y'")->[0][0];
+			$allow = do_query("select 1 from product".$product_table_postfix." p inner join supplier s using (supplier_id) where p.product_id=".$product_id." and p.public!='L' and p.publish!='N' and s.is_sponsor='Y'")->[0][0];
 		}
 		elsif ($type eq 'vendor') { # get vendor file
-			$allow = &do_query("select 1 from product".$product_table_postfix." p inner join supplier s using (supplier_id) where p.product_id=".$product_id." and s.supplier_id=".$supplier_id)->[0][0];
+			$allow = do_query("select 1 from product".$product_table_postfix." p inner join supplier s using (supplier_id) where p.product_id=".$product_id." and s.supplier_id=".$supplier_id)->[0][0];
 		}
 		elsif ($type eq 'level4') { # get level4 file
-			$allow = &do_query("select 1 from product".$product_table_postfix." p inner join supplier s using (supplier_id) where p.product_id=".$product_id." " . ( $login eq '_multiprf' ? '' : " and p.public!='L' " ) . " and p.publish!='N'")->[0][0];
+			$allow = do_query("select 1 from product".$product_table_postfix." p inner join supplier s using (supplier_id) where p.product_id=".$product_id." " . ( $login eq '_multiprf' ? '' : " and p.public!='L' " ) . " and p.publish!='N'")->[0][0];
 		}
 
 		# SPECIFIC PARAMS / LIMITATIONS
@@ -364,19 +362,19 @@ sub get_item_path {
 		# 1024212: Exclude Sony DE products from ICEcat repository (OpenICEcat only).
 		# Vogel's Erik solution - 711 - do not show in icecat.biz
 
-		$supplier_id = &do_query("select supplier_id from product where product_id = ".$product_id)->[0][0] unless $supplier_id;
+		$supplier_id = do_query("select supplier_id from product where product_id = ".$product_id)->[0][0] unless $supplier_id;
 
 		if ((($login ne '_multiprf') || ($supplier_id == 711)) && ($type !~ /vendor/)) {
 			# allow -> disallow, if products were restricted
 			if ($allow) {
-				$allow = &DeniedByProductsRestricted($product_id, $product_table_postfix, $type, $lang);
+				$allow = DeniedByProductsRestricted($product_id, $product_table_postfix, $type, $lang);
 			}
 		}
 		
 		# allow denied products for BAU
 		unless ($allow) {
 			if ($supplier_id) {
-				if (&do_query("select 1 from brand_assigned_users bau inner join users u using (user_id) where bau.supplier_id = ".$supplier_id." and u.login = ".&str_sqlize($login))->[0][0] eq '1') {
+				if (do_query("select 1 from brand_assigned_users bau inner join users u using (user_id) where bau.supplier_id = ".$supplier_id." and u.login = ".str_sqlize($login))->[0][0] eq '1') {
 					$allow = 1;
 				}
 			}
@@ -394,10 +392,10 @@ sub get_item_path {
 	if ($allow) {
 		if ($product) { # only to level4
 			$lang =~ s/^\??//; # remove 1st ?, if present
-			$xml = $atomcfg{'xml_path'}.'level4/'.$lang.'/'.&get_smart_path($product_id).$product_id.".xml.gz" if (-e $atomcfg{'xml_path'}.'level4/'.$lang.'/'.&get_smart_path($product_id).$product_id.".xml.gz");
+			$xml = $atomcfg{'xml_path'}.'level4/'.$lang.'/'.get_smart_path($product_id).$product_id.".xml.gz" if (-e $atomcfg{'xml_path'}.'level4/'.$lang.'/'.get_smart_path($product_id).$product_id.".xml.gz");
 		}
 		else { # freexml -> to freexml, level4 -> to level4, vendor -> to vendor
-#			&log_printf('simple paths ///');
+#			log_printf('simple paths ///');
 			if (($type eq 'freexml') || ($type eq 'vendor')) {
 				$type .= '.int';
 				$type .= '/'.$supplier_name if ($type eq 'vendor.int');
@@ -416,10 +414,10 @@ sub get_item_path {
 		$xml = undef;
 	}
 
-	&log_printf('returned path = '.$xml) if $xml;
+	log_printf('returned path = '.$xml) if $xml;
 
 	return $xml;
-} # sub get_item_path
+} 
 
 sub get_index_html {
 	my ($url, $path) = @_;
@@ -495,11 +493,11 @@ sub DeniedByProductsRestricted {
 
 	return 1 if uc($lang) eq 'INT'; # INTernational - always allow
 
-	my $restrictions = &do_query("select SQL_CACHE pr.supplier_id, upper(l.short_code), pr.subscription_level,
+	my $restrictions = do_query("select SQL_CACHE pr.supplier_id, upper(l.short_code), pr.subscription_level,
 (select count(*) from product_restrictions_details prd where prd.restriction_id=pr.id), pr.id cnt
 from product_restrictions pr
 inner join language l using (langid)
-where l.short_code = ".&str_sqlize(uc($lang)));
+where l.short_code = ".str_sqlize(uc($lang)));
 	
 	foreach my $restriction (@$restrictions) {
 #		next if $restriction->[1] ne uc($lang); # skip if languages aren't matched
@@ -507,7 +505,7 @@ where l.short_code = ".&str_sqlize(uc($lang)));
 		# extra products
 		my $extra_sql = '';
 		if ($restriction->[3] > 0) {
-			my $r_p_ids = &do_query("select SQL_CACHE product_id from product_restrictions_details where restriction_id = ".$restriction->[4]);
+			my $r_p_ids = do_query("select SQL_CACHE product_id from product_restrictions_details where restriction_id = ".$restriction->[4]);
 			my $r_p_ids_arrayref = [];
 			foreach my $r_p_id (@$r_p_ids) {
 				push @$r_p_ids_arrayref, $r_p_id->[0];
@@ -516,7 +514,7 @@ where l.short_code = ".&str_sqlize(uc($lang)));
 		}
 
 		# 2 conditions: product & customer type
-		return 0 if &do_query("select SQL_CACHE product_id from product" . $pt . " where supplier_id=" . $restriction->[0] . " and product_id = " . $p_id . " " . $extra_sql)->[0][0] &&
+		return 0 if do_query("select SQL_CACHE product_id from product" . $pt . " where supplier_id=" . $restriction->[0] . " and product_id = " . $p_id . " " . $extra_sql)->[0][0] &&
 			( $restriction->[2] == 2 ? $type eq 'freexml' : 1 );
 	}
 
@@ -524,7 +522,7 @@ where l.short_code = ".&str_sqlize(uc($lang)));
 } # sub DeniedByProductsRestricted
 
 END {
-	&unregister_slave('slave1');	
+	unregister_slave('slave1');	
 }
 
 1;

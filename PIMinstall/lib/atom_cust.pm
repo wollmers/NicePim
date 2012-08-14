@@ -1,7 +1,5 @@
 package atom_cust;
 
-#$Id: atom_cust.pm 3777 2011-02-03 14:23:20Z alexey $
-
 use strict;
 
 use atomcfg;
