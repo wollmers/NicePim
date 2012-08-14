@@ -37,8 +37,7 @@ sub encode_sessid {
 return $_[0];
 }
 
-sub decode_sessid
-{
+sub decode_sessid {
 	if ($_[0] eq '') { return (); }
 #	my ($si,$pi) = ( hex(substr($_[0],0,8)),hex(substr($_[0],8,8)) );
 #	$si ^= 0x273D5E86;
@@ -47,14 +46,13 @@ sub decode_sessid
 return $_[0];
 }
 
-sub str_htmlize
-{
+sub str_htmlize {
 	my $str = shift;
 
 	# Preserve inline tags (only if they're balanced!)
 #	my @itags = ('[Ii]','[Aa]','[BB]','[Uu]','[Ss][Uu][Pp]','[Ss][Uu][Bb]','[Ee][Mm]','[Ii][Mm][Gg]','[Pp]','[Ff][Oo][Nn][Tt]','[Uu][Ll]','[Ll][Ii]');
 #
-#	foreach my $itag (@itags) {
+#	for my $itag (@itags) {
 #		$str =~ s/<(\s*$itag(?:\s[^>]+)?)>(.*?)<(\s*\/$itag\s*)>/\x1$1\x2$2\x1$3\x2/gs;
 #	}
 
@@ -73,8 +71,8 @@ sub str_htmlize
 
 	return $str;
 }
-sub str_unhtmlize
-{
+
+sub str_unhtmlize {
 	my $str = shift;
 	$str =~ s/\&amp;/&/g;
 	$str =~ s/\&quot;/"/g;
@@ -84,76 +82,72 @@ sub str_unhtmlize
 
 	return $str;
 }
-sub clean_session
-{
+
+sub clean_session {
 	my ($sess) = @_;
 	if (!defined $sess) {
-		&delete_rows('session',"sessid=".&str_sqlize($sess));
+		delete_rows('session',"sessid=".str_sqlize($sess));
 	}
 }
 
-sub clean_expired_sessions
-{
- &delete_rows("session", "unix_timestamp() - updated > ".$atomcfg{'session_timeout'});
+sub clean_expired_sessions {
+ delete_rows("session", "unix_timestamp() - updated > ".$atomcfg{'session_timeout'});
 }
 
-sub validate_sessid
-{
-#  &log_printf("validating sessid $sessid  , ". ($sessid));
+sub validate_sessid {
+#  log_printf("validating sessid $sessid  , ". ($sessid));
 
 	my $sessrow;
 
-  $sessrow = &atomsql::do_query("SELECT sessid,unix_timestamp() - updated FROM session WHERE code = ".&atomsql::str_sqlize($sessid))->[0];
+  $sessrow = atomsql::do_query("SELECT sessid,unix_timestamp() - updated FROM session WHERE code = ".atomsql::str_sqlize($sessid))->[0];
 #	read    code     for $sessid
 
 
 	if (!defined $sessrow) { # bad session
-	  &log_printf("session validation failed");
+	  log_printf("session validation failed");
 		return 0;
 	}
 
 	if($sessrow->[1] < $atomcfg{'session_timeout'}){
-#  &log_printf("session successfully validated");
+#  log_printf("session successfully validated");
 	 return 1;
 	}
 
-#  &log_printf("timeout $atomcfg{'session_timeout'} vs $sessrow->[1]");
+#  log_printf("timeout $atomcfg{'session_timeout'} vs $sessrow->[1]");
 	return 0;
 }
 
-sub new_session
-{
+sub new_session {
   my $code;
 	my $sess_hash = {};
  	 do {
-		$code = &make_code(48);
-		$sess_hash = { 'code' => &atomsql::str_sqlize($code),
+		$code = make_code(48);
+		$sess_hash = { 'code' => atomsql::str_sqlize($code),
 									 'updated'=> time()
 								 };
-	 } while(!&atomsql::insert_rows('session',$sess_hash));
-  $sessid = &atomsql::sql_last_insert_id();
+	 } while(!atomsql::insert_rows('session',$sess_hash));
+  $sessid = atomsql::sql_last_insert_id();
 
 	$sessid = $code;
 	$hs{'sesscode'} = $code;
   return $sessid;
 }
 
-sub load_session
-{
+sub load_session {
 	my $override;
 
-#	&log_printf(" sessid from hin ".$hin{'sessid'});
+#	log_printf(" sessid from hin ".$hin{'sessid'});
 
-	$sessid = &decode_sessid($hin{'sessid'});
+	$sessid = decode_sessid($hin{'sessid'});
 
-#	&log_printf(" decoded into ".$sessid);
+#	log_printf(" decoded into ".$sessid);
 
 	my $fname;
 
-	if(&validate_sessid()){
+	if(validate_sessid()){
 
-		$fname = &encode_sessid($sessid);
- 	  open(SESS, $atomcfg{'session_path'}.".$fname") || &log_printf("Can't open $atomcfg{'session_path'}\.$fname: $!");
+		$fname = encode_sessid($sessid);
+ 	  open(SESS, $atomcfg{'session_path'}.".$fname") || log_printf("Can't open $atomcfg{'session_path'}\.$fname: $!");
 		binmode(SESS,":utf8");
 
 		{
@@ -164,9 +158,9 @@ sub load_session
 					$override = 1; $key = substr($key,1);
 				} else { $override = 0; }
 
-				#&Encode::_utf8_on($value);
-				$key = &unescape($key); $value = &unescape($value);
-#				&log_printf($key.' -> '.$value.' - '.$hin{$key}.' <-- '.$override);
+				#Encode::_utf8_on($value);
+				$key = unescape($key); $value = unescape($value);
+#				log_printf($key.' -> '.$value.' - '.$hin{$key}.' <-- '.$override);
 				if ($key eq '') { next; }
 
 				if ($override) {
@@ -178,33 +172,32 @@ sub load_session
 		 }
 		close SESS;
 	 }
- 	} else {
-	 &atom_util::push_error("The session has expired. Please, re-login.") if ($sessid);
+ 	} 
+ 	else {
+	 atom_util::push_error("The session has expired. Please, re-login.") if ($sessid);
    $hin{'tmpl'}='';
 	}
 
 	# after reading the session file issuing the new sessid
 
-# $sessid = &encode_sessid(&new_session());
- $sessid = &new_session();
+# $sessid = encode_sessid(new_session());
+ $sessid = new_session();
  delete $hin{'sessid'}; # clearing old sessid from hin
 }
 
-sub save_session
-{
+sub save_session {
 	my $key;
 
-	open SESS, '>'.$atomcfg{'session_path'}.'.'.&encode_sessid($sessid);
+	open SESS, '>'.$atomcfg{'session_path'}.'.'.encode_sessid($sessid);
 	binmode(SESS,":utf8");
-	foreach $key (keys %hout) {	print SESS &escape($key),'=',&escape($hout{$key}),"\n"; }
-	foreach $key (keys %hs)   { print SESS '!'.&escape($key),'=',&escape($hs{$key}),"\n"; }
-#	foreach $key (keys %hout) {	print SESS $key,'=',$hout{$key},"\n"; }
-#	foreach $key (keys %hs)   { print SESS '!'.$key,'=',$hs{$key},"\n"; }
+	for $key (keys %hout) {	print SESS escape($key),'=',escape($hout{$key}),"\n"; }
+	for $key (keys %hs)   { print SESS '!'.escape($key),'=',escape($hs{$key}),"\n"; }
+#	for $key (keys %hout) {	print SESS $key,'=',$hout{$key},"\n"; }
+#	for $key (keys %hs)   { print SESS '!'.$key,'=',$hs{$key},"\n"; }
 	close SESS;
 }
 
-sub split_multiple
-{
+sub split_multiple {
   my ($param) = @_;
   my (@params) = split ("\0", $param);
   return (wantarray ? @params : $params[0]);
@@ -234,7 +227,7 @@ sub get_secure_base_URL_wo_script {
 }
 
 sub get_base_URL {
-	return &get_base_URL_wo_script().
+	return get_base_URL_wo_script().
     ($ENV{'SCRIPT_NAME'} eq ''?$atomcfg{'default_url_path'}:$ENV{'SCRIPT_NAME'});
 }
 
@@ -246,12 +239,12 @@ sub get_secure_base_URL_wo_script {
 
 sub get_secure_base_URL {
 # no ssl
-#	return &get_secure_base_URL_wo_script().($ENV{'SCRIPT_NAME'} eq ''?$atomcfg{'default_url_path'}:$ENV{'SCRIPT_NAME'});
-  return &get_base_URL;
+#	return get_secure_base_URL_wo_script().($ENV{'SCRIPT_NAME'} eq ''?$atomcfg{'default_url_path'}:$ENV{'SCRIPT_NAME'});
+  return get_base_URL;
 }
 
 sub get_full_URL {
-	return &get_base_URL().$ENV{'PATH_INFO'} .
+	return get_base_URL().$ENV{'PATH_INFO'} .
 	       (length ($ENV{'QUERY_STRING'}) ? "?$ENV{'QUERY_STRING'}" : '');
 }
 
@@ -262,15 +255,15 @@ sub get_cookies {
 	my ($key, $value);
 
 	if (!defined $ENV{HTTP_COOKIE}) {
-    &log_printf("cookies error");
+    log_printf("cookies error");
 	  return;
 	}
 	%cookies = ();
-	foreach my $i (split(/; /, $ENV{'HTTP_COOKIE'})) {
+	for my $i (split(/; /, $ENV{'HTTP_COOKIE'})) {
 		($key, $value) = split(/=/,$i,2);
 		$key   = unescape($key);
 		$value = unescape($value);
-#		&log_printf(" cookie found: $key = $value");
+#		log_printf(" cookie found: $key = $value");
 		if (defined($cookies{$key})) {
 			$cookies{$key}->[0] .= "\0" . $value;
 		} else {
@@ -286,12 +279,12 @@ sub set_cookies {
 	my ($key,$expires,$domain,$path);
 	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$tmp);
 
-	foreach $key (keys %cookies) {
+	for $key (keys %cookies) {
 # all altered cookies will have expires value
 		if (defined $cookies{$key}->[1]) {
 			($sec,$min,$hour,$mday,$mon,$year,$wday) = gmtime($cookies{$key}->[1]);
 
-			my $value = &escape($cookies{$key}->[0]);
+			my $value = escape($cookies{$key}->[0]);
 
 			$expires = sprintf("%s, %d-%s-%d %02d:%02d:%02d GMT",
 			  $days[$wday], $mday, $months[$mon], $year+1900,
@@ -318,22 +311,24 @@ sub set_cookie {
 	my ($key,$value,$expires,$domain,$path) = @_;
 
 	if (!$expires) {
-		&log_printf("Warning: set_cookie($key) called without expiration time - ignored.");
+		log_printf("Warning: set_cookie($key) called without expiration time - ignored.");
 		return;
 	}
 
 	if ($domain && $path) {
 		$cookies{$key} = [$value, $expires, $domain, $path];
-	} elsif ($domain) {
+	} 
+	elsif ($domain) {
 		$cookies{$key} = [$value, $expires, $domain];
-	} else {
+	} 
+	else {
 		$cookies{$key} = [$value, $expires];
 	}
 }
 
 sub delete_cookie {
 	my ($i);
-	foreach $i (@_) { $cookies{$i} = ['',0]; }
+	for $i (@_) { $cookies{$i} = ['',0]; }
 }
 
 
@@ -396,7 +391,7 @@ sub ReadParseOld {
   $meth = $ENV{'REQUEST_METHOD'};
 
   if ($len > $maxdata) {
-		&error_printf("storehtml: Request to receive too much data: $len bytes (max $maxdata)");
+		error_printf("storehtml: Request to receive too much data: $len bytes (max $maxdata)");
   }
 
   if (!defined $meth || $meth eq '' || $meth eq 'GET' || $meth eq 'HEAD' ||
@@ -413,7 +408,7 @@ sub ReadParseOld {
         $errflag = (read(STDIN, $in, $len) != $len);
     } else {
 			return 1; # FIX AUTOMATIC LOOKUPS OF SEARCH ROBOTS
-			&error_printf("storehtml: Unknown request method: $meth");
+			error_printf("storehtml: Unknown request method: $meth");
     }
 
 		# saving original request body
@@ -422,7 +417,7 @@ sub ReadParseOld {
     @in = split(/[&;]/,$in);
     push(@in, @ARGV) if $cmdflag; # add command-line parameters
 
-    foreach $i (0 .. $#in) {
+    for $i (0 .. $#in) {
       # Split into key and value.
       ($key, $val) = split(/=/,$in[$i],2); # splits on the first =.
 
@@ -434,7 +429,7 @@ sub ReadParseOld {
 			# Mulitples disabled.
 			#$h{$key} .= "\0" if (defined($h{$key})); # \0 is the multiple separator
 			if (defined($hin{$key})) {
-				&log_printf("Warning: multiple $key found: $hin{$key}  and $val");
+				log_printf("Warning: multiple $key found: $hin{$key}  and $val");
 			}
       $hin{$key} = $val;
     }
@@ -453,17 +448,17 @@ sub ReadParseOld {
 
 		($boundary) = $type =~ /boundary="([^"]+)"/; #";   # find boundary
 		($boundary) = $type =~ /boundary=(\S+)/ unless $boundary;
-		&error_printf("storehtml: Boundary not provided") unless $boundary;
+		error_printf("storehtml: Boundary not provided") unless $boundary;
 		$boundary =  "--" . $boundary;
 		$blen = length ($boundary);
 
 		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
-			&error_printf("storehtml: Invalid request method for  multipart/form-data: $meth\n");
+			error_printf("storehtml: Invalid request method for  multipart/form-data: $meth\n");
 		}
 
 		stat ($writefiles);
 		if (!(-d _ && -r _ && -w _)) {
-			&error_printf("storehtml: Bad download directory \'$writefiles\'");
+			error_printf("storehtml: Bad download directory \'$writefiles\'");
 		}
 
     # read in the data and split into parts:
@@ -493,11 +488,11 @@ sub ReadParseOld {
 			$left -= $amt;
 
 			if (defined $hin{$name}) {
-				&log_printf("Warning: multiple $name found: $hin{$name} and '$fn'");
+				log_printf("Warning: multiple $name found: $hin{$name} and '$fn'");
 			}
 
 			$hin{$name} .= $fn if $fn;
-#&log_printf(" $hin{$name}! ");
+#log_printf(" $hin{$name}! ");
       $name=~/([-\w]+)/;  # This allows $insfn{$name} to be untainted
       if (defined $1) {
 				$insfn{$1} .= "\0" if defined $insfn{$1};
@@ -561,7 +556,7 @@ sub ReadParseOld {
 
 				push @$downloaded_files, $fn;
 
-				open (FILE, ">$fn") || &error_printf("storehtml: Unable to open $fn\n");
+				open (FILE, ">$fn") || error_printf("storehtml: Unable to open $fn\n");
       }
       substr($buf, 0, $lpos+4) = '';
       undef $fname;
@@ -571,9 +566,9 @@ sub ReadParseOld {
 #1;
 #END_MULTIPART
 
-#  &error_printf($@) if $errflag;
+#  error_printf($@) if $errflag;
   } else {
-    &error_printf("storehtml: Unknown Content-type: $ENV{'CONTENT_TYPE'}\n");
+    error_printf("storehtml: Unknown Content-type: $ENV{'CONTENT_TYPE'}\n");
   }
 
   $^W = $perlwarn;
@@ -603,11 +598,10 @@ sub ReadParseOld {
 # of the form: name=value and any text that is in $ENV{'QUERY_STRING'}
 # This is intended to aid debugging and may be changed in future releases
 
-sub CgiDie
-{
-my ($errmsg) = @_;
-&log_printf("HTTP PARSING ERROR\n".$errmsg);
-die;
+sub CgiDie {
+    my ($errmsg) = @_;
+    log_printf("HTTP PARSING ERROR\n".$errmsg);
+    die;
 }
 
 sub ReadParse {
@@ -635,7 +629,7 @@ sub ReadParse {
   $meth = $ENV{'REQUEST_METHOD'};
 
   if ($len > $maxdata) { #'
-      &CgiDie("cgi-lib.pl: Request to receive too much data: $len bytes\n");
+      CgiDie("cgi-lib.pl: Request to receive too much data: $len bytes\n");
   }
 
   if (!defined $meth || $meth eq '' || $meth eq 'GET' ||
@@ -655,7 +649,7 @@ sub ReadParse {
         if (($got = read(STDIN, $in, $len) != $len))
 	  {$errflag="Short Read: wanted $len, got $got\n";};
     } else {
-      &CgiDie("cgi-lib.pl: Unknown request method: $meth\n");
+      CgiDie("cgi-lib.pl: Unknown request method: $meth\n");
     }
 
 		# saving original request body
@@ -664,7 +658,7 @@ sub ReadParse {
     @in = split(/[&;]/,$in);
     push(@in, @ARGV) if $cmdflag; # add command-line parameters
 
-    foreach $i (0 .. $#in) {
+    for $i (0 .. $#in) {
       # Convert plus to space
       $in[$i] =~ s/\+/ /g;
 
@@ -676,9 +670,9 @@ sub ReadParse {
       $val =~ s/%([A-Fa-f0-9]{2})/pack("c",hex($1))/ge;
 
 			# decode character combinations to utf8-chars
-			&utf8::decode($val);
+			utf8::decode($val);
 
-#		 &log_printf("POST: ".$key." = ".$val."\n");
+#		 log_printf("POST: ".$key." = ".$val."\n");
       # Associate key and value
 #			if(!$hin{$key}){
      		 $hin{$key} = $val;
@@ -687,7 +681,8 @@ sub ReadParse {
 #			}
     }
 
-  } elsif ($ENV{'CONTENT_TYPE'} =~ m#^multipart/form-data# ) {
+  } 
+  elsif ($ENV{'CONTENT_TYPE'} =~ m#^multipart/form-data# ) {
     # for efficiency, compile multipart code only if needed
 $errflag = !(eval <<'END_MULTIPART');
 
@@ -700,20 +695,20 @@ $errflag = !(eval <<'END_MULTIPART');
 
     ($boundary) = $type =~ /boundary="([^"]+)"/; #";   # find boundary
     ($boundary) = $type =~ /boundary=(\S+)/ unless $boundary;
-    &CgiDie ("Boundary not provided: probably a bug in your server")
+    CgiDie ("Boundary not provided: probably a bug in your server")
       unless $boundary;
     $boundary =  "--" . $boundary;
     $blen = length ($boundary);
 
     if ($ENV{'REQUEST_METHOD'} ne 'POST') {
-      &CgiDie("Invalid request method for  multipart/form-data: $meth\n");
+      CgiDie("Invalid request method for  multipart/form-data: $meth\n");
     }
 
     if ($writefiles) {
       my ($me);
       stat ($writefiles);
 			if (!(-d _ && -r _ && -w _)) {
-				&error_printf("storehtml: Bad download directory \'$writefiles\'");
+				error_printf("storehtml: Bad download directory \'$writefiles\'");
 			}
     }
 
@@ -757,10 +752,10 @@ $errflag = !(eval <<'END_MULTIPART');
      BODY:
       while (($bpos = index($buf, $boundary)) == -1) {
         if ($left == 0 && $buf eq '') {
-	  foreach $value (values %insfn) {
+	  for $value (values %insfn) {
             unlink(split("\0",$value));
 	  }
-	  &CgiDie("cgi-lib.pl: reached end of input while seeking boundary " .
+	  CgiDie("cgi-lib.pl: reached end of input while seeking boundary " .
 		  "of multipart. Format of CGI input is wrong.\n");
         }
         die $@ if $errflag;
@@ -768,7 +763,7 @@ $errflag = !(eval <<'END_MULTIPART');
           if ($fn) { print FILE substr($buf, 0, $bufsize); }
           else     {
 						$hin{$name} .= substr($buf, 0, $bufsize);
-						&Encode::_utf8_on($hin {$name});
+						Encode::_utf8_on($hin {$name});
 					}
         }
         $buf = substr($buf, $bufsize);
@@ -781,7 +776,7 @@ $errflag = !(eval <<'END_MULTIPART');
         if ($fn) { print FILE substr($buf, 0, $bpos-2); }
         else     {
 					$hin {$name} .= substr($buf, 0, $bpos-2);
-					&Encode::_utf8_on($hin {$name});
+					Encode::_utf8_on($hin {$name});
 				} # kill last \r\n
       }
       close (FILE);
@@ -798,10 +793,10 @@ $errflag = !(eval <<'END_MULTIPART');
      HEAD:
       while (($lpos = index($buf, "\r\n\r\n")) == -1) {
         if ($left == 0  && $buf eq '') {
-	  foreach $value (values %insfn) {
+	  for $value (values %insfn) {
             unlink(split("\0",$value));
 	  }
-	  &CgiDie("cgi-lib: reached end of input while seeking end of " .
+	  CgiDie("cgi-lib: reached end of input while seeking end of " .
 		  "headers. Format of CGI input is wrong.\n$buf");
         }
         die $@ if $errflag;
@@ -842,7 +837,7 @@ $errflag = !(eval <<'END_MULTIPART');
 
 				push @$downloaded_files, $fn;
 
-				open (FILE, ">$fn") || &CgiDie("Couldn't open $fn\n");
+				open (FILE, ">$fn") || CgiDie("Couldn't open $fn\n");
         binmode (FILE);  # write files accurately
 				$hin{'file_content_type'} = $ctype;
 				$hin{'file_name'} = $fname;
@@ -857,17 +852,17 @@ END_MULTIPART
     if ($errflag) {
       my ($errmsg, $value);
       $errmsg = $@ || $errflag;
-      foreach $value (values %insfn) {
+      for $value (values %insfn) {
         unlink(split("\0",$value));
       }
-			&log_printf($errmsg);
-      &CgiDie($errmsg);
+			log_printf($errmsg);
+      CgiDie($errmsg);
     } else {
       # everything's ok.
-			#&log_printf("HIN = ".Dumper(%hin));
+			#log_printf("HIN = ".Dumper(%hin));
     }
   } else {
-    &CgiDie("cgi-lib.pl: Unknown Content-type: $ENV{'CONTENT_TYPE'}\n");
+    CgiDie("cgi-lib.pl: Unknown Content-type: $ENV{'CONTENT_TYPE'}\n");
   }
 
   # no-ops to avoid warnings
@@ -902,7 +897,7 @@ BEGIN {
 
 END {
 	#cleaing up uploaded files
-	foreach my $file (@$downloaded_files) {
+	for my $file (@$downloaded_files) {
 		system("rm", "-f", $file);
 	}
 }
@@ -910,10 +905,10 @@ END {
 sub html_start {
 	$html_traffic = 0;
 	%hin = (); %hout = (); %hl = (); %hs = (); # for modperl
-	&detect_ssl;
-	&get_cookies;
-	&ReadParse;
-	&load_session;
+	detect_ssl;
+	get_cookies;
+	ReadParse;
+	load_session;
 	$html_output = '';
 	$jump_to_location = '';
 }
@@ -922,9 +917,8 @@ sub detect_ssl {
 	$ssl = ( $ENV{'SSL_SESSION_ID'} || $ENV{'SSL_PROTOCOL_VERSION'} ) ? 1 : 0;
 }
 
-sub preserve_globals
-{
- # this should saves and pass global parameters
+sub preserve_globals {
+ # this should save and pass global parameters
 
 }
 
@@ -932,9 +926,9 @@ sub html_finish {
 	my $ajaxed = shift;
 
 	if (!$storelog::error_happened) {
-	  &preserve_globals;
-		&save_session;
-		&set_cookies;
+	  preserve_globals;
+		save_session;
+		set_cookies;
 		if ($jump_to_location ne '') {
 			#my $loginPassEncoded = '';
 
@@ -954,30 +948,29 @@ sub html_finish {
 			return $html_output;
 		}
 		else {
-			&html_finish_content;
+			html_finish_content;
 		}
 	}
 }
 
 sub html_start_no_sessions {
 	$html_traffic = 0;
-	&get_cookies;
-	&ReadParse;
+	get_cookies;
+	ReadParse;
 	$html_output = '';
 }
 
 use FileHandle;
 use IPC::Open2;
 
-sub html_finish_content
-{
+sub html_finish_content {
 	if (index($ENV{'HTTP_ACCEPT_ENCODING'},'gzip') >= 0) {
 #		undef local $/;
 #		my $pid = open2(*gzRDR,*gzWTR,'gzip');
 #		gzWTR->autoflush();
 #		print gzWTR $html_output;
 #		close gzWTR;
-		$html_output = &gzip_data($html_output);
+		$html_output = gzip_data($html_output);
 #		close gzRDR;
 #		log_printf("Content-Type: text/html; charset=utf-8\n");
 #		log_printf("Content-Encoding: gzip\n\n");
@@ -991,15 +984,14 @@ sub html_finish_content
 		binmode(STDOUT,":utf8");
 	}
 	print $html_output;
-#	&log_printf($html_output);
+#	log_printf($html_output);
 	STDOUT->flush();
 }
 
-sub gzip_data
-{
+sub gzip_data {
  my ($data) = @_;
  my $dirname = $atomcfg{'session_path'};
- my $gz = $dirname."tmp-".time().&make_code(20).".gz";
+ my $gz = $dirname."tmp-".time().make_code(20).".gz";
 
 
  open(GZIP,"|gzip -c9>$gz");
@@ -1033,12 +1025,12 @@ sub get_non_secure_base_URL_wo_script {
 }
 
 sub get_base_URL {
-	return &get_base_URL_wo_script().
+	return get_base_URL_wo_script().
     ($ENV{'SCRIPT_NAME'} eq ''?$atomcfg{'default_url_path'}:$ENV{'SCRIPT_NAME'});
 }
 
 sub get_non_secure_base_URL {
-	return &get_non_secure_base_URL_wo_script().
+	return get_non_secure_base_URL_wo_script().
     ($ENV{'SCRIPT_NAME'} eq ''?$atomcfg{'default_url_path'}:$ENV{'SCRIPT_NAME'});
 }
 
@@ -1051,12 +1043,12 @@ sub get_secure_base_URL_wo_script {
 
 sub get_secure_base_URL {
 # no ssl
-#	return &get_secure_base_URL_wo_script().($ENV{'SCRIPT_NAME'} eq ''?$atomcfg{'default_url_path'}:$ENV{'SCRIPT_NAME'});
-  return &get_base_URL;
+#	return get_secure_base_URL_wo_script().($ENV{'SCRIPT_NAME'} eq ''?$atomcfg{'default_url_path'}:$ENV{'SCRIPT_NAME'});
+  return get_base_URL;
 }
 
 sub get_full_URL {
-	return &get_base_URL().$ENV{'PATH_INFO'} .
+	return get_base_URL().$ENV{'PATH_INFO'} .
 	       (length ($ENV{'QUERY_STRING'}) ? "?$ENV{'QUERY_STRING'}" : '');
 }
 

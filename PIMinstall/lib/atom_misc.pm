@@ -32,68 +32,68 @@ BEGIN {
   use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
   $VERSION = 1.00; @ISA = qw(Exporter); %EXPORT_TAGS = (); @EXPORT_OK = ();
 
-  @EXPORT = qw(&make_code
-								
-							 $clipboard_objects
-							 &escape
-							 &unescape
-							 &repl_ph
-							 &s_repl_ph
+  @EXPORT = qw(
+    &make_code
+    $clipboard_objects
+	&escape
+    &unescape
+    &repl_ph
+    &s_repl_ph
 							 
-							 &login_user
+	&login_user
 							 
-							 &get_ip_addr
-							 &verify_address
+	&get_ip_addr
+	&verify_address
 							 
-							 &get_quality_measure
-							 &get_quality_index
+	&get_quality_measure
+	&get_quality_index
 							 
-							 &maintain_category_feature_group
+	&maintain_category_feature_group
 							 
-							 &get_obj_url
-							 &family_count
+	&get_obj_url
+	&family_count
 							 
-							 &verify_login_expiration_date
+	&verify_login_expiration_date
 							 
-							 &get_language_flag
-							 &get_complaint_email_body
+	&get_language_flag
+	&get_complaint_email_body
 							 
-							 &get_gallery_pic_params
-							 &get_obj_size
-							 &get_obj_width_and_height
-							 &makedir
-							 &make_authmysql_htaccess
-							 &in_selected_sponsors
-							 &symlink
-							 &generate_html_key
-							 &get_supplier_user_id
+	&get_gallery_pic_params
+	&get_obj_size
+	&get_obj_width_and_height
+	&makedir
+	&make_authmysql_htaccess
+	&in_selected_sponsors
+	&symlink
+	&generate_html_key
+	&get_supplier_user_id
 
-							 &nonEn_value
+	&nonEn_value
 
-							 &approx
+	&approx
 
-							 &get_product_relations_amount
-							 &get_product_relations_set_amount
-							 &get_products_related_by_product_id
+	&get_product_relations_amount
+	&get_product_relations_set_amount
+	&get_products_related_by_product_id
 
-							 &get_family_children_list
+	&get_family_children_list
 
-							 &get_prod_ids_list
+    &get_prod_ids_list
 
-							 &xsd_header
-							 &xml_utf8_tag
+	&xsd_header
+	&xml_utf8_tag
 
-							 &remove_Philips_DE_content
-							 &remove_index_xml_item_by_supplier_id
-							 &remove_index_csv_item_by_supplier_id
+	&remove_Philips_DE_content
+	&remove_index_xml_item_by_supplier_id
+	&remove_index_csv_item_by_supplier_id
 
-							 &form_presentation_value
-							 &format_date
+	&form_presentation_value
+	&format_date
 
-							 &get_exponent
+	&get_exponent
 
-							 &months2numbers
-							);
+	&months2numbers
+    );
 }
 
 sub months2numbers {
@@ -164,7 +164,7 @@ sub get_prod_ids_list {
 
 	$#$prod_ids_raw = 0 if ($save_only_1st);
 
-	foreach (@$prod_ids_raw) {
+	for (@$prod_ids_raw) {
 		s/^\s*(.*?)\s*$/$1/s;
 		next if $_ eq '';
 		push @$prod_ids, $_;
@@ -177,12 +177,12 @@ sub get_products_related_by_product_id { # was updated - via MySQL stored proced
 	my ($product_id) = @_;
 
 	my ($result_pids);
-	my $rels = &atomsql::do_query("CALL main_relations_by_product($product_id)");
+	my $rels = atomsql::do_query("CALL main_relations_by_product($product_id)");
 	return undef unless $rels->[0][0];
 
-	foreach my $rel (@$rels) {
-		my $tmp_arr = &get_product_relations_set_amount($rel->[0], $rel->[1], 1);
-		foreach my $pids (@$tmp_arr) {
+	for my $rel (@$rels) {
+		my $tmp_arr = get_product_relations_set_amount($rel->[0], $rel->[1], 1);
+		for my $pids (@$tmp_arr) {
 		 push @$result_pids, $pids;
 		}
 	}
@@ -193,9 +193,9 @@ sub get_products_related_by_product_id { # was updated - via MySQL stored proced
 sub get_product_relations_amount { # to update, obsolete
 	my ($supplier_id, $supplier_family_id, $catid, $feature_id, $feature_value, $exact_value, $prod_id, $start_date, $end_date) = @_;
 
-	my $jc = &_get_join_and_condition($supplier_id, $supplier_family_id, $catid, $feature_id, $feature_value, $exact_value, $prod_id, $start_date, $end_date);
+	my $jc = _get_join_and_condition($supplier_id, $supplier_family_id, $catid, $feature_id, $feature_value, $exact_value, $prod_id, $start_date, $end_date);
 
-	my $result = &atomsql::do_query("select count(distinct local_p.product_id) from product local_p ".$jc->{'join'}." where ".$jc->{'condition'})->[0][0];
+	my $result = atomsql::do_query("select count(distinct local_p.product_id) from product local_p ".$jc->{'join'}." where ".$jc->{'condition'})->[0][0];
 
 	return $result;
 } # sub get_product_relations_amount
@@ -220,7 +220,7 @@ sub get_product_relations_set_amount {
 		}
 	}
 
-	my $i_id = &atomsql::do_query("select rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date
+	my $i_id = atomsql::do_query("select rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date
 from relation r
 inner join relation_set rs  on r.include_set_id".$suffix."=rs.relation_set_id
 inner join relation_rule rr on rs.relation_rule_id=rr.relation_rule_id
@@ -228,40 +228,40 @@ where r.relation_id=".$relation_id);
 
 	my $jc;
 
-	&atomsql::do_statement("drop temporary table if exists itmp_decide_products");
-	&atomsql::do_statement("create temporary table itmp_decide_products (product_id int(13) not null, unique key (product_id))");
+	atomsql::do_statement("drop temporary table if exists itmp_decide_products");
+	atomsql::do_statement("create temporary table itmp_decide_products (product_id int(13) not null, unique key (product_id))");
 
-	foreach (@$i_id) {
-		$jc = &_get_join_and_condition($_->[0], $_->[1], $_->[2], $_->[3], $_->[4], $_->[5], $_->[6], $_->[7], $_->[8]);
-		&atomsql::do_statement("insert ignore into itmp_decide_products(product_id) select distinct local_p.product_id from product local_p ".$jc->{'join'}." where ".$jc->{'condition'});
+	for (@$i_id) {
+		$jc = _get_join_and_condition($_->[0], $_->[1], $_->[2], $_->[3], $_->[4], $_->[5], $_->[6], $_->[7], $_->[8]);
+		atomsql::do_statement("insert ignore into itmp_decide_products(product_id) select distinct local_p.product_id from product local_p ".$jc->{'join'}." where ".$jc->{'condition'});
 	}
 
-	my $e_id = &atomsql::do_query("select rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date
+	my $e_id = atomsql::do_query("select rr.supplier_id, rr.supplier_family_id, rr.catid, rr.feature_id, rr.feature_value, rr.exact_value, rr.prod_id, rr.start_date, rr.end_date
 from relation r
 inner join relation_set rs  on r.exclude_set_id".$suffix."=rs.relation_set_id
 inner join relation_rule rr on rs.relation_rule_id=rr.relation_rule_id
 where r.relation_id=".$relation_id);
 
-	foreach (@$e_id) {
-		$jc = &_get_join_and_condition($_->[0], $_->[1], $_->[2], $_->[3], $_->[4], $_->[5], $_->[6], $_->[7], $_->[8]);
-		&atomsql::do_statement("drop temporary table if exists itmp_products_to_delete");
-		&atomsql::do_statement("create temporary table itmp_products_to_delete (product_id int(13) not null, unique key (product_id))");
-		&atomsql::do_statement("LOCK TABLES product local_p READ");
-		&atomsql::do_statement("insert into itmp_products_to_delete(product_id) select distinct local_p.product_id from product local_p ".$jc->{'join'}." where ".$jc->{'condition'});
-		&atomsql::do_statement("UNLOCK TABLES");
-		&atomsql::do_statement("delete tdp from itmp_decide_products tdp inner join itmp_products_to_delete tptd using (product_id)");
-		&atomsql::do_statement("drop temporary table if exists itmp_products_to_delete");
+	for (@$e_id) {
+		$jc = _get_join_and_condition($_->[0], $_->[1], $_->[2], $_->[3], $_->[4], $_->[5], $_->[6], $_->[7], $_->[8]);
+		atomsql::do_statement("drop temporary table if exists itmp_products_to_delete");
+		atomsql::do_statement("create temporary table itmp_products_to_delete (product_id int(13) not null, unique key (product_id))");
+		atomsql::do_statement("LOCK TABLES product local_p READ");
+		atomsql::do_statement("insert into itmp_products_to_delete(product_id) select distinct local_p.product_id from product local_p ".$jc->{'join'}." where ".$jc->{'condition'});
+		atomsql::do_statement("UNLOCK TABLES");
+		atomsql::do_statement("delete tdp from itmp_decide_products tdp inner join itmp_products_to_delete tptd using (product_id)");
+		atomsql::do_statement("drop temporary table if exists itmp_products_to_delete");
 	}
 
 	my $result;
 	if ($is_products) {	# checking if subroutine was invoked by get_products_related_by_product_id()
-		my $res = &atomsql::do_query("select product_id from itmp_decide_products");
+		my $res = atomsql::do_query("select product_id from itmp_decide_products");
 		@$result = map {$_->[0]} @$res;
 	}
 	else {
-		$result = &atomsql::do_query("select count(product_id) from itmp_decide_products")->[0][0];
+		$result = atomsql::do_query("select count(product_id) from itmp_decide_products")->[0][0];
 	}
-	&atomsql::do_statement("drop temporary table if exists itmp_decide_products");
+	atomsql::do_statement("drop temporary table if exists itmp_decide_products");
 
 	return $result;	
 } # get_product_relations_set_amount
@@ -270,16 +270,16 @@ sub get_product_relations_list {
 	my ($relation_ids) = @_;
 
 	my ($result, $r_id, $jc);
-	&atomsql::do_statement("drop temporary table if exists itmp_rel_products");
-	&atomsql::do_statement("create temporary table itmp_rel_products (product_id int(13) not null primary key)");
-	foreach my $id (@$relation_ids) {
-		$r_id = &atomsql::do_query("select supplier_id, supplier_family_id, catid, feature_id, feature_value, exact_value, prod_id, start_date, end_date from relation where relation_id=".$id." limit 1")->[0];
-		$jc = &_get_join_and_condition($r_id->[0], $r_id->[1], $r_id->[2], $r_id->[3], $r_id->[4], $r_id->[5], $r_id->[6], $_->[7], $_->[8]);
-		&atomsql::do_statement("insert ignore into itmp_rel_products(product_id) select distinct local_p.product_id from product local_p ".$jc->{'join'}." where ".$jc->{'condition'});
+	atomsql::do_statement("drop temporary table if exists itmp_rel_products");
+	atomsql::do_statement("create temporary table itmp_rel_products (product_id int(13) not null primary key)");
+	for my $id (@$relation_ids) {
+		$r_id = atomsql::do_query("select supplier_id, supplier_family_id, catid, feature_id, feature_value, exact_value, prod_id, start_date, end_date from relation where relation_id=".$id." limit 1")->[0];
+		$jc = _get_join_and_condition($r_id->[0], $r_id->[1], $r_id->[2], $r_id->[3], $r_id->[4], $r_id->[5], $r_id->[6], $_->[7], $_->[8]);
+		atomsql::do_statement("insert ignore into itmp_rel_products(product_id) select distinct local_p.product_id from product local_p ".$jc->{'join'}." where ".$jc->{'condition'});
 	}
 
-	$result = &atomsql::do_query("select product_id from itmp_rel_products");
-	&atomsql::do_statement("drop temporary table if exists itmp_rel_products");
+	$result = atomsql::do_query("select product_id from itmp_rel_products");
+	atomsql::do_statement("drop temporary table if exists itmp_rel_products");
 	return $result;
 } # sub get_product_relations_list
 
@@ -299,11 +299,11 @@ sub _get_join_and_condition { # should be reworked
 
 	# add date/time condition
 	if (($start_date != '') || ($end_date != '')) {
-		if (&atomsql::do_query('select unix_timestamp('.&atomsql::str_sqlize($start_date).')')->[0][0]) {
-			$icondition .= ' and local_p.date_added >= '.&atomsql::str_sqlize($start_date);
+		if (atomsql::do_query('select unix_timestamp('.atomsql::str_sqlize($start_date).')')->[0][0]) {
+			$icondition .= ' and local_p.date_added >= '.atomsql::str_sqlize($start_date);
 		}
-		if (&atomsql::do_query('select unix_timestamp('.&atomsql::str_sqlize($end_date).')')->[0][0]) {
-			$icondition .= ' and local_p.date_added <= '.&atomsql::str_sqlize($end_date);
+		if (atomsql::do_query('select unix_timestamp('.atomsql::str_sqlize($end_date).')')->[0][0]) {
+			$icondition .= ' and local_p.date_added <= '.atomsql::str_sqlize($end_date);
 		}
 	}
 
@@ -311,10 +311,10 @@ sub _get_join_and_condition { # should be reworked
 	if ($prod_id ne '') {
 
 		# check prod_ids
-		my $prod_ids = &get_prod_ids_list($prod_id);
+		my $prod_ids = get_prod_ids_list($prod_id);
 
 		for (my $i=0; $i<=$#$prod_ids; $i++) {
-			$prod_ids->[$i] = &atomsql::str_sqlize($prod_ids->[$i]);
+			$prod_ids->[$i] = atomsql::str_sqlize($prod_ids->[$i]);
 		}
 
 		if ($#$prod_ids == 0) {
@@ -339,7 +339,7 @@ sub _get_join_and_condition { # should be reworked
 			$icondition_local = $icondition;
 			
 			if ($supplier_family_id > 1) { # get all children of family_id
-				my $children_arr = &get_family_children_list($supplier_family_id);
+				my $children_arr = get_family_children_list($supplier_family_id);
 				$icondition .= ' and local_p.family_id in ('.(join(',',@$children_arr)).')';
 			}
 		}
@@ -350,29 +350,29 @@ sub _get_join_and_condition { # should be reworked
 			if ($feature_id && defined $feature_value && ($feature_value ne '')) {
 				my $pfvalue = ' 1 ';
 				if ($exact_value == 2) { # exact-mode
-					$pfvalue = 'pf.value = '.&atomsql::str_sqlize($feature_value);
+					$pfvalue = 'pf.value = '.atomsql::str_sqlize($feature_value);
 				}
 				elsif ($exact_value == 3) { # > mode
-					$pfvalue = 'convert(pf.value, decimal(32,3)) > convert('.&atomsql::str_sqlize($feature_value).', decimal(32,3))';
+					$pfvalue = 'convert(pf.value, decimal(32,3)) > convert('.atomsql::str_sqlize($feature_value).', decimal(32,3))';
 				}
 				elsif ($exact_value == 4) { # < mode
-					$pfvalue = 'convert(pf.value, decimal(32,3)) < convert('.&atomsql::str_sqlize($feature_value).', decimal(32,3))';
+					$pfvalue = 'convert(pf.value, decimal(32,3)) < convert('.atomsql::str_sqlize($feature_value).', decimal(32,3))';
 				}
 				elsif ($exact_value == 5) { # <> mode
-					$pfvalue = 'pf.value <> '.&atomsql::str_sqlize($feature_value);
+					$pfvalue = 'pf.value <> '.atomsql::str_sqlize($feature_value);
 				}
 				elsif ($exact_value == 1) { # like-mode
 					$feature_value =~ s/\%/\\\%/gs;
 					$feature_value =~ s/\_/\\\_/gs;
 					$feature_value = '%'.$feature_value.'%';
-					$pfvalue = 'pf.value like '.&atomsql::str_sqlize($feature_value);
+					$pfvalue = 'pf.value like '.atomsql::str_sqlize($feature_value);
 				}
 				else {
 					$pfvalue = '0'; # do not touch anything
 				}
-				&atomsql::do_statement("drop temporary table if exists itmp_product");
-				&atomsql::do_statement("create temporary table itmp_product (product_id int(13) not null primary key)");
-				&atomsql::do_statement("insert into itmp_product (product_id)
+				atomsql::do_statement("drop temporary table if exists itmp_product");
+				atomsql::do_statement("create temporary table itmp_product (product_id int(13) not null primary key)");
+				atomsql::do_statement("insert into itmp_product (product_id)
 select distinct pf.product_id
 from category_feature cf
 inner join product_feature pf on cf.category_feature_id=pf.category_feature_id ".$ijoin_local."
@@ -394,7 +394,7 @@ where cf.catid=".$catid." and cf.feature_id=".$feature_id." and ".$pfvalue." and
 
 sub get_supplier_user_id{
 	my $product_id = $_[0];
-	return &atomsql::do_query("select u.user_id from supplier s,product p, users u where s.supplier_id=p.supplier_id and s.user_id=u.user_id and product_id=$product_id")->[0][0];
+	return atomsql::do_query("select u.user_id from supplier s,product p, users u where s.supplier_id=p.supplier_id and s.user_id=u.user_id and product_id=$product_id")->[0][0];
 }
 
 sub generate_html_key {
@@ -409,19 +409,19 @@ sub generate_html_key {
 
 	if ((defined $product_id) && (defined $action) && ($product_id > 0) && ($action ne '')) {
 		if ((!defined $fuser_id) || ($fuser_id == 0)) {
-			$fuser_id = &get_supplier_user_id($product_id);
+			$fuser_id = get_supplier_user_id($product_id);
 		}
 
 		if (!$fuser_id) {
 			return;
 		}
 
-		&insert_rows("product_html_key", {
+		insert_rows("product_html_key", {
 			'user_id' => $fuser_id,
 			'product_id' => $product_id,
 			'date' => 'NOW()',
-			'html_key' => &atomsql::str_sqlize($key),
-			'action' => &atomsql::str_sqlize($action)
+			'html_key' => atomsql::str_sqlize($key),
+			'action' => atomsql::str_sqlize($action)
 		});
 	}
 
@@ -437,9 +437,9 @@ sub symlink {
 } # sub symlink
 
 sub in_selected_sponsors {
-	my $sp = &atomsql::do_query("select supplier_id from supplier where is_sponsor='Y'");
+	my $sp = atomsql::do_query("select supplier_id from supplier where is_sponsor='Y'");
 	my @sponsors;
-	foreach (@$sp) { push @sponsors, $_->[0]; }
+	for (@$sp) { push @sponsors, $_->[0]; }
 	return ' in ('.join(',',@sponsors).')';
 }
 
@@ -521,20 +521,20 @@ sub login_user
 my ($login, $pass) = @_;
 
 if($pass){
- my $user_id = &atomsql::do_query("select user_id, access_restriction, access_restriction_ip, login_expiration_date, subscription_level from users where login = ".&atomsql::str_sqlize($login)." and password = ".&atomsql::str_sqlize($pass))->[0];
+ my $user_id = atomsql::do_query("select user_id, access_restriction, access_restriction_ip, login_expiration_date, subscription_level from users where login = ".atomsql::str_sqlize($login)." and password = ".atomsql::str_sqlize($pass))->[0];
 
  if(defined $user_id){
 	return 0 if(($user_id->[4]==5)||($user_id->[4]==6));
-  if(&verify_address($user_id->[1], $user_id->[2], $ENV{'REMOTE_ADDR'} )){
+  if(verify_address($user_id->[1], $user_id->[2], $ENV{'REMOTE_ADDR'} )){
 		if($user_id->[3]){
 		    $user_id->[3] =~ /^\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*:\s*(\d+)\s*/;
 		    if(!$1){
 			return 0;
 		    }
-		    &log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time".time);
+		    log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time".time);
 		    eval{timelocal($6, $5, $4, $3, $2 - 1, $1)};
 		    if($@){
-			&log_printf("login expiration date is wrong: $@");
+			log_printf("login expiration date is wrong: $@");
 			return 0;
 		    }
 		    if(timelocal($6, $5, $4, $3, $2 - 1, $1) < time){
@@ -544,7 +544,7 @@ if($pass){
 		}
  		$atom_html::hl{'user_id'} = $user_id->[0];		
 
- 		$atom_util::USER = &get_rows('users',"user_id = $atom_html::hl{'user_id'}")->[0];
+ 		$atom_util::USER = get_rows('users',"user_id = $atom_html::hl{'user_id'}")->[0];
 		
 		return 1;
 	} else {
@@ -554,18 +554,18 @@ if($pass){
   return 0;
 } elsif($login){
  
-	my $row = &atomsql::do_query('select password, email, login from users,contact where contact_id=pers_cid and login='.&atomsql::str_sqlize($login));
+	my $row = atomsql::do_query('select password, email, login from users,contact where contact_id=pers_cid and login='.atomsql::str_sqlize($login));
 
 	if(!$row->[0][1]){ return 0 }
 
-	my $msg = &atom_util::load_template('passwd.al', $atom_html::hl{'langid'});
+	my $msg = atom_util::load_template('passwd.al', $atom_html::hl{'langid'});
 
-	$msg = &repl_ph($msg,	{
+	$msg = repl_ph($msg,	{
 												 "password" => $row->[0][0],
 												 "login" 		=> $row->[0][2]
 												});
 
-	&sendmail($msg,$row->[0][1],$atomcfg{'mail_from'});
+	sendmail($msg,$row->[0][1],$atomcfg{'mail_from'});
 
  return 0;
 }
@@ -594,7 +594,7 @@ sub unescape {
 	return undef unless defined($todecode);
 	$todecode =~ tr/+/ /;       # pluses become spaces
 	$todecode =~ s/%([0-9a-fA-F]{2})/pack("c",hex($1))/ge;
-	&utf8::decode($todecode);
+	utf8::decode($todecode);
 	return $todecode;
 }
 
@@ -602,7 +602,7 @@ sub unescape {
 sub escape {
 	my $toencode = shift;
 	return undef unless defined($toencode);
-	&utf8::encode($toencode);
+	utf8::encode($toencode);
 	$toencode=~s/([^a-zA-Z0-9_.\-])/uc sprintf("%%%02x",ord($1))/eg;
 #	$toencode=~s/ /+/g;
 	return $toencode;
@@ -612,19 +612,19 @@ sub s_repl_ph {
 	my ($text, $hash) = @_;
 		if($text=~/<DictItem[\s]*[^><]*>.+?<\/DictItem>/){
 			my @items=($text=~/(<DictItem[\s]*[^><]*>.+?<\/DictItem>)/gs);
-			foreach my $item (@items){
+			for my $item (@items){
 				if($item=~/<DictItem[\s]*[^><]*>(.+)<\/DictItem>/){
 					my $token=$1;
 					my $lang;
 					if($item=~/<DictItem[\s]+lang="([\w]+)"/){
 						$lang=$1;
 					}
-					my $replacement=&atomsql::do_query('
+					my $replacement=atomsql::do_query('
 										SELECT dt.html FROM dictionary_text dt 
 										JOIN dictionary d USING(dictionary_id)
 										JOIN language l USING(langid) '.
-										'WHERE d.code='.&atomsql::str_sqlize($token).' AND (l.langid=1 '.
-										(($lang)?' or l.short_code='.&atomsql::str_sqlize($lang):'').') 
+										'WHERE d.code='.atomsql::str_sqlize($token).' AND (l.langid=1 '.
+										(($lang)?' or l.short_code='.atomsql::str_sqlize($lang):'').') 
 										ORDER BY l.langid DESC');
 					if($replacement->[0][0]){# we have local translation										
 						$text=~s/\Q$item\E/$replacement->[0][0]/g;
@@ -636,7 +636,7 @@ sub s_repl_ph {
 				}
 			}		
 		}
-		foreach my $i (keys %{$hash}) {
+		for my $i (keys %{$hash}) {
 			$text =~ s/\%\%$i\%\%/$hash->{$i}/gs;
 		}
 
@@ -645,7 +645,7 @@ sub s_repl_ph {
 
 sub repl_ph {
 	my ($text, $hash) = @_;
-	return &s_repl_ph($text, $hash);
+	return s_repl_ph($text, $hash);
 #	my $curr =m/[^\\]*%%(.+?)%%[^\\]*/g;
 	my $curr;
 	$curr=~m/%%.+?%%/gs;
@@ -653,10 +653,10 @@ sub repl_ph {
 		
 	while( $curr != $prev ){
 	  $prev = $curr;
-#		&log_printf("\$prev = $prev");
-		$text = &s_repl_ph($text,$hash);
+#		log_printf("\$prev = $prev");
+		$text = s_repl_ph($text,$hash);
    	 $curr =~m/%%.+?%%/gs;
-#		&log_printf("\$curr = $curr");
+#		log_printf("\$curr = $curr");
 	}
 
 return $text;
@@ -667,7 +667,7 @@ sub verify_address
 {
  use Socket;
  my ( $access_restriction, $access_restriction_ip, $ip ) = @_;
- &log_printf(" input $access_restriction, $access_restriction_ip, $ip )");
+ log_printf(" input $access_restriction, $access_restriction_ip, $ip )");
  my $result = 1; # ok
 
     #$ip = eval { inet_ntoa(inet_aton($ip)) };
@@ -677,12 +677,12 @@ sub verify_address
   $result = 0;
 	
 	my @allowed_hosts = split(' ', $access_restriction_ip);
- 	 foreach my $allowed_host(@allowed_hosts){
+ 	 for my $allowed_host(@allowed_hosts){
 	  last if $result;
-#		 &log_printf(" chk $allowed_host");		
+#		 log_printf(" chk $allowed_host");		
  		if($allowed_host =~m/[\d\/]+\.[\d\/]+\.[\d\/]+\.[\d\/]+/){
 		 # ip mask given
-#		 &log_printf(" pattern $allowed_host");
+#		 log_printf(" pattern $allowed_host");
 		 my @ip_pattern = split(/\./, $allowed_host);
 
 		 $result = 1; # assuming
@@ -694,9 +694,9 @@ sub verify_address
 
 			 if(!defined $hi){ $hi = $low } # when no pattern given
 			 if(!defined $low){ $low = $hi } # when no pattern given
-# &log_printf( " $low vs $hi are given from $ip_pattern[$i]" );
+# log_printf( " $low vs $hi are given from $ip_pattern[$i]" );
 			 # verification
-# &log_printf( " $ip[$i] < $low || $ip[$i] > $hi ");
+# log_printf( " $ip[$i] < $low || $ip[$i] > $hi ");
 			 if( $ip[$i] < $low || $ip[$i] > $hi ){
 			  $result = 0; # verification failed
 			 }
@@ -722,15 +722,15 @@ sub maintain_category_feature_group {
 	
 	my $category_feature_group_id;
 	
-  my $category_feature_group_id = &atomsql::do_query('select category_feature_group_id from category_feature_group where catid = '.&atomsql::str_sqlize($catid).' and feature_group_id = '.&atomsql::str_sqlize($feature_group_id))->[0][0];
+  my $category_feature_group_id = atomsql::do_query('select category_feature_group_id from category_feature_group where catid = '.atomsql::str_sqlize($catid).' and feature_group_id = '.atomsql::str_sqlize($feature_group_id))->[0][0];
 
 	unless ($category_feature_group_id) {
-		&insert_rows('category_feature_group', 
+		insert_rows('category_feature_group', 
 								 {
-									 'catid' => &atomsql::str_sqlize($catid),
-									 'feature_group_id'	=> &atomsql::str_sqlize($feature_group_id)
+									 'catid' => atomsql::str_sqlize($catid),
+									 'feature_group_id'	=> atomsql::str_sqlize($feature_group_id)
 									 });
-		$category_feature_group_id = &atomsql::sql_last_insert_id();
+		$category_feature_group_id = atomsql::sql_last_insert_id();
 	}
 	
 	return $category_feature_group_id;
@@ -767,7 +767,7 @@ sub get_obj_url {
 		$rc = my_mirror($src_file, \$tmp_file, \$fileext);
 	}
 
-	# my_mirror src to images_cache, then &add_image!!!
+	# my_mirror src to images_cache, then add_image!!!
 
 	if ($rc eq 'uploading error') {
 		log_printf('uploading error!!!');
@@ -778,7 +778,7 @@ sub get_obj_url {
 	# get the file result
 	$fileext = get_ext_by_file_content($tmp_file);
 
-	&log_printf("$src_file uploaded to $tmp_file");
+	log_printf("$src_file uploaded to $tmp_file");
 
 	my $res = getJpeg($tmp_file);
 	$name = $res->[0];
@@ -803,7 +803,7 @@ sub get_obj_url {
 	}
 
 	# run add_image
-	my $target = &add_image($tmp_file,
+	my $target = add_image($tmp_file,
 													$hash->{'dest'},
 													$trg);
 
@@ -811,10 +811,10 @@ sub get_obj_url {
 
 	unless ($hash->{'dont_touch_base'}) {
 
-		&atomsql::update_rows($hash->{'dbtable'},
+		atomsql::update_rows($hash->{'dbtable'},
 													$hash->{'id'}."=".$hash->{'id_value'},
 													{
-														$hash->{'dbfield'} => &atomsql::str_sqlize($target)
+														$hash->{'dbfield'} => atomsql::str_sqlize($target)
 													});
 	}
 
@@ -827,18 +827,18 @@ sub get_obj_url {
 sub get_family_children_list {
 	my ($id) = @_;
 
-#	my $children = &atomsql::do_query("select family_id from product_family where parent_family_id = ".$id);
+#	my $children = atomsql::do_query("select family_id from product_family where parent_family_id = ".$id);
 #	push @$arr, $id;
-#	foreach (@$children) {
-#		&get_family_children_list($_->[0], $arr);
+#	for (@$children) {
+#		get_family_children_list($_->[0], $arr);
 #	}
 
 	my $arr = [];
 	
-	my $left_right_langid_1 = &atomsql::do_query("select left_key, right_key from product_family_nestedset where family_id=".$id." and langid=1")->[0];
-	my $children = &atomsql::do_query("select pf.family_id from product_family pf inner join product_family_nestedset pfn using (family_id) where pfn.langid=1 and pfn.left_key > ".$left_right_langid_1->[0]." and pfn.right_key < ".$left_right_langid_1->[1]);
+	my $left_right_langid_1 = atomsql::do_query("select left_key, right_key from product_family_nestedset where family_id=".$id." and langid=1")->[0];
+	my $children = atomsql::do_query("select pf.family_id from product_family pf inner join product_family_nestedset pfn using (family_id) where pfn.langid=1 and pfn.left_key > ".$left_right_langid_1->[0]." and pfn.right_key < ".$left_right_langid_1->[1]);
 
-	foreach (@$children) {
+	for (@$children) {
 		push @$arr, $_;
 	}
 
@@ -850,7 +850,7 @@ sub family_count {
 
 #   my $f_num = 0;
 #		my $i = 0;
-#    my $req = &atomsql::do_query("select family_id from product_family where parent_family_id = $f_id");
+#    my $req = atomsql::do_query("select family_id from product_family where parent_family_id = $f_id");
 
 #    while ($req->[$i][0]) {
 #			$i++;
@@ -862,11 +862,11 @@ sub family_count {
 #			$f_num = $f_num + family_count($req->[$i][0]);$i++;
 #    }
 
-		my $left_right_langid_1 = &atomsql::do_query("select left_key, right_key from product_family_nestedset where family_id = ".$id." and langid = 1")->[0];
+		my $left_right_langid_1 = atomsql::do_query("select left_key, right_key from product_family_nestedset where family_id = ".$id." and langid = 1")->[0];
 		return 0 unless $left_right_langid_1->[0];
-			my $cnt = &atomsql::do_query("select count(pf.family_id) from product_family pf inner join product_family_nestedset pfn using (family_id) where pfn.langid=1 and pfn.left_key > ".$left_right_langid_1->[0]." and pfn.right_key < ".$left_right_langid_1->[1])->[0][0];
+			my $cnt = atomsql::do_query("select count(pf.family_id) from product_family pf inner join product_family_nestedset pfn using (family_id) where pfn.langid=1 and pfn.left_key > ".$left_right_langid_1->[0]." and pfn.right_key < ".$left_right_langid_1->[1])->[0][0];
 
-#	foreach (@$children) {
+#	for (@$children) {
 #		push @$arr, $_;
 #	}
 
@@ -901,7 +901,7 @@ sub my_mirror {
 			$$dst_file .= $$fileext;
 		}
 		if (!open(DST, "> $$dst_file")) {
-			&log_printf("can't open $$dst_file for writing, fileext = ".$$fileext);
+			log_printf("can't open $$dst_file for writing, fileext = ".$$fileext);
 			return 'uploading error';
 		}
 		binmode DST;
@@ -910,7 +910,7 @@ sub my_mirror {
 		return $mime_type;	
 	}
 	else {
-		&log_printf("can't load $src, reason: ".$res->status_line);
+		log_printf("can't load $src, reason: ".$res->status_line);
 		return "uploading error";
 	}
 }
@@ -919,14 +919,14 @@ sub verify_login_expiration_date
 {
  my($uid) = @_[0];
  if(!$uid){ return 0;}
- my $date = &atomsql::do_query("select login_expiration_date from users where user_id = $uid");
+ my $date = atomsql::do_query("select login_expiration_date from users where user_id = $uid");
  if($date->[0][0]){
   $date->[0][0] =~ /^\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*:\s*(\d+)\s*/;
   if(!$1){ return 0;}
-  &log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time: ".time);
+  log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time: ".time);
   eval{timelocal($6, $5, $4, $3, $2 - 1, $1)};
   if($@){
-    &log_printf("login expiration date is wrong: $@");
+    log_printf("login expiration date is wrong: $@");
     return 0;
   }
   if(timelocal($6, $5, $4, $3, $2 - 1, $1) < time){ return 0;  }
@@ -938,14 +938,14 @@ sub get_language_flag {
 	my ($product_id, $langs) = @_;
 
 	if (!$langs) {
-		$langs = &atomsql::do_query("select langid from language order by langid asc");
+		$langs = atomsql::do_query("select langid from language order by langid asc");
 	}
 	
 	# binary flags calculating
 	my $language_flag = 0b000000;
 	my $pattern;
-	my $prod_desc = &atomsql::do_query("select langid from product_description where product_id = ".&atomsql::str_sqlize($product_id)." and short_desc != '' and langid!=0");
-	foreach (@$prod_desc) {
+	my $prod_desc = atomsql::do_query("select langid from product_description where product_id = ".atomsql::str_sqlize($product_id)." and short_desc != '' and langid!=0");
+	for (@$prod_desc) {
 		$pattern = 1;
 		$pattern <<= ($_->[0] - 1);
 		$language_flag |= $pattern;
@@ -959,12 +959,12 @@ sub get_complaint_email_body
  my ($atoms, $complaint_id, $langid, $nohistory) = @_;
  
  #get complaints details
- my $get_complaint_details = &atomsql::do_query("select pc.name, pc.company, pc.email, pc.prod_id, pc.subject, pc.message, DATE_FORMAT(pc.date, '%d.%c.%Y %H:%i:%s'), s.name, u.login,v.value, pcs.code
+ my $get_complaint_details = atomsql::do_query("select pc.name, pc.company, pc.email, pc.prod_id, pc.subject, pc.message, DATE_FORMAT(pc.date, '%d.%c.%Y %H:%i:%s'), s.name, u.login,v.value, pcs.code
 from product_complaint as pc, vocabulary as v,  product_complaint_status as pcs, users as u, supplier as s
 where pc.id = $complaint_id and  pc.complaint_status_id = pcs.code and  pcs.sid = v.sid and v.langid = $langid  and pc.user_id = u.user_id and pc.supplier_id = s.supplier_id");
  
  my $hash; $hash->{'status_id'} = $get_complaint_details->[0][10]; $hash->{'complaint_email'} = 1;
- $get_complaint_details->[0][9] = &atom_format::format_as_status_name($get_complaint_details->[0][9], '', '', '', $hash);
+ $get_complaint_details->[0][9] = atom_format::format_as_status_name($get_complaint_details->[0][9], '', '', '', $hash);
  $get_complaint_details->[0][5] =~s/\n/<BR>/gi;  $get_complaint_details->[0][4] =~s/\n/<BR>/gi;
  $get_complaint_details->[0][5] =~s/\s/&nbsp;/gi;  $get_complaint_details->[0][4] =~s/\s/&nbsp;/gi;
  $get_complaint_details->[0][5] =~s/\"/&quot;/gi;  $get_complaint_details->[0][4] =~s/\"/&quot;/gi;
@@ -983,18 +983,18 @@ where pc.id = $complaint_id and  pc.complaint_status_id = pcs.code and  pcs.sid 
  };
  
  #get complains history
- my $get_complaint_history = &atomsql::do_query("select pc.subject, pch.message, DATE_FORMAT(pch.date, '%d.%c.%Y %H:%i:%s'), u.login, c.email, v.value, pch.complaint_status_id, pch.id
+ my $get_complaint_history = atomsql::do_query("select pc.subject, pch.message, DATE_FORMAT(pch.date, '%d.%c.%Y %H:%i:%s'), u.login, c.email, v.value, pch.complaint_status_id, pch.id
  from product_complaint_history as pch,	product_complaint as pc, vocabulary as v, users as u, product_complaint_status as pcs, contact as c 
  where pch.complaint_id = pc.id and pch.user_id = u.user_id and pch.complaint_status_id = pcs.code and pcs.sid = v.sid and v.langid = $langid and pc.id = $complaint_id and u.pers_cid = c.contact_id");
  
  my $histories;
- foreach my $history(@$get_complaint_history){
+ for my $history(@$get_complaint_history){
 	 my $hash; $hash->{'status_id'} = $history->[6]; $hash->{'complaint_email'} = 1;
-	 $history->[5] = &atom_format::format_as_status_name($history->[5], '', '', '', $hash);
+	 $history->[5] = atom_format::format_as_status_name($history->[5], '', '', '', $hash);
 	 $history->[0] =~s/\n/<BR>/gi;	$history->[1] =~s/\n/<BR>/gi;
 	 $history->[0] =~s/\s/&nbsp;/gi;  $history->[1] =~s/\s/&nbsp;/gi;
 	 $history->[0] =~s/\"/&quot;/gi;  $history->[1] =~s/\"/&quot;/gi;
-	 $history->[0] = &get_subject($history->[7], $complaint_id, $history->[0]);
+	 $history->[0] = get_subject($history->[7], $complaint_id, $history->[0]);
 	 
 	 my $replases = {
 	 'history_from_name' => $history->[3],
@@ -1004,7 +1004,7 @@ where pc.id = $complaint_id and  pc.complaint_status_id = pcs.code and  pcs.sid 
 	 'history_subj' => $history->[0],
 	 'history_mess' => $history->[1]
 	 };
-	 $histories .= &repl_ph($atoms->{'default'}->{'email_complaint'}->{'history_row'}, $replases);
+	 $histories .= repl_ph($atoms->{'default'}->{'email_complaint'}->{'history_row'}, $replases);
  }
  
  if(!$nohistory){
@@ -1018,11 +1018,11 @@ where pc.id = $complaint_id and  pc.complaint_status_id = pcs.code and  pcs.sid 
 	$replases->{'history_begin'} = '';
 	$replases->{'history_end'} = '';
  }
- my $body = &repl_ph($atoms->{'default'}->{'email_complaint'}->{'body'}, $replases);
+ my $body = repl_ph($atoms->{'default'}->{'email_complaint'}->{'body'}, $replases);
  
  sub get_subject
  {
-  my $req2 = &atomsql::do_query("select count(id) from product_complaint_history where id <= $_[0] and complaint_id = $_[1]");
+  my $req2 = atomsql::do_query("select count(id) from product_complaint_history where id <= $_[0] and complaint_id = $_[1]");
   if(!$req2->[0][0] || $req2->[0][0] == 1){ return "Re:".$_[2]; }
 	else{ return "Re[".($req2->[0][0])."]:".$_[2]; }
  }
@@ -1057,7 +1057,7 @@ sub get_gallery_pic_params {
 		'default_encoding'=>'utf8',
 		'html_body' => "identify does not work as expected !! in get_gallery_pic_params() for ".$pic_path,
 		};	
-		&complex_sendmail($mail);	
+		complex_sendmail($mail);	
 	}else{
 		$pic_hash->{'width'}=$params[0];
 		$pic_hash->{'height'}=$params[1];
@@ -1076,15 +1076,15 @@ sub get_gallery_pic_params {
 sub get_obj_size {
 	my ($phash, $size_field) = @_;
 
-	my $data = &atomsql::do_query("select ".$phash->{'dbfield'}." from ".$phash->{'dbtable'}." where ".$phash->{'id'}." = ".$phash->{'id_value'})->[0][0];
+	my $data = atomsql::do_query("select ".$phash->{'dbfield'}." from ".$phash->{'dbtable'}." where ".$phash->{'id'}." = ".$phash->{'id_value'})->[0][0];
 	if ($data) {
 		my $data_path = $data;
-		&log_printf($data_path);
+		log_printf($data_path);
 		$data_path =~ s/^http:\/\/.*?\//$atomcfg{'base_dir'}www\//;
-		&log_printf($data_path);
+		log_printf($data_path);
 		my $size = (-s $data_path);
 		if ($size) {
-			&atomsql::update_rows($phash->{'dbtable'}, $phash->{'id'}." = ".$phash->{'id_value'}, {$size_field => $size});
+			atomsql::update_rows($phash->{'dbtable'}, $phash->{'id'}." = ".$phash->{'id_value'}, {$size_field => $size});
 			return $size;
 		}
 	}
@@ -1095,7 +1095,7 @@ sub get_obj_size {
 sub get_obj_width_and_height {
     my ($phash, $wf, $hf) = @_;
 
-    my $data = &atomsql::do_query("select ".$phash->{'dbfield'}." from ".$phash->{'dbtable'}." where ".$phash->{'id'}." = ".$phash->{'id_value'})->[0][0];
+    my $data = atomsql::do_query("select ".$phash->{'dbfield'}." from ".$phash->{'dbtable'}." where ".$phash->{'id'}." = ".$phash->{'id_value'})->[0][0];
 		if ($data) {
 			my $data_path = $data;
 		 	$data_path =~ s/^http:\/\/.*?\//$atomcfg{'base_dir'}www\//;
@@ -1107,13 +1107,13 @@ sub get_obj_width_and_height {
 			my $height = $2;		
 
 			if (($width) && ($height)) {
-				&atomsql::update_rows($phash->{'dbtable'}, $phash->{'id'}." = ".$phash->{'id_value'}, {
+				atomsql::update_rows($phash->{'dbtable'}, $phash->{'id'}." = ".$phash->{'id_value'}, {
 					$wf => $width,
 					$hf => $height,
 															} );
 			}
 
-			&log_printf("ANS = ".$width." x ".$height);
+			log_printf("ANS = ".$width." x ".$height);
     }
 
     return;
@@ -1123,15 +1123,15 @@ sub nonEn_value {
 	my ($value) = @_;
 
 	if (!$foreign_words) {
-		my $fws = &atomsql::do_query("select langid,value from language_blacklist");
-		foreach (@$fws) {
+		my $fws = atomsql::do_query("select langid,value from language_blacklist");
+		for (@$fws) {
 			chomp($_->[1]);
 			push @{$foreign_words->{$_->[0]}}, $_->[1];
 		}
 	}
 
 	my $result = [];
-	foreach my $langid(%$foreign_words) {
+	for my $langid(%$foreign_words) {
 		my $match = undef;
 		my $pattern;
 		for (my $i=0;$i<=$#{$foreign_words->{$langid}};$i++) {
@@ -1148,7 +1148,7 @@ sub nonEn_value {
 sub approx {
   my ($pattern,$victim) = @_;
   my $output;
-  foreach (@$victim) {
+  for (@$victim) {
     push @$output, fastdistance(lc($pattern),lc($_));
   }
   return $output;
@@ -1171,7 +1171,7 @@ sub xml_utf8_tag {
 sub remove_index_xml_item_by_supplier_id {
 	my ($rxml, $supplier_id, $prod_id_set) = @_;
 
-	$prod_id_set = &_prod_id_set2perlre($prod_id_set);
+	$prod_id_set = _prod_id_set2perlre($prod_id_set);
 
 	log_printf(" <=> ".$supplier_id." ".$prod_id_set);
 
@@ -1188,12 +1188,12 @@ sub remove_index_xml_item_by_supplier_id {
 sub remove_index_csv_item_by_supplier_id {
 	my ($rcsv, $supplier_id, $prod_id_set) = @_;
 
-	$prod_id_set = &_prod_id_set2perlre($prod_id_set);
+	$prod_id_set = _prod_id_set2perlre($prod_id_set);
 
   my $line = '';
   my @lines = split "\n", $$rcsv;
 
-  foreach (@lines) {
+  for (@lines) {
 		if ($prod_id_set) {
 			next if /^.*?\t\d+\t\d+\t\w+\t$supplier_id\t(?:$prod_id_set)/;
 			$line .= $_ . "\n";
@@ -1214,7 +1214,7 @@ sub _prod_id_set2perlre {
 		chomp($prod_id_set);
 		my @arr = split ',', $prod_id_set;
 		$prod_id_set = '';
-		foreach (@arr) {
+		for (@arr) {
 			next unless $_;
 			$prod_id_set .= quotemeta($_) . '|';
 		}
@@ -1259,21 +1259,21 @@ sub remove_Philips_DE_content {
   print "[csv: files";
   my $line = '';
   my @lines = split "\n", $c->{'csv'};
-  foreach (@lines) {
+  for (@lines) {
     $line .= $_."\n" unless (/^.*?\t\d+\t\d+\t\w+\t$id/);
   }
   $c->{'csv'} = $line;
   print ", on_market";
   $line = '';
   @lines = split "\n", $c->{'on_market_csv'};
-  foreach (@lines) {
+  for (@lines) {
     $line .= $_."\n" unless (/^.*?\t\d+\t\d+\t\w+\t$id/);
   }
   $c->{'on_market_csv'} = $line;
   print ", nobody";
   $line = '';
   @lines = split "\n", $c->{'nobody_csv'};
-  foreach (@lines) {
+  for (@lines) {
     $line .= $_."\n" unless (/^.*?\t\d+\t\d+\t\w+\t$id/);
   }
   $c->{'nobody_csv'} = $line;

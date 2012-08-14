@@ -35,25 +35,25 @@ BEGIN {
 sub proc_custom_processing_send_users {
 	my ($atom,$call) = @_;
 	use atom_commands;
-	return &make_send_users($atom->{'class'});
+	return make_send_users($atom->{'class'});
 }
 
 sub proc_custom_processing_price_save {
 	my ($atom,$call) = @_;
 	use price_request;
-	return &generate_price_save($atom->{'class'});
+	return generate_price_save($atom->{'class'});
 }
 
 sub proc_custom_processing_price_prew {
 	my ($atom,$call) = @_;
 	use price_request;
-	return &generate_price_prew($atom->{'class'});
+	return generate_price_prew($atom->{'class'});
 }
 
 sub proc_custom_processing_coverage_report {
 	my ($atom,$call) = @_;
 	use coverage_report;
-	return &generate_coverage_report($atom->{'class'});
+	return generate_coverage_report($atom->{'class'});
 }
 
 sub proc_custom_processing_stat_report {
@@ -72,40 +72,40 @@ sub proc_custom_processing_stat_report {
 			$call->{'class'} = 'mail_report_csv';
 		}
 
-		&log_printf("via mail");
+		log_printf("via mail");
 		
 		# backgrounding
 		if (0) {
-			$str = &generate_stat_report($atoms->{$call->{'class'}}->{$call->{'name'}}, $call);
+			$str = generate_stat_report($atoms->{$call->{'class'}}->{$call->{'name'}}, $call);
 			my $report = \%hin;
 			&stat_report::send_preformatted_reports_via_mail($report, $str);
-#			&log_printf(Dumper($call));
+#			log_printf(Dumper($call));
 			return "<center>Report already sent!</center>";
 		}
 		else {
 			use process_manager;
-			$cols = &preparing_bg_table; # make additional columns if needed			
+			$cols = preparing_bg_table; # make additional columns if needed			
 			# prepare request
-			foreach (keys %$cols) {
+			for (keys %$cols) {
 				$names .= $_.",";
 				if (($_ ne 'name') && ($_ ne 'class')) {
 					$value = $hin{$_};
-					$value = &returnRightDay($hin{'to_year'},$hin{'to_month'},$value) 	  if $_ eq 'to_day';
-					$value = &returnRightDay($hin{'from_year'},$hin{'from_month'},$value) if $_ eq 'from_day';
+					$value = returnRightDay($hin{'to_year'},$hin{'to_month'},$value) 	  if $_ eq 'to_day';
+					$value = returnRightDay($hin{'from_year'},$hin{'from_month'},$value) if $_ eq 'from_day';
 				}
 				else {
 					$value = $call->{$_};
 				}
-				$values .= &str_sqlize($value).",";
+				$values .= str_sqlize($value).",";
 			}
 			chop($names);
 			chop($values);
-			&do_statement("insert into generate_report_bg_processes(".$names.",bg_user_id,bg_start_date,bg_stage) ".
+			do_statement("insert into generate_report_bg_processes(".$names.",bg_user_id,bg_start_date,bg_stage) ".
 						  "values(".$values.",".$USER->{'user_id'}.",unix_timestamp(),'".$hin{'code'}."(initialization)')");
-			$id = &do_query("select last_insert_id()")->[0][0];
+			$id = do_query("select last_insert_id()")->[0][0];
 		  $hin{'generate_report_bg_processes_id'} = $id; # for AJAX
-			&log_printf("run in BG: ".$atomcfg{'base_dir'}."bin/do_generate_stat_report_and_mail_it ".$id.' &');
-			&run_bg_command($atomcfg{'base_dir'}.'bin/do_generate_stat_report_and_mail_it '.$id.' &');
+			log_printf("run in BG: ".$atomcfg{'base_dir'}."bin/do_generate_stat_report_and_mail_it ".$id.' &');
+			run_bg_command($atomcfg{'base_dir'}.'bin/do_generate_stat_report_and_mail_it '.$id.' &');
 			#return "<center>Report is processing in the background. You can monitor it.</center>";
 			return "<center></center>";
 		}
@@ -113,14 +113,14 @@ sub proc_custom_processing_stat_report {
 		# end
 	}
 	else {
-		&log_printf("via html");
-		$hin{'to_day'} 	 = &returnRightDay($hin{'to_year'},$hin{'to_month'},$hin{'to_day'}) 	  if $hin{'to_day'};
-		$hin{'from_day'} = &returnRightDay($hin{'from_year'},$hin{'from_month'},$hin{'from_day'}) if $hin{'from_day'};
+		log_printf("via html");
+		$hin{'to_day'} 	 = returnRightDay($hin{'to_year'},$hin{'to_month'},$hin{'to_day'}) 	  if $hin{'to_day'};
+		$hin{'from_day'} = returnRightDay($hin{'from_year'},$hin{'from_month'},$hin{'from_day'}) if $hin{'from_day'};
 		$main_slave='slave1';
-		&register_slave('slave1',$atomcfg{'dbslavehost'},$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'});
+		register_slave('slave1',$atomcfg{'dbslavehost'},$atomcfg{'dbslaveuser'},$atomcfg{'dbslavepass'});
 		make_slave_host('slave1');
-		&register_slave($main_slave,$atomcfg{'dbhost'},$atomcfg{'dbuser'},$atomcfg{'dbpass'});
-		$str = &generate_stat_report($atoms->{$call->{'class'}}->{$call->{'name'}}, $call);
+		register_slave($main_slave,$atomcfg{'dbhost'},$atomcfg{'dbuser'},$atomcfg{'dbpass'});
+		$str = generate_stat_report($atoms->{$call->{'class'}}->{$call->{'name'}}, $call);
 
 		return $str->[0];
 	}
@@ -134,16 +134,16 @@ sub proc_custom_processing_category_features_batch {
 		
 		if ($hin{'process_batch'} && $hin{'batch'}) {
 			my $report_rows = '';	  
-			my $cat_feat_ref = &do_query("select category_feature_id, feature_id, catid from category_feature");
+			my $cat_feat_ref = do_query("select category_feature_id, feature_id, catid from category_feature");
 			my $category_feature;
-			foreach my $cat_feat (@$cat_feat_ref) {
+			for my $cat_feat (@$cat_feat_ref) {
 				$category_feature->{$cat_feat->[2]}->{$cat_feat->[1]} = $cat_feat->[0];
 			}
 
-			my $data = &do_query("select catid, vocabulary.value, pcatid, ucatid from category, vocabulary where category.sid = vocabulary.sid and vocabulary.langid = ".&str_sqlize($langid)." and category.catid <> 1 ");
+			my $data = do_query("select catid, vocabulary.value, pcatid, ucatid from category, vocabulary where category.sid = vocabulary.sid and vocabulary.langid = ".str_sqlize($langid)." and category.catid <> 1 ");
 			my $category;
 			
-			foreach my $row (@$data) {
+			for my $row (@$data) {
 				$category->{$row->[0]} = {
 					'name' 		=>	$row->[1],
 					'pcatid'	=> 	$row->[2],
@@ -151,16 +151,16 @@ sub proc_custom_processing_category_features_batch {
 				};
 			}
 			
-			$data = &do_query("select feature_id, v.value, ms.value, measure_name.value, f.measure_id from feature f
-inner join vocabulary v on f.sid = v.sid and v.langid = ".&str_sqlize($langid)."
-left  join measure_sign ms on f.measure_id = ms.measure_id and ms.langid = ".&str_sqlize($langid)."
+			$data = do_query("select feature_id, v.value, ms.value, measure_name.value, f.measure_id from feature f
+inner join vocabulary v on f.sid = v.sid and v.langid = ".str_sqlize($langid)."
+left  join measure_sign ms on f.measure_id = ms.measure_id and ms.langid = ".str_sqlize($langid)."
 inner join measure m on f.measure_id = m.measure_id
 inner join vocabulary measure_name on m.sid = measure_name.sid and measure_name.langid = v.langid");
 
 			my $feature;
 			my $feature_map;
 
-			foreach my $row (@$data) {
+			for my $row (@$data) {
 				$feature->{$row->[0]} = {
 					'name' 		=>	$row->[1],
 					'sign'		=> 	$row->[2],
@@ -170,16 +170,16 @@ inner join vocabulary measure_name on m.sid = measure_name.sid and measure_name.
 				$feature_map->{$row->[1].'('.$row->[3].')'} = $row->[0];
 			}
 			
-			$data = &do_query("select category_feature_group_id, catid from category_feature_group where feature_group_id = 0");
+			$data = do_query("select category_feature_group_id, catid from category_feature_group where feature_group_id = 0");
 			my $category_feature_group_map = {};
-			foreach my $row (@$data) {
+			for my $row (@$data) {
 				$category_feature_group_map->{$row->[1]} = $row->[0];
 			}
 			
 			$hin{'batch'} =~s/\r//gms;
 			my @lines = split("\n", $hin{'batch'});
 			
-			foreach my $line (@lines) {
+			for my $line (@lines) {
 				$line =~s/^\s+//;
 				next unless($line);
 				my ($cat_name, $feat_name) = split('\) - ', $line);
@@ -207,12 +207,12 @@ inner join vocabulary measure_name on m.sid = measure_name.sid and measure_name.
 					else {
 						if (!$category_feature_group_map->{$catid}) {
 							# we need to insert category feature group here
-							&insert_rows("category_feature_group", 
+							insert_rows("category_feature_group", 
 													 {
 														 "catid" => $catid,
 														 "feature_group_id"	=> 0
 													 });
-							$category_feature_group_map->{$catid} = &sql_last_insert_id();
+							$category_feature_group_map->{$catid} = sql_last_insert_id();
 						}
    					my $hash = {
 							'catid' 											=> $catid,
@@ -220,8 +220,8 @@ inner join vocabulary measure_name on m.sid = measure_name.sid and measure_name.
 							'category_feature_group_id'	=> $category_feature_group_map->{$catid}
 						};
 						
-						&insert_rows('category_feature', $hash);			 
-						$category_feature->{$catid}->{$feature_id}	= &sql_last_insert_id();
+						insert_rows('category_feature', $hash);			 
+						$category_feature->{$catid}->{$feature_id}	= sql_last_insert_id();
 						$status = 0;
 					}
 				}
@@ -237,14 +237,14 @@ inner join vocabulary measure_name on m.sid = measure_name.sid and measure_name.
 					}
 				}
 				
-				$report_rows .= &repl_ph($atom->{'report_row'}, { 'value' => $line,
+				$report_rows .= repl_ph($atom->{'report_row'}, { 'value' => $line,
 																													'status' => 
 																														$atom->{'row_status_'.$status}});
 				
 			}
-			$atom->{'body'} = &repl_ph($atom->{'body'}, 
+			$atom->{'body'} = repl_ph($atom->{'body'}, 
 																 {
-																	 'report'	=> &repl_ph($atom->{'report_body'}, { 'report_rows' => $report_rows})
+																	 'report'	=> repl_ph($atom->{'report_body'}, { 'report_rows' => $report_rows})
 																 });
 		}
 		else {
@@ -262,10 +262,10 @@ sub proc_custom_processing_errors {
 	my $tmp =	'';
 
 	if ($#user_errors > -1) {
-		foreach my $error (@user_errors) {
-			$tmp .= &repl_ph($atom->{'error_row'}, {'error_text' => &str_unhtmlize($error) });
+		for my $error (@user_errors) {
+			$tmp .= repl_ph($atom->{'error_row'}, {'error_text' => str_unhtmlize($error) });
 		}
-		return &repl_ph($atom->{'body'}, {'error_rows' => $tmp });
+		return repl_ph($atom->{'body'}, {'error_rows' => $tmp });
 	}
 
 	return '<span style="color: red;">'.$hin{'error'}.'</span>' if($hin{'error'});
@@ -280,7 +280,7 @@ sub proc_custom_processing_ajax_product_features_local {
 	my $tab_id = $1;
 
 	if ($tab_id) {
-		return &repl_ph($atom->{'body'}, { 'tab_id' => $tab_id, 'product_id' => $hin{product_id} });
+		return repl_ph($atom->{'body'}, { 'tab_id' => $tab_id, 'product_id' => $hin{product_id} });
 	}
 	else {
 		return undef;
@@ -289,7 +289,7 @@ sub proc_custom_processing_ajax_product_features_local {
 
 sub proc_custom_processing_menu2 {
 	my ($atom,$call) = @_;	
-	return &proc_custom_processing_menu($atom,$call);
+	return proc_custom_processing_menu($atom,$call);
 }
 
 sub proc_custom_processing_menu{
@@ -302,7 +302,7 @@ sub proc_custom_processing_menu{
 	my $mi = $hin{$atom->{'general_indicator'}};
 	submenu_tree($root,-1,$atom,$mi,\$menu_html,'');
 	$menu_html=~s/<\/table><\/div><\/td>$//;
-	return &repl_ph($atom->{'general_body'},{ 'items' => $menu_html });;  	
+	return repl_ph($atom->{'general_body'},{ 'items' => $menu_html });;  	
 }
 
 sub submenu_tree{
@@ -332,7 +332,7 @@ sub submenu_tree{
 										  })."\n";
 	}
 	$level++;
-	foreach my $submenu (@$sub_menus){
+	for my $submenu (@$sub_menus){
 		my $validate_sub=$submenu->getAttribute('restrict');
 		if($validate_sub and !eval($validate_sub)){
 			next;
@@ -391,7 +391,7 @@ sub proc_custom_processing_menu_ldkjvaslfjlsdkfjslkdjflkdl {
 	my @add_sup_tmpls = split(/,/,$atom->{$add_supplier.'tmpls'});
 	# Filtering out menu buttons for supplier in correspondence with restriction in atom file
 	if ($USER->{'user_group'} eq 'supplier') {
-		foreach my $sup (@sup_rst) {
+		for my $sup (@sup_rst) {
 			for (my $i = 0; $i < @mis; $i++) {
 				if ($mis[$i] eq $sup) {
 					splice (@mis,$i,1);
@@ -414,14 +414,14 @@ sub proc_custom_processing_menu_ldkjvaslfjlsdkfjslkdjflkdl {
 	my $cnt = $#mis;
 	my $entries = '';
 
-	#&log_printf('selected'.$mi); 
+	#log_printf('selected'.$mi); 
 	for (my $i=0; $i <= $cnt; $i++) {
 		my $entry;
 
 		my $prefix = $i == 0 ? "first" : ( $i == $cnt ? "last" : "" );
 		
 		if ($mis[$i] eq $mi) {
-			$entry = &repl_ph($atom->{$pref.'item_sel'}, 
+			$entry = repl_ph($atom->{$pref.'item_sel'}, 
 												{
 													"name" => $names[$i],
 													"tmpl" => $tmpls[$i],
@@ -438,7 +438,7 @@ sub proc_custom_processing_menu_ldkjvaslfjlsdkfjslkdjflkdl {
 #			}
 		}
 		else {
-			$entry = &repl_ph($atom->{$pref.'item'},
+			$entry = repl_ph($atom->{$pref.'item'},
 												{
 													"name" => $names[$i],
 													"tmpl" => $tmpls[$i],
@@ -454,7 +454,7 @@ sub proc_custom_processing_menu_ldkjvaslfjlsdkfjslkdjflkdl {
 		$entries .= $entry;
 	}
 	
-	$entries = &repl_ph($atom->{$pref.'body'},{ 'items' => $entries });
+	$entries = repl_ph($atom->{$pref.'body'},{ 'items' => $entries });
 	
 	return $entries; 
 }
@@ -471,14 +471,14 @@ sub proc_custom_processing_clipboard {
 
 #	log_printf("FILTER = ".$filter);
 	my $saved_line = $hl{$hin{'clipboard_object_type'}.'_saved_values'};
-	# &log_printf($saved_line);
+	# log_printf($saved_line);
 	my @saved = split(',',$saved_line);
 	my $hash = undef;
 	%$hash = map { $_ => 1 } @saved;
 
 	$hash = {} unless $hash;
 
-	# &log_printf($i.' '.$last_saved);
+	# log_printf($i.' '.$last_saved);
 	$hin{$hin{'atom_name'}.'_start_row'} = int($hin{$hin{'atom_name'}.'_start_row'});
 	my $first_saved;
 	if(int($hin{'start_row_memory'})){
@@ -494,7 +494,7 @@ sub proc_custom_processing_clipboard {
 	my $i = $first_saved;
 	while ($i <= $last_saved) {
 		if ($hin{'row_'.$i}) {
-			# &log_printf("saving $i row");
+			# log_printf("saving $i row");
 			$hash->{$hin{'row_'.$i.'_item'}} = 1;
 		}
 		else {
@@ -505,7 +505,7 @@ sub proc_custom_processing_clipboard {
 	my @actions = split(',',$hin{'listed_actions'});
 
 	$clipboard_objects->{$hin{'clipboard_object_type'}} = $hash;	
-	foreach my $action (@actions) {
+	for my $action (@actions) {
 		if ($hin{'action_'.$action.'_'.$hin{'clipboard_object_type'}}) {
 
 			if ($action eq 'clear') {
@@ -528,7 +528,7 @@ sub proc_custom_processing_clipboard {
 
 				my $xAtomFilterTables = $hin{'x-atom filter tables'};
 
-				my $allproduct_ids = &do_query("select p.product_id from product p " . ( join ' , ', @$xAtomFilterTables ) . " where " . $hin{'x-atom filter wheres'} . " " . $hin{'search_clause'});
+				my $allproduct_ids = do_query("select p.product_id from product p " . ( join ' , ', @$xAtomFilterTables ) . " where " . $hin{'x-atom filter wheres'} . " " . $hin{'search_clause'});
 
 				my %hash1 = map {$_->[0] => 1} @$allproduct_ids;
 
@@ -546,7 +546,7 @@ sub proc_custom_processing_clipboard {
 
 				use data_management;
 
-				my $list_of_products = &get_product_id_list_from_raw_batch($hin{'batch_products4selection'})->[0];
+				my $list_of_products = get_product_id_list_from_raw_batch($hin{'batch_products4selection'})->[0];
 				my %hash1 = map {$_ => 1} @$list_of_products;
 
 				$clipboard_objects->{$hin{'clipboard_object_type'}} = \%hash1;
@@ -554,7 +554,7 @@ sub proc_custom_processing_clipboard {
 			}
 			elsif ($action eq 'selectall' and $hin{'clipboard_object_type'} eq 'complaint') {
 				# if($hin{'search_clause'} =~ /name like ''/){ $hin{'search_clause'} =~ s/name like ''/name like '%%'/;}	 
-				my $allcomplaint_ids = &do_query("SELECT pc.id 
+				my $allcomplaint_ids = do_query("SELECT pc.id 
 	 								FROM supplier as s,  users as u, users as u1,vocabulary as v,  product_complaint_status as pcs, product_complaint as pc
 	 								LEFT JOIN   product as p ON (p.product_id=pc.product_id) 
 	 								WHERE pc.supplier_id = s.supplier_id and 
@@ -574,10 +574,10 @@ sub proc_custom_processing_clipboard {
 			}elsif ($action eq 'selectall' and $hin{'clipboard_object_type'} eq 'track_product_all') {				
 				my $sql=$iatoms->{'track_products_all'}->{'executed_resource_sql_track_products_all'};
 				$sql=~s/limit.+$//gis;				
-				my $ids=&do_query($sql);
+				my $ids=do_query($sql);
 				my %hash1 = map{$_->[1] => 1} @$ids;
 				$clipboard_objects->{$hin{'clipboard_object_type'}} = \%hash1;		
-				#my $allcomplaint_ids = &do_query("SELECT tp.track_product_id FROM  track_product tp 
+				#my $allcomplaint_ids = do_query("SELECT tp.track_product_id FROM  track_product tp 
 				#			WHERE  
 				#	      		tp.rule_prod_id!='' 					      		
 				#	      	".(($hin{'search_rule_user_id'})?" AND tp.rule_user_id=$hin{'search_rule_user_id'}":''));
@@ -587,7 +587,7 @@ sub proc_custom_processing_clipboard {
 			}elsif ($action eq 'selectall' and $hin{'clipboard_object_type'} eq 'track_product') {				
 				my $sql=$iatoms->{'track_products'}->{'executed_resource_sql_track_products'};
 				$sql=~s/limit.+$//gis;				
-				my $ids=&do_query($sql);
+				my $ids=do_query($sql);
 				my %hash1 = map{$_->[0] => 1} @$ids;
 				$clipboard_objects->{$hin{'clipboard_object_type'}} = \%hash1;		
 			}
@@ -601,7 +601,7 @@ sub proc_custom_processing_clipboard {
 	my @arr = keys %{$clipboard_objects->{$hin{'clipboard_object_type'}}};
 	$saved_line = '';
 
-	foreach my $row (@arr) {
+	for my $row (@arr) {
 		$saved_line .= $row.',';
 	}
 
@@ -610,20 +610,20 @@ sub proc_custom_processing_clipboard {
 	$hout{'clipboard_object_type'} = $hin{'clipboard_object_type'};
 	$hout{'atom_name'} = $hin{'atom_name'};
 	
-# &log_printf(Dumper(\%hin));	
-#	foreach my $item ('first', 'prev', 'next', 'last') {
+# log_printf(Dumper(\%hin));	
+#	for my $item ('first', 'prev', 'next', 'last') {
 #		if ($hin{$item}) {
-#			$hin{$hin{'atom_name'}.'_start_row'} = &str_htmlize($hin{'start_row_'.$item}); # DV CHANGES...
+#			$hin{$hin{'atom_name'}.'_start_row'} = str_htmlize($hin{'start_row_'.$item}); # DV CHANGES...
 #		}
 #	}
 	if ($text) {
-		$text = &repl_ph($atom->{'wrap_body'}, { 'instance_body' => $text });
+		$text = repl_ph($atom->{'wrap_body'}, { 'instance_body' => $text });
 	}
 
 	# set checkboxes for products	
 	#if ($hin{'clipboard_object_type'} eq 'product') {
 		my $product_id_saved_list = $hin{'clipboard_saved_list'};
-		foreach my $p_id (@$product_id_saved_list) {
+		for my $p_id (@$product_id_saved_list) {
 			if ($clipboard_objects->{$hin{'clipboard_object_type'}}->{$p_id}) {
 				$extra_JS .= "if (document.getElementById('row_".$p_id."')) { document.getElementById('row_".$p_id."').checked = true; }\n";
 			}
@@ -655,10 +655,10 @@ if($hin{'group_selection'}&&$hin{'catid'}){
  if($hin{'feature_group_id'}){
 # checking category_feature_group
 
-  my $category_feature_group_id = &maintain_category_feature_group($hin{'feature_group_id'}, $hin{'catid'});
+  my $category_feature_group_id = maintain_category_feature_group($hin{'feature_group_id'}, $hin{'catid'});
 	
-	 foreach my $key(keys %{$clipboard_objects->{$obj}}){
-  	 &update_rows('category_feature', " category_feature_id = ".$key , 
+	 for my $key(keys %{$clipboard_objects->{$obj}}){
+  	 update_rows('category_feature', " category_feature_id = ".$key , 
 	  	 {
 		 		"category_feature_group_id" => $category_feature_group_id
 			 });
@@ -668,7 +668,7 @@ if($hin{'group_selection'}&&$hin{'catid'}){
 
  } else {
   # error
-	&log_printf('no group_feature_id ');
+	log_printf('no group_feature_id ');
  }
  return '';
 } else {
@@ -679,24 +679,24 @@ if($hin{'group_selection'}&&$hin{'catid'}){
  
  my $category_feature_id_clause = ' 0 ';
  
- foreach my $key(keys %{$clipboard_objects->{$obj}}){
+ for my $key(keys %{$clipboard_objects->{$obj}}){
    $category_feature_id_clause .= ' or category_feature.category_feature_id = '.$key;
  }
  
- my $data = &do_query("select concat(vocabulary.value,'(',measure_name.value,')') from feature, vocabulary, vocabulary as measure_name, measure, category_feature where category_feature.feature_id = feature.feature_id and ( $category_feature_id_clause ) and feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = $hl{'langid'} and vocabulary.sid = feature.sid and vocabulary.langid = $hl{'langid'}  order by vocabulary.value");
+ my $data = do_query("select concat(vocabulary.value,'(',measure_name.value,')') from feature, vocabulary, vocabulary as measure_name, measure, category_feature where category_feature.feature_id = feature.feature_id and ( $category_feature_id_clause ) and feature.measure_id = measure.measure_id and measure_name.sid = measure.sid and measure_name.langid = $hl{'langid'} and vocabulary.sid = feature.sid and vocabulary.langid = $hl{'langid'}  order by vocabulary.value");
  
  my $cat_feat_rows = '';
- foreach my $row(@$data){
-  $cat_feat_rows .= &repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0] } );
+ for my $row(@$data){
+  $cat_feat_rows .= repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0] } );
  }
  
-   my $group_data = &do_query("select feature_group.feature_group_id, vocabulary.value from feature_group, vocabulary where vocabulary.sid = feature_group.sid and vocabulary.langid = $hl{'langid'}  order by vocabulary.value");
+   my $group_data = do_query("select feature_group.feature_group_id, vocabulary.value from feature_group, vocabulary where vocabulary.sid = feature_group.sid and vocabulary.langid = $hl{'langid'}  order by vocabulary.value");
    unshift @$group_data, ['',''];
 	 
- $instance_body = &repl_ph($instance_body, 
+ $instance_body = repl_ph($instance_body, 
 	 { 'category_feature_list_rows' => $cat_feat_rows,
-	    # 'group_list' => &make_select($group_data, 'feature_group_id')
-	    'group_list' => &make_select( {
+	    # 'group_list' => make_select($group_data, 'feature_group_id')
+	    'group_list' => make_select( {
 		'rows' => $group_data,
 		'name' => 'feature_group_id'
 	    } )
@@ -716,8 +716,8 @@ sub cli_product_group {
 	my $product_id_clause = ' 0 ';
 	my $product_id_list = '';
 	
-	&do_statement("drop temporary table if exists itmp_product");
-	&do_statement("create temporary table itmp_product (
+	do_statement("drop temporary table if exists itmp_product");
+	do_statement("create temporary table itmp_product (
 product_id  int(13)      not null primary key,
 supplier_id int(13)      not null default '0',
 prod_id     varchar(235) not null default '',
@@ -725,11 +725,11 @@ name        varchar(255) not null default '',
 key (supplier_id),
 key (product_id, prod_id, supplier_id))");
 
-	&do_statement("drop temporary table if exists itmp_product_list");
-	&do_statement("create temporary table itmp_product_list (product_id  int(13) not null)");
+	do_statement("drop temporary table if exists itmp_product_list");
+	do_statement("create temporary table itmp_product_list (product_id  int(13) not null)");
 
-	foreach my $key (keys %{$clipboard_objects->{$obj}}) {
-#		&do_statement("insert into itmp_product select product_id,supplier_id,prod_id,name from product where product_id=".$key);
+	for my $key (keys %{$clipboard_objects->{$obj}}) {
+#		do_statement("insert into itmp_product select product_id,supplier_id,prod_id,name from product where product_id=".$key);
 		$product_id_list .= $key.",";
 	}
 
@@ -738,34 +738,34 @@ key (product_id, prod_id, supplier_id))");
 
 	$product_id_list2SQL =~ s/,/\),\(/gs;
 
-	&do_statement("insert into itmp_product_list values (".$product_id_list2SQL.")");
-	&do_statement("alter ignore table itmp_product_list add unique key (product_id)");
+	do_statement("insert into itmp_product_list values (".$product_id_list2SQL.")");
+	do_statement("alter ignore table itmp_product_list add unique key (product_id)");
 
-	&do_statement("alter table itmp_product disable keys");
-	&do_statement("insert into itmp_product select p.product_id,p.supplier_id,p.prod_id,p.name from product p inner join itmp_product_list ipl using (product_id)");
-	&do_statement("alter table itmp_product enable keys");
+	do_statement("alter table itmp_product disable keys");
+	do_statement("insert into itmp_product select p.product_id,p.supplier_id,p.prod_id,p.name from product p inner join itmp_product_list ipl using (product_id)");
+	do_statement("alter table itmp_product enable keys");
 
 	$hin{'product_id_list'} = $product_id_list;
 	$hin{'supplier_id_list'} = undef;
 
-	my $supplier_ids = &do_query("select supplier_id from itmp_product group by supplier_id");
+	my $supplier_ids = do_query("select supplier_id from itmp_product group by supplier_id");
 	my @ids = ();
 
-	foreach (@$supplier_ids) {
+	for (@$supplier_ids) {
 		push @ids, $_->[0];
 	}
 
 	$hin{'supplier_id_list'} = \@ids;
 	
-	my $data = &do_query("select tp.product_id, tp.prod_id, tp.name, s.name from itmp_product tp inner join supplier s on tp.supplier_id=s.supplier_id");
-	&do_statement("drop temporary table itmp_product");
+	my $data = do_query("select tp.product_id, tp.prod_id, tp.name, s.name from itmp_product tp inner join supplier s on tp.supplier_id=s.supplier_id");
+	do_statement("drop temporary table itmp_product");
 	
 	my $product_rows = '';
-	foreach my $row (@$data) {
-		$product_rows .= &repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' => $row->[3]." ".$row->[1]." ".$row->[2]} );
+	for my $row (@$data) {
+		$product_rows .= repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' => $row->[3]." ".$row->[1]." ".$row->[2]} );
 	}
 	
-	$instance_body = &repl_ph($instance_body, 
+	$instance_body = repl_ph($instance_body, 
 														{ 'product_list_rows' => $product_rows,
 															'product_id_list' => $product_id_list
 														});
@@ -782,20 +782,20 @@ sub cli_complaint_group
 	my $complaint_row = $atom->{$obj.'list_row'};
 	my $complaint_id_clause = ' 0 '; 
 	my $complaint_id_list = ''; 
-	&do_statement("CREATE TEMPORARY TABLE tmp_complaint LIKE product_complaint");
-	foreach my $key(keys %{$clipboard_objects->{$obj}}){
-		&do_statement("INSERT INTO tmp_complaint SELECT * FROM product_complaint WHERE id=".$key);
+	do_statement("CREATE TEMPORARY TABLE tmp_complaint LIKE product_complaint");
+	for my $key(keys %{$clipboard_objects->{$obj}}){
+		do_statement("INSERT INTO tmp_complaint SELECT * FROM product_complaint WHERE id=".$key);
 		$complaint_id_list .= $key.",";
 	}
 	$complaint_id_list =~ s/(.+),/$1/;
 	$hin{'complaint_id_list'} = $complaint_id_list;
 	
-	my $data = &do_query("SELECT id, subject,prod_id FROM tmp_complaint");
-	&do_statement("drop temporary table tmp_complaint");
+	my $data = do_query("SELECT id, subject,prod_id FROM tmp_complaint");
+	do_statement("drop temporary table tmp_complaint");
 	
 	my $complaint_rows = '';
-	foreach my $row(@$data){
-	   $complaint_rows .= &repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' =>$row->[1]."&nbsp;($row->[2])"} );
+	for my $row(@$data){
+	   $complaint_rows .= repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' =>$row->[1]."nbsp;($row->[2])"} );
 	}
 	 
 	$instance_body = &repl_ph($instance_body, 
@@ -815,23 +815,23 @@ sub cli_track_product_all_group{
 	my $track_product_all_row = $atom->{$obj.'list_row'};
 	my $track_product_all_id_clause = ' 0 '; 
 	my $track_product_all_id_list = ''; 
-	&do_statement("CREATE TEMPORARY TABLE tmp_track_product_all LIKE track_product");
-	foreach my $key(keys %{$clipboard_objects->{$obj}}){
-		&do_statement("INSERT INTO tmp_track_product_all SELECT * FROM track_product WHERE track_product_id=".$key);
+	do_statement("CREATE TEMPORARY TABLE tmp_track_product_all LIKE track_product");
+	for my $key(keys %{$clipboard_objects->{$obj}}){
+		do_statement("INSERT INTO tmp_track_product_all SELECT * FROM track_product WHERE track_product_id=".$key);
 		$track_product_all_id_list .= $key.",";
 	}
 	$track_product_all_id_list =~ s/(.+),/$1/;
 	$hin{'track_product_all_id_list'} = $track_product_all_id_list;
 	
-	my $data = &do_query("SELECT track_product_id, map_prod_id,rule_prod_id FROM tmp_track_product_all");
-	&do_statement("drop temporary table tmp_track_product_all");
+	my $data = do_query("SELECT track_product_id, map_prod_id,rule_prod_id FROM tmp_track_product_all");
+	do_statement("drop temporary table tmp_track_product_all");
 	
 	my $track_product_all_rows = '';
-	foreach my $row(@$data){
-	   $track_product_all_rows .= &repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' =>$row->[1]."&nbsp;($row->[2])"} );
+	for my $row(@$data){
+	   $track_product_all_rows .= repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' =>$row->[1]."&nbsp;($row->[2])"} );
 	}
 	 
-	$instance_body = &repl_ph($instance_body, 
+	$instance_body = repl_ph($instance_body, 
 	{ 'track_product_all_list_rows' => $track_product_all_rows,
 	  'track_product_all_id_list' => $track_product_all_id_list
 	});
@@ -846,23 +846,23 @@ sub cli_track_product_group{
 	my $track_product_row = $atom->{$obj.'list_row'};
 	my $track_product_id_clause = ' 0 '; 
 	my $track_product_id_list = ''; 
-	&do_statement("CREATE TEMPORARY TABLE tmp_track_product_actions LIKE track_product");
-	foreach my $key(keys %{$clipboard_objects->{$obj}}){
-		&do_statement("INSERT INTO tmp_track_product_actions SELECT * FROM track_product WHERE track_product_id=".$key);
+	do_statement("CREATE TEMPORARY TABLE tmp_track_product_actions LIKE track_product");
+	for my $key(keys %{$clipboard_objects->{$obj}}){
+		do_statement("INSERT INTO tmp_track_product_actions SELECT * FROM track_product WHERE track_product_id=".$key);
 		$track_product_id_list .= $key.",";
 	}
 	$track_product_id_list =~ s/(.+),/$1/;
 	$hin{'track_product_id_list'} = $track_product_id_list;
 	
-	my $data = &do_query("SELECT track_product_id, feed_prod_id, feed_supplier,name,eans_joined FROM tmp_track_product_actions");
-	&do_statement("drop temporary table tmp_track_product_actions");
+	my $data = do_query("SELECT track_product_id, feed_prod_id, feed_supplier,name,eans_joined FROM tmp_track_product_actions");
+	do_statement("drop temporary table tmp_track_product_actions");
 	
 	my $track_product_rows = '';
-	foreach my $row(@$data){
-	   $track_product_rows .= &repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' =>$row->[1]."($row->[2]) (".$row->[4].') '.$row->[3]} );
+	for my $row(@$data){
+	   $track_product_rows .= repl_ph($atom->{$obj.'_list_row'}, { 'value' => $row->[0], 'text' =>$row->[1]."($row->[2]) (".$row->[4].') '.$row->[3]} );
 	}
 	 
-	$instance_body = &repl_ph($instance_body, 
+	$instance_body = repl_ph($instance_body, 
 	{ 'track_product_list_rows' => $track_product_rows,
 	  'track_product_id_list' => $track_product_id_list
 	});
@@ -874,13 +874,13 @@ sub proc_custom_processing_warnings{
 	#my @user_warnings_=split(/,/,$hl{'user_warnings'});
 	if(scalar(@user_warnings)>0){
 		my $str;
-		foreach my $warn (@user_warnings){
+		for my $warn (@user_warnings){
 			
-			$str.=&repl_ph($atom->{'warnings_row'},{'warning_text' => $warn });
+			$str.=repl_ph($atom->{'warnings_row'},{'warning_text' => $warn });
 		}
 		
 		delete $hs{'user_warnings'};		
-		return &repl_ph($atom->{'body'},{'warnings_row' => $str });
+		return repl_ph($atom->{'body'},{'warnings_row' => $str });
 	}else{
 		return '';
 	};

@@ -100,7 +100,7 @@ sub proc_prepare_params_product_rating_conf{
  			hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor'] );
  			return '';
  	}
- 	&prepare_params_unifiedly($atom,$call);	
+ 	prepare_params_unifiedly($atom,$call);	
 }
 
 sub proc_prepare_params_track_list_graph{
@@ -111,7 +111,7 @@ sub proc_prepare_params_track_list_graph{
  			hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor'] );
  			return '';
  	}
- 	&prepare_params_unifiedly($atom,$call);	
+ 	prepare_params_unifiedly($atom,$call);	
 }
 
 sub proc_prepare_params_backup_language_config{
@@ -122,7 +122,7 @@ sub proc_prepare_params_backup_language_config{
  			hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor'] );
  			return '';
  	}
- 	&prepare_params_unifiedly($atom,$call);	
+ 	prepare_params_unifiedly($atom,$call);	
 }
 
 sub proc_prepare_params_feed_coverage{
@@ -130,7 +130,7 @@ sub proc_prepare_params_feed_coverage{
 	$hs{'feed_coverage_deleted'}=$hl{'feed_coverage_deleted'}; 
  	$hs{'feed_coverage_dublicates'}=$hl{'feed_coverage_dublicates'};
  	$hs{'coverage_summary'}=$hl{'coverage_summary'};
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 }
 
 # AJAX
@@ -138,7 +138,7 @@ sub proc_prepare_params_feed_coverage{
 sub proc_prepare_params_product_supplier_family_choose_ajax {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	$call->{'call_params'}->{'additional_condition'} = '';
 	
@@ -150,7 +150,7 @@ sub proc_prepare_params_product_supplier_family_choose_ajax {
 sub proc_prepare_params_product_supplier_choose_ajax {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	$call->{'call_params'}->{'additional_join'} = '';
 	
@@ -161,19 +161,19 @@ sub proc_prepare_params_product_supplier_choose_ajax {
 	if ($hin{'prod_id'} ne '') {
 		# choose the 1st supplier
 		if ($hin{'supplier_id'} ne '') {
-			$call->{'call_params'}->{'supplier_id'} = &do_query("select supplier_id from product where prod_id=".&str_sqlize($hin{'prod_id'})." limit 1")->[0][0];
+			$call->{'call_params'}->{'supplier_id'} = do_query("select supplier_id from product where prod_id=".str_sqlize($hin{'prod_id'})." limit 1")->[0][0];
 		}
-		$call->{'call_params'}->{'additional_join'} = ' inner join product p using (supplier_id) where p.prod_id='.&str_sqlize($hin{'prod_id'});
+		$call->{'call_params'}->{'additional_join'} = ' inner join product p using (supplier_id) where p.prod_id='.str_sqlize($hin{'prod_id'});
 	}
 
-#	&log_printf(Dumper($call->{'call_params'}));
+#	log_printf(Dumper($call->{'call_params'}));
 
 } # sub proc_prepare_params_product_supplier_choose_ajax
 
 sub proc_prepare_params_product_category_choose_ajax {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	$call->{'call_params'}->{'additional_join'} = '';
 } # sub proc_prepare_params_product_category_choose_ajax
@@ -181,7 +181,7 @@ sub proc_prepare_params_product_category_choose_ajax {
 sub proc_prepare_params_product_category_choose_as_list_ajax {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	$call->{'call_params'}->{'additional_join'} = '';
 	$call->{'call_params'}->{'additional_condition'} = '';
@@ -191,7 +191,7 @@ sub proc_prepare_params_product_category_choose_as_list_ajax {
 		$call->{'call_params'}->{'additional_condition'} .= ' and p.supplier_id='.$hin{'supplier_id'};
 		if ($hin{'supplier_family_id'} > 1) {
 			$call->{'call_params'}->{'additional_join'} .= ' inner join product_family pf using (catid)';
-			my $children_arr = &get_family_children_list($hin{'supplier_family_id'});
+			my $children_arr = get_family_children_list($hin{'supplier_family_id'});
 			$call->{'call_params'}->{'additional_condition'} .= ' and pf.family_id in ('.(join(',',@$children_arr)).')';
 		}
 	}
@@ -200,7 +200,7 @@ sub proc_prepare_params_product_category_choose_as_list_ajax {
 sub proc_prepare_params_product_feature_choose_ajax {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	$call->{'call_params'}->{'additional_join'} = '';
 	
@@ -214,9 +214,9 @@ sub proc_prepare_params_product_feature_choose_ajax {
 sub proc_prepare_params_feature_utilizing_products_categories {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 	
-	&do_statement("create temporary table `tmp_feature_prod` (
+	do_statement("create temporary table `tmp_feature_prod` (
 `value`              varchar(20000) NOT NULL default '',
 `value60`            varchar(60)    NOT NULL default '',
 `user_id`            int(13)        NOT NULL default '1',
@@ -231,21 +231,21 @@ sub proc_prepare_params_feature_utilizing_products_categories {
 key (feature_id),
 key sorting_index (vocabulary_value60,name60,value60,prod_id))");
 
-	&do_statement("insert into `tmp_feature_prod` select pf.value, pf.value, p.user_id, p.product_id, p.prod_id, s.name, s.name, cf.catid, cat_name.value, cf.feature_id, cf.feature_id
+	do_statement("insert into `tmp_feature_prod` select pf.value, pf.value, p.user_id, p.product_id, p.prod_id, s.name, s.name, cf.catid, cat_name.value, cf.feature_id, cf.feature_id
 from category c
-inner join vocabulary cat_name on cat_name.sid = c.sid and cat_name.langid = ".&str_sqlize($call->{'call_params'}->{'langid'})."
+inner join vocabulary cat_name on cat_name.sid = c.sid and cat_name.langid = ".str_sqlize($call->{'call_params'}->{'langid'})."
 inner join category_feature cf on c.catid = cf.catid
 inner join product p on cf.catid = p.catid
 inner join supplier s on s.supplier_id = p.supplier_id
 inner join product_feature pf on pf.product_id = p.product_id and pf.category_feature_id = cf.category_feature_id
-where cf.feature_id = ".&str_sqlize($call->{'call_params'}->{'feature_id'})." and pf.value <> ''");
+where cf.feature_id = ".str_sqlize($call->{'call_params'}->{'feature_id'})." and pf.value <> ''");
 
 } # sub proc_prepare_params_feature_utilizing_products_categories
 
 sub proc_prepare_params_brand_invalid_partnumbers {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	return;
 #	use icecat_mapping;
@@ -253,30 +253,30 @@ sub proc_prepare_params_brand_invalid_partnumbers {
 	# complete the new table for processing
 
 	my $table_name = "brand_invalid_partnumbers";
-	my $file_name = "/tmp/prod_prepare_params_brand_invalid_partnumbers_".&make_code(32);
+	my $file_name = "/tmp/prod_prepare_params_brand_invalid_partnumbers_".make_code(32);
 
-	&do_statement("drop table if exists tmp_".$table_name."_new");
-	&do_statement("create table tmp_".$table_name."_new (product_id int(13) not null default 0)");
+	do_statement("drop table if exists tmp_".$table_name."_new");
+	do_statement("create table tmp_".$table_name."_new (product_id int(13) not null default 0)");
 
-	my $checks = &do_query("select p.product_id, p.prod_id, p.supplier_id from product p inner join supplier s using (supplier_id) where trim(prod_id_regexp) != ''");
+	my $checks = do_query("select p.product_id, p.prod_id, p.supplier_id from product p inner join supplier s using (supplier_id) where trim(prod_id_regexp) != ''");
 
 	open TMP, ">".$file_name;
 	binmode TMP, ":utf8";
 
-	foreach (@$checks) {
-		unless (&brand_prod_id_checking_by_regexp($_->[1],{'supplier_id' => $_->[2]})) {
+	for (@$checks) {
+		unless (brand_prod_id_checking_by_regexp($_->[1],{'supplier_id' => $_->[2]})) {
 			print TMP $_->[0].",";
 		}
 	}
 
 	close TMP;
 
-	&do_statement("load data local infile '".$file_name."' into table tmp_".$table_name."_new lines terminated by ','");
+	do_statement("load data local infile '".$file_name."' into table tmp_".$table_name."_new lines terminated by ','");
 
 	`/bin/rm -f $file_name`;
 
-	&do_statement("drop table if exists tmp_".$table_name);
-	&do_statement("rename table tmp_".$table_name."_new to tmp_".$table_name);
+	do_statement("drop table if exists tmp_".$table_name);
+	do_statement("rename table tmp_".$table_name."_new to tmp_".$table_name);
 } # sub proc_prepare_params_brand_invalid_partnumbers
 
 sub prepare_params_unifiedly {
@@ -286,26 +286,26 @@ sub prepare_params_unifiedly {
 	
 	my ($atom,$call) = @_;
 	
-	foreach my $key (keys %hin) {
+	for my $key (keys %hin) {
 		if ($hin{$key.'_ignore_unifiedly_processing'}) {
 			$call->{'call_params'}->{$key} = $hin{$key};
 		}
 		else {
-			$call->{'call_params'}->{$key} = &str_htmlize($hin{$key});
+			$call->{'call_params'}->{$key} = str_htmlize($hin{$key});
 		}
 	}
 
-	foreach my $key (keys %hl) {
-		$call->{'call_params'}->{$key} = &str_htmlize($hl{$key});
+	for my $key (keys %hl) {
+		$call->{'call_params'}->{$key} = str_htmlize($hl{$key});
 	}  
 	
-	$call->{'call_params'}->{'user_id'} = &str_htmlize($USER->{'user_id'});
+	$call->{'call_params'}->{'user_id'} = str_htmlize($USER->{'user_id'});
 }
 
 sub proc_prepare_params_campaigns {
   my ($atom, $call) = @_;
 	
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	if ($USER->{'user_group'} eq 'supplier') {
 		$call->{'call_params'}->{'user_clause'} = 'user_id = '.$USER->{'user_id'};
@@ -322,7 +322,7 @@ sub proc_prepare_params_campaigns {
 sub proc_prepare_params_categories_search
 {
     my ($atom, $call) = @_;
-    $call->{'call_params'}->{'search_name'} = &str_sqlize($hin{'search_name'});
+    $call->{'call_params'}->{'search_name'} = str_sqlize($hin{'search_name'});
 }
 
 sub prepare_date_params
@@ -362,13 +362,13 @@ sub prepare_date_params
 sub proc_prepare_params_product_search {
 	my ($atom,$call) = @_;
 	
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 	$hin{'search_product_name'} = $hin{'search_prod_id'};
 	$hout{'search_atom'} = $hin{'search_atom'};
 
-	&prepare_date_params;
+	prepare_date_params;
 	
-	foreach my $item ('search_supplier_id','search_catid','search_product_name','search_prod_id','search_edit_user_id','search_adv', 'search_to_year', 'search_to_month', 'search_to_day', 'search_from_year', 'search_from_month', 'search_from_day', 'search_period') {
+	for my $item ('search_supplier_id','search_catid','search_product_name','search_prod_id','search_edit_user_id','search_adv', 'search_to_year', 'search_to_month', 'search_to_day', 'search_from_year', 'search_from_month', 'search_from_day', 'search_period') {
 		
 		# trailing spaces
 		
@@ -378,7 +378,7 @@ sub proc_prepare_params_product_search {
 			$call->{'call_params'}->{$item} = '\'\'';
 		}
 		else {
-			$call->{'call_params'}->{$item} = &str_htmlize(&str_sqlize($hin{$item}));
+			$call->{'call_params'}->{$item} = str_htmlize(str_sqlize($hin{$item}));
 
 			# storing for a next session
 			$hout{$item} = $hin{$item};
@@ -390,10 +390,10 @@ sub proc_prepare_params_product_search {
 sub proc_prepare_params_features_search {
  my ($atom,$call) = @_;
  
-&prepare_params_unifiedly($atom,$call);
+prepare_params_unifiedly($atom,$call);
 
 
- foreach my $item('search_name'){
+ for my $item('search_name'){
 
 	 # trailing spaces
 
@@ -403,7 +403,7 @@ sub proc_prepare_params_features_search {
   if(!$hin{$item}){
    $call->{'call_params'}->{$item} = '\'\'';
 	} else {
-	  $call->{'call_params'}->{$item} = &str_sqlize($hin{$item});
+	  $call->{'call_params'}->{$item} = str_sqlize($hin{$item});
 	}
  }
 
@@ -412,7 +412,7 @@ sub proc_prepare_params_features_search {
 sub proc_prepare_params_category_features_search
 {
  my ($atom,$call) = @_;
- &proc_prepare_params_features_search($atom,$call);
+ proc_prepare_params_features_search($atom,$call);
 }
 
 
@@ -429,7 +429,7 @@ sub proc_prepare_params_categories
 	$call->{'call_params'}->{'pcatid_clause'} = '1';
     }
 
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
 }
 
 sub proc_prepare_params_category
@@ -437,25 +437,25 @@ sub proc_prepare_params_category
     my ($atom,$call) = @_;
     $hout{'pcatid'} = $hin{'pcatid'};
     
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
 }
 
 sub proc_prepare_params_category_feature_compare {
 	my ($atom,$call) = @_;
 	
-	&prepare_params_unifiedly($atom,$call); 
+	prepare_params_unifiedly($atom,$call); 
 	my $order = [];
 	
 	# building correct category feature order
-	my $catid = &str_sqlize($hin{'catid'});
+	my $catid = str_sqlize($hin{'catid'});
 	
 	my $header = '';
 	
-	my $data = &do_query("select category_feature_id, feature_name.value, feature.class from category_feature, feature, vocabulary as feature_name where category_feature.catid = $catid and feature.feature_id = category_feature.feature_id and feature_name.sid = feature.sid and feature_name.langid = $hl{'langid'} order by feature.class, feature_name.value");
+	my $data = do_query("select category_feature_id, feature_name.value, feature.class from category_feature, feature, vocabulary as feature_name where category_feature.catid = $catid and feature.feature_id = category_feature.feature_id and feature_name.sid = feature.sid and feature_name.langid = $hl{'langid'} order by feature.class, feature_name.value");
 
-	foreach my $row(@$data){
+	for my $row(@$data){
 		push @$order, $row->[0];
-		$header	.= &repl_ph($atoms->{$call->{'class'}}->{$call->{'name'}}->{'category_feature_entry_format_'.$row->[2]},
+		$header	.= repl_ph($atoms->{$call->{'class'}}->{$call->{'name'}}->{'category_feature_entry_format_'.$row->[2]},
 												{ "name" => $row->[1] }); 
 	}
 	
@@ -472,8 +472,8 @@ sub proc_prepare_params_products_raiting {
 
 	# distributor_id
 	if ($hin{'search_distributor_id'}) {
-		&do_statement("create temporary table itmp_distributor_product like distributor_product");
-		&do_statement("insert into itmp_distributor_product(product_id,stock,dist_prod_id,distributor_id)
+		do_statement("create temporary table itmp_distributor_product like distributor_product");
+		do_statement("insert into itmp_distributor_product(product_id,stock,dist_prod_id,distributor_id)
 select product_id, max(stock), dist_prod_id, distributor_id from distributor_product where distributor_id=".$hin{'search_distributor_id'}." group by product_id");
 		
 		$call->{'call_params'}->{'additional_joins'} .= "
@@ -503,8 +503,8 @@ inner join vocabulary vcnt on cnt.sid=vcnt.sid and vcnt.langid=1";
 	}
 	else {
 		unless ($hin{'search_distributor_id'}) {
-#			&do_statement("create temporary table itmp_country_product like country_product");
-#			&do_statement("insert into itmp_country_product(product_id,stock,active)
+#			do_statement("create temporary table itmp_country_product like country_product");
+#			do_statement("insert into itmp_country_product(product_id,stock,active)
 #select product_id, max(stock), max(active) from country_product group by product_id");
 
 			$call->{'call_params'}->{'additional_joins'} .= "
@@ -516,7 +516,7 @@ left  join product_active pa on pis.product_id=pa.product_id ".($hin{'search_ons
 
 sub proc_prepare_params_suppliers {
 	my ($atom,$call) = @_;
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 	$hin{'family_id'} = 1;
 	$hout{'family_id'} = $hin{'family_id'};
 } # sub proc_prepare_params_suppliers
@@ -535,7 +535,7 @@ sub proc_prepare_params_products_complaint {
 
 sub proc_prepare_params_stat_query{
 	my ($atom,$call) = @_;
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	if (($USER->{'user_group'} eq "superuser") || ($USER->{'user_group'} eq "supereditor")) {
 		$hin{'stock_reports'} = "Stock reports";
@@ -547,7 +547,7 @@ sub proc_prepare_params_stat_query{
 
 sub proc_prepare_params_data_sources{
 	my ($atom,$call) = @_;
-        &prepare_params_unifiedly($atom,$call);
+        prepare_params_unifiedly($atom,$call);
 
         if (($USER->{'user_group'} eq "superuser") || ($USER->{'user_group'} eq "supereditor")) {
                 $hin{'price_reports'} = "Price reports";
@@ -559,7 +559,7 @@ sub proc_prepare_params_data_sources{
 
 sub proc_prepare_params_price_reports{
         my ($atom,$call) = @_;
-        &prepare_params_unifiedly($atom,$call);
+        prepare_params_unifiedly($atom,$call);
 
         if ($hin{'distri_code'}) {
                 $hin{'ex_distri_checked'} = ' checked="checked" ';
@@ -578,7 +578,7 @@ sub proc_prepare_params_price_reports{
 sub proc_prepare_params_products_header {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	# show / hide submenus
 	if (($USER->{'user_group'} eq "supplier") || ($USER->{'user_group'} eq "guest")) {
@@ -606,7 +606,7 @@ sub proc_prepare_params_products_header {
 sub proc_prepare_params_products {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	# init some tripped, cross-atom params
 	my $xAtomFilterTables = [];
@@ -614,10 +614,10 @@ sub proc_prepare_params_products {
 	# coverage filter
 	
 	if ($hin{'filter'} ne '') {
-		$call->{'call_params'}->{'filter_tables'} = &prepare_coverage_filter($hin{'filter'});
+		$call->{'call_params'}->{'filter_tables'} = prepare_coverage_filter($hin{'filter'});
 		goto no_filter unless $call->{'call_params'}->{'filter_tables'};
 		$call->{'call_params'}->{'filter_key'} = ';filter='.$hin{'filter'};
-		$call->{'call_params'}->{'filter'} = &str_htmlize($hin{'filter'});
+		$call->{'call_params'}->{'filter'} = str_htmlize($hin{'filter'});
 		$hin{'filter_flag'} = '<br /><span style="color: blue;">Filter: '.$hin{'filter_toString'}.'</span>&nbsp;&nbsp;&nbsp;'.
 			"<a class=linkmenu2 href=\"/index.cgi?sessid=$hl{sesscode};mi=products;tmpl=products.html\">reset filter</a>";
 		
@@ -645,7 +645,7 @@ sub proc_prepare_params_products {
 	$supp_uid = $USER->{'user_id'} if $USER->{'user_group'} eq "supplier";
 
 	if ($supp_uid) {
-		my $supplier_ids = &do_query("select group_concat(supplier_id separator ',') from supplier where user_id=".$supp_uid." group by user_id")->[0][0];
+		my $supplier_ids = do_query("select group_concat(supplier_id separator ',') from supplier where user_id=".$supp_uid." group by user_id")->[0][0];
 		unless ($supplier_ids) {
 			$restrict = "0 AND ";
 		}
@@ -661,38 +661,38 @@ sub proc_prepare_params_products {
 	# prod_id + product name + ean search
 	if ($hin{'search_product_name'} ne '') {
 		# check the product_memory table
-#		my $p_table = ( &do_query("show tables like 'product_memory'")->[0][0] && ( &do_query("select max(product_id) from product")->[0][0] eq &do_query("select max(product_id) from product_memory")->[0][0] ) ) ?
+#		my $p_table = ( do_query("show tables like 'product_memory'")->[0][0] && ( do_query("select max(product_id) from product")->[0][0] eq do_query("select max(product_id) from product_memory")->[0][0] ) ) ?
 #			'product_memory' : 'product';
 		my $p_table = 'product_memory';
 		
-		&do_statement("drop temporary table if exists itmp_product_search");
-		&do_statement("create temporary table `itmp_product_search` (`product_id` int(13) not null primary key) ENGINE = MyISAM");
+		do_statement("drop temporary table if exists itmp_product_search");
+		do_statement("create temporary table `itmp_product_search` (`product_id` int(13) not null primary key) ENGINE = MyISAM");
 		if(!$hin{'deep_search'}){
-			&do_statement("insert into `itmp_product_search`
+			do_statement("insert into `itmp_product_search`
 	select `product_id` from `" . $p_table . "`
-	where prod_id like " . &str_sqlize($hin{'search_product_name'} . "%"));
-			&do_statement("insert ignore into `itmp_product_search`
+	where prod_id like " . str_sqlize($hin{'search_product_name'} . "%"));
+			do_statement("insert ignore into `itmp_product_search`
 	select `product_id` from `" . $p_table . "`
-	where name    like " . &str_sqlize($hin{'search_product_name'} . "%"));
+	where name    like " . str_sqlize($hin{'search_product_name'} . "%"));
 		}else{
 			my $reverse_name=reverse($hin{'search_product_name'});
-			&do_statement("insert into `itmp_product_search`
+			do_statement("insert into `itmp_product_search`
 						  select `product_id` from product_words
-						  where word 	 like ".&str_sqlize($hin{'search_product_name'}.'%')." OR 
-						  		word_rev like ".&str_sqlize($reverse_name.'%').'
+						  where word 	 like ".str_sqlize($hin{'search_product_name'}.'%')." OR 
+						  		word_rev like ".str_sqlize($reverse_name.'%').'
 						  GROUP BY product_id');
-			&do_statement("insert IGNORE into `itmp_product_search`
+			do_statement("insert IGNORE into `itmp_product_search`
 						  select `product_id` from product
 						  where updated > (now() - 60*30) and 
-						  		(name 	 like ".&str_sqlize('%'.$hin{'search_product_name'}.'%')." OR 
-						  		prod_id like ".&str_sqlize('%'.$hin{'search_product_name'}.'%').')');									  
+						  		(name 	 like ".str_sqlize('%'.$hin{'search_product_name'}.'%')." OR 
+						  		prod_id like ".str_sqlize('%'.$hin{'search_product_name'}.'%').')');									  
 		}							
 		if ($hin{'search_product_name'} =~ /^\d+$/) {
-			&do_statement("insert ignore into `itmp_product_search` select `product_id` from `product_ean_codes`
-where ".&str_sqlize($hin{'search_product_name'})." regexp '^[[:digit:]]+\$'
-and trim(leading '0' from ean_code) = trim(leading '0' from ".&str_sqlize($hin{'search_product_name'}).")");
+			do_statement("insert ignore into `itmp_product_search` select `product_id` from `product_ean_codes`
+where ".str_sqlize($hin{'search_product_name'})." regexp '^[[:digit:]]+\$'
+and trim(leading '0' from ean_code) = trim(leading '0' from ".str_sqlize($hin{'search_product_name'}).")");
 		}
-#		&log_printf("--------------->>>>>>>>>>>>>".$call->{'call_params'}->{'inner_join'});
+#		log_printf("--------------->>>>>>>>>>>>>".$call->{'call_params'}->{'inner_join'});
 		
 		$call->{'call_params'}->{'smart_search_tables'} = " inner join itmp_product_search ips on ips.product_id=p.product_id ";
 
@@ -743,9 +743,9 @@ and trim(leading '0' from ean_code) = trim(leading '0' from ".&str_sqlize($hin{'
 
 sub proc_prepare_params_families {
  my ($atom,$call) = @_;
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
  if($hin{'tmpl_if_success_cmd'} eq 'product_families.html'){
-	my $pfid = &do_query("select parent_family_id from product_family where family_id = $hin{'family_id'}");
+	my $pfid = do_query("select parent_family_id from product_family where family_id = $hin{'family_id'}");
 	if($pfid->[0][0]){
    $call->{'call_params'}->{'family_id'} = $pfid->[0][0];
    $hin{'family_id'} = $pfid->[0][0];
@@ -758,7 +758,7 @@ sub proc_prepare_params_families {
 
 sub proc_prepare_params_family {
 	my ($atom,$call) = @_;
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	if (!$hin{'family_id'}) {
 		$hin{'ffamily_id'} = 0;
@@ -773,39 +773,39 @@ sub proc_prepare_params_family {
 sub proc_prepare_params_feature_values_vocabulary {
 	my ($atom,$call) = @_;
 	
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
-	&do_statement("create temporary table localized_bits (key_value varchar(255), localized_bits int(13), primary key(key_value))");
+	do_statement("create temporary table localized_bits (key_value varchar(255), localized_bits int(13), primary key(key_value))");
 
-	my $vals = &do_query("select key_value, max(feature_values_group_id), min(updated), max(last_published), min(langid) from feature_values_vocabulary group by 1");
+	my $vals = do_query("select key_value, max(feature_values_group_id), min(updated), max(last_published), min(langid) from feature_values_vocabulary group by 1");
 
-	foreach my $val (@$vals) {
+	for my $val (@$vals) {
 		# check the langid = 1 presence and insert lost values
 		if ($val->[4] > 1) {
-			&do_statement("insert ignore into feature_values_vocabulary(key_value,langid,feature_values_group_id,value,updated,last_published)
-values(".&str_sqlize($val->[0]).",1,".$val->[1].",".&str_sqlize($val->[0]).",".&str_sqlize($val->[2]).",".&str_sqlize($val->[3]).")");
+			do_statement("insert ignore into feature_values_vocabulary(key_value,langid,feature_values_group_id,value,updated,last_published)
+values(".str_sqlize($val->[0]).",1,".$val->[1].",".str_sqlize($val->[0]).",".str_sqlize($val->[2]).",".str_sqlize($val->[3]).")");
 		}
 
 		# complete localized_bits info
-		my $codes = &do_query("select langid, value from feature_values_vocabulary where key_value = ".&str_sqlize($val->[0])." order by langid desc");
+		my $codes = do_query("select langid, value from feature_values_vocabulary where key_value = ".str_sqlize($val->[0])." order by langid desc");
 		my $flag=0;
-		foreach my $lang (@$codes) {
+		for my $lang (@$codes) {
 			if ($lang->[1] ne '') {
 				$flag++;
 			}
 			$flag <<= 1;
 		}
 		$flag >>= 1;
-		&do_statement("insert into localized_bits values (".&str_sqlize($val->[0]).",".$flag.")");
+		do_statement("insert into localized_bits values (".str_sqlize($val->[0]).",".$flag.")");
 	}
 }
 
 sub proc_prepare_params_feature_values {
 	my ($atom,$call) = @_;
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 # 	if ($call->{'call_params'}->{'power_mapping_on'}) { # if we click on button `Power mapping` - the $hin{'power_mapping_on'} appears
 
-#	&log_printf(Dumper($hin{'create_mapping'}));
+#	log_printf(Dumper($hin{'create_mapping'}));
 
 	# Do Power mapping
 	use icecat_mapping;
@@ -819,21 +819,21 @@ sub proc_prepare_params_feature_values {
 	if ($hin{'reload'} eq 'Apply') {
 		$h->{'apply'} = 'Y';
 	}
-	&power_mapping_per_feature_and_measure_for_BO($h);
+	power_mapping_per_feature_and_measure_for_BO($h);
 
 #	}
 } # sub proc_prepare_params_feature_values
 
 sub proc_prepare_params_measure_power_mapping {
 	my ($atom,$call) = @_;
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
  	if ($hin{'power_mapping_on'}) { # if we click on button `Power mapping` - the $hin{'power_mapping_on'} appears
 		# Do Power mapping
 		unless ($hin{'power_mapping_apply'}) {
 			use icecat_mapping;
-			&log_printf("ON, but APPLY");
-			&power_mapping_per_measure_for_BO({ 'measure_id' => $hin{'measure_id'}, 'useN' => 'Y', 'max_rows' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'measure_power_mapping_results_max_rows'} });
+			log_printf("ON, but APPLY");
+			power_mapping_per_measure_for_BO({ 'measure_id' => $hin{'measure_id'}, 'useN' => 'Y', 'max_rows' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'measure_power_mapping_results_max_rows'} });
 		}
 	}
 } # sub proc_prepare_params_measure_power_mapping
@@ -841,24 +841,24 @@ sub proc_prepare_params_measure_power_mapping {
 sub proc_prepare_params_feature_value_search
 {
  my ($atom,$call) = @_;
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
 
  $call->{'call_params'}->{'local_value_search'} = "<tr>";
- my $lang_codes = &do_query("select short_code, code from language where langid!=1 order by langid asc");
+ my $lang_codes = do_query("select short_code, code from language where langid!=1 order by langid asc");
 
  #look for checked descriptions from values saved in session
- foreach my $code(@$lang_codes){
+ for my $code(@$lang_codes){
    if(! defined $hin{'new_search'}){
      $hin{$code->[0]."_local_value"} = $hin{$code->[0]."_local_value_saved"};
    }
  }
 
  my $lang_cnt = 1; #fo format if langs more then 3
- foreach my $code(@$lang_codes){
+ for my $code(@$lang_codes){
    my $checked_yes = ""; my $checked_no = "";
    if(defined $hin{$code->[0]."_local_value"} && ($hin{$code->[0]."_local_value"} eq '1')){ $checked_yes = 'checked';}
    if(defined $hin{$code->[0]."_local_value"} && ($hin{$code->[0]."_local_value"} eq '0')){ $checked_no = 'checked';}
-   $call->{'call_params'}->{'local_value_search'} .= &repl_ph($atoms->{'default'}->{'feature_value_search'}->{'local_value_search_row'},
+   $call->{'call_params'}->{'local_value_search'} .= repl_ph($atoms->{'default'}->{'feature_value_search'}->{'local_value_search_row'},
    {"lang_code" => $code->[0],
     "lang_name" => $code->[1],
     "checked_yes" => $checked_yes,
@@ -878,20 +878,20 @@ sub proc_prepare_params_products_raiting_search {
 	my @search_params=split(/[\s,]+/,$mapping);
 	@search_params=sort @search_params;
 	if(!$hin{'reset_search'}){
-		foreach my $search_param (@search_params){
+		for my $search_param (@search_params){
 			$iatoms->{'search_params_key'}.=$search_param.':'.$hin{$search_param}.',';
 		}
 	} else{
 		$iatoms->{'search_params_key'}='';
 	}
 	
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 	
 	$call->{'call_params'}->{'description_search'} = "<tr>";
-	my $lang_codes = &do_query("select short_code, code from language order by langid asc");
+	my $lang_codes = do_query("select short_code, code from language order by langid asc");
 	
 	#look for checked descriptions from values saved in session
-	foreach my $code(@$lang_codes){
+	for my $code(@$lang_codes){
 		if(! defined $hin{'new_search'}){
 			$hin{$code->[0]."_description"} = $hin{$code->[0]."_description_saved"};
 		}
@@ -900,12 +900,12 @@ sub proc_prepare_params_products_raiting_search {
 	# undef $hin{'search_onstock'} if (defined $hin{'new_search'});
 	
 	my $lang_cnt = 1; #fo format if langs more then 3
-	foreach my $code(@$lang_codes){
+	for my $code(@$lang_codes){
 		my $checked_yes = ""; my $checked_no = "";
 		if(defined $hin{$code->[0]."_description"} && ($hin{$code->[0]."_description"} eq '1')){ $checked_yes = 'checked';}
 		if(defined $hin{$code->[0]."_description"} && ($hin{$code->[0]."_description"} eq '0')){ $checked_no = 'checked';}
 		$call->{'call_params'}->{'description_search'} .= 
-			&repl_ph(
+			repl_ph(
 				$atoms->{'default'}->{'products_raiting_search'}->{'description_search_row'},
 				{"lang_code" => $code->[0],
 					"lang_name" => $code->[1],
@@ -925,9 +925,9 @@ sub proc_prepare_params_products_raiting_search {
 
 sub proc_prepare_params_users {
 	my ($atom,$call) = @_;
-	&prepare_params_unifiedly($atom,$call);
-	&log_printf("\nID:$USER->{'user_id'}; $hin{'user_id'}");
-	my $user_group = &do_query("select user_group from users where user_id = ".$USER->{'user_id'})->[0][0];
+	prepare_params_unifiedly($atom,$call);
+	log_printf("\nID:$USER->{'user_id'}; $hin{'user_id'}");
+	my $user_group = do_query("select user_group from users where user_id = ".$USER->{'user_id'})->[0][0];
 	if (($user_group ne 'supplier') && ($user_group ne 'guest') && ($user_group ne 'shop')) {
 		$hin{'editors_journal_link'} = 'Editors journal';
 	}
@@ -959,9 +959,9 @@ sub proc_prepare_params_users {
 
 sub proc_prepare_params_mail_dispatch {
 	my ($atom,$call) = @_;
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
-	my $query = "SELECT single_email,attachment_name,html_body FROM mail_dispatch WHERE id=".&str_sqlize($hin{'id'});
+	my $query = "SELECT single_email,attachment_name,html_body FROM mail_dispatch WHERE id=".str_sqlize($hin{'id'});
 	my $mail_params = do_query($query);
 	$hin{'attachment_name'} = $mail_params->[0][1];
 	$hin{'dispatch_message'} = $mail_params->[0][2];
@@ -976,7 +976,7 @@ sub proc_prepare_params_mail_dispatch {
 sub proc_prepare_params_product_group_actions_list {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	my ($value,$call,$field,$res,$hash) = @_;
 	my @product_id = split(",", $hin{'product_id_list'});
@@ -988,8 +988,8 @@ sub proc_prepare_params_product_group_actions_list {
 #	my $sup_hash;
 #	my $supplier_id;
 
-#	foreach my $product_id (@product_id) {
-#		$supplier_id = &do_query("select supplier_id from product where product_id = ".$product_id)->[0][0];
+#	for my $product_id (@product_id) {
+#		$supplier_id = do_query("select supplier_id from product where product_id = ".$product_id)->[0][0];
 #		$sup_hash->{$supplier_id} = 1;
 #		if (keys) {
 #		}
@@ -1003,7 +1003,7 @@ sub proc_prepare_params_product_group_actions_list {
 #	log_printf(Dumper($hin{'supplier_id_list'}));
 #	log_printf("COUNT = ".$cnt);
 
-#	foreach my $key (keys %$sup_hash) {
+#	for my $key (keys %$sup_hash) {
 #		$cnt++;
 #	}
 
@@ -1024,7 +1024,7 @@ sub proc_prepare_params_product_group_actions_list {
 sub proc_prepare_params_editor_journal_searchs
 {
  my ($atom,$call) = @_;
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
  #restoring search params from session if any 
  if(!$hin{'atom_submit'}){
 	 $hin{'search_supplier'}=$hl{'search_supplier'} 	if $hl{'search_supplier'} and !$hin{'search_supplier'};
@@ -1052,8 +1052,8 @@ sub proc_prepare_params_editor_journal_searchs
 	 $hin{'from_year_prepared'} = $hin{'from_year'}; 
 	 $hin{'to_year_prepared'} = $hin{'to_year'};
 	 my ($sec,$min,$hour) = (localtime(time))[0,1,2];
-	 my $unixfromdate = &Time::Local::timelocal(0,0,0,$hin{'from_day_prepared'},$hin{'from_month_prepared'}-1,$hin{'from_year_prepared'});
-	 my $unixtodate = &Time::Local::timelocal(59,59,23,$hin{'to_day_prepared'},$hin{'to_month_prepared'}-1,$hin{'to_year_prepared'});
+	 my $unixfromdate = Time::Local::timelocal(0,0,0,$hin{'from_day_prepared'},$hin{'from_month_prepared'}-1,$hin{'from_year_prepared'});
+	 my $unixtodate = Time::Local::timelocal(59,59,23,$hin{'to_day_prepared'},$hin{'to_month_prepared'}-1,$hin{'to_year_prepared'});
 	 $call->{'call_params'}->{'from_date_prepared'} = " date >= ".$unixfromdate;
 	 $call->{'call_params'}->{'to_date_prepared'} = " date <= ".$unixtodate;
    $call->{'call_params'}->{'to_year'} = $hin{'to_year'};
@@ -1068,11 +1068,11 @@ sub proc_prepare_params_editor_journal_searchs
    if(length($m) == 1){ $m = '0'.$m;}
    if(length($d) == 1){ $d = '0'.$d;}
 	 my ($sec,$min,$hour) = (localtime(time))[0,1,2];
-	 my $unixfromdate = &Time::Local::timelocal(0,0,0,1,$m-1,1900+$y);
-	 my $unixtodate = &Time::Local::timelocal(59,59,23,$d-1,$m-1,1900+$y);
+	 my $unixfromdate = Time::Local::timelocal(0,0,0,1,$m-1,1900+$y);
+	 my $unixtodate = Time::Local::timelocal(59,59,23,$d-1,$m-1,1900+$y);
 	 $call->{'call_params'}->{'from_date_prepared'} = " date >= ".$unixfromdate;
 	 $call->{'call_params'}->{'to_date_prepared'} = " date <= ".$unixtodate;
-	 my $cur_date = &do_query("select year(now()),month(now()),dayofmonth(now()), year(now()), month(now()), '1'");
+	 my $cur_date = do_query("select year(now()),month(now()),dayofmonth(now()), year(now()), month(now()), '1'");
 	 $call->{'call_params'}->{'to_year'} = $cur_date->[0][0];
 	 $call->{'call_params'}->{'to_month'} = $cur_date->[0][1]; 
 	 $call->{'call_params'}->{'to_day'} = $cur_date->[0][2]; 
@@ -1083,7 +1083,7 @@ sub proc_prepare_params_editor_journal_searchs
  
 #for editor search
 	if($hin{'search_editor'}){	 
-	 my $current_user=&do_query("SELECT user_group FROM users WHERE user_id=".$hl{'user_id'}." LIMIT 1");
+	 my $current_user=do_query("SELECT user_group FROM users WHERE user_id=".$hl{'user_id'}." LIMIT 1");
 	 if($current_user and  grep(/$current_user->[0][0]/,('editor','exeditor','shop'))){
 	 	$hin{'search_editor'}=$hl{'user_id'};
 	 }	 
@@ -1150,7 +1150,7 @@ if($hin{'search_supplier'}){
 	 if($hin{'search_changetype'} eq 'product_gallery'){$hin{'selected6'} = 'selected';}
 	 if($hin{'search_changetype'} eq 'product_multimedia_object'){$hin{'selected7'} = 'selected';}
 	 if($hin{'search_changetype'} eq 'product_ean_codes'){$hin{'selected8'} = 'selected';}
-	 $call->{'call_params'}->{'search_changetype_prepared'} = " product_table = ".&str_sqlize($hin{'search_changetype'});
+	 $call->{'call_params'}->{'search_changetype_prepared'} = " product_table = ".str_sqlize($hin{'search_changetype'});
 	}else{
 	 $call->{'call_params'}->{'search_changetype_prepared'} = " 1 ";
 	}
@@ -1161,7 +1161,7 @@ if($hin{'search_supplier'}){
 sub proc_prepare_params_editor_journal_list
 {
  my ($atom,$call) = @_;
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
  proc_prepare_params_editor_journal_searchs($atom, $call);
  # adding left join to distrionly if needed
  if ($call->{'call_params'}->{'search_distributor_prepared'}!=1 or $call->{'call_params'}->{'search_isactive_prepared'}!=1){
@@ -1210,7 +1210,7 @@ sub proc_prepare_params_editor_journal_edit
 	$hs{'search_isactive'} = $hl{'search_isactive'};	$hin{'search_isactive'} = $hl{'search_isactive'};
  }
  my ($atom,$call) = @_;
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
  proc_prepare_params_editor_journal_searchs($atom, $call);
  # adding left join to distrionly if needed
  if ($call->{'call_params'}->{'search_distributor_prepared'}!=1 or $call->{'call_params'}->{'search_isactive_prepared'}!=1){
@@ -1226,12 +1226,12 @@ sub proc_prepare_params_quicktest {
 	my ($atom,$call) = @_;
 
 	# all other stuff
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	use LWP::Simple;
 
 	# get _mulitprf login & pass
-	my $lp = &do_query("select login, password from users where login='_multiprf'");
+	my $lp = do_query("select login, password from users where login='_multiprf'");
 	my $l = $lp->[0][0];
 	my $p = $lp->[0][1];
 	return 1 unless $l;
@@ -1239,7 +1239,7 @@ sub proc_prepare_params_quicktest {
 	my $level4_host = $atomcfg{'host'};
 	$level4_host =~ s/^(http\:\/\/)(.*)$/$1$l\:$p\@$2/;
 	
-#	$lp = &do_query("select login, password from users where login='vitaly'");
+#	$lp = do_query("select login, password from users where login='vitaly'");
 #	$l = $lp->[0][0];
 #	$p = $lp->[0][1];
 #	$l = 'techdatatest';
@@ -1267,15 +1267,15 @@ sub proc_prepare_params_quicktest {
 		'export_urls.xml.gz',
 		];
 	
-	foreach (@$files) {
-		&add_item($call,$atomcfg{'xml_path'}.'level4/'.$_,$level4_host.'export/level4/'.$_,1);
+	for (@$files) {
+		add_item($call,$atomcfg{'xml_path'}.'level4/'.$_,$level4_host.'export/level4/'.$_,1);
 	}
 	
 	# get some 2 products
-	my $ps = &do_query("(select product_id from product p inner join users u using (user_id) inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure where cmim.quality_index > 0 and product_id < 1000 order by product_id asc limit 3) UNION (select product_id from product p  inner join users u using (user_id)  inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group  inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure  where cmim.quality_index > 0 and product_id > (select max(product_id) from product)-10000 order by product_id desc limit 3)");
+	my $ps = do_query("(select product_id from product p inner join users u using (user_id) inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure where cmim.quality_index > 0 and product_id < 1000 order by product_id asc limit 3) UNION (select product_id from product p  inner join users u using (user_id)  inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group  inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure  where cmim.quality_index > 0 and product_id > (select max(product_id) from product)-10000 order by product_id desc limit 3)");
 	
-	foreach (@$ps) {
-		&add_item($call,$atomcfg{'xml_path'}.'level4/INT/'.&get_smart_path($_->[0]).$_->[0].'.xml.gz',$level4_host.'export/level4/INT/'.$_->[0].'.xml',2);
+	for (@$ps) {
+		add_item($call,$atomcfg{'xml_path'}.'level4/INT/'.get_smart_path($_->[0]).$_->[0].'.xml.gz',$level4_host.'export/level4/INT/'.$_->[0].'.xml',2);
 	}
 
 	# level4->csv&prf
@@ -1302,98 +1302,98 @@ sub proc_prepare_params_quicktest {
 		'prf/product.txt',
 		];
 
-	foreach (@$files) {
-		&add_item($call,$atomcfg{'xml_path'}.'level4/'.$_,$level4_host.'export/level4/'.$_,3);
-		&add_item($call,$atomcfg{'xml_path'}.'level4/'.$_.'.gz',$level4_host.'export/level4/'.$_.'.gz',3);
-		&add_item($call,$atomcfg{'xml_path'}.'level4/'.$_.'.utf8',$level4_host.'export/level4/'.$_.'.utf8',3);
-		&add_item($call,$atomcfg{'xml_path'}.'level4/'.$_.'.utf8.gz',$level4_host.'export/level4/'.$_.'.utf8.gz',3);
+	for (@$files) {
+		add_item($call,$atomcfg{'xml_path'}.'level4/'.$_,$level4_host.'export/level4/'.$_,3);
+		add_item($call,$atomcfg{'xml_path'}.'level4/'.$_.'.gz',$level4_host.'export/level4/'.$_.'.gz',3);
+		add_item($call,$atomcfg{'xml_path'}.'level4/'.$_.'.utf8',$level4_host.'export/level4/'.$_.'.utf8',3);
+		add_item($call,$atomcfg{'xml_path'}.'level4/'.$_.'.utf8.gz',$level4_host.'export/level4/'.$_.'.utf8.gz',3);
 	}
 
 	# level4 misc files
 	$files = [ 'categories.xml', 'measures.xml' ];
 	
-	foreach (@$files) {
-		&add_item($call,$atomcfg{'www_path'}.'export'.$_,$level4_host.'export/'.$_,'3,5');
-		&add_item($call,$atomcfg{'www_path'}.'export/'.$_.'.gz',$level4_host.'export/'.$_.'.gz','3,5');
+	for (@$files) {
+		add_item($call,$atomcfg{'www_path'}.'export'.$_,$level4_host.'export/'.$_,'3,5');
+		add_item($call,$atomcfg{'www_path'}.'export/'.$_.'.gz',$level4_host.'export/'.$_.'.gz','3,5');
 	}
 
 	# freexml repos
 	$files = [ 'files.index.xml', 'daily.index.xml', 'files.index.csv' ];
 
-	foreach (@$files) {
-		&add_item($call,$atomcfg{'xml_path'}.'freexml.int/INT/'.$_,$level4_host.'export/freexml.int/INT/'.$_,4);
-		&add_item($call,$atomcfg{'xml_path'}.'freexml.int/INT/'.$_.'.gz',$level4_host.'export/freexml.int/INT/'.$_.'.gz',4);
+	for (@$files) {
+		add_item($call,$atomcfg{'xml_path'}.'freexml.int/INT/'.$_,$level4_host.'export/freexml.int/INT/'.$_,4);
+		add_item($call,$atomcfg{'xml_path'}.'freexml.int/INT/'.$_.'.gz',$level4_host.'export/freexml.int/INT/'.$_.'.gz',4);
 	}
 
-	$ps = &do_query("select p.product_id from product p inner join users u using (user_id) inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure inner join supplier s using (supplier_id) where cmim.quality_index > 0 and s.is_sponsor='Y' and p.product_id > (select max(product_id) from product)-100000 order by p.product_id desc limit 3");
+	$ps = do_query("select p.product_id from product p inner join users u using (user_id) inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure inner join supplier s using (supplier_id) where cmim.quality_index > 0 and s.is_sponsor='Y' and p.product_id > (select max(product_id) from product)-100000 order by p.product_id desc limit 3");
 
-	foreach (@$ps) {
-		&add_item($call,$atomcfg{'xml_path'}.'level4/INT/'.&get_smart_path($_->[0]).$_->[0].'.xml.gz',$level4_host.'export/freexml.int/INT/'.$_->[0].'.xml',4);
+	for (@$ps) {
+		add_item($call,$atomcfg{'xml_path'}.'level4/INT/'.get_smart_path($_->[0]).$_->[0].'.xml.gz',$level4_host.'export/freexml.int/INT/'.$_->[0].'.xml',4);
 	}
 
 	# vendor repos
-	my $ss = &do_query("select folder_name, supplier_id, public_login, public_password from supplier where public_login!='' order by supplier_id asc limit 2");
-	foreach my $s (@$ss) {
+	my $ss = do_query("select folder_name, supplier_id, public_login, public_password from supplier where public_login!='' order by supplier_id asc limit 2");
+	for my $s (@$ss) {
 		my $vendor_host = $atomcfg{'host'};
 		$vendor_host =~ s/^(http\:\/\/)(.*)$/$1$s->[2]\:$s->[3]\@$2/;
 
-		&add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.xml',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.xml',5);
-		&add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.xml.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.xml.gz',5);
-		&add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/daily.index.xml',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/daily.index.xml',5);
-		&add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/daily.index.xml.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/daily.index.xml.gz',5);
-		&add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.csv',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.csv',5);
-		&add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.csv.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.csv.gz',5);
-		$ps = &do_query("select p.product_id from product p inner join users u using (user_id) inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure where cmim.quality_index > 0 and p.supplier_id=".$s->[1]." and p.product_id > (select max(product_id) from product)-100000 order by p.product_id desc limit 3");
-		foreach my $p (@$ps) {
-			&add_item($call,$atomcfg{'xml_path'}.'level4/INT/'.&get_smart_path($p->[0]).$p->[0].'.xml.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/'.$p->[0].'.xml',5);
+		add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.xml',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.xml',5);
+		add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.xml.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.xml.gz',5);
+		add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/daily.index.xml',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/daily.index.xml',5);
+		add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/daily.index.xml.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/daily.index.xml.gz',5);
+		add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.csv',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.csv',5);
+		add_item($call,$atomcfg{'xml_path'}.'vendor.int/'.$s->[0].'/INT/files.index.csv.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/files.index.csv.gz',5);
+		$ps = do_query("select p.product_id from product p inner join users u using (user_id) inner join user_group_measure_map ugmm on u.user_group=ugmm.user_group inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure where cmim.quality_index > 0 and p.supplier_id=".$s->[1]." and p.product_id > (select max(product_id) from product)-100000 order by p.product_id desc limit 3");
+		for my $p (@$ps) {
+			add_item($call,$atomcfg{'xml_path'}.'level4/INT/'.get_smart_path($p->[0]).$p->[0].'.xml.gz',$vendor_host.'export/vendor.int/'.$s->[0].'/INT/'.$p->[0].'.xml',5);
 		}	
 	}
 
 	# hp_corner
 	#  /home/gcc/data_source/HPProvisioner/hp_corner_all -> export/hp_corner/hp_corner_all_new.txt
-	&add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hp_corner_all_new.txt',$level4_host.'export/hp_corner/hp_corner_all_new.txt',6);
+	add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hp_corner_all_new.txt',$level4_host.'export/hp_corner/hp_corner_all_new.txt',6);
 	#  /home/gcc/data_source/HPProvisioner/hp_corner -> export/hp_corner/hp_corner_new.txt, export/hp_corner/hp_categorization_new.txt
-	&add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hp_corner_new.txt',$level4_host.'export/hp_corner/hp_corner_new.txt',6);
-	&add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hp_categorization_new.txt',$level4_host.'export/hp_corner/hp_categorization_new.txt',6);
+	add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hp_corner_new.txt',$level4_host.'export/hp_corner/hp_corner_new.txt',6);
+	add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hp_categorization_new.txt',$level4_host.'export/hp_corner/hp_categorization_new.txt',6);
 	#  /home/gcc/data_source/HPProvisioner/hpinv_check -> export/hp_corner/hpinv_check.txt, linked to data_source/HPProvisioner/hpinv_check.txt
-	&add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hpinv_check.txt',$level4_host.'export/hp_corner/hpinv_check.txt',6);
+	add_item($call,$atomcfg{'www_path'}.'export/hp_corner/hpinv_check.txt',$level4_host.'export/hp_corner/hpinv_check.txt',6);
 
 	# techdata (full and open) - TD, TB, TDES
-	&add_item($call,$atomcfg{'www_path'}.'export/techdata/TD_mapping.txt',$free_host.'export/techdata/TD_mapping.txt',7);
-	&add_item($call,$atomcfg{'www_path'}.'export/techdata/TD_mapping_rich.txt',$free_host.'export/techdata/TD_mapping_rich.txt',7);
-	&add_item($call,$atomcfg{'www_path'}.'export/techdata/TB_mapping.txt',$free_host.'export/techdata/TB_mapping.txt',7);
-	&add_item($call,$atomcfg{'www_path'}.'export/techdata/TB_mapping_rich.txt',$free_host.'export/techdata/TB_mapping_rich.txt',7);
-	&add_item($call,$atomcfg{'www_path'}.'export/techdata/TDES_mapping.txt',$free_host.'export/techdata/TDES_mapping.txt',7);
-	&add_item($call,$atomcfg{'www_path'}.'export/techdata/TDES_mapping_rich.txt',$free_host.'export/techdata/TDES_mapping_rich.txt',7);
-	&add_item($call,$atomcfg{'www_path'}.'export/techdatafull/TDES_mapping_full.txt',$free_host.'export/techdatafull/TDES_mapping_full.txt',7);
-	&add_item($call,$atomcfg{'www_path'}.'export/techdatafull/TDES_mapping_full_rich.txt',$free_host.'export/techdatafull/TDES_mapping_full_rich.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdata/TD_mapping.txt',$free_host.'export/techdata/TD_mapping.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdata/TD_mapping_rich.txt',$free_host.'export/techdata/TD_mapping_rich.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdata/TB_mapping.txt',$free_host.'export/techdata/TB_mapping.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdata/TB_mapping_rich.txt',$free_host.'export/techdata/TB_mapping_rich.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdata/TDES_mapping.txt',$free_host.'export/techdata/TDES_mapping.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdata/TDES_mapping_rich.txt',$free_host.'export/techdata/TDES_mapping_rich.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdatafull/TDES_mapping_full.txt',$free_host.'export/techdatafull/TDES_mapping_full.txt',7);
+	add_item($call,$atomcfg{'www_path'}.'export/techdatafull/TDES_mapping_full_rich.txt',$free_host.'export/techdatafull/TDES_mapping_full_rich.txt',7);
 
 	# URLs
-	&add_item($call,$atomcfg{'www_path'}.'export/export_urls.cgi',$free_host.'export/export_urls.cgi',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/export_suppliers.txt',$free_host.'export/export_suppliers.txt',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/export_urls.txt',$free_host.'export/export_urls.txt',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/export_urls.txt.gz',$free_host.'export/export_urls.txt.gz',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/export_urls.xml',$free_host.'export/export_urls.xml',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/export_urls.xml.gz',$free_host.'export/export_urls.xml.gz',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/export_urls_rich.xml',$free_host.'export/export_urls_rich.xml',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/export_urls_rich.xml.gz',$free_host.'export/export_urls_rich.xml.gz',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_urls.cgi',$free_host.'export/export_urls.cgi',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_suppliers.txt',$free_host.'export/export_suppliers.txt',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_urls.txt',$free_host.'export/export_urls.txt',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_urls.txt.gz',$free_host.'export/export_urls.txt.gz',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_urls.xml',$free_host.'export/export_urls.xml',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_urls.xml.gz',$free_host.'export/export_urls.xml.gz',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_urls_rich.xml',$free_host.'export/export_urls_rich.xml',8);
+	add_item($call,$atomcfg{'www_path'}.'export/export_urls_rich.xml.gz',$free_host.'export/export_urls_rich.xml.gz',8);
 
-	&add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_suppliers.txt',$free_host.'export/freeurls/export_suppliers.txt',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls.txt',$free_host.'export/freeurls/export_urls.txt',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls.txt.gz',$free_host.'export/freeurls/export_urls.txt.gz',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls_rich.xml',$free_host.'export/freeurls/export_urls_rich.xml',8);
-	&add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls_rich.xml.gz',$free_host.'export/freeurls/export_urls_rich.xml.gz',8);
+	add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_suppliers.txt',$free_host.'export/freeurls/export_suppliers.txt',8);
+	add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls.txt',$free_host.'export/freeurls/export_urls.txt',8);
+	add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls.txt.gz',$free_host.'export/freeurls/export_urls.txt.gz',8);
+	add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls_rich.xml',$free_host.'export/freeurls/export_urls_rich.xml',8);
+	add_item($call,$atomcfg{'www_path'}.'export/freeurls/export_urls_rich.xml.gz',$free_host.'export/freeurls/export_urls_rich.xml.gz',8);
 
 	# levelplus->csv->categorization_*.txt
-	my $langids = &do_query("select langid from language order by langid asc");
-	&add_item($call,$atomcfg{'www_path'}.'export/levelplus/csv/product_categorization.txt',$free_host.'export/levelplus/csv/product_categorization.txt',9);
-#	&add_item($call,$atomcfg{'www_path'}.'export/levelplus/products_summary.csv',$free_host.'export/levelplus/products_summary.csv',9); # export_short_desc.pl - disabled!
-	foreach (@$langids) {
-		&add_item($call,$atomcfg{'www_path'}.'export/levelplus/csv/categorization_'.$_->[0].'.txt',$free_host.'export/levelplus/csv/categorization_'.$_->[0].'.txt',9);
+	my $langids = do_query("select langid from language order by langid asc");
+	add_item($call,$atomcfg{'www_path'}.'export/levelplus/csv/product_categorization.txt',$free_host.'export/levelplus/csv/product_categorization.txt',9);
+#	add_item($call,$atomcfg{'www_path'}.'export/levelplus/products_summary.csv',$free_host.'export/levelplus/products_summary.csv',9); # export_short_desc.pl - disabled!
+	for (@$langids) {
+		add_item($call,$atomcfg{'www_path'}.'export/levelplus/csv/categorization_'.$_->[0].'.txt',$free_host.'export/levelplus/csv/categorization_'.$_->[0].'.txt',9);
 	}
 
 	# prodid_d.txt repo
-	&add_item($call,$atomcfg{'base_dir'}.'data_export/prodid_d.txt',undef,10);
+	add_item($call,$atomcfg{'base_dir'}.'data_export/prodid_d.txt',undef,10);
 	
  	return 1;
 
@@ -1463,12 +1463,12 @@ sub proc_prepare_params_quicktest {
 sub proc_prepare_params_users_search {
 	my ($atom,$call) = @_;
 
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 
 	if (($USER->{'user_group'} eq "superuser") || ($USER->{'user_group'} eq "supereditor")) {
 		$hin{'what_user'} = "";
 		if ($hin{'send_email'}) {
-			$hin{'message_sent'} = '<p align="center">'.&make_send_users().'</p>';
+			$hin{'message_sent'} = '<p align="center">'.make_send_users().'</p>';
 			$hin{'message_sent_ignore_unifiedly_processing'} = 'Yes';
 		}
 		else {
@@ -1496,17 +1496,17 @@ sub make_send_users {
 	return '<h4>Error! Please, enter valid e-mail</h4>' if ($details{'send_email'} !~ /^([a-zA-Z0-9_\.\-+])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
 	
 	$login = $email = $url = $company = $level = $group = $partner = $country = '';
-	$login =    " and u.login like ".&str_sqlize('%'.$details{'login'}.'%') if($details{'login'});
-	$email =    " and c.email like ".&str_sqlize('%'.$details{'email'}.'%') if($details{'email'});
-	$url =      " and c.url like ".&str_sqlize('%'.$details{'url'}.'%') if($details{'url'});
-	$company =  " and c.company like ".&str_sqlize('%'.$details{'company'}.'%') if($details{'company'});
-	$level =    " and u.subscription_level=".&str_sqlize($details{'subscription_level'}) if($details{'subscription_level'} ne '');
-	$group =    " and u.user_group=".&str_sqlize($details{'user_group'}) if($details{'user_group'});
-	$partner  = " and u.user_partner_id=".&str_sqlize($details{'partner'}) if($details{'partner'});
-	$country =  " and c.country_id=".&str_sqlize($details{'country'}) if($details{'country'});
+	$login =    " and u.login like ".str_sqlize('%'.$details{'login'}.'%') if($details{'login'});
+	$email =    " and c.email like ".str_sqlize('%'.$details{'email'}.'%') if($details{'email'});
+	$url =      " and c.url like ".str_sqlize('%'.$details{'url'}.'%') if($details{'url'});
+	$company =  " and c.company like ".str_sqlize('%'.$details{'company'}.'%') if($details{'company'});
+	$level =    " and u.subscription_level=".str_sqlize($details{'subscription_level'}) if($details{'subscription_level'} ne '');
+	$group =    " and u.user_group=".str_sqlize($details{'user_group'}) if($details{'user_group'});
+	$partner  = " and u.user_partner_id=".str_sqlize($details{'partner'}) if($details{'partner'});
+	$country =  " and c.country_id=".str_sqlize($details{'country'}) if($details{'country'});
 	
-	&do_statement("drop temporary table if exists itmp_send_users");
-	&do_statement("create temporary table itmp_send_users(
+	do_statement("drop temporary table if exists itmp_send_users");
+	do_statement("create temporary table itmp_send_users(
                         `user_id` int(13) NOT NULL,
                         `login` char(40) NOT NULL,
                         `company` varchar(255) default '',
@@ -1518,7 +1518,7 @@ sub make_send_users {
                         `sector` varchar(255),
                         PRIMARY KEY  (`user_id`),
                         UNIQUE KEY `login` (`login`)) DEFAULT CHARSET = utf8");
-	&do_statement("insert into itmp_send_users (user_id,login,company,country,user_group,email,url,level,sector) select 
+	do_statement("insert into itmp_send_users (user_id,login,company,country,user_group,email,url,level,sector) select 
                         u.user_id, u.login, c.company, v.value, u.user_group, c.email, c.url, sl.value, if(s.name is null,'',s.name)
                         from users u 
                         left join contact c on u.pers_cid=c.contact_id 
@@ -1550,8 +1550,8 @@ sub make_send_users {
 	$worksheet->{$ws_num}->write(0, 7, 'Sector', $format);
 	
 	my $row = 1;
-	my $info = &do_query("select login,company,country,user_group,email,url,level,sector from itmp_send_users");
-	foreach my $inf (@$info) {
+	my $info = do_query("select login,company,country,user_group,email,url,level,sector from itmp_send_users");
+	for my $inf (@$info) {
 		my $col;
 		for ($col=0; $col<8; $col++) {
 			$worksheet->{$ws_num}->write($row, $col, $inf->[$col]);
@@ -1584,19 +1584,19 @@ sub make_send_users {
 		'attachment_body' => $data
 	};
 	
-	&atom_mail::complex_sendmail($mail);
+	atom_mail::complex_sendmail($mail);
 	
 	return '<h4>File with users information was sent to '.$details{'send_email'}.'</h4>';
 } # sub make_send_users
 
 sub proc_prepare_params_feed_config{
  my ($atom,$call) = @_;
- $hin{'feed_url'}=&trim($hin{'feed_url'});
+ $hin{'feed_url'}=trim($hin{'feed_url'});
  $hin{'escape'}=($hin{'escape'} eq '\\')?'\\\\':$hin{'escape'};
  $hin{'delimiter'}=($hin{'delimiter'} eq '\\')?'\\\\':$hin{'delimiter'};
  $hin{'newline'}=($hin{'newline'} eq '\\')?'\\\\':$hin{'newline'};
  $hin{'quote'}=($hin{'quote'} eq '\\')?'\\\\':$hin{'quote'}; 
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
 }
 
 sub proc_prepare_params_feed_pricelist{
@@ -1607,7 +1607,7 @@ sub proc_prepare_params_feed_pricelist{
  	hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
  	return '';
  }
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
  if(!$hin{'group_code'} and $hin{'feed_url'}){
  	push(@user_errors,'Enter group code before making any changes');
  } 
@@ -1627,9 +1627,9 @@ sub proc_prepare_params_feed_pricelist{
  }
  
  if(!$hin{'distributor_pl_id'}){
- 	my $exited_pl_id=&do_query('SELECT GROUP_CONCAT(d.name separator \',\')  FROM distributor_pl dp
+ 	my $exited_pl_id=do_query('SELECT GROUP_CONCAT(d.name separator \',\')  FROM distributor_pl dp
  								JOIN distributor d ON dp.code=d.group_code
-								WHERE dp.code='.&str_sqlize($hin{'group_code'}).'
+								WHERE dp.code='.str_sqlize($hin{'group_code'}).'
 								GROUP BY dp.code')->[0][0];
 	if($exited_pl_id and scalar(@user_errors)<1){
 		push(@user_warnings,'This group code already exists. If you change its catalog settings they 
@@ -1637,10 +1637,10 @@ sub proc_prepare_params_feed_pricelist{
 							 Please use another group code if you are not agree with this. ')
 	} 	
 	 set_hin_from_sql('SELECT feed_url,is_first_header,delimiter,newline,escape,quote,user_choiced_file,feed_type,feed_login,feed_pwd,active 
-	 				   FROM distributor_pl WHERE code='.&str_sqlize($hin{'group_code'}),'replace $hin');
+	 				   FROM distributor_pl WHERE code='.str_sqlize($hin{'group_code'}),'replace $hin');
  }else{
 	 set_hin_from_sql('SELECT feed_url,is_first_header,delimiter,newline,escape,quote,user_choiced_file,feed_type,feed_login,feed_pwd 
-	 				   FROM distributor_pl WHERE code='.&str_sqlize($hin{'group_code'})); 	
+	 				   FROM distributor_pl WHERE code='.str_sqlize($hin{'group_code'})); 	
  }
  if($hin{'feed_url'} and (-d $atomcfg{"base_dir"}.'pricelists/'.$hin{'feed_config_id'}.'/')){# print one-time the warning if file is obsolete 
  	my $curr_file=get_feed_file($atomcfg{"base_dir"}.'pricelists/'.$hin{'feed_config_id'}.'/');
@@ -1656,15 +1656,15 @@ sub proc_prepare_params_feed_pricelist{
 
 sub set_hin_from_sql{
 	my ($sql,$replace_hin)=@_;
-	my $rows=&do_query($sql);
+	my $rows=do_query($sql);
 	return '' if ref($rows->[0]) ne 'ARRAY';
 	$sql=~/select(.+?)from/is;
-	my $fields_str=&trim($1);
+	my $fields_str=trim($1);
 	$fields_str=~s/[\n\s]+//gs;
 	$fields_str=~s/[^,]+\.//gs;
 	
 	my $i=0;
-	foreach my $field (split(',',$fields_str)){
+	for my $field (split(',',$fields_str)){
 		$hin{$field}=$rows->[0][$i] if !$hin{$field} or $replace_hin;
 		$i++;
 	}
@@ -1675,7 +1675,7 @@ sub hide_atom_for_all_groups_except {
     my ($atom, $groups) = @_;
 
     my $is_deny = 1;
-    foreach (@$groups) {
+    for (@$groups) {
 	if ($USER->{'user_group'} eq $_ ) {
 	    $is_deny = 0;
 	    last;
@@ -1688,20 +1688,20 @@ sub hide_atom_for_all_groups_except {
 
 sub proc_prepare_params_sectors {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     return;
 }
 
 sub proc_prepare_params_sector {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     return;
 }
 sub proc_prepare_params_virtual_categories {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     
     # delete records from virtual_category
@@ -1714,21 +1714,21 @@ sub proc_prepare_params_virtual_categories {
 
 sub proc_prepare_params_default_warranty_info {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     return;
 }
 
 sub proc_prepare_params_default_warranty_info_edit {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     return;
 }
 
 sub proc_prepare_params_virtual_categories {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     return;
 }
@@ -1760,8 +1760,8 @@ sub proc_prepare_params_track_lists{
 		$hin{'search_user_id'}=$USER->{'user_id'};
 		$hin{'reset_search'}='';
 	}	
-	#unless(&do_query('show create view track_lists_view')->[0]){
-	#	&do_statement("CREATE OR REPLACE VIEW track_lists_view AS 
+	#unless(do_query('show create view track_lists_view')->[0]){
+	#	do_statement("CREATE OR REPLACE VIEW track_lists_view AS 
 	#				   (SELECT count(*) FROM track_product tp WHERE tp.track_list_id=tl.track_list_id) as prods_count,
 	#				   (SELECT count(*) FROM track_product tp JOIN product p USING(product_id) 
 	#				   		WHERE tp.track_list_id=tl.track_list_id and tp.extr_quality='icecat') as prods_described,
@@ -1773,7 +1773,7 @@ sub proc_prepare_params_track_lists{
 	#				   LEFT JOIN track_list_editor tle ON tl.track_list_id=tle.track_list_id
 	#				   GROUP BY tl.track_list_id");
 	#}
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 }
 
 sub proc_prepare_params_ajax_track_list_editors{
@@ -1785,7 +1785,7 @@ sub proc_prepare_params_ajax_track_list_editors{
 		$hin{'search_user_id_mode'}='=';
 		$hin{'reset_search'}='';
 	}
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 }
 
 sub proc_prepare_params_track_list{
@@ -1798,9 +1798,9 @@ sub proc_prepare_params_track_list{
  }
  $hs{'coverage_summary'}=$hl{'coverage_summary'};
  
- &prepare_params_unifiedly($atom,$call);
+ prepare_params_unifiedly($atom,$call);
  if(!$hin{'feed_config_id'} and $hin{'track_list_id'}){
- 	my $dir_name=&do_query('SELECT feed_config_id FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
+ 	my $dir_name=do_query('SELECT feed_config_id FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
  	if(!$dir_name){
  		push(@user_errors,'Track list Directory does not exists. Please contact to administartor');
  		return '';
@@ -1809,7 +1809,7 @@ sub proc_prepare_params_track_list{
  	}
  }elsif(!$hin{'feed_config_id'} and !$hin{'track_list_id'}){
  	use POSIX 'floor';
- 	$hin{'feed_config_id'}=time().'_'.&floor(rand(1000));
+ 	$hin{'feed_config_id'}=time().'_'.floor(rand(1000));
  }
  # user does not push any buttons yet so we have to replace temporary files with priviosly saved
  # othervise formats will use temporary files which user probably does not save latter  
@@ -1836,7 +1836,7 @@ sub proc_prepare_params_track_products{
 	if($hl{'track_list_id'}){
 		$hin{'track_list_id'}=$hl{'track_list_id'};		
 	}
-	my $allowed_editors=&do_query('SELECT user_id FROM track_list_editor 
+	my $allowed_editors=do_query('SELECT user_id FROM track_list_editor 
 								   WHERE track_list_id='.$hin{'track_list_id'}.' AND user_id='.$USER->{'user_id'});
 	if(!$allowed_editors->[0][0] and $USER->{'user_group'} ne 'superuser' and $USER->{'user_group'} ne 'supereditor'){
  		push(@user_errors,'You are not authorized to view this page');
@@ -1857,12 +1857,12 @@ sub proc_prepare_params_track_products{
 	if($hin{'ajaxed'} and $hin{'sync_only'}){
 		synch_track_products($hin{'track_list_id'});
 	}elsif($hin{'ajaxed'}){
-			my $start_update=&do_query('SELECT unix_timestamp(start_update) FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
-			my $curr_time=&do_query('select unix_timestamp()')->[0][0];		
-#			&lp('-------->>>>>>>>>>>>>>>>>>>>>>>>'.$start_update.' '.($curr_time-(3600*2)));	
+			my $start_update=do_query('SELECT unix_timestamp(start_update) FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
+			my $curr_time=do_query('select unix_timestamp()')->[0][0];		
+#			lp('-------->>>>>>>>>>>>>>>>>>>>>>>>'.$start_update.' '.($curr_time-(3600*2)));	
 			if(!$start_update or $start_update>($curr_time-(3600*2))){#list is not processed right now or it have been processing more than 2 hour
 				# synchronize with removed products 
-				&do_statement("UPDATE track_product tp 
+				do_statement("UPDATE track_product tp 
 							   LEFT JOIN product p ON p.product_id=tp.product_id
 							   SET
 								tp.extr_langs      = '',
@@ -1880,10 +1880,10 @@ sub proc_prepare_params_track_products{
 								tp.track_product_status ='not_described'
 							   WHERE tp.product_id!=0 AND p.product_id IS NULL AND tp.track_list_id=".$hin{'track_list_id'});		
 			
-				&do_statement('UPDATE track_list SET start_update=now() WHERE track_list_id='.$hin{'track_list_id'});
-				&do_statement("DROP TEMPORARY TABLE IF EXISTS tmp_track_product_to_mapping");			
-				#&do_statement("DROP TABLE tmp_track_product_to_mapping");
-				&do_statement("CREATE TEMPORARY TABLE tmp_track_product_to_mapping( 
+				do_statement('UPDATE track_list SET start_update=now() WHERE track_list_id='.$hin{'track_list_id'});
+				do_statement("DROP TEMPORARY TABLE IF EXISTS tmp_track_product_to_mapping");			
+				#do_statement("DROP TABLE tmp_track_product_to_mapping");
+				do_statement("CREATE TEMPORARY TABLE tmp_track_product_to_mapping( 
 							   id int(13) not null,
 							   prod_id varchar(255) not null default '',
 							   vendor varchar(255) not null default '',
@@ -1893,28 +1893,28 @@ sub proc_prepare_params_track_products{
 							   primary key(id)
 							   )");
 				
-				&do_statement('ALTER TABLE tmp_track_product_to_mapping disable keys');
-				&do_statement('INSERT INTO tmp_track_product_to_mapping (id,prod_id,vendor,ean,product_id,supplier_id)
+				do_statement('ALTER TABLE tmp_track_product_to_mapping disable keys');
+				do_statement('INSERT INTO tmp_track_product_to_mapping (id,prod_id,vendor,ean,product_id,supplier_id)
 							   SELECT track_product_id,feed_prod_id,IF(s.supplier_id IS NULL,feed_supplier,s.name),
 							   eans_joined,product_id,0
 							   FROM track_product tp
 							   LEFT JOIN  supplier s ON s.supplier_id=tp.supplier_id 
 							   WHERE extr_quality!=\'icecat\' and track_list_id='.$hin{'track_list_id'});											   
-				&do_statement('ALTER TABLE tmp_track_product_to_mapping enable keys');
-				my $has_ean=&do_query('SELECT ean_cols FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
-				my $client_id=&do_query('SELECT client_id FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
+				do_statement('ALTER TABLE tmp_track_product_to_mapping enable keys');
+				my $has_ean=do_query('SELECT ean_cols FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
+				my $client_id=do_query('SELECT client_id FROM track_list WHERE track_list_id='.$hin{'track_list_id'})->[0][0];
 				if($has_ean){
-					&coverage_by_table('tmp_track_product_to_mapping',{'ean'=>'ean'});		
+					coverage_by_table('tmp_track_product_to_mapping',{'ean'=>'ean'});		
 				}else{
-					&coverage_by_table('tmp_track_product_to_mapping',{'ean'=>''});
+					coverage_by_table('tmp_track_product_to_mapping',{'ean'=>''});
 				}
 				if($client_id){
-					&do_statement("UPDATE tmp_track_product_to_mapping tp 							    
+					do_statement("UPDATE tmp_track_product_to_mapping tp 							    
 							   JOIN track_list_supplier_map sm ON sm.client_id=$client_id AND tp.vendor=sm.symbol
 							   SET tp.supplier_id=sm.supplier_id
 							   WHERE sm.supplier_id!=0 and tp.supplier_id=0");
 				}							   
-				&do_statement("UPDATE track_product tp JOIN tmp_track_product_to_mapping ttm ON ttm.id=tp.track_product_id
+				do_statement("UPDATE track_product tp JOIN tmp_track_product_to_mapping ttm ON ttm.id=tp.track_product_id
 							   SET tp.product_id=ttm.product_id,
 							       tp.rule_prod_id=   IF(ttm.by_ean_prod_id='' AND ttm.map_prod_id!=tp.map_prod_id AND tp.feed_prod_id!='' AND tp.rule_status!=1,ttm.map_prod_id,tp.rule_prod_id),
 							       tp.remarks=	   	  IF(ttm.by_ean_prod_id='' AND ttm.map_prod_id!=tp.map_prod_id AND tp.feed_prod_id!='',CONCAT('correct code is ',ttm.map_prod_id),tp.remarks),
@@ -1924,15 +1924,15 @@ sub proc_prepare_params_track_products{
 							       tp.described_date=IF(ttm.quality='ICECAT' and tp.product_id!=ttm.product_id,now(),tp.described_date)
 							  WHERE tp.extr_quality!='icecat'");
 			synch_track_products($hin{'track_list_id'});
-			&do_statement('UPDATE track_list SET start_update=0 WHERE track_list_id='.$hin{'track_list_id'});
+			do_statement('UPDATE track_list SET start_update=0 WHERE track_list_id='.$hin{'track_list_id'});
 		  }#if(!$start_update){#list is not processed right now
 		my $updated_from;
 		if($hin{'ajax_delta'}){
-			$updated_from=&do_query('select from_unixtime(unix_timestamp() -'.($hin{'ajax_delta'}+1).')')->[0][0];
+			$updated_from=do_query('select from_unixtime(unix_timestamp() -'.($hin{'ajax_delta'}+1).')')->[0][0];
 		}else{
-			$updated_from=&do_query('select from_unixtime(unix_timestamp())')->[0][0];
+			$updated_from=do_query('select from_unixtime(unix_timestamp())')->[0][0];
 		}
-#		&lp('------------------!!!!!!!!!!!!!!!!!!!!!!!!'.$updated_from);
+#		lp('------------------!!!!!!!!!!!!!!!!!!!!!!!!'.$updated_from);
 		# this needed to use the same atom track_product.ail but with las updated products
 		$hin{'search_atom'}='track_products';						
 		$hin{'search_updated'}=$updated_from;
@@ -1940,12 +1940,12 @@ sub proc_prepare_params_track_products{
 				
 	}	
 	
-	&prepare_params_unifiedly($atom,$call);
+	prepare_params_unifiedly($atom,$call);
 	
 }
 sub synch_track_products{
 	my ($track_list_id)=@_;		
-			&do_statement("UPDATE track_product tp 
+			do_statement("UPDATE track_product tp 
 		JOIN track_list tl ON tl.track_list_id=tp.track_list_id						  
 		JOIN product p ON p.product_id=tp.product_id
 		JOIN users u ON p.user_id=u.user_id
@@ -1964,17 +1964,17 @@ sub synch_track_products{
 		tp.supplier_id     = IF(tp.supplier_id=0,p.supplier_id,tp.supplier_id),
 		track_product_status = (IF(tp.is_parked=1,'parked',IF(gm.measure='ICECAT','described','not_described')))
 		WHERE tp.track_list_id=".$track_list_id);
-		&do_statement("UPDATE track_product SET track_product_status='parked' where product_id=0 and is_parked=1 and track_list_id=$track_list_id");
-		&do_statement("UPDATE track_product SET track_product_status='not_described' where product_id=0 and is_parked=0 and track_list_id=$track_list_id");				
+		do_statement("UPDATE track_product SET track_product_status='parked' where product_id=0 and is_parked=1 and track_list_id=$track_list_id");
+		do_statement("UPDATE track_product SET track_product_status='not_described' where product_id=0 and is_parked=0 and track_list_id=$track_list_id");				
 }
 
 sub proc_prepare_params_track_products_all{
 	my ($atom,$call) = @_;	
-	my $entusted_editor=&do_query('SELECT 1 FROM track_list_entrusted_users WHERE user_id='.$USER->{'user_id'})->[0][0];
+	my $entusted_editor=do_query('SELECT 1 FROM track_list_entrusted_users WHERE user_id='.$USER->{'user_id'})->[0][0];
 	if(!$entusted_editor){	
 	 	hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor'] );
 	}
- 	&prepare_params_unifiedly($atom,$call);
+ 	prepare_params_unifiedly($atom,$call);
  	if($hin{'ajaxed'}){
  		$call->{'call_params'}->{'filter_key'}.='track_product_id='.$hin{'track_product_id'}.';';
 		$call->{'call_params'}->{'joined_keys'}.='track_product_id='.$hin{'track_product_id'}.';';
@@ -1991,19 +1991,19 @@ sub proc_prepare_params_track_list_settings{
  		hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor'] );
  		return '';
  	}
- 	&prepare_params_unifiedly($atom,$call);
+ 	prepare_params_unifiedly($atom,$call);
 } 
 
 sub proc_prepare_params_product_restrictions {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     return;
 }
 
 sub proc_prepare_params_product_restrictions_details {
     my ($atom,$call) = @_;
-    &prepare_params_unifiedly($atom,$call);
+    prepare_params_unifiedly($atom,$call);
     hide_atom_for_all_groups_except($atom, [ 'superuser' , 'supereditor' ] );
     return;
 }

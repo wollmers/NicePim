@@ -22,7 +22,7 @@ use Data::Dumper;
 # $iatoms->{'atom_name'} - inner atom data ialib
 # $atoms->{'atom_name'} - atom data, taken form alib
 # $atoms->{'class_name'}->{'atom_name'}->{'fieldname'} = $fieldvalue - from atom defs. 
-# $atoms->{'class_name'}->{'atom_name'}->{'proc'} - atom procedure. By default - &process_atom_default
+# $atoms->{'class_name'}->{'atom_name'}->{'proc'} - atom procedure. By default - process_atom_default
 # $atoms->{'class_name'}->{'atom_name'}->{'call_params'} - a hash for atom params. 
 #    Produced by &{$iatoms->{'atom_name'}->{'create_params'}}
 #
@@ -34,17 +34,18 @@ BEGIN {
   use Exporter ();
   use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
   $VERSION = 1.00; @ISA = qw(Exporter); %EXPORT_TAGS = (); @EXPORT_OK = ();
-  @EXPORT = qw( &init_atom_engine
-							  &done_atom_engine
-								&launch_atom_engine
-							);
+  @EXPORT = qw( 
+    &init_atom_engine
+	&done_atom_engine
+	&launch_atom_engine
+  );
   $glob_unauthorized	= 0;
 }
 
 
 sub init_atom_engine {
 
-#&log_printf("HIN = ".Dumper(%hin));
+#log_printf("HIN = ".Dumper(%hin));
 
 	$atoms = undef;
 	$iatoms = undef;
@@ -71,7 +72,7 @@ sub init_atom_engine {
 	# set default bo raw hostname
 	$hin{'icecat_bo_hostname_raw'} = $atomcfg{'bo_host_raw'};
 
-	&load_atomer_params();
+	load_atomer_params();
 
  # refreshing permanent params list
  if($hl{'permanent_list'}){
@@ -94,17 +95,17 @@ sub init_atom_engine {
  } else {
   $hl{'hl_permanent_list'} = {};
  }
- &push_dmesg(3, "LOADING USER DATA");
- $USER = &get_rows('users',"user_id = $hl{'user_id'}")->[0];
- &push_dmesg(3, "LOADING USER DATA DONE USER_ID : $USER->{'user_id'}");
- if(!&verify_address($USER->{'access_restriction'}, $USER->{'access_restriction_ip'}, $ENV{'REMOTE_ADDR'})){
-   &log_printf(" IP VALIDATION FAILED for user_id $USER->{'user_id'} and ip $ENV{'REMOTE_ADDR'}");
+ push_dmesg(3, "LOADING USER DATA");
+ $USER = get_rows('users',"user_id = $hl{'user_id'}")->[0];
+ push_dmesg(3, "LOADING USER DATA DONE USER_ID : $USER->{'user_id'}");
+ if(!verify_address($USER->{'access_restriction'}, $USER->{'access_restriction_ip'}, $ENV{'REMOTE_ADDR'})){
+   log_printf(" IP VALIDATION FAILED for user_id $USER->{'user_id'} and ip $ENV{'REMOTE_ADDR'}");
 	 $hl{'ip_validation_failed'} = 1;
    undef $USER;
-   &html_start();
+   html_start();
    $hout{'error'} = "Access denied, please check your access permissions and the IP address you use (http://www.whatismyip.com/). And contact your account manager to fix the issue if persistent.";
    $jump_to_location = $atomcfg{bo_host}."index.cgi?sessid=$sessid";
-	 &html_finish;
+	 html_finish;
 	 exit;
  }
 }
@@ -122,13 +123,13 @@ sub launch_atom_engine {
 	}
 
 	if ($hin{'precommand'}) {
-#		 &log_printf("executing");	   
-		$result = &execute_command("pre");
+#		 log_printf("executing");	   
+		$result = execute_command("pre");
 		$command_executed = 1;
 	}
 	
 	if($hin{'atom_name'}!~/,/){
-		($result,$command_executed) = &atom_submit($hin{'atom_name'},$hin{'atom_class'});			
+		($result,$command_executed) = atom_submit($hin{'atom_name'},$hin{'atom_class'});			
 	}else{
 		my @submit_atoms=split(',',$hin{'atom_name'});
 		my @submit_clases=split(',',$hin{'atom_class'});
@@ -137,17 +138,17 @@ sub launch_atom_engine {
 		$result=1;
 		$command_executed=1;
 		for(my $i=0;$i<scalar(@submit_atoms);$i++){			
-			($curr_result,$curr_command_executed)=&atom_submit($submit_atoms[$i],$submit_clases[$i]);
+			($curr_result,$curr_command_executed)=atom_submit($submit_atoms[$i],$submit_clases[$i]);
 			$result=0 if !($curr_result+0);
 			$command_executed=0 if !($curr_command_executed+0);			
 		};
 	}
 		
-#	 &log_printf($result);
-#	 &log_printf("\nafter submit id = $hin{'product_description_id'}");
+#	 log_printf($result);
+#	 log_printf("\nafter submit id = $hin{'product_description_id'}");
 	if ($result && $hin{'command'}) {
-#		 &log_printf("executing");
-		$result = &execute_command("");
+#		 log_printf("executing");
+		$result = execute_command("");
 		$command_executed = 1;
 	}
 
@@ -161,18 +162,18 @@ sub launch_atom_engine {
 	
 	$tmpl =~ s/\///gs;
 
-	my $tmp = &load_template($tmpl,$hl{'langid'});
+	my $tmp = load_template($tmpl,$hl{'langid'});
 	$tmp =~ s/\n/\x1/gms;
-	my $atom_calls = &get_atom_calls($tmp);
+	my $atom_calls = get_atom_calls($tmp);
 	my $ikey;
 
 	foreach my $call (@$atom_calls) {
-		#&log_printf('---------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'.$call->{'name'});
-		my $result = &process_atom($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
+		#log_printf('---------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'.$call->{'name'});
+		my $result = process_atom($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
 	  $tmp =~ s/\{$call->{'origin'}\}/$result/s;
 	}
 	
-	my $errors_text = &get_errors_text();
+	my $errors_text = get_errors_text();
 	unless ($tmp =~ s/<body([^>]*)>/<body$1>$errors_text/s) {
 	  $tmp .= $errors_text;
 	}
@@ -181,15 +182,15 @@ sub launch_atom_engine {
 	$tmp =~ s/\;{2,}/\;/gs;
 	$tmp =~ s/\\([\{\}\;])/$1/gs;
 	
-	&fill_repl_hash($replaces);
-	$tmp = &repl_ph($tmp, $replaces);
+	fill_repl_hash($replaces);
+	$tmp = repl_ph($tmp, $replaces);
 	
 	my $iterations = 10_000;
 
 	while ($tmp =~ /(%%[^\n\r]+?%%)/s) {
 	  my $name = $1;
 	  $tmp =~ s/$1//gs;
-	  &push_dmesg(3,"Unparsed $name is removed");
+	  push_dmesg(3,"Unparsed $name is removed");
 
 		$iterations--;
 		last if $iterations < 0;
@@ -198,11 +199,11 @@ sub launch_atom_engine {
 	# restoring percents
 	$tmp =~ s/\\%/%/gs;
 
-	&print_html($tmp);
+	print_html($tmp);
 }
 
 sub done_atom_engine {
-	&pass_params();
+	pass_params();
 }
 
 sub fill_repl_hash {
@@ -212,16 +213,16 @@ sub fill_repl_hash {
 
 	# McAfee report bug fixed (11.03.2010)
 	foreach (keys %$replaces) {
-		$replaces->{$_} = &str_htmlize($replaces->{$_}) unless ($hin{$_.'_ignore_unifiedly_processing'});
+		$replaces->{$_} = str_htmlize($replaces->{$_}) unless ($hin{$_.'_ignore_unifiedly_processing'});
 	}
 	
-	$replaces->{'base_url'} 				= &get_base_URL."?sessid=".&encode_sessid($sessid);
+	$replaces->{'base_url'} 				= get_base_URL."?sessid=".encode_sessid($sessid);
 
 	$replaces->{'secure_action_url'} 	= $atomcfg{'secure_action_url'};
 	$replaces->{'action_url'} 					= $atomcfg{'action_url'};
 	
 	$replaces->{'langid'}			= $hl{'langid'};
-	$replaces->{'sessid'}			= &encode_sessid($sessid);
+	$replaces->{'sessid'}			= encode_sessid($sessid);
 	
 	return $replaces;
 }
@@ -264,23 +265,23 @@ foreach my $auth(keys %$AUTH_SUBMIT){
 sub get_atom_calls
 {
  my ($al) = @_;
- my $atoms_text = &get_atoms_text($al);
+ my $atoms_text = get_atoms_text($al);
  my $atom_calls = [];
  
  foreach my $text(@$atoms_text){
-  my $new_atom = &get_atom_structure($text);
+  my $new_atom = get_atom_structure($text);
 
   unless(defined $new_atom->{'class'}){
 	 $new_atom->{'class'} = 'default';
 	}
-	&process_atom_libs($new_atom); # loading libs if needed
+	process_atom_libs($new_atom); # loading libs if needed
 	
 	unless(defined $atoms->{$new_atom->{'class'}}){
-	  &push_error('Don\'t known the class named \''.$new_atom->{'class'}.'\'');
+	  push_error('Don\'t known the class named \''.$new_atom->{'class'}.'\'');
 	} 
 	
 	unless(defined $atoms->{$new_atom->{'class'}}->{$new_atom->{'name'}}){
-	  &push_error('Undefined atom named \''.$new_atom->{'name'}.'\' class \''.$new_atom->{'class'}.'\'');
+	  push_error('Undefined atom named \''.$new_atom->{'name'}.'\' class \''.$new_atom->{'class'}.'\'');
 	} else {
 			$new_atom->{'origin'}	= $text;
    		push @$atom_calls,$new_atom;
@@ -297,7 +298,7 @@ sub process_atom
  my $unauthorized_submit = 0;
  my $authorized_add = 0;
  
-			&push_dmesg(1,"ATOM '$atom->{'name'}'");        
+			push_dmesg(1,"ATOM '$atom->{'name'}'");        
 											
  if($iatoms->{$call->{'name'}}->{'custom_processing'} eq 'yes'){
 
@@ -306,9 +307,9 @@ sub process_atom
 
 # verifying hin data 
 
-		$authorized_add 			= &verify_authorized_add($call);		
-		$unauthorized_submit 	= &verify_unauthorized_submit($call);
-		$unauthorized					= &verify_unauthorized($call,$authorized_add);
+		$authorized_add 			= verify_authorized_add($call);		
+		$unauthorized_submit 	= verify_unauthorized_submit($call);
+		$unauthorized					= verify_unauthorized($call,$authorized_add);
 		$call->{'call_params'}->{'authorized_all'} = $authorized_add;
 		$call->{'call_params'}->{'unauthorized_submit'} = $unauthorized_submit;
 		$call->{'call_params'}->{'unauthorized'} = $unauthorized;
@@ -316,7 +317,7 @@ sub process_atom
 		if(!$unauthorized and $iatoms->{$call->{'name'}}->{'authorize_by_field_only'}){
 			$hs{'authorize_by_field_only'}=$iatoms->{$call->{'name'}}->{'authorize_by_field_only'};
 		}
-		&log_printf("ATOM PROCESS: UNAUTH_SUB AUTH_ADD UNAUTH are $unauthorized_submit, $authorized_add, $unauthorized");
+		log_printf("ATOM PROCESS: UNAUTH_SUB AUTH_ADD UNAUTH are $unauthorized_submit, $authorized_add, $unauthorized");
 
 		if (defined $call->{'body'}) {
 			$atom->{'processed'} = $call->{'body'};
@@ -327,7 +328,7 @@ sub process_atom
 		
 # Filling $call->{'call_params'} hash
 
-      &prepare_atom_params($atom,$call);
+      prepare_atom_params($atom,$call);
 			
 			if(!$iatoms->{$call->{'name'}}->{'_resource_list'}){
 			 $iatoms->{$call->{'name'}}->{'_resource_list'} = [];
@@ -346,27 +347,27 @@ sub process_atom
 			my %auth;
 			my %auth_submit;
 			
-      &build_auth_hashes(\%auth, \%auth_submit, $call);
+      build_auth_hashes(\%auth, \%auth_submit, $call);
 
 # Now executing and mapping resource results
 
 # first selectors
 			foreach my $key(@sel_list){
-			  &process_atom_selector($atom,$call,$key);
+			  process_atom_selector($atom,$call,$key);
 			}
 # now parsing		
-			$atom->{'processed'} = &repl_ph($atom->{'processed'}, $call->{'selectors'});
+			$atom->{'processed'} = repl_ph($atom->{'processed'}, $call->{'selectors'});
      			
 # assuming all keys are present 
       my $all_keys_present = 0;
 			
 # processing useful tmp tables (26.11.2006)
 #		foreach my $key(@tmpres_list) {
-#			&push_dmesg(1,"processing tmp resource '$key'");
+#			push_dmesg(1,"processing tmp resource '$key'");
 #			
 #			if ($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key}) {
 #				$call->{'call_params'}->{'deep_search'} = $hin{'deep_search'} if ($hin{'deep_search'});
-#				$iatoms->{$call->{'name'}}->{'_tmpresource_'.$key} = &repl_ph($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key},$call->{'call_params'});
+#				$iatoms->{$call->{'name'}}->{'_tmpresource_'.$key} = repl_ph($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key},$call->{'call_params'});
 #				if ((!$call->{'call_params'}->{'search_product_name'}) && ($call->{'name'} eq 'products')) {
 #					## other
 #					my $res_key = $key;
@@ -375,8 +376,8 @@ sub process_atom
 #					$iatoms->{$call->{'name'}}->{'_resource_'.$res_key} =~ s/product\.product_id=tps\.product_id and //;
 #				}
 #				else {
-#					&do_statement($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key.'_create'}) if ($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key.'_create'});
-#					&do_statement($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key});
+#					do_statement($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key.'_create'}) if ($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key.'_create'});
+#					do_statement($iatoms->{$call->{'name'}}->{'_tmpresource_'.$key});
 #				}
 #			}
 #		}
@@ -390,7 +391,7 @@ sub process_atom
 		if($hin{'clipboard_object_type'}){
 			foreach my $item ('first', 'prev', 'next', 'last') {
 				if ($hin{$item}) {
-					$hin{$hin{'atom_name'}.'_start_row'} = &str_htmlize($hin{'start_row_'.$item}); # DV CHANGES...
+					$hin{$hin{'atom_name'}.'_start_row'} = str_htmlize($hin{'start_row_'.$item}); # DV CHANGES...
 				}
 			}
 		}
@@ -398,27 +399,27 @@ sub process_atom
 # then resources	
 			foreach my $key(@res_list) {
       
-			# debug&check
-			&push_dmesg(1,"processing resource '$key'");        
+			# debugcheck
+			push_dmesg(1,"processing resource '$key'");        
 
-			  my $this_keys_present = &execute_atom_resource($atom,$call,$key);
+			  my $this_keys_present = execute_atom_resource($atom,$call,$key);
 #				if(!$this_keys_present){ $all_keys_present = 0 }
 				if($this_keys_present){ $all_keys_present = 1 }
 				
 # mapping
 			   my @mapping = split(/,/,$iatoms->{$call->{'name'}}->{'_mapping_'.$key});
  				 if($#mapping == -1){
-				  &push_error("Mapping item for resource $key is invalid");
+				  push_error("Mapping item for resource $key is invalid");
 				 }
 			   if(defined $call->{'_result_resource_'.$key}->[0] && defined $call->{'_result_resource_'.$key}->[0][0] ) {
- 					&push_dmesg(2,"resource '$key' had not empty result");
+ 					push_dmesg(2,"resource '$key' had not empty result");
 					
 				  my $rows 		= $#{$call->{'_result_resource_'.$key}};
 	   		  my $columns	= $#{$call->{'_result_resource_'.$key}->[0]};
 					if ($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_type'} eq 'multi') {
 
 					unless($atoms->{$call->{'class'}}->{$call->{'name'}}->{$key.'_row'}){
-						 &log_printf("\$atoms->{$call->{'class'}}->{$call->{'name'}}->{$key".'_row} is empty');
+						 log_printf("\$atoms->{$call->{'class'}}->{$call->{'name'}}->{$key".'_row} is empty');
 					}
 
 					my $row;
@@ -444,33 +445,33 @@ sub process_atom
 
 						#$call->{'_resource_'.$key.'_count'} = "SELECT FOUND_ROWS()";
 
-						if (&repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_nav_bar'}, $call->{'call_params'})) {
-							$call->{'_resource_'.$key.'_count'} = &repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_nav_bar'}, $call->{'call_params'});
+						if (repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_nav_bar'}, $call->{'call_params'})) {
+							$call->{'_resource_'.$key.'_count'} = repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_nav_bar'}, $call->{'call_params'});
 						}
 						$call->{'_resource_'.$key.'_count'}	=~s/order by.*\Z//gsi;
    					    if($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_disable_sql_calc_found_rows'} eq '1' and exists($iatoms->{$call->{'name'}}->{'resource_'.$key.'_disable_sql_calc_found_rows_cache'})){
 							my $search_md5;
 							if($hin{'search_atom'}){# check if it is a search. if it is so, get parametrs md5
 								if($iatoms->{'search_params_key'}){
-									$search_md5=&md5_hex($iatoms->{'search_params_key'});
+									$search_md5=md5_hex($iatoms->{'search_params_key'});
 								}else{
-									&lp('=========ERROR!!! please populate $iatoms->{search_params_key} in prepare params of search atom ');									
+									lp('=========ERROR!!! please populate $iatoms->{search_params_key} in prepare params of search atom ');									
 								}							
 							} 
 							$search_md5.='_'.$call->{'name'}.'_'.$key;
 						  	my $cache_time=$iatoms->{$call->{'name'}}->{'resource_'.$key.'_disable_sql_calc_found_rows_cache'};
 						  	if($cache_time=~/[\d\s\.]+/){
 						  		$cache_time=~s/[\s\t]+//g;
-						  		my $cached_count=&do_query('SELECT select_count FROM cache_atom_resource_count 
-						  									WHERE search_param_md5 = '.&str_sqlize($search_md5)." and 			 
+						  		my $cached_count=do_query('SELECT select_count FROM cache_atom_resource_count 
+						  									WHERE search_param_md5 = '.str_sqlize($search_md5)." and 			 
 						  									unix_timestamp(updated)>(unix_timestamp()-($cache_time*60*60))")->[0][0];
 								if(!$cached_count){
-									$call->{'call_params'}->{'found'} = &do_query($call->{'_resource_'.$key.'_count'})->[0][0];
+									$call->{'call_params'}->{'found'} = do_query($call->{'_resource_'.$key.'_count'})->[0][0];
 									
-									&do_statement('DELETE FROM cache_atom_resource_count 
-												WHERE search_param_md5 = '.&str_sqlize($search_md5));
-									&do_statement('INSERT INTO cache_atom_resource_count (search_param_md5,select_count) 
-												VALUES('.&str_sqlize($search_md5).','.$call->{'call_params'}->{'found'}.')');
+									do_statement('DELETE FROM cache_atom_resource_count 
+												WHERE search_param_md5 = '.str_sqlize($search_md5));
+									do_statement('INSERT INTO cache_atom_resource_count (search_param_md5,select_count) 
+												VALUES('.str_sqlize($search_md5).','.$call->{'call_params'}->{'found'}.')');
 								}else{
 									$call->{'call_params'}->{'found'}=$cached_count;
 								}
@@ -478,7 +479,7 @@ sub process_atom
 						  		push (@user_errors,"Atom $call->{'name'} has wrong value in cache_sql_calc_found_rows parametr");
 						  	}
 					    }else{
-					  	 	$call->{'call_params'}->{'found'} = &do_query($call->{'_resource_'.$key.'_count'})->[0][0];	
+					  	 	$call->{'call_params'}->{'found'} = do_query($call->{'_resource_'.$key.'_count'})->[0][0];	
 					    }
 
 						my $pages = int($call->{'call_params'}->{'found'}/$atom->{'rows_number'});
@@ -526,7 +527,7 @@ sub process_atom
 
 							 if (($next_case < $number_of_cases) || ($i+$step > $nbr_pages)) { # give 1st 10 cases & the last one
 								  
-								 $call->{'call_params'}->{'page_links'} .=  &repl_ph(
+								 $call->{'call_params'}->{'page_links'} .=  repl_ph(
 									 $fmt,
 									 {
 										 'start_row' => $atom->{'rows_number'} * $i,
@@ -569,7 +570,7 @@ sub process_atom
 
 							 if (($next_case < $number_of_cases) || ($i-$step <= 0)) { # give 1st 10 cases & the first one
 
-								 $call->{'call_params'}->{'page_links'} =  &repl_ph(
+								 $call->{'call_params'}->{'page_links'} =  repl_ph(
 									 $fmt,
 									 {
 										 'start_row' => $atom->{'rows_number'} * $i,
@@ -579,7 +580,7 @@ sub process_atom
 							 }
 						 }
 
-						$atom->{'processed'} = &repl_ph($atom->{'processed'},
+						$atom->{'processed'} = repl_ph($atom->{'processed'},
 																						{
 																							'page_links' => $call->{'call_params'}->{'page_links'}
 																						});
@@ -634,40 +635,40 @@ sub process_atom
 							}
 						}
 						
-						$tmp_hash = &format_hash($tmp_hash,$call,$key,$call_row);
+						$tmp_hash = format_hash($tmp_hash,$call,$key,$call_row);
 						
 						$tmp_hash->{'no'} =	$row + $start_row + 1 ;
 						$tmp_hash->{'found'} = $call->{'call_params'}->{'found'};
 						
 						# refreshing the flag
-						$authorized_add = &verify_authorized_add($call, $tmp_hash);
+						$authorized_add = verify_authorized_add($call, $tmp_hash);
 						
 						# authorizing values
 						
-						&authorize_values(\%auth, \%auth_submit, $tmp_hash);
+						authorize_values(\%auth, \%auth_submit, $tmp_hash);
 						
 						# now we are trying to guess which action is relevant
 						# first, either we are authorized to do any update
 						
 						my $skeys_present = 1;
-#						&log_printf(" \$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'} = ".$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'});
+#						log_printf(" \$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'} = ".$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'});
 						
 						if(!$tmp_hash->{$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'}} &&
 						   !$hin{$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'}}){
 							$skeys_present = 0; 
 						}	 
-						&push_dmesg(3, "Secondary key $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'} is present <===> $skeys_present ");
+						push_dmesg(3, "Secondary key $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_skey'} is present <===> $skeys_present ");
 
 				    if (!$unauthorized_submit) {
 							if ($skeys_present) {
 								# got all keys - assuming update & delete actions are relevant
 								if ($atom->{'update_action'}) { 
 									$tmp_hash->{'update_action'} = $atom->{'update_action'};
-									&push_dmesg(3,'Enabling update');
+									push_dmesg(3,'Enabling update');
 								}
 								if ($atom->{'delete_action'}) { 
 									$tmp_hash->{'delete_action'} = $atom->{'delete_action'};
-									&push_dmesg(3,'Enabling delete');
+									push_dmesg(3,'Enabling delete');
 								}
 								$tmp_hash->{'insert_action'} = '';			
 							}
@@ -675,9 +676,9 @@ sub process_atom
 								# we assuming that adding is relevant
 								if ($atom->{'insert_action'} && $authorized_add ) { 
 									$tmp_hash->{'insert_action'} = $atom->{'insert_action'};
-									&push_dmesg(3,'Enabling insert');
+									push_dmesg(3,'Enabling insert');
 								}
-								&push_dmesg(3,'Clearing enabled update & delete');
+								push_dmesg(3,'Clearing enabled update & delete');
 								$tmp_hash->{'delete_action'} = '';
 								$tmp_hash->{'update_action'} = '';
 							}
@@ -712,12 +713,12 @@ sub process_atom
 						}
 
 						if ($atoms->{$call->{'class'}}->{$call->{'name'}}->{$key.'_header'}) { # create header for multi
-							$new_row_header = &repl_ph(&repl_ph($atoms->{$call->{'class'}}->{$call->{'name'}}->{$key.'_header'},$tmp_hash),$tmp_hash);
-							$rows_header .= &format_row($new_row_header,$call,$call_row,$key,$row);
+							$new_row_header = repl_ph(repl_ph($atoms->{$call->{'class'}}->{$call->{'name'}}->{$key.'_header'},$tmp_hash),$tmp_hash);
+							$rows_header .= format_row($new_row_header,$call,$call_row,$key,$row);
 						}
 						
-						$new_row = &repl_ph(&repl_ph($new_row_pattern,$tmp_hash),$tmp_hash);
-						$rows_text .= &format_row($new_row,$call,$call_row,$key,$row);
+						$new_row = repl_ph(repl_ph($new_row_pattern,$tmp_hash),$tmp_hash);
+						$rows_text .= format_row($new_row,$call,$call_row,$key,$row);
 						
 						# add some additional code to output
 						if ( # product_features customization
@@ -731,18 +732,18 @@ sub process_atom
 						} # end of
 						
 					}
-					&push_dmesg(4,"resource '$key' result:\n $rows_text");
+					push_dmesg(4,"resource '$key' result:\n $rows_text");
 
 					# rows_header process customizaton - via external pattern!!!
 					if ($rows_header) {
-						&process_atom_ilib('rows_header');
-						&process_atom_lib('rows_header');
+						process_atom_ilib('rows_header');
+						process_atom_lib('rows_header');
 						
 						$call->{'call_params'}->{$key.'_rows'} = ($begin_script->{'headers'}?"":$atoms->{'default'}->{'rows_header'}->{'begin_script'}).
-							&repl_ph($atoms->{'default'}->{'rows_header'}->{'body'},
+							repl_ph($atoms->{'default'}->{'rows_header'}->{'body'},
 											 { 'header' => $rows_header,
 												 'rows' => $rows_text,
-												 'expand' => &repl_ph($atoms->{'default'}->{'rows_header'}->{'expand'},{ 'suffix' => $key })});
+												 'expand' => repl_ph($atoms->{'default'}->{'rows_header'}->{'expand'},{ 'suffix' => $key })});
 						$begin_script->{'headers'} = 1;
 					}
 					else {
@@ -755,7 +756,7 @@ sub process_atom
 					 my $tmp_hash = {};
 				   for($i = 0; $i < $columns + 1; $i++){
 							$tmp_hash->{$mapping[$i]} = $call->{'_result_resource_'.$key}->[0][$i];
-							&push_dmesg(4," \$tmp_hash->{$mapping[$i]} = $call->{'_result_resource_'.$key}->[0][$i];" );
+							push_dmesg(4," \$tmp_hash->{$mapping[$i]} = $call->{'_result_resource_'.$key}->[0][$i];" );
 					 }
 
 					 # now formatting 
@@ -778,13 +779,13 @@ sub process_atom
 							 }
 						}
 
-					 $tmp_hash  = &format_hash($tmp_hash,$call,$key,$call->{'_result_resource_'.$key}->[0]);
+					 $tmp_hash  = format_hash($tmp_hash,$call,$key,$call->{'_result_resource_'.$key}->[0]);
 
 
 # authorizing values
 
-						&authorize_values(\%auth, \%auth_submit, $tmp_hash);
-						$authorized_add 			= &verify_authorized_add($call, $tmp_hash);		
+						authorize_values(\%auth, \%auth_submit, $tmp_hash);
+						$authorized_add 			= verify_authorized_add($call, $tmp_hash);		
 
 					 
 					 foreach my $item (keys %$tmp_hash){
@@ -792,13 +793,13 @@ sub process_atom
 					 }
 
 					   if($atom->{'unified_fields'} eq 'yes'){ 
-							 $call->{'call_params'}->{$key.'_fields'} = &unified_processing($atom,$call,$key);
+							 $call->{'call_params'}->{$key.'_fields'} = unified_processing($atom,$call,$key);
 						 }
 				 }
 			 } else {
 # if empty query it
 # should have defined replacement 
-#&log_printf()
+#log_printf()
 								if($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_type'} eq 'multi'){
 									$call->{'call_params'}->{'found'} = '0';
 									$call->{'call_params'}->{$key.'_rows'} = $atom->{'no_'.$key.'_rows'};
@@ -810,13 +811,13 @@ sub process_atom
 										}
 									}
 									if($atom->{'unified_fields'} eq 'yes'){ 
-										$call->{'call_params'}->{$key.'_fields'} = &unified_processing($atom,$call,$key);
+										$call->{'call_params'}->{$key.'_fields'} = unified_processing($atom,$call,$key);
 									}
 								my $hash = {};
 								foreach my $field(@mapping){
 								 $hash->{$field} = $call->{'call_params'}->{$field};
 								}	
-								$hash = &format_hash($hash,$call,$key);
+								$hash = format_hash($hash,$call,$key);
 								foreach my $field(@mapping){
 								 $call->{'call_params'}->{$field} = $hash->{$field};
 								}	
@@ -841,8 +842,8 @@ sub process_atom
 	  my $ignore_keys = 0;
 		if($iatoms->{$call->{'name'}}->{'_insert_ignore_keys'} eq 'yes'){ $ignore_keys = 1; }
 
-		&push_dmesg(3,"All keys present <==> ".$all_keys_present);
-		&log_printf($unauthorized_submit);
+		push_dmesg(3,"All keys present <==> ".$all_keys_present);
+		log_printf($unauthorized_submit);
 
    if(!$unauthorized_submit){
 		 if($all_keys_present || $ignore_keys){
@@ -868,15 +869,15 @@ sub process_atom
 	}
      $call->{'call_params'}->{'atom_name'} = $call->{'name'};
 
-		 $atom->{'processed'} = &repl_ph($atom->{'processed'}, $call->{'call_params'});
+		 $atom->{'processed'} = repl_ph($atom->{'processed'}, $call->{'call_params'});
 
 #		log_printf(Dumper($atom->{'processed'}));
 #		log_printf(Dumper($call->{'call_params'}));
 
 		# unauthorized submit issue by DV: 1) replace all edits with texts, replace all buttons & submits with empty (3.12.2009)
 
-#		&log_printf($unauthorized_submit);
-#		&log_printf("Guest account cleaning for ".$atom->{'name'});
+#		log_printf($unauthorized_submit);
+#		log_printf("Guest account cleaning for ".$atom->{'name'});
 
 	# we need to remove all edits
 	# if (($unauthorized_submit) && (lc($USER->{'user_group'}) eq 'guest') && ($atom->{'name'} !~ /_search/)) { 
@@ -994,7 +995,7 @@ sub prepare_atom_params {
 		use strict;
 	}
 	else {
-		&prepare_params_unifiedly($atom,$call);
+		prepare_params_unifiedly($atom,$call);
 	}
 	
 	unless($atom->{'rows_number'}) {
@@ -1038,27 +1039,27 @@ sub process_atom_selector
 {
  my ($atom,$call,$key) = @_;
 
- 		$call->{'_selector_'.$key} = &repl_ph($iatoms->{$call->{'name'}}->{'_selector_'.$key},$call->{'call_params'});
+ 		$call->{'_selector_'.$key} = repl_ph($iatoms->{$call->{'name'}}->{'_selector_'.$key},$call->{'call_params'});
 				
 		if(defined $iatoms->{$call->{'name'}}->{'_selector_'.$key.'_key'}){
 	  # we have a key
 			if(defined $call->{'call_params'}->{$iatoms->{$call->{'name'}}->{'_selector_'.$key.'_key'}}){
 			# do query if we have the key
-					 $call->{'_result_selector_'.$key} = &do_query($call->{'_selector_'.$key});
+					 $call->{'_result_selector_'.$key} = do_query($call->{'_selector_'.$key});
 			}
 		} else {
 			 # do it unconditionally
-			 #  &log_printf("uncond");
-			 $call->{'_result_selector_'.$key} = &do_query($call->{'_selector_'.$key});
+			 #  log_printf("uncond");
+			 $call->{'_result_selector_'.$key} = do_query($call->{'_selector_'.$key});
 		}
 	
 	if(defined $call->{'_result_selector_'.$key}->[0] &&
 	   defined $call->{'_result_selector_'.$key}->[0][0]&&
 		 $call->{'_result_selector_'.$key}->[0][0]){
-#		 &log_printf("defined");
+#		 log_printf("defined");
      $call->{'selectors'}->{'selector_'.$key} = $atom->{'selector_'.$key.'_def'};
 	} else {
-#		 &log_printf("undefined");
+#		 log_printf("undefined");
      $call->{'selectors'}->{'selector_'.$key} = $atom->{'selector_'.$key.'_undef'};
 	} 
 }
@@ -1069,9 +1070,9 @@ sub execute_atom_resource
  my $key_present = 0; # means keys is not defined or empty
 
  unless($iatoms->{$call->{'name'}}->{'_resource_'.$key}){
-  &log_printf("\$iatoms->{$call->{'name'}}->{'_resource_$key'} is empty!");
+  log_printf("\$iatoms->{$call->{'name'}}->{'_resource_$key'} is empty!");
  }
- &push_dmesg(2,"executing resource $key for $call->{'name'} started");        
+ push_dmesg(2,"executing resource $key for $call->{'name'} started");        
 
 
  # building restriction
@@ -1080,48 +1081,48 @@ sub execute_atom_resource
  if( $iatoms->{$call->{'name'}}->{$key.'_restrict_'.$USER->{'user_group'}} ){
 	$restrict = $iatoms->{$call->{'name'}}->{$key.'_restrict_'.$USER->{'user_group'}};
  }
- #$call->{'call_params'}->{'restrict'} = &repl_ph($restrict, $call->{'call_params'})
+ #$call->{'call_params'}->{'restrict'} = repl_ph($restrict, $call->{'call_params'})
  # if restrict was set before don't change it. needed for custom filter in track_lists.ail 02.11.2010 @Alexey  
- $call->{'call_params'}->{'restrict'} = &repl_ph($restrict, $call->{'call_params'}) unless($call->{'call_params'}->{'restrict'});
+ $call->{'call_params'}->{'restrict'} = repl_ph($restrict, $call->{'call_params'}) unless($call->{'call_params'}->{'restrict'});
 
  #preparing custom processing order fields and tables if specified
  if($call->{'call_params'}->{'order_fields'}){
-  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = &repl_ph(
+  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = repl_ph(
 		$iatoms->{$call->{'name'}}->{'_resource_'.$key},{'order_fields'=>$call->{'call_params'}->{'order_fields'}});
  }
  if($call->{'call_params'}->{'order_tables'}){
-  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = &repl_ph(
+  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = repl_ph(
     $iatoms->{$call->{'name'}}->{'_resource_'.$key},{'order_tables'=>$call->{'call_params'}->{'order_tables'}});
  }
 
  # custom processing new fields and joins
  if($call->{'call_params'}->{'additional_values'}){
-  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = &repl_ph(
+  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = repl_ph(
 		$iatoms->{$call->{'name'}}->{'_resource_'.$key},{'additional_values'=>$call->{'call_params'}->{'additional_values'}});
  }
  if($call->{'call_params'}->{'additional_joins'}){
-  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = &repl_ph(
+  $iatoms->{$call->{'name'}}->{'_resource_'.$key} = repl_ph(
     $iatoms->{$call->{'name'}}->{'_resource_'.$key},{'additional_joins'=>$call->{'call_params'}->{'additional_joins'}});
  } 
 
  # building order by clause
- $call->{'call_params'}->{'order_clause'} = &build_order_clause($atom,$call,$key);
+ $call->{'call_params'}->{'order_clause'} = build_order_clause($atom,$call,$key);
  
  # building search clause
- my $search_clause = &build_search_clause($atom,$call,$key); 
+ my $search_clause = build_search_clause($atom,$call,$key); 
 
  $call->{'call_params'}->{'search_clause'} = $search_clause;
 
  # building supplier search filter
- $call->{'call_params'}->{'supplier_restrict_clause'} = &build_supplier_restrict_clause();
+ $call->{'call_params'}->{'supplier_restrict_clause'} = build_supplier_restrict_clause();
 
- $call->{'_resource_'.$key} = &repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key},$call->{'call_params'});
+ $call->{'_resource_'.$key} = repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key},$call->{'call_params'});
 
 
  #build straight join tables order
- &build_straight_join_order_clause($atom,$call,$key);
+ build_straight_join_order_clause($atom,$call,$key);
 
- $call->{'_resource_'.$key} = &repl_ph($call->{'_resource_'.$key},$call->{'call_params'});
+ $call->{'_resource_'.$key} = repl_ph($call->{'_resource_'.$key},$call->{'call_params'});
  
 
 #####################################################################################################################
@@ -1140,32 +1141,32 @@ sub execute_atom_resource
 					 $key_present = 1; # really, it present
 
 					 # adding this key to global keys list
-#					 &log_printf($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}.'='.$call->{'call_params'}->{$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}}.';');
+#					 log_printf($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}.'='.$call->{'call_params'}->{$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}}.';');
 					 $call->{'call_params'}->{'joined_keys'} .= $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}.'='.$call->{'call_params'}->{$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}}.';';
 					 $call->{'call_params'}->{'hidden_joined_keys'} .= "<input type=hidden name=\"".$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}."\" value=\"".$call->{'call_params'}->{$iatoms->{$call->{'name'}}->{'_resource_'.$key.'_key'}}.'">';					 
 
            if(!$call->{'no_resource_exec'}){
 
-						 $call->{'_result_resource_'.$key} = &do_query($call->{'_resource_'.$key});
+						 $call->{'_result_resource_'.$key} = do_query($call->{'_resource_'.$key});
 							 if(!defined $call->{'_result_resource_'.$key}->[0]){
 						  				if($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_iq'}){
-					 							 $call->{'_resource_'.$key} = &repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_iq'},$call->{'call_params'});			
-												 $call->{'_result_resource_'.$key} = &do_query($call->{'_resource_'.$key});
+					 							 $call->{'_resource_'.$key} = repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_iq'},$call->{'call_params'});			
+												 $call->{'_result_resource_'.$key} = do_query($call->{'_resource_'.$key});
 											}
 							}
 					}
 				} else {
 			# probably we have an insert query appointed
  				if($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_iq'}){
-				  $call->{'_resource_'.$key} = &repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_iq'},$call->{'call_params'});			
-					$call->{'_result_resource_'.$key} = &do_query($call->{'_resource_'.$key});
+				  $call->{'_resource_'.$key} = repl_ph($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_iq'},$call->{'call_params'});			
+					$call->{'_result_resource_'.$key} = do_query($call->{'_resource_'.$key});
 				}
 			}
 		} else {
 			 # do it unconditionally
-			 #  &log_printf("uncond");
+			 #  log_printf("uncond");
            if(!$call->{'no_resource_exec'}){
-						 $call->{'_result_resource_'.$key} = &do_query($call->{'_resource_'.$key});
+						 $call->{'_result_resource_'.$key} = do_query($call->{'_resource_'.$key});
 					 }
 		}
 	if($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_rearrange_as'} eq 'tree'){
@@ -1197,10 +1198,10 @@ sub execute_atom_resource
 	 
 	 foreach my $id(keys %$tmp){
 	  if(!defined $tmp->{$id}->{'data'}&&$id ne $root){
-#		 &log_printf($id);
+#		 log_printf($id);
 		 
 		 foreach my $child(@{$tmp->{$id}->{'children'}}){
-#		 &log_printf($child);
+#		 log_printf($child);
 		  push @{$tmp->{$root}->{'children'}}, $child;
 		 }
 		 
@@ -1208,7 +1209,7 @@ sub execute_atom_resource
 		}
 	 }
    my $multi = $atoms->{$call->{'class'}}->{$call->{'name'}}->{'tree_multi'};
-	 $result = &rearrange_as_tree($root,0,$tmp,1,$multi);
+	 $result = rearrange_as_tree($root,0,$tmp,1,$multi);
 
 	 $call->{'_result_resource_'.$key} = $result;
 	 $iatoms->{$call->{'name'}}->{'_mapping_'.$key} .= ',tree_multi,tree_level';	 
@@ -1219,8 +1220,8 @@ sub execute_atom_resource
 	 
 	} 
 	$iatoms->{$call->{'name'}}->{'executed_resource_sql_'.$key}=$call->{'_resource_'.$key}; # save the procesed sql. very useful for clipboard
-&push_dmesg(3, "resource $key and key flag is $key_present");
-&push_dmesg(2,"executing resource $key for $call->{'name'} done");        
+push_dmesg(3, "resource $key and key flag is $key_present");
+push_dmesg(2,"executing resource $key for $call->{'name'} done");        
 return $key_present;
 }
 
@@ -1238,16 +1239,16 @@ my $iatom = $iatoms->{$call->{'name'}};
 				 				my @field_list = split(/,/,$iatom->{$item});
 								 foreach my $field(@field_list){
 									 no strict;
-									  &push_dmesg(3,"$field as $format");
-									 if(defined $hash->{&eval_view_name($field,$data_row)} or $iatoms->{$call->{'name'}}->{'format_undef_values'}){
-					 					$hash->{&eval_view_name($field,$data_row)} = &{'format_as_'.$format}($hash->{&eval_view_name($field,$data_row)},$call,&eval_view_name($field,$data_row),$res,$hash);
+									  push_dmesg(3,"$field as $format");
+									 if(defined $hash->{eval_view_name($field,$data_row)} or $iatoms->{$call->{'name'}}->{'format_undef_values'}){
+					 					$hash->{eval_view_name($field,$data_row)} = &{'format_as_'.$format}($hash->{eval_view_name($field,$data_row)},$call,eval_view_name($field,$data_row),$res,$hash);
 									 } else {
-									   &push_dmesg(3,"format_hash: field ".&eval_view_name($field,$data_row)." to format $format is undef");
+									   push_dmesg(3,"format_hash: field ".eval_view_name($field,$data_row)." to format $format is undef");
 									 }
 								 
 								 }
 							} else {
-							 &push_dmesg(3,'Format routine for '.$format.' is undef!');
+							 push_dmesg(3,'Format routine for '.$format.' is undef!');
 							}
 						}
 
@@ -1281,16 +1282,16 @@ sub execute_command
  my ($pre) = @_;
 my $result = 1;
 my $commands 			= $hin{$pre.'command'};
-# &log_printf($command);
+# log_printf($command);
 my @commands = split(/,/, $commands);
 foreach my $command(@commands){
  if($command&&$result){
      no strict;
      if(defined &{'command_proc_'.$command}){
 				$result = &{'command_proc_'.$command}();
-				&push_dmesg(3, "launching ".$pre."command $command");
+				push_dmesg(3, "launching ".$pre."command $command");
 		 } else {
-					&push_error('Invalid '.$pre.'command name: '.$command);
+					push_error('Invalid '.$pre.'command name: '.$command);
 		 }
  }
 }
@@ -1312,37 +1313,37 @@ sub atom_submit {
 		$atom_class = $hin{'atom_class'} || 'default';
 		my $call = { 'name' => $atom_name, 'class' => $atom_class };
 		
-		my $unauthorized_submit 	= &verify_unauthorized_submit($call);
-		my $authorized_add 				= &verify_authorized_add($call);		
-		my $unauthorized					= &verify_unauthorized($call,$authorized_add);
+		my $unauthorized_submit 	= verify_unauthorized_submit($call);
+		my $authorized_add 				= verify_authorized_add($call);		
+		my $unauthorized					= verify_unauthorized($call,$authorized_add);
 		
-		&push_dmesg(2,"ATOM SUBMIT: UNAUTH_SUB AUTH_ADD UNAUTH are $unauthorized_submit, $authorized_add, $unauthorized");
+		push_dmesg(2,"ATOM SUBMIT: UNAUTH_SUB AUTH_ADD UNAUTH are $unauthorized_submit, $authorized_add, $unauthorized");
 		
 		if (!$authorized_add && $unauthorized_submit) {
 			return 0;
 		}
 		
-		&process_atom_libs($call);
+		process_atom_libs($call);
 		
 		# perform validation
-		&push_dmesg(2,"modifying input");
+		push_dmesg(2,"modifying input");
 		# perform modifying
-		&modify_atom_submit($call);
+		modify_atom_submit($call);
 		# perform validation
-		&push_dmesg(2,"validating input");
-		&validate_atom_submit($call,$atom_name,$atom_class);
+		push_dmesg(2,"validating input");
+		validate_atom_submit($call,$atom_name,$atom_class);
 		
 		# formatting input to output
-		&push_dmesg(2,"formatting output");
-		&format_atom_input($call);
+		push_dmesg(2,"formatting output");
+		format_atom_input($call);
 		
 		if ($#user_errors < 0) {
 			#getting sequence list
-			&push_dmesg(2,"processing sequence list");
+			push_dmesg(2,"processing sequence list");
 			my @i_sequence = split(/,/,$iatoms->{$atom_name}->{'_insert_sequence'});
 			foreach my $seq(@i_sequence) {
 				# foreach insert do:
-				&push_dmesg(2,"Processing insert seq. $seq");
+				push_dmesg(2,"Processing insert seq. $seq");
 				
 				my $r_arr = []; # rotate array
 				my $r_res = '';	# rotating by ...
@@ -1356,17 +1357,17 @@ sub atom_submit {
 				if ($r_res = $iatoms->{$atom_name}->{'_rotate_insert_'.$seq}) {
 					#  ^^^^^ is the resource name.
 					# performing query
-					&push_dmesg(3,"rotating by $r_res");						 
+					push_dmesg(3,"rotating by $r_res");						 
 					$r_flag = 1;
 					
 					#standard call
 					my $call = { 'name' => $atom_name, 'class' => $atom_class };
 					
 					# preparing params
-					&prepare_atom_params($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
+					prepare_atom_params($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
 					
 					# executing rotate resource
-					&execute_atom_resource($atoms->{$call->{'class'}}->{$call->{'name'}},$call,$r_res);
+					execute_atom_resource($atoms->{$call->{'class'}}->{$call->{'name'}},$call,$r_res);
 					
 					$r_arr = $call->{'_result_resource_'.$r_res};
 				}
@@ -1390,14 +1391,14 @@ sub atom_submit {
 					my @i_values = split(/,/,$iatoms->{$atom_name}->{'_insert_values_'.$seq});
 
 					if ($r_flag) { # if rotating
-						$key 	= &eval_view_name('_rotate_'.$iatoms->{$atom_name}->{'_insert_key_'.$seq},$r_row);
-						$u_key = &eval_view_name('_rotate_'.$iatoms->{$atom_name}->{'_update_key_'.$seq},$r_row);
+						$key 	= eval_view_name('_rotate_'.$iatoms->{$atom_name}->{'_insert_key_'.$seq},$r_row);
+						$u_key = eval_view_name('_rotate_'.$iatoms->{$atom_name}->{'_update_key_'.$seq},$r_row);
 					}
 					else {
-						$key 	= &eval_view_name($iatoms->{$atom_name}->{'_insert_key_'.$seq},$r_row);
-						$u_key = &eval_view_name($iatoms->{$atom_name}->{'_update_key_'.$seq},$r_row);
+						$key 	= eval_view_name($iatoms->{$atom_name}->{'_insert_key_'.$seq},$r_row);
+						$u_key = eval_view_name($iatoms->{$atom_name}->{'_update_key_'.$seq},$r_row);
 					}
-					&push_dmesg(3, "the key for $key seq. $seq is \'$hin{$key}\'");
+					push_dmesg(3, "the key for $key seq. $seq is \'$hin{$key}\'");
 					
 					if ($hin{$key}) {
 						
@@ -1412,8 +1413,8 @@ sub atom_submit {
 										$hin{'atom_delete'} && !$unauthorized_submit) { 
 							# deleting right here
 							
-							&delete_rows($iatoms->{$atom_name}->{'_insert_table_'.$seq},
-													 &eval_name($iatoms->{$atom_name}->{'_insert_key_'.$seq.'_name'} || $iatoms->{$atom_name}->{'_insert_key_'.$seq})." = ".$hin{$key});
+							delete_rows($iatoms->{$atom_name}->{'_insert_table_'.$seq},
+													 eval_name($iatoms->{$atom_name}->{'_insert_key_'.$seq.'_name'} || $iatoms->{$atom_name}->{'_insert_key_'.$seq})." = ".$hin{$key});
 							
 							$i_flag = 0;
 							if ($iatoms->{$atom_name}->{'_insert_sequence_'.$seq.'_clear_keys'} eq 'yes') {
@@ -1422,7 +1423,7 @@ sub atom_submit {
 						}
 						
 					} elsif (($hin{'atom_submit'} || $hin{'atom_update'}) && $authorized_add) {
-						&push_dmesg(3, "DON'T have the key for $key seq. $seq");					
+						push_dmesg(3, "DON'T have the key for $key seq. $seq");					
 						$i_flag = 1;
 					}
 					if ($iatoms->{$atom_name}->{'_update_sequence_'.$seq} &&
@@ -1433,7 +1434,7 @@ sub atom_submit {
 						$i_flag = 2;
 					}
 					
-					&push_dmesg(3,"insert flag for seq. $seq is $i_flag");
+					push_dmesg(3,"insert flag for seq. $seq is $i_flag");
 					
 					if ($i_flag) {
 						# performing insert (without the $key)
@@ -1445,26 +1446,26 @@ sub atom_submit {
 						my $r_map = \%r_map;  
 						
 						if ($#i_fields != $#i_values ) {
-							&log_printf("atom_submit: fields and values are mismatch at atom $atom_name, sequence $seq");
-							&log_printf(" $#i_fields != $#i_values 	");
+							log_printf("atom_submit: fields and values are mismatch at atom $atom_name, sequence $seq");
+							log_printf(" $#i_fields != $#i_values 	");
 						}
 						else {
 							
 							# forming insert hash
 							for (my $i = 0; $i<= $#i_fields; $i++) {
 								my $item 	= $i_values[$i];
-								my $val 	= &eval_value($item,$r_map,$r_row,$atom_name,$atom_class);
+								my $val 	= eval_value($item,$r_map,$r_row,$atom_name,$atom_class);
 #HERE
 								
-								$i_hash->{$i_fields[$i]} = &str_sqlize($val); 
-								&push_dmesg(2,"\$i_hash->{$i_fields[$i]} = $i_hash->{$i_fields[$i]} ");
+								$i_hash->{$i_fields[$i]} = str_sqlize($val); 
+								push_dmesg(2,"\$i_hash->{$i_fields[$i]} = $i_hash->{$i_fields[$i]} ");
 							}
 							
-#									&log_printf($iatoms->{$atom_name}->{'_insert_'.$seq.'_keep_unique'});
+#									log_printf($iatoms->{$atom_name}->{'_insert_'.$seq.'_keep_unique'});
 							
 							if ($iatoms->{$atom_name}->{'_insert_'.$seq.'_keep_unique'}) {
 								# checking if unique data
-								&push_dmesg(2," checking unique for $seq");
+								push_dmesg(2," checking unique for $seq");
 								
 								my $where = ' 1 ';
 								my $check_hash;
@@ -1481,14 +1482,14 @@ sub atom_submit {
 								while (my ($a,$b) = each %$check_hash) {
 									$where .= ' and '.$a.' = '.$b;
 								}
-#										&log_printf($where);
+#										log_printf($where);
 								
-								my $dummy = &do_query("select ".($iatoms->{$atom_name}->{'_insert_key_'.$seq.'_name'} || &eval_name($key)).
+								my $dummy = do_query("select ".($iatoms->{$atom_name}->{'_insert_key_'.$seq.'_name'} || eval_name($key)).
 																			" from ".$iatoms->{$atom_name}->{'_insert_table_'.$seq}." where ".$where);
 								my $i = 0; 
 								if (defined $dummy->[0]) {
 									# we have such record
-									&push_dmesg(2,"have dummy defined");
+									push_dmesg(2,"have dummy defined");
 
 									if ($hin{$key}) {
 										if ($dummy->[0][0] == $hin{$key}) {
@@ -1506,7 +1507,7 @@ sub atom_submit {
 										$unique = 0; # don't have the key, but the record i slaready there
 										# key implication
 										
-#											 &log_printf("don't have key: \$hin{$key} = $dummy->[0][0]");
+#											 log_printf("don't have key: \$hin{$key} = $dummy->[0][0]");
 										if ($iatoms->{$atom_name}->{'_insert_'.$seq.'_pass_key'} eq 'permanent') {
 											# passing permanently
 											$hin{$key} = $dummy->[0][0];
@@ -1520,7 +1521,7 @@ sub atom_submit {
 									# so, should insert
 									# if($i_flag == 2){ $i_flag = 1; }
 								}
-								&push_dmesg(2,"unique flag is $unique");						 				
+								push_dmesg(2,"unique flag is $unique");						 				
 							}
 							
 							#inserting 
@@ -1529,11 +1530,11 @@ sub atom_submit {
 
 								my @set = split(/,/, $iatoms->{$atom_name}->{'_insert_'.$seq.'_unique_set'});
 								foreach my $uni(@set) {
-#										  &log_printf($uni.'!'.$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{&eval_name($uni)});
-									&push_user_error(&repl_ph(
+#										  log_printf($uni.'!'.$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{eval_name($uni)});
+									push_user_error(repl_ph(
 																						$atoms->{'default'}->{'errors'}->{'unique'},
 																						{
-																							"name" => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{&eval_name($uni)}
+																							"name" => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{eval_name($uni)}
 																						}));
 								}
 								$result = 0;
@@ -1542,23 +1543,23 @@ sub atom_submit {
 								if ($i_flag == 1) {
 									# check for `void values` (1001743: Create "Ignore void values inserting" mechanism to ICEcat engine)
 									unless (($iatoms->{$atom_name}->{'_insert_'.$seq.'_ignore_void_values'}) &&
-											(($i_hash->{$iatoms->{$atom_name}->{'_insert_'.$seq.'_ignore_void_values'}} eq &str_sqlize('')))) {
-										if (!&insert_rows($iatoms->{$atom_name}->{'_insert_table_'.$seq}, $i_hash)) {
+											(($i_hash->{$iatoms->{$atom_name}->{'_insert_'.$seq.'_ignore_void_values'}} eq str_sqlize('')))) {
+										if (!insert_rows($iatoms->{$atom_name}->{'_insert_table_'.$seq}, $i_hash)) {
 											$result = 0;
 										}
 										else {
 											# refreshing the key
 											if (!$iatoms->{$atom_name}->{'_insert_'.$seq.'_no_refresh'}) {
-												$hin{$key} = &sql_last_insert_id();
+												$hin{$key} = sql_last_insert_id();
 												
-												&push_dmesg(2,"refreshing: the key $key became $hin{$key}");
+												push_dmesg(2,"refreshing: the key $key became $hin{$key}");
 												if ($iatoms->{$atom_name}->{'_insert_'.$seq.'_pass_key'} eq 'permanent') {
 													# passing permanently
 													$hl{'permanent_list'}->{$key} = 1;
 												}
 											}
 											else {
-												$hs{'is_'.$key} = &sql_last_insert_id();
+												$hs{'is_'.$key} = sql_last_insert_id();
 											}
 										}
 										if ($iatoms->{$atom_name}->{'_insert_sequence_'.$seq.'_clear_keys'} eq 'yes') {
@@ -1569,10 +1570,10 @@ sub atom_submit {
 									}
 								}
 								elsif ($i_flag == 2) {
-#									&log_printf("\nafter4 $key => $hin{$key}");
+#									log_printf("\nafter4 $key => $hin{$key}");
 									# update
-									if (!&update_rows($iatoms->{$atom_name}->{'_insert_table_'.$seq},
-																		&eval_name($iatoms->{$atom_name}->{'_insert_key_'.$seq.'_name'} || $iatoms->{$atom_name}->{'_insert_key_'.$seq}).
+									if (!update_rows($iatoms->{$atom_name}->{'_insert_table_'.$seq},
+																		eval_name($iatoms->{$atom_name}->{'_insert_key_'.$seq.'_name'} || $iatoms->{$atom_name}->{'_insert_key_'.$seq}).
 																		" = ".$hin{$key} ,$i_hash)) {
 										$result = 0;
 									}
@@ -1588,8 +1589,8 @@ sub atom_submit {
 			# now authorizing from hin what could been changed
       my $auth = {};
 			my $auth_submit = {};
-			&build_auth_hashes($auth, $auth_submit, $call);
-			&authorize_values($auth, $auth_submit, \%hin);
+			build_auth_hashes($auth, $auth_submit, $call);
+			authorize_values($auth, $auth_submit, \%hin);
 			
 			# passing auth. values to globals
 			foreach my $item(keys %$auth) {
@@ -1649,7 +1650,7 @@ sub modify_atom_submit {
 		if(my $r_res = $iatoms->{$atom_name}->{'_rotate_insert_'.$seq}){
 # ^^^^^ is the resource name.
 # performing query
-			&push_dmesg(3,"rotating by $r_res");						 
+			push_dmesg(3,"rotating by $r_res");						 
 			$r_flag = 1;
 
 
@@ -1657,10 +1658,10 @@ sub modify_atom_submit {
 			my $call = {'name' => $atom_name, 'class' => $atom_class };
 
 # preparing params
-			&prepare_atom_params($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
+			prepare_atom_params($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
 
 # executing rotate resource
-			&execute_atom_resource($atoms->{$call->{'class'}}->{$call->{'name'}},$call,$r_res);
+			execute_atom_resource($atoms->{$call->{'class'}}->{$call->{'name'}},$call,$r_res);
 
 			$r_arr = $call->{'_result_resource_'.$r_res};
 		} else {
@@ -1674,7 +1675,7 @@ sub modify_atom_submit {
 		}
 	}
 
- &process_atom_libs({"name" => "errors" });
+ process_atom_libs({"name" => "errors" });
 
 	foreach my $item(keys %$iatom){
 		if($item =~m/modify_as_(.+)/){
@@ -1687,12 +1688,12 @@ sub modify_atom_submit {
 					no strict;
 					my $error = &{'modify_as_'.$type}($call,$field, $rotate_ref->{$field});
 					if($error){
-						&push_user_error($error);
+						push_user_error($error);
 					}
 				}
 
 			} else {
-				&log_printf("Modification routine from $type is not defined! ");
+				log_printf("Modification routine from $type is not defined! ");
 			}
 		}  
 	}
@@ -1719,7 +1720,7 @@ sub validate_atom_submit
 		if(my $r_res = $iatoms->{$atom_name}->{'_rotate_insert_'.$seq}){
 						 # ^^^^^ is the resource name.
 						 # performing query
-						 &push_dmesg(3,"rotating by $r_res");						 
+						 push_dmesg(3,"rotating by $r_res");						 
 						 $r_flag = 1;
 						 
 
@@ -1727,10 +1728,10 @@ sub validate_atom_submit
 						 my $call = {'name' => $atom_name, 'class' => $atom_class };
 						 
 						 # preparing params
-						 &prepare_atom_params($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
+						 prepare_atom_params($atoms->{$call->{'class'}}->{$call->{'name'}},$call);
 						 
 						 # executing rotate resource
-						 &execute_atom_resource($atoms->{$call->{'class'}}->{$call->{'name'}},$call,$r_res);
+						 execute_atom_resource($atoms->{$call->{'class'}}->{$call->{'name'}},$call,$r_res);
 						 
 						 $r_arr = $call->{'_result_resource_'.$r_res};
 		} else {
@@ -1746,7 +1747,7 @@ sub validate_atom_submit
 
 
 
- &process_atom_libs({"name" => "errors" });
+ process_atom_libs({"name" => "errors" });
 
  foreach my $item(keys %$iatom){
   if($item =~m/validate_as_(.+)/){
@@ -1759,12 +1760,12 @@ sub validate_atom_submit
 		  no strict;
 			my $error = &{'validate_as_'.$type}($call,$field, $rotate_ref->{$field});
 			if($error){
-			 &push_user_error($error);
+			 push_user_error($error);
 			}
 		 }
 		
 		} else {
-		 &log_printf("Validation routine from $type is not defined! ");
+		 log_printf("Validation routine from $type is not defined! ");
 		}
 	}  
  }
@@ -1791,7 +1792,7 @@ sub format_atom_input
 		 }
 		
 		} else {
-		 &log_printf("Store routine for $type is undef!");
+		 log_printf("Store routine for $type is undef!");
 		}
 	}  
  }
@@ -1812,7 +1813,7 @@ my $field_fmt 	= $atom->{$key.'_field'};
 my @field_order = split(/,/,$atom->{$key.'fields_order'});
 
 						 foreach my $field(@field_order){
-						  $fields .= &repl_ph($field_fmt,{ "value" => $call->{'call_params'}->{$field},
+						  $fields .= repl_ph($field_fmt,{ "value" => $call->{'call_params'}->{$field},
 																							"name"	=> $field,
 																							"prompt"=> $atom->{$key.'.'.$field}  
 																						 });
@@ -1821,7 +1822,7 @@ my @field_order = split(/,/,$atom->{$key.'fields_order'});
 						 
 						 foreach my $field(@mapping){
 						  unless($processed{$field}){
-							 		  $fields .= &repl_ph($field_fmt,{ "value" => $call->{'call_params'}->{$field},
+							 		  $fields .= repl_ph($field_fmt,{ "value" => $call->{'call_params'}->{$field},
 																							"name"	=> $field,
 																							"prompt"=> $atom->{$key.'_'.$field}  
 																						 });
@@ -1836,12 +1837,12 @@ sub process_atom_libs
  my ($atom) = @_;
  unless(defined $iatoms->{$atom->{'name'}}->{'_resource_list'}){ 
    # if ilib is not loaded trying to load
-   &process_atom_ilib($atom->{'name'});
+   process_atom_ilib($atom->{'name'});
  }
 
  unless(defined $atoms->{$atom->{'class'}}->{$atom->{'name'}}){
    # if lib is not loaded trying to load
-   &process_atom_lib($atom->{'name'})
+   process_atom_lib($atom->{'name'})
  } 
 }
 
@@ -1873,18 +1874,18 @@ my ($auth, $auth_submit, $tmp_hash) = @_;
 
 						# checking if auth. fields present
 						foreach my $auth_item(keys %$auth){
-						&push_dmesg(3, "checking auth item $auth_item");
+						push_dmesg(3, "checking auth item $auth_item");
 						 if(defined $tmp_hash->{$auth_item}){
 						  if(!defined $auth->{$auth_item}->{'conds'}){
 						 		 $auth->{$auth_item}->{'list'} .= ','.$tmp_hash->{$auth_item};
-						     &push_dmesg(3, "authed $auth_item $tmp_hash->{$auth_item}");
+						     push_dmesg(3, "authed $auth_item $tmp_hash->{$auth_item}");
 							} else {
 								foreach my $cond(@{$auth->{$auth_item}->{'conds'}}){
 									   if( $USER->{$cond->{'user'}} eq
 									 	    $tmp_hash->{$cond->{'tmp'}}
 									 		){
 						 			 				$auth->{$auth_item}->{'list'} .= ','.$tmp_hash->{$auth_item};
-						  		   			&push_dmesg(3, "authed $auth_item $tmp_hash->{$auth_item}");
+						  		   			push_dmesg(3, "authed $auth_item $tmp_hash->{$auth_item}");
 									 	}
 								}							
 							}
@@ -1893,10 +1894,10 @@ my ($auth, $auth_submit, $tmp_hash) = @_;
 # now checking the same for submit authorization
 						foreach my $auth_item(keys %$auth_submit){
 						 if(defined $tmp_hash->{$auth_item}){
-						  &push_dmesg(3, "checking submit auth $auth_item");
+						  push_dmesg(3, "checking submit auth $auth_item");
 						  if(!defined $auth_submit->{$auth_item}->{'conds'}){
 						 		 $auth_submit->{$auth_item}->{'list'} .= ','.$tmp_hash->{$auth_item};
-						     &push_dmesg(3, "authed submit $auth_item $tmp_hash->{$auth_item}");
+						     push_dmesg(3, "authed submit $auth_item $tmp_hash->{$auth_item}");
 							} else {
 								foreach my $cond(@{$auth_submit->{$auth_item}->{'conds'}}){
 								  my $lkey = $cond->{'user'};
@@ -1918,7 +1919,7 @@ my ($auth, $auth_submit, $tmp_hash) = @_;
 								
 								  if( $lvalue eq $rvalue ){
 							 					$auth_submit->{$auth_item}->{'list'} .= ','.$tmp_hash->{$auth_item};
-						 		  			&push_dmesg(3, "authed submit $auth_item $tmp_hash->{$auth_item}");
+						 		  			push_dmesg(3, "authed submit $auth_item $tmp_hash->{$auth_item}");
 									}
 								}
 							}
@@ -1936,11 +1937,11 @@ sub verify_unauthorized_submit {
 	
 	foreach my $item (@vrfy_submit) {
 		my %v_hash = map { $_ => 1 } split(/,/, $hl{'auth_submit_'.$item});
-		&log_printf("\$hl{auth_submit_$item} = ".$hl{'auth_submit_'.$item});
-		#&log_printf(Dumper(\%v_hash));
+		log_printf("\$hl{auth_submit_$item} = ".$hl{'auth_submit_'.$item});
+		#log_printf(Dumper(\%v_hash));
 		if ($hin{$item} && !(defined $v_hash{$hin{$item}} || ($hl{'authorize_by_field_only'} && $hl{'authorize_by_field_only'} eq $item))) {
 			$unauthorized_submit = 1;
-			&push_dmesg(2, " uauth submit value! item $item == $hin{$item}");
+			push_dmesg(2, " uauth submit value! item $item == $hin{$item}");
 		}
 	}
 	
@@ -1955,22 +1956,22 @@ my $authorized_add = 0;
 
    	 my @vrfy_add = split(/,/ , $iatoms->{$call->{'name'}}->{'verify_add_'.$USER->{'user_group'}}); 
 		 foreach my $item (@vrfy_add){
-#&log_printf("checking item $item");
+#log_printf("checking item $item");
        $item =~s/\s//g;
 			 my ($field,$cond) = split(/#/, $item);
 			 my ($cond_user,$cond_tmp) = split('==', $cond);
 						  if(!defined $cond_user){
 								 $authorized_add = 1;
-#&log_printf('no conditions - authed to add');
+#log_printf('no conditions - authed to add');
 							} else {
-#&log_printf('condition');
+#log_printf('condition');
 							  if( $USER->{$cond_user} eq
 								    $tmp_hash->{$cond_tmp}
 									){
-#&log_printf('ok');
+#log_printf('ok');
 											$authorized_add = 1;
 									} else {
-#&log_printf('failed');									
+#log_printf('failed');									
 									}
 							}
 		 }
@@ -2003,14 +2004,14 @@ if(defined $USER){
 			){
 	#if($hin{$item} && !defined $v_hash{$hin{$item}}){
 		    $hin{$item} = '-1';  
-			  &push_user_error($atoms->{'default'}->{'errors'}->{'unauthorized'}) if (!$glob_unauthorized);
+			  push_user_error($atoms->{'default'}->{'errors'}->{'unauthorized'}) if (!$glob_unauthorized);
 				$unauthorized = 1;
 				$glob_unauthorized = 1;
 			 }
 		}
 	}
 	else {
-		&push_user_error($atoms->{'default'}->{'errors'}->{'unauthorized'}) if (!$glob_unauthorized);
+		push_user_error($atoms->{'default'}->{'errors'}->{'unauthorized'}) if (!$glob_unauthorized);
 		$unauthorized = 1;
 		$glob_unauthorized = 1;
 	}
@@ -2021,7 +2022,7 @@ sub build_auth_hashes {
 	my ($auth, $auth_submit, $call) = @_;
 	
 	# building the hash of fields which should be authorized
-	&push_dmesg(3, "Building auth hashes");
+	push_dmesg(3, "Building auth hashes");
 	foreach my $item (split(/,/, $iatoms->{$call->{'name'}}->{'authorize_'.$USER->{'user_group'}}) ) {
 		$item =~s/\s//g;
 		my ($field,$cond) = split(/#/, $item);
@@ -2031,7 +2032,7 @@ sub build_auth_hashes {
 		if($cond_user && $cond_tmp){
 			push @{$auth->{$field}->{'conds'}}, { 'user' => $cond_user, 'tmp' => $cond_tmp };
 		}
-		&push_dmesg(3, "auth item added to hash: $field");
+		push_dmesg(3, "auth item added to hash: $field");
 	}
 	# building submit fields authorization 
 	
@@ -2043,7 +2044,7 @@ sub build_auth_hashes {
 		if ($cond_user && $cond_tmp) {
 			push @{$auth_submit->{$field}->{'conds'}}, { 'user' => $cond_user, 'tmp' => $cond_tmp };
 		}
-		&push_dmesg(3, "auth submit item added to hash: $field # $cond_user = $cond_tmp");
+		push_dmesg(3, "auth submit item added to hash: $field # $cond_user = $cond_tmp");
 	}
 }
 
@@ -2052,24 +2053,24 @@ sub build_straight_join_order_clause {
 	
 	my $order_key = $hin{'order_'.$call->{'name'}.'_'.$key};
 	if(!$order_key){ $order_key = $hin{'s_order_'.$call->{'name'}.'_'.$key};}
-# &log_printf("\norder_key: $order_key\n");
+# log_printf("\norder_key: $order_key\n");
 # if(!$order_key){ return;}
 	my $straight_join_approve = $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_straight_join_approve'};
-# &log_printf("\napprove: $straight_join_approve\n");
+# log_printf("\napprove: $straight_join_approve\n");
 	if($straight_join_approve != 1){ return;}
 	my $tables_order = $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_order_by_tables_order_'.$order_key};
 	if(!$tables_order){
 		$tables_order = $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_order_by_tables_order_default'};
 	}
 	my $inner_join = $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_inner_join_table'};
-# &log_printf("\ntables order: $tables_order\n");
+# log_printf("\ntables order: $tables_order\n");
 	if(!$tables_order && $straight_join_approve){
-		&atom_util::push_error("Straight join approved but tables order isn't specified. ailib file is incorrect");
+		atom_util::push_error("Straight join approved but tables order isn't specified. ailib file is incorrect");
 		return $call->{'_resource_'.$key};
 	}
 	my $resource_query = $iatoms->{$call->{'name'}}->{'_resource_'.$key};
 	$resource_query =~ s/select(.*?)from(.*?)\b$tables_order\b(.*?)where(.*?)/select straight_join $1 from $2 $tables_order $call->{'call_params'}->{'inner_join'} $3 where $4/s;
-#  &log_printf("\nquery: $resource_query\n");
+#  log_printf("\nquery: $resource_query\n");
 	$call->{'_resource_'.$key} = $resource_query;
 
 	return;
@@ -2126,17 +2127,17 @@ sub build_order_clause {
 
 			my @func = split(/,/, $func);
 			my %m = map { $mapping[$_] => $func[$_]} (0..$#mapping);
-#			&log_printf(Dumper(\%m));
-#&log_printf($field);
+#			log_printf(Dumper(\%m));
+#log_printf($field);
 			$field = $m{$field};
-#&log_printf($field);
+#log_printf($field);
 			$field =~s/.*\ as\ (.*)/$1/i; # processing alias constructions
 			$clause .= $field.' '.$mode.',' if ($field);
 		}
 	}
 	chop $clause;
 	$clause = ' order by '.$clause; 
-# &log_printf("order clause: $clause");
+# log_printf("order clause: $clause");
 	
 	return $clause;
 }
@@ -2187,14 +2188,14 @@ sub build_search_clause {
 
 	
 	for(my $i = 0; $i <= $#func; $i++){
-#	    &log_printf("### = ".$func[$i]);
+#	    log_printf("### = ".$func[$i]);
 		my $prod_id_product_name = 0;
 	if($func[$i]=~/^[\s]*as/i){
 		$func[$i]=~s/^[\s]*as//i;
 	}elsif($func[$i]=~/^[^\s]*[\s]*as/i){
 		$func[$i]=~s/as.*$//i;
 	}	
-	$func[$i]=&trim($func[$i]);	
+	$func[$i]=trim($func[$i]);	
     if($mapping[$i] eq 'catid'){
 			if( $hin{'search_'.$mapping[$i]} ne '1' && $hin{'search_'.$mapping[$i]} ne '' ){
 
@@ -2206,7 +2207,7 @@ sub build_search_clause {
 
 				# saving for future sessions
 				$hout{'search_'.$mapping[$i]} = $hin{'search_'.$mapping[$i]};
-				my $rows = &do_query("select catid, pcatid from category");
+				my $rows = do_query("select catid, pcatid from category");
 				my $cats_by_owner;
 				
 				foreach my $row(@$rows){
@@ -2214,20 +2215,20 @@ sub build_search_clause {
 					push @{$cats_by_owner->{$catownerid}},$catid;
 				}
 				
-				$clause .= ' and (0 '.&traverse_only($hin{'search_'.$mapping[$i]},$func[$i],$cats_by_owner).' ) ';
+				$clause .= ' and (0 '.traverse_only($hin{'search_'.$mapping[$i]},$func[$i],$cats_by_owner).' ) ';
 				
 			}
 		} elsif($mapping[$i] eq 'date_added' && $hin{'search_adv'}){
 # advanced search by date added
-			$clause .=' and '.$func[$i].'>='.&str_sqlize($hin{'search_from_year'}.'-'.$hin{'search_from_month'}.'-'.$hin{'search_from_day'});
-			$clause .= ' and '.$func[$i].'<='.&str_sqlize($hin{'search_to_year'}.'-'.$hin{'search_to_month'}.'-'.$hin{'search_to_day'});
+			$clause .=' and '.$func[$i].'>='.str_sqlize($hin{'search_from_year'}.'-'.$hin{'search_from_month'}.'-'.$hin{'search_from_day'});
+			$clause .= ' and '.$func[$i].'<='.str_sqlize($hin{'search_to_year'}.'-'.$hin{'search_to_month'}.'-'.$hin{'search_to_day'});
 			$clause .= 'and checked_by_supereditor=' . ($hin{'checked_by_supereditor'} ? '1' : '0');
 			
 		} 
 # product_name and prod_id
 		elsif (($mapping[$i] eq 'prod_id') || ($mapping[$i] eq 'product_name')) {
 			if ($call->{'name'} ne 'products') {
-				$product_name_clause .= ($hin{'search_'.$mapping[$i]} ? " or ".$func[$i]." like ".&str_sqlize("%".$hin{'search_'.$mapping[$i]}."%") : ""); # restriction for products atom. it has custom prod_id + name searching mechanism
+				$product_name_clause .= ($hin{'search_'.$mapping[$i]} ? " or ".$func[$i]." like ".str_sqlize("%".$hin{'search_'.$mapping[$i]}."%") : ""); # restriction for products atom. it has custom prod_id + name searching mechanism
 				$hout{'search_'.$mapping[$i]} = $hin{'search_'.$mapping[$i]};
 			}
 		}
@@ -2238,17 +2239,17 @@ sub build_search_clause {
 			# this commented line fix issue with browsing categories after searching (1020666)
 			# $hout{'search_'.$mapping[$i]} = $hin{'search_'.$mapping[$i]};
 			if($opened){
-				$clause .= ' or '.$func[$i].' like '.&str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%').' ) ';
+				$clause .= ' or '.$func[$i].' like '.str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%').' ) ';
 				
 	    } else {
-	      $clause .= ' and ( '.$func[$i].' like '.&str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%');
+	      $clause .= ' and ( '.$func[$i].' like '.str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%');
 				$opened = 1;
 			}
 		}
 		
 		elsif(($iatoms->{$call->{'name'}}->{'_resource_'.$key.'_bitwise_search'} eq 'yes') && !$bitwise_search){
 #bitwise search
-			my $search_string = &form_bit_strings($key, $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_bitwise_field'});
+			my $search_string = form_bit_strings($key, $iatoms->{$call->{'name'}}->{'_resource_'.$key.'_bitwise_field'});
 			$clause .= ' and '.$search_string;
 			$bitwise_search = 1; #to run once
 		}
@@ -2256,14 +2257,14 @@ sub build_search_clause {
 #complaints subject and message		
       if($mapping[$i] eq 'message'){$hin{'search_'.$mapping[$i]} = $hin{'search_subject'};}		
 		  $hout{'search_'.$mapping[$i]} = $hin{'search_'.$mapping[$i]};
-#			&log_printf("\n\tclause=$clause 'search_'.$mapping[$i]=$hin{'search_'.$mapping[$i]}");
+#			log_printf("\n\tclause=$clause 'search_'.$mapping[$i]=$hin{'search_'.$mapping[$i]}");
       if($opened){
-				$clause .= ' or '.$func[$i].' like '.&str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%').' ) ';
+				$clause .= ' or '.$func[$i].' like '.str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%').' ) ';
 			} else {
-				$clause .= ' and ( '.$func[$i].' like '.&str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%');
+				$clause .= ' and ( '.$func[$i].' like '.str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%');
 				$opened = 1;
 			}
-#			&log_printf("\n\tclause=$clause");
+#			log_printf("\n\tclause=$clause");
 		}
 		elsif (($mapping[$i] eq 'onstock') || ($mapping[$i] eq 'onmarket')) {
 		  $hout{'search_'.$mapping[$i]} = $hin{'search_'.$mapping[$i]};
@@ -2282,17 +2283,17 @@ sub build_search_clause {
 			$hout{'search_'.$mapping[$i].'_mode'} = $hin{'search_'.$mapping[$i].'_mode'};
 			 
 			if($hin{'search_'.$mapping[$i].'_mode'} eq 'case_insensitive_like'){ 
-				$clause .= ' and upper('.$func[$i].') like upper('.&str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%').')';
+				$clause .= ' and upper('.$func[$i].') like upper('.str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%').')';
 			}elsif($hin{'search_'.$mapping[$i].'_mode'} eq 'digit'){# this is a digit in this case value zero considered as 0 
 				$clause .= ' and ('.$mapping[$i].' = '.(($hin{'search_'.$mapping[$i]} eq 'zero')?'0  )':$hin{'search_'.$mapping[$i]}.')').' ';	
 			}elsif($hin{'search_'.$mapping[$i].'_mode'}=~/^[<>=]+$/i){
 				 $clause .= ' and '.$func[$i].' '.$hin{'search_'.$mapping[$i].'_mode'}.' 
-				 	'.(($hin{'search_'.$mapping[$i]}=~/^[\d\.]$/)?$hin{'search_'.$mapping[$i]}:&str_sqlize($hin{'search_'.$mapping[$i]}));
+				 	'.(($hin{'search_'.$mapping[$i]}=~/^[\d\.]$/)?$hin{'search_'.$mapping[$i]}:str_sqlize($hin{'search_'.$mapping[$i]}));
 			}else{
 				if($hin{'search_'.$mapping[$i].'_mode'} ne 'like'){ 
-				  $clause .= ' and '.$func[$i].' = '.&str_sqlize($hin{'search_'.$mapping[$i]});
+				  $clause .= ' and '.$func[$i].' = '.str_sqlize($hin{'search_'.$mapping[$i]});
 			  } else {
-				  $clause .= ' and '.$func[$i].' like '.&str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%');
+				  $clause .= ' and '.$func[$i].' like '.str_sqlize('%'.$hin{'search_'.$mapping[$i]}.'%');
 				}
 			}
 		}
@@ -2322,9 +2323,9 @@ sub build_search_clause {
 
 	$clause .= ($product_name_clause?" and (0 ".$product_name_clause.")":"");
 
-#  &log_printf("\n\tsearch clause = $clause\n");
-#  &log_printf("\n\thin = ".Dumper(\%hin)."\n");
-#  &log_printf("\n\thout = ".Dumper(\%hout)."\n");
+#  log_printf("\n\tsearch clause = $clause\n");
+#  log_printf("\n\thin = ".Dumper(\%hin)."\n");
+#  log_printf("\n\thout = ".Dumper(\%hout)."\n");
 
 	return $clause;
 }
@@ -2333,7 +2334,7 @@ sub traverse_only {
 	my ($catid,$fieldname,$cats_by_owner) = @_;
 	my $tmp = " or $fieldname = $catid ";
 	foreach my $subcatid (@{$cats_by_owner->{$catid}}) {
-		$tmp .= &traverse_only($subcatid,$fieldname);
+		$tmp .= traverse_only($subcatid,$fieldname);
 	}
 	return $tmp;
 } # sub traverse_only (see above)
@@ -2342,7 +2343,7 @@ sub build_supplier_restrict_clause {  # for ratings only. need to be improved
    my $clause = " 1 ";
 
    if ($USER->{'user_group'} eq 'supplier') {
-		 $clause = " s.supplier_id = ".&do_query("SELECT supplier_id FROM supplier WHERE user_id = $USER->{'user_id'} LIMIT 1")->[0][0]." ";
+		 $clause = " s.supplier_id = ".do_query("SELECT supplier_id FROM supplier WHERE user_id = $USER->{'user_id'} LIMIT 1")->[0][0]." ";
    }
 	 elsif (($USER->{'user_group'} eq 'guest')) { # it works, but rating page is closed for guest
 		 $clause = " s.is_sponsor='Y'";

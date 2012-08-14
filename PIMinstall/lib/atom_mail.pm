@@ -29,10 +29,10 @@ sub sendmail
 {
 	my ($msg,$to,$from,$subj,$reply_to) = @_;
 	
-	&log_printf("sendmail(to = $to, from = $from, subj = $subj)");
+	log_printf("sendmail(to = $to, from = $from, subj = $subj)");
 	
 	if ($to eq '' || $from eq '') {
-		&log_printf("SENDMAIL: to & from are MANDATORY");
+		log_printf("SENDMAIL: to & from are MANDATORY");
 		return;
 	}
 
@@ -41,7 +41,7 @@ sub sendmail
 	# the best way is to use MTA
 	if ($atomcfg{MTA_cmdline}) {
 		local (*FM);
-		open (FM, "|".$atomcfg{MTA_cmdline}) || &error_printf("Could not start MTA program \'".$atomcfg{MTA_cmdline}."\'");
+		open (FM, "|".$atomcfg{MTA_cmdline}) || error_printf("Could not start MTA program \'".$atomcfg{MTA_cmdline}."\'");
 		binmode(FM,":utf8");
 		print FM "To: $to\n";
 		print FM "From: $from\n";
@@ -62,14 +62,14 @@ sub errmail{
 			'default_encoding'=>'utf8',
 			'text_body' => $msg,
 			};
-	&simple_sendmail($mail);
+	simple_sendmail($mail);
 }
 
 sub simple_sendmail{
 	my ($mail) = @_;
 	my $default_mode = ':utf8';
 	my $default_encoding = 'UTF-8';
-	my $rand = &atom_misc::make_code(32);
+	my $rand = atom_misc::make_code(32);
 	my $size=0;
 	if ($mail->{'default_encoding'} ne 'utf8') { # always set to latin1
 #	if (($mail->{'subject'} =~ /Report on/i) || ($mail->{'to'} =~ /zoom\.com/i)) { # switch to latin1-mode for 'Report on...' and ...@zoom.com mails
@@ -77,7 +77,7 @@ sub simple_sendmail{
 		$default_encoding = 'ISO-8859-1';
 	}
 	my $attach_cnt=0;
-	foreach my $suffix ('',2,3,4,5,6,7) {
+	for my $suffix ('',2,3,4,5,6,7) {
 		if ($mail->{'attachment'.$suffix.'_name'}) {
 			$attach_cnt++;
 		}
@@ -120,7 +120,7 @@ sub simple_sendmail{
 			$size+=bytes::length($mail->{'text_body'});
 		}
 		
-		foreach my $suffix ('',2,3,4,5,6,7,8,9,10,11,12,13,14,15) {
+		for my $suffix ('',2,3,4,5,6,7,8,9,10,11,12,13,14,15) {
 			if ($mail->{'attachment'.$suffix.'_name'}) {				
 				print MAIL "\n".$section_boundary."\n";
 				print MAIL "Content-Type: ".$mail->{'attachment'.$suffix.'_content_type'}.";\n name=\"".$mail->{'attachment'.$suffix.'_name'}."\"\n";
@@ -128,7 +128,7 @@ sub simple_sendmail{
 				print MAIL "Content-Transfer-Encoding: base64\n";			
 				print MAIL "Content-Disposition: attachment;\n filename=\"".$mail->{'attachment'.$suffix.'_name'}."\"\n\n";
 				binmode(MAIL,":raw");
-				my $tmp=&encode_base64($mail->{'attachment'.$suffix.'_body'});
+				my $tmp=encode_base64($mail->{'attachment'.$suffix.'_body'});
 				$size+=bytes::length($tmp);			
 				print MAIL $tmp;
 				binmode(MAIL,$default_mode);
@@ -136,11 +136,11 @@ sub simple_sendmail{
 		}
 		print MAIL $boundary.'--'."\n";
 	}else{
-		&lp('simple_sendmail. text to send!!!!!!!!!!!!!!!');
+		lp('simple_sendmail. text to send!!!!!!!!!!!!!!!');
 	}
 	
 	close MAIL;
-	&log_printf("simple sendmail(to = $mail->{'to'}, from = $mail->{'from'}, subj = $mail->{'subject'}), size=$size");	
+	log_printf("simple sendmail(to = $mail->{'to'}, from = $mail->{'from'}, subj = $mail->{'subject'}), size=$size");	
 	return 1;
 		
 }
@@ -154,10 +154,10 @@ sub complex_sendmail {
 #  'attachment_name', 'attachment_cotent_type', 'attachment_body'
 # }
 
-#&log_printf("mail = ".Dumper($mail));
+#log_printf("mail = ".Dumper($mail));
 	my $default_mode = ':utf8';
 	my $default_encoding = 'utf8';
-	my $rand = &atom_misc::make_code(32);
+	my $rand = atom_misc::make_code(32);
 	my $size=0;
 	if ($mail->{'default_encoding'} ne 'utf8') { # always set to latin1
 #	if (($mail->{'subject'} =~ /Report on/i) || ($mail->{'to'} =~ /zoom\.com/i)) { # switch to latin1-mode for 'Report on...' and ...@zoom.com mails
@@ -186,7 +186,7 @@ sub complex_sendmail {
 	
 	my $hasAttachment=undef;
 	# headers for attachments	
-	foreach my $suffix ('',2,3,4,5) {
+	for my $suffix ('',2,3,4,5) {
 		if ($mail->{'attachment'.$suffix.'_name'}) {
 			print MAIL "Content-Type: multipart/related; boundary=\"zzz".$rand."zzz\";\n\n";
 			print MAIL "--zzz".$rand."zzz"."\n";
@@ -210,7 +210,7 @@ sub complex_sendmail {
 		print MAIL "\n";
 		binmode(MAIL,":bytes");
 		if ($default_mode eq ':utf8') {
-			my $tmp=&encode_base64(&Encode::encode("UTF-8",$mail->{'text_body'}));
+			my $tmp=encode_base64(Encode::encode("UTF-8",$mail->{'text_body'}));
 			$size+=bytes::length($tmp);
 			print MAIL $tmp;
 		}
@@ -231,7 +231,7 @@ sub complex_sendmail {
 		print MAIL "\n";
 		binmode(MAIL,":bytes");
 		if ($default_mode eq ':utf8') {
-			my $tmp=&encode_base64(&encode("UTF-8",$mail->{'html_body'}));
+			my $tmp=encode_base64(encode("UTF-8",$mail->{'html_body'}));
 			$size+=bytes::length($tmp);
 			print MAIL $tmp;
 		}
@@ -246,7 +246,7 @@ sub complex_sendmail {
 	
 	# attachments body
 	my $start_mixed = 0;
-	foreach my $suffix ('',2,3,4,5,6,7,8,9,10,11,12,13,14,15) {
+	for my $suffix ('',2,3,4,5,6,7,8,9,10,11,12,13,14,15) {
 		if ($mail->{'attachment'.$suffix.'_name'}) {
 			$start_mixed = 1;
 			print MAIL "--zzz".$rand."zzz\n";
@@ -255,7 +255,7 @@ sub complex_sendmail {
 			print MAIL "Content-Transfer-encoding: base64\n";			
 			print MAIL "Content-Disposition: attachment;\tfilename=\"".$mail->{'attachment'.$suffix.'_name'}."\"\n\n";
 			binmode(MAIL,":raw");
-			my $tmp=&encode_base64($mail->{'attachment'.$suffix.'_body'});
+			my $tmp=encode_base64($mail->{'attachment'.$suffix.'_body'});
 			$size+=bytes::length($tmp);			
 			print MAIL $tmp;
 			binmode(MAIL,$default_mode);
@@ -264,7 +264,7 @@ sub complex_sendmail {
 	print MAIL "--zzz".$rand."zzz--\n" if ($start_mixed);
 	
 	close MAIL;
-	&log_printf("complex sendmail(to = $mail->{'to'}, from = $mail->{'from'}, subj = $mail->{'subject'}), size=$size");	
+	log_printf("complex sendmail(to = $mail->{'to'}, from = $mail->{'from'}, subj = $mail->{'subject'}), size=$size");	
 	return 1;
 }
 
