@@ -12,7 +12,7 @@ sub new{
 	my $package=shift;
 	my %params=@_;
 	if(!$params{'delimiter'} or !$params{'file'}){
-		&log_printf(__PACKAGE__."::new -> delimiter and file are mandatory ");
+		log_printf(__PACKAGE__."::new -> delimiter and file are mandatory ");
 		return undef;
 	}
 	# the defaults
@@ -34,7 +34,7 @@ sub new{
 	if($self->{file}){
 		my $file_h;
 		if(!(open $file_h, "<:encoding($self->{encoding})",$self->{file})){
-			&log_printf(__PACKAGE__."::new -> cant open file $self->{file}");
+			log_printf(__PACKAGE__."::new -> cant open file $self->{file}");
 			return undef;
 		}
 		$self->{file_h}=$file_h;
@@ -99,7 +99,7 @@ sub get_next_row{
 		}
 		$cnt++;
 		if($cnt==30000){
-			&log_printf(__PACKAGE__." Too big line");
+			log_printf(__PACKAGE__." Too big line");
 			my $tmp=["ERROR!!!. TOO BIG LINE. PLEASE CHECK line delimiter"];
 			return $tmp;	
 		}
@@ -162,7 +162,7 @@ sub file{
 		$self->{'file'}=$_[0];
 		close($self->{file_h});
 		if(!(open my $file_h, "<:encoding($self->{encoding})",$_[0])){
-			&log_printf("CSVParser::file: file does not exists");
+			log_printf("CSVParser::file: file does not exists");
 			return undef
 		};
 		#binmode $file_h;
@@ -192,19 +192,19 @@ sub check_params{
 	$to_check->{$self->{quote}}=1;
 	#$to_check->{$self->{escape}}=1;
 	if(scalar(keys %$to_check)!=3){
-		&log_printf(__PACKAGE__.": Some of delimiter,newline,quote,escape are equal each other");
+		log_printf(__PACKAGE__.": Some of delimiter,newline,quote,escape are equal each other");
 		return undef;
 	}elsif(!$self->{quote}){
-		&log_printf(__PACKAGE__.": Quote is undef");
+		log_printf(__PACKAGE__.": Quote is undef");
 		return '';
 	}elsif(!$self->{delimiter}){
-		&log_printf(__PACKAGE__.": delimiter is undef");
+		log_printf(__PACKAGE__.": delimiter is undef");
 		return '';
 	}elsif(!$self->{newline}){
-		&log_printf(__PACKAGE__.": newline is undef");
+		log_printf(__PACKAGE__.": newline is undef");
 		return '';
 	}elsif(!$self->{escape}){
-		&log_printf(__PACKAGE__.": escape is undef");
+		log_printf(__PACKAGE__.": escape is undef");
 		return '';
 	}else{
 		return $self;
