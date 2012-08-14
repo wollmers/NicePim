@@ -50,10 +50,10 @@ sub generate_coverage_report {
 	return if($hin{'reload'} ne 'Report');
 
 	if ($rep_class eq 'products') {
-		return &report_products();
+		return report_products();
 	}
 	elsif ($rep_class eq 'features') {
-		return &report_features();
+		return report_features();
 	}
 }
 
@@ -91,20 +91,20 @@ sub report_row {
 		$p5 = sprintf("%.0f",$row->[5]/$row->[1]*100);
 	}
 	my @params;
-	foreach my $key(keys %$hash){
+	for my $key(keys %$hash){
 		push @params,$key.':'.$hash->{$key} if($key && $hash->{$key});
 	}
 	my $params = join(',',@params);
 	$tr = '<tr><td class="main info_bold">&nbsp;'.$title.'</td>'.
-		&format($row->[1],'8%','main info_bold',$bold).
-	  &format($row->[2],'6%','main info_bold',$bold).
-	  &format($p2,'6%','main info_bold',$bold,'green',$params.',col:3').
-	  &format($row->[3],'6%','main info_bold',$bold).
-	  &format($p3,'6%','main info_bold',$bold,'red',$params.',col:0').
-	  &format($row->[4],'6%','main info_bold',$bold).
-	  &format($p4,'6%','main info_bold',$bold,'blue',$params.',col:2').
-	  &format($row->[5],'6%','main info_bold',$bold).
-	  &format($p5,'6%','main info_bold',$bold,'blue',$params.',col:1').
+		format($row->[1],'8%','main info_bold',$bold).
+	  format($row->[2],'6%','main info_bold',$bold).
+	  format($p2,'6%','main info_bold',$bold,'green',$params.',col:3').
+	  format($row->[3],'6%','main info_bold',$bold).
+	  format($p3,'6%','main info_bold',$bold,'red',$params.',col:0').
+	  format($row->[4],'6%','main info_bold',$bold).
+	  format($p4,'6%','main info_bold',$bold,'blue',$params.',col:2').
+	  format($row->[5],'6%','main info_bold',$bold).
+	  format($p5,'6%','main info_bold',$bold,'blue',$params.',col:1').
 		'</tr>';
 	return $tr;
 }
@@ -114,7 +114,7 @@ sub report_features {
 	my $totals = ['',0,0,0,0];
 
 	if($hin{'search_catfeat_id'}){
-		if(&do_query("select 1 from category_feature
+		if(do_query("select 1 from category_feature
 			where catid = ".$hin{search_catid}."
 			and category_feature_id = ".$hin{search_catfeat_id})->[0][0] != 1) {
 			return "<p><font face=Verdana size=2 color=green>Category features were loaded. Press <b>[Report]</b> again.</font></p>";
@@ -132,13 +132,13 @@ sub report_features {
     'stock' => $hin{'on_stock'}
   );
 
-  &prepare_coverage_tmp_tables(\%rep_params);
+  prepare_coverage_tmp_tables(\%rep_params);
 
-  my $search_cnt = &do_query("select sfeatures from itmp_4c_desc_category where catid=".$hin{'search_catid'})->[0][0];
+  my $search_cnt = do_query("select sfeatures from itmp_4c_desc_category where catid=".$hin{'search_catid'})->[0][0];
 
 	if($hin{'search_distri_id'} eq '0'){
 		
-		my $bysup = &do_query("select name, count(*) as cnt, sum(if(sfeatures = desc_sfeatures and sfeatures > 0,1,0)), 0, sum(if(desc_feature=1,1,0)), p.supplier_id
+		my $bysup = do_query("select name, count(*) as cnt, sum(if(sfeatures = desc_sfeatures and sfeatures > 0,1,0)), 0, sum(if(desc_feature=1,1,0)), p.supplier_id
 			from itmp_4c_product p
 inner join supplier using (supplier_id)
 inner join itmp_4c_desc_product dsp on p.product_id=dsp.product_id
@@ -164,17 +164,17 @@ group by p.supplier_id order by cnt desc");
 <th class="main info_header" colspan=2>described</th><th class="main info_header" colspan=2>undescribed</th>
 </tr>';
 
-		foreach my $row (@$bysup){
+		for my $row (@$bysup){
       my %supp_params = %rep_params;
       $supp_params{'supp'} = $row->[5];
 			if($search_cnt>0){ $row->[3]=$row->[1]-$row->[2]; }
 			$row->[5]=$row->[1]-$row->[4];
-			foreach my $i (1..5) { $totals->[$i]+=$row->[$i]; }
-      $report .= &report_row($row,'<b>'.$row->[0].'</b>',0,\%supp_params);
+			for my $i (1..5) { $totals->[$i]+=$row->[$i]; }
+      $report .= report_row($row,'<b>'.$row->[0].'</b>',0,\%supp_params);
 		}
 	}
 	else {
-		my $bydist = &do_query("select name, count(*), sum(if(sfeatures=desc_sfeatures and sfeatures>0,1,0)), 0, sum(if(desc_feature=1,1,0)), d.distributor_id, d.last_import_date
+		my $bydist = do_query("select name, count(*), sum(if(sfeatures=desc_sfeatures and sfeatures>0,1,0)), 0, sum(if(desc_feature=1,1,0)), d.distributor_id, d.last_import_date
 from itmp_4c_product p
 inner join itmp_4c_desc_product dsp on p.product_id=dsp.product_id
 inner join itmp_4c_distributor_product dp on p.product_id=dp.product_id
@@ -183,7 +183,7 @@ group by d.distributor_id order by name");
 
     my $colname = "any supplier";
     if ($hin{'search_supplier_id'}){
-      $colname = '<b>'.&do_query("select name from supplier where supplier_id=".$hin{'search_supplier_id'})->[0][0].'</b>';
+      $colname = '<b>'.do_query("select name from supplier where supplier_id=".$hin{'search_supplier_id'})->[0][0].'</b>';
     }
     $report .= '
 <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -204,16 +204,16 @@ group by d.distributor_id order by name");
 <th class="main info_header" colspan=2>described</th><th class="main info_header" colspan=2>undescribed</th>
 </tr>';
 		
-		foreach my $row (@$bydist){
+		for my $row (@$bydist){
       my %dist_params = %rep_params;
       $dist_params{'dist'} = $row->[5];
 			if ($search_cnt>0) {
 				$row->[3] = $row->[1] - $row->[2];
 			}
 			$row->[5] = $row->[1] - $row->[4];
-			$report .= &report_row($row,'<b>'.$row->[0].'</b>',0,\%dist_params);
+			$report .= report_row($row,'<b>'.$row->[0].'</b>',0,\%dist_params);
 		}
-		$totals = &do_query("select count(*),count(*),sum(if(sfeatures=desc_sfeatures and sfeatures>0,1,0)), 0, sum(if(desc_feature=1,1,0))
+		$totals = do_query("select count(*),count(*),sum(if(sfeatures=desc_sfeatures and sfeatures>0,1,0)), 0, sum(if(desc_feature=1,1,0))
 from itmp_4c_product p
 inner join itmp_4c_desc_product dsp on p.product_id=dsp.product_id
 inner join itmp_4c_distinct dp on p.product_id=dp.product_id")->[0];
@@ -222,7 +222,7 @@ inner join itmp_4c_distinct dp on p.product_id=dp.product_id")->[0];
 		}
     $totals->[5] = $totals->[1]-$totals->[4];
 	}
-	return $report.&report_row($totals,'<font color=darkgray><b>summary</b></font>',1,\%rep_params).'</table></td></tr></table></td></tr></table>';
+	return $report.report_row($totals,'<font color=darkgray><b>summary</b></font>',1,\%rep_params).'</table></td></tr></table></td></tr></table>';
 }
 
 
@@ -242,11 +242,11 @@ sub report_products {
 		'stock' => $hin{'on_stock'}
 		);
 	
-	&prepare_coverage_tmp_tables(\%rep_params,$file);
+	prepare_coverage_tmp_tables(\%rep_params,$file);
 	`/bin/rm -f $file` if($file);
 	
 	if($hin{'search_distri_id'} eq '0' || $file){
-		my $bysup = &do_query("select name, count(*) as cnt, sum(if(quality>0,1,0)), sum(if(quality=0,1,0)), sum(if(quality=2,1,0)), sum(if(quality=1,1,0)), p.supplier_id 
+		my $bysup = do_query("select name, count(*) as cnt, sum(if(quality>0,1,0)), sum(if(quality=0,1,0)), sum(if(quality=2,1,0)), sum(if(quality=1,1,0)), p.supplier_id 
 		from itmp_4c_product as p
 		inner join supplier using (supplier_id)
 		inner join itmp_4c_distinct as dp using (product_id)
@@ -272,13 +272,13 @@ sub report_products {
 "\n";
 		my $cover = $report if($d_code);
 		
-		foreach my $row (@$bysup) {
-			foreach my $i (1..5) { $totals->[$i]+=$row->[$i]; }
+		for my $row (@$bysup) {
+			for my $i (1..5) { $totals->[$i]+=$row->[$i]; }
 			my %supp_params = %rep_params;
 			$supp_params{'supp'} = $row->[6];
-			$report .= &report_row($row,'<b>'.$row->[0].'</b>',0,\%supp_params);
+			$report .= report_row($row,'<b>'.$row->[0].'</b>',0,\%supp_params);
 			if ($hin{'show_subtotals'}) {
-				my $bycat = &do_query("select value, count(*) as total_cnt, sum(if(quality>0,1,0)), sum(if(quality=0,1,0)), sum(if(quality=2,1,0)), sum(if(quality=1,1,0)), p.catid
+				my $bycat = do_query("select value, count(*) as total_cnt, sum(if(quality>0,1,0)), sum(if(quality=0,1,0)), sum(if(quality=2,1,0)), sum(if(quality=1,1,0)), p.catid
 from itmp_4c_product as p
 inner join category as c on p.catid=c.catid
 inner join vocabulary as v on c.sid=v.sid and v.langid=1
@@ -287,21 +287,21 @@ where p.supplier_id=$row->[6] group by p.catid order by total_cnt,value");
 
 				my %scat_params = %supp_params;
 				delete $scat_params{'scat'};
-				foreach my $row (@$bycat) {
+				for my $row (@$bycat) {
 					$scat_params{'cat'} = $row->[6];
-					$report .= &report_row($row,'&nbsp;&nbsp;&nbsp;'.$row->[0],0,\%scat_params);
+					$report .= report_row($row,'&nbsp;&nbsp;&nbsp;'.$row->[0],0,\%scat_params);
 				}
 			}
 		}
 		
 		if ($file) {
-			$cover = quotemeta($cover.&report_row($totals,'<font color=darkgray><b>summary</b></font>',1,\%rep_params).'</table>') if($d_code);
-			&do_statement("update distributor_pl set updated=now(), coverage='".$cover."' where code='".$d_code."'") if($d_code);
-			return $report.&report_row($totals,'<font color=darkgray><b>summary</b></font>',1,\%rep_params).'</table>';
+			$cover = quotemeta($cover.report_row($totals,'<font color=darkgray><b>summary</b></font>',1,\%rep_params).'</table>') if($d_code);
+			do_statement("update distributor_pl set updated=now(), coverage='".$cover."' where code='".$d_code."'") if($d_code);
+			return $report.report_row($totals,'<font color=darkgray><b>summary</b></font>',1,\%rep_params).'</table>';
 		}
 	}
 	else {
-		my $bydist = &do_query("select name,count(*),sum(if(quality>0,1,0)),
+		my $bydist = do_query("select name,count(*),sum(if(quality>0,1,0)),
 			sum(if(quality=0,1,0)),sum(if(quality=2,1,0)),sum(if(quality=1,1,0)),dp.distributor_id, d.last_import_date, d.file_creation_date
 			from itmp_4c_product as p, itmp_4c_distributor_product as dp, distributor as d
 			where p.product_id=dp.product_id and dp.distributor_id=d.distributor_id
@@ -309,7 +309,7 @@ where p.supplier_id=$row->[6] group by p.catid order by total_cnt,value");
 		
 		my $colname = "any supplier";
 		if ($hin{'search_supplier_id'}) {
-			$colname = '<b>'.&do_query("select name from supplier where supplier_id=".$hin{'search_supplier_id'})->[0][0].'</b>';
+			$colname = '<b>'.do_query("select name from supplier where supplier_id=".$hin{'search_supplier_id'})->[0][0].'</b>';
 		}
 		$report .= '
 <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -329,33 +329,33 @@ where p.supplier_id=$row->[6] group by p.catid order by total_cnt,value");
 <th class="main info_header" colspan=2>SUPPLIER</th>
 <th class="main info_header" colspan=2>ICECAT</th></tr>';
 		
-		foreach my $row (@$bydist) {
+		for my $row (@$bydist) {
 			my %dist_params = %rep_params;
 			$dist_params{'dist'} = $row->[6];
 
 			# last import date & file creation date -> into the abbr
 			$last_import_date = $row->[7] unless $last_import_date;
 
-			$report .= &report_row($row,'<b>'.$row->[0].'</b>' . ($row->[8] ? ' ('.strftime("%Y-%m-%d %H:%M:%S", localtime($row->[8])).')' : ''),0,\%dist_params);
+			$report .= report_row($row,'<b>'.$row->[0].'</b>' . ($row->[8] ? ' ('.strftime("%Y-%m-%d %H:%M:%S", localtime($row->[8])).')' : ''),0,\%dist_params);
 			if ($hin{'show_subtotals'}) {
-				my $bycat = &do_query("select value,count(*),sum(if(quality>0,1,0)),
+				my $bycat = do_query("select value,count(*),sum(if(quality>0,1,0)),
 					sum(if(quality=0,1,0)),sum(if(quality=2,1,0)),sum(if(quality=1,1,0)),p.catid
 					from itmp_4c_product as p, itmp_4c_distributor_product as dp, category as c, vocabulary as v
 					where p.product_id=dp.product_id and p.catid=c.catid and c.sid=v.sid and v.langid=1
 					and dp.distributor_id=$row->[6] group by p.catid order by value");
 				my %scat_params = %dist_params;
 				delete $scat_params{'scat'};
-				foreach my $row (@$bycat) {
+				for my $row (@$bycat) {
 					$scat_params{'cat'} = $row->[6];
-					$report .= &report_row($row,'&nbsp;&nbsp;&nbsp;'.$row->[0],0,\%scat_params);
+					$report .= report_row($row,'&nbsp;&nbsp;&nbsp;'.$row->[0],0,\%scat_params);
 				}
 			}
 		}	
-		$totals = &do_query("select count(*),count(*),sum(if(quality>0,1,0)),sum(if(quality=0,1,0)),sum(if(quality=2,1,0)),sum(if(quality=1,1,0))
+		$totals = do_query("select count(*),count(*),sum(if(quality>0,1,0)),sum(if(quality=0,1,0)),sum(if(quality=2,1,0)),sum(if(quality=1,1,0))
 from itmp_4c_product as p, itmp_4c_distinct as dp, itmp_4c_desc_category as c where p.product_id=dp.product_id and p.catid=c.catid limit 1")->[0];
 	}
 	
-	return $report.&report_row($totals,'<font color=darkgray><b>summary</b>' . ( $last_import_date ? ' (last import date is '.strftime("%Y-%m-%d %H:%M:%S", localtime($last_import_date)).')' : '' ) . '</font>',1,\%rep_params).'</table></td></tr></table></td></tr></table>';
+	return $report.report_row($totals,'<font color=darkgray><b>summary</b>' . ( $last_import_date ? ' (last import date is '.strftime("%Y-%m-%d %H:%M:%S", localtime($last_import_date)).')' : '' ) . '</font>',1,\%rep_params).'</table></td></tr></table></td></tr></table>';
 }
 
 sub prepare_coverage_tmp_tables {
@@ -377,9 +377,9 @@ sub prepare_coverage_tmp_tables {
 			$catid_clause=" and catid = ".$catid;
 		}
 		else {
-		  my $rows = &do_query("select catid, pcatid from category");
+		  my $rows = do_query("select catid, pcatid from category");
 		  my $cats_by_owner;
-			foreach my $row (@$rows) {
+			for my $row (@$rows) {
 				my ($catid,$catownerid) = @{$row};
 				push @{$cats_by_owner->{$catownerid}},$catid;
 			}
@@ -387,25 +387,25 @@ sub prepare_coverage_tmp_tables {
 			sub get_catids {
 				my ($id) = @_;
 				push @catids,$id;
-				foreach my $subid (@{$cats_by_owner->{$id}}) {
-					&get_catids($subid);
+				for my $subid (@{$cats_by_owner->{$id}}) {
+					get_catids($subid);
 				}
 			}
 			
-			&get_catids($catid);
+			get_catids($catid);
 		  $catid_clause = "and catid in (".join(',',@catids).")";
 		}
 	}
 	
 	my $temp = 'temporary';	
 
-	&do_statement("drop $temp table if exists itmp_4c_product");
-	&do_statement("drop $temp table if exists itmp_4c_distributor_product");
-	&do_statement("drop $temp table if exists itmp_4c_desc_category");
-	&do_statement("drop $temp table if exists itmp_4c_desc_product");
-	&do_statement("drop $temp table if exists itmp_4c_distinct");
+	do_statement("drop $temp table if exists itmp_4c_product");
+	do_statement("drop $temp table if exists itmp_4c_distributor_product");
+	do_statement("drop $temp table if exists itmp_4c_desc_category");
+	do_statement("drop $temp table if exists itmp_4c_desc_product");
+	do_statement("drop $temp table if exists itmp_4c_distinct");
 
-	&do_statement("create $temp table itmp_4c_product (
+	do_statement("create $temp table itmp_4c_product (
 		product_id  int(13)      unsigned not null default 0,
 		supplier_id mediumint(7) unsigned not null default 0,
 		catid       mediumint(7) unsigned not null default 0,
@@ -417,33 +417,33 @@ sub prepare_coverage_tmp_tables {
 		key (supplier_id, catid),
 		key (user_id)) ENGINE = MEMORY");
 
-	&do_statement("create $temp table itmp_4c_distributor_product (
+	do_statement("create $temp table itmp_4c_distributor_product (
 		product_id     int(13)      unsigned not null default 0,
 		distributor_id mediumint(7) unsigned not null default 0) ENGINE = MyISAM");
 
-	&do_statement("create $temp table itmp_4c_desc_category (
+	do_statement("create $temp table itmp_4c_desc_category (
 		catid     mediumint(7) unsigned primary key,
 		sfeatures smallint(5)  unsigned not null default 0) ENGINE = MEMORY");
 
-	&do_statement("create $temp table itmp_4c_desc_product (
+	do_statement("create $temp table itmp_4c_desc_product (
 		product_id     int(13)     unsigned not null default 0,
 		desc_sfeatures smallint(5) unsigned not null default 0,
 		desc_feature   tinyint(1)  unsigned not null default 0,
 		primary key (product_id)) ENGINE = MyISAM");	
 
-	&do_statement("create $temp table itmp_4c_distinct (product_id int(13) primary key) ENGINE = MEMORY");
+	do_statement("create $temp table itmp_4c_distinct (product_id int(13) primary key) ENGINE = MEMORY");
 
-	&do_statement("alter table itmp_4c_desc_category disable keys");
-	&do_statement("insert into itmp_4c_desc_category select catid, sum(searchable) from category_feature where 1 $catid_clause group by catid");
-	&do_statement("alter table itmp_4c_desc_category enable keys");
+	do_statement("alter table itmp_4c_desc_category disable keys");
+	do_statement("insert into itmp_4c_desc_category select catid, sum(searchable) from category_feature where 1 $catid_clause group by catid");
+	do_statement("alter table itmp_4c_desc_category enable keys");
 	
-	&do_statement("create $temp table itmp_4c_category_feature (
+	do_statement("create $temp table itmp_4c_category_feature (
 		category_feature_id int(13)      unsigned not null default 0,
 		catid               mediumint(7) unsigned not null default 0,
 		searchable          tinyint(1)   unsigned not null default 0,
 		primary key (category_feature_id)) ENGINE = MyISAM");
 
-	&do_statement("insert into itmp_4c_category_feature select category_feature_id, catid, searchable from category_feature where 1 $catid_clause");
+	do_statement("insert into itmp_4c_category_feature select category_feature_id, catid, searchable from category_feature where 1 $catid_clause");
 	
 	my $c_on_market = "cp.active>0";
 	my $d_on_market = "dp.active>0";
@@ -452,8 +452,8 @@ sub prepare_coverage_tmp_tables {
 	if ($file) {
 		$c_on_market = "1";
 		$d_on_market = "1";
-		&do_statement("drop $temp table if exists tmp_pl_products");
-		&do_statement("create $temp table tmp_pl_products(
+		do_statement("drop $temp table if exists tmp_pl_products");
+		do_statement("create $temp table tmp_pl_products(
 			id int(13) primary key auto_increment,
                         prodlevid   varchar(235) not null default '',
                         prod_id     varchar(235) not null default '',
@@ -475,59 +475,59 @@ sub prepare_coverage_tmp_tables {
                         key (prod_id,ean),
                   			key (supplier),
                   			key (supplier_id))");
-		&do_statement("alter table tmp_pl_products disable keys");
-		&do_statement("load data local infile \"".$file."\" into table tmp_pl_products fields escaped by '".$hin{'esc_c'}."' terminated by '\\t' lines terminated by '\\n'
+		do_statement("alter table tmp_pl_products disable keys");
+		do_statement("load data local infile \"".$file."\" into table tmp_pl_products fields escaped by '".$hin{'esc_c'}."' terminated by '\\t' lines terminated by '\\n'
 			(prodlevid,prod_id,supplier,category,subcategory,name,description,euprice,euprice_vat,stock,distributor,image,ean,\@dummy,\@dummy)");
-		&do_statement("alter table tmp_pl_products enable keys");
+		do_statement("alter table tmp_pl_products enable keys");
 		
 		# supplier mapping
-		&do_statement("update tmp_pl_products t inner join supplier s on t.supplier=s.name set t.supplier_id=s.supplier_id");
-		&do_statement("update tmp_pl_products t inner join data_source_supplier_map s on t.supplier=s.symbol and s.data_source_id=1 set t.supplier_id=s.supplier_id where t.supplier_id=0");
+		do_statement("update tmp_pl_products t inner join supplier s on t.supplier=s.name set t.supplier_id=s.supplier_id");
+		do_statement("update tmp_pl_products t inner join data_source_supplier_map s on t.supplier=s.symbol and s.data_source_id=1 set t.supplier_id=s.supplier_id where t.supplier_id=0");
 		
 		my $query = "select 0, supplier_id, pattern, 0, map_supplier_id from product_map";
 
 		# prod_id mapping
-		&template_prod_id_mapping_DEPRECATED("tmp_pl_products", undef, $query);
+		template_prod_id_mapping_DEPRECATED("tmp_pl_products", undef, $query);
 		
-		&do_statement("update tmp_pl_products tpp inner join product p using(prod_id) set tpp.product_id=p.product_id");
+		do_statement("update tmp_pl_products tpp inner join product p using(prod_id) set tpp.product_id=p.product_id");
 		
-		&do_statement("alter table itmp_4c_product disable keys");
-		&do_statement("insert ignore into itmp_4c_product select p.product_id, p.supplier_id, p.catid, p.user_id, 0, 0 
+		do_statement("alter table itmp_4c_product disable keys");
+		do_statement("insert ignore into itmp_4c_product select p.product_id, p.supplier_id, p.catid, p.user_id, 0, 0 
 				from product p 
 				inner join tmp_pl_products tpp using(prod_id)");
 		
-		&do_statement("insert ignore into itmp_4c_product select p.product_id, p.supplier_id, p.catid, p.user_id, 0, 0 
+		do_statement("insert ignore into itmp_4c_product select p.product_id, p.supplier_id, p.catid, p.user_id, 0, 0 
                                 from product p 
 				inner join product_ean_codes pec on p.product_id=pec.product_id
 				inner join tmp_pl_products tpp on tpp.ean=pec.ean_code");
-		&do_statement("alter table itmp_4c_product enable keys");
+		do_statement("alter table itmp_4c_product enable keys");
 		
 	}
 	else {
-		&do_statement("alter table itmp_4c_product disable keys");
+		do_statement("alter table itmp_4c_product disable keys");
 
 		# get product info from product_memory table
-		my @arr = &get_primary_key_set_of_ranges('p','product_memory',500000,'product_id'); # 1/2 million
+		my @arr = get_primary_key_set_of_ranges('p','product_memory',500000,'product_id'); # 1/2 million
 		my $b_cond;
-		foreach $b_cond (@arr) {
-			&do_statement("insert into itmp_4c_product(product_id,supplier_id,catid" . ( $report_type == 1 ? ",user_id" : '' ) .")
+		for $b_cond (@arr) {
+			do_statement("insert into itmp_4c_product(product_id,supplier_id,catid" . ( $report_type == 1 ? ",user_id" : '' ) .")
 select p.product_id, p.supplier_id, p.catid" . ( $report_type == 1 ? ", p.user_id" : '' ) . " 
 from product_memory p force key (product_id)
 where 1 ".$supplier_clause." ".$catid_clause.' AND '.$b_cond);
 		}
 		
-		&do_statement("alter table itmp_4c_product enable keys");
+		do_statement("alter table itmp_4c_product enable keys");
 	}
 	
 	if ($report_type == 1 || $file) { # product
-		&do_statement("update itmp_4c_product p
+		do_statement("update itmp_4c_product p
 inner join users u                        using (user_id)
 inner join user_group_measure_map ugmm    using (user_group)
 inner join content_measure_index_map cmim on ugmm.measure=cmim.content_measure
 set   p.quality = cmim.quality_index");
 	}
 	elsif ($report_type == 2) { # feature
-		&do_statement("update itmp_4c_product p inner join itmp_4c_desc_category c using (catid) set p.sfeatures=c.sfeatures");
+		do_statement("update itmp_4c_product p inner join itmp_4c_desc_category c using (catid) set p.sfeatures=c.sfeatures");
 	}
 	
 	my ($distri_clause,$stock_clause_dp,$stock_clause_cp);
@@ -541,16 +541,16 @@ set   p.quality = cmim.quality_index");
 		$stock_clause_dp = " and dp.stock > 0";
 	}
 	
-	#&log_printf("Q (coverage_report.pm): \n" . &do_query_dump("explain select distinct p.product_id, distributor_id
+	#log_printf("Q (coverage_report.pm): \n" . do_query_dump("explain select distinct p.product_id, distributor_id
 	#from itmp_4c_product p
 	#inner join country_product cp on cp.product_id=p.product_id
 	#left join distributor_product dp on dp.product_id=p.product_id
 	#where ".$c_on_market." and ".$d_on_market." ".$stock_clause_dp." ".$stock_clause_cp." ".$distri_clause));
 	
-	&do_statement("alter table itmp_4c_distributor_product disable keys");
+	do_statement("alter table itmp_4c_distributor_product disable keys");
 
 	if ($distri) {
-		&do_statement("insert into itmp_4c_distributor_product
+		do_statement("insert into itmp_4c_distributor_product
 		select distinct p.product_id, distributor_id
 		from       itmp_4c_product p
 		inner join country_product cp on cp.product_id=p.product_id
@@ -558,36 +558,36 @@ set   p.quality = cmim.quality_index");
 		where      $c_on_market and $d_on_market $stock_clause_dp $stock_clause_cp $distri_clause");
 	}
 	else {
-		&do_statement("insert into itmp_4c_distributor_product
+		do_statement("insert into itmp_4c_distributor_product
 		select distinct p.product_id, 1
 		from       itmp_4c_product p
 		inner join country_product cp on cp.product_id=p.product_id
 		where      $c_on_market $stock_clause_cp");
 	}
 
-	&do_statement("alter table itmp_4c_distributor_product enable keys");
+	do_statement("alter table itmp_4c_distributor_product enable keys");
 
-	&do_statement("alter table itmp_4c_distinct disable keys");
-	&do_statement("insert into itmp_4c_distinct select distinct product_id from itmp_4c_distributor_product");
-	&do_statement("alter table itmp_4c_distinct enable keys");
+	do_statement("alter table itmp_4c_distinct disable keys");
+	do_statement("insert into itmp_4c_distinct select distinct product_id from itmp_4c_distributor_product");
+	do_statement("alter table itmp_4c_distinct enable keys");
 
 	if ($report_type == 2) {
-		my $data = &do_query("select category_feature_id from itmp_4c_category_feature where searchable=1");
+		my $data = do_query("select category_feature_id from itmp_4c_category_feature where searchable=1");
 		my @cfids = ($feat);
 		
-		foreach (@$data) {
+		for (@$data) {
 			push @cfids, $_->[0];
 		}
 		
 		my $feat_clause = " and pf.category_feature_id in (".join(',',@cfids).")";
-		&do_statement("alter table itmp_4c_desc_product disable keys");
-		&do_statement("insert into itmp_4c_desc_product select pf.product_id, sum(if(if(pf.value!='',1,0)=1 and cf.searchable=1,1,0)), sum(if(pf.category_feature_id = ".$feat." and if(value!='',1,0)=1,1,0))
+		do_statement("alter table itmp_4c_desc_product disable keys");
+		do_statement("insert into itmp_4c_desc_product select pf.product_id, sum(if(if(pf.value!='',1,0)=1 and cf.searchable=1,1,0)), sum(if(pf.category_feature_id = ".$feat." and if(value!='',1,0)=1,1,0))
 			from product_feature pf
 			inner join category_feature cf using (category_feature_id)
 			inner join itmp_4c_product p on p.product_id=pf.product_id 
 			where 1 $feat_clause
 			group by pf.product_id");
-		&do_statement("alter table itmp_4c_desc_product enable keys");
+		do_statement("alter table itmp_4c_desc_product enable keys");
 	}
 }
 
@@ -601,7 +601,7 @@ sub prepare_coverage_filter {
 	my $cache_table_found=0;
 	my $cache_table_join='';
 	my $cache_table_join_on='';
-	foreach my $pair_str (@arr){
+	for my $pair_str (@arr){
 		my @pair_arr=split(/:/,$pair_str);
 		if($pair_arr[0] eq 'table' and $pair_arr[1]){
 			$cache_table_found=1;
@@ -616,7 +616,7 @@ sub prepare_coverage_filter {
 	my @filter_keys = split(/,/,$filter);
 	my %filter_hash;
 
-	foreach (@filter_keys) {
+	for (@filter_keys) {
 		my @couple = split(/:/,$_);
 		if ($#couple == 1) {
 			$couple[0] =~ s/[^_a-zA-Z1-9]/0/g;
@@ -638,11 +638,11 @@ sub prepare_coverage_filter {
 		log_printf("filter is active!");
 
 		@filter_keys = sort keys %filter_hash;
-		foreach (@filter_keys) {
+		for (@filter_keys) {
 			$result_filter_params[$i] = $filter_hash{$_};
 			$i++;
 		};
-		$current_epoch = &do_query('SELECT UNIX_TIMESTAMP()')->[0][0];
+		$current_epoch = do_query('SELECT UNIX_TIMESTAMP()')->[0][0];
 
 		$filter_tbl_name_notime = 'itmp_f_'.join('_',@result_filter_params)."_end";
 		$filter_tbl_name = $filter_tbl_name_notime.'_'.$current_epoch; # creating table name from filter parametrs
@@ -656,22 +656,22 @@ sub prepare_coverage_filter {
 		my $filter_tbl_name_notime4MySQL_like = $filter_tbl_name_notime;
 		$filter_tbl_name_notime4MySQL_like =~ s/\_/\\_/gs;
 
-    my $tmp_filter_tbl = &do_query("show tables like '".$filter_tbl_name_notime4MySQL_like."\\_%'")->[0][0];
+    my $tmp_filter_tbl = do_query("show tables like '".$filter_tbl_name_notime4MySQL_like."\\_%'")->[0][0];
 
 		# prepare filter params
 		
 		my @params = split(',',$filter);
 		my %params;
 		
-		foreach my $param (@params) {
+		for my $param (@params) {
 			my ($key,$value) = split(':',$param);
 			$params{$key} = $value;
 		}
 
 		if (!$tmp_filter_tbl) {
-			&log_printf("creating filter cache table: '$filter_tbl_name'");
+			log_printf("creating filter cache table: '$filter_tbl_name'");
 
-			&prepare_coverage_tmp_tables(\%params);
+			prepare_coverage_tmp_tables(\%params);
 
 			my $select = "insert into $filter_tbl_name (product_id) select distinct p.product_id from itmp_4c_product as p, itmp_4c_distributor_product as dp, ";
 			
@@ -712,32 +712,32 @@ sub prepare_coverage_filter {
 				}
 			}
 			
-			&do_statement("drop temporary table if exists $filter_tbl_name");
-			&do_statement("create temporary table if not exists $filter_tbl_name (product_id int(13), primary key(product_id)) ENGINE = MyISAM");
+			do_statement("drop temporary table if exists $filter_tbl_name");
+			do_statement("create temporary table if not exists $filter_tbl_name (product_id int(13), primary key(product_id)) ENGINE = MyISAM");
 			
 			if ($params{'type'} == 1) {
-				&do_statement($select." itmp_4c_desc_category as c where p.product_id=dp.product_id ".$supp_clause." ".$distri_clause." ".$cat_clause." ".$qual_clause);
+				do_statement($select." itmp_4c_desc_category as c where p.product_id=dp.product_id ".$supp_clause." ".$distri_clause." ".$cat_clause." ".$qual_clause);
 			}
 			else {
-				&do_statement($select." itmp_4c_desc_product as dsp where p.product_id = dsp.product_id and p.product_id = dp.product_id ".$supp_clause." ".$distri_clause." ".$cat_clause." ".$desc_clause);
+				do_statement($select." itmp_4c_desc_product as dsp where p.product_id = dsp.product_id and p.product_id = dp.product_id ".$supp_clause." ".$distri_clause." ".$cat_clause." ".$desc_clause);
 			}
 		} #(!$tmp_filter_exist)
 
 		# prepare filter string
 		
 		if ($params{'dist'} && ($params{'dist'} ne 'all')) {
-			$hin{'filter_toString'} .= ( &do_query("select name from distributor where distributor_id=".$params{dist})->[0][0] || '(unknown)' ) . ', ';
+			$hin{'filter_toString'} .= ( do_query("select name from distributor where distributor_id=".$params{dist})->[0][0] || '(unknown)' ) . ', ';
 		}
 		if ($params{'dist'} eq 'all') {
 			$hin{'filter_toString'} .= 'all distributors, ';
 		}
 		if ($params{'scat'} != 1) {
 			if ($params{'cat'} > 1) {
-				$hin{'filter_toString'} .= ( &do_query("select v.value from vocabulary v inner join category c on c.sid=v.sid and v.langid=1 where c.catid=".$params{cat})->[0][0] || '(unknown)' ) . ', ';
+				$hin{'filter_toString'} .= ( do_query("select v.value from vocabulary v inner join category c on c.sid=v.sid and v.langid=1 where c.catid=".$params{cat})->[0][0] || '(unknown)' ) . ', ';
 			}
 		}
 		if ($params{'supp'}) {
-			$hin{'filter_toString'} .= ( &do_query("select name from supplier where supplier_id=".$params{supp})->[0][0] || '(unknown)' ) . ', ';
+			$hin{'filter_toString'} .= ( do_query("select name from supplier where supplier_id=".$params{supp})->[0][0] || '(unknown)' ) . ', ';
 		}
 #		if ($params{'col'} != 3) {
 #			$hin{'filter_toString'} .= 'described only products, ';
@@ -745,7 +745,7 @@ sub prepare_coverage_filter {
 		if ($hin{'filter_toString'}) {
 			chop($hin{'filter_toString'});
 			chop($hin{'filter_toString'});
-#			$hin{'filter_toString'} = &str_htmlize($hin{'filter_toString'});
+#			$hin{'filter_toString'} = str_htmlize($hin{'filter_toString'});
 		}
 
 
@@ -787,120 +787,120 @@ sub coverage_by_table {
 		'access' => 1
 	};
 	
-	my $cols = &do_query("desc ".$product_table);
+	my $cols = do_query("desc ".$product_table);
 	
-	foreach (@$cols) {
-	#	&log_printf($_->[0]."\n");
+	for (@$cols) {
+	#	log_printf($_->[0]."\n");
 		delete $h->{$_->[0]};
 		if (($_->[0] eq 'ean') && ($params->{'ean'})) {
 			$has_ean = 1;
 		}
 		if ($_->[0] eq 'vendor') {
-			unless (&do_query("select count(*) from ".$product_table." where vendor is null")->[0][0]) {
+			unless (do_query("select count(*) from ".$product_table." where vendor is null")->[0][0]) {
 				$has_vendor = 1;
 			}
 		}
 	}
 	
-	foreach (keys %$h) {
+	for (keys %$h) {
 		if ($_ eq 'vendor') {
-			&do_statement("alter table ".$product_table." add column `vendor` varchar(60) NULL");
-			&log_printf("Warning!.. Vendor is absent.");
+			do_statement("alter table ".$product_table." add column `vendor` varchar(60) NULL");
+			log_printf("Warning!.. Vendor is absent.");
 		}
 		elsif ($_ eq 'supplier_id') {
-			&do_statement("alter table ".$product_table." add column `supplier_id` int(13) NOT NULL default '0', add key (`supplier_id`)");
-			&log_printf("adding supplier_id\n");
+			do_statement("alter table ".$product_table." add column `supplier_id` int(13) NOT NULL default '0', add key (`supplier_id`)");
+			log_printf("adding supplier_id\n");
 		}
 		elsif ($_ eq 'id') {
-			&do_statement("alter table ".$product_table." add column `id` int(13) NOT NULL auto_increment, add primary key (`id`)");
-			&log_printf("Adding absent primary key.");
+			do_statement("alter table ".$product_table." add column `id` int(13) NOT NULL auto_increment, add primary key (`id`)");
+			log_printf("Adding absent primary key.");
 		}
 		elsif ($_ eq 'product_id') {
-			&do_statement("alter table ".$product_table." add column `product_id` int(13) NOT NULL default '0', add key (`product_id`)");
-			&log_printf("adding product_id\n");
+			do_statement("alter table ".$product_table." add column `product_id` int(13) NOT NULL default '0', add key (`product_id`)");
+			log_printf("adding product_id\n");
 		}
 		elsif ($_ eq 'prod_id') {
-			&do_statement("alter table ".$product_table." add column `prod_id` varchar(60) NOT NULL default '', add key (`prod_id`)");
-			&log_printf("adding product_id\n");
-			&log_printf("mprod_id is missing.");
+			do_statement("alter table ".$product_table." add column `prod_id` varchar(60) NOT NULL default '', add key (`prod_id`)");
+			log_printf("adding product_id\n");
+			log_printf("mprod_id is missing.");
 			unless ($has_ean) {
-				&log_printf("exiting!!!!!!!!!");
+				log_printf("exiting!!!!!!!!!");
 				return '';
 			}
 			else {
 			}
 		}
 		elsif ($_ eq 'quality') {
-			&do_statement("alter table ".$product_table." add column `quality` varchar(60) NOT NULL default ''");
-			&log_printf("adding quality\n");
+			do_statement("alter table ".$product_table." add column `quality` varchar(60) NOT NULL default ''");
+			log_printf("adding quality\n");
 		}
 		elsif ($_ eq 'editor') {
-			&do_statement("alter table ".$product_table." add column `editor` varchar(60) NOT NULL default ''");
-			&log_printf("adding editor\n");
+			do_statement("alter table ".$product_table." add column `editor` varchar(60) NOT NULL default ''");
+			log_printf("adding editor\n");
 		}
 		elsif ($_ eq 'link') {
-			&do_statement("alter table ".$product_table." add column `link` varchar(255) NOT NULL default ''");
-			&log_printf("adding link\n");
+			do_statement("alter table ".$product_table." add column `link` varchar(255) NOT NULL default ''");
+			log_printf("adding link\n");
 		}
 		elsif ($_ eq 'access') {
-			&do_statement("alter table ".$product_table." add column `access` char(4) NOT NULL default ''");
-			&log_printf("adding access\n");
+			do_statement("alter table ".$product_table." add column `access` char(4) NOT NULL default ''");
+			log_printf("adding access\n");
 		}
 	}
-	&do_statement("alter table ".$product_table." add column `by_ean_prod_id` varchar(255) NOT NULL default ''");	
+	do_statement("alter table ".$product_table." add column `by_ean_prod_id` varchar(255) NOT NULL default ''");	
 	# starting
 	
-	&log_printf("Start (total products = " . &do_query("select count(*) from ".$product_table)->[0][0] . "):\n\n");
+	log_printf("Start (total products = " . do_query("select count(*) from ".$product_table)->[0][0] . "):\n\n");
 	
 	# remove products w/o prod_ids
 	my $product_table_saved=$product_table.'_saved';
-	&do_statement("DROP $debug_tmp TABLE IF EXISTS $product_table_saved");
-	&do_statement("CREATE $debug_tmp TABLE $product_table_saved LIKE $product_table");
-	&do_statement("ALTER TABLE $product_table_saved DISABLE KEYS");
+	do_statement("DROP $debug_tmp TABLE IF EXISTS $product_table_saved");
+	do_statement("CREATE $debug_tmp TABLE $product_table_saved LIKE $product_table");
+	do_statement("ALTER TABLE $product_table_saved DISABLE KEYS");
 	if ($has_ean) {
-		&do_statement("INSERT INTO $product_table_saved SELECT * FROM $product_table WHERE prod_id='' and ean=''");
-		&do_statement("delete from ".$product_table." where prod_id='' and ean=''");
+		do_statement("INSERT INTO $product_table_saved SELECT * FROM $product_table WHERE prod_id='' and ean=''");
+		do_statement("delete from ".$product_table." where prod_id='' and ean=''");
 	}
 	else {
-		&do_statement("INSERT INTO $product_table_saved SELECT * FROM $product_table WHERE prod_id=''");
-		&do_statement("delete from ".$product_table." where prod_id=''");
+		do_statement("INSERT INTO $product_table_saved SELECT * FROM $product_table WHERE prod_id=''");
+		do_statement("delete from ".$product_table." where prod_id=''");
 	}
-	&log_printf("remove bad products: " . &do_query("select row_count()")->[0][0] . "");
+	log_printf("remove bad products: " . do_query("select row_count()")->[0][0] . "");
 	
 	if ($has_vendor) {
 	# supplier mapping
 	
-		&do_statement("update ".$product_table." t inner join supplier s on t.vendor=s.name set t.supplier_id=s.supplier_id where t.supplier_id=0");
-		&log_printf("supplier map: #1 = " . &do_query("select row_count()")->[0][0] . ", ");
-		&do_statement("update ".$product_table." t inner join data_source_supplier_map s on t.vendor=s.symbol and s.data_source_id=1 set t.supplier_id=s.supplier_id where t.supplier_id=0");
-		&log_printf("#2 = " . &do_query("select row_count()")->[0][0] . "");
+		do_statement("update ".$product_table." t inner join supplier s on t.vendor=s.name set t.supplier_id=s.supplier_id where t.supplier_id=0");
+		log_printf("supplier map: #1 = " . do_query("select row_count()")->[0][0] . ", ");
+		do_statement("update ".$product_table." t inner join data_source_supplier_map s on t.vendor=s.symbol and s.data_source_id=1 set t.supplier_id=s.supplier_id where t.supplier_id=0");
+		log_printf("#2 = " . do_query("select row_count()")->[0][0] . "");
 	}
 	else {
-		&log_printf(" haven't vendor...");
+		log_printf(" haven't vendor...");
 	}
 	
 	# prod_id mapping
 	
-	&log_printf("product map:\n");
+	log_printf("product map:\n");
 	
-	&prod_id_mapping({'table' => $product_table, 'visual' => '0'});
-	#&do_statement("update ".$product_table." set supplier_id=map_supplier_id, prod_id=map_prod_id");
+	prod_id_mapping({'table' => $product_table, 'visual' => '0'});
+	#do_statement("update ".$product_table." set supplier_id=map_supplier_id, prod_id=map_prod_id");
 	
 	# ean_mapping
-	&do_statement("ALTER TABLE $product_table ADD COLUMN droped_ean varchar(255) not null default '' ");
+	do_statement("ALTER TABLE $product_table ADD COLUMN droped_ean varchar(255) not null default '' ");
 	if ($has_ean) {
-		&log_printf("\nproduct_id (ean): ");
+		log_printf("\nproduct_id (ean): ");
 		
-		#&do_statement("update ".$product_table." set ean='' where ean=0");
-		#&do_statement("UPDATE $product_table SET droped_ean=ean WHERE  length(ean)<12");
-		#&do_statement("update ".$product_table." set ean='' where length(ean)<12");
-		#&do_statement("update ".$product_table." set ean=trim(leading '0' from ean)");
+		#do_statement("update ".$product_table." set ean='' where ean=0");
+		#do_statement("UPDATE $product_table SET droped_ean=ean WHERE  length(ean)<12");
+		#do_statement("update ".$product_table." set ean='' where length(ean)<12");
+		#do_statement("update ".$product_table." set ean=trim(leading '0' from ean)");
 
 
 		# if we have ean,ean,ean... in $product_table and ean's spliter is defined
 		my $ean_spliter="[,\.\t:;]";
-		&do_statement("drop $debug_tmp table if exists itmp_multiean2ean");
-		&do_statement("create $debug_tmp table itmp_multiean2ean (
+		do_statement("drop $debug_tmp table if exists itmp_multiean2ean");
+		do_statement("create $debug_tmp table itmp_multiean2ean (
 id  int(11) not null default 0,
 ean       varchar(15) not null default '',
 product_id       int(13) not null default 0,
@@ -908,88 +908,88 @@ product_id       int(13) not null default 0,
 key multiean_ean (id, ean),
 key (ean))");
 
-		&do_statement("alter table itmp_multiean2ean disable keys");
+		do_statement("alter table itmp_multiean2ean disable keys");
 			
-		my $commaSeparatedEANs = &do_query("select ean,id from ".$product_table." where ean rlike ".&str_sqlize($ean_spliter));
-		&do_statement("insert into itmp_multiean2ean(id,ean) select id,LPAD(ean,13,'0') from ".$product_table." where ean!='' and  ean not rlike ".&str_sqlize($ean_spliter));
+		my $commaSeparatedEANs = do_query("select ean,id from ".$product_table." where ean rlike ".str_sqlize($ean_spliter));
+		do_statement("insert into itmp_multiean2ean(id,ean) select id,LPAD(ean,13,'0') from ".$product_table." where ean!='' and  ean not rlike ".str_sqlize($ean_spliter));
 						
-		foreach (@$commaSeparatedEANs) {
+		for (@$commaSeparatedEANs) {
 			my $commaSeparatedEAN = $_->[0];
 			my $id=$_->[1];
 			my @listOfEANs = split /$ean_spliter/, $commaSeparatedEAN;
-			foreach (@listOfEANs) {
+			for (@listOfEANs) {
 				next unless $_;
 				next unless /^\d+$/;
-				&do_statement("insert into itmp_multiean2ean(id,ean) values ($id,LPAD(".&str_sqlize($_).",13,'0'))");					
+				do_statement("insert into itmp_multiean2ean(id,ean) values ($id,LPAD(".str_sqlize($_).",13,'0'))");					
 			}
 		}
-		&do_statement("alter table itmp_multiean2ean enable keys");
-		&do_statement("alter ignore table itmp_multiean2ean drop key `multiean_ean`, add unique key (id,ean)");
-		#&do_statement("delete from itmp_multiean2ean where length(ean)<10");
-#		&do_statement("update ".$product_table." t inner join product_ean_codes pec on t.ean like concat('%',pec.ean_code,'%') set t.product_id=pec.product_id where t.ean like '%,%' and length(trim(leading '0' from pec.ean_code)) > 11 and t.product_id=0 and pec.product_id>0");
-		&log_printf("done, ");		
-		&do_statement("update ".$product_table." t inner join itmp_multiean2ean im on t.id = im.id 
+		do_statement("alter table itmp_multiean2ean enable keys");
+		do_statement("alter ignore table itmp_multiean2ean drop key `multiean_ean`, add unique key (id,ean)");
+		#do_statement("delete from itmp_multiean2ean where length(ean)<10");
+#		do_statement("update ".$product_table." t inner join product_ean_codes pec on t.ean like concat('%',pec.ean_code,'%') set t.product_id=pec.product_id where t.ean like '%,%' and length(trim(leading '0' from pec.ean_code)) > 11 and t.product_id=0 and pec.product_id>0");
+		log_printf("done, ");		
+		do_statement("update ".$product_table." t inner join itmp_multiean2ean im on t.id = im.id 
 inner join product_ean_codes pec on pec.ean_code = im.ean
 inner join product p on pec.product_id = p.product_id
 set t.product_id = pec.product_id, im.product_id=pec.product_id,t.by_ean_prod_id = p.prod_id 
 where t.product_id = 0 and im.ean != ''");
 		
-		&log_printf(&do_query("select row_count()")->[0][0] . ", ");
+		log_printf(do_query("select row_count()")->[0][0] . ", ");
 	
 		#remember droped eans
-		&do_statement("INSERT INTO itmp_multiean2ean (id,ean) 
+		do_statement("INSERT INTO itmp_multiean2ean (id,ean) 
 					   SELECT id,droped_ean FROM $product_table WHERE droped_ean!=''");
-		&log_printf(&do_query("select row_count()")->[0][0]);
+		log_printf(do_query("select row_count()")->[0][0]);
 	}
 
 	# product_id mapping
 	
-	&log_printf("\nproduct_id. by vendor+prod_id: ");
+	log_printf("\nproduct_id. by vendor+prod_id: ");
 	
-	&do_statement("update ".$product_table." t 
+	do_statement("update ".$product_table." t 
 				   inner join product p ON p.prod_id=t.map_prod_id and t.supplier_id=p.supplier_id 
 				   set t.product_id=p.product_id,t.by_ean_prod_id=''
 				   where t.prod_id!='' and t.supplier_id!=0");
-	&log_printf("" . &do_query("select row_count()")->[0][0] . ", by prod_id - the rest: ");
+	log_printf("" . do_query("select row_count()")->[0][0] . ", by prod_id - the rest: ");
 	
-	&do_statement("update ".$product_table." t inner join product p ON p.prod_id=t.map_prod_id 
+	do_statement("update ".$product_table." t inner join product p ON p.prod_id=t.map_prod_id 
 				   set t.product_id=p.product_id, t.supplier_id=p.supplier_id, t.by_ean_prod_id='' 
 				   where t.product_id=0 and t.prod_id!='' and length(trim(t.prod_id)) > 4 and vendor=''");
-	&log_printf("" . &do_query("select row_count()")->[0][0] . "");
+	log_printf("" . do_query("select row_count()")->[0][0] . "");
 	
 	if($has_ean){
-		&log_printf("correct prod_id by ean: ");
-		&do_statement("UPDATE ".$product_table." t  
+		log_printf("correct prod_id by ean: ");
+		do_statement("UPDATE ".$product_table." t  
 					   SET t.map_prod_id=t.by_ean_prod_id 
 					   WHERE t.by_ean_prod_id!=''");
 	}	
 	# add editor & quality
 	
-	&do_statement("update ".$product_table." t inner join product_memory p using (product_id) inner join users u using (user_id) inner join user_group_measure_map ugmm using (user_group) set t.quality=ugmm.measure where t.product_id!=0");
-	&log_printf("add quality " . &do_query("select row_count()")->[0][0] . "");
+	do_statement("update ".$product_table." t inner join product_memory p using (product_id) inner join users u using (user_id) inner join user_group_measure_map ugmm using (user_group) set t.quality=ugmm.measure where t.product_id!=0");
+	log_printf("add quality " . do_query("select row_count()")->[0][0] . "");
 	
-	&do_statement("update ".$product_table." t inner join product_memory p using (product_id) inner join users u using (user_id) set t.editor=u.login where t.product_id!=0");
-	&log_printf("add editor " . &do_query("select row_count()")->[0][0] . "");
+	do_statement("update ".$product_table." t inner join product_memory p using (product_id) inner join users u using (user_id) set t.editor=u.login where t.product_id!=0");
+	log_printf("add editor " . do_query("select row_count()")->[0][0] . "");
 	
 	# add access & link
 	
 	# access
-	&do_statement('DROP temporary TABLE IF EXISTS tmp_cache_supplier');
-	&do_statement('CREATE temporary TABLE tmp_cache_supplier AS SELECT * FROM supplier');
-	&do_statement('ALTER TABLE tmp_cache_supplier ADD UNIQUE KEY(supplier_id)');
-	&do_statement("update ".$product_table." t inner join product_memory p using (product_id) 
+	do_statement('DROP temporary TABLE IF EXISTS tmp_cache_supplier');
+	do_statement('CREATE temporary TABLE tmp_cache_supplier AS SELECT * FROM supplier');
+	do_statement('ALTER TABLE tmp_cache_supplier ADD UNIQUE KEY(supplier_id)');
+	do_statement("update ".$product_table." t inner join product_memory p using (product_id) 
 					inner join tmp_cache_supplier s on p.supplier_id=s.supplier_id 
 					set t.access=if(s.is_sponsor='Y','FREE','FULL') where t.product_id!=0");
-	&log_printf("add access " . &do_query("select row_count()")->[0][0] . "");
+	log_printf("add access " . do_query("select row_count()")->[0][0] . "");
 	# link
 	my $lang_code=lc(($params->{'lang_code'})?$params->{'lang_code'}:'en');
-	&do_statement("update ".$product_table." t inner join product_memory p using (product_id) inner join tmp_cache_supplier s on p.supplier_id=s.supplier_id
+	do_statement("update ".$product_table." t inner join product_memory p using (product_id) inner join tmp_cache_supplier s on p.supplier_id=s.supplier_id
 	set t.link=concat('http://icecat.biz/$lang_code/p/',s.name,'/',t.map_prod_id,'/desc.htm') where t.product_id!=0");
 	
-	&log_printf("add link " . &do_query("select row_count()")->[0][0] . "");
+	log_printf("add link " . do_query("select row_count()")->[0][0] . "");
 	if($has_ean){
-		&do_statement("DROP TABLE IF EXISTS ".$product_table.'_eans');
-		&do_statement("ALTER TABLE itmp_multiean2ean RENAME TO ".$product_table.'_eans');
+		do_statement("DROP TABLE IF EXISTS ".$product_table.'_eans');
+		do_statement("ALTER TABLE itmp_multiean2ean RENAME TO ".$product_table.'_eans');
 	}
 }
 ################ -coverage report from file an track lists
@@ -1002,7 +1002,7 @@ sub get_cov_report_file_first_row{
 		$first_row=get_csv_rows($file_to_load,$delimiter,$newline,$escape,1);
 	}elsif($hin{'feed_type'} eq 'xls'){
 		($delimiter,$newline,$escape)=(';',"\n",'\\');
-		$file_to_load=&convert_xls_csv($file_to_load,$delimiter,$newline);
+		$file_to_load=convert_xls_csv($file_to_load,$delimiter,$newline);
 		$first_row=get_csv_rows($file_to_load,$delimiter,$newline,$escape,1);
 	}else{
 		push(@user_errors,"Type of file is invalid. Choice Excel or CSV");
@@ -1012,30 +1012,30 @@ sub get_cov_report_file_first_row{
 }
 sub create_cov_cache_table{
 	my($table,$cache_table)=@_;
-	&do_statement("CREATE TABLE  $cache_table (
+	do_statement("CREATE TABLE  $cache_table (
 								product_id int(13) not null default 0, 
 								is_sponsored int(1) not null default 0,
 								is_described int(1) not null default 0,
 								is_active    int(1) not null default 0,
 								primary key(product_id))");
-	&do_statement("INSERT IGNORE INTO $cache_table (product_id) SELECT product_id FROM  $table WHERE product_id!=0");
-	my $feed_coverage_duplicates=(&do_query("SELECT count(*) FROM $table WHERE product_id!=0")->[0][0]-&do_query('SELECT count(*) FROM '.$cache_table)->[0][0]);
+	do_statement("INSERT IGNORE INTO $cache_table (product_id) SELECT product_id FROM  $table WHERE product_id!=0");
+	my $feed_coverage_duplicates=(do_query("SELECT count(*) FROM $table WHERE product_id!=0")->[0][0]-do_query('SELECT count(*) FROM '.$cache_table)->[0][0]);
 	
 	#remember sponsored products
-	&do_statement("UPDATE $cache_table t 
+	do_statement("UPDATE $cache_table t 
 					INNER JOIN $table c USING(product_id) 
 					INNER JOIN supplier s USING (supplier_id) 
 					SET t.is_sponsored=1
 					WHERE c.product_id!=0 and s.is_sponsor='Y'");
 
 	#remember described products
-	&do_statement("UPDATE $cache_table t 
+	do_statement("UPDATE $cache_table t 
 					INNER JOIN $table c USING(product_id) 
 					SET t.is_described=1
 					WHERE c.quality!='NOEDITOR'");
 
 	#remember active products
-	&do_statement("UPDATE $cache_table t 
+	do_statement("UPDATE $cache_table t 
 				    INNER JOIN $table c USING(product_id) 
 				    INNER JOIN product_active pa USING (product_id) 
 					SET t.is_active=1
@@ -1045,22 +1045,22 @@ sub create_cov_cache_table{
 }
 sub get_coverage_sumary_by_table{
 	my ($table,$feed_coverage_duplicates,$count_deleted,$cache_table)=@_;
-	my $total_count=&do_query("SELECT count(*) FROM $table")->[0][0];
-	my $existed=	&do_query("SELECT count(*) FROM $table WHERE product_id!=0")->[0][0];
-	my $absent=		&do_query("SELECT count(*) FROM $table WHERE product_id=0")->[0][0];	
-	my $free  =		&do_query("SELECT count(*) FROM $table pa 
+	my $total_count=do_query("SELECT count(*) FROM $table")->[0][0];
+	my $existed=	do_query("SELECT count(*) FROM $table WHERE product_id!=0")->[0][0];
+	my $absent=		do_query("SELECT count(*) FROM $table WHERE product_id=0")->[0][0];	
+	my $free  =		do_query("SELECT count(*) FROM $table pa 
 							  INNER JOIN supplier s USING (supplier_id) 
 							  WHERE pa.product_id!=0 and s.is_sponsor='Y'")->[0][0];
-	my $described=	&do_query("SELECT count(*) FROM $table 
+	my $described=	do_query("SELECT count(*) FROM $table 
 							   WHERE product_id!=0 and quality!='NOEDITOR'")->[0][0];
-	my $onstocks=	&do_query("SELECT count(*) FROM $table pa 
+	my $onstocks=	do_query("SELECT count(*) FROM $table pa 
 							   INNER JOIN product_active pa2 USING (product_id) 
 							   WHERE pa.product_id!=0 and pa2.active>0")->[0][0];
-	&process_atom_ilib('feed_coverage_summary');	
-	my $my_atoms=&process_atom_lib('feed_coverage_summary');
+	process_atom_ilib('feed_coverage_summary');	
+	my $my_atoms=process_atom_lib('feed_coverage_summary');
 	
 	my $my_atom=$my_atoms->{'default'}->{'feed_coverage_summary'};
-	my $cover_html=&repl_ph($my_atom->{'body'},{
+	my $cover_html=repl_ph($my_atom->{'body'},{
 										'total_count'=>$total_count,
 										'existed'=>$existed,
 										'existed_pers'=>get_percent($existed,$total_count),
@@ -1107,21 +1107,21 @@ sub get_csv_cov_report{
 				blank_is_undef      => 0,
 				verbatim            => 0				
 	  });
-	my $desc_langid=&do_query("SELECT langid FROM language  WHERE short_code='$lang_code'")->[0][0];	  
+	my $desc_langid=do_query("SELECT langid FROM language  WHERE short_code='$lang_code'")->[0][0];	  
 	my $ext_header_str;
 	$ext_header_str=' , '.join(' , ',@$ext_header) if scalar(@$ext_header)>0;		
 	$csv_writer->combine(('Product_id','Partcode','Vendor','EAN code','ICEcat partcode','ICEcat vendor','Access','ICEcat editor','Quality','Link',$lang_code.' Text present','On market','Added','Updated',@$ext_header));
 	#unmatched
 	my $report_body=$csv_writer->string();
-	my $rows=&do_query("SELECT '', prod_id, vendor, IF(ean!='',ean,droped_ean),'','','','','','','','','','' $ext_header_str 
+	my $rows=do_query("SELECT '', prod_id, vendor, IF(ean!='',ean,droped_ean),'','','','','','','','','','' $ext_header_str 
 							FROM $table cr 
 							WHERE product_id=0");
-	foreach my $row(@$rows){
+	for my $row(@$rows){
 		$csv_writer->combine(@$row);
 		$report_body.=$csv_writer->string();
 	}
 	#matched
-	$rows=&do_query("SELECT cr.product_id,cr.prod_id, vendor, IF(ean!='',ean,droped_ean), map_prod_id, s.name,access,editor,quality,cr.link,pd.long_desc,IF(pa.active=1,'Yes','No'),p.date_added,p.updated  $ext_header_str
+	$rows=do_query("SELECT cr.product_id,cr.prod_id, vendor, IF(ean!='',ean,droped_ean), map_prod_id, s.name,access,editor,quality,cr.link,pd.long_desc,IF(pa.active=1,'Yes','No'),p.date_added,p.updated  $ext_header_str
 						FROM $table cr
 						JOIN product p ON p.product_id=cr.product_id  
 						JOIN supplier s ON s.supplier_id=cr.map_supplier_id  
@@ -1129,7 +1129,7 @@ sub get_csv_cov_report{
 						LEFT JOIN product_active pa ON cr.product_id=pa.product_id
 						LEFT JOIN product_description pd ON pd.product_id=cr.product_id and pd.langid=$desc_langid  
 						WHERE cr.product_id!=0 ORDER BY mip.quality_index");
-	foreach my $row(@$rows){		
+	for my $row(@$rows){		
 		$row->[9]="http://icecat.biz/$lang_code/p/".encode_url($row->[5]).'/'.encode_url($row->[4]).'/desc.htm';
 		if(trim($row->[10])){
 			$row->[10]='Yes';
@@ -1158,16 +1158,16 @@ sub get_xls_cov_report{
 		
 		my $start_limit=0;
 		my $limit=65535;
-		my $all_count=&do_query("SELECT count(*) FROM $table");
+		my $all_count=do_query("SELECT count(*) FROM $table");
 		$all_count=$all_count->[0][0] if $all_count->[0];
-		my $desc_langid=&do_query("SELECT langid FROM language  WHERE short_code='$lang_code'")->[0][0];
+		my $desc_langid=do_query("SELECT langid FROM language  WHERE short_code='$lang_code'")->[0][0];
 		my $worksheet;
 		my $header=['Product_id','Partcode','Vendor','EAN code','ICEcat partcode','ICEcat vendor','Access','ICEcat editor','Quality','Link',$lang_code.' text present','On market','Created','Last updated',@$ext_header];
 		# write unmatched products
 		$worksheet=$workbook->add_worksheet("Report") if $all_count<=$limit;
 		my $unmatched_count=1;
 		while(1){
-			my $rows=&do_query("SELECT '', prod_id, vendor, IF(ean!='',ean,droped_ean),'','','','','','','','','','' $ext_header_str 
+			my $rows=do_query("SELECT '', prod_id, vendor, IF(ean!='',ean,droped_ean),'','','','','','','','','','' $ext_header_str 
 								FROM $table cr 
 								WHERE product_id=0 LIMIT $start_limit,$limit");
 			$unmatched_count+=scalar(@$rows);
@@ -1201,7 +1201,7 @@ sub get_xls_cov_report{
 		}
 
 		while(1){
-			my $rows=&do_query("SELECT cr.product_id,cr.prod_id, vendor, IF(ean!='',ean,droped_ean), map_prod_id, s.name,access,editor,quality,cr.link,pd.long_desc,IF(pa.active=1,'Yes','No'),p.date_added,p.updated $ext_header_str
+			my $rows=do_query("SELECT cr.product_id,cr.prod_id, vendor, IF(ean!='',ean,droped_ean), map_prod_id, s.name,access,editor,quality,cr.link,pd.long_desc,IF(pa.active=1,'Yes','No'),p.date_added,p.updated $ext_header_str
 								FROM $table cr 
 								JOIN product p ON cr.product_id=p.product_id  
 								JOIN supplier s ON s.supplier_id=cr.map_supplier_id  
@@ -1266,11 +1266,11 @@ sub send_coverage_from_file_report{
 		$hin{'feed_url'}=~/([^\/]+)$/;
 		$atach_name=$1;
 	}else{
-		&log_printf('---------------------->>>>>>>>>>'.$file_to_load);
+		log_printf('---------------------->>>>>>>>>>'.$file_to_load);
 		$file_to_load=~/([^\/]+)$/;		
 		$atach_name=$1;
 	}
-	my $current_date=&do_query('SELECT now()')->[0][0];	
+	my $current_date=do_query('SELECT now()')->[0][0];	
 	$atach_name=~s/[^\.]+$//;
 	$atach_name.='_'.$current_date;
 	$atach_name=~s/[^\w-:]/_/g;
@@ -1280,7 +1280,7 @@ sub send_coverage_from_file_report{
 	my ($gziped,$ref);	
 	$ref=\$report_body;
 	my $file_name='coverage_details_'.$atach_name.'.'.$report_type;
-	zip $ref=>\$gziped,Name=>$file_name or &log_printf("gzip failed: $ZipError\n");
+	zip $ref=>\$gziped,Name=>$file_name or log_printf("gzip failed: $ZipError\n");
 	my $mail = {
 		'to' => $hin{'user_email'},
 		'from' =>  $atomcfg{'mail_from'},
@@ -1292,7 +1292,7 @@ sub send_coverage_from_file_report{
 		'attachment_body' => $gziped,
 		};
 		
-	&complex_sendmail($mail);	
+	complex_sendmail($mail);	
 }
 
 
@@ -1322,7 +1322,7 @@ sub load_coverage_track_list{
 
 	my %ext_cols=('ext_col1'=>$hin{'ext_col1'},'ext_col2'=>$hin{'ext_col2'},'ext_col3'=>$hin{'ext_col3'});
 	my %ext_nums;
-	foreach my $key(keys(%ext_cols)){
+	for my $key(keys(%ext_cols)){
 		if($ext_cols{$key}){
 			push(@{$ext_nums{$ext_cols{$key}}},$key);
 		}else{
@@ -1344,16 +1344,16 @@ sub load_coverage_track_list{
 		if($columns{$i} and $columns{$i} ne 'ean'){
 			$sets.=$columns{$i}."=\@var$i, ";
 		}else{
-			my $ext_col=&trim($first_row->[0][$i-1]);
+			my $ext_col=trim($first_row->[0][$i-1]);
 			
 			if($hin{'is_first_header'} and $ext_col){
 				$ext_col=~s/[^\w]+/_/gs;
-				$ext_col=&shortify_str('Info_'.$i.'_'.$ext_col,20,'');
+				$ext_col=shortify_str('Info_'.$i.'_'.$ext_col,20,'');
 			}else{
 				$ext_col="Column_$i";
 			}
 			if($rep_hash->{$ext_col}){
-				$ext_col=$ext_col.'_'.&floor(rand(1000));
+				$ext_col=$ext_col.'_'.floor(rand(1000));
 				$rep_hash->{$ext_col}=1;
 			}else{
 				$rep_hash->{$ext_col}=1;
@@ -1369,7 +1369,7 @@ sub load_coverage_track_list{
 		my @ean_cols=split(',',$hin{'ean_cols'});
 		
 		$ean_set="ean=CONCAT( ";
-		foreach my $ean_col(@ean_cols){
+		for my $ean_col(@ean_cols){
 			$ean_set.='TRIM(@VAR'.$ean_col."),'".(',')."',";
 		}
 		$ean_set=~s/,[^,]*,$//;
@@ -1377,8 +1377,8 @@ sub load_coverage_track_list{
 		$ean_set.=') ';
 	}
 	$sets.=$ean_set;
-	&do_statement("DROP TABLE IF EXISTS $table");
-	&do_statement("CREATE TABLE  $table (
+	do_statement("DROP TABLE IF EXISTS $table");
+	do_statement("CREATE TABLE  $table (
 					prod_id varchar(60)  not null default '',
 					vendor  varchar(255) not null default '',
 					ean     varchar(255) not null default '',
@@ -1398,21 +1398,21 @@ sub load_coverage_track_list{
 	my $sql="LOAD DATA LOCAL INFILE '$file_to_load' 
 			 INTO TABLE $table 
 			 FIELDS TERMINATED BY '".$delimiter."'
-				 		ESCAPED BY ".&str_sqlize($escape)."
+				 		ESCAPED BY ".str_sqlize($escape)."
 				 		OPTIONALLY ENCLOSED BY '\"'
 			 LINES 
 				 TERMINATED BY '$newline'\n"				 	 
 				 .(($hin{'is_first_header'}*1)?" IGNORE 1 LINES \n":" \n ").$vars."\n".$sets;
 
-	&do_statement("alter table $table disable keys");
-	&do_statement($sql);
-	&do_statement("alter table $table enable keys");
-	&do_statement('UPDATE '.$table.' SET ean=\'\' WHERE ean rlike \'^[,]+$\'');
-#	log_printf(Dumper(&do_query("select * from $table")));	
-	my $count_loaded=&do_query('SELECT count(*) FROM '.$table)->[0][0];
+	do_statement("alter table $table disable keys");
+	do_statement($sql);
+	do_statement("alter table $table enable keys");
+	do_statement('UPDATE '.$table.' SET ean=\'\' WHERE ean rlike \'^[,]+$\'');
+#	log_printf(Dumper(do_query("select * from $table")));	
+	my $count_loaded=do_query('SELECT count(*) FROM '.$table)->[0][0];
 	coverage_by_table($table,{ 'ean' => $hin{'ean_cols'}});
-	my $count_deleted=$count_loaded-&do_query('SELECT count(*) FROM '.$table)->[0][0];
-	&do_statement("UPDATE $table t 
+	my $count_deleted=$count_loaded-do_query('SELECT count(*) FROM '.$table)->[0][0];
+	do_statement("UPDATE $table t 
 					JOIN product p USING(product_id)
 					JOIN supplier s ON p.supplier_id=s.supplier_id  
 					SET map_supplier_id=s.supplier_id

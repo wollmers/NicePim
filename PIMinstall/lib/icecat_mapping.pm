@@ -77,11 +77,11 @@ sub system_of_measurement_transform {
 		$m_value = $value;
 		$i_value = $value;
 	}
-	elsif (&value_custom_restrictions_based_on_the_summary_report($value)) {
+	elsif (value_custom_restrictions_based_on_the_summary_report($value)) {
 		$probability = 25;
 		$m_value = '';
 		$i_value = '';
-		&log_printf("value_custom_restrictions_based_on_the_summary_report restriction: ".$value);
+		log_printf("value_custom_restrictions_based_on_the_summary_report restriction: ".$value);
 	}
 	elsif ($feature_id) {
 		# fix the langid
@@ -89,7 +89,7 @@ sub system_of_measurement_transform {
 	
 		# get the measure_id
 		unless ($measure_id) {
-			$measure_id = &do_query("select measure_id from feature where feature_id=".$feature_id)->[0][0];
+			$measure_id = do_query("select measure_id from feature where feature_id=".$feature_id)->[0][0];
 		}
 		
 		# set multiplexer for g -> kg
@@ -113,7 +113,7 @@ sub system_of_measurement_transform {
 		}
 
 		# determine the ability to make the transformation
-		my $rel = &do_query("select mr.related_measure_id, mr.factor, mr.term, m.system_of_measurement from measure_related mr inner join measure m using (measure_id) where mr.measure_id=".$measure_id." limit 1")->[0];
+		my $rel = do_query("select mr.related_measure_id, mr.factor, mr.term, m.system_of_measurement from measure_related mr inner join measure m using (measure_id) where mr.measure_id=".$measure_id." limit 1")->[0];
 		$related_measure_id = $rel->[0];
 
 #		print "rel = ".Dumper($rel);
@@ -123,7 +123,7 @@ sub system_of_measurement_transform {
 			$value =~ s/(\d+),(\d+)/$1.$2/gs if ($value !~ /\d,\d+,\d/);
 
 			# so, we have the value and factor + term. let's get the feature input type
-			my $fit = &do_query("select fit.type, fit.pattern, f.feature_id from feature_input_type fit inner join feature f using (type) where f.feature_id=".$feature_id)->[0];
+			my $fit = do_query("select fit.type, fit.pattern, f.feature_id from feature_input_type fit inner join feature f using (type) where f.feature_id=".$feature_id)->[0];
 			$type = $fit->[0];
 			$pattern = $fit->[1];
 			
@@ -135,12 +135,12 @@ sub system_of_measurement_transform {
 			$pattern_number = length($pattern_number);
 
 			## numbers - to #
-			my $digit_perl = &icecat2perl_pattern('#',undef,'do not use fractions');
+			my $digit_perl = icecat2perl_pattern('#',undef,'do not use fractions');
 
 			# set the custom pattern, if pattern is absent
 			if (!$pattern_number) {
 				# at first, make all numbers in brackets (, ) - as untouchable
-				($pattern, $collapsed) = &collapse_brackets($value);
+				($pattern, $collapsed) = collapse_brackets($value);
 
 #				print "---> test 50: ".$pattern." ".Dumper($collapsed);
 
@@ -149,12 +149,12 @@ sub system_of_measurement_transform {
 				
 				$pattern =~ s/$digit_perl/\#/gs;
 
-				$pattern = &expand_brackets($pattern, $collapsed);
+				$pattern = expand_brackets($pattern, $collapsed);
 
 #				print "---> test 50: ".$pattern."\n";
 			}
 			else { # check the number of digits in value
-				($pattern_value, $collapsed) = &collapse_brackets($value);
+				($pattern_value, $collapsed) = collapse_brackets($value);
 
 #				$pattern_value = $value;
 				$pattern_value =~ s/$digit_perl/\#/gs;
@@ -165,7 +165,7 @@ sub system_of_measurement_transform {
 
 				if ($pattern_number != $pattern_value_number) { # strange value, when pattern is present
 					$probability = 75;
-					$pattern = &expand_brackets($pattern_value, $collapsed);
+					$pattern = expand_brackets($pattern_value, $collapsed);
 				}
 				else {
 					# pattern is already here
@@ -192,7 +192,7 @@ sub system_of_measurement_transform {
 			# patterns forming
 			my $new_value = $pattern;
 			$new_value =~ s/\#/\x01/gs;
-			my $pattern_perl = &icecat2perl_pattern($pattern,undef,'do not use fractions');
+			my $pattern_perl = icecat2perl_pattern($pattern,undef,'do not use fractions');
 			
 			# additionally, make the spaces as optional
 			$pattern_perl =~ s/\\ /\\s\?/gs;
@@ -208,11 +208,11 @@ sub system_of_measurement_transform {
 			
 			if (defined $in[0]) {
 				# get the source & target units
-				my $unit1 = &do_query("select value from measure_sign where measure_id=".$measure_id." and langid = ".$langid)->[0][0]
-					|| &do_query("select value from measure_sign where measure_id=".$measure_id." and langid = 1")->[0][0];
+				my $unit1 = do_query("select value from measure_sign where measure_id=".$measure_id." and langid = ".$langid)->[0][0]
+					|| do_query("select value from measure_sign where measure_id=".$measure_id." and langid = 1")->[0][0];
 				my $qunit1 = quotemeta($unit1);
-				my $unit2 = &do_query("select value from measure_sign where measure_id=".$related_measure_id." and langid = ".$langid)->[0][0]
-					|| &do_query("select value from measure_sign where measure_id=".$related_measure_id." and langid = 1")->[0][0];
+				my $unit2 = do_query("select value from measure_sign where measure_id=".$related_measure_id." and langid = ".$langid)->[0][0]
+					|| do_query("select value from measure_sign where measure_id=".$related_measure_id." and langid = 1")->[0][0];
 				# custom - special for lb, lbs, lbm case
 				my $qunit2 = $unit2 eq 'lbs' ? 'lb[sm]?' : quotemeta($unit2);
 #				log_printf($unit1." ".$qunit1." ".$unit2." ".$qunit2);
@@ -228,12 +228,12 @@ sub system_of_measurement_transform {
 
 				my $cunit = $suddenly_reverse ? $unit2 : $unit1;
 
-				foreach my $victim (@in) { # 10 values max
+				for my $victim (@in) { # 10 values max
 					last unless defined $victim;
 #					print Dumper($victim);
 #					print Dumper($new_value);
 
-					$new_value =~ s/\x01/&factor_term($victim,$rel->[1],$rel->[2],$suddenly_reverse)/se;
+					$new_value =~ s/\x01/factor_term($victim,$rel->[1],$rel->[2],$suddenly_reverse)/se;
 #					print Dumper($new_value);
 				}
 				
@@ -333,7 +333,7 @@ sub factor_term {
 		$out = $factor * $digit + $term;
 	}
 
-	my $exponent = &get_exponent($out);
+	my $exponent = get_exponent($out);
 	my $after_dot = 1;
 
 	if ($exponent > 1) {
@@ -381,7 +381,7 @@ sub collapse_brackets {
 sub expand_brackets {
 	my ($value, $collect) = @_;
 
-	foreach (@$collect) {
+	for (@$collect) {
 		$value =~ s/\x02/$_/s;
 	}
 
@@ -434,14 +434,14 @@ sub brand_prod_id_checking_by_regexp {
 		($h->{'regexp'}) ||
 		(($h->{'product_id'}) && (int($h->{'product_id'}) eq $h->{'product_id'}))
 		) { # we have the supplier_id, checking
-		my $rs = $h->{'regexp'} || ( $h->{'supplier_id'} ? &do_query("select prod_id_regexp from supplier where supplier_id=".$h->{'supplier_id'})->[0][0] :
-																 ( $h->{'product_id'} ? &do_query("select s.prod_id_regexp from supplier s inner join product p using (supplier_id) where p.product_id=".$h->{'product_id'})->[0][0] :
+		my $rs = $h->{'regexp'} || ( $h->{'supplier_id'} ? do_query("select prod_id_regexp from supplier where supplier_id=".$h->{'supplier_id'})->[0][0] :
+																 ( $h->{'product_id'} ? do_query("select s.prod_id_regexp from supplier s inner join product p using (supplier_id) where p.product_id=".$h->{'product_id'})->[0][0] :
 																	 undef) );
 		return 1 unless $rs;
 		$rs =~ s/^\s*(.*?)\s*$/$1/s;
 		return 1 unless $rs;
 		my @ars = split /\n/, $rs;
-		foreach (@ars) {
+		for (@ars) {
 			s/^\s*(.*?)\s*$/$1/s;
 			next unless $_;
 			return 1 if $prod_id =~ /$_/;
@@ -496,7 +496,7 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 	return undef unless $h->{'table'};
 
 	# get current timestamp
-	my $tstamp = &do_query("select unix_timestamp()")->[0][0];
+	my $tstamp = do_query("select unix_timestamp()")->[0][0];
 
 	# decide to use single specified mapping or use all mappings from product_map
 	my $ins;
@@ -504,7 +504,7 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 		push @$ins, [ 1, $h->{'pattern'}, $h->{'supplier_id'}, $h->{'dest_supplier_id'} ];
 	}
 	else {
-		$ins = &do_query("select product_map_id,trim(trim(both '\n' from trim(pattern))),supplier_id,map_supplier_id from product_map order by supplier_id asc");
+		$ins = do_query("select product_map_id,trim(trim(both '\n' from trim(pattern))),supplier_id,map_supplier_id from product_map order by supplier_id asc");
 	}
 
 	print "patterns loaded, " if ($h->{'visual'});
@@ -517,16 +517,16 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 	## load everything to CSV files
 	$i = 0;
 
-	foreach my $in (@$ins) {
+	for my $in (@$ins) {
 		@pattern = split /\n/, $in->[1];
 		$order = 0;
-		foreach (@pattern) {
+		for (@pattern) {
 			s/\r//gs;
-			next unless &check_product_map_pattern($_);
+			next unless check_product_map_pattern($_);
 			$order++;
 			$i++;
 			$max_order = $max_order < $order ? $order : $max_order;
-			my ($mode, $p, $pnot) = &get_product_map_pattern_parts($_);
+			my ($mode, $p, $pnot) = get_product_map_pattern_parts($_);
 
 			$ts->{$in->[0]}->{$order} = {
 				'mode' => $mode,
@@ -546,14 +546,14 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 
 	print "hashes completed, " if ($h->{'visual'});
 
-	&do_statement("ALTER TABLE " . $h->{'table'} . " DISABLE KEYS");
+	do_statement("ALTER TABLE " . $h->{'table'} . " DISABLE KEYS");
 
-	my $exist_columns = &do_query("DESC ".$h->{'table'});
+	my $exist_columns = do_query("DESC ".$h->{'table'});
 	my $hcols = {};
 	my $q = "ALTER TABLE " . $h->{'table'} . " ";
 	my $visual_columns = '';
 
-	foreach (@$exist_columns) {
+	for (@$exist_columns) {
 		$hcols->{$_->[0]} = $_->[3];
 	}
 
@@ -581,13 +581,13 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 
 	if ($q =~ /,$/) {
 		chop($q); chop($visual_columns); chop($visual_columns);
-		&do_statement($q);
+		do_statement($q);
 		print "`" . $h->{'table'} . "` new columns/keys added (".$visual_columns."), " if ($h->{'visual'});
 	}
 
 	## copy prod_id -> map_prod_id, supplier_id -> map_supplier_id
-	&do_statement("UPDATE " . $h->{'table'} . " SET map_prod_id = prod_id, map_prod_idrev = REVERSE(prod_id), map_supplier_id = supplier_id");
-	&do_statement("ALTER TABLE " . $h->{'table'} . " ENABLE KEYS");
+	do_statement("UPDATE " . $h->{'table'} . " SET map_prod_id = prod_id, map_prod_idrev = REVERSE(prod_id), map_supplier_id = supplier_id");
+	do_statement("ALTER TABLE " . $h->{'table'} . " ENABLE KEYS");
 
 	print "`" . $h->{'table'} . "` keys enabled, " if ($h->{'visual'});
 
@@ -595,15 +595,15 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 	my ($table_suffix, $action, $not_action, $mapped, $map_prod_id, $map_supplier);
 	my ($ts2, $ts3, $q_where);
 
-	foreach (1..3) { # 3 times
+	for (1..3) { # 3 times
 		print "cycle " . $_ . " started, " if ($h->{'visual'});
 
 		$mapped = 0;
 
-		foreach my $map_id (sort {$a <=> $b} keys %$ts) {
+		for my $map_id (sort {$a <=> $b} keys %$ts) {
 			$ts2 = $ts->{$map_id};
 
-			foreach my $order (sort {$a <=> $b} keys %$ts2) {
+			for my $order (sort {$a <=> $b} keys %$ts2) {
 				$ts3 = $ts2->{$order};
 				$table_suffix = ($ts3->{'mode'} =~ /rev/) ? 'rev' : '';
 
@@ -618,15 +618,15 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 				
 				# the root of the universe!..
 
-				$q_where = " WHERE map_prod_id".$table_suffix." " . $action . " " . &str_sqlize($ts3->{'pattern_mysql'}) . " " . ( ($ts3->{'mode'} =~ /not/) ? " and map_prod_id".$table_suffix." " . $not_action . " " . &str_sqlize($ts3->{'pattern_mysqlnot'}) . " " : "" ) . "and pattern_id = 0 and " . $ts3->{'supplier_id'} . " in (supplier_id, map_supplier_id, 0)";
+				$q_where = " WHERE map_prod_id".$table_suffix." " . $action . " " . str_sqlize($ts3->{'pattern_mysql'}) . " " . ( ($ts3->{'mode'} =~ /not/) ? " and map_prod_id".$table_suffix." " . $not_action . " " . str_sqlize($ts3->{'pattern_mysqlnot'}) . " " : "" ) . "and pattern_id = 0 and " . $ts3->{'supplier_id'} . " in (supplier_id, map_supplier_id, 0)";
 
-				&do_statement("update " . $h->{'table'} . " set pattern_id = " . $ts3->{'id'} . " " . $q_where);
-				$mapped += &do_query("select row_count()")->[0][0];
-#				&log_printf("DV: update: ".$mapped);
+				do_statement("update " . $h->{'table'} . " set pattern_id = " . $ts3->{'id'} . " " . $q_where);
+				$mapped += do_query("select row_count()")->[0][0];
+#				log_printf("DV: update: ".$mapped);
 			}
 		}
 
-		&log_printf("DV: MAPPED: ".$mapped);
+		log_printf("DV: MAPPED: ".$mapped);
 		
 		print $mapped . " products mapped, " if ($h->{'visual'});
 
@@ -636,17 +636,17 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 			open OUTU, ">".$fu;
 			binmode OUTU, ":utf8";
 
-			my $mapped_prods = &do_query("select pattern_id, map_prod_id, prod_id, supplier_id from " . $h->{'table'} . " where pattern_id > 0");
+			my $mapped_prods = do_query("select pattern_id, map_prod_id, prod_id, supplier_id from " . $h->{'table'} . " where pattern_id > 0");
 			my $pat;
-			foreach (@$mapped_prods) {
-				# remove [^...] from pattern - for &match_single_product_regexp
+			for (@$mapped_prods) {
+				# remove [^...] from pattern - for match_single_product_regexp
 				$pat = $ts_id->{$_->[0]}->{'pattern'};
 				$pat =~ s/\[\^.*?\]//s;
-				$map_prod_id = &data_management::match_single_product_regexp($pat, $_->[1]);
+				$map_prod_id = data_management::match_single_product_regexp($pat, $_->[1]);
 
-#				&log_printf("DV: ".$_->[1]." ".$pat." ".$_->[2]);
+#				log_printf("DV: ".$_->[1]." ".$pat." ".$_->[2]);
 				if (($map_prod_id ne $_->[1]) || ($ts_id->{$_->[0]}->{'map_supplier_id'} != 0)) {
-#					&log_printf("\tDV: ".$_->[1]." ==> ".$map_prod_id);
+#					log_printf("\tDV: ".$_->[1]." ==> ".$map_prod_id);
 					$map_supplier = 0;
 					if (($ts_id->{$_->[0]}->{'supplier_id'} != $ts_id->{$_->[0]}->{'map_supplier_id'}) &&
 							($ts_id->{$_->[0]}->{'supplier_id'} != 0) &&
@@ -657,12 +657,12 @@ sub prod_id_mapping { # a new, powerful, wrote by Dima (04.09.2009)
 					# csv instead of miltiple updates: prod_id, supplier_id, map_prod_id, map_supplier_id
 					print OUTU $_->[2].$t.$_->[3].$t.$map_prod_id . $t .  ( $map_supplier ? $ts_id->{$_->[0]}->{'map_supplier_id'} : $_->[3] ) . $n;
 				}
-			} # foreach
+			} # for
 			close OUTU;
 
 			# make a table, csv->table, update from table
-			&do_statement("drop temporary table if exists tmp_do_map");
-			&do_statement("create temporary table tmp_do_map (
+			do_statement("drop temporary table if exists tmp_do_map");
+			do_statement("create temporary table tmp_do_map (
 prod_id         varchar(60) not null default '',
 supplier_id     int(13)     not null default 0,
 map_prod_id     varchar(60) not null default '',
@@ -670,14 +670,14 @@ map_supplier_id int(13)     not null default 0,
 
 unique key (prod_id, supplier_id))");
 
-			&do_statement("load data local infile '".$fu."' into table tmp_do_map fields terminated by '".$t."' lines terminated by '".$n."'");
+			do_statement("load data local infile '".$fu."' into table tmp_do_map fields terminated by '".$t."' lines terminated by '".$n."'");
 			my $cmd2 = "/bin/rm -rf ".$fu;
-			&log_printf($cmd2);
+			log_printf($cmd2);
 			`$cmd2`;
 
 			# do update
-			&do_statement("update " . $h->{'table'} . " p inner join tmp_do_map t using(prod_id,supplier_id) set p.map_prod_id=t.map_prod_id, p.map_prod_idrev=reverse(t.map_prod_id), p.map_supplier_id=t.map_supplier_id, p.pattern_id=0");
-			&do_statement("drop temporary table if exists tmp_do_map");
+			do_statement("update " . $h->{'table'} . " p inner join tmp_do_map t using(prod_id,supplier_id) set p.map_prod_id=t.map_prod_id, p.map_prod_idrev=reverse(t.map_prod_id), p.map_supplier_id=t.map_supplier_id, p.pattern_id=0");
+			do_statement("drop temporary table if exists tmp_do_map");
 			
 			print $mapped . " products updated, " if ($h->{'visual'});
 
@@ -740,7 +740,7 @@ sub get_product_map_pattern_parts {
 	}
 
 	## * -> %  &  decode
-	foreach ($p, $pnot) {
+	for ($p, $pnot) {
 		if ($mode =~ /like/) {
 			s/\*/%/gs; # do the power
 			s/_/\\_/gs; # escape the _
@@ -774,8 +774,8 @@ sub power_mapping_per_category_feature_id_hash {
 	return undef unless ($hash); # return, if hash corrupted
 
 	# create a table: id, product_feature_id, value, new_value, history
-	&do_statement("drop temporary table if exists tmp_category_feature_id_hash");
-	&do_statement("create temporary table tmp_category_feature_id_hash (
+	do_statement("drop temporary table if exists tmp_category_feature_id_hash");
+	do_statement("create temporary table tmp_category_feature_id_hash (
 tmp_category_feature_id_hash_id int(13) NOT NULL PRIMARY KEY auto_increment,
 category_feature_id             int(13) NOT NULL default '0',
 value                           text    NOT NULL default '',
@@ -784,34 +784,34 @@ new_value                       text    NOT NULL default '')");
 	# fill with values
 	my $insert = 'insert into tmp_category_feature_id_hash(category_feature_id,value) values';
 	my $insert2 = '';
-	foreach my $key (keys %$hash) {
-		$insert2 .= "('".$key."',".&str_sqlize($hash->{$key})."),";
+	for my $key (keys %$hash) {
+		$insert2 .= "('".$key."',".str_sqlize($hash->{$key})."),";
 	}
 	chop($insert2);
 	return undef unless ($insert2); # return, if lack of inserts
-	&do_statement($insert.$insert2);
-	&do_statement("update tmp_category_feature_id_hash set new_value=value");
-	&do_statement("alter table tmp_category_feature_id_hash add key (category_feature_id)");
+	do_statement($insert.$insert2);
+	do_statement("update tmp_category_feature_id_hash set new_value=value");
+	do_statement("alter table tmp_category_feature_id_hash add key (category_feature_id)");
 
 	# feature_id mapping
-	&do_statement("alter table tmp_category_feature_id_hash add column feature_id int(13) not null default '0'");
-	&do_statement("update tmp_category_feature_id_hash tcfih inner join category_feature cf using (category_feature_id) set tcfih.feature_id=cf.feature_id");
-	&do_statement("alter table tmp_category_feature_id_hash add key (feature_id)");
-	&do_statement("delete from tmp_category_feature_id_hash where feature_id=0");
+	do_statement("alter table tmp_category_feature_id_hash add column feature_id int(13) not null default '0'");
+	do_statement("update tmp_category_feature_id_hash tcfih inner join category_feature cf using (category_feature_id) set tcfih.feature_id=cf.feature_id");
+	do_statement("alter table tmp_category_feature_id_hash add key (feature_id)");
+	do_statement("delete from tmp_category_feature_id_hash where feature_id=0");
 
 	# power mapping
-	my $feature_id = &do_query("select distinct feature_id from tmp_category_feature_id_hash");
-	foreach (@$feature_id) {
-		&power_mapping_per_feature_and_measure({'feature_id' => $_->[0]}, 'tmp_category_feature_id_hash');
+	my $feature_id = do_query("select distinct feature_id from tmp_category_feature_id_hash");
+	for (@$feature_id) {
+		power_mapping_per_feature_and_measure({'feature_id' => $_->[0]}, 'tmp_category_feature_id_hash');
 	}
 
 	# get a result
-	my $out = &do_query("select category_feature_id, new_value from tmp_category_feature_id_hash");
-	foreach (@$out) {
+	my $out = do_query("select category_feature_id, new_value from tmp_category_feature_id_hash");
+	for (@$out) {
 		$hash->{$_->[0]} = $_->[1];
 	}
 
-	&do_statement("drop temporary table if exists tmp_category_feature_id_hash");
+	do_statement("drop temporary table if exists tmp_category_feature_id_hash");
 	$G_table_name = undef;
 } # sub power_mapping_per_category_feature_id_hash
 
@@ -823,36 +823,36 @@ sub power_mapping_per_feature_and_measure_for_BO { # do group feature value powe
 	return undef unless ($h->{'measure_id'} || $h->{'feature_id'});
 	
 	# create a table: id, product_feature_id, value, new_value, history
-	&do_statement("drop temporary table if exists tmp_group_mapping");
-	&do_statement("create temporary table tmp_group_mapping (
+	do_statement("drop temporary table if exists tmp_group_mapping");
+	do_statement("create temporary table tmp_group_mapping (
 tmp_group_mapping_id int(13)      NOT NULL PRIMARY KEY auto_increment,
 value                text         NOT NULL default '',
 new_value            text         NOT NULL default '',
 pfv_history          text         NOT NULL default '')");
 
 	# fill with values
-	&do_statement("insert into tmp_group_mapping(value,new_value)
+	do_statement("insert into tmp_group_mapping(value,new_value)
 select distinct pf.value, pf.value
 from product_feature pf
 inner join category_feature cf on cf.category_feature_id = pf.category_feature_id
 where cf.feature_id = ".$h->{'feature_id'});
 
-	&power_mapping_per_feature_and_measure($h, 'tmp_group_mapping');
+	power_mapping_per_feature_and_measure($h, 'tmp_group_mapping');
 
 	# form a hash with results - for format!!!
-	my $result = &do_query("select value,new_value,pfv_history from tmp_group_mapping");
+	my $result = do_query("select value,new_value,pfv_history from tmp_group_mapping");
 	my $history;
-	foreach my $res (@$result) {
+	for my $res (@$result) {
 		$hin{'power_mapping_results'}->{'new_value'}->{$res->[0]} = $res->[1];
-		$history = &parse_power_mapping_history($res->[2]);
+		$history = parse_power_mapping_history($res->[2]);
 		if ($history) {
 			$hin{'power_mapping_results'}->{'history'}->{$res->[0]} = $history;
 		}
 	}
 
-#	&log_printf(Dumper($hin{'power_mapping_results'}));
+#	log_printf(Dumper($hin{'power_mapping_results'}));
 
-	&do_statement("drop temporary table if exists tmp_group_mapping");
+	do_statement("drop temporary table if exists tmp_group_mapping");
 	$G_table_name = undef;
 } # sub power_mapping_per_feature_and_measure_for_BO
 
@@ -863,18 +863,18 @@ sub power_mapping_per_measure_for_BO { # do group measure value power mapping (p
 	# return if void
 	return undef unless ($h->{'measure_id'});
 	
-	my $measure_name = &do_query("select concat(v.value,' (',ms.value,')') from measure m inner join measure_sign ms on m.measure_id=ms.measure_id and ms.langid=1  inner join vocabulary v on m.sid=v.sid and v.langid=1 where m.measure_id=".$h->{'measure_id'})->[0][0];
+	my $measure_name = do_query("select concat(v.value,' (',ms.value,')') from measure m inner join measure_sign ms on m.measure_id=ms.measure_id and ms.langid=1  inner join vocabulary v on m.sid=v.sid and v.langid=1 where m.measure_id=".$h->{'measure_id'})->[0][0];
 
 	# create a table: id, product_feature_id, value, new_value, history
-	&do_statement("drop temporary table if exists tmp_group_mapping");
-	&do_statement("create temporary table tmp_group_mapping (
+	do_statement("drop temporary table if exists tmp_group_mapping");
+	do_statement("create temporary table tmp_group_mapping (
 tmp_group_mapping_id int(13)      NOT NULL PRIMARY KEY auto_increment,
 value                text         NOT NULL default '',
 new_value            text         NOT NULL default '',
 pfv_history          text         NOT NULL default '')");
 
 	# fill with values
-	&do_statement("insert into tmp_group_mapping(value,new_value)
+	do_statement("insert into tmp_group_mapping(value,new_value)
 select distinct pf.value, pf.value
 from product_feature pf
 inner join category_feature cf on cf.category_feature_id = pf.category_feature_id
@@ -882,46 +882,46 @@ inner join feature f on cf.feature_id = f.feature_id
 where f.measure_id = ".$h->{'measure_id'});
 
 	if ($h->{'value_regexp_bg_processes_id'}) {
-		&do_statement("update value_regexp_bg_processes set stage='".$measure_name.": do mapping' where value_regexp_bg_processes_id=".$h->{'value_regexp_bg_processes_id'});
+		do_statement("update value_regexp_bg_processes set stage='".$measure_name.": do mapping' where value_regexp_bg_processes_id=".$h->{'value_regexp_bg_processes_id'});
 	}
 
-	&power_mapping_per_feature_and_measure($h, 'tmp_group_mapping');
+	power_mapping_per_feature_and_measure($h, 'tmp_group_mapping');
 
 	# form a hash with results - for format!!!
 
 	my $result;
 
 	if ($h->{'apply'}) { # apply changes
-		$result = &do_query("select value, new_value from tmp_group_mapping where value!=new_value");
+		$result = do_query("select value, new_value from tmp_group_mapping where value!=new_value");
 		if ($h->{'value_regexp_bg_processes_id'}) {
-			&do_statement("update value_regexp_bg_processes set stage='".$measure_name.": update feature values', max_value=". ($#$result+1) ." where value_regexp_bg_processes_id=".$h->{'value_regexp_bg_processes_id'});
+			do_statement("update value_regexp_bg_processes set stage='".$measure_name.": update feature values', max_value=". ($#$result+1) ." where value_regexp_bg_processes_id=".$h->{'value_regexp_bg_processes_id'});
 		}
-		foreach my $res (@$result) {
-			&do_statement("update product_feature pf
+		for my $res (@$result) {
+			do_statement("update product_feature pf
 inner join category_feature cf using (category_feature_id)
 inner join feature f using (feature_id)
-set pf.value=".&str_sqlize($res->[1])."
-where f.measure_id=".$h->{'measure_id'}." and pf.value=".&str_sqlize($res->[0]));
+set pf.value=".str_sqlize($res->[1])."
+where f.measure_id=".$h->{'measure_id'}." and pf.value=".str_sqlize($res->[0]));
 			if ($h->{'value_regexp_bg_processes_id'}) {
-				&do_statement("update value_regexp_bg_processes set current_value=current_value+1 where value_regexp_bg_processes_id=".$h->{'value_regexp_bg_processes_id'});
+				do_statement("update value_regexp_bg_processes set current_value=current_value+1 where value_regexp_bg_processes_id=".$h->{'value_regexp_bg_processes_id'});
 			}
 		}
 	}
 	else { # preview in BO (first limit values, about 1000)
-		$result = &do_query("select value,new_value,pfv_history from tmp_group_mapping where pfv_history!=''".($h->{'max_rows'}?" limit ".$h->{'max_rows'}:""));
+		$result = do_query("select value,new_value,pfv_history from tmp_group_mapping where pfv_history!=''".($h->{'max_rows'}?" limit ".$h->{'max_rows'}:""));
 		my $history;
-		foreach my $res (@$result) {
+		for my $res (@$result) {
 			$hin{'power_mapping_results'}->{$res->[0]}->{'new_value'} = $res->[1];
-			$history = &parse_power_mapping_history($res->[2]);
+			$history = parse_power_mapping_history($res->[2]);
 			if ($history) {
 				$hin{'power_mapping_results'}->{$res->[0]}->{'history'} = $history;
 			}
 		}
 	}
 
-#	&log_printf(Dumper($hin{'power_mapping_results'}));
+#	log_printf(Dumper($hin{'power_mapping_results'}));
 
-	&do_statement("drop temporary table if exists tmp_group_mapping");
+	do_statement("drop temporary table if exists tmp_group_mapping");
 	$G_table_name = undef;
 } # sub power_mapping_per_measure_for_BO
 
@@ -943,13 +943,13 @@ sub power_mapping_per_feature_and_measure {
 
 	# get a measure_id
 	if ($h->{'feature_id'}) {
-		$h->{'measure_id'} = &do_query("SELECT measure_id FROM feature WHERE feature_id = ".$h->{'feature_id'})->[0][0];
+		$h->{'measure_id'} = do_query("SELECT measure_id FROM feature WHERE feature_id = ".$h->{'feature_id'})->[0][0];
 	}
 	
 	return undef unless ($h->{'measure_id'});
 	
 	# get a measure sign
-	my $measure_signs = &do_query("SELECT DISTINCT value FROM measure_sign WHERE measure_id = ".$h->{'measure_id'}." AND value != '' ORDER BY langid ASC");
+	my $measure_signs = do_query("SELECT DISTINCT value FROM measure_sign WHERE measure_id = ".$h->{'measure_id'}." AND value != '' ORDER BY langid ASC");
 	
 	# check if table contents feature_id value! (needs for join)
 	# check if pfv_mapped & pfv_pattern exists & add them if absent
@@ -957,7 +957,7 @@ sub power_mapping_per_feature_and_measure {
 	my $table_name_id = $h->{'id'} ? $h->{'id'} : $table_name."_id";
 	
 	if ($G_table_name ne $table_name) {
-		my $is_feature_id_field_arrayref = &do_query("desc ".$table_name);
+		my $is_feature_id_field_arrayref = do_query("desc ".$table_name);
 
 		$G_feature_id_present = 0;
 		$G_pfv_history_present = 0;
@@ -966,7 +966,7 @@ sub power_mapping_per_feature_and_measure {
 		$G_new_value_present = 0;
 		$G_langid_present = 0;
 
-		foreach (@$is_feature_id_field_arrayref) {
+		for (@$is_feature_id_field_arrayref) {
 			if ($_->[0] eq 'feature_id') { $G_feature_id_present = 1; }
 			elsif ($_->[0] eq 'pfv_history') { $G_pfv_history_present = 1; }
 			elsif ($_->[0] eq 'pfv_mapped') { $G_pfv_mapped_present = 1; }
@@ -978,57 +978,57 @@ sub power_mapping_per_feature_and_measure {
 		$G_table_name = $table_name;
 		
 		unless ($G_pfv_mapped_present) {
-			&do_statement("ALTER TABLE ".$table_name." ADD COLUMN pfv_mapped int(1) NOT NULL DEFAULT '0', ADD KEY pfv_mapped (pfv_mapped)");
+			do_statement("ALTER TABLE ".$table_name." ADD COLUMN pfv_mapped int(1) NOT NULL DEFAULT '0', ADD KEY pfv_mapped (pfv_mapped)");
 		}
 		unless ($G_pfv_pattern_present) {
-			&do_statement("ALTER TABLE ".$table_name." ADD COLUMN pfv_pattern varchar(255) NOT NULL DEFAULT ''");
+			do_statement("ALTER TABLE ".$table_name." ADD COLUMN pfv_pattern varchar(255) NOT NULL DEFAULT ''");
 		}
 		unless ($G_new_value_present) {
-			&do_statement("ALTER TABLE ".$table_name." ADD COLUMN new_value text");
-			&do_statement("UPDATE ".$table_name." SET new_value = value");
+			do_statement("ALTER TABLE ".$table_name." ADD COLUMN new_value text");
+			do_statement("UPDATE ".$table_name." SET new_value = value");
 		}
 	}
 	
 	# do cycle of mappings: measure, feature: generic + power mapping, also collect logs
 	# history format = (g|v)id: g - generic operation, v - power value mapping
-	my $collect_measure_id_patterns = &do_query("select vr.pattern, 'measure', vr.value_regexp_id, vr.parameter1, vr.parameter2 from value_regexp vr
+	my $collect_measure_id_patterns = do_query("select vr.pattern, 'measure', vr.value_regexp_id, vr.parameter1, vr.parameter2 from value_regexp vr
 inner join measure_value_regexp mvr using (value_regexp_id)
 where mvr.measure_id=".$h->{'measure_id'}.($h->{'useN'}?"":" and mvr.active='Y'")." order by mvr.no asc");
 	
 	my $collect_feature_id_patterns = [];
 	
 	if ($h->{'feature_id'}) {
-		$collect_feature_id_patterns = &do_query("select vr.pattern, 'feature', vr.value_regexp_id, vr.parameter1, vr.parameter2 from value_regexp vr
+		$collect_feature_id_patterns = do_query("select vr.pattern, 'feature', vr.value_regexp_id, vr.parameter1, vr.parameter2 from value_regexp vr
 inner join feature_value_regexp fvr using (value_regexp_id)
 where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'")." order by fvr.no asc");
 	}
 
 	unless ($#$collect_measure_id_patterns+1 + $#$collect_feature_id_patterns+1) {
-#		&do_statement("update ".$table_name." tgm set tgm.new_value=tgm.value ".($G_feature_id_present?" where feature_id=".$h->{'feature_id'}:""));
+#		do_statement("update ".$table_name." tgm set tgm.new_value=tgm.value ".($G_feature_id_present?" where feature_id=".$h->{'feature_id'}:""));
 		return undef;
 	}
 	
 	# generate_operations hash creation
 	unless ($G_go_hash) {
-		$G_go_hash = &get_generic_operations_hash;
+		$G_go_hash = get_generic_operations_hash;
 	}
 	
 	my ($l, $r, $old, $mapped, @res, $parts, $parts_mysql, $to_go, $new_go, $mapping_type, $unique_filename, $unique_filename_log, $to_log, $body, $parameter1, $parameter2, $mode, $is_go, $mode_perl, $inline_regexps, $number_of_replaces, $test);
 
 	if ($logs) {
-		$unique_filename_log = '/tmp/tgm_log_'.&make_code(32);
+		$unique_filename_log = '/tmp/tgm_log_'.make_code(32);
 		open(TGM_LOG,">".$unique_filename_log);
 		binmode(TGM_LOG,":utf8");
 	}
 	
-	foreach my $pattern (@$collect_feature_id_patterns, @$collect_measure_id_patterns) {		
+	for my $pattern (@$collect_feature_id_patterns, @$collect_measure_id_patterns) {		
 		# if GO - get a body and parameter
 		$is_go = 0;
 		$body = $pattern->[0];
 		$parameter1 = $pattern->[3];
 		$parameter2 = $pattern->[4];
 		
-#		&log_printf("'".$body."' -> '".$go_parameter."'");
+#		log_printf("'".$body."' -> '".$go_parameter."'");
 		
 		$mode = undef;
 		
@@ -1045,16 +1045,16 @@ where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'"
 		if (($is_go) && ($mode->{'status'} ne 'mysql')) { # GO not via patterns
 
 			# let's create a csv-file
-			$unique_filename = '/tmp/tgm_'.&make_code(32);
+			$unique_filename = '/tmp/tgm_'.make_code(32);
 			open TGM, ">".$unique_filename;
 			binmode TGM, ":utf8";
 
 			# roll-back all values and filter via GOs
-			$to_go = &do_query("SELECT ".$table_name_id.", new_value FROM ".$table_name);
+			$to_go = do_query("SELECT ".$table_name_id.", new_value FROM ".$table_name);
 			no strict;
-			foreach my $go (@$to_go) {
+			for my $go (@$to_go) {
 				eval { $new_go = &{'generic_operation_'.$body}($go->[1], { 'signs' => $measure_signs, 'p1' => $parameter1, 'p2' => $parameter2 }); };
-#				&log_printf("after go: '".$new_go."' -> '".$go->[1]."' = ". ($new_go ne $go->[1]) .", result = ".Dumper($@));
+#				log_printf("after go: '".$new_go."' -> '".$go->[1]."' = ". ($new_go ne $go->[1]) .", result = ".Dumper($@));
 				if (($new_go ne $go->[1]) && (!$@)) {
 					print TGM "\x01".($G_pfv_history_present?("g".$pattern->[2].";"."\x01"):"").$new_go."\x01".$go->[0]."\x02";
 					print TGM_LOG "\x01".$go->[1]."\x01".$body."\x01".$new_go."\x01".$pattern->[1]."\x02" if ($logs);
@@ -1065,7 +1065,7 @@ where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'"
 		}
 		else { # power mapping
 			# clear mapped flag
-			&do_statement("UPDATE ".$table_name." SET pfv_mapped = 0, pfv_pattern = '' WHERE 1 " .
+			do_statement("UPDATE ".$table_name." SET pfv_mapped = 0, pfv_pattern = '' WHERE 1 " .
 										($G_feature_id_present ? " AND feature_id = ".$h->{'feature_id'} : "") .
 										($G_langid_present ? " AND langid IN (1,9)" : ""));
 			
@@ -1073,7 +1073,7 @@ where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'"
 			$parts_mysql = undef;
 			if ($mode) {
 				$mode_perl = $mode->{'perl'};
-				foreach (@$mode_perl) {
+				for (@$mode_perl) {
 					push @$parts_mysql, {
 						'left' => $_->{'left'},
 						'right' => '1' || $_->{'right'},
@@ -1082,7 +1082,7 @@ where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'"
 				}
 			}
 			else {
-				$parts_mysql = &get_pattern_parts([$body, $parameter1, $parameter2], 'mysql', 0);
+				$parts_mysql = get_pattern_parts([$body, $parameter1, $parameter2], 'mysql', 0);
 				$parts_mysql = [ $parts_mysql ];
 			}
 			
@@ -1091,39 +1091,39 @@ where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'"
 			# check for able for mapping values (pfv_mapped = 1)
 			$inline_regexps = undef;
 			my $for_REGEXP = undef;
-			foreach (@$parts_mysql) {
+			for (@$parts_mysql) {
 				$for_REGEXP = $_->{'left'};
 				$for_REGEXP =~ s/\\/\\\\/gs;
 				$inline_regexps .= ($inline_regexps ? ' OR ' : '') . 'new_value REGEXP \'' . ($_->{'params'} eq 'g' ? '' : '^') . $for_REGEXP . ($_->{'params'} eq 'g' ? '' : '\$') . '\'';
 			}
 
-			$test = "UPDATE ".$table_name." SET pfv_mapped = 1, pfv_pattern = ".&str_sqlize($body)." WHERE (".$inline_regexps.")" .
+			$test = "UPDATE ".$table_name." SET pfv_mapped = 1, pfv_pattern = ".str_sqlize($body)." WHERE (".$inline_regexps.")" .
 										($G_feature_id_present ? " AND feature_id = ".$h->{'feature_id'} : "") .
 										($G_langid_present ? " AND langid IN (1,9)" : "");
-#			&log_printf("TEST = ".$test);
+#			log_printf("TEST = ".$test);
 
-			&do_statement($test);
+			do_statement($test);
 			
-			&log_printf("found = ".&do_query("select row_count()")->[0][0]);
+			log_printf("found = ".do_query("select row_count()")->[0][0]);
 			
 			# if none found - none replace
-			$number_of_replaces = &do_query("SELECT count(*) FROM ".$table_name." WHERE pfv_mapped = 1" . ($G_feature_id_present ? " AND feature_id = ".$h->{'feature_id'} : "") . ($G_langid_present ? " AND langid IN (1,9)" : ""))->[0][0];
-			&log_printf("number of replaces = ".$number_of_replaces);
+			$number_of_replaces = do_query("SELECT count(*) FROM ".$table_name." WHERE pfv_mapped = 1" . ($G_feature_id_present ? " AND feature_id = ".$h->{'feature_id'} : "") . ($G_langid_present ? " AND langid IN (1,9)" : ""))->[0][0];
+			log_printf("number of replaces = ".$number_of_replaces);
 			next unless ($number_of_replaces);
 
 			# perl converting HUGE script
 			if ($mode) {
 				$mode_perl = $mode->{'perl'};
-				foreach (@$mode_perl) {
+				for (@$mode_perl) {
 					push @$parts, {
 						'left' => $_->{'left'},
-						'right' => &icecat2perl_regexp_right($_->{'right'}),
+						'right' => icecat2perl_regexp_right($_->{'right'}),
 						'params' => $_->{'params'}
 					};
 				}
 			}
 			else {
-				$parts = &get_pattern_parts([$body, $parameter1, $parameter2], 'perl', 1);
+				$parts = get_pattern_parts([$body, $parameter1, $parameter2], 'perl', 1);
 				$parts = [ $parts ];
 			}
 
@@ -1131,16 +1131,16 @@ where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'"
 			next unless ($parts);
 			
 			# let's create a csv-file for GO via patterns and patterns
-			$unique_filename = '/tmp/tgm_'.&make_code(32);
+			$unique_filename = '/tmp/tgm_'.make_code(32);
 			open TGM, ">".$unique_filename;
 			binmode TGM, ":utf8";
 
 			# DO: $l  ->  $r
-			$mapped = &do_query("select ".$table_name_id.", new_value, pfv_pattern, value from ".$table_name." where pfv_mapped = 1" .
+			$mapped = do_query("select ".$table_name_id.", new_value, pfv_pattern, value from ".$table_name." where pfv_mapped = 1" .
 				($G_langid_present?" and langid in (1,9)":""));
-			foreach my $map (@$mapped) {
+			for my $map (@$mapped) {
 				$old = $map->[1];
-				foreach (@$parts) {
+				for (@$parts) {
 					next unless (defined $_->{'left'});
 
 #					log_printf(Dumper($_));
@@ -1163,36 +1163,36 @@ where fvr.feature_id=".$h->{'feature_id'}.($h->{'useN'}?"":" and fvr.active='Y'"
 		close TGM;
 		
 		# load to tmp table
-		&do_statement("drop temporary table if exists ".$table_name."_new_values");
-		&do_statement("create temporary table ".$table_name."_new_values (
+		do_statement("drop temporary table if exists ".$table_name."_new_values");
+		do_statement("create temporary table ".$table_name."_new_values (
 ".$table_name."_new_values_id        int(13)     NOT NULL PRIMARY KEY auto_increment,
 ".($G_pfv_history_present?"dhistory varchar(60) NOT NULL default '',":"")."
 new_value                            text,
 ".$table_name_id."                   int(13)     NOT NULL default '0',
 unique key (".$table_name_id."))");
 		
-		&do_statement("load data local infile '".$unique_filename."' replace into table ".$table_name."_new_values fields terminated by '\x01' lines terminated by '\x02'");
+		do_statement("load data local infile '".$unique_filename."' replace into table ".$table_name."_new_values fields terminated by '\x01' lines terminated by '\x02'");
 		`/bin/rm -f $unique_filename`;
 		
-		&do_statement("update ".$table_name." tgm
+		do_statement("update ".$table_name." tgm
 inner join ".$table_name."_new_values tgmnv using (".$table_name_id.")
 set tgm.new_value=tgmnv.new_value".($G_pfv_history_present?", tgm.pfv_history=CONCAT(tgm.pfv_history,tgmnv.dhistory)":""));
-		&do_statement("drop temporary table if exists ".$table_name."_new_values");
+		do_statement("drop temporary table if exists ".$table_name."_new_values");
 	}
 
 	if ($logs) {
 		close TGM_LOG;
-		&do_statement("load data local infile '".$unique_filename_log."'
+		do_statement("load data local infile '".$unique_filename_log."'
 into table value_regexp_log fields terminated by '\x01' lines terminated by '\x02' set updated=CURRENT_TIMESTAMP");
 		`/bin/rm -f $unique_filename_log`;
 	}
 	
 	if ($h->{'apply'} eq 'Y') {
 		if ($h->{'feature_id'}) { # set N -> Y on feature_value_regexp for feature_id
-			&do_statement("update feature_value_regexp set active='Y' where feature_id=".$h->{'feature_id'});
+			do_statement("update feature_value_regexp set active='Y' where feature_id=".$h->{'feature_id'});
 		}
 		elsif ($h->{'measure_id'}) {
-			&do_statement("update measure_value_regexp set active='Y' where measure_id=".$h->{'measure_id'});
+			do_statement("update measure_value_regexp set active='Y' where measure_id=".$h->{'measure_id'});
 		}
 	}
 
@@ -1205,7 +1205,7 @@ sub parse_power_mapping_history {	# history format = (g|v)id
 
 	my @keys = split /;/, $in;
 
-	foreach (@keys) {
+	for (@keys) {
 		chomp;
 		next unless $_;
 
@@ -1213,7 +1213,7 @@ sub parse_power_mapping_history {	# history format = (g|v)id
 
 		if ($1 eq 'g') { # generic value
 			unless ($G_history_hash->{'g'.$2}) {
-				$G_history_hash->{'g'.$2} = &do_query("select concat('<b>',vr.pattern,'</b>',if(vr.parameter1!='',concat(' (<font color=\"black\">',parameter1,'</font>',if(vr.parameter2!='',concat(',<font color=\"black\">',parameter2,'</font>'),''),')'),'')) from value_regexp vr inner join generic_operation go where vr.value_regexp_id=".$2)->[0][0];
+				$G_history_hash->{'g'.$2} = do_query("select concat('<b>',vr.pattern,'</b>',if(vr.parameter1!='',concat(' (<font color=\"black\">',parameter1,'</font>',if(vr.parameter2!='',concat(',<font color=\"black\">',parameter2,'</font>'),''),')'),'')) from value_regexp vr inner join generic_operation go where vr.value_regexp_id=".$2)->[0][0];
 			}
 			$collect .= "<nobr><font color=\"green\">".
 				$G_history_hash->{'g'.$2}.
@@ -1222,7 +1222,7 @@ sub parse_power_mapping_history {	# history format = (g|v)id
 		elsif ($1 eq 'v') { # regexp
 			if ($2 && ($2 eq int($2))) {
 				unless ($G_history_hash->{'v'.$2}) {
-					$G_history_hash->{'v'.$2} = &do_query("select pattern from value_regexp where value_regexp_id=".$2)->[0][0];
+					$G_history_hash->{'v'.$2} = do_query("select pattern from value_regexp where value_regexp_id=".$2)->[0][0];
 				}
 				$collect .= "<nobr><font color=\"blue\">".$G_history_hash->{'v'.$2}.'</font></nobr>, ';
 			}
@@ -1366,7 +1366,7 @@ sub generic_operation_remove_double_units {
 	my $arr;
 
 	if (ref($in) eq 'HASH') {
-		foreach (@$signs) {
+		for (@$signs) {
 			chomp($_->[0]);
 			next unless ($_->[0]);
 			push @$arr, { 'left' => $first.quotemeta($_->[0]).$second, 'right' => '$1$6', 'params' => 'g' };
@@ -1383,7 +1383,7 @@ sub generic_operation_remove_double_units {
 		
 		my $sgn = undef;
 
-		foreach (@$signs) {
+		for (@$signs) {
 			chomp($_->[0]);
 			next unless ($_->[0]);
 			$sgn = quotemeta($_->[0]);
@@ -1420,18 +1420,18 @@ sub icecat2mysql_mapping {
 	my ($out, $left, $left_old, $whole, $rwhole, $parts, $cmd);
 
 	# give id name
-	my $id_name = &do_query("desc ".$tmptable)->[2][0];
+	my $id_name = do_query("desc ".$tmptable)->[2][0];
 
-	my $patterns = &do_query($query);
-	&do_statement("alter table ".$tmptable." add column left_mysql_match varchar(60) not null default ''"); # important thing
-	&do_statement("alter table ".$tmptable." add key (".$id_name."), add key (left_mysql_pattern), add key (left_mysql_match)");
+	my $patterns = do_query($query);
+	do_statement("alter table ".$tmptable." add column left_mysql_match varchar(60) not null default ''"); # important thing
+	do_statement("alter table ".$tmptable." add key (".$id_name."), add key (left_mysql_pattern), add key (left_mysql_match)");
 
-	foreach my $item (@$patterns) {
+	for my $item (@$patterns) {
 	
 		@$parts = split(/\n/,@$item->[2]);
 
-		foreach my $part (@$parts) {
-			$part = &my_chomp($part);
+		for my $part (@$parts) {
+			$part = my_chomp($part);
 			next unless $part;
 			$whole = $part;
 			# hide ICEcat pattern metatags
@@ -1439,10 +1439,10 @@ sub icecat2mysql_mapping {
 			if ($part =~ /^(.*)\=/) { $left = $1;	} else { $left = $part; }
 			$left_old = $left;
 			if ($hash->{'mode'} eq 'like') {
-				$left = &icecat2mysql_like($left);
+				$left = icecat2mysql_like($left);
 			}
 			else {
-				$left = &icecat2mysql_regexp($left,$hash->{'metatags'});
+				$left = icecat2mysql_regexp($left,$hash->{'metatags'});
 			}
 			# show ICEcat pattern metatags
 			$left =~ s/\x01/\\\*/sg; $left =~ s/\x02/\%/gs; $left =~ s/\x03/\=/gs;
@@ -1452,7 +1452,7 @@ sub icecat2mysql_mapping {
 	}
 
 	# load data into tmp file
-	my $filename = &POSIX::time()."_".$hash->{'data_source_code'}."_".$tmptable;
+	my $filename = POSIX::time()."_".$hash->{'data_source_code'}."_".$tmptable;
 	open(TMP,">"."/tmp/".$filename);
 	flock(TMP,2);
 	binmode(TMP,":utf8");
@@ -1460,14 +1460,14 @@ sub icecat2mysql_mapping {
 	close(TMP);
 
 	# load data local infile from tmp file & delete them
-	&do_statement("load data local infile \""."/tmp/".$filename."\" into table `".$tmptable."` fields terminated by '\x01' escaped by '' lines terminated by '\x02'");
+	do_statement("load data local infile \""."/tmp/".$filename."\" into table `".$tmptable."` fields terminated by '\x01' escaped by '' lines terminated by '\x02'");
 	$cmd = "/bin/rm -f /tmp/".$filename;
 	`$cmd`;
 
 	# mark *-ed and non-*-ed patterns: *ed will be matched via regexp, others - via =
-	&do_statement("alter table ".$tmptable." add column with_metatags tinyint(1) not null default 0");
-	&do_statement("update ".$tmptable." set with_metatags=1 where locate('.*',left_mysql_pattern)>0");
-	&do_statement("alter table ".$tmptable." add key (with_metatags)");
+	do_statement("alter table ".$tmptable." add column with_metatags tinyint(1) not null default 0");
+	do_statement("update ".$tmptable." set with_metatags=1 where locate('.*',left_mysql_pattern)>0");
+	do_statement("alter table ".$tmptable." add key (with_metatags)");
 }
 
 sub get_pattern_parts {
@@ -1476,7 +1476,7 @@ sub get_pattern_parts {
 	my ($general, $p1, $p2);
 
 	unless ($G_go_hash) {
-		$G_go_hash = &get_generic_operations_hash;
+		$G_go_hash = get_generic_operations_hash;
 	}
 
 	if (ref($part) eq 'ARRAY') { # [$body, $parameter1, $parameter2]
@@ -1518,8 +1518,8 @@ sub get_pattern_parts {
 	
 	$rhash = {};
 
-	$left = ($type eq 'perl') ? &icecat2perl_regexp_left($left,$rhash) :
-		(($type eq 'none') ? $left : &icecat2mysql_regexp($left));
+	$left = ($type eq 'perl') ? icecat2perl_regexp_left($left,$rhash) :
+		(($type eq 'none') ? $left : icecat2mysql_regexp($left));
 
 	$left =~ s/\x01/\\\*/g;
 	$left =~ s/\x04/\\\#/g;
@@ -1527,8 +1527,8 @@ sub get_pattern_parts {
 	$left =~ s/\x03/\=/g;
 	
 	if ($right && $is_right) {
-		$right = ($type eq 'perl') ? &icecat2perl_regexp_right($right,$rhash) :
-			(($type eq 'none') ? $right : &icecat2mysql_regexp($right));
+		$right = ($type eq 'perl') ? icecat2perl_regexp_right($right,$rhash) :
+			(($type eq 'none') ? $right : icecat2mysql_regexp($right));
 		
 		$right =~ s/\x01/\\\*/g;
 		$right =~ s/\x04/\\\#/g;
@@ -1585,7 +1585,7 @@ sub icecat2mysql_regexp {
 } # sub icecat2mysql_regexp
 
 sub icecat2perl_pattern {
-	return &icecat2perl_regexp_left(@_);
+	return icecat2perl_regexp_left(@_);
 } # sub icecat2perl_pattern
 
 sub icecat2perl_regexp_left { # # & * only yet
@@ -1593,9 +1593,9 @@ sub icecat2perl_regexp_left { # # & * only yet
 	
 	# quotes ALL
 
-#	&log_printf("before = ".$str);
+#	log_printf("before = ".$str);
 	$str = quotemeta($str);
-#	&log_printf("after = ".$str);
+#	log_printf("after = ".$str);
 
 	# unquote tags
 	$str =~ s/\\\#/\#/gs;
@@ -1619,7 +1619,7 @@ sub icecat2perl_regexp_left { # # & * only yet
 		}
 	}
 
-#	&log_printf(Dumper($right));
+#	log_printf(Dumper($right));
 
 	# tags -> their values
 	$str =~ s/\#/(\-?\\\d+(?:\\\.\\\d+)?)/gs;
@@ -1637,21 +1637,21 @@ sub icecat2perl_regexp_right { # using quotemeta, as in data_management
 
 	$str = quotemeta($str);
 
-#	&log_printf("before = ".$str);
+#	log_printf("before = ".$str);
 
 	# temporary values
 	$str =~ s,\\\$\\?(\d+),\"\.\$\$$1\.\",gs;
 
 	# right value
 	if (ref($right) eq 'HASH') {
-		foreach my $r (keys %$right) {
+		for my $r (keys %$right) {
 			$str =~ s/\$\$$r/\$$right->{$r}/gs;
 		}
 	}
 
 	$str =~ s/\$\$/\$/gs;
 	
-#	&log_printf("after = ".$str);
+#	log_printf("after = ".$str);
 
 	return "\"".$str."\"";
 } # sub icecat2perl_regexp_right
@@ -1664,8 +1664,8 @@ sub my_chomp {
 
 sub get_generic_operations_hash {
 	my $out;
-	my $go = &do_query("select generic_operation_id, code, name, parameter from generic_operation");
-	foreach (@$go) {
+	my $go = do_query("select generic_operation_id, code, name, parameter from generic_operation");
+	for (@$go) {
 		no strict;
 		eval {
 			&{'generic_operation_'.$_->[1]}({'mode' => 'test'});

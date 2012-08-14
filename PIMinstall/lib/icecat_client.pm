@@ -75,9 +75,9 @@ sub build_request {
 				$rh->{'SuppliersListRequest'}->{'Category_ID'} = $hash->{'SuppliersList'}->{'Category_ID'};
 			}
 			
-#	&log_printf('hello dudy-dude!');
+#	log_printf('hello dudy-dude!');
 		} else {
-#  &log_printf('hello dude!');
+#  log_printf('hello dude!');
 			$rh->{'SuppliersListRequest'} = {};
 		}
 		
@@ -115,7 +115,7 @@ sub build_request {
 		
 		my $t = {};
 		
-		foreach my $feature (@{$hash->{'ProductsListLookup'}->{'LookupFeatures'}}) {
+		for my $feature (@{$hash->{'ProductsListLookup'}->{'LookupFeatures'}}) {
 			$t->{$feature->[0]}->{'LimitValue'} = $feature->[1];
 		}
 		
@@ -137,9 +137,9 @@ sub build_request {
 		$rh->{'FulltextProductsSearchRequest'}->{'langid'} = $hash->{'FulltextProductsSearch'}->{'langid'} if ( $hash->{'FulltextProductsSearch'}->{'langid'} );
 		
 		if ($hash->{'FulltextProductsSearch'}->{'Supplier'}) {
-#		print &Dumper ( $hash->{'FulltextProductsSearch'}->{'Supplier'} );
+#		print Dumper ( $hash->{'FulltextProductsSearch'}->{'Supplier'} );
 			$rh->{'FulltextProductsSearchRequest'}->{'Supplier'}=[];
-			foreach my $supplier ( @{$hash->{'FulltextProductsSearch'}->{'Supplier'}} ) {
+			for my $supplier ( @{$hash->{'FulltextProductsSearch'}->{'Supplier'}} ) {
 				my $current_supp;
 				$current_supp->{'content'} = $supplier->{'Supplier'};
 				$current_supp->{'ID'} = $supplier->{'Supplier_ID'};
@@ -152,7 +152,7 @@ sub build_request {
 	if (defined $hash->{'ProductsList'}) {
 		my $content = {'langid' => $hash->{'ProductsList'}->{'langid'}};
 		
-		foreach my $product (@{$hash->{'ProductsList'}->{'Products'}}) {
+		for my $product (@{$hash->{'ProductsList'}->{'Products'}}) {
 			if (defined $product->{'ID'}) {
 				push @{$content->{'Product'}}, { 'ID' => $product->{'ID'}, 'content'	=>	'' };
 			}
@@ -184,7 +184,7 @@ sub build_request {
 		}
 		$rh->{'ProductsStatistic'}->{'Type'} 			= $hash->{'ProductsStatistic'}->{'Type'};
 		
-		foreach my $item ('Category_ID', 'UNCATID') {
+		for my $item ('Category_ID', 'UNCATID') {
 			if ($hash->{'ProductsStatistic'}->{$item}) {
 				$rh->{'ProductsStatistic'}->{$item} = $hash->{'ProductsStatistic'}->{$item};
 			}
@@ -193,7 +193,7 @@ sub build_request {
 	
 	if ($hash->{'DescribeProductsRequest'}) {
 		my $content = {'langid' => $hash->{'DescribeProductsRequest'}->{'langid'}};
-		foreach my $require (@{$hash->{'DescribeProductsRequest'}->{'DescribeProductRequest'}}) {
+		for my $require (@{$hash->{'DescribeProductsRequest'}->{'DescribeProductRequest'}}) {
 			push @{$content->{'DescribeProductRequest'}},{
 				'Product_id' => $require->{'Product_id'},
 				'Prod_id' => $require->{'Prod_id'},
@@ -230,7 +230,7 @@ sub build_request {
 			$content->{'DateEnd'} = $hash->{'StatisticQueryDatesList'}->{'DateEnd'};
 		}
 		if (defined $hash->{'StatisticQueryDatesList'}->{'StatisticQueries'}) {
-			foreach my $StatisticQuery ( @{$hash->{'StatisticQueryDatesList'}->{'StatisticQueries'} } ){
+			for my $StatisticQuery ( @{$hash->{'StatisticQueryDatesList'}->{'StatisticQueries'} } ){
 				push @{ $content->{'StatisticQuery'} }, { 'ID' => $StatisticQuery->{'ID'} };
 			} 
 		}
@@ -241,7 +241,7 @@ sub build_request {
 	if ($hash->{'ProductsComplaintRequest'}) {
 # my $content = {'langid' => $hash->{'ComplaintProductsRequest'}->{'langid'}};
 		my $content = {};
-		foreach my $require (@{$hash->{'ProductsComplaintRequest'}->{'ProductComplaintRequest'}}) {
+		for my $require (@{$hash->{'ProductsComplaintRequest'}->{'ProductComplaintRequest'}}) {
 			push @{$content->{'ProductComplaintRequest'}},{
 				'Product_id' => $require->{'Product_id'},
 				'Prod_id' => $require->{'Prod_id'},
@@ -279,7 +279,7 @@ sub build_request {
 	$rh->{'Password'}		= $pass;
 	$rh->{'Request_ID'}	= $req_id;
 	
-#&log_printf ( &Dumper ( $rh ) );
+#log_printf ( Dumper ( $rh ) );
 	return { 'Request' => [ $rh ] };
 }
 

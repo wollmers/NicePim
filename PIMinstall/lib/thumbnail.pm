@@ -65,7 +65,7 @@ sub thumbnailize_product {
 
 	return undef unless ($product->{'product_id'});
 	
-	my $thumb_exist = &atomsql::do_query("select thumb_pic, low_pic from product where product_id = $product->{'product_id'}");
+	my $thumb_exist = atomsql::do_query("select thumb_pic, low_pic from product where product_id = $product->{'product_id'}");
 	# I can see a bug here - this will work only when there is NO low pic and IS thumb  & high pic
 	# but if you fix this, make sure that you add also forced updated - in product update and data imports
 	# so thumbs are renewed
@@ -97,7 +97,7 @@ sub thumbnailize_product {
 	    $read_mime = 1; 
 		}
 
-		&log_printf("$img_url => $filename ...");
+		log_printf("$img_url => $filename ...");
 		
 		mirror($img_url, $images_cache.$filename);
 		
@@ -110,11 +110,11 @@ sub thumbnailize_product {
 				$filename = $filename.'.jpg';
 			}
 		
-			$thumb = &create_thumbnail($images_cache.$filename, $thumbs_path, $product->{'product_id'}, 75);
+			$thumb = create_thumbnail($images_cache.$filename, $thumbs_path, $product->{'product_id'}, 75);
 			
 			if ($thumb->{'link'}) {
-				&log_printf("returned thumb link = ".$thumb->{'link'});
-				&atomsql::update_rows('product', " product_id = $product->{'product_id'} ", { 'thumb_pic' => &atomsql::str_sqlize($thumb->{'link'}) } );
+				log_printf("returned thumb link = ".$thumb->{'link'});
+				atomsql::update_rows('product', " product_id = $product->{'product_id'} ", { 'thumb_pic' => atomsql::str_sqlize($thumb->{'link'}) } );
 				
 				# update thumbnail size 
 				my $hash_tmp = {
@@ -125,17 +125,17 @@ sub thumbnailize_product {
 					'id' => 'product_id',
 					'id_value' => $product->{'product_id'},
 				};
-				&atom_misc::get_obj_size($hash_tmp, 'thumb_pic_size');
+				atom_misc::get_obj_size($hash_tmp, 'thumb_pic_size');
 				
 				return $thumb->{'link'};
 			}
 			else {
-				&log_printf("bad image failed");
+				log_printf("bad image failed");
 				return undef;
 			}
 		}
 		else {
-			&log_printf("mirror failed");
+			log_printf("mirror failed");
 			return undef;
 		}
 	}
@@ -168,7 +168,7 @@ sub thumbnailize_category {
 		}
 	
 	    
-		&log_printf("$img_url => $filename ...");		
+		log_printf("$img_url => $filename ...");		
 		if($img_url=~/^http/){
 			mirror($img_url, $images_cache.$filename);
 		}else{
@@ -183,21 +183,21 @@ sub thumbnailize_category {
 				$filename = $filename.'.jpg';
 			}
 
-			$thumb = &create_thumbnail($images_cache.$filename, $thumbs_path, $row->[0], 75);
+			$thumb = create_thumbnail($images_cache.$filename, $thumbs_path, $row->[0], 75);
 			
 			if ($thumb->{'link'}) {
 				$row->[0] =~ s/CAT//;
-				&update_rows('category', " catid = $row->[0] ", { 'thumb_pic' => &atomsql::str_sqlize($thumb->{'link'}) } );
+				update_rows('category', " catid = $row->[0] ", { 'thumb_pic' => atomsql::str_sqlize($thumb->{'link'}) } );
 				return $thumb->{'link'};
 			}
 			else {
-				&log_printf("failed");
+				log_printf("failed");
 				print "create thumbnail failed\n";
 				return undef;
 			}
 		}
 		else {
-			&log_printf("cache image not exists\n");
+			log_printf("cache image not exists\n");
 			return undef;
 		}
 	}
@@ -230,7 +230,7 @@ sub thumbnailize_supplier {
 	    $read_mime = 1; 
 		}
 	
-		&log_printf("$img_url => $filename ...");
+		log_printf("$img_url => $filename ...");
 
 		if ($img_url =~ /^(f|ht)tps?:\/\//) {
 			mirror($img_url, $images_cache.$filename);
@@ -248,15 +248,15 @@ sub thumbnailize_supplier {
 				$filename = $filename.'.jpg';
 			}
 			
-			$thumb = &create_thumbnail($images_cache.$filename, $thumbs_path, $row->[0], 75);
+			$thumb = create_thumbnail($images_cache.$filename, $thumbs_path, $row->[0], 75);
 			
 			if ($thumb->{'link'}) {
 				$row->[0] =~ s/SUP//;
-				&update_rows('supplier', "supplier_id = $row->[0] ", { 'thumb_pic' => &atomsql::str_sqlize($thumb->{'link'}) } );
+				update_rows('supplier', "supplier_id = $row->[0] ", { 'thumb_pic' => atomsql::str_sqlize($thumb->{'link'}) } );
 				return $thumb>{'link'};
 			}
 			else {
-				&log_printf("failed");
+				log_printf("failed");
 				return undef;
 			}
 		}
@@ -271,37 +271,37 @@ sub create_thumbnail {
 
 	my $cmd;
 
-	&log_printf("loading $src_name");
+	log_printf("loading $src_name");
 	
 	my $src = GD::Image->new($src_name);
 	
 	if (!$src) {
 		# ok, let's try again
-		&log_printf('load failed, trying to convert');
+		log_printf('load failed, trying to convert');
 		`$convert $src_name jpeg:$src_name`;
 
 		$src = GD::Image->new($src_name);
 	}
 	
 	if (!$src) {
-		&log_printf("Can't create object from $src_name: $!");
+		log_printf("Can't create object from $src_name: $!");
 		return undef;
 	}
 	
-	&log_printf('loaded ok, doing output to '.$dst_name);
+	log_printf('loaded ok, doing output to '.$dst_name);
 	
 	my $square = ($dst_name =~ /thumbs/)?1:0;
 
-	my $thumb = &create_thumbnail_object($src, $max_size, $square);
+	my $thumb = create_thumbnail_object($src, $max_size, $square);
 	
-	open (OUT, '>/tmp/'.$unique_id.'.jpg') or &log_printf('cannot open /tmp/'.$unique_id.'.jpg'." for output: $!\n");
+	open (OUT, '>/tmp/'.$unique_id.'.jpg') or log_printf('cannot open /tmp/'.$unique_id.'.jpg'." for output: $!\n");
 	binmode (OUT,":bytes");
 	print OUT $thumb->jpeg(99);
 	close(OUT);
 
-	my $params = $is_params?&atom_misc::get_gallery_pic_params('/tmp/'.$unique_id.'.jpg'):undef;
+	my $params = $is_params?atom_misc::get_gallery_pic_params('/tmp/'.$unique_id.'.jpg'):undef;
 
-	return { 'link' =>  &add_image('/tmp/'.$unique_id.'.jpg',$dst_name,$atomcfg::targets), 'params' => $params };
+	return { 'link' =>  add_image('/tmp/'.$unique_id.'.jpg',$dst_name,$atomcfg::targets), 'params' => $params };
 } # sub create_thumbnail
 
 sub create_thumbnail_object { 
@@ -358,7 +358,7 @@ sub normalize_product_pics {
 	my ($high_pic, $low_pic) = ($row->[2], $row->[1]);
 
 	# check the sameless
-	my $old_value = &atomsql::do_query("select high_pic, low_pic from product where product_id=".$hash->{'product_id'})->[0];
+	my $old_value = atomsql::do_query("select high_pic, low_pic from product where product_id=".$hash->{'product_id'})->[0];
 
 	if (
 		($hash->{'low_pic'} eq $old_value->[1]) &&
@@ -372,26 +372,26 @@ sub normalize_product_pics {
 	my $rand_index = $suffix ? $suffix : int(rand(10000));
 	
 	my $src_mirrored;
-	if ($src_mirrored = &mirror_image($row->[2])) {
-		&log_printf("high pic is ok");
+	if ($src_mirrored = mirror_image($row->[2])) {
+		log_printf("high pic is ok");
 		$src = $src_mirrored;
 	}
-	elsif ($src_mirrored = &mirror_image($row->[1])) {
-		&log_printf("low pic is ok");
+	elsif ($src_mirrored = mirror_image($row->[1])) {
+		log_printf("low pic is ok");
 		$src = $src_mirrored;
 	}
 	else {
 		$src = ""; # no pics are available! Sorry, I give up.
-		&log_printf("we haven't high & low pics");
+		log_printf("we haven't high & low pics");
 		delete $hash->{'low_pic'};
 		delete $hash->{'high_pic'};
 		return $hash;
 	}
 
-	$src = &mirror_image($src);
+	$src = mirror_image($src);
 
 	if ($src =~ /\.jpg$/i) {
-		&PNG($src);
+		PNG($src);
 	}
 	else {
 		my $res = getJpeg($src);
@@ -401,26 +401,26 @@ sub normalize_product_pics {
 	$src =~ /\.(.{3,4})$/;	
 	$ext = lc($1) || 'jpg';
 	
-	$high_pic = &add_image($src, 'img/norm/high/', $atomcfg::targets, $row->[0].'-'.$rand_index.'.'.$ext);
+	$high_pic = add_image($src, 'img/norm/high/', $atomcfg::targets, $row->[0].'-'.$rand_index.'.'.$ext);
 	
 	if (-e $src) {
 		GD::Image->trueColor(1);
 		my $high_file = GD::Image->new($src);
-		$low_pic = &create_thumbnail($src, 'img/norm/low/', $row->[0].'-'.$rand_index, 200, 'Y');
+		$low_pic = create_thumbnail($src, 'img/norm/low/', $row->[0].'-'.$rand_index, 200, 'Y');
 		if ($low_pic->{'link'}) {
 			
 			if ($high_file) {
 				my ($low_x, $low_y) = ($low_pic->{'params'}->{'width'}, $low_pic->{'params'}->{'height'});
 				my ($high_x, $high_y) = $high_file->getBounds();
 				if ($low_x <= $high_x) {
-					&atomsql::update_rows("product", "product_id = $row->[0]", { "low_pic" => &atomsql::str_sqlize($low_pic->{'link'}), "high_pic" => &atomsql::str_sqlize($high_pic) });
+					atomsql::update_rows("product", "product_id = $row->[0]", { "low_pic" => atomsql::str_sqlize($low_pic->{'link'}), "high_pic" => atomsql::str_sqlize($high_pic) });
 				}
 				else {
-					&atomsql::update_rows("product", "product_id = $row->[0]", { "low_pic" => &atomsql::str_sqlize($low_pic->{'link'}) });
+					atomsql::update_rows("product", "product_id = $row->[0]", { "low_pic" => atomsql::str_sqlize($low_pic->{'link'}) });
 				}
 			}
 			else {
-				&atomsql::update_rows("product", "product_id = $row->[0]", { "low_pic" => &atomsql::str_sqlize($low_pic->{'link'}) });
+				atomsql::update_rows("product", "product_id = $row->[0]", { "low_pic" => atomsql::str_sqlize($low_pic->{'link'}) });
 			}
 
 			# sizes, widths and heights
@@ -428,13 +428,13 @@ sub normalize_product_pics {
 			
 			# for high pic
 			$shash = { 'dbtable' => 'product', 'dbfield' => 'high_pic', 'id' => 'product_id', 'id_value' => $hash->{'product_id'} };
-			&atom_misc::get_obj_size($shash, 'high_pic_size');
-			&atom_misc::get_obj_width_and_height($shash, 'high_pic_width', 'high_pic_height');
+			atom_misc::get_obj_size($shash, 'high_pic_size');
+			atom_misc::get_obj_width_and_height($shash, 'high_pic_width', 'high_pic_height');
 			
 			# for low pic
 			$shash = { 'dbtable' => 'product', 'dbfield' => 'low_pic', 'id' => 'product_id', 'id_value' => $hash->{'product_id'} };
-			&atom_misc::get_obj_size($shash, 'low_pic_size');
-			&atom_misc::get_obj_width_and_height($shash, 'low_pic_width', 'low_pic_height');
+			atom_misc::get_obj_size($shash, 'low_pic_size');
+			atom_misc::get_obj_width_and_height($shash, 'low_pic_width', 'low_pic_height');
 
 			# returned hash
 			my $phash;
@@ -462,7 +462,7 @@ sub mirror_image {
 		$ext = '.'.lc($1);
 	}
 	
-	&log_printf("Starting: ".$src.' => '.$images_cache.$filename.$ext);
+	log_printf("Starting: ".$src.' => '.$images_cache.$filename.$ext);
 
 #	$src =~ s/http:\/\///;
 
@@ -492,17 +492,17 @@ sub mirror_image {
 	}
 
 	if (!$supported->{lc($ext)}) {
-		&log_printf("not supported, extension: ".$ext);
+		log_printf("not supported, extension: ".$ext);
 		if ($ext) {
 			$cmd = $convert." ".$images_cache.$filename.$ext." jpeg:".$images_cache.$filename.".jpg";
 			`$cmd`;
-			&log_printf($cmd);
+			log_printf($cmd);
 			$ext = '.jpg';
 			unless (-e $images_cache.$filename.$ext) {
 				if (-e $images_cache.$filename.$ext.".0") {
 					$cmd = "/bin/mv -f ".$images_cache.$filename.$ext.".0 ".$images_cache.$filename.$ext;
 					`$cmd`;
-					&log_printf($cmd);
+					log_printf($cmd);
 				}
 			}
 		}
@@ -512,7 +512,7 @@ sub mirror_image {
 		return $images_cache.$filename.$ext;
 	}
 	else {
-		&log_printf("mirror is failed");
+		log_printf("mirror is failed");
 	  return undef;
 	}
 }
@@ -530,14 +530,14 @@ sub normalize_suppl_pics {
 	my $low_pic = $row->[1];
 	
 	my $src_mirrored;
-	if ($src_mirrored = &mirror_image($row->[1])) {
-		&PNG($src_mirrored);
-		&log_printf("the low is ok $src_mirrored");			 
+	if ($src_mirrored = mirror_image($row->[1])) {
+		PNG($src_mirrored);
+		log_printf("the low is ok $src_mirrored");			 
 		$src = $src_mirrored;
 	}
 	else {
 		$src = ""; # no pic is available.
-		&log_printf("the low is not ok");			 
+		log_printf("the low is not ok");			 
 		delete $hash->{'low_pic'};
 		return $hash;
 	}
@@ -547,12 +547,12 @@ sub normalize_suppl_pics {
 	
 	my $low_pic;
 	if (-e $src) {
-		$low_pic = &create_thumbnail($src, 'img/norm/low/', $row->[0], 200);
+		$low_pic = create_thumbnail($src, 'img/norm/low/', $row->[0], 200);
 		if ($low_pic->{'link'}) {
 			
-			&update_rows("supplier", "supplier_id = $row->[0]",
+			update_rows("supplier", "supplier_id = $row->[0]",
 									 {
-										 "low_pic" => &atomsql::str_sqlize($low_pic->{'link'}),
+										 "low_pic" => atomsql::str_sqlize($low_pic->{'link'}),
 									 });
 			return
 			{
@@ -562,14 +562,14 @@ sub normalize_suppl_pics {
 		}
 	}
 	else {
-	  &log_printf(" src is not available ");
+	  log_printf(" src is not available ");
 	}
 } # sub normalize_suppl_pics
 
 sub thumbnailize_family {
 	my ($family) = @_;
 	
-	&log_printf("\n in thumbnailize_family: $family->{'family_id'}, $family->{'low_pic'}");
+	log_printf("\n in thumbnailize_family: $family->{'family_id'}, $family->{'low_pic'}");
 	
   GD::Image->trueColor(1);
 	
@@ -594,7 +594,7 @@ sub thumbnailize_family {
 			$read_mime = 1;
 		}
 		
- 		&log_printf("$img_url => $filename ...");
+ 		log_printf("$img_url => $filename ...");
 	  mirror($img_url, $images_cache.$filename);
 		my $f = 0;
 		if (-e $images_cache.$filename) {
@@ -605,15 +605,15 @@ sub thumbnailize_family {
 				$filename = $filename.'.jpg';
 			}
 
-			$thumb = &create_thumbnail($images_cache.$filename, $thumbs_path, $row->[0], 75);
+			$thumb = create_thumbnail($images_cache.$filename, $thumbs_path, $row->[0], 75);
 			
 			if ($thumb->{'link'}) {
 				$row->[0] =~ s/FAM//;
-				&update_rows('product_family', "family_id = $row->[0] ", { 'thumb_pic' => &atomsql::str_sqlize($thumb->{'link'}) } );
+				update_rows('product_family', "family_id = $row->[0] ", { 'thumb_pic' => atomsql::str_sqlize($thumb->{'link'}) } );
 				return $thumb->{'link'};
 			}
 			else {
-				&log_printf("failed");
+				log_printf("failed");
 				return undef;
 			}
 		}
@@ -650,7 +650,7 @@ sub thumbnailize_product_gallery {
 	    $read_mime = 1; 
 		}
 	
-		&log_printf("$img_url => $images_cache$filename ...");
+		log_printf("$img_url => $images_cache$filename ...");
 		log_printf("mirror returned = ".mirror($img_url, $images_cache.$filename));
 		my $f = 0;
 
@@ -668,11 +668,11 @@ sub thumbnailize_product_gallery {
 				$rand_index = int(rand(10000));
 			}
 			
-			$thumb = &create_thumbnail($images_cache.$filename, $gallery_thumbs_path, $row->[0].'_'.$rand_index, 75);
+			$thumb = create_thumbnail($images_cache.$filename, $gallery_thumbs_path, $row->[0].'_'.$rand_index, 75);
 			
 			if ($thumb->{'link'}) {
 				unless ($product->{'dont_touch_base'}) {
-					&atomsql::update_rows('product_gallery', "id = $row->[2] ", { 'thumb_link' => &atomsql::str_sqlize($thumb->{'link'}) } );
+					atomsql::update_rows('product_gallery', "id = $row->[2] ", { 'thumb_link' => atomsql::str_sqlize($thumb->{'link'}) } );
 					
 					# add info about thumb size as well 					    
 					my $hash_tmp = {
@@ -683,17 +683,17 @@ sub thumbnailize_product_gallery {
 						'id' => 'id',
 						'id_value' => $row->[2],
 					};
-					&atom_misc::get_obj_size($hash_tmp, 'thumb_size');    
+					atom_misc::get_obj_size($hash_tmp, 'thumb_size');    
 				}
 				return $thumb->{'link'};
 			}
 			else {
-				&log_printf("failed");
+				log_printf("failed");
 				return undef;
 			}
 		}
 		else {
-			&log_printf("image cache image file failed");
+			log_printf("image cache image file failed");
 			return undef;
 		}
 	}
@@ -722,7 +722,7 @@ sub thumbnailize_campaign_gallery {
 	    $read_mime = 1;
 		}
 	
-		&log_printf("Campaign gallery thumbnail: $img_url => $filename ...");
+		log_printf("Campaign gallery thumbnail: $img_url => $filename ...");
 		
 		mirror($img_url, $images_cache.$filename);
 
@@ -739,15 +739,15 @@ sub thumbnailize_campaign_gallery {
 			srand;
 			my $rand_index = int(rand(10000)); 
 			
-			$thumb = &create_thumbnail($images_cache.$filename, $campaign_thumbs_path, $p->{'campaign_gallery_id'}.'-'.$rand_index, 75, "Y");
-			$logo = &create_thumbnail($images_cache.$filename, $campaign_path, $p->{'campaign_gallery_id'}.'-'.$rand_index, 200);
+			$thumb = create_thumbnail($images_cache.$filename, $campaign_thumbs_path, $p->{'campaign_gallery_id'}.'-'.$rand_index, 75, "Y");
+			$logo = create_thumbnail($images_cache.$filename, $campaign_path, $p->{'campaign_gallery_id'}.'-'.$rand_index, 200);
 			
 			if ($thumb->{'link'}) {
-				&atomsql::update_rows('campaign_gallery', "campaign_gallery_id = ".$p->{'campaign_gallery_id'}, { 'thumb_pic' => &atomsql::str_sqlize($thumb->{'link'}), 'logo_pic' => &atomsql::str_sqlize($logo->{'link'}) } );
+				atomsql::update_rows('campaign_gallery', "campaign_gallery_id = ".$p->{'campaign_gallery_id'}, { 'thumb_pic' => atomsql::str_sqlize($thumb->{'link'}), 'logo_pic' => atomsql::str_sqlize($logo->{'link'}) } );
 				return $thumb->{'link'};
 			}
 			else {
-				&log_printf("failed");
+				log_printf("failed");
 				return undef;
 			}
 		}
@@ -764,13 +764,13 @@ sub PNG {
 
 	return if ((!$src) || ($src =~ /^https?:\/\//) || ($src =~ /\.png$/i));
 
-	&log_printf("??? -> png: ".$src);
+	log_printf("??? -> png: ".$src);
 	# trying to fix possibly corrupted pic
 	my $cmd = $convert.' '.$src.' png:'.$src.'.png';
 	log_printf($cmd);
 	`$cmd`;
 
-	&log_printf("png -> ???: ".$src);
+	log_printf("png -> ???: ".$src);
 	$cmd = $convert.' '.$src.'.png jpeg:'.$src;
 	log_printf($cmd);
 	`$cmd`;
@@ -840,7 +840,7 @@ sub get_ext_by_file_content {
 		use atom_mail;
 
     log_printf("WARNING! Unknown mime-type: ".$file_result);
-    &sendmail("Unknown mime-type: ".$file_result, $atomcfg{'bugreport_email'}, $atomcfg{'bugreport_from'}, 'unknown mimetype '.$file_result);
+    sendmail("Unknown mime-type: ".$file_result, $atomcfg{'bugreport_email'}, $atomcfg{'bugreport_from'}, 'unknown mimetype '.$file_result);
   }
 
 	return $fileext;
@@ -858,13 +858,13 @@ sub getJpeg {
 			my $cmd = $convert.''.$name.$fileext.' jpeg:'.$name.'.jpg';
 			`$cmd`;
 			
-			&log_printf("$cmd");
+			log_printf("$cmd");
 			$fileext = '.jpg';
 			
 			unless (-e $name.'.jpg') { # multigif to jpgs
 				if (-e $name.'.jpg.0') {
 					$cmd = '/bin/mv -f '.$name.'.jpg.0 '.$name.'.jpg';
-					&log_printf("multigif to jpgs: ".$cmd);
+					log_printf("multigif to jpgs: ".$cmd);
 					`$cmd`;
 				}
 			}
@@ -890,7 +890,7 @@ sub getPng {
 			$cmd =~ s/-background\s+\\\#\w{6}//; # remove bg parameter
 			`$cmd`;
 			
-			&log_printf("$cmd");
+			log_printf("$cmd");
 			$fileext = '.png';
 		}
 

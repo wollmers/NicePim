@@ -31,9 +31,11 @@ BEGIN {
 	$requests = 0;
 	if($debug_lib::debug_on && $atomcfg{debug_db}){
 		$str = "DBI:mysql:$atomcfg{debug_db}:$atomcfg{dbhost}";
-	} elsif($debug_lib1::debug_on && $atomcfg{debug_db_1}){
+	} 
+	elsif($debug_lib1::debug_on && $atomcfg{debug_db_1}){
 		$str = "DBI:mysql:$atomcfg{debug_db_1}:$atomcfg{dbhost}";
-	}	else {
+	}	
+	else {
 	  $str = "DBI:mysql:$atomcfg{dbname}:$atomcfg{dbhost}";
 	}
 	$user = $atomcfg{dbuser};
@@ -42,12 +44,12 @@ BEGIN {
 		$dbh = DBI->connect($str,$user,$pass,{PrintError=>1,AutoCommit=>1});
 	}
 	if (!$dbh) {
-		&error_dbopen($str.":$user,$pass");
+		error_dbopen($str.":$user,$pass");
 	}
 }
 
 END {
-	&log_printf("storesql.pm: did $requests requests.");
+	log_printf("storesql.pm: did $requests requests.");
 	$dbh->disconnect;
 }
 
@@ -60,20 +62,17 @@ sub push_a_nmtable {
 }
 
 
-sub sql_last_insert_id
-{
-	return &do_query("SELECT LAST_INSERT_ID()")->[0][0];
+sub sql_last_insert_id {
+	return do_query("SELECT LAST_INSERT_ID()")->[0][0];
 }
 
-sub sql_date
-{
+sub sql_date {
 	my @a = localtime($_[0]);
 	return sprintf("%04d%02d%02d%02d%02d%02d",$a[5]<1900?$a[5]+1900:$a[5],$a[4]+1,
 	               $a[3], $a[2], $a[1], $a[0]);
 }
 
-sub str_unsqlize
-{
+sub str_unsqlize {
 	my $str = $_[0];
 
 	if ($str =~ /^\'(.*)\'$/g) { # only if quoted
@@ -85,8 +84,7 @@ sub str_unsqlize
 	return $str;
 }
 
-sub str_sqlize
-{
+sub str_sqlize {
 	my $str = $_[0];
 
 	$str =~ s/\\/\\\\/g;
@@ -106,12 +104,12 @@ sub describe_table {
 	
 	$sth = $dbh->prepare("show columns from $tablename");
 	if (!$sth) {
-		&error_prepare("show columns from $tablename");
+		error_prepare("show columns from $tablename");
 		return [];
 	}
 	$rv = $sth->execute;
 	if (!$rv) {
-		&error_execute("show columns from $tablename");
+		error_execute("show columns from $tablename");
 		return [];
 	}
 	$requests++;
@@ -144,12 +142,12 @@ sub get_rows {
 	$nrw = [];
 
 	if ($limit && $limit <= 0) {
-		&error_printf('get_rows $limit == %d <= 0 Table: %s', $limit, $tablename);
+		error_printf('get_rows $limit == %d <= 0 Table: %s', $limit, $tablename);
 		return $nrw;
 	}
 	
 	if ($ofs && $ofs <= 0) {
-		&error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
+		error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
 		return $nrw;
 	}
 	
@@ -166,22 +164,22 @@ sub get_rows {
 
 	$sth = $dbh->prepare($select);
 	if (!$sth) {
-		&error_prepare($select);
+		error_prepare($select);
 		return $nrw;
 	}
 	$rv = $sth->execute;
 	if (!$rv) {
-		&error_execute($select);
+		error_execute($select);
 		return $nrw;
 	}
 	$requests++;
 
 #	if ($debug) { log_printf('get_rows statement '.$select); }
 	
-#	while (@row = $sth->fetchrow_array) {	&push_a_nmtable($nrw,$dbt,\@row); }
+#	while (@row = $sth->fetchrow_array) {	push_a_nmtable($nrw,$dbt,\@row); }
 
-my $row;	
- while ($row = $sth->fetchrow_arrayref) {	&push_a_nmtable($nrw,$dbt,$row); }
+    my $row;	
+    while ($row = $sth->fetchrow_arrayref) {	push_a_nmtable($nrw,$dbt,$row); }
 
 	$rv=$sth->finish;
 	return $nrw;
@@ -194,7 +192,7 @@ sub get_row {
 	if (substr($tablename,0,1) eq '*') { $debug = 1; $tablename =~ s/\*//g; }
 
 	if ($ofs && $ofs <= 0) {
-		&error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
+		error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
 		return {};
 	}
 	
@@ -209,12 +207,12 @@ sub get_row {
 	
 	$sth = $dbh->prepare($select);
 	if (!$sth) {
-		&error_prepare($select);
+		error_prepare($select);
 		return {};
 	}
 	$rv = $sth->execute;
 	if (!$rv) {
-		&error_execute($select);
+		error_execute($select);
 		return {};
 	}
 	$requests++;
@@ -248,7 +246,7 @@ sub update_rows {
 	$stmt = "UPDATE $tablename SET";
 	$isgood = 0;
 	if ($fields) {
-		foreach $i (keys %$fields) {
+		for $i (keys %$fields) {
 			if ($isgood) { $stmt .= ","; }
 			$stmt .= " ".$i." = ".$fields->{$i};
 			$isgood = 1;
@@ -266,12 +264,12 @@ sub update_rows {
 	$requests++;
 	
 	if (!$rv) {
-		&error_execute($stmt);
+		error_execute($stmt);
 		return 0;
 	}
 	
 	if ($debug) {	log_printf("update_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
@@ -288,7 +286,7 @@ sub insert_rows_ifne {
 	$isgood = 0;
 
 	if ($fields) {
-		foreach $i (keys %$fields) {
+		for $i (keys %$fields) {
 			if ($isgood) { $stmt .= ","; $vals .= ","; }
 			$stmt .= $i;
 			$vals .= "$fields->{$i}";
@@ -311,7 +309,7 @@ sub insert_rows_ifne {
 	}
 	
 	if ($debug) {	log_printf("insert_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
@@ -328,7 +326,7 @@ sub insert_rows {
 	$isgood = 0;
 
 	if ($fields) {
-		foreach $i (keys %$fields) {
+		for $i (keys %$fields) {
 			if ($isgood) { $stmt .= ","; $vals .= ","; }
 			$stmt .= $i;
 			$vals .= "$fields->{$i}";
@@ -347,12 +345,12 @@ sub insert_rows {
 	$requests++;
 	
 	if (!$rv) {
-		&error_execute($stmt);
+		error_execute($stmt);
 		return 0;
 	}
 	
 	if ($debug) {	log_printf("insert_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
@@ -363,14 +361,14 @@ sub do_query {
 
 	$debug = $storesql::debug;
 	if (substr($select,0,1) eq '*') { $debug = 1; $select = substr($select,1); }
-	&sql_log($select);	
+	sql_log($select);	
 
 	$sth = $dbh->prepare($select);
-	if (!$sth) { &error_prepare($select); return []; }
+	if (!$sth) { error_prepare($select); return []; }
 	
 	$rv = $sth->execute;
 	$requests++;
-	if (!$rv) {	&error_execute($select); return []; }
+	if (!$rv) {	error_execute($select); return []; }
 
 	while (@row = $sth->fetchrow_array) {	push(@nw,[@row]); }
 
@@ -385,14 +383,14 @@ sub do_statement {
 	my ($sth,@nw,@row,$rv);
 
 	$sth = $dbh->prepare($select);
-	if (!$sth) { &error_prepare($select); return []; }
+	if (!$sth) { error_prepare($select); return []; }
 	$rv = $sth->execute;
 	$requests++;
-	if (!$rv) {	&error_execute($select); return []; }
+	if (!$rv) {	error_execute($select); return []; }
 	
 	$rv=$sth->finish;
 
-	&sql_log($select);
+	sql_log($select);
 	
 }
 
@@ -416,25 +414,23 @@ sub delete_rows {
 	$requests++;
 	
 	if (!$rv) {
-		&error_execute($stmt);
+		error_execute($stmt);
 		return 0;
 	}
 	
 	if ($debug) {	log_printf("delete_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
 
 # Logging SQL queries
 
-sub sql_log
-{
+sub sql_log {
  my $query = join(";\n",@_).";\n";
-		&atom_util::push_dmesg(3,"SQL QUERY:$query");
+		atom_util::push_dmesg(3,"SQL QUERY:$query");
  # USE FILTERING 
-if (!($query=~/^\s*[Ss][Ee][Ll][Ee][Cc][Tt]/)) 
-  {
+if (!($query=~/^\s*[Ss][Ee][Ll][Ee][Cc][Tt]/)) {
     open(LOG,">>$atomcfg{'sql_log_path'}/$atomcfg{'sql_log_file'}");
 		flock(LOF,2);
 		print LOG $query;
@@ -456,31 +452,31 @@ storesql - a package that should be used for regular SQL access.
 	
   # connection is made automatically to database, specified in config file
 
-  $descr = &describe_table("tablename");
+  $descr = describe_table("tablename");
   # now $descr is reference to array, that contains names of each column,
   # that is hold inside of the table `tablename'
 
-  $nm = &get_rows("tablename", "where clause", "order by", limit, ofs)
+  $nm = get_rows("tablename", "where clause", "order by", limit, ofs)
   # retrieves an nmtable object, that is got, by using of statement
   # SELECT * FROM tablename WHERE where clause ORDER BY order by LIMIT ofs,limit
   # get_rows can also be called in these ways:
-  $nm = &get_rows("tablename", "where clause", "order by", limit);
-  $nm = &get_rows("tablename", "where clause", "order by");
-  $nm = &get_rows("tablename", "where clause");
-  $nm = &get_rows("tablename");
+  $nm = get_rows("tablename", "where clause", "order by", limit);
+  $nm = get_rows("tablename", "where clause", "order by");
+  $nm = get_rows("tablename", "where clause");
+  $nm = get_rows("tablename");
   # please consider, that doing last query can result in enormously big table,
   # and perl will drop a core dump.
 
-  $rows_updated = &update_rows("tablename", "where clause",
-                   { 'field_1' => &str_sqlize('alpha'), 'field_2' => '1' } );
+  $rows_updated = update_rows("tablename", "where clause",
+                   { 'field_1' => str_sqlize('alpha'), 'field_2' => '1' } );
   # this will generate UPDATE statement for supplied parameters.
   # if 0 rows are updated '0E0' is returned.
 
-	$rows_updated = &insert_rows("tablename",
-                   { 'field_1' => &str_sqlize('alpha'), 'field_2' => '1' } );
+	$rows_updated = insert_rows("tablename",
+                   { 'field_1' => str_sqlize('alpha'), 'field_2' => '1' } );
   # this will generate UPDATE statement for supplied parameters.
 
-	$rows_updated = &delete_rows("tablename", "where clause");
+	$rows_updated = delete_rows("tablename", "where clause");
   # this will generate UPDATE statement for supplied parameters.
 
   # all these functions returns number of rows affected.
@@ -553,8 +549,8 @@ statement. The return value is a reference to array of references to
 array of values. Use make_nmtable to make output like in get_rows.
 Here is example:
 
-$table = &do_query("SELECT a.column_a,b.column_b from a,b where a.column_c = b.column_c");
-&make_nmtable($table,['column_a','column_b']);
+$table = do_query("SELECT a.column_a,b.column_b from a,b where a.column_c = b.column_c");
+make_nmtable($table,['column_a','column_b']);
 
 After make_nmtable call the $table will be a reference to array of references
 to a hash, where actual values are stored.
@@ -568,10 +564,10 @@ $sqlstr eq "\'Somebody\'s test\'".
 
 Action is a reversed str_sqlize.
 
-=item $str = &sql_date($time)
+=item $str = sql_date($time)
 
 Returns datetime in form YYYYMMDDHHMMSS from $time seconds. Current datetime is
-&sql_date(time). But use of now() builtin of SQL is encouraged. Consider, that
+sql_date(time). But use of now() builtin of SQL is encouraged. Consider, that
 time on hosts which runs CGI-scripts and MySQL server could be different.
 
 =back

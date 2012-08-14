@@ -95,7 +95,7 @@ sub validate_as_product_access{
 	my ($call, $field) = @_;
 	my @allowed_groups=('superuser' , 'supereditor','category_manager','supplier');	
 	if(($hin{'atom_update'} or $hin{'atom_submit'}) and $hin{'product_id'} and !grep(/^$USER->{'user_group'}$/,@allowed_groups)){
-		my $user_info=&do_query('select u.user_id,measure from product p 
+		my $user_info=do_query('select u.user_id,measure from product p 
 							   JOIN users u USING(user_id) 
 							   JOIN user_group_measure_map ug USING(user_group)							   
 							   where product_id='.$hin{$field});
@@ -109,18 +109,18 @@ sub validate_as_strict_brand_prod_id {
 	my ($call, $field) = @_;
 	return 0 unless $hin{'supplier_id'};
 	use icecat_mapping;
-	unless (&brand_prod_id_checking_by_regexp($hin{$field},{'supplier_id' => $hin{'supplier_id'}})) {
-		my $templates = &do_query("select prod_id_regexp from supplier where supplier_id=".$hin{'supplier_id'})->[0][0];
+	unless (brand_prod_id_checking_by_regexp($hin{$field},{'supplier_id' => $hin{'supplier_id'}})) {
+		my $templates = do_query("select prod_id_regexp from supplier where supplier_id=".$hin{'supplier_id'})->[0][0];
 		my @tmpls = split "\n", $templates;
 		my $out = '';
-		foreach my $tmpl (@tmpls) {
+		for my $tmpl (@tmpls) {
 			$tmpl =~ s/^\s*(.*?)\s*$/$1/gs;
 			next unless $tmpl;
 			$out .= '<b>' . $tmpl . '</b>, ';
 		}
 		chop($out);
 		chop($out);
-		return &repl_ph($atoms->{'default'}->{'errors'}->{'check_prod_id_strictness'},{'regexps' => $out});
+		return repl_ph($atoms->{'default'}->{'errors'}->{'check_prod_id_strictness'},{'regexps' => $out});
 	}
 	else {
 		return 0;
@@ -206,24 +206,24 @@ sub validate_as_ean_code {
 	}
 
 	if ($valid) {
-		$ean_id = &do_query("select ean_id from product_ean_codes where ean_code=".&str_sqlize($ean))->[0][0];
+		$ean_id = do_query("select ean_id from product_ean_codes where ean_code=".str_sqlize($ean))->[0][0];
 		if ($ean_id) {
 		    # we have ean in database
-			$prod = &do_query("select product_id, prod_id from product inner join product_ean_codes using (product_id) where ean_code=".&str_sqlize($ean)." limit 1")->[0];
+			$prod = do_query("select product_id, prod_id from product inner join product_ean_codes using (product_id) where ean_code=".str_sqlize($ean)." limit 1")->[0];
 			if ($prod->[0]) { # we have this product with this ean
 				$error = $atoms->{'default'}->{'errors'}->{'already_present_ean_code'};
-				push @$errors, &repl_ph($error, {'code' => $ean, 'prod_id' => $prod->[1]});
+				push @$errors, repl_ph($error, {'code' => $ean, 'prod_id' => $prod->[1]});
 			}
 			else {
 			    # we have ean but haven't product - so, this is the orphan ean. remove it before inserting
-				&do_statement("delete from product_ean_codes where ean_id=".$ean_id);
+				do_statement("delete from product_ean_codes where ean_id=".$ean_id);
 				log_printf("Orphan ean was removed from database: ".$ean);
 			}
 		}
 	}
 	else {
 		$error = $atoms->{'default'}->{'errors'}->{'invalid_ean_code'};
-		push @$errors, &repl_ph($error, {'code' => $ean});
+		push @$errors, repl_ph($error, {'code' => $ean});
 	}
  
 	return $errors;
@@ -236,7 +236,7 @@ my ($call,$field) = @_;
 my $update = $hin{'need_update'};
 my $sup_id = $hin{'new_supplier_id'};
 my $prod_id = $hin{'prod_id'};
-my $source = &get_rows('product', "prod_id = ".&str_sqlize($prod_id)." AND supplier_id = $sup_id");
+my $source = get_rows('product', "prod_id = ".str_sqlize($prod_id)." AND supplier_id = $sup_id");
 my $product_id = $source->[0]->{'product_id'};
 my $user_id = $source->[0]->{'user_id'};
 my $errors;
@@ -261,9 +261,9 @@ sub validate_as_sponsor {
 	my $error = $atoms->{'default'}->{'errors'}->{'mandatory'};
 	
 	if ($is_sponsor eq 'Y') {
-		push @$errors, &repl_ph($error, {'name'=>$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{'public_login'}}) if(!$hin{'public_login'});
-		push @$errors, &repl_ph($error, {'name'=>$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{'public_password'}}) if(!$hin{'public_password'});
-		push @$errors, &repl_ph($error, {'name'=>$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{'edit_user_id'}}) if(!$hin{'edit_user_id'});
+		push @$errors, repl_ph($error, {'name'=>$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{'public_login'}}) if(!$hin{'public_login'});
+		push @$errors, repl_ph($error, {'name'=>$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{'public_password'}}) if(!$hin{'public_password'});
+		push @$errors, repl_ph($error, {'name'=>$atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{'edit_user_id'}}) if(!$hin{'edit_user_id'});
 	}
 	return $errors;
 }
@@ -273,49 +273,48 @@ sub modify_as_product_feature_value
 	my $errors = [];
 	my ($call,$field, $r_arr) = @_;
 
-	foreach my $row(@$r_arr) {
+	for my $row(@$r_arr) {
 		my $value = $hin{'_rotate_value_'.$row->[0]};
-		$hin{'_rotate_value_'.$row->[0]} = &get_corrected_product_feature_value($value);
+		$hin{'_rotate_value_'.$row->[0]} = get_corrected_product_feature_value($value);
 	}
 
 	return $errors;
 }
 
 
-sub validate_as_product_feature_value
-{
-my ($call,$field, $r_arr) = @_;
+sub validate_as_product_feature_value {
+    my ($call,$field, $r_arr) = @_;
 
-my $errors = [];
+    my $errors = [];
 
- foreach my $row(@$r_arr){
+    for my $row(@$r_arr) {
 
-  my $searchable = $hin{'_rotate_searchable_'.$row->[0]};
-	my $value 		 = $hin{'_rotate_value_'.$row->[0]};
-	my $name			 = $hin{'_rotate_feature_name_'.$row->[0]};
-  my $mandatory = $hin{'_rotate_cat_feat_mandatory_'.$row->[0]};
+       my $searchable = $hin{'_rotate_searchable_'.$row->[0]};
+	   my $value 		 = $hin{'_rotate_value_'.$row->[0]};
+	   my $name			 = $hin{'_rotate_feature_name_'.$row->[0]};
+       my $mandatory = $hin{'_rotate_cat_feat_mandatory_'.$row->[0]};
 
-  if($searchable && $value eq ''){
-	 push @$errors, 
-	  &repl_ph($atoms->{'default'}->{'errors'}->{'missing_feature_value'}, 
+       if($searchable && $value eq ''){
+	       push @$errors, 
+	       repl_ph($atoms->{'default'}->{'errors'}->{'missing_feature_value'}, 
 		 {
 		  'feature_name' => $name		 
 		 });
 	}
-#	&log_printf("\n\nname: $mandatory; $value");
+#	log_printf("\n\nname: $mandatory; $value");
 	if($mandatory && $value eq ''){
 	 push @$errors, 
-	  &repl_ph($atoms->{'default'}->{'errors'}->{'missing_mandatory_feature_value'}, 
+	  repl_ph($atoms->{'default'}->{'errors'}->{'missing_mandatory_feature_value'}, 
 		 {
 		  'feature_name' => $name		 
 		 });
 	}
 	if ((!$hl{'warned_feature_name_nonEn_'.$row->[0]}) ||
 			($hl{'warned_feature_name_nonEn_'.$row->[0]} ne $value)) {
-		my $nonEn = &nonEn_value($value);
+		my $nonEn = nonEn_value($value);
 		if ($#$nonEn > -1) {
 			push @$errors, 
-			&repl_ph($atoms->{'default'}->{'errors'}->{'nonenglish_feature_value'},
+			repl_ph($atoms->{'default'}->{'errors'}->{'nonenglish_feature_value'},
 							 {
 								 'feature_name' => $name,	 
 								 'feature_value' => $value
@@ -336,18 +335,18 @@ my ($call,$field, $r_arr) = @_;
 
 my $errors = [];
 
- foreach my $row(@$r_arr){
+ for my $row(@$r_arr){
 
 	 my $value = $hin{'_rotate_label_'.$row->[0]};
 
   if((!$value)&&($row->[0] == 1)){
 	 push @$errors, 
-	  &repl_ph($atoms->{'default'}->{'errors'}->{'missing_feature_name'}, 
+	  repl_ph($atoms->{'default'}->{'errors'}->{'missing_feature_name'}, 
 		 {
 		  'language' => $row->[1]
 		 });
 	}
-#	&log_printf("\n\nfeature_name language: $row->[1]");
+#	log_printf("\n\nfeature_name language: $row->[1]");
  }
 
 return $errors;
@@ -359,18 +358,18 @@ my ($call,$field, $r_arr) = @_;
 
 my $errors = [];
 
- foreach my $row(@$r_arr){
+ for my $row(@$r_arr){
 
 	 my $value = $hin{'_rotate_label_'.$row->[0]};
 
   if((!$value) && (lc($row->[1]) eq 'english')){
 	 push @$errors, 
-	  &repl_ph($atoms->{'default'}->{'errors'}->{'missing_category_name'}, 
+	  repl_ph($atoms->{'default'}->{'errors'}->{'missing_category_name'}, 
 		 {
 		  'language' => $row->[1]
 		 });
 	}
-#	&log_printf("\n\ncategory_name language: $row->[1]");
+#	log_printf("\n\ncategory_name language: $row->[1]");
  }
 
 return $errors;
@@ -387,18 +386,18 @@ sub validate_as_prod_id {
 	};
 	
 	if ( $hin{'product_id'} ) {
-		my $cur_prod_data = &do_query("SELECT prod_id, user_id FROM product WHERE product_id=" . $hin{'product_id'})->[0];
+		my $cur_prod_data = do_query("SELECT prod_id, user_id FROM product WHERE product_id=" . $hin{'product_id'})->[0];
 		return if ( ($value eq $cur_prod_data->[0]) && ($hin{'edit_user_id'} == $cur_prod_data->[1] || $hin{'edit_user_id'} == 1));
 	}
 	
-	my $m_prod_id = &get_mapped_prod_id($product);
+	my $m_prod_id = get_mapped_prod_id($product);
 	if ($m_prod_id->[0] && (!$hl{'warned_prod_id_should_be_mapped'} || $hl{'warned_prod_id_should_be_mapped'} eq $value)) {
 		$product->{'m_prod_id'} = $m_prod_id->[0];
 		if ($m_prod_id->[1]) {
 			$product->{'map_supplier_name'} = ' (and to <b>'.$m_prod_id->[1].'</b> vendor)';
 		}
 		my $warn = $atoms->{'default'}->{'errors'}->{'prod_id_should_be_mapped'};
-		$warn = &repl_ph($warn, $product);
+		$warn = repl_ph($warn, $product);
 		$hs{'warned_prod_id_should_be_mapped'} = $value;
 		return $warn;
 	}
@@ -423,7 +422,7 @@ unless($hin{'atom_delete'}){
   
  for(my $i = 0; $i <= $#list; $i++){
    
- my $data = &do_query("select count(*) from ".$list[$i]." where ".( $keys[$i] || $field )." = ".&str_sqlize($value));
+ my $data = do_query("select count(*) from ".$list[$i]." where ".( $keys[$i] || $field )." = ".str_sqlize($value));
 
  if($data->[0] && $data->[0][0] > 0){
   my $name = $atoms->{$call->{'class'}}->{$call->{'name'}}->{'assigned_table_'.$list[$i]} || $list[$i];
@@ -436,7 +435,7 @@ unless($hin{'atom_delete'}){
  }
  
  if($f){
-  return &repl_ph($error, {'value' => $respond_value });
+  return repl_ph($error, {'value' => $respond_value });
  }
 
 }
@@ -447,7 +446,7 @@ my ($call,$field) = @_;
 my $value = $hin{$field};
  my $error = $atoms->{'default'}->{'errors'}->{'category_assigned_cat'};
 
- my $data = &do_query("select count(*) from category where pcatid = $value");
+ my $data = do_query("select count(*) from category where pcatid = $value");
  if($data->[0] && $data->[0][0] > 0){
    return $error; 
  }
@@ -466,7 +465,7 @@ if ($value ){
 if ($value =~m/^\d+[\.]{0,1}\d*\Z/){
  
 } else {
-  return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+  return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
 }
 }
 
@@ -478,16 +477,16 @@ sub validate_as_feature_to_del
  my $atom = $atoms->{'default'}->{'errors'};
  
  if($hin{'atom_delete'} && $hin{'atom_name'} eq 'feature'){
-  my $ref_data = &do_query("select distinct data_source.code from data_source, data_source_feature_map where data_source.data_source_id = data_source_feature_map.data_source_id and data_source_feature_map.feature_id = ".&str_sqlize($hin{'feature_id'}));
+  my $ref_data = do_query("select distinct data_source.code from data_source, data_source_feature_map where data_source.data_source_id = data_source_feature_map.data_source_id and data_source_feature_map.feature_id = ".str_sqlize($hin{'feature_id'}));
 
   my $source = '';
-	foreach my $row(@$ref_data){
+	for my $row(@$ref_data){
 	 $source .= ' '.$row->[0].',';
 	}
 	chop $source;
  
   if($source){							
-	 return &repl_ph($atom->{'integrity_validation_fails'}, {'sources' => $source });
+	 return repl_ph($atom->{'integrity_validation_fails'}, {'sources' => $source });
 	}
  }
 }
@@ -499,7 +498,7 @@ sub validate_as_email
 
  if(!($hin{$field} =~m/.+?\@.+/)){
 	my $error = $atoms->{'default'}->{'errors'}->{'email'};
-  return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+  return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
  }
 
 } 
@@ -513,15 +512,15 @@ sub validate_as_mandatory_rel_product_add {
 	if (($hin{'product_id'}) && ($value)) {
 		my $data;
 		if ($value_supplier) {
-			$data = &do_query("select product_id from product where prod_id = ".&str_sqlize($value)." and supplier_id = ".&str_sqlize($value_supplier));
+			$data = do_query("select product_id from product where prod_id = ".str_sqlize($value)." and supplier_id = ".str_sqlize($value_supplier));
 		}
 		else {
-			$data = &do_query("select product_id from product where prod_id = ".&str_sqlize($value));
+			$data = do_query("select product_id from product where prod_id = ".str_sqlize($value));
 		}
 		
 		if ($data) {
 			$hin{'rel_product_id'} = '';
-			foreach my $row (@$data) {
+			for my $row (@$data) {
 				$hin{'rel_product_id'} .= ($hin{'rel_product_id'}?"\t":"").$row->[0];
 			}
 		}
@@ -542,16 +541,16 @@ sub validate_as_mandatory_bndl_product_add
  
 	if($hin{'product_id'}&&$value){
 
-	my $data = &do_query("select product_id from product where prod_id = ".&str_sqlize($value));
+	my $data = do_query("select product_id from product where prod_id = ".str_sqlize($value));
  
  if($data->[0]){  
 	my $srow = shift @$data;
 	$hin{'bndl_product_id'} = $srow->[0];
 		
-	foreach my $row(@$data){
-    &insert_rows('product_bundled', 
+	for my $row(@$data){
+    insert_rows('product_bundled', 
 				 {
-				  'product_id' => &str_sqlize($hin{'product_id'}),
+				  'product_id' => str_sqlize($hin{'product_id'}),
 					'bndl_product_id' => $row->[0]
 				 });	
 	}
@@ -561,7 +560,7 @@ sub validate_as_mandatory_bndl_product_add
  if(!$hin{$field}){
 	  
 	my $error = $atoms->{'default'}->{'errors'}->{'mandatory'};
-  return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+  return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
  }
 
 }
@@ -571,7 +570,7 @@ sub validate_as_mandatory {
  
     if ( (! (defined ($hin{$field}))) || ($hin{$field} eq '') ) {
 	    my $error = $atoms->{'default'}->{'errors'}->{'mandatory'};
-        return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+        return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
     }
     return;
 }
@@ -583,7 +582,7 @@ sub validate_as_date
  if(!($hin{$field} =~m/\d\d\-\d\d\-\d\d\d\d/)){
   
 	my $error = $atoms->{'default'}->{'errors'}->{'date'};
-  return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+  return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
  }
  }
 } 
@@ -593,7 +592,7 @@ sub validate_as_url
  my ($call,$field) = @_; 
  if($hin{$field} && !($hin{$field} =~m/http\:\/\/.+?\..+?/i)){
 	my $error = $atoms->{'default'}->{'errors'}->{'url'};
-  return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+  return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
  }
 } 
 
@@ -633,7 +632,7 @@ sub validate_as_login_expiration_date{
 		return undef;
 	}
 	my $error = $atoms->{'default'}->{'errors'}->{'login_expiration_date'};
-	return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+	return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
 }
 
 sub validate_as_uploaded_obj {
@@ -641,7 +640,7 @@ sub validate_as_uploaded_obj {
 
 #	log_printf("validator validate_as_uploaded_obj started");
 
-# &log_printf("field = ".Dumper($field));
+# log_printf("field = ".Dumper($field));
 	if ($hin{$field} && $hin{$field} ne '' && !$hin{'atom_delete'}) {
 		$ua->agent('Mozilla/5.0');
 		my $rc = $ua->head($hin{$field});
@@ -649,7 +648,7 @@ sub validate_as_uploaded_obj {
 		unless ($rc->is_success) {
 			log_printf("URL validate failed, reason: ".$rc->status_line);
 			my $error = $atoms->{'default'}->{'errors'}->{$field};
-			return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+			return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
 		}
 	}
 	return;
@@ -657,7 +656,7 @@ sub validate_as_uploaded_obj {
 
 sub validate_as_user_partner_logo{
  my ($call,$field) = @_;
- &log_printf('---------->>>>>>>>>>>>>>>>> validate_as_user_partner_logo '.$hin{'logo_pic_file'});
+ log_printf('---------->>>>>>>>>>>>>>>>> validate_as_user_partner_logo '.$hin{'logo_pic_file'});
  if(($hin{'is_implementation_partner'}*1)){
  	if($hin{$field}){
  		my $result=validate_as_uploaded_obj($call,$field);
@@ -676,22 +675,22 @@ sub validate_as_family_id {
  return unless $hin{'family_id'};
  return if $hin{'atom_delete'};
 #validate supplier/category products family mandatory if exists
-  my $get_family_by_sup_cat = &do_query("select family_id from product_family where supplier_id =".$hin{'supplier_id'}." and catid =".$hin{'catid'});	 
+  my $get_family_by_sup_cat = do_query("select family_id from product_family where supplier_id =".$hin{'supplier_id'}." and catid =".$hin{'catid'});	 
 	if($get_family_by_sup_cat->[0][0] && ($hin{'family_id'} == 1)){
 	 my $error = $atoms->{'default'}->{'errors'}->{'sup_cat_family'};
 	 return $error;
 	}	
-# my $suppliers_family_count = &do_query("select count(family_id) from product_family where supplier_id = ".&str_sqlize($hin{'supplier_id'}));
+# my $suppliers_family_count = do_query("select count(family_id) from product_family where supplier_id = ".str_sqlize($hin{'supplier_id'}));
 # if($suppliers_family_count->[0][0] > 0){
 #  if($hin{$field} == 1){
 #	 my $error = $atoms->{'default'}->{'errors'}->{'mandatory'};
-#   return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+#   return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
 #  }		
 # }
- my $resp = &do_query("select supplier_id from product_family where family_id=".$hin{$field});
+ my $resp = do_query("select supplier_id from product_family where family_id=".$hin{$field});
    if($hin{'field'} && $resp->[0][0] != $hin{'supplier_id'}){
        my $error = $atoms->{'default'}->{'errors'}->{$field};
-       return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+       return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
     }
 }
 	    
@@ -699,7 +698,7 @@ sub validate_as_parent_family_id{
  my ($call,$field) = @_;
  if($hin{$field} == 1){
 #	my $error = $atoms->{'default'}->{'errors'}->{'mandatory'};
-# return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+# return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
  }
  return;
 }
@@ -711,19 +710,19 @@ sub validate_as_catid
 #mandatory on catid
 	 if($hin{$field} == 1){
 		my $error = $atoms->{'default'}->{'errors'}->{'mandatory'};
- 		return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+ 		return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
 	 }
 # sergey: checking if selected category is enabled for a selection
-  my $cat_data 	= &do_query("select ucatid from category where catid = ".&str_sqlize($hin{$field}));
+  my $cat_data 	= do_query("select ucatid from category where catid = ".str_sqlize($hin{$field}));
 	my $error 		= $atoms->{'default'}->{'errors'}->{'category_not_allowed'};
 
 	if($cat_data->[0] && $cat_data->[0][0]){
 	 	my $unspsc = $cat_data->[0][0];
 	 	if($unspsc =~m/00$/){
-	 		return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+	 		return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
 	 	}
 	} else {
-	 	return &repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
+	 	return repl_ph($error, { 'name' => $atoms->{$call->{'class'}}->{$call->{'name'}}->{'var_names'}->{$field} });
 	}	
 
 #products family
@@ -731,15 +730,15 @@ sub validate_as_catid
    if(($fid == 1) || ($fid == 0) || !$fid){return;}
 	 if(!$hin{'parent_family_id'}){
 #validate updated supplier_id and families supplier_id
-   my $get_sup_fid = &do_query("select supplier_id from product_family where family_id = $fid");
-#   &log_printf("\n $get_sup_fid->[0][0] - $hin{'supplier_id'}");
+   my $get_sup_fid = do_query("select supplier_id from product_family where family_id = $fid");
+#   log_printf("\n $get_sup_fid->[0][0] - $hin{'supplier_id'}");
    if($get_sup_fid->[0][0] != $hin{'supplier_id'}){
     return $atoms->{'default'}->{'errors'}->{'sup_family_id_mismatch'};
    }
 #validate products category and products family category
 #select family catid
-#   my $fcatid = &do_query("select catid from product_family where family_id = $fid");
-#	  &log_printf("\nfcatid: $fcatid->[0][0]; $hin{$field}");
+#   my $fcatid = do_query("select catid from product_family where family_id = $fid");
+#	  log_printf("\nfcatid: $fcatid->[0][0]; $hin{$field}");
 #   if(($fcatid->[0][0] == $hin{$field}) || ($fcatid->[0][0] == 1)){ return;}
 #	 my $error = $atoms->{'default'}->{'errors'}->{'catid_mismatch'};
 #	 return $error;
@@ -749,14 +748,14 @@ sub validate_as_catid
 sub validate_as_dispatch_groups {
 	my ($call,$field) = @_;
 	
-	&process_atom_ilib("mail_dispatch");
-  &process_atom_lib("mail_dispatch");
+	process_atom_ilib("mail_dispatch");
+  process_atom_lib("mail_dispatch");
 
 	my @groups_names = split(",", $atoms->{'default'}->{'mail_dispatch'}->{'dispatch_groups_names'});
 	my @groups_values = split(",", $iatoms->{'mail_dispatch'}->{'dispatch_groups_values'});
 	
 	my $cnt = 0;
-  foreach my $group_value (@groups_values) {
+  for my $group_value (@groups_values) {
 		if ($hin{$group_value} == 1) {
 			$cnt++;
 		}
@@ -769,7 +768,7 @@ sub validate_as_dispatch_groups {
 sub validate_as_default {
   my ($call,$field) = @_;
 
-	my $def = &do_query("select c.contact_id
+	my $def = do_query("select c.contact_id
 from supplier_users su
 inner join users u on su.user_id=u.user_id
 inner join contact c on u.pers_cid=c.pers_cid
@@ -787,7 +786,7 @@ sub validate_as_html {
 	return;
 		
 	my $html_source = $hin{$field};
-	my $html_file = $atomcfg{'base_dir'} . 'tmp/source-' . &make_code(4) .'.html';
+	my $html_file = $atomcfg{'base_dir'} . 'tmp/source-' . make_code(4) .'.html';
 	my $html;
 	my $ret;
 
@@ -808,11 +807,11 @@ sub validate_as_html {
 	$html->validate_file($html_file);
 
 	if (!$html->is_valid) {
-		&process_atom_ilib('errors');
-		&process_atom_lib('errors');
+		process_atom_ilib('errors');
+		process_atom_lib('errors');
 	
-		$ret = &repl_ph($atoms->{'default'}->{'errors'}->{'html_validation'}, {'name' => 'Short description' }) if ($field eq 'short_desc');
-		$ret = &repl_ph($atoms->{'default'}->{'errors'}->{'html_validation'}, {'name' => 'Marketing text' }) if ($field eq 'long_desc');
+		$ret = repl_ph($atoms->{'default'}->{'errors'}->{'html_validation'}, {'name' => 'Short description' }) if ($field eq 'short_desc');
+		$ret = repl_ph($atoms->{'default'}->{'errors'}->{'html_validation'}, {'name' => 'Marketing text' }) if ($field eq 'long_desc');
 	}	
 
 	`chmod 777 $html_file`;
@@ -840,9 +839,9 @@ sub validate_as_unique_text_voc{
 		# returns true if supplier is not allowed to have duplicate families
 		$sql_record .= " AND (t.catid = $catid OR t.supplier_id NOT IN (SELECT supplier_id FROM multi_families_supplier WHERE supplier_id=$supplier_id)) ";
 	}
-	my $result=&do_query("SELECT v.value FROM vocabulary v 
+	my $result=do_query("SELECT v.value FROM vocabulary v 
 						  JOIN $table t ON v.sid=t.sid 
-						  WHERE v.langid=1 AND v.value=".&str_sqlize($value)." $sql_record 
+						  WHERE v.langid=1 AND v.value=".str_sqlize($value)." $sql_record 
 						  LIMIT 1");
 	if($result->[0][0]){
 		return "This value $value is not unique";
@@ -864,9 +863,9 @@ sub validate_as_shop_user{
 
 sub validate_as_htmltype_to_daily{
 	my ($call,$field) = @_;
-	my $report_type=&do_query("SELECT name FROM time_interval WHERE interval_id=$hin{'interval_id'}")->[0][0];		
+	my $report_type=do_query("SELECT name FROM time_interval WHERE interval_id=$hin{'interval_id'}")->[0][0];		
 	if ($hin{$field} eq 'html' and $report_type and $report_type ne 'daily' and ($hin{'atom_submit'} or $hin{'atom_update'})){
-		return &repl_ph($atoms->{'default'}->{'errors'}->{'report_type_and_interval'},{'report_type'=>$report_type});
+		return repl_ph($atoms->{'default'}->{'errors'}->{'report_type_and_interval'},{'report_type'=>$report_type});
 		#return 'errr'; 
 	}else{
 		return '';
@@ -874,7 +873,7 @@ sub validate_as_htmltype_to_daily{
 }
 
 sub validate_as_define_subst_family {
-	if ($hin{'atom_delete'} and $hin{'exchange_family'} eq '1' and &do_query("SELECT product_id FROM product WHERE family_id=$hin{'family_id'} LIMIT 1")->[0][0]) { # should we bother the user
+	if ($hin{'atom_delete'} and $hin{'exchange_family'} eq '1' and do_query("SELECT product_id FROM product WHERE family_id=$hin{'family_id'} LIMIT 1")->[0][0]) { # should we bother the user
 	 	if (!grep {$_ =~'^you must define a substitute'} @user_errors) {
 	 		return "you must define a substitute for the deleted family 
 	 						<script type=\"text/javascript\">
@@ -898,8 +897,8 @@ sub validate_as_unique{#this assumes what post's params names are equal to corre
 	
 	my $self_value=$hin{$id_field};
 	my $value=$hin{$field};
-	my $result=&do_query("SELECT $id_field FROM $table  
-						  WHERE $field=".&str_sqlize($value)." AND $id_field!=".&str_sqlize($self_value)."
+	my $result=do_query("SELECT $id_field FROM $table  
+						  WHERE $field=".str_sqlize($value)." AND $id_field!=".str_sqlize($self_value)."
 						  LIMIT 1");
 	if($result->[0][0]){
 		return "This value $value is not unique. Please, use another one";
@@ -916,8 +915,8 @@ sub validate_as_unupdated{
 		
 		my $self_value=$hin{$id_field};
 		my $value=$hin{$field};
-		my $result=&do_query("SELECT $id_field FROM $table  
-							  WHERE $field=".&str_sqlize($value)." AND $id_field=".&str_sqlize($self_value)."
+		my $result=do_query("SELECT $id_field FROM $table  
+							  WHERE $field=".str_sqlize($value)." AND $id_field=".str_sqlize($self_value)."
 							  LIMIT 1");
 		if($result->[0]){
 			return '';
@@ -950,7 +949,7 @@ sub validate_as_url_exists{
 			
 			if($url=~/\[maxmtime\]/){#find out max time under given url
 				$url=~s/\[maxmtime\]//;
-				$url=&get_ftp_newest_file($url,$hin{'feed_login'},$hin{'feed_pwd'});
+				$url=get_ftp_newest_file($url,$hin{'feed_login'},$hin{'feed_pwd'});
 				if(!$url){
 					return ' Can\'t find files under given remote dir $url'
 				}
@@ -1009,7 +1008,7 @@ sub validate_as_pricelist_columns{
 		}
 		
 		if(scalar(@errors)=>1){
-			#&log_printf('---------->>>>>>>>>>>>>>>>>>>>ean: '.$hin{$ean_field}.' brand: '.$hin{'brand_col'}.'  partcode: '.$hin{'brand_prodid_col'});
+			#log_printf('---------->>>>>>>>>>>>>>>>>>>>ean: '.$hin{$ean_field}.' brand: '.$hin{'brand_col'}.'  partcode: '.$hin{'brand_prodid_col'});
 			return \@errors;
 		} 
 	}
@@ -1149,11 +1148,11 @@ sub validate_as_all_or_nothing{
 	my ($call,$fields) = @_;
 	my @params=split('&',$fields);		
 	if(scalar(@params)<2){
-		&log_printf("----->>>>>>>>>>validate_as_all_or_nothing: wrong fields are set: $fields");
+		log_printf("----->>>>>>>>>>validate_as_all_or_nothing: wrong fields are set: $fields");
 		return '';
 	}
 	my ($def_found,$undef_found);
-	foreach my $param (@params){
+	for my $param (@params){
 		if($hin{$param}){
 			$def_found=1;
 		}else{
@@ -1191,7 +1190,7 @@ sub validate_as_mandatory_number{
 }
 sub validate_as_prod_id_pair{
 	my ($call,$field) = @_;
-	my $product=&do_query('SELECT product_id from product WHERE prod_id='.&str_sqlize($hin{$field}).' and supplier_id='.$hin{'manual_supplier_id'})->[0][0];
+	my $product=do_query('SELECT product_id from product WHERE prod_id='.str_sqlize($hin{$field}).' and supplier_id='.$hin{'manual_supplier_id'})->[0][0];
 	if(!$product){
 		return 'This product does not exists';
 	}else{
@@ -1212,7 +1211,7 @@ sub validate_as_series_id {
 	return unless $hin{'family_id'};
 	return unless $hin{'series_id'};
 	return if $hin{'atom_delete'};
-	my $get_series_by_family = &do_query("select series_id from product_series where family_id=" . $hin{'family_id'});
+	my $get_series_by_family = do_query("select series_id from product_series where family_id=" . $hin{'family_id'});
 	if( $get_series_by_family->[0]->[0] && $hin{'series_id'} == 1 &&  $hin{'family_id'} != 1){
 		return "For this family, series is mandatory";
 	}
@@ -1221,7 +1220,7 @@ sub validate_as_series_id {
 sub validate_as_define_subst_series {
 	if ( $hin{'atom_delete'} &&
 		$hin{'exchange_series'} == 1 &&
-		&do_query("SELECT product_id FROM product WHERE series_id=$hin{'series_id'} LIMIT 1")->[0][0]) {
+		do_query("SELECT product_id FROM product WHERE series_id=$hin{'series_id'} LIMIT 1")->[0][0]) {
 	 			return "you must define a substitute for the deleted series 
 	 						<script type=\"text/javascript\">
               		<!--

@@ -52,10 +52,10 @@ BEGIN {
 	
 }
 
-&init_connection();
+init_connection();
 
 END {
-	&close_connection();
+	close_connection();
 }
 
 sub table_exists{
@@ -64,11 +64,11 @@ sub table_exists{
 	my $select='DESC '.$table;
 	$debug = $storesql::debug;
 	if (substr($select,0,1) eq '*') { $debug = 1; $select = substr($select,1); }
-	&sql_log($select);	
+	sql_log($select);	
 	
 	if($slave_name and ref($slaves_dbh{$slave_name}) ne ref($dbh)){
-		&log_printf("Slave ' $slave_name ' was not registered pls use &atomsql::register_slave(slave_name,host,user,pass) to register it");
-		&error_prepare($select); return [];
+		log_printf("Slave ' $slave_name ' was not registered pls use atomsql::register_slave(slave_name,host,user,pass) to register it");
+		error_prepare($select); return [];
 	}elsif($slave_name and ref($slaves_dbh{$slave_name}) eq ref($dbh)){
 		$sth=$slaves_dbh{$slave_name}->prepare($select)		
 	}else{
@@ -94,7 +94,7 @@ sub push_a_nmtable {
 
 sub sql_last_insert_id
 {
-	return &do_query("SELECT LAST_INSERT_ID()")->[0][0];
+	return do_query("SELECT LAST_INSERT_ID()")->[0][0];
 }
 
 sub sql_date
@@ -145,12 +145,12 @@ sub describe_table {
 	
 	$sth = $dbh->prepare("show columns from $tablename");
 	if (!$sth) {
-		&error_prepare("show columns from $tablename");
+		error_prepare("show columns from $tablename");
 		return [];
 	}
 	$rv = $sth->execute;
 	if (!$rv) {
-		&error_execute("show columns from $tablename");
+		error_execute("show columns from $tablename");
 		return [];
 	}
 	$requests++;
@@ -183,12 +183,12 @@ sub get_rows {
 	$nrw = [];
 
 	if ($limit && $limit <= 0) {
-		&error_printf('get_rows $limit == %d <= 0 Table: %s', $limit, $tablename);
+		error_printf('get_rows $limit == %d <= 0 Table: %s', $limit, $tablename);
 		return $nrw;
 	}
 	
 	if ($ofs && $ofs <= 0) {
-		&error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
+		error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
 		return $nrw;
 	}
 	
@@ -205,26 +205,26 @@ sub get_rows {
 
 	$sth = $dbh->prepare($select);
 	if (!$sth) {
-		&error_prepare($select);
+		error_prepare($select);
 		return $nrw;
 	}
 	$rv = $sth->execute;
 	if (!$rv) {
-		&error_execute($select);
+		error_execute($select);
 		return $nrw;
 	}
 	$requests++;
 
 #	if ($debug) { log_printf('get_rows statement '.$select); }
 	
-#	while (@row = $sth->fetchrow_array) {	&push_a_nmtable($nrw,$dbt,\@row); }
+#	while (@row = $sth->fetchrow_array) {	push_a_nmtable($nrw,$dbt,\@row); }
 
 my $row;	
  while ($row = $sth->fetchrow_arrayref) {
 	 for (my $i = 0; $i <= $#{$dbt}; $i ++) {
-		 &Encode::_utf8_on($row->[$i]);
+		 Encode::_utf8_on($row->[$i]);
 	 }
-	 &push_a_nmtable($nrw,$dbt,$row);
+	 push_a_nmtable($nrw,$dbt,$row);
  }
 
 	$rv=$sth->finish;
@@ -238,7 +238,7 @@ sub get_row {
 	if (substr($tablename,0,1) eq '*') { $debug = 1; $tablename =~ s/\*//g; }
 
 	if ($ofs && $ofs <= 0) {
-		&error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
+		error_printf('get_rows $ofs == %d <= 0 Table: %s', $ofs, $tablename);
 		return {};
 	}
 	
@@ -253,12 +253,12 @@ sub get_row {
 	
 	$sth = $dbh->prepare($select);
 	if (!$sth) {
-		&error_prepare($select);
+		error_prepare($select);
 		return {};
 	}
 	$rv = $sth->execute;
 	if (!$rv) {
-		&error_execute($select);
+		error_execute($select);
 		return {};
 	}
 	$requests++;
@@ -268,7 +268,7 @@ sub get_row {
 	$nh = {};
 	if (@row = $sth->fetchrow_array) {
 		for ($i = 0; $i <= $#{$dbt}; $i ++) {
-			&Encode::_utf8_on($row[$i]);
+			Encode::_utf8_on($row[$i]);
 			$nh->{$dbt->[$i]} = $row[$i];
 		}
 	}
@@ -293,9 +293,9 @@ sub update_rows {
 	$stmt = "UPDATE $tablename SET";
 	$isgood = 0;
 	if ($fields) {
-		foreach $i (keys %$fields) {
+		for $i (keys %$fields) {
 			if ($isgood) { $stmt .= ","; }
-			#&Encode::_utf8_on($fields->{$i});
+			#Encode::_utf8_on($fields->{$i});
 			$stmt .= " ".$i." = ".$fields->{$i};
 			$isgood = 1;
 		}
@@ -312,12 +312,12 @@ sub update_rows {
 	$requests++;
 	
 	if (!$rv) {
-		&error_execute($stmt);
+		error_execute($stmt);
 		return 0;
 	}
 	
 	if ($debug) {	log_printf("update_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
@@ -336,7 +336,7 @@ sub insert_rows_ifne {
 	if (substr($tablename,0,1) eq '*') { $debug = 1; $tablename =~ s/\*//g; }
 		
 	if ($fields) {
-		foreach $i (keys %$fields) {
+		for $i (keys %$fields) {
 			if(!defined $AUTO_FIELDS->{$tablename}->{$i}) {
 				push @fld_list, $i;
 				push @val_list, $fields->{$i};
@@ -350,7 +350,7 @@ sub insert_rows_ifne {
 	}
 
 	if (defined $AUTO_FIELDS->{$tablename}) { ## $tablename was found in AUTO_FIELDS
-		foreach $i (keys %{$AUTO_FIELDS->{$tablename}}) {
+		for $i (keys %{$AUTO_FIELDS->{$tablename}}) {
 			push @fld_list, $i;
 			push @val_list, $AUTO_FIELDS->{$tablename}->{$i};
 		}
@@ -366,7 +366,7 @@ sub insert_rows_ifne {
 	}
 	
 	if ($debug) {	log_printf("insert_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
@@ -381,7 +381,7 @@ sub insert_rows {
 	if (substr($tablename,0,1) eq '*') { $debug = 1; $tablename =~ s/\*//g; }
 
 	if ($fields) {
-		foreach $i (keys %$fields) {
+		for $i (keys %$fields) {
 			if(!defined $AUTO_FIELDS->{$tablename}->{$i}) {
 				push @fld_list, $i;
 				push @val_list, $fields->{$i};
@@ -395,7 +395,7 @@ sub insert_rows {
 	}
 
 	if (defined $AUTO_FIELDS->{$tablename}) { ## $tablename was found in AUTO_FIELDS
-		foreach $i (keys %{$AUTO_FIELDS->{$tablename}}) {
+		for $i (keys %{$AUTO_FIELDS->{$tablename}}) {
 			push @fld_list, $i;
 			push @val_list, $AUTO_FIELDS->{$tablename}->{$i};
 		}
@@ -407,12 +407,12 @@ sub insert_rows {
 	$requests++;
 	
 	if (!$rv) {
-		&error_execute($stmt);
+		error_execute($stmt);
 		return 0;
 	}
 	
 	if ($debug) {	log_printf("insert_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
@@ -423,22 +423,22 @@ sub do_query {
 
 	$debug = $storesql::debug;
 	if (substr($select,0,1) eq '*') { $debug = 1; $select = substr($select,1); }
-	&sql_log($select);	
+	sql_log($select);	
 	
 	if($slave_name and ref($slaves_dbh{$slave_name}) ne ref($dbh)){
-		&log_printf("Slave ' $slave_name ' was not registered pls use &atomsql::register_slave(slave_name,host,user,pass) to register it");
-		&error_prepare($select); return [];
+		log_printf("Slave ' $slave_name ' was not registered pls use atomsql::register_slave(slave_name,host,user,pass) to register it");
+		error_prepare($select); return [];
 	}elsif($slave_name and ref($slaves_dbh{$slave_name}) eq ref($dbh)){
 		$sth=$slaves_dbh{$slave_name}->prepare($select)		
 	}else{
 		$sth = $dbh->prepare($select);
 	}
 	
-	if (!$sth) { &error_prepare($select); return []; }
+	if (!$sth) { error_prepare($select); return []; }
 	$rv = $sth->execute;
 	$requests++ if !$slave_name;
 	if (!$rv) {				
-				&error_execute($select,$slave_name); return []; }
+				error_execute($select,$slave_name); return []; }
 
 	while (@row = $sth->fetchrow_array) {
 		for (my $i=0;$i<=$#row;$i++) {
@@ -472,7 +472,7 @@ sub do_query_sequenced {
 	@splitter = split /select/si, $select;
 
 	if (($#splitter != 1) && ($whatWeHave eq 'query')) {
-		&log_printf("It is the multi-dimensional request, doing the do_".$whatWeHave." instead");
+		log_printf("It is the multi-dimensional request, doing the do_".$whatWeHave." instead");
 		if ($whatWeHave eq 'query') {
 			goto default_way;
 		}
@@ -494,7 +494,7 @@ sub do_query_sequenced {
 			my ($name, $alias) = ($1, $2);
 
 			# get the ranges
-			my @ranges = &get_primary_key_set_of_ranges($alias, $name, $params->{'delimiter'} || undef);
+			my @ranges = get_primary_key_set_of_ranges($alias, $name, $params->{'delimiter'} || undef);
 
 			# determine the place, where the condition will be pasted - and mark it as |||
 			my $pselect = '';
@@ -508,23 +508,23 @@ sub do_query_sequenced {
 				$select =~ s/((?:\s+group|\s+order|\s+limit|$))/ where |||$1/si;
 			}
 
-			&log_printf("Do the sequenced do_".$whatWeHave."-s ". ( $#ranges + 1 ) ." times");
+			log_printf("Do the sequenced do_".$whatWeHave."-s ". ( $#ranges + 1 ) ." times");
 
 			my $nwpart;
 
 			# do this!
-			foreach (@ranges) {
+			for (@ranges) {
 				$pselect = $select;
 				$pselect =~ s/\|\|\|/$_/s;
 
 				if ($whatWeHave eq 'query') {
-					$nwpart = &do_query($pselect);
-					foreach (@$nwpart) {
+					$nwpart = do_query($pselect);
+					for (@$nwpart) {
 						push @nw, $_;
 					}
 				}
 				else {
-					&do_statement($pselect);
+					do_statement($pselect);
 				}
 			}
 
@@ -536,7 +536,7 @@ sub do_query_sequenced {
 			}
 		}
 		else { # bad SQL syntax, do the default do_query sub instead
-			&log_printf("Bad SQL syntax for sequences");
+			log_printf("Bad SQL syntax for sequences");
 			if ($whatWeHave eq 'query') {
 				goto default_way;
 			}
@@ -547,19 +547,19 @@ sub do_query_sequenced {
 	}
 	else {
 	default_way:
-		return &do_query($select);
+		return do_query($select);
 	}
 
 	default_way_statement:
-	&do_statement($select);
+	do_statement($select);
 } # sub do_query_sequenced
 
 sub do_query_dump {
 	my ($select) = @_;
-	my $res = &do_query($select);
+	my $res = do_query($select);
 	return undef unless $res;
 	my $out;
-	foreach (@$res) {
+	for (@$res) {
 		$out .= join ("\t", @$_);
 		$out .= "\n";
 	}
@@ -571,8 +571,8 @@ sub do_statement {
 	my ($sth,@nw,@row,$rv);
 	
 	if($slave_name and ref($slaves_dbh{$slave_name}) ne ref($dbh)){
-		&log_printf("Slave ' $slave_name ' was not registered pls use &atomsql::register_slave(slave_name,host,user,pass) to register it");
-		&error_prepare($select); return [];
+		log_printf("Slave ' $slave_name ' was not registered pls use atomsql::register_slave(slave_name,host,user,pass) to register it");
+		error_prepare($select); return [];
 	}elsif($slave_name and ref($slaves_dbh{$slave_name}) eq ref($dbh)){
 		$sth=$slaves_dbh{$slave_name}->prepare($select);	
 	}else{
@@ -580,15 +580,15 @@ sub do_statement {
 	}
 	
 	if (!$sth) {; 
-		&error_prepare($select); return []; }
+		error_prepare($select); return []; }
 	$rv = $sth->execute;
 	$requests++ if !$slave_name;
 	if (!$rv) {	
-		&error_execute($select,$slave_name); return []; }
+		error_execute($select,$slave_name); return []; }
 	
 	$rv=$sth->finish;
 
-	&sql_log($select);
+	sql_log($select);
 	
 }
 
@@ -610,12 +610,12 @@ sub delete_rows {
 	$requests++;
 	
 	if (!$rv) {
-		&error_execute($stmt);
+		error_execute($stmt);
 		return 0;
 	}
 	
 	if ($debug) {	log_printf("delete_rows stmt $stmt");	}
-	&sql_log($stmt);
+	sql_log($stmt);
 	
 	return $rv;
 }
@@ -628,9 +628,9 @@ sub primary_key_from_table {
 
 	return undef unless $table;
 
-	my $indexes = &do_query("show index from ".$table);
+	my $indexes = do_query("show index from ".$table);
 
-	foreach (@$indexes) {
+	for (@$indexes) {
 		if ($_->[2] eq 'PRIMARY') {
 			return $_->[4];
 		}
@@ -642,8 +642,8 @@ sub primary_key_from_table {
 sub get_primary_key_set_of_ranges {
 	my ($pk_alias,$table,$delim,$pk) = @_;
 
-	$pk = &primary_key_from_table($table) unless $pk;
-	my $max_pk = &do_query("select max($pk) from $table")->[0][0];
+	$pk = primary_key_from_table($table) unless $pk;
+	my $max_pk = do_query("select max($pk) from $table")->[0][0];
 	my $betweens = undef;
 	my $init = 1;
 	$delim = 100000 if ((!$delim) || ($delim !~ /^\d+$/s));
@@ -666,7 +666,7 @@ sub get_primary_key_set_of_ranges {
 sub sql_log {
 	my $query = join(";\n",@_).";\n";
 
-	&atom_util::push_dmesg(3,"SQL QUERY:$query");
+	atom_util::push_dmesg(3,"SQL QUERY:$query");
 
 	# USE FILTERING 
 	if (!($query=~/^\s*select/si) && 0) {
@@ -696,14 +696,14 @@ sub register_slave {
 	if (!$dbh) {
 		$triesToConnect++;
 		if ($triesToConnect > $triesToConnectMax) {
-			&error_dbopen($str.":$user,$pass");
+			error_dbopen($str.":$user,$pass");
 		}
 		else {
 			sleep(1);
 			goto try;
 		}
 	}
-	&log_printf("atomsql.pm: database connected on slave: " .
+	log_printf("atomsql.pm: database connected on slave: " .
 							"$slave_name, host: $host, " . $triesToConnect . " try");
   	$dbh->{mysql_auto_reconnect} = 1;
 	my $rv = $dbh->do("set names utf8");
@@ -712,12 +712,12 @@ sub register_slave {
 
 sub make_slave_host{
 	my ($slave_name)=@_;
-	&unregister_main();
+	unregister_main();
 	if($slaves_dbh{$slave_name} and ref($slaves_dbh{$slave_name}) eq 'DBI::db'){
 		$dbh=$slaves_dbh{$slave_name};
 		return 1;
 	}else{
-#		&lp('!!!!!!!!!!!!!!!!!!!!!!make_slave_main failed: no connection to db');
+#		lp('!!!!!!!!!!!!!!!!!!!!!!make_slave_main failed: no connection to db');
 		return '';
 	}
 }
@@ -764,14 +764,14 @@ sub init_connection {
 	if (!$dbh) {
 		$triesToConnect++;
 		if ($triesToConnect > $triesToConnectMax) {
-			&error_dbopen($str.":$user,$pass");
+			error_dbopen($str.":$user,$pass");
 		}
 		else {
 			sleep(1);
 			goto try;
 		}
 	}
-	&log_printf("atomsql.pm: database `" . $db . ':' . $atomcfg{dbhost} . "` connected, ".$triesToConnect." try");
+	log_printf("atomsql.pm: database `" . $db . ':' . $atomcfg{dbhost} . "` connected, ".$triesToConnect." try");
 
   $dbh->{mysql_auto_reconnect} = 1;
 	$rv = $dbh->do("set names utf8");
@@ -787,14 +787,14 @@ sub init_connection {
 	$current_day = $row[0];
 	$current_day =~ s/\s+.+$//s;
 
-#	&log_printf("timestamp = `".$current_ts."`");
-#	&log_printf("day = `".$current_day."`");
+#	log_printf("timestamp = `".$current_ts."`");
+#	log_printf("day = `".$current_day."`");
 	
 }
 sub close_connection{
-	&log_printf("atomsql.pm: did $requests requests");
+	log_printf("atomsql.pm: did $requests requests");
 	if(!$speedy_mode){
-		foreach my $key( keys %slaves_dbh){
+		for my $key( keys %slaves_dbh){
 			$slaves_dbh{$key}->disconnect if(ref($slaves_dbh{$key}) eq ref($dbh));
 		}
 	}
@@ -815,31 +815,31 @@ storesql - a package that should be used for regular SQL access.
 	
   # connection is made automatically to database, specified in config file
 
-  $descr = &describe_table("tablename");
+  $descr = describe_table("tablename");
   # now $descr is reference to array, that contains names of each column,
   # that is hold inside of the table `tablename'
 
-  $nm = &get_rows("tablename", "where clause", "order by", limit, ofs)
+  $nm = get_rows("tablename", "where clause", "order by", limit, ofs)
   # retrieves an nmtable object, that is got, by using of statement
   # SELECT * FROM tablename WHERE where clause ORDER BY order by LIMIT ofs,limit
   # get_rows can also be called in these ways:
-  $nm = &get_rows("tablename", "where clause", "order by", limit);
-  $nm = &get_rows("tablename", "where clause", "order by");
-  $nm = &get_rows("tablename", "where clause");
-  $nm = &get_rows("tablename");
+  $nm = get_rows("tablename", "where clause", "order by", limit);
+  $nm = get_rows("tablename", "where clause", "order by");
+  $nm = get_rows("tablename", "where clause");
+  $nm = get_rows("tablename");
   # please consider, that doing last query can result in enormously big table,
   # and perl will drop a core dump.
 
-  $rows_updated = &update_rows("tablename", "where clause",
-                   { 'field_1' => &str_sqlize('alpha'), 'field_2' => '1' } );
+  $rows_updated = update_rows("tablename", "where clause",
+                   { 'field_1' => str_sqlize('alpha'), 'field_2' => '1' } );
   # this will generate UPDATE statement for supplied parameters.
   # if 0 rows are updated '0E0' is returned.
 
-	$rows_updated = &insert_rows("tablename",
-                   { 'field_1' => &str_sqlize('alpha'), 'field_2' => '1' } );
+	$rows_updated = insert_rows("tablename",
+                   { 'field_1' => str_sqlize('alpha'), 'field_2' => '1' } );
   # this will generate UPDATE statement for supplied parameters.
 
-	$rows_updated = &delete_rows("tablename", "where clause");
+	$rows_updated = delete_rows("tablename", "where clause");
   # this will generate UPDATE statement for supplied parameters.
 
   # all these functions returns number of rows affected.
@@ -912,8 +912,8 @@ statement. The return value is a reference to array of references to
 array of values. Use make_nmtable to make output like in get_rows.
 Here is example:
 
-$table = &do_query("SELECT a.column_a,b.column_b from a,b where a.column_c = b.column_c");
-&make_nmtable($table,['column_a','column_b']);
+$table = do_query("SELECT a.column_a,b.column_b from a,b where a.column_c = b.column_c");
+make_nmtable($table,['column_a','column_b']);
 
 After make_nmtable call the $table will be a reference to array of references
 to a hash, where actual values are stored.
@@ -927,10 +927,10 @@ $sqlstr eq "\'Somebody\'s test\'".
 
 Action is a reversed str_sqlize.
 
-=item $str = &sql_date($time)
+=item $str = sql_date($time)
 
 Returns datetime in form YYYYMMDDHHMMSS from $time seconds. Current datetime is
-&sql_date(time). But use of now() builtin of SQL is encouraged. Consider, that
+sql_date(time). But use of now() builtin of SQL is encouraged. Consider, that
 time on hosts which runs CGI-scripts and MySQL server could be different.
 
 =back

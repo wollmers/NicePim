@@ -42,11 +42,11 @@ BEGIN {
      my $message_text = $hin{'REQUEST_BODY'};
 		 
 		 if(!( $message_text=~m/xml/ )){
-			 # &log_printf('Trying to ungzip!');
-			 $message_text = &ungzip_data($message_text);
+			 # log_printf('Trying to ungzip!');
+			 $message_text = ungzip_data($message_text);
 		 }
 
-    &atom_mail::sendmail(" the xml request is timed out!. The body:\n".$message_text,
+    atom_mail::sendmail(" the xml request is timed out!. The body:\n".$message_text,
 							 $atomcfg{'bugreport_email'}, 'icecat', 'timeout'); 
 	   
 	 };
@@ -66,7 +66,7 @@ my $doc = $parser->parse_string( $xml_message );
 
 my $elem = $doc->getDocumentElement;
 
-my $message = &dump_xml($elem, $options);
+my $message = dump_xml($elem, $options);
 
 #&back_parse($message, \&icecat_util::utf82latin);
 
@@ -78,13 +78,13 @@ sub dump_xml
 {
  my ($node, $option) = @_;
  
- my $libxml_text_tag = &get_text_tag;
+ my $libxml_text_tag = get_text_tag;
 
  my $hash = {};
  
  my @attr = $node->attributes();
  my $cnt = 0;
- foreach my $attr(@attr){
+ for my $attr(@attr){
   if(defined $attr){
 	  $cnt++;
     $hash->{$attr->nodeName} = $attr->nodeValue;
@@ -93,7 +93,7 @@ sub dump_xml
  
  my @nodes = $node->childNodes;
 
- foreach my $subnode(@nodes){
+ for my $subnode(@nodes){
   if(defined $subnode){
 	  my $nodename = $subnode->nodeName;
 		if($nodename eq $libxml_text_tag){ 
@@ -106,7 +106,7 @@ sub dump_xml
 			}
 		} else {
 		  $cnt++;
-			my $child = &dump_xml($subnode, $option);
+			my $child = dump_xml($subnode, $option);
 			my $key = $option->{'keyattr'}->{$nodename};
 #			  print 'keyattr '.$key.' for '.$nodename."\n";
 			if( $key  && ref($child) eq 'HASH' && defined $child->{$key} && ref($child->{$key}) eq ''){
@@ -136,19 +136,19 @@ my $plain_xml = '';
 my $freeurls = 0;
 
 if(!( $message_text=~m/xml/ )){
-&push_dmesg(4,'Trying to ungzip!');
- $message_text = &ungzip_data($message_text);
+push_dmesg(4,'Trying to ungzip!');
+ $message_text = ungzip_data($message_text);
  $gzipped = 1;
-&push_dmesg(4,'done');
+push_dmesg(4,'done');
 }
 
 my $rh = {};
 
-&push_dmesg(4,'parsing');
-#&log_printf($message_text);
-my $message = &build_xml_tree_old($message_text);
-#&log_printf ( &Dumper ($message) );
-&push_dmesg(4,'done');
+push_dmesg(4,'parsing');
+#log_printf($message_text);
+my $message = build_xml_tree_old($message_text);
+#log_printf ( Dumper ($message) );
+push_dmesg(4,'done');
 
 #  print Dumper($message);
 my $root = $message->{'Request'}->[0];
@@ -156,15 +156,15 @@ my $root = $message->{'Request'}->[0];
 my ($login, $pass, $status, $user_id);
 
 # verifying login info
-&push_dmesg(4,'logging in');
+push_dmesg(4,'logging in');
 $login = $root->{'Login'};
 $pass	= $root->{'Password'};
 $status = 1;
 $user_id = '';
 
-my $usr_data = &do_query("select user_id, user_group, access_restriction, access_restriction_ip, subscription_level  from users where login =".&str_sqlize($login)." and password = ".&str_sqlize($pass));
+my $usr_data = do_query("select user_id, user_group, access_restriction, access_restriction_ip, subscription_level  from users where login =".str_sqlize($login)." and password = ".str_sqlize($pass));
 
-if (($skip_validation) || ($usr_data && $usr_data->[0] && $usr_data->[0][1] eq 'shop' && $usr_data->[0][4]>0 && $usr_data->[0][4]!=5 && &verify_address($usr_data->[0][2], $usr_data->[0][3], $ENV{'REMOTE_ADDR'}) && &verify_login_expiration_date($usr_data->[0][0]))) {
+if (($skip_validation) || ($usr_data && $usr_data->[0] && $usr_data->[0][1] eq 'shop' && $usr_data->[0][4]>0 && $usr_data->[0][4]!=5 && verify_address($usr_data->[0][2], $usr_data->[0][3], $ENV{'REMOTE_ADDR'}) && verify_login_expiration_date($usr_data->[0][0]))) {
 	$status = 1;
 	$user_id = $usr_data->[0][0];
 	$freeurls = 1 if ($usr_data->[0][4]==6);
@@ -187,16 +187,16 @@ $rh->{'Status'} = $status;
 
 my $nowtime = time();
 
-&push_dmesg(4,'done');
-&push_dmesg(4,'logging xml request');
- $rh->{'ID'} = &log_xml_request($root->{'Request_ID'}, $user_id, $status, $nowtime, $login);
-&push_dmesg(4,'done');
+push_dmesg(4,'done');
+push_dmesg(4,'logging xml request');
+ $rh->{'ID'} = log_xml_request($root->{'Request_ID'}, $user_id, $status, $nowtime, $login);
+push_dmesg(4,'done');
 
  $rh->{'Request_ID'}	= $root->{'Request_ID'}||'';
  $rh->{'Date'}	= localtime($nowtime);
 
 my $errmsg;
-if ($errmsg = &req_validation($message_text)) {
+if ($errmsg = req_validation($message_text)) {
 
 	if ($errmsg eq 'DOCTYPE ERROR') {
 		$rh->{'Error'} = "Warning. Standard dtd url where used. Use \"".$atomcfg{'host'}."dtd\/ICECAT-interface_request.dtd\"";
@@ -219,9 +219,9 @@ if ($status == 1) {
 		my $v = '';
 		if ($root->{'FeatureValuesVocabularyListRequest'}) {
 			@lang = split(/,/, $root->{'FeatureValuesVocabularyListRequest'});
-			foreach my $langid(@lang) {
+			for my $langid(@lang) {
 				if (($langid eq int($langid)) && ($langid > 0)) {
-					$v .= &str_sqlize($langid).",";
+					$v .= str_sqlize($langid).",";
 				}
 			}
 			chop($v);
@@ -229,10 +229,10 @@ if ($status == 1) {
 		}
 		
 		# get ...
-		my $fvvs = &do_query("select record_id, key_value, langid, feature_values_group_id, value from feature_values_vocabulary where trim(value) != '' ".$v." order by key_value asc, langid asc");
+		my $fvvs = do_query("select record_id, key_value, langid, feature_values_group_id, value from feature_values_vocabulary where trim(value) != '' ".$v." order by key_value asc, langid asc");
 		my ($fvv, $fv, $prev_kv, $prev_group);
 		$prev_kv = undef;
-		foreach (@$fvvs,[undef]) {
+		for (@$fvvs,[undef]) {
 			if (($prev_kv ne $_->[1]) && (defined $prev_kv)) {
 				push @$fvv, {
 					'Key_Value' => $prev_kv,
@@ -240,12 +240,12 @@ if ($status == 1) {
 					'FeatureValue' => $fv
 				} if $#$fv > -1;
 				$fv = undef;
-#				&log_printf("\t\t2 push: key_value=".$_->[1].", f-vs = ".Dumper($fv));
+#				log_printf("\t\t2 push: key_value=".$_->[1].", f-vs = ".Dumper($fv));
 			}
 
 			push @$fv, { 'ID' => $_->[0], 'langid' => $_->[2], 'content' => $_->[4] } if ($_->[1] ne $_->[4]);
 
-#			&log_printf("\t1 push: content = ".$_->[4].", langid = ".$_->[2]);
+#			log_printf("\t1 push: content = ".$_->[4].", langid = ".$_->[2]);
 
 			$prev_kv = $_->[1];
 			$prev_group = $_->[3];
@@ -262,11 +262,11 @@ if(defined $root->{'MeasuresListRequest'}){
  my $req = $root->{'MeasuresListRequest'}->[0];
  my @lang = split(/,/, $req->{'langid'});
  my $v  = '0 ';
- foreach my $langid(@lang){
-  $v  .= ' or l.langid = '.&str_sqlize($langid);
+ for my $langid(@lang){
+  $v  .= ' or l.langid = '.str_sqlize($langid);
  }
 
- &do_statement("create temporary table tmp_measure (
+ do_statement("create temporary table tmp_measure (
 measure_id      int(13)      NOT NULL,
 sid             int(13)      NOT NULL,
 tid             int(13)      NOT NULL,
@@ -279,19 +279,19 @@ description     mediumtext,
 tex_id          int(13)     NOT NULL,
 key (measure_id, langid), key (sid, langid), key (tid, langid))");
 
- &do_statement("insert into tmp_measure(measure_id,sid,tid,langid) SELECT m.measure_id,m.sid,m.tid,l.langid FROM language l INNER JOIN measure m WHERE ($v)");
+ do_statement("insert into tmp_measure(measure_id,sid,tid,langid) SELECT m.measure_id,m.sid,m.tid,l.langid FROM language l INNER JOIN measure m WHERE ($v)");
 
- &do_statement("update tmp_measure tm inner join vocabulary v on tm.sid=v.sid and tm.langid=v.langid set tm.name=v.value, tm.record_id=v.record_id");
- &do_statement("update tmp_measure tm inner join tex t on tm.tid=t.tid and tm.langid=t.langid set tm.description=t.value, tm.tex_id=t.tex_id");
- &do_statement("update tmp_measure tm inner join measure_sign mn on tm.measure_id=mn.measure_id and tm.langid=mn.langid set tm.sign=mn.value, tm.measure_sign_id=mn.measure_sign_id");
+ do_statement("update tmp_measure tm inner join vocabulary v on tm.sid=v.sid and tm.langid=v.langid set tm.name=v.value, tm.record_id=v.record_id");
+ do_statement("update tmp_measure tm inner join tex t on tm.tid=t.tid and tm.langid=t.langid set tm.description=t.value, tm.tex_id=t.tex_id");
+ do_statement("update tmp_measure tm inner join measure_sign mn on tm.measure_id=mn.measure_id and tm.langid=mn.langid set tm.sign=mn.value, tm.measure_sign_id=mn.measure_sign_id");
 
- &do_statement("delete from tmp_measure where record_id='0' and tex_id='0' and sign=''");
+ do_statement("delete from tmp_measure where record_id='0' and tex_id='0' and sign=''");
 
- my $measures = &do_query("select measure_id, sign, record_id, langid, name, description, tex_id, measure_sign_id from tmp_measure");
+ my $measures = do_query("select measure_id, sign, record_id, langid, name, description, tex_id, measure_sign_id from tmp_measure");
 
- &do_statement("drop temporary table if exists tmp_measure");
+ do_statement("drop temporary table if exists tmp_measure");
  
- foreach my $m(@$measures){
+ for my $m(@$measures){
 	 $rh->{'MeasuresList'}->{'Measure'}->{$m->[0]}->{"Sign"} = { 'content' => $m->[1] } if ($m->[3] == 1);
 	 $rh->{'MeasuresList'}->{'Measure'}->{$m->[0]}->{"Signs"}->{"Sign"}->{$m->[7]} = { 'content' => $m->[1], 'langid' => $m->[3] };
 	 $rh->{'MeasuresList'}->{'Measure'}->{$m->[0]}->{"Names"}->{"Name"}->{$m->[2]} = { 'content' => $m->[4], 'langid' => $m->[3] };
@@ -304,10 +304,10 @@ key (measure_id, langid), key (sid, langid), key (tid, langid))");
 #
 
 if(defined $root->{'LanguageListRequest'}){
-     my $lang_data = &do_query("select langid,sid,code,short_code from language ");
+     my $lang_data = do_query("select langid,sid,code,short_code from language ");
      my $i=0;
      my $l;
-     foreach my $lang (@$lang_data){
+     for my $lang (@$lang_data){
        $l->{$lang->[0]}={
                        'ID'        =>$lang->[0],
                        'Sid'       =>$lang->[1],
@@ -315,10 +315,10 @@ if(defined $root->{'LanguageListRequest'}){
                        'ShortCode' =>$lang->[3]
                        };
      }
-     foreach my $key(keys %$l){
+     for my $key(keys %$l){
        $i=0;
-       $lang_data=&do_query("select record_id,langid,value from vocabulary where sid=".str_sqlize($l->{$key}->{'Sid'}));
-       foreach my $lang (@$lang_data){
+       $lang_data=do_query("select record_id,langid,value from vocabulary where sid=".str_sqlize($l->{$key}->{'Sid'}));
+       for my $lang (@$lang_data){
            $l->{$key}->{'Name'}->[$i]={
                                'langid'=>$l->{$lang->[1]}->{'ID'},
                                'Value' =>$lang->[2],
@@ -328,7 +328,7 @@ if(defined $root->{'LanguageListRequest'}){
        }
      }
      $i=0;
-     foreach(keys %$l){
+     for(keys %$l){
          $rh->{'LanguageList'}->{'Language'}->[$i]=$l->{$_};
          $i++;
      }
@@ -348,19 +348,19 @@ if (defined $root->{'FeaturesListRequest'}) {
 	my $v 	= '0 ';
 	my $t  = '0 ';
 	my $ms = '0 ';
-	foreach my $langid(@lang){
-		$v 	 .= ' or  v.langid = '.&str_sqlize($langid);
-		$t	 .= ' or  t.langid = '.&str_sqlize($langid);
-		$ms  .= ' or ms.langid = '.&str_sqlize($langid);
+	for my $langid(@lang){
+		$v 	 .= ' or  v.langid = '.str_sqlize($langid);
+		$t	 .= ' or  t.langid = '.str_sqlize($langid);
+		$ms  .= ' or ms.langid = '.str_sqlize($langid);
 	}
 	
-	my $features = &do_query("select f.feature_id, ms.value, v.record_id, v.langid, t.tex_id, v.value, t.value, ms.measure_id, f.class, ms.measure_sign_id, f.type, f.restricted_values
+	my $features = do_query("select f.feature_id, ms.value, v.record_id, v.langid, t.tex_id, v.value, t.value, ms.measure_id, f.class, ms.measure_sign_id, f.type, f.restricted_values
 from feature f
 left join vocabulary v on f.sid = v.sid and ($v)
 left join tex t on f.tid = t.tid and ($t) and t.langid = v.langid
 left join measure_sign ms on ms.measure_id = f.measure_id and ($ms) and ms.langid=v.langid");
 	
-	foreach my $f (@$features) {
+	for my $f (@$features) {
 		
 		# $rh->{'FeaturesList'}->{'Feature'}->{$f->[0]}->{'Measure'} = $f->[7];
 		$rh->{'FeaturesList'}->{'Feature'}->{$f->[0]}->{'Measure'}->{$f->[7]} = { "Sign" => $f->[1] } if (($f->[3] == 1) && ($f->[7]));
@@ -377,7 +377,7 @@ left join measure_sign ms on ms.measure_id = f.measure_id and ($ms) and ms.langi
 		
 		my @tmp = split /\n/, $f->[11];
 		my @tmp2 = ();
-		foreach (@tmp) {
+		for (@tmp) {
 			chomp;
 			next if $_ eq '';
 			push @tmp2, $_;
@@ -386,7 +386,7 @@ left join measure_sign ms on ms.measure_id = f.measure_id and ($ms) and ms.langi
 	}
 }
 
-#&log_printf(Dumper($rh->{'FeaturesList'}));
+#log_printf(Dumper($rh->{'FeaturesList'}));
 
 #
 # categories
@@ -404,53 +404,53 @@ if (defined $root->{'CategoriesListRequest'}) {
 	my $join_extra_sql = '';
 	
 	if (defined $req->{'Searchable'}) {
-		$extra_sql = ' and c.searchable = '.&str_sqlize($req->{'Searchable'});
-		$join_extra_sql = ' and a.searchable = '.&str_sqlize($req->{'Searchable'});
+		$extra_sql = ' and c.searchable = '.str_sqlize($req->{'Searchable'});
+		$join_extra_sql = ' and a.searchable = '.str_sqlize($req->{'Searchable'});
 	}
 	if (defined $req->{'Category_ID'}) {
-		$extra_sql = ' and c.catid = '.&str_sqlize($req->{'Category_ID'});
-		$join_extra_sql = ' and a.catid = '.&str_sqlize($req->{'Category_ID'});
+		$extra_sql = ' and c.catid = '.str_sqlize($req->{'Category_ID'});
+		$join_extra_sql = ' and a.catid = '.str_sqlize($req->{'Category_ID'});
 	}
-# &log_printf(Dumper($req));
+# log_printf(Dumper($req));
 	if (defined $req->{'UNCATID'}) {
-		$extra_sql = ' and c.ucatid = '.&str_sqlize($req->{'UNCATID'});
-		$join_extra_sql = ' and a.ucatid = '.&str_sqlize($req->{'UNCATID'});
+		$extra_sql = ' and c.ucatid = '.str_sqlize($req->{'UNCATID'});
+		$join_extra_sql = ' and a.ucatid = '.str_sqlize($req->{'UNCATID'});
 	}
 	
-	my $data = &do_query("select a.catid, a.ucatid, a.sid, a.tid, a.pcatid, a.searchable, a.low_pic, a.thumb_pic, b.score, a.watched_top10, a.visible from category a left join category_statistic b on a.catid=b.catid where 1 $join_extra_sql");
+	my $data = do_query("select a.catid, a.ucatid, a.sid, a.tid, a.pcatid, a.searchable, a.low_pic, a.thumb_pic, b.score, a.watched_top10, a.visible from category a left join category_statistic b on a.catid=b.catid where 1 $join_extra_sql");
 	my $cat_name = {};
 	my $pcat_name = {};
 	my $cat_desc ={};
 	my $cat_keys={};
 	
 # building cats	names
-# my $cat_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.catid,tex.value,tex.tex_id, keywords,category_keywords.id from vocabulary,tex,category left join category_keywords on category_id=catid  and tex.langid=category_keywords.langid where tex.tid=category.tid and vocabulary.sid = category.sid and ($f) $extra_sql and vocabulary.langid=tex.langid");
-# my $cat_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.catid, tex.value, tex.tex_id, keywords, category_keywords.id
+# my $cat_data = do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.catid,tex.value,tex.tex_id, keywords,category_keywords.id from vocabulary,tex,category left join category_keywords on category_id=catid  and tex.langid=category_keywords.langid where tex.tid=category.tid and vocabulary.sid = category.sid and ($f) $extra_sql and vocabulary.langid=tex.langid");
+# my $cat_data = do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.catid, tex.value, tex.tex_id, keywords, category_keywords.id
 # from category join category_keywords on category_id=catid
 # join tex on category.sid=vocabulary.sid
 # left join category_keywords on category_id=catid and category_keywords.langid=vocabulary.langid
 # left join tex on category.tid=tex.tid and category_keywords.langid=tex.langid where ($f) $extra_sql");
 	
-my $cat_data = &do_query("SELECT v.value, v.record_id, v.langid, c.catid, t.value, t.tex_id, keywords, ck.id
+my $cat_data = do_query("SELECT v.value, v.record_id, v.langid, c.catid, t.value, t.tex_id, keywords, ck.id
 FROM category c
 JOIN vocabulary v ON c.sid = v.sid
 LEFT JOIN tex t ON c.tid = t.tid AND v.langid = t.langid
 LEFT JOIN category_keywords ck ON ck.category_id = c.catid AND ck.langid = v.langid
 WHERE ($f) $extra_sql");
 
-	foreach my $cat_row(@$cat_data){
+	for my $cat_row(@$cat_data){
 		push @{$cat_desc->{$cat_row->[3]}}, 
 		{
 			'ID' => $cat_row->[5],
 			'langid' => $cat_row->[2],
-			'Value'=> &str_xmlize($cat_row->[4])
+			'Value'=> str_xmlize($cat_row->[4])
 			} if ($cat_row->[5]);
 			
 		push @{$cat_keys->{$cat_row->[3]}}, 
 		{
 			'ID' => $cat_row->[7],
 			'langid' => $cat_row->[2],
-			'Value'=> &str_xmlize($cat_row->[6])
+			'Value'=> str_xmlize($cat_row->[6])
 			} if ($cat_row->[7]);
 			
 		push @{$cat_name->{$cat_row->[3]}},
@@ -468,11 +468,11 @@ WHERE ($f) $extra_sql");
 			} if ($cat_row->[1]);
 	}
 	
-	foreach my $row (@$data) {
+	for my $row (@$data) {
 	
 		$rh->{'CategoriesList'}->{'Category'}->{$row->[0]}->{'UNCATID'} 	= $row->[1];
 		
-		foreach my $pcat_row (@{$pcat_name->{$row->[4]}}) {
+		for my $pcat_row (@{$pcat_name->{$row->[4]}}) {
 			my $hash = {};
 			%$hash = %{$pcat_row};
 			push @{$rh->{'CategoriesList'}->{'Category'}->{$row->[0]}->{'ParentCategory'}->{'Names'}->{'Name'}},
@@ -483,7 +483,7 @@ WHERE ($f) $extra_sql");
 		# add vcategories to XML data
 		my $vcats;
 		$vcats = do_query("SELECT virtual_category_id, name FROM virtual_category WHERE category_id = " . $row->[0] );
-		foreach my $vc (@$vcats) {
+		for my $vc (@$vcats) {
 		    push @{$rh->{'CategoriesList'}->{'Category'}->{$row->[0]}->{'VirtualCategories'}->{'VirtualCategory'}}, {'Name' => str_xmlize($vc->[1]), 'ID' => $vc->[0]};
 		}
 		
@@ -517,8 +517,8 @@ if(defined $root->{'SupplierCategoriesListRequest'}){
  my $req = $root->{'SupplierCategoriesListRequest'}->[0];
  my @lang = split(/,/, $req->{'langid'});
  my $f = '0 ';
- foreach my $langid(@lang){
-  $f .= ' or vocabulary.langid = '.&str_sqlize($langid);
+ for my $langid(@lang){
+  $f .= ' or vocabulary.langid = '.str_sqlize($langid);
  }
 
 # getting supplier info from xml structure
@@ -542,13 +542,13 @@ my $extra_sql = '';
  if($req->{'Supplier'}->{'Name'}||$req->{'Supplier'}->{'ID'}){
   my $where = '1 ';
 	if($req->{'Supplier'}->{'Name'}){
-	 $where .= 'and supplier.name = '.&str_sqlize($req->{'Supplier'}->{'Name'});
+	 $where .= 'and supplier.name = '.str_sqlize($req->{'Supplier'}->{'Name'});
 	}
 	if($req->{'Supplier'}->{'ID'}){
-	 $where .= 'and supplier.supplier_id = '.&str_sqlize($req->{'Supplier'}->{'ID'});
+	 $where .= 'and supplier.supplier_id = '.str_sqlize($req->{'Supplier'}->{'ID'});
 	}
 
-  my $supp_data = &do_query("select supplier_id, name from supplier where $where");
+  my $supp_data = do_query("select supplier_id, name from supplier where $where");
   if($supp_data->[0] && $supp_data->[0][1]){
 	 # ok
 	 $extra_sql = ' and product.supplier_id = '.$supp_data->[0][0];
@@ -574,17 +574,17 @@ my $extra_sql = '';
     $extra_sql .= ' and category.searchable = 1 ';	 
 	 }
 
-	 my $data = &do_query("select product.catid, ucatid, sid, tid, pcatid, searchable from category, product where product.catid = category.catid $extra_sql group by product.catid");
+	 my $data = do_query("select product.catid, ucatid, sid, tid, pcatid, searchable from category, product where product.catid = category.catid $extra_sql group by product.catid");
 	 my $cat_name = {};
 	 my $pcat_name = {};
 
 
 # building cats	names
-	 foreach my $row(@$data){
+	 for my $row(@$data){
 
-		my $cat_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.catid from category, vocabulary where vocabulary.sid = category.sid and ($f) and category.catid = $row->[0]");
+		my $cat_data = do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.catid from category, vocabulary where vocabulary.sid = category.sid and ($f) and category.catid = $row->[0]");
 
-		  foreach my $cat_row(@$cat_data){
+		  for my $cat_row(@$cat_data){
 			push @{$cat_name->{$cat_row->[3]}}, { 'langid' 	=> 	$cat_row->[2],
 																						'content'	=> 	$cat_row->[0],
 																						'ID'			=>	$cat_row->[1]
@@ -597,7 +597,7 @@ my $extra_sql = '';
 			}
 
 		  $rh->{'SupplierCategoriesList'}->{'Category'}->{$row->[0]}->{'UNCATID'} 	= { 'content' => $row->[1] };
-		  foreach my $pcat_row(@{$pcat_name->{$row->[4]}}){
+		  for my $pcat_row(@{$pcat_name->{$row->[4]}}){
 			  my $hash = {};
 				   %$hash = %{$pcat_row};
 				push @{$rh->{'CategoriesList'}->{'Category'}->{$row->[0]}->{'ParentCategory'}->{'Names'}->{'Name'}},
@@ -618,11 +618,11 @@ my $extra_sql = '';
 #
 
 if ( defined $root->{'StatisticQueryListRequest'} ){
-#	&log_printf('server');
+#	log_printf('server');
 	$rh->{'StatisticQueryListResponse'} = {};
 	my $query = "select distinct stat_query.stat_query_id, stat_query.code from statistic_cache, stat_query where stat_query.stat_query_id=statistic_cache.stat_query_id and shop_id=$user_id";
-	my $rows = &do_query ( $query );
-	foreach my $row ( @$rows ){
+	my $rows = do_query ( $query );
+	for my $row ( @$rows ){
 		my $statistic_query = {};
 		$statistic_query->{'ID'} = $row->[0];
 		$row->[1] =~m/\[shop[^\]]+\]\s*(.+)/i;
@@ -642,18 +642,18 @@ if ( defined $root->{'StatisticQueryDatesListRequest'} ){
 	# get dates for clauses 
 	if ( $root->{'StatisticQueryDatesListRequest'}->[0]->{'DateStart'} ){
 		$date_start = $root->{'StatisticQueryDatesListRequest'}->[0]->{'DateStart'};
-		$date_start = &do_query ('select unix_timestamp('.&str_sqlize($date_start).")" )->[0][0];
-#		&log_printf ( 'Start '.$date_start );
+		$date_start = do_query ('select unix_timestamp('.str_sqlize($date_start).")" )->[0][0];
+#		log_printf ( 'Start '.$date_start );
 	}
 	if ( $root->{'StatisticQueryDatesListRequest'}->[0]->{'DateEnd'} ){
 		$date_end = $root->{'StatisticQueryDatesListRequest'}->[0]->{'DateEnd'};
-		$date_end = &do_query ('select unix_timestamp('.&str_sqlize($date_end).")" )->[0][0];
-#		&log_printf ( 'End '.$date_end );
+		$date_end = do_query ('select unix_timestamp('.str_sqlize($date_end).")" )->[0][0];
+#		log_printf ( 'End '.$date_end );
 	}
 
 # bilding and run query from table statistic_cache
 
-	foreach my $statistic_query ( @{$root->{'StatisticQueryDatesListRequest'}->[0]->{'StatisticQuery'} } ){
+	for my $statistic_query ( @{$root->{'StatisticQueryDatesListRequest'}->[0]->{'StatisticQuery'} } ){
 		my $query = "select statistic_id, date, period from statistic_cache where shop_id=$user_id and stat_query_id=".$statistic_query->{'ID'};
 		if ( $date_start ){
 			$query .= " and date >= $date_start";
@@ -662,10 +662,10 @@ if ( defined $root->{'StatisticQueryDatesListRequest'} ){
 		if ( $date_end ){
 			$query .= " and date <= $date_end";
 		}
-#		&log_printf ('Query '. $query );
+#		log_printf ('Query '. $query );
 
-		my $rows = &do_query ( $query );
-		foreach my $row ( @$rows ){
+		my $rows = do_query ( $query );
+		for my $row ( @$rows ){
 			my $stat_query_hash = {};
 # $stat_query_hash is hash for element StatisticQueryDate ( see dtd ) 
 			$stat_query_hash->{'ID'} = $row->[0];
@@ -683,20 +683,20 @@ if ( defined $root->{'StatisticQueryDatesListRequest'} ){
 
 if ( defined $root->{'StatisticQueryDateDataReportRequest'} ){
 	my $statistic_id = $root->{'StatisticQueryDateDataReportRequest'}->[0]->{'StatisticQueryDate'}->[0]->{'ID'};
-#	&log_printf ('ID'. $statistic_id );
+#	log_printf ('ID'. $statistic_id );
 	my $query = "select shop_id from statistic_cache where statistic_id=$statistic_id";
-	my $user_id_from_statistic_cache = &do_query($query)->[0][0];
+	my $user_id_from_statistic_cache = do_query($query)->[0][0];
 	if ( $user_id == $user_id_from_statistic_cache ){
 # Only for valid requests 
 		my $head = {};
 		$query = "select stat_query.code, statistic_cache.date, stat_query.period from stat_query, statistic_cache where stat_query.stat_query_id = statistic_cache.stat_query_id and statistic_cache.statistic_id=$statistic_id";
 # building atributes for StatisticQueryDateDataReportResponse
-		my $row = &do_query( $query );
+		my $row = do_query( $query );
 		$row->[0][0] =~m/\[shop[^\]]+\]\s*(.+)/i;
 		$rh->{'StatisticQueryDateDataReportResponse'}->{'Code'} = $1;
 		$rh->{'StatisticQueryDateDataReportResponse'}->{'Date'} = strftime ( "%Y-%m-%d", localtime( $row->[0][1] ) );
 		$rh->{'StatisticQueryDateDataReportResponse'}->{'StatisticQueryDate_ID'} = $statistic_id;
-		my $stat_query_template = &load_complex_template ( 'stat_query.al', 1 );
+		my $stat_query_template = load_complex_template ( 'stat_query.al', 1 );
 		$rh->{'StatisticQueryDateDataReportResponse'}->{'Period'} = $stat_query_template->{'period_value_5'};
 
 		
@@ -706,21 +706,21 @@ if ( defined $root->{'StatisticQueryDateDataReportRequest'} ){
 #												  			 'query_env'=>{}
 #																}
 
-		my $statistic = &statistic_from_base ( $statistic_id )->{'data'};
+		my $statistic = statistic_from_base ( $statistic_id )->{'data'};
 		my $data = $statistic->{'report_data'};
 		my $query_env = $statistic->{'query_env'};
-#		&log_printf ( &Dumper ( $query_env ) );
-#		&log_printf ( &Dumper ( $data ) );
+#		log_printf ( Dumper ( $query_env ) );
+#		log_printf ( Dumper ( $data ) );
 		my $levels = $query_env->{'levels'};
 
-# &get_dictionary is function for building dictionery;
+# get_dictionary is function for building dictionery;
 # dictionary is hash for resolved ID of element to string value;
 #
 		sub get_dictionary ()
 		{
 		my ( $query_env, $levels ) = @_;
 		my $dictionary={};
-		foreach my $i ( 1, 2, 3 ){
+		for my $i ( 1, 2, 3 ){
 			if ( exists ( $query_env->{'dictionary'}->{$i} ) ){
 				my $query = $query_env->{'dictionary'}->{$i};
 				my @tmp = @{ $query_env->{'all_id'} };
@@ -729,17 +729,17 @@ if ( defined $root->{'StatisticQueryDateDataReportRequest'} ){
 				}else{
 					$query = $query_env->{'dictionary1'}->{$i};
 				}
-				my $rows = &do_query ($query);
+				my $rows = do_query ($query);
 				if ( $levels->{$i} eq 'product.product_id' ){
-#					&log_printf ( 'Product '.$levels->{$i});
-					foreach my $row (@$rows){
+#					log_printf ( 'Product '.$levels->{$i});
+					for my $row (@$rows){
 						my $RowValue = {};
 						$RowValue->{'prod_id'} = $row->[1];
 						$RowValue->{'name'} = $row->[2];
 						$dictionary->{$i}->{$row->[0]} = $RowValue;
 					}
 				}else{
-					foreach my $row (@$rows){
+					for my $row (@$rows){
 						$dictionary->{$i}->{$row->[0]} = $row->[1];
 					}
 				}
@@ -748,11 +748,11 @@ if ( defined $root->{'StatisticQueryDateDataReportRequest'} ){
 		return $dictionary;
 		}
 
-		my $dictionary = &get_dictionary ($query_env,$levels);
+		my $dictionary = get_dictionary ($query_env,$levels);
 		my $lines = {};
 		my $level = 0;
 		my $number = 1;
-# &get_lines is recursive function for building strings for report;
+# get_lines is recursive function for building strings for report;
 # 1 iteration - 1 string
 #
 		sub get_line {
@@ -763,7 +763,7 @@ if ( defined $root->{'StatisticQueryDateDataReportRequest'} ){
 			}
 			$level++;
 			my @children = @{$hash->{'order'}};
-			foreach my $child ( @children ){
+			for my $child ( @children ){
 				my $line={};
 # line is hash for elemen Line, see DTD
 #
@@ -787,13 +787,13 @@ if ( defined $root->{'StatisticQueryDateDataReportRequest'} ){
 				$number ++;
 				push @{$lines->{'line'}}, $line;
 				my $current = $hash->{$child};
-				&get_line ( $current, $level, $lines, $number, $dictionary, $levels );
+				get_line ( $current, $level, $lines, $number, $dictionary, $levels );
 		}
 			$level--;
 			return ;
 		}
 
-		&get_line ( $data, $level, $lines, $number, $dictionary, $levels );
+		get_line ( $data, $level, $lines, $number, $dictionary, $levels );
 		push @{$rh->{'StatisticQueryDateDataReportResponse'}->{'Body'}}, $lines;
 
 	}
@@ -819,20 +819,20 @@ my $data;
 	  $extra_sql .= "  and category.catid = ".$root->{'SuppliersListRequest'}->[0]->{'Category_ID'};
 	 }
 	 # selecting suppliers
-   my $ids = &do_query("select distinct supplier_id from product, category where category.catid = product.catid and $extra_sql");
+   my $ids = do_query("select distinct supplier_id from product, category where category.catid = product.catid and $extra_sql");
 	 my $where = ' 0 ';
-	 foreach my $id_row(@$ids){
+	 for my $id_row(@$ids){
 	  $where .= ' or supplier.supplier_id = '.$id_row->[0];
 	 }
-	 my $suppliers = &do_query("select supplier_id, name, thumb_pic, is_sponsor from supplier where $where");
-   foreach my $supplier(@$suppliers){
+	 my $suppliers = do_query("select supplier_id, name, thumb_pic, is_sponsor from supplier where $where");
+   for my $supplier(@$suppliers){
 		push @$data, $supplier if (defined $supplier);
 	 }
  } else {
 
-    $data = &do_query("select supplier_id, name, thumb_pic, is_sponsor from supplier");
+    $data = do_query("select supplier_id, name, thumb_pic, is_sponsor from supplier");
  }
- foreach my $row (@$data){
+ for my $row (@$data){
   $rh->{'SuppliersList'}->{'Supplier'}->{$row->[0]}->{'Name'}	= $row->[1];
   if($row->[2] ne ''){ $rh->{'SuppliersList'}->{'Supplier'}->{$row->[0]}->{'LogoPic'} = $row->[2]; }
   if($row->[3] eq 'Y'){ $rh->{'SuppliersList'}->{'Supplier'}->{$row->[0]}->{'Sponsor'} = 1; }
@@ -846,9 +846,9 @@ my $data;
 
 if (defined $root->{'DistributorListRequest'}) {
 	# building suppliers list
-	my $data = &do_query("select distributor_id, name, code from distributor");
+	my $data = do_query("select distributor_id, name, code from distributor");
 
-	foreach my $row (@$data) {
+	for my $row (@$data) {
 		$rh->{'DistributorList'}->{'Distributor'}->{$row->[0]} = {
 			'Name' => $row->[1],
 			'Code' => $row->[2]
@@ -865,16 +865,16 @@ if(defined $root->{'CategoryFeaturesListRequest'}){
  my @lang = split(/,/, $req->{'langid'});
  my $v = '0 ';
  my $ms = '0 ';
- foreach my $langid(@lang){
-  $v .= ' or v.langid = '.&str_sqlize($langid);
-  $ms .= ' or ms.langid = '.&str_sqlize($langid);
+ for my $langid(@lang){
+  $v .= ' or v.langid = '.str_sqlize($langid);
+  $ms .= ' or ms.langid = '.str_sqlize($langid);
  }
 
  my ($catid, $ucatid, $low_pic);  # getting correct category id
  my $code = 1; # this request code
 
  if($req->{'UNCATID'}){
-  my $refer = &do_query("select catid, ucatid, low_pic from category where ucatid = ".&str_sqlize($req->{'UNCATID'}));
+  my $refer = do_query("select catid, ucatid, low_pic from category where ucatid = ".str_sqlize($req->{'UNCATID'}));
   ($catid, $ucatid, $low_pic) = @{$refer->[0]} if (defined $refer && defined $refer->[0]); 
   if(!$catid){
 	 $code = 10; # uncatid is wrong
@@ -882,7 +882,7 @@ if(defined $root->{'CategoryFeaturesListRequest'}){
  }
  
  if(defined $req->{'Category_ID'} ){
-	 my $refer = &do_query("select catid, ucatid, low_pic from category where catid = ".&str_sqlize($req->{'Category_ID'}));
+	 my $refer = do_query("select catid, ucatid, low_pic from category where catid = ".str_sqlize($req->{'Category_ID'}));
    ($catid, $ucatid, $low_pic) = @{$refer->[0]} if (defined $refer && defined $refer->[0]); 
 	if(!$catid){
 	 $code = 11; # catid is wrong
@@ -894,15 +894,15 @@ if(defined $root->{'CategoryFeaturesListRequest'}){
  if($catid){
   $catidd = [[$catid, $ucatid]];
  } else {
-  my $d = &do_query("select catid, ucatid from category");
+  my $d = do_query("select catid, ucatid from category");
 	$catidd = [];
-	foreach my $row(@$d){
+	for my $row(@$d){
 	 push @$catidd, $row;
 	}
  }
  
 
- foreach my $crow (@$catidd){
+ for my $crow (@$catidd){
     ($catid, $ucatid) = @$crow;
     my $extra_sql = '1 ';
 
@@ -913,12 +913,12 @@ if(defined $root->{'CategoryFeaturesListRequest'}){
 		  $extra_sql .= ' and feature.class = 0 ';
 		}
 
-		my $cat_data = &do_query("select v.value, v.record_id, v.langid, c.catid from category c, vocabulary v where v.sid = c.sid and ($v) and c.catid = $catid");
+		my $cat_data = do_query("select v.value, v.record_id, v.langid, c.catid from category c, vocabulary v where v.sid = c.sid and ($v) and c.catid = $catid");
 
 # building feature group hashes 
- 	my $feat_group_data = &do_query("select fg.feature_group_id, v.value, v.langid, v.record_id from feature_group fg, vocabulary v where v.sid = fg.sid and ($v)");
+ 	my $feat_group_data = do_query("select fg.feature_group_id, v.value, v.langid, v.record_id from feature_group fg, vocabulary v where v.sid = fg.sid and ($v)");
 	my $feat_group = {};
-	foreach my $row(@$feat_group_data){
+	for my $row(@$feat_group_data){
 	 $feat_group->{$row->[0]}->{'ID'} = $row->[0];
 	 push @{$feat_group->{$row->[0]}->{'Name'}}, 
 	   {
@@ -930,9 +930,9 @@ if(defined $root->{'CategoryFeaturesListRequest'}){
 	}
 	
 	# processing category features group
-  my $cat_feat_group_data = &do_query("select category_feature_group_id, feature_group_id, no from category_feature_group where catid = ".$catid);
+  my $cat_feat_group_data = do_query("select category_feature_group_id, feature_group_id, no from category_feature_group where catid = ".$catid);
   my $group_content = [];
-  foreach my $row(@$cat_feat_group_data){
+  for my $row(@$cat_feat_group_data){
 	 push @$group_content, 
 			{
 			 "ID" => $row->[0],
@@ -943,7 +943,7 @@ if(defined $root->{'CategoryFeaturesListRequest'}){
 
     my ($cat_name);
 		
-		  foreach my $cat_row(@$cat_data){
+		  for my $cat_row(@$cat_data){
 			 push @$cat_name, { 'langid' 	=> 	$cat_row->[2],
 													'Value'		=> 	$cat_row->[0],
 													'ID'			=>	$cat_row->[1]
@@ -957,7 +957,7 @@ if(defined $root->{'CategoryFeaturesListRequest'}){
  
  
 	 # building category features list
-	 my $data = &do_query("select category_feature_id, f.feature_id, v.langid, v.value, ms.value, v.record_id, f.limit_direction, (cf.searchable * 10000000 + (1 - f.class) * 100000 + cf.no), cf.searchable, f.class, f.measure_id, cf.category_feature_group_id, restricted_search_values, restricted_values, ms.measure_sign_id, cf.mandatory, cf.use_dropdown_input
+	 my $data = do_query("select category_feature_id, f.feature_id, v.langid, v.value, ms.value, v.record_id, f.limit_direction, (cf.searchable * 10000000 + (1 - f.class) * 100000 + cf.no), cf.searchable, f.class, f.measure_id, cf.category_feature_group_id, restricted_search_values, restricted_values, ms.measure_sign_id, cf.mandatory, cf.use_dropdown_input
 
 from category_feature cf
 inner join feature f on f.feature_id = cf.feature_id
@@ -966,7 +966,7 @@ left  join measure_sign ms on ms.measure_id = f.measure_id and ($ms) and v.langi
 
 where cf.catid = $catid and $extra_sql");
 
-	 foreach my $row(@$data){
+	 for my $row(@$data){
 		 $rh->{'CategoryFeaturesList'}->{'Category'}->{$catid}->{'Feature'}->{$row->[1]}->{'CategoryFeature_ID'} = $row->[0];
 		 $rh->{'CategoryFeaturesList'}->{'Category'}->{$catid}->{'Feature'}->{$row->[1]}->{'Name'}->{$row->[5]} = { 'langid' => $row->[2] ,  'Value' => $row->[3]} if ($row->[5]);
 		 $rh->{'CategoryFeaturesList'}->{'Category'}->{$catid}->{'Feature'}->{$row->[1]}->{'Measure'}->{$row->[10]} = {'Sign' => $row->[4] } if ($row->[2] == 1);
@@ -978,7 +978,7 @@ where cf.catid = $catid and $extra_sql");
 		 $rh->{'CategoryFeaturesList'}->{'Category'}->{$catid}->{'Feature'}->{$row->[1]}->{'CategoryFeatureGroup_ID'} = int( $row->[11] );
 		 $rh->{'CategoryFeaturesList'}->{'Category'}->{$catid}->{'Feature'}->{$row->[1]}->{'Mandatory'} = ($row->[15])?'1':'0';
 		 $rh->{'CategoryFeaturesList'}->{'Category'}->{$catid}->{'Feature'}->{$row->[1]}->{'Use_Dropdown_Input'} = ($row->[16])?$row->[16]:'N';
-		 &log_printf("category_feature_id = ".$row->[0]);
+		 log_printf("category_feature_id = ".$row->[0]);
 		 my @tmp = split("\n", $row->[12] || $row->[13]);
 		 $rh->{'CategoryFeaturesList'}->{'Category'}->{$catid}->{'Feature'}->{$row->[1]}->{'RestrictedValue'} = \@tmp;
 	 }
@@ -989,7 +989,7 @@ where cf.catid = $catid and $extra_sql");
 	}
  $rh->{'CategoryFeaturesList'}->{'Code'} 		= $code;  
 }
-#&log_printf(Dumper($rh));
+#log_printf(Dumper($rh));
 
 #
 # product lookup
@@ -1002,7 +1002,7 @@ if(defined $root->{'ProductsListLookupRequest'}){
  my ($catid, $ucatid);  # getting correct category id
  my $code = 1; # this request code
  if($req->{'UNCATID'}){
-  my $refer = &do_query("select catid, ucatid from category where searchable = 1 and ucatid = ".&str_sqlize($req->{'UNCATID'}));
+  my $refer = do_query("select catid, ucatid from category where searchable = 1 and ucatid = ".str_sqlize($req->{'UNCATID'}));
 	($catid, $ucatid) = @{$refer->[0]} if (defined $refer && defined $refer->[0]); 
   if(!$catid){
 	 $code = 10; # uncatid is wrong
@@ -1015,7 +1015,7 @@ if(defined $root->{'ProductsListLookupRequest'}){
  my $minquality; 
 
  if($req->{'Category_ID'} ){
-	 my $refer = &do_query("select catid, ucatid from category where catid = ".&str_sqlize($req->{'Category_ID'}));
+	 my $refer = do_query("select catid, ucatid from category where catid = ".str_sqlize($req->{'Category_ID'}));
    ($catid, $ucatid) = @{$refer->[0]} if (defined $refer && defined $refer->[0]); 
 	if(!$catid){
 	 $code = 11; # catid is wrong
@@ -1023,7 +1023,7 @@ if(defined $root->{'ProductsListLookupRequest'}){
  }
  if($req->{'ProductFamily'}->[0]->{'ID'} eq 'ID'){ undef  $req->{'ProductFamily'}->[0]->{'ID'};}
  if($req->{'ProductFamily'}->[0]->{'ID'}){
-	 my $refer = &do_query("select product_family.catid, ucatid from category, product_family where product_family.family_id =".&str_sqlize($req->{'ProductFamily'}->[0]->{'ID'})." and product_family.catid = category.catid");
+	 my $refer = do_query("select product_family.catid, ucatid from category, product_family where product_family.family_id =".str_sqlize($req->{'ProductFamily'}->[0]->{'ID'})." and product_family.catid = category.catid");
 	 ($catid, $ucatid) = @{$refer->[0]} if (defined $refer && defined $refer->[0]);	 
 	 if(!$catid){
 		$code = 15; #catid undefined
@@ -1037,12 +1037,12 @@ if(defined $root->{'ProductsListLookupRequest'}){
  my $ff = '';
  my $lang_table = $$."tmp_lang";
  my $query = "create temporary table $lang_table (langid int(13) not null,  key langid( langid ) )";
- &do_statement($query);
+ do_statement($query);
 
- foreach my $langid(@lang){
-  $f .= ' vocabulary.langid = '.&str_sqlize($langid).' or';
-  $ff.= ' langid = '.&str_sqlize($langid).' or';
-	&do_statement("insert into ".$$."tmp_lang (langid) values ( $langid )");
+ for my $langid(@lang){
+  $f .= ' vocabulary.langid = '.str_sqlize($langid).' or';
+  $ff.= ' langid = '.str_sqlize($langid).' or';
+	do_statement("insert into ".$$."tmp_lang (langid) values ( $langid )");
  }
  chop($f);chop($f);chop($f);
  chop($ff);chop($ff);chop($ff);
@@ -1050,7 +1050,7 @@ if(defined $root->{'ProductsListLookupRequest'}){
  # getting product set for each feature limitation
  # also should check if the used features correctness
  
- foreach my $item('LookupText'){
+ for my $item('LookupText'){
  
  	 if(ref($req->{$item}) eq 'ARRAY'){ 
  		$req->{$item}  = $req->{$item}->[0];
@@ -1076,7 +1076,7 @@ if(defined $root->{'ProductsListLookupRequest'}){
  }
 
  my $extra_sql = '';
- if($freeurls) { $extra_sql = ' and product.supplier_id '.&in_selected_sponsors; }
+ if($freeurls) { $extra_sql = ' and product.supplier_id '.in_selected_sponsors; }
 
  if($req->{'MinQuality'}){
      $minquality = 'ICECAT';
@@ -1088,13 +1088,13 @@ if(defined $root->{'ProductsListLookupRequest'}){
  if($req->{'Supplier'}->{'Name'}||$req->{'Supplier'}->{'ID'}){
   my $where = '1 ';
 	if($req->{'Supplier'}->{'Name'}){
-	 $where .= 'and supplier.name = '.&str_sqlize($req->{'Supplier'}->{'Name'});
+	 $where .= 'and supplier.name = '.str_sqlize($req->{'Supplier'}->{'Name'});
 	}
 	if($req->{'Supplier'}->{'ID'}){
-	 $where .= 'and supplier.supplier_id = '.&str_sqlize($req->{'Supplier'}->{'ID'});
+	 $where .= 'and supplier.supplier_id = '.str_sqlize($req->{'Supplier'}->{'ID'});
 	}
 
-  my $supp_data = &do_query("select supplier_id, name from supplier where $where");
+  my $supp_data = do_query("select supplier_id, name from supplier where $where");
   if($supp_data->[0] && $supp_data->[0][1]){
 	 # ok
 	 $extra_sql = ' and product.supplier_id = '.$supp_data->[0][0];
@@ -1104,7 +1104,7 @@ if(defined $root->{'ProductsListLookupRequest'}){
  }
 
  if($req->{'ProductFamily'}->[0]->{'ID'}){
-	my $fam_data = &do_query("select product_id from product where family_id =".&str_sqlize($req->{'ProductFamily'}->[0]->{'ID'}));
+	my $fam_data = do_query("select product_id from product where family_id =".str_sqlize($req->{'ProductFamily'}->[0]->{'ID'}));
 	if($fam_data->[0][0]){
 	 $extra_sql = " and family_id =".$req->{'ProductFamily'}->[0]->{'ID'};
 	}else{
@@ -1114,27 +1114,27 @@ if(defined $root->{'ProductsListLookupRequest'}){
  
  
  if($req->{'LookupText'}){
-#	my $pattern = &str_sqlize('%'.$req->{'LookupText'}.'%');
-	my $pattern = &str_sqlize($req->{'LookupText'});
-	my $pattern2 = &str_sqlize('%'.$req->{'LookupText'}.'%');
+#	my $pattern = str_sqlize('%'.$req->{'LookupText'}.'%');
+	my $pattern = str_sqlize($req->{'LookupText'});
+	my $pattern2 = str_sqlize('%'.$req->{'LookupText'}.'%');
 
 
 # creating tempoprary table for lookup text 
-	&do_statement("create temporary table ".$$."tmp_txt_tmp (product_id int(13) not null, key product_id ( product_id ) )");
-	&do_statement("create temporary table ".$$."tmp_txt (product_id int(13) not null, key product_id( product_id ) )");
+	do_statement("create temporary table ".$$."tmp_txt_tmp (product_id int(13) not null, key product_id ( product_id ) )");
+	do_statement("create temporary table ".$$."tmp_txt (product_id int(13) not null, key product_id( product_id ) )");
 
 #	insert into temporary table
 
 	# search by name
 
-	&do_statement("insert into ".$$."tmp_txt_tmp select product.product_id from product where ( match (product.name) against($pattern)) $extra_sql");
+	do_statement("insert into ".$$."tmp_txt_tmp select product.product_id from product where ( match (product.name) against($pattern)) $extra_sql");
 	
 	# search by short and long descriptions 
-	&do_statement("insert into ".$$."tmp_txt_tmp select product.product_id from product, product_description where product.product_id = product_description.product_id and ($ff) and ( match (product_description.short_desc) against($pattern)) and product.catid = $catid $extra_sql");
+	do_statement("insert into ".$$."tmp_txt_tmp select product.product_id from product, product_description where product.product_id = product_description.product_id and ($ff) and ( match (product_description.short_desc) against($pattern)) and product.catid = $catid $extra_sql");
 	# searche by prod_ud
-	&do_statement("insert into ".$$."tmp_txt_tmp select product.product_id from product, product_description where product.product_id = product_description.product_id and ($ff) and  product.prod_id like $pattern2  and product.catid = $catid $extra_sql");
-	&do_statement ( "insert into ".$$."tmp_txt select distinct product_id from ".$$."tmp_txt_tmp" );
-	&do_statement ("drop temporary table if exists ".$$."tmp_txt_tmp");
+	do_statement("insert into ".$$."tmp_txt_tmp select product.product_id from product, product_description where product.product_id = product_description.product_id and ($ff) and  product.prod_id like $pattern2  and product.catid = $catid $extra_sql");
+	do_statement ( "insert into ".$$."tmp_txt select distinct product_id from ".$$."tmp_txt_tmp" );
+	do_statement ("drop temporary table if exists ".$$."tmp_txt_tmp");
 
  }
 
@@ -1143,30 +1143,30 @@ if(defined $root->{'ProductsListLookupRequest'}){
 	my $market_country_id; 
 	if($req->{'OnMarket'}){
 		# identify country
-		my $data = &do_query("select country_id from country where code = ".&str_sqlize($req->{'OnMarket'}));
+		my $data = do_query("select country_id from country where code = ".str_sqlize($req->{'OnMarket'}));
 		if($data->[0] && $data->[0][0]){
 			$market_country_id = $data->[0][0];
 		}
 	}
 
 # creating tempoprary table for all products
-		&do_statement("create temporary table ".$$."tmp_sup (product_id int(13) primary key not null)");
+		do_statement("create temporary table ".$$."tmp_sup (product_id int(13) primary key not null)");
 	
 	if($market_country_id){
 	
-		&do_statement("create temporary table all_products (product_id int(13) not null, index (product_id))");
-		&do_statement("insert into all_products select product.product_id from product where product.catid = $catid $extra_sql");
-		&do_statement("insert into ".$$."tmp_sup select all_products.product_id from all_products join country_product on all_products.product_id = country_product.product_id and active = 1 and country_id = $market_country_id");
-		&do_statement("drop temporary table if exists all_products");	
+		do_statement("create temporary table all_products (product_id int(13) not null, index (product_id))");
+		do_statement("insert into all_products select product.product_id from product where product.catid = $catid $extra_sql");
+		do_statement("insert into ".$$."tmp_sup select all_products.product_id from all_products join country_product on all_products.product_id = country_product.product_id and active = 1 and country_id = $market_country_id");
+		do_statement("drop temporary table if exists all_products");	
 	} else {
 
 #	insert into temporary table
-		&do_statement("insert into ".$$."tmp_sup select product.product_id from product where product.catid = $catid $extra_sql");
+		do_statement("insert into ".$$."tmp_sup select product.product_id from product where product.catid = $catid $extra_sql");
 	}
  my $feature_cnt = 0;
- foreach my $feature(@{$req->{'Features'}->[0]->{'Feature'}}){
+ for my $feature(@{$req->{'Features'}->[0]->{'Feature'}}){
   if(!$feature || !$feature->{'ID'}){ next ; }
-  my $feat_data = &do_query("select feature_id, limit_direction from feature where feature_id = ".&str_sqlize($feature->{'ID'}))->[0];
+  my $feat_data = do_query("select feature_id, limit_direction from feature where feature_id = ".str_sqlize($feature->{'ID'}))->[0];
   if(defined $feat_data && defined $feat_data->[0]){
 
 		my $limit 			= $feature->{'LimitValue'};
@@ -1181,22 +1181,22 @@ if(defined $root->{'ProductsListLookupRequest'}){
 		 $limit =~s/[^\d\.]//g;
 		} elsif($dir == 3){
 		 $dir 	= ' = ';		# exact match
-		 $limit = &str_sqlize($limit);
+		 $limit = str_sqlize($limit);
 		}
 
 		$feature_cnt++;
 
 # creating tempoprary table for features intersection 
-		&do_statement("create temporary table ".$$."tmp".$feature_cnt." (product_id int(13) primary key not null)");
+		do_statement("create temporary table ".$$."tmp".$feature_cnt." (product_id int(13) primary key not null)");
 
 #	insert into temporary table
-		&do_statement("insert into ".$$."tmp".$feature_cnt." select product_feature.product_id from product_feature, category_feature, feature where product_feature.value".$dir.$limit." and product_feature.category_feature_id = category_feature.category_feature_id and category_feature.feature_id = feature.feature_id and feature.feature_id = $feature_id and category_feature.catid = $catid");
+		do_statement("insert into ".$$."tmp".$feature_cnt." select product_feature.product_id from product_feature, category_feature, feature where product_feature.value".$dir.$limit." and product_feature.category_feature_id = category_feature.category_feature_id and category_feature.feature_id = feature.feature_id and feature.feature_id = $feature_id and category_feature.catid = $catid");
 	}
  }
 
 #	intersection between temporary tables
   my $tmp_intersection_table = $$."tmp_intersection";
-	&do_statement("create temporary table ".$tmp_intersection_table."(product_id int(13) primary key not null)");
+	do_statement("create temporary table ".$tmp_intersection_table."(product_id int(13) primary key not null)");
 
 	my $from_part;
 	my $where_part = "1";
@@ -1217,25 +1217,25 @@ if(defined $root->{'ProductsListLookupRequest'}){
 	$where_part .= " and ".$$."tmp_sup.product_id = ".$$."tmp_sup.product_id";
   $from_part .= " ".$$."tmp_sup";
 	
-	&do_statement("insert into ".$tmp_intersection_table." select ".$$."tmp_sup.product_id from ".$from_part." where ".$where_part);
+	do_statement("insert into ".$tmp_intersection_table." select ".$$."tmp_sup.product_id from ".$from_part." where ".$where_part);
 
 # delete temporary tables
 	for(my $i = 1; $i <= $feature_cnt; $i++){
-		&do_statement("drop temporary table if exists ".$$."tmp".$i);
+		do_statement("drop temporary table if exists ".$$."tmp".$i);
 	}
 	if($req->{'LookupText'}){
-	 &do_statement("drop temporary table if exists ".$$."tmp_txt");
+	 do_statement("drop temporary table if exists ".$$."tmp_txt");
 	}
-	&do_statement("drop temporary table if exists ".$$."tmp_sup");
+	do_statement("drop temporary table if exists ".$$."tmp_sup");
 	
  # now got all requests performed
  # filetring result set 
 
-	my $prod_xml = &load_complex_template('xml/products_list_lookup.xml');
-	my $all_cat_data = &get_categories( $tmp_intersection_table, $lang_table, $prod_xml, $catid );
-#	&log_printf("lang table = $lang_table");
-	my $products = &get_products_xml( $tmp_intersection_table, $all_cat_data, $prod_xml, undef, $minquality, \@lang, $lang_table);
-	&do_statement ( "drop temporary table if exists $lang_table");
+	my $prod_xml = load_complex_template('xml/products_list_lookup.xml');
+	my $all_cat_data = get_categories( $tmp_intersection_table, $lang_table, $prod_xml, $catid );
+#	log_printf("lang table = $lang_table");
+	my $products = get_products_xml( $tmp_intersection_table, $all_cat_data, $prod_xml, undef, $minquality, \@lang, $lang_table);
+	do_statement ( "drop temporary table if exists $lang_table");
 #		return xml
 	$prod_xml->{'body'} =~s/%%products%%/$products/g;
 	$products = $prod_xml->{'body'};
@@ -1244,11 +1244,11 @@ if(defined $root->{'ProductsListLookupRequest'}){
 	$products = $prod_xml->{'body'};
 
 	if ( defined ( $rh->{'__plain_xml'} ) ) {
-		$rh->{'__plain_xml'} = &concat_scalar_refs ( $rh->{'__plain_xml'}, \ $products );
+		$rh->{'__plain_xml'} = concat_scalar_refs ( $rh->{'__plain_xml'}, \ $products );
 	}else{
 		$rh->{'__plain_xml'} = \ $products;
 	}
-	&do_statement("drop temporary table if exists $tmp_intersection_table");
+	do_statement("drop temporary table if exists $tmp_intersection_table");
  }
 }
 
@@ -1267,9 +1267,9 @@ if ( defined $root->{'FulltextProductsSearchRequest'} ){
 	my $extra_sql='';
 	my $query;
 	my $minquality;
-	my $prod_xml = &load_complex_template('xml/fulltext_products_search.xml');
+	my $prod_xml = load_complex_template('xml/fulltext_products_search.xml');
 	if($req->{'Category_ID'} ){
-		my $refer = &do_query("select catid, ucatid from category where catid = ".&str_sqlize($req->{'Category_ID'}));
+		my $refer = do_query("select catid, ucatid from category where catid = ".str_sqlize($req->{'Category_ID'}));
 		($catid, $ucatid) = @{$refer->[0]} if (defined $refer && defined $refer->[0]);
 		$extra_sql .= " and product.catid = $catid"; 
 		if(!$catid){
@@ -1300,13 +1300,13 @@ if ( defined $root->{'FulltextProductsSearchRequest'} ){
 	if($req->{'Supplier'}->{'Name'}||$req->{'Supplier'}->{'ID'}){
 		my $where = '1 ';
 		if($req->{'Supplier'}->{'Name'}){
-			$where .= 'and supplier.name = '.&str_sqlize($req->{'Supplier'}->{'Name'});
+			$where .= 'and supplier.name = '.str_sqlize($req->{'Supplier'}->{'Name'});
 		}
 		if($req->{'Supplier'}->{'ID'}){
-			$where .= 'and supplier.supplier_id = '.&str_sqlize($req->{'Supplier'}->{'ID'});
+			$where .= 'and supplier.supplier_id = '.str_sqlize($req->{'Supplier'}->{'ID'});
 		}
 
-		my $supp_data = &do_query("select supplier_id, name from supplier where $where");
+		my $supp_data = do_query("select supplier_id, name from supplier where $where");
 		if($supp_data->[0] && $supp_data->[0][1]){
 			# ok
 			$extra_sql .= ' and product.supplier_id = '.$supp_data->[0][0];
@@ -1322,11 +1322,11 @@ if ( defined $root->{'FulltextProductsSearchRequest'} ){
 		my $ff = '';
 		my $lang_table = $$."tmp_lang";
 		$query = "create temporary table $lang_table (langid int(13) not null,  key langid( langid ) )";
-		&do_statement($query);
-		foreach my $langid(@lang){
-			$f .= ' vocabulary.langid = '.&str_sqlize($langid).' or';
-			&do_statement("insert into ".$$."tmp_lang (langid) values ( $langid )");
-			$ff.= ' langid = '.&str_sqlize($langid).' or';
+		do_statement($query);
+		for my $langid(@lang){
+			$f .= ' vocabulary.langid = '.str_sqlize($langid).' or';
+			do_statement("insert into ".$$."tmp_lang (langid) values ( $langid )");
+			$ff.= ' langid = '.str_sqlize($langid).' or';
 		}
 		chop($f);chop($f);chop($f);
 		chop($ff);chop($ff);chop($ff);
@@ -1334,13 +1334,13 @@ if ( defined $root->{'FulltextProductsSearchRequest'} ){
 		$search_text =~ s/^\s*//;
 		$search_text =~ s/\s*$//;
 
-		my $total_cat_score=&do_query('select sum(score) from category_statistic')->[0][0];
-		my $pattern = &str_sqlize($search_text);
+		my $total_cat_score=do_query('select sum(score) from category_statistic')->[0][0];
+		my $pattern = str_sqlize($search_text);
 		$query = "create temporary table ".$$."tmp_union_tmp (product_id int(13) not null, relevance double, cat_score int(11), key product_id ( product_id ) )";
-		&do_statement($query);
+		do_statement($query);
 #search by product name
 		$query = "insert into ".$$."tmp_union_tmp select product.product_id, match (product.name) against($pattern), score from product left join category_statistic on product.catid=category_statistic.catid where (match (product.name) against($pattern)) $extra_sql";
-		&do_statement( $query );
+		do_statement( $query );
 		
 # search by product descriptions		
 # Denied at the moment
@@ -1367,45 +1367,45 @@ if ( defined $root->{'FulltextProductsSearchRequest'} ){
 
 #search by category keywords
 		$query = "insert into ".$$."tmp_union_tmp select product.product_id,(match (ck.keywords) against($pattern))*100,score from product left join category_statistic on product.catid=category_statistic.catid, category_keywords as ck where  ($ff) and (match (ck.keywords) against($pattern)) and product.catid = ck.category_id";
-		&do_statement( $query );
+		do_statement( $query );
 #search by supplier name
 		$query = "insert into ".$$."tmp_union_tmp select product.product_id,(match (s.name) against($pattern))*10,score from product left join category_statistic on product.catid=category_statistic.catid, supplier as s where  (match (s.name) against($pattern)) and product.supplier_id = s.supplier_id";
-		&do_statement( $query );
+		do_statement( $query );
 # Only for prod_id
-		if ( &is_prod_id ( $search_text ) ){
-			my $pattern1 = &str_sqlize($search_text.'%');
-			my $pattern2 = &str_sqlize('%'.$search_text);
+		if ( is_prod_id ( $search_text ) ){
+			my $pattern1 = str_sqlize($search_text.'%');
+			my $pattern2 = str_sqlize('%'.$search_text);
 
-			&log_printf ("Search in prod_id");
+			log_printf ("Search in prod_id");
 			$query = "insert into ".$$."tmp_union_tmp select product.product_id, 10,score from product left join category_statistic on product.catid=category_statistic.catid, product_description where product.product_id = product_description.product_id and ($ff) and product.prod_id like $pattern1 $extra_sql";
-			#&log_printf ( $query );
-			&do_statement($query);
+			#log_printf ( $query );
+			do_statement($query);
 			$query = "insert into ".$$."tmp_union_tmp select product.product_id, 10,score from product left join category_statistic on product.catid=category_statistic.catid where product.prod_id like $pattern1 $extra_sql";
-			&do_statement($query);
+			do_statement($query);
 
 			
 		} 
 		$query = "create temorary table ".$$."tmp_union1 (product_id int(13) not null, relevance double, key product_id ( product_id ) )";
-		&do_statement($query);
+		do_statement($query);
 		$query = "insert into ".$$."tmp_union1 select product_id, SUM(relevance)*(((cat_score*5)/$total_cat_score)+0.1) from ".$$."tmp_union_tmp group by product_id";
-		&do_statement ( $query );
+		do_statement ( $query );
 		$query = "create temporary table ".$$."tmp_union (product_id int(13) not null, relevance double, key product_id ( product_id ) )";
-		&do_statement ( $query );
+		do_statement ( $query );
 		$query = "insert into ".$$."tmp_union select ".$$."tmp_union1.product_id, relevance from ".$$."tmp_union1, product where product.product_id=".$$."tmp_union1.product_id $extra_sql order by relevance DESC";
-		&do_statement ( $query );
+		do_statement ( $query );
 		my $tmp_product_table_name = $$."tmp_union";
-		my $all_cat_data = &get_categories( $tmp_product_table_name, $lang_table, $prod_xml );
+		my $all_cat_data = get_categories( $tmp_product_table_name, $lang_table, $prod_xml );
 		
 
-		&do_statement ("drop temporary table if exists ".$$."tmp_union_tmp");
-		&do_statement ("drop temporary table if exists ".$$."tmp_union1");
+		do_statement ("drop temporary table if exists ".$$."tmp_union_tmp");
+		do_statement ("drop temporary table if exists ".$$."tmp_union1");
 		
 		my $tmp_union_table = $$."tmp_union";
 		my $add_atribute = {};
 		$add_atribute->{'relevance'} = 1;
-		my $products = &get_products_xml( $tmp_product_table_name, $all_cat_data, $prod_xml, $add_atribute, $minquality, \@lang, $lang_table);
+		my $products = get_products_xml( $tmp_product_table_name, $all_cat_data, $prod_xml, $add_atribute, $minquality, \@lang, $lang_table);
 
-		&do_statement ( "drop temporary table if exists $lang_table");
+		do_statement ( "drop temporary table if exists $lang_table");
 		
 #		return xml
 
@@ -1413,12 +1413,12 @@ if ( defined $root->{'FulltextProductsSearchRequest'} ){
 		$products = $prod_xml->{'body'};
 
 		if ( defined ( $rh->{'__plain_xml'} ) ) {
-			$rh->{'__plain_xml'} = &concat_scalar_refs ( $rh->{'__plain_xml'}, \ $products );
+			$rh->{'__plain_xml'} = concat_scalar_refs ( $rh->{'__plain_xml'}, \ $products );
 		}else{
 			$rh->{'__plain_xml'} = \ $products;
 		}
 	}
-	&do_statement ("drop temporary table if exists ".$$."tmp_union");
+	do_statement ("drop temporary table if exists ".$$."tmp_union");
 }
 
 sub is_prod_id (){
@@ -1447,38 +1447,38 @@ sub get_categories (){
 	my $all_cat_data = {};
 	my $query;
 	$query = "create temporary table ".$$."tmp_categories (catid int(13) not null, key catid ( catid ) )";
-	&do_statement ( $query );
+	do_statement ( $query );
 	if(!$single_catid){
 		$query = "insert into ".$$."tmp_categories select distinct product.catid from product, $tmp_product_table_name where product.product_id=".$tmp_product_table_name.".product_id";
-		&do_statement ( $query );
+		do_statement ( $query );
 	} else {
 		$query = "insert into ".$$."tmp_categories values ($single_catid)";
-		&do_statement ( $query );
+		do_statement ( $query );
 	}
 	$query = "select vocabulary.value, vocabulary.record_id, vocabulary.langid, category.searchable, category.ucatid, ".$$."tmp_categories.catid from category,vocabulary, ".$$."tmp_categories, $lang_table where vocabulary.sid = category.sid and $lang_table.langid=vocabulary.langid  and ".$$."tmp_categories.catid=category.catid";
-	my $cat_data = &do_query($query);
-	foreach my $cat_row(@$cat_data){
+	my $cat_data = do_query($query);
+	for my $cat_row(@$cat_data){
 		my $cat_content_cache = {};
 		if ( !defined ( $all_cat_data->{$cat_row->[5]} ) ){
-			my $cat_name_xml = &repl_ph($prod_xml->{'category_name'},
+			my $cat_name_xml = repl_ph($prod_xml->{'category_name'},
 														{ 'Name_id' => $cat_row->[1],
 															'langid' => $cat_row->[2],
-															'Value'=> &str_xmlize($cat_row->[0])
+															'Value'=> str_xmlize($cat_row->[0])
 														});
 			$cat_content_cache->{'UNCATID'} = $cat_row->[4];
 			$cat_content_cache->{'Searchable'}= $cat_row->[3];
 			$cat_content_cache->{'Name'} = $cat_name_xml;
 			$all_cat_data->{$cat_row->[5]} =  $cat_content_cache;
 		}else{
-			my $cat_name_xml = &repl_ph($prod_xml->{'category_name'},
+			my $cat_name_xml = repl_ph($prod_xml->{'category_name'},
 														{ 'Name_id' => $cat_row->[1],
 															'langid' => $cat_row->[2],
-															'Value'=> &str_xmlize($cat_row->[0])
+															'Value'=> str_xmlize($cat_row->[0])
 														});
 			$all_cat_data->{$cat_row->[5]}->{'Name'} .= $cat_name_xml;
 		}
 	}
-	&do_statement ( "drop temporary table if exists ".$$."tmp_categories" );
+	do_statement ( "drop temporary table if exists ".$$."tmp_categories" );
 	return $all_cat_data;
 }
 
@@ -1533,14 +1533,14 @@ sub get_products_xml{
 	
 	    # QUICK SEARCH
 			
-			$datas_products		 	= &do_query("
+			$datas_products		 	= do_query("
 			              SELECT p.product_id, p.prod_id, p.supplier_id, s.name, p.catid, p.name, p.low_pic, p.high_pic, p.thumb_pic , u.user_group, ".$tmp_product_table.".relevance
 										FROM product p , $tmp_product_table, supplier s, users u
 										WHERE p.product_id = ".$tmp_product_table.".product_id AND s.supplier_id = p.supplier_id
 										      AND p.user_id = u.user_id $extra_where
 										LIMIT 500");
 										
-      $datas_descriptions = &do_query("
+      $datas_descriptions = do_query("
 									 SELECT HIGH_PRIORITY pd.product_id, pd.short_desc, pd.langid, pd.product_description_id
 									 FROM product_description pd join $lang_table on pd.langid = $lang_table.langid, $tmp_product_table
 									 WHERE ".$tmp_product_table.".product_id = pd.product_id 
@@ -1549,20 +1549,20 @@ sub get_products_xml{
 	    $query = "SELECT  p.product_id, p.prod_id, p.supplier_id, p.supplier_name, p.catid, p.name, p.low_pic, p.high_pic, p.thumb_pic, p.relevance,
 			                  pd.short_desc, pd.langid, pd.product_description_id, p.user_group
                 FROM    $tmp_product_table\_product p LEFT JOIN $tmp_product_table\_product_description pd ON pd.product_id = p.product_id ";
-   		$datas = &do_query($query);
+   		$datas = do_query($query);
 
 	}elsif( $add_atributes->{'Score'}){
       
 			# top10's output 
 
-			$datas_products		 	= &do_query("
+			$datas_products		 	= do_query("
 			              SELECT p.product_id, p.prod_id, p.supplier_id, s.name, p.catid, p.name, p.low_pic, p.high_pic, p.thumb_pic , u.user_group, ".$tmp_product_table.".score 
 										FROM product p , $tmp_product_table, supplier s, users u
 										WHERE p.product_id = ".$tmp_product_table.".product_id AND s.supplier_id = p.supplier_id
 										      AND p.user_id = u.user_id $extra_where
       						 ");
 									 
-      $datas_descriptions = &do_query("
+      $datas_descriptions = do_query("
 			              SELECT HIGH_PRIORITY pd.product_id, pd.short_desc, pd.langid, pd.product_description_id
 									 	FROM product_description pd join $lang_table on pd.langid = $lang_table.langid, $tmp_product_table
 									 	WHERE ".$tmp_product_table.".product_id = pd.product_id 
@@ -1571,16 +1571,16 @@ sub get_products_xml{
       $query = "SELECT p.product_id, p.prod_id, p.supplier_id, p.supplier_name, p.catid, p.name, p.low_pic, p.high_pic, p.thumb_pic, 
 			                 p.score,pd.short_desc, pd.langid,pd.product_description_id,p.user_group
                 FROM   $tmp_product_table\_product p LEFT JOIN $tmp_product_table\_product_description pd ON pd.product_id = p.product_id";
-   		#$datas = &do_query($query);	
+   		#$datas = do_query($query);	
 	
 	}else{
-      $datas_products		 	= &do_query("
+      $datas_products		 	= do_query("
 									 SELECT HIGH_PRIORITY p.product_id, p.prod_id, p.supplier_id, s.name, p.catid, p.name, p.low_pic, p.high_pic, p.thumb_pic, u.user_group
 									 FROM product p , $tmp_product_table, supplier s, users u
 									 WHERE p.product_id = ".$tmp_product_table.".product_id AND s.supplier_id = p.supplier_id
 									 AND p.user_id = u.user_id $extra_where
 									");
-      $datas_descriptions = &do_query("
+      $datas_descriptions = do_query("
 									 SELECT HIGH_PRIORITY pd.product_id, pd.short_desc, pd.langid, pd.product_description_id
 									 FROM product_description pd join $lang_table on pd.langid = $lang_table.langid, $tmp_product_table
 									 WHERE ".$tmp_product_table.".product_id = pd.product_id 
@@ -1589,7 +1589,7 @@ sub get_products_xml{
 			                 pd.short_desc, pd.langid,pd.product_description_id, p.user_group
 	               FROM   $tmp_product_table\_product p LEFT JOIN $tmp_product_table\_product_description pd ON pd.product_id = p.product_id"; 
 
-  		#$datas = &do_query($query);
+  		#$datas = do_query($query);
 	}
 
 	do_statement("DROP temporary TABLE if exists $tmp_product_table\_product_description");
@@ -1616,7 +1616,7 @@ sub get_products_xml{
 	}
 	
 	my $datum;
-	foreach (@$datas_descriptions) {
+	for (@$datas_descriptions) {
 #   if (!$sd->{$_->[0]}){
 #	       $datum->[$count] = $_;
 #	       $count++;
@@ -1636,7 +1636,7 @@ sub get_products_xml{
 		$add_atributes_flag = 1;
 	}
 	
-	foreach my $data(@$datas_products) {
+	for my $data(@$datas_products) {
 		 my $row = $data;
 		 my $product_id = $data->[0];
 		 my $category_id = $data->[4];
@@ -1644,17 +1644,17 @@ sub get_products_xml{
 
      # building product_body entries
 		 
-		 $quality_name = &get_quality_measure($row->[$quality]);
+		 $quality_name = get_quality_measure($row->[$quality]);
 		
 		my $product_description;
 		
 		
-		foreach(@lang){
-                #&log_printf($sd->{$product_id}->{$_});
-		            $product_description.=&s_repl_ph($prod_xml->{'product_description'},
+		for(@lang){
+                #log_printf($sd->{$product_id}->{$_});
+		            $product_description.=s_repl_ph($prod_xml->{'product_description'},
 		    		      {
 				             'id' => $sd->{$product_id}->{'id'}->{$_},
-				             'short_desc' => &str_xmlize($sd->{$product_id}->{$_}),
+				             'short_desc' => str_xmlize($sd->{$product_id}->{$_}),
 				             'langid' => $_
 				          }) if $sd->{$product_id}->{'id'}->{$_};
 		
@@ -1664,27 +1664,27 @@ sub get_products_xml{
 							'product_description'	 => $product_description,
 							'category_names' => $all_cat_data->{$category_id}->{'Name'},
 							'Product_id' => $product_id,
-							'Prod_id' => &str_xmlize( $row->[1]),
-							'ThumbPic' => &str_xmlize( $row->[8]),
-							'HighPic' => &str_xmlize( $row->[7]),
-							'Product_name' => &str_xmlize( $row->[5]),
-							'LowPic' => &str_xmlize( $row->[6]),
+							'Prod_id' => str_xmlize( $row->[1]),
+							'ThumbPic' => str_xmlize( $row->[8]),
+							'HighPic' => str_xmlize( $row->[7]),
+							'Product_name' => str_xmlize( $row->[5]),
+							'LowPic' => str_xmlize( $row->[6]),
 							'Quality' => $quality_name,
 							'Cat_id' => $row->[4],
 							'UNCATID' => $all_cat_data->{$category_id}->{'UNCATID'},
 							'Searchable' => $all_cat_data->{$category_id}->{'Searchable'},
 							'Sup_ID' => $row->[2],
-							'Sup_Name' => &str_xmlize($row->[3])
+							'Sup_Name' => str_xmlize($row->[3])
 						};
 		 if($add_atributes_flag){ 
 			 if($add_atributes_relevance ){
-				  $hash->{'Relevance'} = &str_xmlize( $row->[10] );
+				  $hash->{'Relevance'} = str_xmlize( $row->[10] );
 			 }
 			 if( $add_atributes_score ){
-				  $hash->{'Score'} = &str_xmlize( $row->[10] );
+				  $hash->{'Score'} = str_xmlize( $row->[10] );
 			 }
 		 }
-		$products .= &s_repl_ph($prod_xml->{'product_body'}, $hash);
+		$products .= s_repl_ph($prod_xml->{'product_body'}, $hash);
 		#undef $hash;
 		#undef $data;
 		#undef $row;
@@ -1706,20 +1706,20 @@ if (defined $root->{'ProductsStatistic'}) {
 		my $f = '0';
 		my $lang_table = $$."tmp_lang";
 		my $query = "create temporary table ".$lang_table." (langid int(13) not null,  key langid( langid ) )";
-		&do_statement($query);
+		do_statement($query);
 		push @lang, 1; # by default
 		push @lang, 2; # by default
 		push @lang, 3; # by default
-		foreach my $langid (@lang) {
-			&do_statement("insert into ".$lang_table." (langid) values ( $langid )");
-			$f .= ' or vocabulary.langid = '.&str_sqlize($langid);
+		for my $langid (@lang) {
+			do_statement("insert into ".$lang_table." (langid) values ( $langid )");
+			$f .= ' or vocabulary.langid = '.str_sqlize($langid);
 		}
 
 		my ($catid, $ucatid);
 		
 		# getting catid
 		if ($req->{'UNCATID'}) {
-			my $refer = &do_query("select catid, ucatid from category where ucatid = ".&str_sqlize($req->{'UNCATID'}));
+			my $refer = do_query("select catid, ucatid from category where ucatid = ".str_sqlize($req->{'UNCATID'}));
 			($catid, $ucatid) = @{$refer->[0]} if (defined $refer && defined $refer->[0]); 
 		}
 
@@ -1733,39 +1733,39 @@ if (defined $root->{'ProductsStatistic'}) {
 		}
  
 		if (defined $req->{'Category_ID'} ) {
-			my $refer = &do_query("select catid, ucatid from category where catid = ".&str_sqlize($req->{'Category_ID'}));
+			my $refer = do_query("select catid, ucatid from category where catid = ".str_sqlize($req->{'Category_ID'}));
 			($catid, $ucatid) = @{$refer->[0]} if (defined $refer && defined $refer->[0]); 
 		}
  
 		if ($req->{'Type'} eq 'TOP10' && $catid) {
 			
 			my $extra_sql = '';
-			if ($freeurls) { $extra_sql = ' and product.supplier_id '.&in_selected_sponsors; }
-			my $data = &do_query("select product.product_id, score from product_statistic, product where product.product_id = product_statistic.product_id and product.catid = ".&str_sqlize($catid).$extra_sql." order by score desc limit 20");
+			if ($freeurls) { $extra_sql = ' and product.supplier_id '.in_selected_sponsors; }
+			my $data = do_query("select product.product_id, score from product_statistic, product where product.product_id = product_statistic.product_id and product.catid = ".str_sqlize($catid).$extra_sql." order by score desc limit 20");
 			
 # creating tempoprary table for features intersection 
 			my $tmp_table = $$."tmp_top10";
-			&do_statement("create temporary table ".$tmp_table." (product_id int(13) primary key not null, score int(13) not null default 0)");
+			do_statement("create temporary table ".$tmp_table." (product_id int(13) primary key not null, score int(13) not null default 0)");
 			
 #	insert into temporary table
-			&do_statement("insert into ".$tmp_table." select product.product_id, score from product_statistic, product where product.product_id = product_statistic.product_id and product.catid = ".&str_sqlize($catid).$extra_sql." order by score desc limit 20");
+			do_statement("insert into ".$tmp_table." select product.product_id, score from product_statistic, product where product.product_id = product_statistic.product_id and product.catid = ".str_sqlize($catid).$extra_sql." order by score desc limit 20");
 			
-			my $prod_xml = &load_complex_template('xml/products_statistic.xml');
-			my $all_cat_data = &get_categories( $tmp_table, $lang_table, $prod_xml );
+			my $prod_xml = load_complex_template('xml/products_statistic.xml');
+			my $all_cat_data = get_categories( $tmp_table, $lang_table, $prod_xml );
 			my $add_atributes = {};
 			$add_atributes->{'Score'} = 1;
-			my $products = &get_products_xml( $tmp_table, $all_cat_data, $prod_xml, $add_atributes,$minquality, [1,2,3], $lang_table);
-			&do_statement("drop temporary table if exists ".$lang_table);
+			my $products = get_products_xml( $tmp_table, $all_cat_data, $prod_xml, $add_atributes,$minquality, [1,2,3], $lang_table);
+			do_statement("drop temporary table if exists ".$lang_table);
 #		return xml
 			$prod_xml->{'body'} =~s/%%products%%/$products/g;
 			$products = $prod_xml->{'body'};
 			
 			if ( defined ( $rh->{'__plain_xml'} ) ) {
-				$rh->{'__plain_xml'} = &concat_scalar_refs ( $rh->{'__plain_xml'}, \ $products );
+				$rh->{'__plain_xml'} = concat_scalar_refs ( $rh->{'__plain_xml'}, \ $products );
 			}else{
 				$rh->{'__plain_xml'} = \ $products;
 			}
-			&do_statement("drop temporary table if exists ".$tmp_table);
+			do_statement("drop temporary table if exists ".$tmp_table);
 		}
 	}
 }
@@ -1779,7 +1779,7 @@ if(defined $root->{'DescribeProductsRequest'}){
 my $resp;
 my $cnt = 0;
 my ($p_id, $pr_id, $s_id, $s_code, $cl_email, $todate, $cl_msg, $where);
-    foreach my $cl_req(@{$root->{'DescribeProductsRequest'}->[0]->{'DescribeProductRequest'}}){
+    for my $cl_req(@{$root->{'DescribeProductsRequest'}->[0]->{'DescribeProductRequest'}}){
 	if($cl_req->{'Product_id'}){ $p_id = $cl_req->{'Product_id'};}
 	if($cl_req->{'Prod_id'}){ $pr_id = $cl_req->{'Prod_id'};}
 	if($cl_req->{'Supplier_id'}){ $s_id = $cl_req->{'Supplier_id'};}
@@ -1803,7 +1803,7 @@ my ($p_id, $pr_id, $s_id, $s_code, $cl_email, $todate, $cl_msg, $where);
 	    $cl_msg = "";
 	}
 	if($s_code && !$s_id){
-	    my $resp = &do_query("select supplier_id from supplier where name=".&str_sqlize($s_code));
+	    my $resp = do_query("select supplier_id from supplier where name=".str_sqlize($s_code));
 	    if($resp->[0][0]){
 		$s_id = $resp->[0][0];
 	    }
@@ -1814,9 +1814,9 @@ my ($p_id, $pr_id, $s_id, $s_code, $cl_email, $todate, $cl_msg, $where);
 	if($s_id){$rh->{'DescribeProductsResponse'}->{'DescribeProductResponse'}->[$cnt]->{'Supplier_id'} = $s_id;}
 	if($s_code){$rh->{'DescribeProductsResponse'}->{'DescribeProductResponse'}->[$cnt]->{'Supplier_Code'} = $s_code;}
 	if(!$p_id){
-#	&log_printf("\npid=$p_id\nprid=$pr_id\nsid=$s_id\nemail=$cl_email\ntodate$todate\nmsg=$cl_msg\n");
+#	log_printf("\npid=$p_id\nprid=$pr_id\nsid=$s_id\nemail=$cl_email\ntodate$todate\nmsg=$cl_msg\n");
 	    if($pr_id && !$s_id){
-		my $resp = &do_query("select product_id, count(product_id) from product where prod_id=".&str_sqlize($pr_id)." group by prod_id");
+		my $resp = do_query("select product_id, count(product_id) from product where prod_id=".str_sqlize($pr_id)." group by prod_id");
 		if($resp->[0][1] && ($resp->[0][1] > 1)){
 		    $rh->{'DescribeProductsResponse'}->{'DescribeProductResponse'}->[$cnt]->{'Error'} = "Multiple products are matching your request";		    
 		    $p_id = ""; $pr_id = ""; $s_id = ""; $s_code = ""; $cl_email = ""; $todate = ""; $cl_msg= "";
@@ -1834,7 +1834,7 @@ my ($p_id, $pr_id, $s_id, $s_code, $cl_email, $todate, $cl_msg, $where);
 		}
 	    }
 	    if($pr_id && $s_id){
-		my $resp = &do_query("select product_id from product where prod_id=".&str_sqlize($pr_id)." and supplier_id=".&str_sqlize($s_id));
+		my $resp = do_query("select product_id from product where prod_id=".str_sqlize($pr_id)." and supplier_id=".str_sqlize($s_id));
 		if($resp->[0][0]){
 		    $p_id = $resp->[0][0];
 		}
@@ -1856,37 +1856,37 @@ my ($p_id, $pr_id, $s_id, $s_code, $cl_email, $todate, $cl_msg, $where);
 	}
 
 	if(!$pr_id or !$s_id){
-	    my $resp = &do_query("select prod_id, supplier_id from product where product_id=".&str_sqlize($p_id));
+	    my $resp = do_query("select prod_id, supplier_id from product where product_id=".str_sqlize($p_id));
 	    $pr_id = $resp->[0][0];
 	    $s_id = $resp->[0][1];
 	}
 #mapped prod_id
     my $p = {"supplier_id" => $s_id, "prod_id" => $pr_id};
-#    $pr_id = &get_mapped_prod_id($p);
+#    $pr_id = get_mapped_prod_id($p);
 #check status    
     my $stat = 0;
-    my $ans1 = &do_query("select user_id from product where product_id=".&str_sqlize($p_id));
-    my $ans2 = &do_query("select user_group from users where user_id=".&str_sqlize($ans1->[0][0]));
-    my $qual_rat = &get_quality_measure($ans2->[0][0]);
-    my $qual = &get_quality_index($qual_rat);
+    my $ans1 = do_query("select user_id from product where product_id=".str_sqlize($p_id));
+    my $ans2 = do_query("select user_group from users where user_id=".str_sqlize($ans1->[0][0]));
+    my $qual_rat = get_quality_measure($ans2->[0][0]);
+    my $qual = get_quality_index($qual_rat);
     if($qual > 0){$stat = 0;}
     else{$stat = 1;}
 
 # register require in requires journal
-	&insert_rows('describe_product_request', {  
-					    'product_id' => &str_sqlize($p_id),
-                        		    'prod_id' => &str_sqlize($pr_id),
-	                                    'supplier_id' => &str_sqlize($s_id),
-					    'email' => &str_sqlize($cl_email),
-					    'user_id' => &str_sqlize($user_id),
-					    'message' => &str_sqlize($cl_msg),
-					    'todate' => &str_sqlize($todate),
-					    'date' => &str_sqlize(`date +%Y%m%d%H%M%S`),
-					    'status' => &str_sqlize($stat)
+	insert_rows('describe_product_request', {  
+					    'product_id' => str_sqlize($p_id),
+                        		    'prod_id' => str_sqlize($pr_id),
+	                                    'supplier_id' => str_sqlize($s_id),
+					    'email' => str_sqlize($cl_email),
+					    'user_id' => str_sqlize($user_id),
+					    'message' => str_sqlize($cl_msg),
+					    'todate' => str_sqlize($todate),
+					    'date' => str_sqlize(`date +%Y%m%d%H%M%S`),
+					    'status' => str_sqlize($stat)
  	                                  }
 	            );
 #make up response
-    my $dp_id = &sql_last_insert_id();
+    my $dp_id = sql_last_insert_id();
     $rh->{'DescribeProductsResponse'}->{'DescribeProductResponse'}->[$cnt]->{'ID'} = $cnt;		
     $rh->{'DescribeProductsResponse'}->{'DescribeProductResponse'}->[$cnt]->{'Product_id'} = $p_id;
     $rh->{'DescribeProductsResponse'}->{'DescribeProductResponse'}->[$cnt]->{'Prod_id'} = $pr_id;
@@ -1898,8 +1898,8 @@ my ($p_id, $pr_id, $s_id, $s_code, $cl_email, $todate, $cl_msg, $where);
 #    $rh->{'DescribeProductsResponse'}->{'DescribeProductResponse'}->[$cnt]->{'DescribeProductRequest_ID'} = $dp_id;
     $cnt++;
 #   my $response = {'DescribeProductsResponse' => [$rh]};
-#   $response = &xml_out($response);
-#   &log_printf("response = $$response\n");
+#   $response = xml_out($response);
+#   log_printf("response = $$response\n");
     }
    
 }
@@ -1914,7 +1914,7 @@ if(defined $root->{'ProductsComplaintRequest'}){
 my $resp;
 my $cnt = 0;
 my ($p_id, $pr_id, $s_id, $s_code, $cl_email, $date, $cl_msg, $cl_name, $editor, $cl_subj, $cl_company);
-foreach my $cl_req(@{$root->{'ProductsComplaintRequest'}->[0]->{'ProductComplaintRequest'}}){
+for my $cl_req(@{$root->{'ProductsComplaintRequest'}->[0]->{'ProductComplaintRequest'}}){
 		if($cl_req->{'Product_id'}){ $p_id = $cl_req->{'Product_id'};}
 		if($cl_req->{'Prod_id'}){ $pr_id = $cl_req->{'Prod_id'};}
 		if($cl_req->{'Supplier_id'}){ $s_id = $cl_req->{'Supplier_id'};}
@@ -1959,7 +1959,7 @@ foreach my $cl_req(@{$root->{'ProductsComplaintRequest'}->[0]->{'ProductComplain
       $cl_company = "no company";
     }
 		if($s_code && !$s_id){
-	    my $resp = &do_query("select supplier_id from supplier where name=".&str_sqlize($s_code));
+	    my $resp = do_query("select supplier_id from supplier where name=".str_sqlize($s_code));
 	    if($resp->[0][0]){
 				$s_id = $resp->[0][0];
 	    }
@@ -1970,9 +1970,9 @@ foreach my $cl_req(@{$root->{'ProductsComplaintRequest'}->[0]->{'ProductComplain
 		if($s_id){$rh->{'ProductsComplaintResponse'}->{'ProductComplaintResponse'}->[$cnt]->{'Supplier_id'} = $s_id;}
 		if($s_code){$rh->{'ProductsComplaintResponse'}->{'ProductComplaintResponse'}->[$cnt]->{'Supplier_Code'} = $s_code;}
 		if(!$p_id){
-#&log_printf("\npid=$p_id\nprid=$pr_id\nsid=$s_id\nemail=$cl_email\ntodate$todate\nmsg=$cl_msg\n");
+#log_printf("\npid=$p_id\nprid=$pr_id\nsid=$s_id\nemail=$cl_email\ntodate$todate\nmsg=$cl_msg\n");
 	    if($pr_id && !$s_id){
-				my $resp = &do_query("select product_id, count(product_id) from product where prod_id=".&str_sqlize($pr_id)." group by prod_id");
+				my $resp = do_query("select product_id, count(product_id) from product where prod_id=".str_sqlize($pr_id)." group by prod_id");
 				if($resp->[0][1] && ($resp->[0][1] > 1)){
 		   		$rh->{'ProductsComplaintResponse'}->{'ProductComplaintResponse'}->[$cnt]->{'Error'} = "Multiple products are matching your complaint";		    
 		   		$p_id = ""; $pr_id = ""; $s_id = ""; $s_code = ""; $cl_email = ""; $date = ""; $cl_msg= ""; $cl_name = ""; $cl_company = "";
@@ -1990,7 +1990,7 @@ foreach my $cl_req(@{$root->{'ProductsComplaintRequest'}->[0]->{'ProductComplain
 				}
 	  	}
 	  	if($pr_id && $s_id){
-			 my $resp = &do_query("select product_id from product where prod_id=".&str_sqlize($pr_id)." and supplier_id=".&str_sqlize($s_id));
+			 my $resp = do_query("select product_id from product where prod_id=".str_sqlize($pr_id)." and supplier_id=".str_sqlize($s_id));
 			 if($resp->[0][0]){
 		  	 $p_id = $resp->[0][0];
 			 }
@@ -2011,14 +2011,14 @@ foreach my $cl_req(@{$root->{'ProductsComplaintRequest'}->[0]->{'ProductComplain
 	  }
 	}
 	if(!$pr_id or !$s_id){
-	    my $resp = &do_query("select prod_id, supplier_id from product where product_id=".&str_sqlize($p_id));
+	    my $resp = do_query("select prod_id, supplier_id from product where product_id=".str_sqlize($p_id));
 	    $pr_id = $resp->[0][0];
 	    $s_id = $resp->[0][1];
 	}
 #check editor
-  my $get_editor = &do_query("select product.user_id, user_group from product,users where product_id=".&str_sqlize($p_id)."and product.user_id = users.user_id");
+  my $get_editor = do_query("select product.user_id, user_group from product,users where product_id=".str_sqlize($p_id)."and product.user_id = users.user_id");
 	if(!$get_editor || ($get_editor->[0][0] == 1) || ($get_editor->[0][0] == 15) || ($get_editor->[0][1] eq 'exeditor') || ($get_editor->[0][1] eq 'supplier') || ($get_editor->[0][0] == 19)){
-	   my $get_def_sed = &do_query("select value from sys_preference where name='default_superuser_id'");
+	   my $get_def_sed = do_query("select value from sys_preference where name='default_superuser_id'");
 	   $editor = $get_def_sed->[0][0];
 	}
 	else{
@@ -2026,63 +2026,63 @@ foreach my $cl_req(@{$root->{'ProductsComplaintRequest'}->[0]->{'ProductComplain
 	}
 #mapped prod_id
   my $p = {"supplier_id" => $s_id, "prod_id" => $pr_id};
-#    $pr_id = &get_mapped_prod_id($p);
+#    $pr_id = get_mapped_prod_id($p);
 #check status    
    my $stat = 1;
 #check name
   if($cl_name eq ''){
-		my $get_name = &do_query("select login from users where user_id=".&str_sqlize($user_id));
+		my $get_name = do_query("select login from users where user_id=".str_sqlize($user_id));
 		$cl_name = $get_name->[0][0];
 	}
 #check email
 	if($cl_email eq ""){
-		my $req1 = &do_query("select pers_cid from users where user_id=".&str_sqlize($user_id));
-		my $req2 = &do_query("select email from contact where contact_id=".str_sqlize($req1->[0][0]));
+		my $req1 = do_query("select pers_cid from users where user_id=".str_sqlize($user_id));
+		my $req2 = do_query("select email from contact where contact_id=".str_sqlize($req1->[0][0]));
 		$cl_email = $req2->[0][0];
 	}
 # register complaint in complaints journal
-&insert_rows('product_complaint', {  
-				    'product_id' => &str_sqlize($p_id),
-            'prod_id' => &str_sqlize($pr_id),
-            'supplier_id' => &str_sqlize($s_id),
-		        'email' => &str_sqlize($cl_email),
-			      'fuser_id' => &str_sqlize($user_id),
-			      'message' => &str_sqlize($cl_msg),
-			      'subject' => &str_sqlize($cl_subj),
-			      'date' => &str_sqlize(`date "+%Y-%m-%d %H:%M:%S"`),
-			      'complaint_status_id' => &str_sqlize($stat),
-					  'name' => &str_sqlize($cl_name),
-					  'user_id' => &str_sqlize($editor),
-						'company' => &str_sqlize($cl_company),
+insert_rows('product_complaint', {  
+				    'product_id' => str_sqlize($p_id),
+            'prod_id' => str_sqlize($pr_id),
+            'supplier_id' => str_sqlize($s_id),
+		        'email' => str_sqlize($cl_email),
+			      'fuser_id' => str_sqlize($user_id),
+			      'message' => str_sqlize($cl_msg),
+			      'subject' => str_sqlize($cl_subj),
+			      'date' => str_sqlize(`date "+%Y-%m-%d %H:%M:%S"`),
+			      'complaint_status_id' => str_sqlize($stat),
+					  'name' => str_sqlize($cl_name),
+					  'user_id' => str_sqlize($editor),
+						'company' => str_sqlize($cl_company),
 						'internal' => '2'
                              }
           );
- my $c_id = &sql_last_insert_id();
+ my $c_id = sql_last_insert_id();
 
 #add history
- &insert_rows("product_complaint_history",{
+ insert_rows("product_complaint_history",{
 							"complaint_id" => $c_id,
 							"complaint_status_id" => 1,
 							"user_id" => $editor,
-							"message" => &str_sqlize("New complaint received"),
-							'date' => &str_sqlize(`date "+%Y-%m-%d %H:%M:%S"`)
+							"message" => str_sqlize("New complaint received"),
+							'date' => str_sqlize(`date "+%Y-%m-%d %H:%M:%S"`)
 							});
 
 #email to responsible editor
  my $mail_to_editor;
- &load_email_template("email_complaint");
+ load_email_template("email_complaint");
  if(! defined $hin{'langid'}){ $hin{'langid'} = 1;}
  $hin{'complaint_id'} = $c_id;
- my $html_body = &get_complaint_email_body($atoms, $hin{'complaint_id'}, $hin{'langid'});
+ my $html_body = get_complaint_email_body($atoms, $hin{'complaint_id'}, $hin{'langid'});
 		
  $mail_to_editor->{'html_body'} = $html_body;
- $mail_to_editor->{'text_body'} = &repl_ph($atoms->{'default'}->{'email_complaint'}->{'post_text_body'}, {'id' => $hin{'complaint_id'}});		 
- $mail_to_editor->{'subject'} = &repl_ph($atoms->{'default'}->{'email_complaint'}->{'post_subject'}, {'id' => $hin{'complaint_id'}});		 
- my $get_email_login_to = &do_query("select person, email from contact, users where users.user_id = $editor and users.pers_cid = contact.contact_id");
+ $mail_to_editor->{'text_body'} = repl_ph($atoms->{'default'}->{'email_complaint'}->{'post_text_body'}, {'id' => $hin{'complaint_id'}});		 
+ $mail_to_editor->{'subject'} = repl_ph($atoms->{'default'}->{'email_complaint'}->{'post_subject'}, {'id' => $hin{'complaint_id'}});		 
+ my $get_email_login_to = do_query("select person, email from contact, users where users.user_id = $editor and users.pers_cid = contact.contact_id");
 
  $mail_to_editor->{'to'} = $get_email_login_to->[0][1];
  $mail_to_editor->{'from'} = $atomcfg{'complain_from'};
- &complex_sendmail($mail_to_editor);
+ complex_sendmail($mail_to_editor);
 
 #make up response
 #   $rh->{'ProductsComplaintResponse'}->{'ProductComplaintResponse'}->[$cnt]->{'ComplaintNumber'} = $cnt;		
@@ -2106,16 +2106,16 @@ if(defined $root->{'ProductsListRequest'}){
 	my $resp = '';
 	my @lang = split(/,/, $root->{'ProductsListRequest'}->[0]->{'langid'});
 	my $f = '';
-	foreach my $langid(@lang){
-		$f .= ' vocabulary.langid = '.&str_sqlize($langid).' or';
+	for my $langid(@lang){
+		$f .= ' vocabulary.langid = '.str_sqlize($langid).' or';
 	}
 	chop($f);chop($f);chop($f);
 
 
 # building feature group hashes 
-	my $feat_group_data = &do_query("select feature_group.feature_group_id, vocabulary.value, vocabulary.langid, vocabulary.record_id from feature_group, vocabulary where vocabulary.sid = feature_group.sid and ($f)");
+	my $feat_group_data = do_query("select feature_group.feature_group_id, vocabulary.value, vocabulary.langid, vocabulary.record_id from feature_group, vocabulary where vocabulary.sid = feature_group.sid and ($f)");
 	my $feat_group = {};
-	foreach my $row(@$feat_group_data){
+	for my $row(@$feat_group_data){
 		$feat_group->{$row->[0]}->{'ID'} = $row->[0];
 		push @{$feat_group->{$row->[0]}->{'Name'}}, 
 	   {
@@ -2125,17 +2125,17 @@ if(defined $root->{'ProductsListRequest'}){
 		 }
 	}
 
-	my $fns = &do_query("select vocabulary.value, vocabulary.langid, record_id, feature_id from vocabulary, feature where feature.sid = vocabulary.sid and ($f)");
+	my $fns = do_query("select vocabulary.value, vocabulary.langid, record_id, feature_id from vocabulary, feature where feature.sid = vocabulary.sid and ($f)");
 	my $fn_hash = {};
 	
-	foreach my $row(@$fns){
+	for my $row(@$fns){
 		push @{$fn_hash->{$row->[3]}}, $row;
 	}
 
 	my $extra_sql = '';
-	if($freeurls) { $extra_sql = ' and product.supplier_id '.&in_selected_sponsors; }
+	if($freeurls) { $extra_sql = ' and product.supplier_id '.in_selected_sponsors; }
 		
-	foreach my $pr_req(@{$root->{'ProductsListRequest'}->[0]->{'Product'}}){
+	for my $pr_req(@{$root->{'ProductsListRequest'}->[0]->{'Product'}}){
 	
 		my $data;
 		my $where 		= '';
@@ -2147,14 +2147,14 @@ if(defined $root->{'ProductsListRequest'}){
 		my $vfied_supplier_name = '';
 		my $vfied_supplier_id = '';
 		if($pr_req->{'ID'}){
-			$where = " product.product_id = ".&str_sqlize($pr_req->{'ID'});
+			$where = " product.product_id = ".str_sqlize($pr_req->{'ID'});
 			$req_type = 1;
 		}elsif(ref($pr_req->{'Supplier'}->[0]) eq 'HASH' && $pr_req->{'Supplier'}->[0]->{'ID'} && $pr_req->{'Prod_id'}->[0] ){
-			$where = " supplier.supplier_id = ".&str_sqlize($pr_req->{'Supplier'}->[0]->{'ID'})." and prod_id = ".&str_sqlize($pr_req->{'Prod_id'}->[0]);
+			$where = " supplier.supplier_id = ".str_sqlize($pr_req->{'Supplier'}->[0]->{'ID'})." and prod_id = ".str_sqlize($pr_req->{'Prod_id'}->[0]);
 			$req_type = 2;
 
 	 # validating input
-			my $supp = &do_query("select supplier_id, name from supplier where supplier_id = ".&str_sqlize($pr_req->{'Supplier'}->[0]->{'ID'}));
+			my $supp = do_query("select supplier_id, name from supplier where supplier_id = ".str_sqlize($pr_req->{'Supplier'}->[0]->{'ID'}));
 	    unless($supp && $supp->[0]){
 	 
 	 # supplier_id is wrong
@@ -2166,11 +2166,11 @@ if(defined $root->{'ProductsListRequest'}){
 	    }
 	}
 	 elsif(ref($pr_req->{'Supplier'}->[0]) ne 'HASH' && $pr_req->{'Supplier'}->[0] && $pr_req->{'Prod_id'}->[0] ) {
-	    $where = " supplier.name = ".&str_sqlize($pr_req->{'Supplier'}->[0])." and prod_id = ".&str_sqlize($pr_req->{'Prod_id'}->[0]);
+	    $where = " supplier.name = ".str_sqlize($pr_req->{'Supplier'}->[0])." and prod_id = ".str_sqlize($pr_req->{'Prod_id'}->[0]);
 
 	 # validating input
 
-	    my $supp = &do_query("select supplier_id from supplier where name = ".&str_sqlize($pr_req->{'Supplier'}->[0]));
+	    my $supp = do_query("select supplier_id from supplier where name = ".str_sqlize($pr_req->{'Supplier'}->[0]));
 	    unless($supp && $supp->[0]){
 	    
 	# supplier_id is wrong
@@ -2185,7 +2185,7 @@ if(defined $root->{'ProductsListRequest'}){
 	    $req_type = 3;
 	}
 	
-	 $data = &do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and ".$where.$extra_sql);
+	 $data = do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and ".$where.$extra_sql);
 	 unless($data && $data->[0]){
 
 		#
@@ -2201,10 +2201,10 @@ if(defined $root->{'ProductsListRequest'}){
 		       $prodid->{'prod_id'} = $pr_req->{'Prod_id'}->[0];
 		       $prodid->{'supplier_id'} = $vfied_supplier_id;
 		
-		    $prodid = &get_mapped_prod_id($prodid);
-		    #&log_printf($prodid.'----USING SUPPLIER----->'.$pr_req->{'Prod_id'}->[0]);			    
+		    $prodid = get_mapped_prod_id($prodid);
+		    #log_printf($prodid.'----USING SUPPLIER----->'.$pr_req->{'Prod_id'}->[0]);			    
 		    
-		    $data = &do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.prod_id=".&str_sqlize($prodid)." and supplier.supplier_id=$vfied_supplier_id".$extra_sql);
+		    $data = do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.prod_id=".str_sqlize($prodid)." and supplier.supplier_id=$vfied_supplier_id".$extra_sql);
 		    
 		    if($data->[0][0]){
 			$pr_req->{'ID'} = $data->[0][0];
@@ -2227,7 +2227,7 @@ if(defined $root->{'ProductsListRequest'}){
 		    my $mapped_supp_id;
 		    
 		    if($vfied_supplier_name){
-		       $mapped_supp_id = &do_query('select supplier_id from data_source_supplier_map where symbol='.&str_sqlize($vfied_supplier_name))->[0][0];
+		       $mapped_supp_id = do_query('select supplier_id from data_source_supplier_map where symbol='.str_sqlize($vfied_supplier_name))->[0][0];
 		    }
 		    
 		    if($mapped_supp_id){
@@ -2241,11 +2241,11 @@ if(defined $root->{'ProductsListRequest'}){
 		    	    $prodid->{'prod_id'} = $pr_req->{'Prod_id'}->[0];
 			    $prodid->{'supplier_id'} = $mapped_supp_id;
 		    
-		        $prodid = &get_mapped_prod_id($prodid);
-		        $data = &do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.prod_id=".&str_sqlize($prodid)." and supplier.supplier_id=$mapped_supp_id".$extra_sql);
+		        $prodid = get_mapped_prod_id($prodid);
+		        $data = do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.prod_id=".str_sqlize($prodid)." and supplier.supplier_id=$mapped_supp_id".$extra_sql);
 
 			if(!$data->[0][0]){
-			    $data = &do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.prod_id=".&str_sqlize($pr_req->{'Prod_id'}->[0])." and supplier.supplier_id=$mapped_supp_id".$extra_sql);
+			    $data = do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.prod_id=".str_sqlize($pr_req->{'Prod_id'}->[0])." and supplier.supplier_id=$mapped_supp_id".$extra_sql);
 			}
 
 			if($data->[0][0]){
@@ -2298,7 +2298,7 @@ if(defined $root->{'ProductsListRequest'}){
 	}
 	 
 # stating request
-    &state_product_request($rh->{'ID'}, $pr_req->{'ID'}, $pr_req->{'Prod_id'}->[0], $vfied_supplier_id, $vfied_supplier_name, $code, $e_not_found^1);	 
+    state_product_request($rh->{'ID'}, $pr_req->{'ID'}, $pr_req->{'Prod_id'}->[0], $vfied_supplier_id, $vfied_supplier_name, $code, $e_not_found^1);	 
 	 
 #    print "code=$code\n";
     if($code != 1){
@@ -2308,7 +2308,7 @@ if(defined $root->{'ProductsListRequest'}){
 	} 
 	else {
 	    $rh->{'ProductsList'}->{'Product'}->{'?'.($pr_req->{'Prod_id'}->[0] ).'?'}->{'Code'} = $code;
-	    $resp .= "\t\t<Product Code=\"$code\" ID=\"?".&str_xmlize($pr_req->{'Prod_id'}->[0])."?\"/>\n";
+	    $resp .= "\t\t<Product Code=\"$code\" ID=\"?".str_xmlize($pr_req->{'Prod_id'}->[0])."?\"/>\n";
 	}
         next;
     }
@@ -2321,21 +2321,21 @@ if(defined $root->{'ProductsListRequest'}){
 #	print "1.".$p_id."\n";    
     }
     if($req_type == 2){ 
-	my $q = "select product_id from product where supplier_id=".&str_sqlize($pr_req->{'Supplier'}->[0]->{'ID'})." and prod_id=".&str_sqlize($pr_req->{'Prod_id'}->[0]);
-	my $r = &do_query($q);	
+	my $q = "select product_id from product where supplier_id=".str_sqlize($pr_req->{'Supplier'}->[0]->{'ID'})." and prod_id=".str_sqlize($pr_req->{'Prod_id'}->[0]);
+	my $r = do_query($q);	
 	$p_id = $r->[0][0];
 #	print "2.".$p_id."\n";
     }
     if($req_type == 3){ 
-	my $q = "select p.product_id from product as p, supplier as s where p.prod_id = ".&str_sqlize($pr_req->{'Prod_id'}->[0])." and p.supplier_id=s.supplier_id and s.name=".&str_sqlize($pr_req->{'Supplier'}->[0]);
-	my $r = &do_query($q);	
+	my $q = "select p.product_id from product as p, supplier as s where p.prod_id = ".str_sqlize($pr_req->{'Prod_id'}->[0])." and p.supplier_id=s.supplier_id and s.name=".str_sqlize($pr_req->{'Supplier'}->[0]);
+	my $r = do_query($q);	
 	$p_id = $r->[0][0];
 #	print "3.".$p_id."\n";    
     }
-		&log_printf("getting response for product_id = $p_id");
+		log_printf("getting response for product_id = $p_id");
     my $ans;
 
-		$ans = &get_product_xml_fromrepo($p_id);
+		$ans = get_product_xml_fromrepo($p_id);
 		if (!$$ans) {
 			$code = 2; # product not found, all input is correct
 			$$ans = "\t\t<Product Code=\"$code\" ID=\"?$p_id?\"/>\n"; 
@@ -2355,52 +2355,52 @@ if(defined $root->{'ProductsDumpRequest'}){
 
  my @lang = split(/,/, $root->{'ProductsDumpRequest'}->[0]->{'langid'});
  my $f = '0 ';
- foreach my $langid(@lang){
-  $f .= ' or vocabulary.langid = '.&str_sqlize($langid);
+ for my $langid(@lang){
+  $f .= ' or vocabulary.langid = '.str_sqlize($langid);
  }
  
  my $products = '';
  
- my $quality = &get_quality_index($root->{'ProductsDumpRequest'}->[0]->{'MinQuality'});
+ my $quality = get_quality_index($root->{'ProductsDumpRequest'}->[0]->{'MinQuality'});
  
  
  my $updated_from = $root->{'ProductsDumpRequest'}->[0]->{'UpdatedFrom'};
     if($updated_from){
-   		 $updated_from = &do_query("select unix_timestamp(".&str_sqlize($updated_from).")")->[0][0]; 
+   		 $updated_from = do_query("select unix_timestamp(".str_sqlize($updated_from).")")->[0][0]; 
 		} else {
 		   $updated_from = '';
 		}
  
- if($quality < &get_quality_index('ICECAT')){
-  $quality = &get_quality_index('NOEDITOR')
+ if($quality < get_quality_index('ICECAT')){
+  $quality = get_quality_index('NOEDITOR')
  } 
 
  my $supplier = $root->{'ProductsDumpRequest'}->[0]->{'Supplier_ID'};
  my @suppliers = split(',', $supplier);
  my %allowed = map { $_ => 1 } @suppliers;
 
-# &cat_mem_stat(__LINE__.'-'.__FILE__); 
- &log_printf('loading raw products');
+# cat_mem_stat(__LINE__.'-'.__FILE__); 
+ log_printf('loading raw products');
  my $request = [];
  { 
-	 my $raw_products = &do_query("select product_id, user_id, supplier_id from product");
-	 &log_printf('loaded raw products');
-#	 &cat_mem_stat(__LINE__.'-'.__FILE__);
-	 my $users = &do_query("select user_id, user_group from users");
+	 my $raw_products = do_query("select product_id, user_id, supplier_id from product");
+	 log_printf('loaded raw products');
+#	 cat_mem_stat(__LINE__.'-'.__FILE__);
+	 my $users = do_query("select user_id, user_group from users");
 	 my %users = map { $_->[0] => $_->[1] } @$users;
 
 	 my $i = 0;
  
-	 foreach my $row(@$raw_products){
+	 for my $row(@$raw_products){
  		my $ug = $users{$row->[1]};
-		my $q_rate = &get_quality_measure($ug);
+		my $q_rate = get_quality_measure($ug);
 #		if($i > 50){ next }
-	  my $row_quality = &get_quality_index($q_rate);
-#		&log_printf("product $row->[0] is $ug($row->[1] comparing to  $quality ");		
+	  my $row_quality = get_quality_index($q_rate);
+#		log_printf("product $row->[0] is $ug($row->[1] comparing to  $quality ");		
 		if($row_quality >= $quality &&
 		 ( ( $allowed{$row->[2]} && $supplier ) || !$supplier) ){
 				 if( $updated_from ){
-				 		 my $updated = &get_product_date_cached($row->[0]);
+				 		 my $updated = get_product_date_cached($row->[0]);
 						 if( $updated_from <= $updated) {
 								$i++;
 								push @$request, $row->[0];
@@ -2413,20 +2413,20 @@ if(defined $root->{'ProductsDumpRequest'}){
 	
 	}
 
-	 &log_printf("Request matched $i products");	
+	 log_printf("Request matched $i products");	
 	 undef $raw_products;
-	 &clear_product_date_cache();
+	 clear_product_date_cache();
 	}
  
 
  
-	 my $prod_xml = &load_complex_template('xml/products_dump.xml');
+	 my $prod_xml = load_complex_template('xml/products_dump.xml');
 
-#	 &cat_mem_stat(__LINE__.'-'.__FILE__); 
+#	 cat_mem_stat(__LINE__.'-'.__FILE__); 
 
  my $i = 0;
   
- foreach my $product_id(@$request){
+ for my $product_id(@$request){
   $i++;
 
 
@@ -2434,7 +2434,7 @@ if(defined $root->{'ProductsDumpRequest'}){
 	my $data;
 	my $where 		= '';
 
-#	&cat_mem_stat(__LINE__.'-'.__FILE__);  
+#	cat_mem_stat(__LINE__.'-'.__FILE__);  
   
 	$where 		= '';
 
@@ -2451,7 +2451,7 @@ if(defined $root->{'ProductsDumpRequest'}){
   $where = " product.product_id = ".$product_id;
   $req_type = 1;
 	
-	 $data = &do_query("select product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group, product.family_id from product, category, supplier, users where product.user_id = users.user_id	  and category.catid = product.catid and product.supplier_id = supplier.supplier_id  and ".$where);
+	 $data = do_query("select product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group, product.family_id from product, category, supplier, users where product.user_id = users.user_id	  and category.catid = product.catid and product.supplier_id = supplier.supplier_id  and ".$where);
 	 unless($data && $data->[0]){
 		if($req_type == 1){
 		 $e_product_id = 1;
@@ -2475,15 +2475,15 @@ if(defined $root->{'ProductsDumpRequest'}){
 	 $hash->{'Code'} = $code;
 
 # building product_description entries
-   my $des_data = &do_query("select short_desc, long_desc, warranty_info, official_url, product_description_id, langid, pdf_url from product_description as vocabulary where product_id = $row->[0] and ($f)");	 
+   my $des_data = do_query("select short_desc, long_desc, warranty_info, official_url, product_description_id, langid, pdf_url from product_description as vocabulary where product_id = $row->[0] and ($f)");	 
 
    $hash->{'ProductDescriptions'} = '';
-	 foreach my $des_row(@$des_data){
-		$hash->{'ProductDescriptions'} .= &repl_ph($prod_xml->{'product_description_row'}, 
-												{  "ShortDesc" 		=> &str_xmlize($des_row->[0]),
-													 "LongDesc"			=> &str_xmlize($des_row->[1]),
-													 "WarrantyInfo"	=> &str_xmlize($des_row->[2]),
-													 "URL"					=> &str_xmlize($des_row->[3]),
+	 for my $des_row(@$des_data){
+		$hash->{'ProductDescriptions'} .= repl_ph($prod_xml->{'product_description_row'}, 
+												{  "ShortDesc" 		=> str_xmlize($des_row->[0]),
+													 "LongDesc"			=> str_xmlize($des_row->[1]),
+													 "WarrantyInfo"	=> str_xmlize($des_row->[2]),
+													 "URL"					=> str_xmlize($des_row->[3]),
 													 "ID"						=> $des_row->[4],
 													  "PDFURL"                               => $des_row->[6],
 													 "langid"				=> $des_row->[5]
@@ -2500,32 +2500,32 @@ inner join feature f on m.measure_id = f.measure_id
 inner join category_feature cf on f.feature_id = cf.feature_id
 inner join product_feature pf on cf.category_feature_id = pf.category_feature_id
 
-where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
+where cf.catid = $row->[4] and pf.product_id = ".str_sqlize($row->[0]);
 
-  my $feat_data = &do_query($feat_data_query);
+  my $feat_data = do_query($feat_data_query);
 
 	 $hash->{'ProductFeature'} = '';
-	 foreach my $feat_row(@$feat_data){
-	  $hash->{'ProductFeature'} .= &repl_ph($prod_xml->{'product_feature_row'},
+	 for my $feat_row(@$feat_data){
+	  $hash->{'ProductFeature'} .= repl_ph($prod_xml->{'product_feature_row'},
 											  { "ID" 						=> $feat_row->[0],
 													"No"						=> $feat_row->[5],
 													"Feature_ID"		=> $feat_row->[1],
 													"CategoryFeatureGroup_ID" => int($feat_row->[6]),
-													"Value"					=> &str_xmlize($feat_row->[2]),
+													"Value"					=> str_xmlize($feat_row->[2]),
 													"Measure_ID"		=> $feat_row->[3]
 												 });
 	 }
 	undef $feat_data;
 	
 # building related
-	my $rel_data = &do_query("select product_related_id, rel_product_id, product.prod_id, product.supplier_id, supplier.name from product_related, product, supplier where product_related.product_id = $row->[0] and product_related.rel_product_id = product.product_id and product.supplier_id = supplier.supplier_id");	 
+	my $rel_data = do_query("select product_related_id, rel_product_id, product.prod_id, product.supplier_id, supplier.name from product_related, product, supplier where product_related.product_id = $row->[0] and product_related.rel_product_id = product.product_id and product.supplier_id = supplier.supplier_id");	 
 
 	$hash->{'ProductsRelated'} = '';
-	foreach my $rel_row(@$rel_data){
-	 $hash->{'ProductsRelated'} .= &repl_ph($prod_xml->{'product_related_row'},
+	for my $rel_row(@$rel_data){
+	 $hash->{'ProductsRelated'} .= repl_ph($prod_xml->{'product_related_row'},
 	 										 { 'ID' 				=> $rel_row->[0], 
 												 'Product_ID' => $rel_row->[1],
-												 'prod_id'		=> &str_xmlize($rel_row->[2]),
+												 'prod_id'		=> str_xmlize($rel_row->[2]),
 												 'supplier_id'=> $rel_row->[3]
 											 });
 	}
@@ -2534,37 +2534,37 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
 	
 
 # building bundled 
-    my $bndl_data = &do_query("select product_bundled.id, bndl_product_id from product_bundled where  product_bundled.product_id = $row->[0]  ");
+    my $bndl_data = do_query("select product_bundled.id, bndl_product_id from product_bundled where  product_bundled.product_id = $row->[0]  ");
 	
     $hash->{'ProductBundled'} = '';
-    foreach my $rel_row(@$bndl_data){
-        $hash->{'ProductBundled'} .= &repl_ph($prod_xml->{'product_bundled_row'},
+    for my $rel_row(@$bndl_data){
+        $hash->{'ProductBundled'} .= repl_ph($prod_xml->{'product_bundled_row'},
                                                                  { 'ID' => $rel_row->[0],
 	                                                           'Product_ID' => $rel_row->[1]
                                                             });
 			           }
     undef $bndl_data;
 
-   $hash->{'Prod_id'} = &str_xmlize($row->[1]);
+   $hash->{'Prod_id'} = str_xmlize($row->[1]);
    $hash->{'Supplier_ID'} = $row->[2];
    $hash->{'Category_ID'} = $row->[4];
    $hash->{'ProductFamily_ID'} = $row->[10];
-   $hash->{'Quality'} = &get_quality_measure($row->[9]);
-   $hash->{'Name'} =  &str_xmlize($row->[5]);
-   $hash->{'LowPic'} =  &str_xmlize($row->[6]);
-   $hash->{'HighPic'} = &str_xmlize($row->[7]);
+   $hash->{'Quality'} = get_quality_measure($row->[9]);
+   $hash->{'Name'} =  str_xmlize($row->[5]);
+   $hash->{'LowPic'} =  str_xmlize($row->[6]);
+   $hash->{'HighPic'} = str_xmlize($row->[7]);
    $hash->{'ThumbPic'} = $row->[8];	 
 	 $hash->{'ID'}			 = $row->[0];
 	 my $tmp;
-   $products .= $tmp = &repl_ph($prod_xml->{'product_body'}, $hash);
+   $products .= $tmp = repl_ph($prod_xml->{'product_body'}, $hash);
 
 	 undef $hash;
 	 undef $data;
 	 undef $row;
-#	 &log_printf("the xml chunk is ".length($tmp)." bytes on $i product");
-#	 &cat_mem_stat(__LINE__.'-'.__FILE__); 	 
+#	 log_printf("the xml chunk is ".length($tmp)." bytes on $i product");
+#	 cat_mem_stat(__LINE__.'-'.__FILE__); 	 
  }
- &log_printf("len of xml = ".length($products));
+ log_printf("len of xml = ".length($products));
  
  $prod_xml->{'body'} =~s/%%products%%/$products/g;
  
@@ -2585,8 +2585,8 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 	my $req = $root->{'SupplierProductFamiliesListRequest'}->[0];
 	my @lang = split(/,/, $req->{'langid'});
 	my $f = '0 ';
-	foreach my $langid (@lang) {
-		$f .= ' or langid = '.&str_sqlize($langid);
+	for my $langid (@lang) {
+		$f .= ' or langid = '.str_sqlize($langid);
 	}
 	my $supplier_id = $req->{'Supplier_ID'};
 	my $supplier_parent_family_id = $req->{'SupplierParentProductFamily_ID'};
@@ -2616,7 +2616,7 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 			$where .= "";
 		}
 		$query =~ s/!where!/$where/;
-		my $data = &do_query($query);
+		my $data = do_query($query);
 
 		if (!$data->[0][0]) {
 			$rh->{'SupplierProductFamiliesList'}->{'Error'} = "No matching families found";
@@ -2628,9 +2628,9 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 			my $series_name = {};
 
 			# building families	names
-			foreach my $row (@$data) {
-				my $fam_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, family_id, parent_family_id from product_family, vocabulary where vocabulary.sid = product_family.sid and ($f) and product_family.family_id = $row->[0]");
-				foreach my $fam_row (@$fam_data) {
+			for my $row (@$data) {
+				my $fam_data = do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid, family_id, parent_family_id from product_family, vocabulary where vocabulary.sid = product_family.sid and ($f) and product_family.family_id = $row->[0]");
+				for my $fam_row (@$fam_data) {
 					push @{$fam_name->{$fam_row->[3]}}, {
 						'langid' 	=> $fam_row->[2],
 						'Value'	  => $fam_row->[0],
@@ -2642,10 +2642,10 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 #																						'ID'			=>	$fam_row->[4]
 #																					};
 				}																					
-				my $series_data = &do_query(
+				my $series_data = do_query(
 					"select v.value, v.record_id, v.langid, ps.series_id from product_series ps join product_family pf using (family_id, supplier_id, catid) join vocabulary v on v.sid=ps.sid where ($f) and ps.family_id = $row->[0]"
 				);
-				foreach my $series_row (@$series_data) {
+				for my $series_row (@$series_data) {
 					$rh->{'SupplierProductFamiliesList'}
 						->{'ProductFamily'}->[ $row->[0] ]->{'Series'}
 						->[ $series_row->[3] ]->{'ID'} = $series_row->[3];
@@ -2658,8 +2658,8 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 						  'ID'     => $series_row->[1]
 						};
 				}
-				my $fam_data_descr = &do_query("select tex.value, tex.tex_id, tex.langid, family_id  from product_family,tex where tex.tid = product_family.tid and ($f) and product_family.family_id = $row->[0]");
-				foreach my $fam_row (@$fam_data_descr) {
+				my $fam_data_descr = do_query("select tex.value, tex.tex_id, tex.langid, family_id  from product_family,tex where tex.tid = product_family.tid and ($f) and product_family.family_id = $row->[0]");
+				for my $fam_row (@$fam_data_descr) {
 					push @{$fam_name_descr->{$fam_row->[3]}}, {
 						'langid' 	=> $fam_row->[2],
 						'Value'	  => $fam_row->[0],
@@ -2667,7 +2667,7 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 					};
 				}
 
-#		 foreach my $pcat_row(@{$pcat_name->{$row->[4]}}){
+#		 for my $pcat_row(@{$pcat_name->{$row->[4]}}){
 #			my $hash = {};
 #			%$hash = %{$pfam_row};
 #			push @{$rh->{'SupplierFamiliesList'}->{'ProductFamily'}->{$row->[0]}->{'ParentProductFamily'}->{'Names'}->{'Name'}},
@@ -2675,7 +2675,7 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 #			}
 
 				# select supplier data
-				my $supp_data = &do_query("select supplier_id, name from supplier where supplier_id = $row->[4]");
+				my $supp_data = do_query("select supplier_id, name from supplier where supplier_id = $row->[4]");
 
 				$rh->{'SupplierProductFamiliesList'}->{'ProductFamily'}->[$row->[0]]->{'ID'}	= $row->[0];
 				$rh->{'SupplierProductFamiliesList'}->{'ProductFamily'}->[$row->[0]]->{'Name'} = $fam_name->{$row->[0]}; 
@@ -2693,7 +2693,7 @@ if (defined $root->{'SupplierProductFamiliesListRequest'}) {
 	}
 }
 
-&log_printf('done processing content');
+log_printf('done processing content');
 
 }
 
@@ -2706,26 +2706,26 @@ return ({'Response' => [$rh],
 sub icecat_server_main
 {
 
-&push_dmesg(4, 'starting up ReadParse');
+push_dmesg(4, 'starting up ReadParse');
 
-&atom_html::ReadParse;
+atom_html::ReadParse;
 
-&push_dmesg(4, 'done');
+push_dmesg(4, 'done');
 
 my $message = $hin{'REQUEST_BODY'};
-my ($response, $gzipped) = &respond_message($message);
-#&log_printf ("response = ".Dumper($response));
+my ($response, $gzipped) = respond_message($message);
+#log_printf ("response = ".Dumper($response));
 
-    $response = &build_message($response, "response");
+    $response = build_message($response, "response");
 
 if($gzipped){
  print "Content-type: application/x-gzip\n\n";
- $response = &gzip_data_by_ref($response);
+ $response = gzip_data_by_ref($response);
 } else {
  print "Content-type: text/xml; charset=utf-8\n\n";
-# &Encode::_utf8_on($response);
+# Encode::_utf8_on($response);
  binmode(STDOUT,":utf8");
-# &log_printf($response);
+# log_printf($response);
 }
 
 print STDOUT $$response;
@@ -2735,15 +2735,15 @@ print STDOUT $$response;
 sub icecat_server_main_local {
 	my ($in) = @_;
 	
-	my ($response, $gzipped) = &respond_message($$in,'skip_validation'); # skipped - cause called locally
+	my ($response, $gzipped) = respond_message($$in,'skip_validation'); # skipped - cause called locally
 
-	$response = &build_message($response, "response");
+	$response = build_message($response, "response");
 
 	if ($gzipped) {
-		$response = &gzip_data_by_ref($response);
+		$response = gzip_data_by_ref($response);
 	}
 	else {
-		&Encode::_utf8_on($response);
+		Encode::_utf8_on($response);
 	}
 	
 	return $response;
@@ -2751,7 +2751,7 @@ sub icecat_server_main_local {
 
 sub icecat_server_main_cgi {
 
-&atom_html::ReadParse;
+atom_html::ReadParse;
 
 print "Content-type: text/plain\n\n";
 
@@ -2790,9 +2790,9 @@ if($hin{'Prod_id'} && $hin{'Supplier'} && $hin{'langid'}){
 }
 
 
-my $message = &build_message(&build_request($hash,$hin{'shop'},$hin{'pass'},$hin{'Request_ID'}||''));
+my $message = build_message(build_request($hash,$hin{'shop'},$hin{'pass'},$hin{'Request_ID'}||''));
 
-my $response = &build_message(&respond_message($$message));
+my $response = build_message(respond_message($$message));
 
 print $$response;
 
@@ -2801,7 +2801,7 @@ print $$response;
 sub icecat_server_main_cgi2html
 {
 
- &html_start();
+ html_start();
  
  $hin{'tmpl'} = 'product_details_pub.html';
 
@@ -2815,9 +2815,9 @@ sub icecat_server_main_cgi2html
  my $status = 1;
  my $user_id = '';
 
- my $usr_data = &do_query("select user_id, user_group, access_restriction, access_restriction_ip  from users where login =".&atomsql::str_sqlize($login)." and password = ".&atomsql::str_sqlize($pass));
+ my $usr_data = do_query("select user_id, user_group, access_restriction, access_restriction_ip  from users where login =".atomsql::str_sqlize($login)." and password = ".atomsql::str_sqlize($pass));
  
-	&atom_engine::init_atom_engine();
+	atom_engine::init_atom_engine();
 
 
  $status = -1;
@@ -2833,7 +2833,7 @@ sub icecat_server_main_cgi2html
  
 	
  if($usr_data && $usr_data->[0] && $usr_data->[0][1] eq 'shop'&&
-   &verify_address($usr_data->[0][2], $usr_data->[0][3], $ENV{'REMOTE_ADDR'} )){
+   verify_address($usr_data->[0][2], $usr_data->[0][3], $ENV{'REMOTE_ADDR'} )){
   $status = 1;
 	$hl{'user_id'} = $user_id = $usr_data->[0][0];
 	
@@ -2843,7 +2843,7 @@ sub icecat_server_main_cgi2html
 	 
 	 $hin{'product_id'} = $hin{'ID'};
 
-	 my $r = &do_query("select product_id from product where product_id = ".&str_sqlize($hin{'ID'}));
+	 my $r = do_query("select product_id from product where product_id = ".str_sqlize($hin{'ID'}));
 	 if($r && $r->[0]){
 	  $hin{'product_id'} = $r->[0][0];
 	 } else {
@@ -2854,7 +2854,7 @@ sub icecat_server_main_cgi2html
 
 	} elsif($hin{'Supplier_ID'} && $hin{'Prod_id'} ) {
 	 
-	 my $r = &do_query("select product_id from product where supplier_id = ".&str_sqlize(int($hin{'Supplier_ID'}))." and prod_id = ".&str_sqlize($hin{'Prod_id'}));
+	 my $r = do_query("select product_id from product where supplier_id = ".str_sqlize(int($hin{'Supplier_ID'}))." and prod_id = ".str_sqlize($hin{'Prod_id'}));
 
 	 if($r && $r->[0]){
 	  $hin{'product_id'} = $r->[0][0];
@@ -2866,7 +2866,7 @@ sub icecat_server_main_cgi2html
 
 	 # validating input
 
-	 my $supp = &do_query("select supplier_id, name from supplier where supplier_id = ".&str_sqlize(int($hin{'Supplier_ID'})));
+	 my $supp = do_query("select supplier_id, name from supplier where supplier_id = ".str_sqlize(int($hin{'Supplier_ID'})));
 	 unless($supp && $supp->[0]){
 	  # supplier_id is wrong
 		$e_supp_id = 1;
@@ -2882,7 +2882,7 @@ sub icecat_server_main_cgi2html
 	} else {
 # then we have to assume the Prod_id and Supplier present
 	 # validating input
-	 my $supp = &do_query("select supplier_id from supplier where name = ".&str_sqlize($hin{'Supplier'}));
+	 my $supp = do_query("select supplier_id from supplier where name = ".str_sqlize($hin{'Supplier'}));
 	 unless($supp && $supp->[0]){
 	  # supplier_id is wrong
 		$e_supp_name = 1;
@@ -2893,7 +2893,7 @@ sub icecat_server_main_cgi2html
 	 }
 
 
-	 my $r = &do_query("select product_id from product where supplier_id = ".&str_sqlize($vfied_supplier_id)." and prod_id = ".&str_sqlize($hin{'Prod_id'}));
+	 my $r = do_query("select product_id from product where supplier_id = ".str_sqlize($vfied_supplier_id)." and prod_id = ".str_sqlize($hin{'Prod_id'}));
 
 	 if($r && $r->[0]){
 	  $hin{'product_id'} = $r->[0][0];
@@ -2928,42 +2928,42 @@ sub icecat_server_main_cgi2html
 	 }
 	 
   if($code != 1){
-#	 &push_user_error("Please, check your request(code $code).");
-	 &print_html("<font size=+3>Sorry, no information available about this product.<BR>Please, check your request(code $code).</font>");
+#	 push_user_error("Please, check your request(code $code).");
+	 print_html("<font size=+3>Sorry, no information available about this product.<BR>Please, check your request(code $code).</font>");
 	}	else {
-		&atom_engine::launch_atom_engine();
+		atom_engine::launch_atom_engine();
 	}
-	&atom_engine::done_atom_engine();
+	atom_engine::done_atom_engine();
 
 
  } else {
 	$status = -1;
  }
  
-	&atom_engine::html_finish(); 
+	atom_engine::html_finish(); 
 	
 	my $nowtime;
 	
 
-&insert_rows('request', 
+insert_rows('request', 
 			 { 
-				 'user_id'				=> &str_sqlize($user_id),
+				 'user_id'				=> str_sqlize($user_id),
 				 'status'					=> $status,
-				 'date'						=> &str_sqlize($nowtime = time),
-				 'login'					=> &str_sqlize($login),
-				 'ip'							=> &str_sqlize($ENV{'REMOTE_ADDR'})
+				 'date'						=> str_sqlize($nowtime = time),
+				 'login'					=> str_sqlize($login),
+				 'ip'							=> str_sqlize($ENV{'REMOTE_ADDR'})
 			 });
 
 
-my $req_id = &sql_last_insert_id();
+my $req_id = sql_last_insert_id();
 
-   &insert_rows('request_product', { 'request_id'			=> $req_id,
-																		 'rproduct_id'		=> &str_sqlize($hin{'product_id'}),
-																		 'rprod_id'				=> &str_sqlize($hin{'Prod_id'}),
-																		 'rsupplier_id'		=> &str_sqlize($vfied_supplier_id),
-																		 'rsupplier_name'	=> &str_sqlize($vfied_supplier_name),
+   insert_rows('request_product', { 'request_id'			=> $req_id,
+																		 'rproduct_id'		=> str_sqlize($hin{'product_id'}),
+																		 'rprod_id'				=> str_sqlize($hin{'Prod_id'}),
+																		 'rsupplier_id'		=> str_sqlize($vfied_supplier_id),
+																		 'rsupplier_name'	=> str_sqlize($vfied_supplier_name),
 																		 'code'						=> $code,
-																		 'product_found'	=> &str_sqlize($e_not_found^1)
+																		 'product_found'	=> str_sqlize($e_not_found^1)
 																	 });	 
 
 
@@ -2974,32 +2974,32 @@ sub log_xml_request
 {
 my ($request_id, $user_id, $status, $nowtime, $login) = @_;
 
-&insert_rows('request', 
+insert_rows('request', 
 			 { 
-				 'ext_request_id' => &str_sqlize($request_id),
-				 'user_id'				=> &str_sqlize($user_id),
+				 'ext_request_id' => str_sqlize($request_id),
+				 'user_id'				=> str_sqlize($user_id),
 				 'status'					=> $status,
-				 'date'						=> &str_sqlize($nowtime = time),
-				 'login'					=> &str_sqlize($login),
-				 'ip'							=> &str_sqlize($ENV{'REMOTE_ADDR'})
+				 'date'						=> str_sqlize($nowtime = time),
+				 'login'					=> str_sqlize($login),
+				 'ip'							=> str_sqlize($ENV{'REMOTE_ADDR'})
 			 });
 
-return &sql_last_insert_id;
+return sql_last_insert_id;
 }
 
 sub state_product_request
 {
 my ($request_id, $rproduct_id, $rprod_id, $rsupplier_id, $rsupplier_name, $code, $product_found) = @_;
-   &insert_rows('request_product', { 'request_id'			=> $request_id,
-			 'rproduct_id'		=> &str_sqlize($rproduct_id),
-			 'rprod_id'				=> &str_sqlize($rprod_id),
-					 'rsupplier_id'		=> &str_sqlize($rsupplier_id),
-					 'rsupplier_name'	=> &str_sqlize($rsupplier_name),
+   insert_rows('request_product', { 'request_id'			=> $request_id,
+			 'rproduct_id'		=> str_sqlize($rproduct_id),
+			 'rprod_id'				=> str_sqlize($rprod_id),
+					 'rsupplier_id'		=> str_sqlize($rsupplier_id),
+					 'rsupplier_name'	=> str_sqlize($rsupplier_name),
 				 'code'						=> $code,
-		 'product_found'	=> &str_sqlize($product_found),
+		 'product_found'	=> str_sqlize($product_found),
 		 'date' => 'unix_timestamp()'
 			 });	 
-return &sql_last_insert_id;
+return sql_last_insert_id;
 }
 
 sub describe_products_xml
@@ -3013,23 +3013,23 @@ my ($tmp_intersection_table, $destination, $catid, $f) = @_;
 	
 	my $use_tree = 1;
 	
- $datas = &do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic from product, supplier,".$tmp_intersection_table." where product.supplier_id = supplier.supplier_id and product.catid = ".&str_sqlize($catid)." and product.product_id =".$tmp_intersection_table.".product_id");
+ $datas = do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic from product, supplier,".$tmp_intersection_table." where product.supplier_id = supplier.supplier_id and product.catid = ".str_sqlize($catid)." and product.product_id =".$tmp_intersection_table.".product_id");
 
-	my $des_data = &do_query("select short_desc, product_description_id, langid, vocabulary.product_id from product_description as vocabulary,".$tmp_intersection_table." where ($f) and vocabulary.product_id = ".$tmp_intersection_table.".product_id");	 
+	my $des_data = do_query("select short_desc, product_description_id, langid, vocabulary.product_id from product_description as vocabulary,".$tmp_intersection_table." where ($f) and vocabulary.product_id = ".$tmp_intersection_table.".product_id");	 
   my $des_data_hash = {};
-  foreach my $row(@$des_data){
+  for my $row(@$des_data){
 		 push @{$des_data_hash->{$row->[3]} }, $row; 
 	}
 
-	my $cat_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid from category, vocabulary where vocabulary.sid = category.sid and ($f) and category.catid = ".&str_sqlize($catid));
+	my $cat_data = do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid from category, vocabulary where vocabulary.sid = category.sid and ($f) and category.catid = ".str_sqlize($catid));
 
-	foreach my $data(@$datas){
+	for my $data(@$datas){
 	  my $product_id = $data->[0];
 	  next if(!defined $data || !defined $data->[0]);
 		my $pcode = 1;
 
 # stating request
-#	  &state_product_request($rh->{'ID'}, $product_id, $data->[1], $data->[2], $data->[3], $pcode, 1);
+#	  state_product_request($rh->{'ID'}, $product_id, $data->[1], $data->[2], $data->[3], $pcode, 1);
 	 
 		my $row = $data;
 	 
@@ -3038,7 +3038,7 @@ my ($tmp_intersection_table, $destination, $catid, $f) = @_;
 # building cats	for product
 
 		my $cat_content = [];
-		foreach my $cat_row(@$cat_data){
+		for my $cat_row(@$cat_data){
 	 		push @$cat_content, { 					'ID'				=> $cat_row->[1],
 																		  'Value'			=> $cat_row->[0],
 																			'langid'		=> $cat_row->[2] } ;
@@ -3046,7 +3046,7 @@ my ($tmp_intersection_table, $destination, $catid, $f) = @_;
 
 # building product_description entries
 		my $des_content = [];
-		foreach my $des_row(@{$des_data_hash->{'product_id'}}){
+		for my $des_row(@{$des_data_hash->{'product_id'}}){
 			push @$des_content, {  "ShortDesc" 		=> $des_row->[0],
 													 "ID"						=> $des_row->[1],
 													 "langid"				=> $des_row->[2]};		
@@ -3062,7 +3062,7 @@ my ($tmp_intersection_table, $destination, $catid, $f) = @_;
 		$destination->{$row->[0]}->{'ProductDescription'} = $des_content;
 	}
 #delete	temporary table
-	&do_statement("drop temporary table if exists ".$tmp_intersection_table);
+	do_statement("drop temporary table if exists ".$tmp_intersection_table);
 }
 
 sub get_product_xml_data_OLD {
@@ -3071,13 +3071,13 @@ sub get_product_xml_data_OLD {
     my $nowtime = time();
     my $pr_req = {};
     $rh->{'Date'} = localtime($nowtime);
-#    my $prod_xml = &load_complex_template('xml/product_file.xml');
+#    my $prod_xml = load_complex_template('xml/product_file.xml');
 
 
 # building feature group hashes 
-    my $feat_group_data = &do_query("select feature_group.feature_group_id, vocabulary.value, vocabulary.langid, vocabulary.record_id from feature_group, vocabulary where vocabulary.sid = feature_group.sid");
+    my $feat_group_data = do_query("select feature_group.feature_group_id, vocabulary.value, vocabulary.langid, vocabulary.record_id from feature_group, vocabulary where vocabulary.sid = feature_group.sid");
     my $feat_group = {};
-    foreach my $row(@$feat_group_data){
+    for my $row(@$feat_group_data){
         $feat_group->{$row->[0]}->{'ID'} = $row->[0];
         push @{$feat_group->{$row->[0]}->{'Name'}}, 
         {
@@ -3087,23 +3087,23 @@ sub get_product_xml_data_OLD {
 	}
     }
 
-    my $fns = &do_query("select vocabulary.value, vocabulary.langid, record_id, feature_id from vocabulary, feature where feature.sid = vocabulary.sid");
+    my $fns = do_query("select vocabulary.value, vocabulary.langid, record_id, feature_id from vocabulary, feature where feature.sid = vocabulary.sid");
     my $fn_hash = {};
  
-    foreach my $row(@$fns){
+    for my $row(@$fns){
 			push @{$fn_hash->{$row->[3]}}, $row;
     }
 
-    my $mss = &do_query("select measure_sign.value, measure_sign.langid, measure_sign_id, measure_id from measure_sign");
+    my $mss = do_query("select measure_sign.value, measure_sign.langid, measure_sign_id, measure_id from measure_sign");
     my $ms_hash = {};
  
-    foreach my $row(@$mss){
+    for my $row(@$mss){
 			push @{$ms_hash->{$row->[3]}}, $row;
     }
 
     $pr_req->{'ID'} = $p_id;
 
-    my  $data = &do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group, product.family_id, low_pic_size, high_pic_size, thumb_pic_size from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.product_id = $p_id");
+    my  $data = do_query("select product.product_id, prod_id, product.supplier_id, supplier.name, product.catid, product.name, product.low_pic, high_pic, product.thumb_pic, users.user_group, product.family_id, low_pic_size, high_pic_size, thumb_pic_size from product, category, supplier, users where product.user_id = users.user_id and category.catid = product.catid and product.supplier_id = supplier.supplier_id and product.product_id = $p_id");
     				   
     my $code = 1;	 
     my $row = $data->[0];
@@ -3112,28 +3112,28 @@ sub get_product_xml_data_OLD {
 #    $rh->{'ProductsList'}->{'Product'}->{'?'.($pr_req->{'ID'}).'?'}->{'Code'} = $code;
 
 # building cats	for product
-    my $cat_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid from category, vocabulary where vocabulary.sid = category.sid and category.catid = ".&str_sqlize($row->[4]));
+    my $cat_data = do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid from category, vocabulary where vocabulary.sid = category.sid and category.catid = ".str_sqlize($row->[4]));
     my $cat_content = [];
-    foreach my $cat_row(@$cat_data){
+    for my $cat_row(@$cat_data){
 	push @$cat_content, { 'ID'      => $cat_row->[1],
 			      'Value'	=> $cat_row->[0],
 			      'langid'	=> $cat_row->[2] } ;
     }
 		
 # building families	for product
-    my $fam_data = &do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid from product_family, vocabulary where vocabulary.sid = product_family.sid and product_family.family_id = ".&str_sqlize($row->[10]));
+    my $fam_data = do_query("select vocabulary.value, vocabulary.record_id, vocabulary.langid from product_family, vocabulary where vocabulary.sid = product_family.sid and product_family.family_id = ".str_sqlize($row->[10]));
     my $fam_content = [];
-    foreach my $fam_row(@$fam_data){
+    for my $fam_row(@$fam_data){
 	push @$fam_content, { 'ID'      => $fam_row->[1],
 			      'Value'	=> $fam_row->[0],
 			      'langid'	=> $fam_row->[2] } ;
     }
 		
 # building product_description entries
-    my $des_data = &do_query("select short_desc, long_desc, warranty_info, official_url, product_description_id, langid, pdf_url, pdf_size from product_description as vocabulary where product_id = $row->[0]");	 
+    my $des_data = do_query("select short_desc, long_desc, warranty_info, official_url, product_description_id, langid, pdf_url, pdf_size from product_description as vocabulary where product_id = $row->[0]");	 
     my $des_content = [];
 #    $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'ProductsDescription'} = '';
-    foreach my $des_row(@$des_data){
+    for my $des_row(@$des_data){
         push @$des_content, {  	"ShortDesc"              	=> $des_row->[0],
 	                     					"LongDesc"               	=> $des_row->[1],
 	                      				"WarrantyInfo"     				=> $des_row->[2],
@@ -3145,9 +3145,9 @@ sub get_product_xml_data_OLD {
 	}
 	
 # processing category features group
-    my $cat_feat_group_data = &do_query("select category_feature_group_id, feature_group_id, no from category_feature_group where catid=".$row->[4]);
+    my $cat_feat_group_data = do_query("select category_feature_group_id, feature_group_id, no from category_feature_group where catid=".$row->[4]);
     my $group_content = [];
-    foreach my $row(@$cat_feat_group_data){
+    for my $row(@$cat_feat_group_data){
 	push @$group_content, 
 			{
 			 "ID" => $row->[0],
@@ -3165,18 +3165,18 @@ inner join feature f on ms.measure_id = f.measure_id
 inner join category_feature cf on f.feature_id = cf.feature_id
 inner join product_feature pf on cf.category_feature_id = pf.category_feature_id
 
-where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
+where cf.catid = $row->[4] and pf.product_id = ".str_sqlize($row->[0]);
 
-    my $feat_data = &do_query($feat_data_query);
+    my $feat_data = do_query($feat_data_query);
  
     my $feat_content = [];
-    foreach my $feat_row(@$feat_data){
+    for my $feat_row(@$feat_data){
 				if($feat_row->[2] eq ''){
 		 			next;
 				}
 				my $feat_names = [];
         my $fn = $fn_hash->{$feat_row->[1]};
-				foreach my $fn_row(@$fn){
+				for my $fn_row(@$fn){
 	    		push @$feat_names, { 	'ID'=> $fn_row->[2], 
 			     											'langid'		=> $fn_row->[1],
 	    		     									'Value'	=> $fn_row->[0] 
@@ -3184,7 +3184,7 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
 				}
 				my $meas_names = [];
         my $ms = $ms_hash->{$feat_row->[3]};
-				foreach my $ms_row(@$ms){
+				for my $ms_row(@$ms){
 	    		push @$meas_names, { 	'ID'=> $ms_row->[2], 
 			     											'langid'		=> $ms_row->[1],
 	    		     									'Value'	=> $ms_row->[0] 
@@ -3208,10 +3208,10 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
     }
 
 # building bundled products
-    my $bndl_data = &do_query("select product_bundled.id, bndl_product_id, product.prod_id, product.supplier_id, supplier.name, product.name, product.thumb_pic from product_bundled, product, supplier where  product_bundled.product_id = $row->[0] and product_bundled.bndl_product_id = product.product_id and product.supplier_id = supplier.supplier_id");	 
+    my $bndl_data = do_query("select product_bundled.id, bndl_product_id, product.prod_id, product.supplier_id, supplier.name, product.name, product.thumb_pic from product_bundled, product, supplier where  product_bundled.product_id = $row->[0] and product_bundled.bndl_product_id = product.product_id and product.supplier_id = supplier.supplier_id");	 
     my $bndl_content = [];
 	
-    foreach my $rel_row(@$bndl_data){
+    for my $rel_row(@$bndl_data){
 					push @$bndl_content, 
 					{ 
 						'ID' 				=> $rel_row->[0], 
@@ -3228,13 +3228,13 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
 
 	 
 # building related
-	my $rel_data1 = &do_query("select product_related_id, rel_product_id, product.prod_id,
+	my $rel_data1 = do_query("select product_related_id, rel_product_id, product.prod_id,
 		product.supplier_id, supplier.name, product.name, product.thumb_pic,
 		product.catid from product, supplier,product_related  where
 		product_related.product_id = $row->[0] and 
 		product_related.rel_product_id = product.product_id and 
 		product.supplier_id = supplier.supplier_id");	 
-	my $rel_data2 = &do_query("select product_related_id, product.product_id, product.prod_id, product.supplier_id,
+	my $rel_data2 = do_query("select product_related_id, product.product_id, product.prod_id, product.supplier_id,
 	        supplier.name, product.name, product.thumb_pic, product.catid
 		from product_related, product, supplier where  product_related.rel_product_id = $row->[0] and
 		product_related.product_id = product.product_id and product.supplier_id = supplier.supplier_id");	 
@@ -3246,7 +3246,7 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
 	
 	my $rel_content = [];
 	
-	foreach my $rel_row(@$rel_data){
+	for my $rel_row(@$rel_data){
 	 if($i >= $#$rel_data1){
 	 		$reversed = 1;
 	 }
@@ -3273,9 +3273,9 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
 	}
     
 	#build gallery
-	my $gallery_data = &do_query("select id, link, thumb_link, height, width, size from product_gallery where product_id = ".$row->[0]);
+	my $gallery_data = do_query("select id, link, thumb_link, height, width, size from product_gallery where product_id = ".$row->[0]);
 	my $gallery_content = []; my $gallery_local_content = [];
-	foreach my $gallery_row(@$gallery_data){
+	for my $gallery_row(@$gallery_data){
 		push @$gallery_local_content,{'ProductPicture_ID' => $gallery_row->[0],
 														'Pic' => $gallery_row->[1],
 														'ThumbPic' => $gallery_row->[2],
@@ -3289,17 +3289,17 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
 	}
 
         # building EAN codes list
-	my $eans = &do_query("select ean_code from product_ean_codes where product_id = ".$row->[0]);
+	my $eans = do_query("select ean_code from product_ean_codes where product_id = ".$row->[0]);
 	my $ean_content = [];
 
-	foreach my $r (@$eans) {
+	for my $r (@$eans) {
 		push @$ean_content, { 'EAN' => $r->[0] };
 	}
 	
 	#build multimedia objects
-	my $obj_data = &do_query("select id, link, short_descr, size, updated, langid, content_type, keep_as_url, type, width, height from product_multimedia_object where product_id = ".$row->[0]);
+	my $obj_data = do_query("select id, link, short_descr, size, updated, langid, content_type, keep_as_url, type, width, height from product_multimedia_object where product_id = ".$row->[0]);
 	my $obj_content = []; my $obj_local_content = [];
-	foreach my $obj_row(@$obj_data){
+	for my $obj_row(@$obj_data){
 		if(!$obj_row->[0]){ last;}
 		push @$obj_local_content,{'MultimediaObject_ID' => $obj_row->[0],
 															'URL' => $obj_row->[1],
@@ -3321,7 +3321,7 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
    $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'ID'} = $p_id;
    $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'Code'} = $code;
 	 $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'Prod_id'} = $row->[1];
-	 $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'Quality'} = &get_quality_measure($row->[9]);
+	 $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'Quality'} = get_quality_measure($row->[9]);
 	 $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'Name'} = $row->[5];
 	 $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'LowPic'} = $row->[6];
 	 $rh->{'ProductsList'}->{'Product'}->{$row->[0]}->{'LowPicSize'} = $row->[11];
@@ -3343,7 +3343,7 @@ where cf.catid = $row->[4] and pf.product_id = ".&str_sqlize($row->[0]);
 	 
 
 		my $response = {'Response' => [$rh]}; 
-		$response = &xml_out($response, 
+		$response = xml_out($response, 
 												 {
 													 key_attr => {
 														 'Measure'       => 'ID',
@@ -3380,7 +3380,7 @@ sub put_product_xml2_file{
 			return undef;
 		}
 #    print $data;
-    my $data2file = &xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{'host'}."dtd/ICECAT-interface_response.dtd\">\n\t".&source_message()."\n\t<ICECAT-interface>\n$data\n</ICECAT-interface>";
+    my $data2file = xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{'host'}."dtd/ICECAT-interface_response.dtd\">\n\t".source_message()."\n\t<ICECAT-interface>\n$data\n</ICECAT-interface>";
 		my $file_path = $atomcfg{xml_dir_path}.$p_id.".xml";
 
     open(XML_FILE, ">$file_path") or die "Can't open '$file_path'";
@@ -3389,7 +3389,7 @@ sub put_product_xml2_file{
 	
     close(XML_FILE);
 
-    my $updated = &get_product_date($p_id);
+    my $updated = get_product_date($p_id);
 #    print "from 2file: $updated\n";
     utime((stat($file_path))[8], $updated, $file_path) or die "Can't modify mtime in $file_path.Exit.";
 
@@ -3410,24 +3410,24 @@ sub put_product_xml2_repo {
 		$file_path = [ $file_path ];
 	}
 	unless ($product_date) {
-		$product_date = &get_product_date($p_id);
+		$product_date = get_product_date($p_id);
 	}
 	if ($langid == -1) {
 		return undef;
 	}
 	else {
 		if (!$$data) {
-			$data =	&get_product_partsxml_fromdb($p_id, $langid);
+			$data =	get_product_partsxml_fromdb($p_id, $langid);
 		}
 	}
 
-	my $data2file = &xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{'host'}."dtd/ICECAT-interface_response.dtd\">\n\t".&source_message()."\n\t<ICECAT-interface " .&xsd_header('ICECAT-interface_response') .">\n".$$data."\n</ICECAT-interface>";
+	my $data2file = xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{'host'}."dtd/ICECAT-interface_response.dtd\">\n\t".source_message()."\n\t<ICECAT-interface " .xsd_header('ICECAT-interface_response') .">\n".$$data."\n</ICECAT-interface>";
 
-	my $product_id_path = &get_smart_path($p_id);
-	#&log_printf($product_id_path);
+	my $product_id_path = get_smart_path($p_id);
+	#log_printf($product_id_path);
 	my $file;
 	
-	foreach (@$file_path) {
+	for (@$file_path) {
 		$file = $_.$product_id_path.$p_id.'.xml';
 		next unless $_;
 		unless (-d $_.$product_id_path) {
@@ -3447,12 +3447,12 @@ sub put_product_xml2_repo {
 		# load content to file
 		Encode::_utf8_on($data2file);
 		unless (open(XML_FILE, ">".$file.".gz")) {
-			&log_printf("Can't open '".$file.".gz' ".$!);
+			log_printf("Can't open '".$file.".gz' ".$!);
 			return undef;
 		}
 		XML_FILE->autoflush(0);
 		binmode XML_FILE, ":raw";
-		print XML_FILE &compress_data_by_ref(\$data2file,$file);
+		print XML_FILE compress_data_by_ref(\$data2file,$file);
 		close XML_FILE;
 		`/bin/rm -f $file`;
 		utime((stat($file.".gz"))[8], $product_date, $file.".gz") or die "Can't modify mtime in ".$file.". Exit.";
@@ -3473,25 +3473,25 @@ sub put_product_xml2_repo {
 			$rpath = $_;
 			$rpath =~ s/^.*(level4\/.*)$/$1/;
 			$rcmd = '/usr/bin/ssh -q '.$atomcfg{'backup_host'}." '/bin/mkdir -p ".$atomcfg{'backup_path'}.$rpath.$product_id_path."'";
-			&log_printf($rcmd);
+			log_printf($rcmd);
 			`$rcmd`;
 
 			# add xml
 			$rcmd = '/usr/bin/scp -qrB '.$file.'.gz '.$atomcfg{'backup_host'}.':'.$atomcfg{'backup_path'}.$rpath.$product_id_path;
-			&log_printf($rcmd);
+			log_printf($rcmd);
 			`$rcmd`;
 		}
 	}
 
 	# update product_modification_time
 	unless ($skip_update_modification_time) {
-		my $modtime = &do_query("select product_id, modification_time from product_modification_time where product_id=".$p_id)->[0];
+		my $modtime = do_query("select product_id, modification_time from product_modification_time where product_id=".$p_id)->[0];
 		if ($modtime->[0]) {
-			&do_statement("update product_modification_time set modification_time=".$product_date." where product_id=".$p_id);
+			do_statement("update product_modification_time set modification_time=".$product_date." where product_id=".$p_id);
 			return $modtime->[1] == $product_date ? 'old' : 'new';
 		}
 		else {
-			&do_statement("insert into product_modification_time(product_id,modification_time) values('".$p_id."','".$product_date."')");
+			do_statement("insert into product_modification_time(product_id,modification_time) values('".$p_id."','".$product_date."')");
 			return 'new';
 		}
 	}
@@ -3501,22 +3501,22 @@ sub put_product_xml2_repo {
 
 sub put_product_xml2_db_OLD {
     my $p_id = shift;
-    my $data2db = &get_product_xml_data($p_id);
+    my $data2db = get_product_xml_data($p_id);
 #	    my $nowtime = `date +%Y%m%d%H%M%S`;
     my $ret_data = $data2db;
-    $data2db = &str_sqlize($data2db);
-    my $updated = &data_management::get_product_date($p_id);    
+    $data2db = str_sqlize($data2db);
+    my $updated = data_management::get_product_date($p_id);    
 #    print "ToDB:\n".$data2db;
     print "from 2db: $updated\n";
 		my $xml_hash = {'product_id' => $p_id,
 										'xml_products_list_request_chunk' => $data2db,
 										'updated' => $updated
 									 };
-		my $exists = &do_query("select product_id from product_xml_cache where product_id = ".$p_id);										 
+		my $exists = do_query("select product_id from product_xml_cache where product_id = ".$p_id);										 
 	  if($exists->[0][0]){
-			&update_rows("product_xml_cache", "product_id = ".$p_id, $xml_hash);	
+			update_rows("product_xml_cache", "product_id = ".$p_id, $xml_hash);	
 		}else{
-			&insert_rows("product_xml_cache", $xml_hash);
+			insert_rows("product_xml_cache", $xml_hash);
 		}
 		
 		return ('', $ret_data);

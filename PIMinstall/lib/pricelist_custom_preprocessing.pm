@@ -87,7 +87,7 @@ sub custom_preprocessing_MSAN {
 
 	open F, ">".$file;
 	binmode F, ":utf8";
-  foreach my $sheet ($xls->sheets) {
+  for my $sheet ($xls->sheets) {
 		while ($sheet->has_data) {  
 			# get
 			@data = $sheet->next_row;
@@ -100,7 +100,7 @@ sub custom_preprocessing_MSAN {
 
 			# deternmine the Value field (first row)
 			if ($firstRow) {
-				foreach (0 .. @data) {
+				for (0 .. @data) {
 					if ($data[$_] eq 'Value') {
 						$ValueId = $_;
 						last;

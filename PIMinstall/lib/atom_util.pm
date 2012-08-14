@@ -113,7 +113,7 @@ BEGIN {
 }
 
 sub platform_table_complete {
-	&do_statement("insert ignore into platform(name) select trim(platform) from users where trim(platform) != '' and platform not like '%>%' and length(platform) > 2 group by 1");
+	do_statement("insert ignore into platform(name) select trim(platform) from users where trim(platform) != '' and platform not like '%>%' and length(platform) > 2 group by 1");
 
 } # sub platform_table_complete
 
@@ -133,9 +133,9 @@ sub get_product_id_list_from_prod_id_set {
 	$prod_id_set =~ s/^\s*(.*?)\s*$/$1/s;
 	$prod_id_set =~ s/\s+/ /sg;
 
-	my @total_raw_products = split /\s/, $prod_id_set;
-	foreach (@total_raw_products) {
-		$set .= &do_query("select group_concat(product_id separator ' ') from product where prod_id=".&str_sqlize($_)." ".$supplier_clause." group by prod_id")->[0][0];
+	my @total_raw_products = split(/\s/, $prod_id_set);
+	for (@total_raw_products) {
+		$set .= do_query("select group_concat(product_id separator ' ') from product where prod_id=".str_sqlize($_)." ".$supplier_clause." group by prod_id")->[0][0];
 		$set .= ' ';
 	}
 
@@ -183,12 +183,12 @@ sub make_nmtable {
 
 
 sub load_atomer_params {
-	&check_params();
+	check_params();
 }
 
 sub check_params {
 	if ($hin{'sel_langid'}) {
-		my $res = &atomsql::do_query("select langid from language where langid = ".&atomsql::str_sqlize($hin{'sel_langid'}));
+		my $res = atomsql::do_query("select langid from language where langid = ".atomsql::str_sqlize($hin{'sel_langid'}));
 		if (defined $res->[0]) {
 			$hl{'langid'} =  $hin{'sel_langid'};
 		}
@@ -227,7 +227,7 @@ sub load_template
  if($langid){
 	 if(!defined $lang_code->{$langid}){
  		# we are trying to load an atom lib
- 		$prefix 	= &atomsql::do_query("select code from language where langid = $langid")->[0][0];
+ 		$prefix 	= atomsql::do_query("select code from language where langid = $langid")->[0][0];
 		$lang_code->{$langid} = $prefix;
 	 } else {
 	  $prefix = $lang_code->{$langid};
@@ -243,12 +243,12 @@ sub load_template
  
  $last_path = $filename; # passing to global
  open(TMPL,"<$filename") 
-	  or &log_printf('load_template: can\'t open file '.$filename.': '.$!);
+	  or log_printf('load_template: can\'t open file '.$filename.': '.$!);
  binmode(TMPL,":utf8");
  my $tmpl = join('',<TMPL>);
  close(TMPL);	
 
- $tmpl =~ s/\$\$INCLUDE[ \t]+([^\$]+)[ \t]*\$\$/{&load_template($r_path.$1,$langid)}/ge;
+ $tmpl =~ s/\$\$INCLUDE[ \t]+([^\$]+)[ \t]*\$\$/{load_template($r_path.$1,$langid)}/ge;
 
  
  return $tmpl;
@@ -258,12 +258,12 @@ sub push_error {
 	my ($error_msg) = @_;
 
 	if ($last_path) {
-		push @errors, &str_htmlize($last_path.": ".$error_msg)."<BR>\n";  # After McAfee XSS test (9-03-2010)
-		&log_printf($last_path.": ".$error_msg);
+		push @errors, str_htmlize($last_path.": ".$error_msg)."<BR>\n";  # After McAfee XSS test (9-03-2010)
+		log_printf($last_path.": ".$error_msg);
 	}
 	else {	 
-		push @errors, &str_htmlize($error_msg)."<BR>\n";
-		&log_printf($error_msg);
+		push @errors, str_htmlize($error_msg)."<BR>\n";
+		log_printf($error_msg);
 	}
 } # sub push_error
 
@@ -271,17 +271,17 @@ sub push_user_error {
 	my ($error_msg) = @_;
 
 	if (!ref($error_msg)) {
-		push @user_errors, &str_htmlize($error_msg);
+		push @user_errors, str_htmlize($error_msg);
 	}
 	else {
 		for (my $i = 0; $i <= $#$error_msg; $i++) {
-			$error_msg->[$i] = &str_htmlize($error_msg->[$i]);
+			$error_msg->[$i] = str_htmlize($error_msg->[$i]);
 		}
 		push @user_errors, @$error_msg; 
 	}
 
 #	# additionally, restore <b> and </b>
-#	foreach (@user_errors) {
+#	for (@user_errors) {
 #		s/\&lt\;b\&gt\;/\<b\>/ig;
 #		s/\&lt\;\/b\&gt\;/\<\/b\>/ig;
 #	}
@@ -290,7 +290,7 @@ sub push_user_error {
 sub get_errors_text {
 	my $tmp;
 
-	foreach my $error (@errors) {
+	for my $error (@errors) {
 		$tmp .= '<LI>'.$error;
 	}
 	if ($tmp) {
@@ -357,13 +357,13 @@ sub get_atom_structure
  
  while($flag){
   $flag = $chunk =~ s/\s*(\w+)\s*\:(.*?)(\x1\s*(\w+)\s*\:)/$3/;
-	my ($name,$value) = &filter_params($1,$2);
+	my ($name,$value) = filter_params($1,$2);
 	$atom->{$name} = $value;
 	push @$struct_names, $name;
  }
 
  if($chunk =~ s/\s*(\w+)\s*\:(.*)//){
-	my ($name,$value) = &filter_params($1,$2);
+	my ($name,$value) = filter_params($1,$2);
 	$atom->{$name} = $value;
 	push @$struct_names, $name;
  }
@@ -381,13 +381,13 @@ sub get_iatom_structure
 {
  my ($chunk) = @_;
  # this will build helpers lists
- my $atom = &get_atom_structure($chunk);
+ my $atom = get_atom_structure($chunk);
  $atom->{'_resource_list'} = [];
  $atom->{'_tmpresource_list'} = [];
  $atom->{'_selector_list'} = []; 
  
  # forming lists
- foreach my $name(@{$atom->{'struct_names'}}){
+ for my $name(@{$atom->{'struct_names'}}){
   if($name =~/_resource_(.*)/
 	   && $name ne '_resource_list'){
 	 my $new_struct = $1;
@@ -437,7 +437,7 @@ sub push_dmesg
 {
  my ($level,$mesg) = @_;
  if($level <=  $debug_level){
-  &log_printf($mesg);
+  log_printf($mesg);
  }
 }
 
@@ -475,14 +475,14 @@ sub make_select {
 	
 	$isSelected = 0;
 
-	foreach my $i (@{$rows}) {
+	for my $i (@{$rows}) {
 		if (($sel eq $i->[0]) && (!$isSelected)) {
-			push (@tmp, "<option selected value=\"".&str_htmlize($i->[0])."\">".&str_htmlize($i->[1]));
+			push (@tmp, "<option selected value=\"".str_htmlize($i->[0])."\">".str_htmlize($i->[1]));
 			$isSelected = 1;
 		} elsif ($i->[0] eq '' && $i->[1] eq '') {
 			push (@tmp, '<option>');
 		} else {
-			push (@tmp, "<option value=\"".&str_htmlize($i->[0])."\">".&str_htmlize($i->[1]));
+			push (@tmp, "<option value=\"".str_htmlize($i->[0])."\">".str_htmlize($i->[1]));
 		}
 	}
 	
@@ -491,7 +491,7 @@ sub make_select {
 	# So, we check an options list
 	
 	my $yes_no_style = 1;
-	foreach my $i (@{$rows}) {
+	for my $i (@{$rows}) {
 	    if (($i->[1] !~ /\b(y|n|yes|no|unspecified)\b/i) && ($i->[1] ne '')) {
 		$yes_no_style = 0;
 		last;
@@ -521,21 +521,21 @@ sub make_multiselect {
 	my @selects = split ',', $sel;
 	my %hsel = map { $_ => 1 } @selects;
 
-	&log_printf(Dumper($sel));
-	&log_printf(Dumper(\@selects));
-	&log_printf(Dumper(\%hsel));
+	log_printf(Dumper($sel));
+	log_printf(Dumper(\@selects));
+	log_printf(Dumper(\%hsel));
   
 	push (@tmp, "<select multiple='multiple' ".$style." id=\"$name\" name=\"$name\">");
 
-	foreach my $i (@$rows) {
+	for my $i (@$rows) {
 		if ($hsel{$i->[0]}) {
-			push (@tmp, "<option selected value=\"".&str_htmlize($i->[0])."\">".&str_htmlize($i->[1]));
+			push (@tmp, "<option selected value=\"".str_htmlize($i->[0])."\">".str_htmlize($i->[1]));
 		}
 		elsif ($i->[0] eq '' && $i->[1] eq '') {
 			push (@tmp, '<option>');
 		}
 		else {
-			push (@tmp, "<option value=\"".&str_htmlize($i->[0])."\">".&str_htmlize($i->[1]));
+			push (@tmp, "<option value=\"".str_htmlize($i->[0])."\">".str_htmlize($i->[1]));
 		}
 	}
 	push (@tmp, "</select>");
@@ -547,11 +547,11 @@ sub make_radio {
 	my ($rows,$name,$sel) = @_;
 	my @tmp;	
 	
-	foreach my $i (@{$rows}) {
+	for my $i (@{$rows}) {
 		if ($sel eq $i->[0]) {
-			push (@tmp, "<input name=\'$name\' type=radio checked value=\"".&storehtml::str_htmlize($i->[0])."\">".$i->[1]);
+			push (@tmp, "<input name=\'$name\' type=radio checked value=\"".storehtml::str_htmlize($i->[0])."\">".$i->[1]);
 		} else {
-			push (@tmp, "<input name=\'$name\' type=radio value=\"".&storehtml::str_htmlize($i->[0])."\">".$i->[1]);
+			push (@tmp, "<input name=\'$name\' type=radio value=\"".storehtml::str_htmlize($i->[0])."\">".$i->[1]);
 		}
 	}
 
@@ -583,8 +583,8 @@ if(defined $tmp->{$id}->{'children'} && $sort && $#{$tmp->{$id}->{'children'}} >
  @list = @{$tmp->{$id}->{'children'}} if( defined $tmp->{$id}->{'children'} );
 }
 
-foreach my $child(@list){
-	push @$rows,@{&rearrange_as_tree($child,$level+1,$tmp,$sort,$multi)} if(defined $tmp->{$child}->{'data'}->[1]); # recursive call for the children
+for my $child(@list){
+	push @$rows,@{rearrange_as_tree($child,$level+1,$tmp,$sort,$multi)} if(defined $tmp->{$child}->{'data'}->[1]); # recursive call for the children
  }
 
 return $rows;
@@ -594,22 +594,22 @@ sub process_atom_lib
 {
  my ($atom_name) = @_;
  
- my $al = &load_template($atom_name.'.al',$hl{'langid'});
- my $atoms_text = &get_atoms_text($al);
+ my $al = load_template($atom_name.'.al',$hl{'langid'});
+ my $atoms_text = get_atoms_text($al);
 
- foreach my $text(@$atoms_text){
+ for my $text(@$atoms_text){
 
-  my $new_atom = &get_atom_structure($text);
+  my $new_atom = get_atom_structure($text);
 
 	if($new_atom->{'name'} ne $atom_name){
 
 #		log_printf(Dumper($new_atom));
 
-    &push_error('process_atom_lib: suspicious atom name. Please, see '.$atom_name.'.al');
+    push_error('process_atom_lib: suspicious atom name. Please, see '.$atom_name.'.al');
 	}
 
 	unless(defined $iatoms->{$new_atom->{'name'}}){
-	  &push_error('Can\'t load atom with invalid name');
+	  push_error('Can\'t load atom with invalid name');
 	} else{ 
 	   unless(defined $new_atom->{'class'}){
 		   $new_atom->{'class'} = 'default';
@@ -625,17 +625,17 @@ sub process_atom_ilib
  my ($atom_name) = @_;
  my $tmp = '';
 
- my $ail = &load_template($atom_name.'.ail');
- my $atoms_text = &get_atoms_text($ail);
+ my $ail = load_template($atom_name.'.ail');
+ my $atoms_text = get_atoms_text($ail);
 
- foreach my $text(@$atoms_text){
-  my $new_atom = &get_iatom_structure($text);
+ for my $text(@$atoms_text){
+  my $new_atom = get_iatom_structure($text);
 	if($new_atom->{'name'} ne $atom_name){
-    &push_error('process_atom_ilib: suspicious atom name. Please, see '.$atom_name.'.ail');
+    push_error('process_atom_ilib: suspicious atom name. Please, see '.$atom_name.'.ail');
 	}
 
 	unless($new_atom->{'name'}){
-    &push_error('process_atom_ilib: can\'t load atom with undefined name');
+    push_error('process_atom_ilib: can\'t load atom with undefined name');
 	} else{ 
 	  $iatoms->{$new_atom->{'name'}} = $new_atom; 
 	}
@@ -648,15 +648,15 @@ sub load_complex_template
 my ($file, $langid) = @_;
 
 my $text = '';
-$text = &load_template($file,$langid);
+$text = load_template($file,$langid);
 
 $atoms = '';
-$atoms = &get_atoms_text($text);
+$atoms = get_atoms_text($text);
 
 my $template;
-   $template = &get_atom_structure($atoms->[0]) if ($atoms->[0]);
+   $template = get_atom_structure($atoms->[0]) if ($atoms->[0]);
 
-foreach my $item(keys %$template){
+for my $item(keys %$template){
 	$template->{$item} =~s/\\([\{\}])/$1/g;
 }
 
@@ -669,11 +669,11 @@ sub load_email_template{
 
 	if(!$hl{'langid'}){ $hl{'langid'} = 1;}
 	
- 	&process_atom_ilib($template_id);
- 	&process_atom_lib($template_id);
+ 	process_atom_ilib($template_id);
+ 	process_atom_lib($template_id);
 	
-#  &process_atom_ilib("email");
-#  &process_atom_lib("email");
+#  process_atom_ilib("email");
+#  process_atom_lib("email");
   return $email_text;
 }
 
@@ -696,10 +696,10 @@ sub form_bit_strings {
 	my $lang_flag = shift;
 	my $pattern = "";
 	my $mask = "";
-	my $lang_codes = &do_query("select short_code from language order by langid asc");
+	my $lang_codes = do_query("select short_code from language order by langid asc");
 	my @arr;
 
-	foreach my $code (@$lang_codes) {
+	for my $code (@$lang_codes) {
 		push @arr, $code->[0];
 	}
 	
@@ -710,7 +710,7 @@ sub form_bit_strings {
 	
 	# form string in define/undefine format
 	# def_undef = '101' => en = 1, nl = 0/1, fr = 1
-	foreach (my $cnt = 0; $cnt <= $#descriptions; $cnt++) {
+	for (my $cnt = 0; $cnt <= $#descriptions; $cnt++) {
 		if (! defined $descriptions[$cnt] || ($descriptions[$cnt] == 0)) {
 			substr($pattern, 0, 0) = "0";
 		}
@@ -721,7 +721,7 @@ sub form_bit_strings {
 	
 	# form mask define/undefine
 	# search = 'Def Undef Def' => $mask = 010
-	foreach (my $cnt = 0; $cnt <= $#descriptions; $cnt++) {
+	for (my $cnt = 0; $cnt <= $#descriptions; $cnt++) {
 		if (! defined $descriptions[$cnt]) {
 			substr($mask, 0, 0) = "1";
 		}
@@ -731,13 +731,13 @@ sub form_bit_strings {
 	}
 	
 	#form not mask, not pattern
-	my $not_pattern = 2**($#descriptions + 1) -1 - &bin2dec($pattern);
-	my $not_mask = 2**($#descriptions + 1) -1 - &bin2dec($mask);
+	my $not_pattern = 2**($#descriptions + 1) -1 - bin2dec($pattern);
+	my $not_mask = 2**($#descriptions + 1) -1 - bin2dec($mask);
 
-#	&log_printf("mask = ".$mask.", pattern = ".$pattern);
+#	log_printf("mask = ".$mask.", pattern = ".$pattern);
 	
-	$mask = &bin2dec($mask);
-	$pattern = &bin2dec($pattern);
+	$mask = bin2dec($mask);
+	$pattern = bin2dec($pattern);
 	$search_string = "((($mask | $lang_flag) & $pattern) = $pattern) and ((($not_mask & $lang_flag) & $not_pattern) = 0)";
 	
 	#fo future sessions
@@ -797,9 +797,9 @@ sub remove_www_links {
 sub code{
   my ($str) = @_;
   $str =~ s/\//\|/g;
-  my $hp = &escape('#');
-  my $plus = &escape('+');
-  my $quest = &escape('?');
+  my $hp = escape('#');
+  my $plus = escape('+');
+  my $quest = escape('?');
   $str =~ s/#/$hp/g;
   $str =~ s/\+/$plus/g;
   $str =~ s/\?/$quest/g;
@@ -843,7 +843,7 @@ sub get_langid_hash {
 
     my $ref = {};
     my $ans = atomsql::do_query('SELECT langid, short_code FROM language');
-    foreach (@$ans) {
+    for (@$ans) {
 	$ref->{$_->[1]} = $_->[0];
     }
     return $ref;
@@ -876,7 +876,7 @@ sub make_category_feature_intervals {
     my $invalid = {};
 	
     # analyze a set of values
-    foreach (@$ans) {
+    for (@$ans) {
         $a_total += $_->[1];
 	# if decimal fract
         if ($_->[0] =~ /^([1-9][0-9]*|0)\.[0-9]+$/x) {
@@ -939,7 +939,7 @@ sub make_category_feature_intervals {
 	}
 
 	# make a hash of intervals
-	foreach (@$valids) {
+	for (@$valids) {
 	    $steps->{$from} = $_;
 	    unless ($from) {
 		push @$sums, $valid->{$_};
@@ -958,7 +958,7 @@ sub make_category_feature_intervals {
 	my $interval = 1;
 
 	# make result
-	foreach (sort {$a <=> $b} keys %$steps) {
+	for (sort {$a <=> $b} keys %$steps) {
 	    my $sum = shift @$sums;
 	    $result->{$interval} = 
 		$_ . '-' . $steps->{$_} . " <" . $sum . ">";
@@ -979,7 +979,7 @@ sub make_category_feature_intervals {
 	}
 
 	# make result
-	foreach my $step (@$steps) {
+	for my $step (@$steps) {
 	    $begin = $idx;
 	    while ($idx < ($begin + $step)) {
 		$size += $valid->{$valids->[$idx]};
@@ -998,7 +998,7 @@ sub make_category_feature_intervals {
     my $inter_arr = [];
     my $in_each_arr = [];
     
-    foreach (values %$result) {
+    for (values %$result) {
         /^(.*)\s<(\d+)>$/;
         push @$inter_arr, $1;
         push @$in_each_arr, $2;
@@ -1023,10 +1023,10 @@ sub diff_table_md5 {
 	my ($table, $id) = @_;
 
 	# get the cached md5
-	my $cached_md5 = &_get_table_md5_from_cache($table, $id);
+	my $cached_md5 = _get_table_md5_from_cache($table, $id);
 	
 	# generate the current md5
-	my $new_md5 = &_prepare_table_md5($table, $id);
+	my $new_md5 = _prepare_table_md5($table, $id);
 
 	# return diff
 
@@ -1043,7 +1043,7 @@ sub _prepare_table_md5 {
 
 	if ($table eq 'measure') {
 
-		$string = encode_utf8(&atomsql::do_query("select concat(
+		$string = encode_utf8(atomsql::do_query("select concat(
 
 (select group_concat(v.value separator ',') from vocabulary v where v.sid = m.sid ".$lang_clause." group by v.sid order by v.langid asc),
 (select group_concat(ms.value separator ',') from measure_sign ms where ms.measure_id = m.measure_id ".$lang_clause." group by ms.measure_id order by ms.langid asc),
@@ -1056,7 +1056,7 @@ m.system_of_measurement
 	}
 	elsif ($table eq 'feature') {
 
-		$string = encode_utf8(&atomsql::do_query("select concat(
+		$string = encode_utf8(atomsql::do_query("select concat(
 
 (select group_concat(v.value separator ',') from vocabulary v where v.sid = f.sid ".$lang_clause." group by v.sid order by v.langid asc),
 f.type, ',',
@@ -1070,7 +1070,7 @@ f.searchable
 	}
 	elsif ($table eq 'category') {
 		
-		$string = encode_utf8(&atomsql::do_query("select concat(
+		$string = encode_utf8(atomsql::do_query("select concat(
 
 (select group_concat(v.value separator ',') from vocabulary v where v.sid = c.sid ".$lang_clause." group by v.sid order by v.langid asc),
 c.pcatid, ',',
@@ -1090,7 +1090,7 @@ c.low_pic
 sub _get_table_md5_from_cache {
 	my ($table, $id) = @_;
 	
-	return &atomsql::do_query("select md5_hash from update_product_md5_cache where table_name = ".&atomsql::str_sqlize($table)." and table_id = ".$id)->[0][0];
+	return atomsql::do_query("select md5_hash from update_product_md5_cache where table_name = ".atomsql::str_sqlize($table)." and table_id = ".$id)->[0][0];
 } # sub _get_table_md5_from_cache
 
 sub update_table_md5 {
@@ -1101,16 +1101,16 @@ sub update_table_md5 {
 	$ids =~ s/^\((.*)\)$/$1/s;
 	my @arr = split ',', $ids;
 
-	foreach (@arr) {
+	for (@arr) {
 #		print $_." ";
-		my $new_md5 = &_prepare_table_md5($table, $_);
-		if (&atomsql::do_query("select 1 from update_product_md5_cache where table_name=".&atomsql::str_sqlize($table)." and table_id=".$_)->[0][0]) {
-			&atomsql::do_statement("update update_product_md5_cache set md5_hash=".&atomsql::str_sqlize($new_md5->[0]).", size=".$new_md5->[1]."
-where table_name=".&atomsql::str_sqlize($table)." and table_id=".$_);
+		my $new_md5 = _prepare_table_md5($table, $_);
+		if (atomsql::do_query("select 1 from update_product_md5_cache where table_name=".atomsql::str_sqlize($table)." and table_id=".$_)->[0][0]) {
+			atomsql::do_statement("update update_product_md5_cache set md5_hash=".atomsql::str_sqlize($new_md5->[0]).", size=".$new_md5->[1]."
+where table_name=".atomsql::str_sqlize($table)." and table_id=".$_);
 		}
 		else {
-			&atomsql::do_statement("insert into update_product_md5_cache(md5_hash,table_name,table_id,size)
-values(".&atomsql::str_sqlize($new_md5->[0]).",".&atomsql::str_sqlize($table).",".$_.",".$new_md5->[1].")");
+			atomsql::do_statement("insert into update_product_md5_cache(md5_hash,table_name,table_id,size)
+values(".atomsql::str_sqlize($new_md5->[0]).",".atomsql::str_sqlize($table).",".$_.",".$new_md5->[1].")");
 		}
 	}
 
@@ -1150,7 +1150,7 @@ sub sync_all_distributors {
     # make countries hash
     my %countries;
     my $countries = atomsql::do_query("SELECT country_id, code FROM country");
-    foreach (@$countries) {
+    for (@$countries) {
         $countries{$_->[0]} = $_->[1];
     }
     
@@ -1166,7 +1166,7 @@ sub sync_all_distributors {
     # make SOAP request
     
     my $cc = 0;
-    foreach (@$dist_codes) {
+    for (@$dist_codes) {
         $req .= $_->[0] . "^";
         $cc++;
     }
@@ -1212,7 +1212,7 @@ sub sync_all_distributors {
     my $result;
     my $c = 0;
 	
-    foreach ( @dist_info ) {
+    for ( @dist_info ) {
 		
         $result .= $_->{'distri_code'} . '^';
         $c++;
@@ -1263,15 +1263,15 @@ sub sync_all_distributors {
 	my %seen = ();
 	my @local_only = ();
 	
-	foreach my $item (@dist_info) { $seen{$item->{'distri_code'}} = 1 };
+	for my $item (@dist_info) { $seen{$item->{'distri_code'}} = 1 };
 	
-	foreach my $item(@$dist_codes) {
+	for my $item(@$dist_codes) {
 		unless ($seen{$item->[0]}) {
 			push @local_only, $item->[0];
 		}
 	}
 	
-	foreach (@local_only) {
+	for (@local_only) {
 		atomsql::do_statement("UPDATE distributor SET sync = NULL WHERE code = '$_'");
             log_printf("Update -- NULL");
 	}
@@ -1341,7 +1341,7 @@ sub count_features_for_ej {
     my $warehouse = {};
     my $add_to_warehouse = sub {
         my $a = shift;
-        foreach my $elem (keys %$a) {
+        for my $elem (keys %$a) {
             $warehouse->{$elem} = 1;
         }
         return;
@@ -1349,7 +1349,7 @@ sub count_features_for_ej {
 
     my $c = 0;
     my ($d, $ref);
-    foreach my $r (@$ans) {
+    for my $r (@$ans) {
         $d = $r->[0];
         $ref = ser_unpack($d);
         $add_to_warehouse->($ref);
@@ -1381,7 +1381,7 @@ sub get_restricted_products_from_db {
     my $suppliers = atomsql::do_query($q);
     
     # fetch RES data
-    foreach my $s (@$suppliers) {
+    for my $s (@$suppliers) {
         
         my $element = {};
         $element->{'supplier_id'} = $s->[0];
@@ -1397,7 +1397,7 @@ sub get_restricted_products_from_db {
         # convert answer to comma separated list
         my $list = '';
         my $list2 = '';
-        foreach my $x ( @$ans ) {
+        for my $x ( @$ans ) {
             $list .= $x->[0] . ",";
             $list2 .= $x->[1] . ",";
         }

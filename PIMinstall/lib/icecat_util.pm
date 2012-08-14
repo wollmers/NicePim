@@ -90,27 +90,27 @@ sub get_corrected_product_feature_value {
 	my $yes = 'yes';
 	my $no = 'no';
 
-	if (lc(&trim($value)) eq $yes) {
+	if (lc(trim($value)) eq $yes) {
 		return 'Y';
-	} elsif (lc(&trim($value)) eq $no) {
+	} elsif (lc(trim($value)) eq $no) {
 		return 'N';
 	}
 
 	if ($langid) {
 
-		my $result  = &do_query("select value from feature_values_vocabulary where TRIM(value) != '' AND key_value = 'Yes' and langid=".&str_sqlize($langid));
+		my $result  = do_query("select value from feature_values_vocabulary where TRIM(value) != '' AND key_value = 'Yes' and langid=".str_sqlize($langid));
 		if($result->[0] && $result->[0][0] ne ''){
 			$yes = $result->[0][0];
 		}
 
-		my $result  = &do_query("select value from feature_values_vocabulary where TRIM(value) != '' AND key_value = 'No' and langid=".&str_sqlize($langid));
+		my $result  = do_query("select value from feature_values_vocabulary where TRIM(value) != '' AND key_value = 'No' and langid=".str_sqlize($langid));
 		if($result->[0] && $result->[0][0] ne ''){
 			$no = $result->[0][0];
 		}
 
-		if (lc(&trim($value)) eq lc($yes)) {
+		if (lc(trim($value)) eq lc($yes)) {
 			return 'Y';
-		} elsif (lc(&trim($value)) eq lc($no)) {
+		} elsif (lc(trim($value)) eq lc($no)) {
 			return 'N';
 		}
 
@@ -172,13 +172,13 @@ sub add_image {
 	
 	if ($new_name) {
 		$cmd = "/bin/cp -f ".$src_path.$old_name." ".$src_path.$new_name;
-		&log_printf($cmd);
+		log_printf($cmd);
 		`$cmd`;
 		$src_file = $src_path.$new_name;
 		$old_name = $new_name;
 	}
 	
-	foreach my $dest (@$dest_array) {
+	for my $dest (@$dest_array) {
 		if ($dest->{'toXML'}) { # is to XML path?
 			$out = (($dest->{'host'})?$dest->{'host'}:$atomcfg{'host'}).$dest_delta.$old_name;
 		}
@@ -190,16 +190,16 @@ sub add_image {
 				'path' => $dest->{'path'}.$dest_delta,
 				'login' => $dest->{'login'}
 			};
-			$result = &cp2remote($src_file, $hash, {'bg' => $bg});
+			$result = cp2remote($src_file, $hash, {'bg' => $bg});
 			if ($result) {
-				&sendmail(Dumper($src_file).Dumper($hash),$atomcfg{'bugreport_email'},$atomcfg{'bugreport_from'},'scp failed');
+				sendmail(Dumper($src_file).Dumper($hash),$atomcfg{'bugreport_email'},$atomcfg{'bugreport_from'},'scp failed');
 			}
 		}
 		else { # simple cp
 			$cmd = "/bin/cp -f ".$src_file." ".$dest->{'path'}.$dest_delta;
-			&log_printf($cmd);
+			log_printf($cmd);
 			if ($bg) {
-				&run_bg_command($cmd);
+				run_bg_command($cmd);
 			}
 			else {
 				`$cmd`;
@@ -209,7 +209,7 @@ sub add_image {
 
 	if ($no_rm) {
 		$cmd = "/bin/rm -f ".$src_file;
-		&log_printf($cmd);
+		log_printf($cmd);
 		`$cmd`;
 	}
 
@@ -220,18 +220,18 @@ sub cp2remote {
 	my ($file, $host, $attr) = @_;
 	$host->{'host'} =~ s/^http:\/\///;
 	$host->{'host'} =~ s/\/+$//;
-	&log_printf("/usr/bin/scp -qrB $file $host->{'login'}\@$host->{'host'}:$host->{'path'}");
+	log_printf("/usr/bin/scp -qrB $file $host->{'login'}\@$host->{'host'}:$host->{'path'}");
 
 	# temp! collect images size statistics
 	my @attrs = stat($file);
 	open TMP, ">> ".$atomcfg{'base_dir'}."/logs/image_log";
 	binmode TMP, ":utf8";
-	print TMP &POSIX::time()."\t".$file."\t".$attrs[7]."\n";
+	print TMP POSIX::time()."\t".$file."\t".$attrs[7]."\n";
 	close TMP;
 	# temp! end of ...
 
 	if ($attr->{'bg'}) {
-		&run_bg_command("/usr/bin/scp -qrB ".$file." ".$host->{'login'}."@".$host->{'host'}.":".$host->{'path'});
+		run_bg_command("/usr/bin/scp -qrB ".$file." ".$host->{'login'}."@".$host->{'host'}.":".$host->{'path'});
 		return undef;
 	}
 	else {
@@ -242,7 +242,7 @@ sub cp2remote {
 sub remote_mv {
 	my ($file, $src, $dest, $host) = @_;
 	my $cmd = system("/usr/bin/ssh",$host->{'login'}."@".$host->{'url'},"\"/bin/mv -f ".$src.$file." ".$dest."\"");
-#	&log_printf($cmd);
+#	log_printf($cmd);
 	`$cmd`;
 } # sub remote_mv
 
@@ -253,8 +253,8 @@ sub post_message {
 	$ua->timeout(6000);
 	my $req 	= new HTTP::Request 'POST', $url;
 	$req->content_type('application/x-www-form-urlencoded'); 
-#&log_printf($message);
-	$message = &gzip_data($message);
+#log_printf($message);
+	$message = gzip_data($message);
 	
 	$req->content($message);
 	
@@ -263,33 +263,33 @@ sub post_message {
 	my $message_response = $res->content;		
 	
 	if (!($message_response =~m/^\<\?xml/) && !$no_unzip) {
-		$message_response = &ungzip_data($message_response);
+		$message_response = ungzip_data($message_response);
 	}
 	
-#&log_printf($message_response);
+#log_printf($message_response);
 	
 	return $message_response;
 }
 
 sub source_message {
-	return "<!-- source: " . $atomcfg{'company_name'} . " " . &atomsql::do_query("select year(curdate())")->[0][0] . " -->";
+	return "<!-- source: " . $atomcfg{'company_name'} . " " . atomsql::do_query("select year(curdate())")->[0][0] . " -->";
 }
 
 sub build_message {
 	my ($hash, $param) = @_;
 	
-	my $xmldecl = &atom_misc::xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{host}."dtd/ICECAT-interface_request.dtd\">".
-		"\n".&source_message();
+	my $xmldecl = atom_misc::xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{host}."dtd/ICECAT-interface_request.dtd\">".
+		"\n".source_message();
 	if ($param eq "request") {
-    $xmldecl = &atom_misc::xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{host}."dtd/ICECAT-interface_request.dtd\">".
-			"\n".&source_message();
+    $xmldecl = atom_misc::xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{host}."dtd/ICECAT-interface_request.dtd\">".
+			"\n".source_message();
 	}
 	if ($param eq "response") {
-    $xmldecl = &atom_misc::xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{host}."dtd/ICECAT-interface_response.dtd\">".
-			"\n".&source_message();
+    $xmldecl = atom_misc::xml_utf8_tag."<!DOCTYPE ICECAT-interface SYSTEM \"".$atomcfg{host}."dtd/ICECAT-interface_response.dtd\">".
+			"\n".source_message();
 	}
 
-	my $message = &xml_out( $hash,
+	my $message = xml_out( $hash,
 													{
 														xmldecl 	=> $xmldecl,
 														rootname	=> 'ICECAT-interface',
@@ -322,7 +322,7 @@ sub gzip_data {
 	$binmode = "utf8" unless $binmode;
 
 	my $dirname = $tmp_path; 
-	my $gz = $dirname."/tmp-".&make_code(28).".gz";
+	my $gz = $dirname."/tmp-".make_code(28).".gz";
 	
 	if ($filename) {
 		$cmd = "/bin/mkdir -p ".$dirname."/report_".$$;
@@ -356,8 +356,8 @@ sub gzip_data {
 sub gzip_data_by_ref {
  my ($data) = @_;
  my $dirname = $tmp_path; 
- my $gz = $dirname."/tmp-".&make_code(28).".gz";
- open(GZIP,"|gzip -c9>$gz") || &log_printf("Can't open gzip: $!"); 
+ my $gz = $dirname."/tmp-".make_code(28).".gz";
+ open(GZIP,"|gzip -c9>$gz") || log_printf("Can't open gzip: $!"); 
  binmode (GZIP,":utf8");
  print GZIP $$data;
  close(GZIP);
@@ -367,7 +367,7 @@ sub gzip_data_by_ref {
  $data = \$compdata;
  my $buffer;
  open(GZIPPED,"<$gz"); 
-  &cat_mem_stat(__LINE__.'-'.__FILE__);
+  cat_mem_stat(__LINE__.'-'.__FILE__);
   while(read(GZIPPED,$buffer,4096)){ $$data .= $buffer;} 
  close(GZIPPED);
  system("rm",$gz);
@@ -383,22 +383,22 @@ sub compress_data_by_ref {
 	
 	# select proper filter
 	
-	my $tmp = $tmp_path."/tmp-".&make_code(28);
+	my $tmp = $tmp_path."/tmp-".make_code(28);
 	my $compress;
 	if ($type eq 'zip') { # zip
 		use IO::Compress::Zip qw($ZipError);
-		$compress = new IO::Compress::Zip $tmp, Name => $filename || &log_printf("Can't open file: $ZipError, $!");
+		$compress = new IO::Compress::Zip $tmp, Name => $filename || log_printf("Can't open file: $ZipError, $!");
 	}
 	elsif ($type eq 'bz2') { # bz2
 		use IO::Compress::Bzip2 qw($Bzip2Error);
-		$compress = new IO::Compress::Bzip2 $tmp, Name => $filename || &log_printf("Can't open file: $Bzip2Error, $!");
+		$compress = new IO::Compress::Bzip2 $tmp, Name => $filename || log_printf("Can't open file: $Bzip2Error, $!");
 	}
 	else { # gz by default
 		use IO::Compress::Gzip qw($GzipError);
-		$compress = new IO::Compress::Gzip $tmp, Name => $filename || &log_printf("Can't open file: $GzipError, $!");
+		$compress = new IO::Compress::Gzip $tmp, Name => $filename || log_printf("Can't open file: $GzipError, $!");
 	}
 
-#	&log_printf("data = ".Dumper($dataref));
+#	log_printf("data = ".Dumper($dataref));
 
 	binmode($compress,':'.$binmode);
 	print $compress $$dataref;
@@ -410,14 +410,14 @@ sub compress_data_by_ref {
 	$$dataref = '';
 	open COMPRESSED, "<".$tmp;
 	binmode COMPRESSED, ":raw";
-#  &cat_mem_stat(__LINE__.'-'.__FILE__);
+#  cat_mem_stat(__LINE__.'-'.__FILE__);
 	while (read(COMPRESSED,$buffer,4096)) {
 		$$dataref .= $buffer;
 	}
 	close COMPRESSED;
 	system("rm",$tmp);
 
-#	&log_printf("cdata = ".Dumper($dataref));
+#	log_printf("cdata = ".Dumper($dataref));
 	
 	return $$dataref;
 }
@@ -428,14 +428,14 @@ my ($mark) = @_;
 #open(FH, "</proc/$$/status");
 #my $dump = join('', grep /VmSize/i, <FH>);
 #close(FH);
-#&log_printf("$mark status: pid=$$ ".$dump);
+#log_printf("$mark status: pid=$$ ".$dump);
 }
 
 sub ungzip_data
 {
  my ($data) = @_;
  my $dirname = $tmp_path; 
- my $ugz 	= $dirname."/tmpu-".&make_code(28);
+ my $ugz 	= $dirname."/tmpu-".make_code(28);
  my $gz 	= $ugz.".gz";
  
  open(DATA, ">$gz");
@@ -486,13 +486,13 @@ if(ref($node) eq 'ARRAY'){
  if(!ref($node->[$i])){
    $node->[$i] = &{$sub}($node->[$i]);
 	} else {
-   &back_parse($node->[$i], $sub); 
+   back_parse($node->[$i], $sub); 
 	}
  }
 }
 
 if(ref($node) eq 'HASH'){
- foreach my $subnode(keys %$node){ 
+ for my $subnode(keys %$node){ 
 #   print $subnode."\n";
  if(!ref($node->{$subnode})){
 	 if($subnode ne '__plain_xml'){
@@ -503,7 +503,7 @@ if(ref($node) eq 'HASH'){
 #		 $node->{$subnode}  = &{$sub}($node->{$subnode});
 	 }
 	} else {
-   &back_parse($node->{$subnode}, $sub); 
+   back_parse($node->{$subnode}, $sub); 
 	}
  }
 }
@@ -545,8 +545,8 @@ sub xml_out {
 	my $xml;
 	
 	if (!$plain_xml) {
-		$xml = &my_xml_out($options->{'rootname'}, $ref, 1, $options);
-# &log_printf(Dumper($ref));
+		$xml = my_xml_out($options->{'rootname'}, $ref, 1, $options);
+# log_printf(Dumper($ref));
 	}
 	
 	if ($options->{'xmldecl'}) {
@@ -567,7 +567,7 @@ sub xml_out {
 sub my_xml_out {
 	my ($name, $ref, $cnt, $options, $prev) = @_;
 	
-#&log_printf("name = $name, ref = ".Dumper($ref));
+#log_printf("name = $name, ref = ".Dumper($ref));
 	
 	my $spacer = (' ' x ($cnt));
 	
@@ -589,8 +589,8 @@ sub my_xml_out {
 			my $new_ref = [];
 			my $expand = 0;
 			
-#			foreach my $key (sort keys %{$ref}) {
-			foreach my $key (keys %{$ref}) {
+#			for my $key (sort keys %{$ref}) {
+			for my $key (keys %{$ref}) {
 				if (ref($ref->{$key}) eq 'HASH') {
 					if ($key ne 'content') {
 						$ref->{$key}->{$options->{'key_attr'}->{$name}} = $key;
@@ -644,13 +644,13 @@ sub my_xml_out {
 		# 1024435: Add restricted values subtags to FeaturesList.xml (19.08.2010)
 		#
 
-		foreach my $key (sort @hash_keys) {
+		for my $key (sort @hash_keys) {
 			
 			if (ref($ref->{$key}) eq '') {
 				if ($key ne 'content' &&
 						$key ne '__id_expanded'&&
 						$key ne '__plain_xml') {
-					$params .= " ".$key."=\"".&str_xmlize($ref->{$key}).'"';
+					$params .= " ".$key."=\"".str_xmlize($ref->{$key}).'"';
 				}
 			}
 			else {
@@ -671,8 +671,8 @@ sub my_xml_out {
 					
 				}
 				else {
-					my $extra_ref = &my_xml_out($key,$ref->{$key}, $cnt+1, $options, $ref);
-					$body = &concat_scalar_refs($body, $extra_ref);
+					my $extra_ref = my_xml_out($key,$ref->{$key}, $cnt+1, $options, $ref);
+					$body = concat_scalar_refs($body, $extra_ref);
 				}
 				
 #	 delete $ref->{$key};
@@ -682,10 +682,10 @@ sub my_xml_out {
 		if (ref($ref->{'content'}) eq '' &&
 				$ref->{'content'}) {
 			if ($$body) {
-				$params .= " content=\"".&str_xmlize($ref->{'content'}).'"';
+				$params .= " content=\"".str_xmlize($ref->{'content'}).'"';
 			}
 			else {
-				my $tmp = &str_xmlize($ref->{'content'});
+				my $tmp = str_xmlize($ref->{'content'});
 				$body = \$tmp;
 			}
 		}
@@ -715,9 +715,9 @@ sub my_xml_out {
 		}
 		
 		
-		foreach my $elem (@$ref) {
-			my $tmp = &my_xml_out($name, $elem, $cnt+1, $options, $ref);
-			$body = &concat_scalar_refs($body, $tmp);
+		for my $elem (@$ref) {
+			my $tmp = my_xml_out($name, $elem, $cnt+1, $options, $ref);
+			$body = concat_scalar_refs($body, $tmp);
 		}
 
 		return $body; 
@@ -728,7 +728,7 @@ sub my_xml_out {
 		if (!$name) {
 			$name = 'anon';
 		}
-		$$body = &str_xmlize($ref);
+		$$body = str_xmlize($ref);
 	}
 	
 	
@@ -737,7 +737,7 @@ sub my_xml_out {
 			
 			my $str = $spacer."<".$name.$params.">\n";
 #		$$body =~s/^/$spacer."<".$name.$params.">\n"/e;
-			$body = &concat_scalar_refs(\$str, $body);
+			$body = concat_scalar_refs(\$str, $body);
 			
 			$$body .= $spacer."</".$name.">\n";
 
@@ -745,9 +745,9 @@ sub my_xml_out {
 		}
 		else {
 #    use utf8;
-#    $name = &latin2utf8($name);
+#    $name = latin2utf8($name);
 			my $str = $spacer."<".$name.$params.">";
-			$body = &concat_scalar_refs(\$str, $body);		
+			$body = concat_scalar_refs(\$str, $body);		
 #		$$body =~s/^/$spacer."<".$name.$params.">"/e;
 			$$body .= "</".$name.">\n";
 
@@ -789,8 +789,8 @@ sub str_xmlize8
 {
 	my $str = shift;
 	
-	$str = &str_xmlize($str);
-	$str = &latin2utf8($str);
+	$str = str_xmlize($str);
+	$str = latin2utf8($str);
 	
 	return $str;
 }
@@ -856,7 +856,7 @@ sub get_ftp_newest_file{
 	use Time::Piece;
 	my $curr_time=localtime;
 	""=~/(.*)/;#it empties $1 varable
-	foreach my $file_str (@file_strs){
+	for my $file_str (@file_strs){
 		$file_str=~s/^\s*(.*?)\s*$/$1/;
 		next() unless $file_str;
 		""=~/(.*)/;#it empties $1 varable
@@ -924,12 +924,12 @@ sub xml2csv{
 				  });
 				  
 	my @header_row;
-		foreach my $header_path(keys(%{$csv_header})){
+		for my $header_path(keys(%{$csv_header})){
 			my $header_path_short=$header_path;
 			$header_path_short=~/([^\/]+\/[^\/]+$)/;
 			$header_path_short=$1 if $1;
 			$header_row[$csv_header->{$header_path}->{'order'}]=$header_path_short;
-			foreach my $attr(keys %{$csv_header->{$header_path}->{'attrs'}}){
+			for my $attr(keys %{$csv_header->{$header_path}->{'attrs'}}){
 				$header_row[$csv_header->{$header_path}->{'attrs'}->{$attr}->{'order'}]=$header_path_short.$attr;
 			};
 		}
@@ -943,7 +943,7 @@ sub xml2csv{
 	my $preview_csv;
 	use POSIX;
 	if(scalar(keys(%csv_paths))>0){
-		$preview_csv=&floor($preview_length/scalar(keys(%csv_paths)));
+		$preview_csv=floor($preview_length/scalar(keys(%csv_paths)));
 	}else{
 		$preview_csv=$preview_length;
 	}
@@ -953,20 +953,20 @@ sub xml2csv{
 	
 	my @root_childs."\n";
 	 
-	foreach my $root_child_path(keys %{$handler->{root_childs}}){
+	for my $root_child_path(keys %{$handler->{root_childs}}){
 		my $child_el=$xp->find($root_child_path);
 		if(scalar(@{$child_el})==1){
 			push(@root_childs,{'el'=>$child_el->[0],'path'=>$root_child_path});
 		}
 	};	
-	foreach my $csv_path(sort {$a cmp $b} keys(%csv_paths)){
+	for my $csv_path(sort {$a cmp $b} keys(%csv_paths)){
 		if(!$paths{$csv_path}){# this is  a tag from that we start to write csv row
-			&log_printf("---->>>>>>>>>>CSV tag: ".$csv_path);
+			log_printf("---->>>>>>>>>>CSV tag: ".$csv_path);
 			my @csv_childs=();
 			my $rep_parens_childs={};
 			my $branch_childs={};
 			my $top_rep_parent="";	  
-			foreach my $tag_path(keys(%paths)){
+			for my $tag_path(keys(%paths)){
 				if($tag_path=~/^\Q$csv_path\E/ and $tag_path ne $csv_path){# this is child of current csv path
 					my $curr_child_path=$tag_path;
 					$curr_child_path=~s/^\Q$csv_path\E//;
@@ -975,9 +975,9 @@ sub xml2csv{
 					$rep_parens_childs->{$tag_path}=[];
 				};
 			}
-			foreach my $rep_parent_path(keys(%{$rep_parens_childs})){
+			for my $rep_parent_path(keys(%{$rep_parens_childs})){
 					#print $rep_parent_path."\n";
-					foreach my $tag_path(keys(%paths)){
+					for my $tag_path(keys(%paths)){
 						if($tag_path=~/^\Q$rep_parent_path\E/ and $csv_path!~/^\Q$tag_path\E/ and $paths{$tag_path} and $paths{$tag_path} ne 'REP_PARENT'){#this is child path of repeatable parent tag of current csv path
 							my $curr_child_path=$tag_path;
 							$curr_child_path=~s/^\Q$rep_parent_path\E//;
@@ -989,7 +989,7 @@ sub xml2csv{
 			
 			my $csv_tags=$xp->find($csv_path);
 			my $rows_count=0;
-			foreach my $start_tag(@$csv_tags){			
+			for my $start_tag(@$csv_tags){			
 				my $curr_csv_row=[];
 				$curr_csv_row->[scalar(@header_row)]=undef;
 				my @curr_csv;
@@ -1001,34 +1001,34 @@ sub xml2csv{
 					my $curr_branch=shift(@parent_branch_rev);
 					pop(@parent_branch);				
 					#print "PARENT branch: ".$curr_branch->getName().'  '.$curr_path."\n";
-					$curr_csv_row=&addTo_csv_row($curr_csv_row,$csv_header,$curr_path,$curr_branch);
+					$curr_csv_row=addTo_csv_row($curr_csv_row,$csv_header,$curr_path,$curr_branch);
 					if(ref($rep_parens_childs->{$curr_path}) eq 'ARRAY'){
-						foreach my $rep_parent_child (@{$rep_parens_childs->{$curr_path}}){
+						for my $rep_parent_child (@{$rep_parens_childs->{$curr_path}}){
 							my $path_proccesed=$rep_parent_child;
 							$path_proccesed=~s/^\///;						
 							my $parent_child=$curr_branch->find($path_proccesed);
 							if(scalar(@{$parent_child})==1){
 								#print 'REPEATABLE parent child: '.$parent_child->[0]->getName().'  '.$rep_parent_child."\n";
-								$curr_csv_row=&addTo_csv_row($curr_csv_row,$csv_header,$curr_path.$rep_parent_child,$parent_child->[0]);
+								$curr_csv_row=addTo_csv_row($curr_csv_row,$csv_header,$curr_path.$rep_parent_child,$parent_child->[0]);
 							}
 						}
 					}
 				}
 				if(scalar(@csv_childs)>0){
-					foreach my $csv_child_path (@csv_childs){
+					for my $csv_child_path (@csv_childs){
 						my $path_proccesed=$csv_child_path;
 						$path_proccesed=~s/^\///;
 						my $csv_child_el=$start_tag->find($path_proccesed);
 						if(scalar(@{$csv_child_el})==1){
 							#print 'Csv tag CHILD: '.$csv_child_el->[0]->getName().'  '.$csv_child_path."\n";
-							$curr_csv_row=&addTo_csv_row($curr_csv_row,$csv_header,$csv_path.$csv_child_path,$csv_child_el->[0]);
+							$curr_csv_row=addTo_csv_row($curr_csv_row,$csv_header,$csv_path.$csv_child_path,$csv_child_el->[0]);
 						}
 					}
 				}else{
 					#print 'Csv tag CHILD: '.$start_tag->getName().'  '.$start_tag->string_value()."\n";
 				}
-				foreach my $root_child(@root_childs){
-					$curr_csv_row=&addTo_csv_row($curr_csv_row,$csv_header,$root_child->{'path'},$root_child->{'el'});
+				for my $root_child(@root_childs){
+					$curr_csv_row=addTo_csv_row($curr_csv_row,$csv_header,$root_child->{'path'},$root_child->{'el'});
 				}
 				$csv_obj->combine(@$curr_csv_row);
 				if($rows_count<$preview_length){
@@ -1049,7 +1049,7 @@ sub xml2csv{
 sub addTo_csv_row{
 	my ($curr_row,$csv_header,$el_path,$el)=@_;
 	
-		foreach my $attr (@{$el->getAttributes()}){
+		for my $attr (@{$el->getAttributes()}){
 			$curr_row->[$csv_header->{$el_path}->{'attrs'}->{'{}'.$attr->getName()}->{'order'}]=$attr->getData();
 			my $bb1=1;
 		}
@@ -1070,7 +1070,7 @@ sub mail_atom_template{
 	my ($tmpl,$email,$subject,$params)=@_;
 	
 	if(!$params or !$email or ref($params) ne 'HASH'){
-		&log_printf('------>>>>>>>>>wrong params for mail_atom_template');
+		log_printf('------>>>>>>>>>wrong params for mail_atom_template');
 		return '';
 	};
 	atom_util::process_atom_ilib($tmpl);
@@ -1083,7 +1083,7 @@ sub mail_atom_template{
 				'subject' => $subject,
 				'html_body' => $html,
 				};
-	&complex_sendmail($mail);	
+	complex_sendmail($mail);	
 }
 
 # WARNING : this sub translates only statement never use it to translate single word
@@ -1094,17 +1094,17 @@ sub translate_from_google{
 	my $delimiter=' .!!!!!!!!!!! ';# the best delimiter.  
 	my %res_hash=(); 
 	if(ref($strings) ne 'ARRAY'){
-		&log_printf('----->>>>>>>>>translate_from_google ERROR: provide array of strings to translate');
+		log_printf('----->>>>>>>>>translate_from_google ERROR: provide array of strings to translate');
 		return undef;
 	}	
 	my $langs=atomsql::do_query('SELECT lcase(short_code), langid FROM language');
 	my %lang_map= map {lc($_->[1])=>$_->[0]} @$langs;
 	if(!$lang_map{$from_langid} or !$lang_map{$to_langid}){
-		&log_printf('----->>>>>>>>>translate_from_google ERROR: One of this lang ids does not valid $from_langid $to_langid');
+		log_printf('----->>>>>>>>>translate_from_google ERROR: One of this lang ids does not valid $from_langid $to_langid');
 		return undef;	
 	}
-	&atomsql::do_statement("DROP $debug_tmp TABLE IF EXISTS tmp_str_trans");
-	&atomsql::do_statement("CREATE $debug_tmp TABLE tmp_str_trans(
+	atomsql::do_statement("DROP $debug_tmp TABLE IF EXISTS tmp_str_trans");
+	atomsql::do_statement("CREATE $debug_tmp TABLE tmp_str_trans(
 											id int(11) NOT NULL auto_increment,
 	                                        source_text mediumtext default '',
 											source_langid int(11) default 0,
@@ -1113,25 +1113,25 @@ sub translate_from_google{
 											KEY `source_md5` (`source_text_md5`,`source_langid`))");
 	if(scalar(@$strings)<100){
 		my $tmp_sql='';
-		foreach my $str(@$strings){
-			$tmp_sql.="(".&atom_util::trim(&atomsql::str_sqlize($str)).",".$from_langid.",".&atomsql::str_sqlize(md5_base64(encode_utf8($str)))."),";
+		for my $str(@$strings){
+			$tmp_sql.="(".atom_util::trim(atomsql::str_sqlize($str)).",".$from_langid.",".atomsql::str_sqlize(md5_base64(encode_utf8($str)))."),";
 		}
 		$tmp_sql=~s/,$//;
-		&atomsql::do_statement('INSERT INTO tmp_str_trans (source_text,source_langid,source_text_md5) VALUES '.$tmp_sql) if $tmp_sql;
+		atomsql::do_statement('INSERT INTO tmp_str_trans (source_text,source_langid,source_text_md5) VALUES '.$tmp_sql) if $tmp_sql;
 	}else{
 		## TODO: use load data instead bellow
 		my $tmp_sql='';
-		foreach my $str(@$strings){
-			$tmp_sql.="(".&atom_util::trim(&atomsql::str_sqlize($str)).",".$from_langid.",".&atomsql::str_sqlize(md5_base64(encode_utf8($str)))."),";
+		for my $str(@$strings){
+			$tmp_sql.="(".atom_util::trim(atomsql::str_sqlize($str)).",".$from_langid.",".atomsql::str_sqlize(md5_base64(encode_utf8($str)))."),";
 		}
 		$tmp_sql=~s/,$//;
-		&atomsql::do_statement('INSERT INTO tmp_str_trans (source_text,source_langid,source_text_md5) VALUES '.$tmp_sql);		 
+		atomsql::do_statement('INSERT INTO tmp_str_trans (source_text,source_langid,source_text_md5) VALUES '.$tmp_sql);		 
 	}
 	
-	my $matches=&atomsql::do_query("SELECT t.source_text,gt.trans_text FROM google_translations gt 
+	my $matches=atomsql::do_query("SELECT t.source_text,gt.trans_text FROM google_translations gt 
 			   JOIN tmp_str_trans t ON t.source_text_md5=gt.source_text_md5 
 			   WHERE gt.source_langid=$from_langid AND gt.trans_langid=$to_langid");
-	my $unmatches=&atomsql::do_query("SELECT t.source_text FROM tmp_str_trans t  
+	my $unmatches=atomsql::do_query("SELECT t.source_text FROM tmp_str_trans t  
 			   LEFT JOIN google_translations gt ON t.source_text_md5=gt.source_text_md5  
 			   									   AND gt.source_langid=$from_langid AND gt.trans_langid=$to_langid
 			   WHERE gt.google_translations_id IS NULL");
@@ -1139,9 +1139,9 @@ sub translate_from_google{
 	if(scalar(@$matches)==scalar(@$strings)){# all found in the table
 		return \%res_hash;
 	}
-	&log_printf('----->>>>>>>>>translate_from_google: going to translate;  '.scalar(@$unmatches)." of strings ");
+	log_printf('----->>>>>>>>>translate_from_google: going to translate;  '.scalar(@$unmatches)." of strings ");
 	my $toTranslate='';
-	foreach my $unmatch(@$unmatches){
+	for my $unmatch(@$unmatches){
 		$toTranslate.=$unmatch->[0].$delimiter;
 	}
 	$toTranslate=substr($toTranslate,0,(length($toTranslate)-length($delimiter)));
@@ -1161,7 +1161,7 @@ sub translate_from_google{
 	if(ref($pieces[0][0][0]) eq 'ARRAY' and $pieces[0][0][0][0]){
 		$cont=join('',map {&decode_entities($_->[0])} @{$pieces[0][0]});
 	}else{
-		&log_printf('----->>>>>>>>>translate_from_google: Unxpected result from google '.Dumper($unmatches));
+		log_printf('----->>>>>>>>>translate_from_google: Unxpected result from google '.Dumper($unmatches));
 		return '';
 	}
 	my $delim_part=	substr($delimiter,-2); # one of the delimiter lettres 
@@ -1171,13 +1171,13 @@ sub translate_from_google{
 	$delimiter=~s/\.//;
 	$cont=~s/$delim_part[\s]+$delim_part/$delim_part$delim_part$delim_part/gs;# remove backspaces inside the delimiter
 	$cont=~s/[$delim_part]{2,}/$delimiter/gs; # google some times make delimiter shoter
-	$delimiter=&atom_util::trim($delimiter);
+	$delimiter=atom_util::trim($delimiter);
 	
 	my @translated_strs=split(/$delimiter/i,$cont);
 	if(scalar(@translated_strs)!=scalar(@$unmatches)){
-		&log_printf('----->>>>>>>>>translate_from_google ERROR: Google fail or it have changed the html');
-		&log_printf("\n-------------Size source: ".scalar(@$unmatches)."\n".$toTranslate."\n");
-		&log_printf("\n------TRANSLATED---Size trans: ".scalar(@translated_strs)."----\n".$cont);
+		log_printf('----->>>>>>>>>translate_from_google ERROR: Google fail or it have changed the html');
+		log_printf("\n-------------Size source: ".scalar(@$unmatches)."\n".$toTranslate."\n");
+		log_printf("\n------TRANSLATED---Size trans: ".scalar(@translated_strs)."----\n".$cont);
 		return undef;
 	}
 	my $insert_sql="INSERT IGNORE INTO google_translations (source_text,source_text_md5,source_langid,trans_text,trans_text_md5,trans_langid) VALUES ";
@@ -1193,14 +1193,14 @@ sub translate_from_google{
 		#$matchStr=~s/^[\s]*[$delim_part]+//;
 		$res_hash{$unmatchStr}=$matchStr;
 		#(source_text,source_text_md5,source_langid,trans_text,trans_text_md5,trans_langid)
-		$tmpSrc=&atom_util::trim($unmatchStr);
-		$tmpTrans=&atom_util::trim($matchStr);
-		$insert_sql.='('.&atomsql::str_sqlize($tmpSrc).','.&atomsql::str_sqlize(md5_base64(encode_utf8($tmpSrc))).','.$from_langid.','.
-						 &atomsql::str_sqlize($tmpTrans).','.&atomsql::str_sqlize(md5_base64(encode_utf8($tmpTrans))).','.$to_langid.
+		$tmpSrc=atom_util::trim($unmatchStr);
+		$tmpTrans=atom_util::trim($matchStr);
+		$insert_sql.='('.atomsql::str_sqlize($tmpSrc).','.atomsql::str_sqlize(md5_base64(encode_utf8($tmpSrc))).','.$from_langid.','.
+						 atomsql::str_sqlize($tmpTrans).','.atomsql::str_sqlize(md5_base64(encode_utf8($tmpTrans))).','.$to_langid.
 					 '),';
 	}
 	$insert_sql=~s/,$//;
-	&atomsql::do_statement($insert_sql);
+	atomsql::do_statement($insert_sql);
 	
 	return \%res_hash;
 }
@@ -1213,13 +1213,13 @@ sub get_rating_prop{
 }
 sub remove_tags_except{
 	my ($html,$tags)=@_;
-	foreach my $tag(@$tags){
+	for my $tag(@$tags){
 		$html=~s/<$tag>/%%%$tag%%%/gsi;
 		$html=~s/<\/$tag>/%%%\/$tag%%%/gsi;
 		$html=~s/<$tag\/>/%%%$tag\/%%%/gsi;
 	}
 	$html=~s/<[^<>]+?>//gs;
-	foreach my $tag(@$tags){
+	for my $tag(@$tags){
 		$html=~s/%%%$tag%%%/<$tag>/gsi;
 		$html=~s/%%%\/$tag%%%/<\/$tag>/gsi;
 		$html=~s/%%%$tag\/%%%/<$tag\/>/gsi;
@@ -1229,7 +1229,7 @@ sub remove_tags_except{
 
 sub remove_tags_content_except{
 	my ($html,$tags)=@_;
-	foreach my $tag(@$tags){
+	for my $tag(@$tags){
 		$html=~s/<$tag>/%%%$tag%%%/gsi;
 		$html=~s/<\/$tag>/%%%\/$tag%%%/gsi;
 		$html=~s/<$tag\/>/%%%$tag\/%%%/gsi;		
@@ -1237,7 +1237,7 @@ sub remove_tags_content_except{
 	#print $html;
 	$html=~s/<.+>//gs;
 		
-	foreach my $tag(@$tags){
+	for my $tag(@$tags){
 		$html=~s/%%%$tag%%%/<$tag>/gsi;
 		$html=~s/%%%\/$tag%%%/<\/$tag>/gsi;
 		$html=~s/%%%$tag\/%%%/<$tag\/>/gsi;		

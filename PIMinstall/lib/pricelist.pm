@@ -47,7 +47,7 @@ BEGIN {}
 sub reupload_price_feed{
 	my $hin=shift;
 	use POSIX qw(floor);
-	my $tmp_filename=&floor(rand(1000000000));
+	my $tmp_filename=floor(rand(1000000000));
 	my $errors=[];
 	if(!$hin->{'feed_config_id'}){# big evol if it's true
 		push(@$errors,'Configuration id does not exists');
@@ -65,7 +65,7 @@ sub reupload_price_feed{
 		if($hin->{'feed_login'} and $hin->{'feed_pwd'} and $feed_url=~/^ftp/i){
 			if($feed_url=~/\[maxmtime\]/){#find out max time under given url
 				$feed_url=~s/\[maxmtime\]//;
-				$feed_url=&get_ftp_newest_file($feed_url,$hin->{'feed_login'},$hin->{'feed_pwd'});
+				$feed_url=get_ftp_newest_file($feed_url,$hin->{'feed_login'},$hin->{'feed_pwd'});
 			}
 			if(!$feed_url){
 				push(@$errors,'Can\'t download the newest file from ftp $feed_url');
@@ -81,7 +81,7 @@ sub reupload_price_feed{
 	}elsif(-s $hin->{'feed_file'}){
 		$tmp_filename=$hin->{'file_name'};
 		$tmp_filename=~s/[^a-zA-Z0-9.]/_/gs;
-		&lp('---------->>>>>>>>>>>>>>>>'.$tmp_filename);
+		lp('---------->>>>>>>>>>>>>>>>'.$tmp_filename);
 		$tmp_path=$atomcfg{'session_path'}.$tmp_filename;
 		$cmd="cp -f '$hin->{'feed_file'}' '$tmp_path'";
 		`$cmd`;
@@ -91,8 +91,8 @@ sub reupload_price_feed{
 	}
 	
 	if(!(-e $tmp_path)){
-		&log_printf("Error this file $tmp_path does not exists");
-		&log_printf($cmd);
+		log_printf("Error this file $tmp_path does not exists");
+		log_printf($cmd);
 		push(@$errors,'Can\'t download the file');
 		return $errors;
 	}
@@ -117,14 +117,14 @@ sub reupload_price_feed{
 	
 	my $unpacked_file='';
 	if($arh_cmd_dir->{$feed_type}){# we deal with archive
-		$cmd=&repl_ph($arh_cmd_dir->{$feed_type},{'src'=>$tmp_path,'dst'=>$tmp_dir});
+		$cmd=repl_ph($arh_cmd_dir->{$feed_type},{'src'=>$tmp_path,'dst'=>$tmp_dir});
 		`$cmd`;# unarahive
 		my $tmp_unarh=`find $tmp_dir`;
 		$tmp_unarh=~s/$tmp_dir//gs;
 		$tmp_unarh=~s/^[\n]+//gs;
 		my @unpack_files=split(/\n/,$tmp_unarh);
 		if(scalar(@unpack_files)<1){# this could be a single file to diffrent type of unarh used
-			$cmd=&repl_ph($arh_cmd_file->{$feed_type},{'src'=>$tmp_path,'dst'=>$tmp_dir.$tmp_filename});
+			$cmd=repl_ph($arh_cmd_file->{$feed_type},{'src'=>$tmp_path,'dst'=>$tmp_dir.$tmp_filename});
 			`$cmd`;
 			$tmp_unarh=`find $tmp_dir`;
 			$tmp_unarh=~s/$tmp_dir//gs;
@@ -159,10 +159,10 @@ sub reupload_price_feed{
 	}# if arhive
 	#if($feed_type eq 'xls'){
 	#	$tmp_path=~/([^\/]+)$/;
-	#	$tmp_path=&xls2csv($tmp_path,$tmp_dir,$1);
+	#	$tmp_path=xls2csv($tmp_path,$tmp_dir,$1);
 	#}elsif($feed_type eq 'xml'){
 	#	$tmp_path=~/([^\/]+)$/;
-	#	$tmp_path=&xml2csv($tmp_path,$tmp_dir,$1);
+	#	$tmp_path=xml2csv($tmp_path,$tmp_dir,$1);
 	#}els
 	if(!$unpacked_file){# this stuff copies file from $tmp to feed's dir if file already been unpacked copying has happened before
 		$tmp_path=~/([^\/]+)$/;
@@ -172,7 +172,7 @@ sub reupload_price_feed{
 	}elsif($unpacked_file){
 		
 	}else{
-		&log_printf("can't find out the feed's type ");
+		log_printf("can't find out the feed's type ");
 		push(@$errors,'can\'t find out the feed\'s type');
 		`rm -f $tmp_path`;
 		`rm -R $tmp_dir`;
@@ -209,7 +209,7 @@ sub reupload_price_feed{
 		use strict;
 	}
 	$hin{'is_first_header'}='1';# default when reupload	
-	&assign_autodetected($feed_type,$tmp_path);
+	assign_autodetected($feed_type,$tmp_path);
 	return $tmp_path; 
 }
 
@@ -223,7 +223,7 @@ sub convert_utf16{
 		close UTF16;
 		close UTF8;
 		if(!(-s $dest)){
-			&log_printf("------------>>>>>>>>>>>>>>>>>Erorr convertir utf16 to utf8: file $source");
+			log_printf("------------>>>>>>>>>>>>>>>>>Erorr convertir utf16 to utf8: file $source");
 			return '';
 		}else{
 			`mv -f '$dest' '$source'`;
@@ -239,12 +239,12 @@ sub assign_autodetected{
 	$hin{'feed_type'}=$type if $type and $type ne 'auto';
 	if($type eq 'csv' and ($hin{'delimiter'} eq 'auto' or !$hin{'delimiter'})){
 		use Text::CSV::Separator qw(get_separator);
-		my $candidate = &get_separator( path=>$csv_file,lucky=>1);
+		my $candidate = get_separator( path=>$csv_file,lucky=>1);
 		
 		my $my_atom=$atoms->{'default'}->{'feed_config'};		
-			&log_printf('----------------->>>>>>>>>>>>>>>>assign_autodetected '.$candidate);
+			log_printf('----------------->>>>>>>>>>>>>>>>assign_autodetected '.$candidate);
 		if($candidate){
-			#foreach my $atom_key( keys %{$my_atom}){
+			#for my $atom_key( keys %{$my_atom}){
 			#	if($atom_key=~/delimiter_radio_value/ and trim($my_atom->{$atom_key}) eq $candidate ){
 					 $hin{'delimiter'}=($candidate eq "\t")?'\t':$candidate;
 					 
@@ -265,7 +265,7 @@ sub trim{
 
 sub xml_feed2csv{
 	my ($tmp_path)=@_;
-	my $result=&xml2csv($tmp_path,($tmp_path.'.csv'),30);
+	my $result=xml2csv($tmp_path,($tmp_path.'.csv'),30);
 	if($result){
 		`rm -r $tmp_path`;
 		$tmp_path.='.csv';
@@ -315,7 +315,7 @@ sub get_feed_type{
 	if($expected_type eq 'xml' and $ext eq 'csv'){
 		return 'xml';
 	}elsif($expected_type ne 'auto' and $ext ne $expected_type){
-		&log_printf("User choiced type not equal determited. assume determited");# this may be an user error
+		log_printf("User choiced type not equal determited. assume determited");# this may be an user error
 		if($ext eq 'zip' and quick_checkExcel2007($feed_path)){
 			return 'xls';
 		}else{
@@ -361,14 +361,14 @@ sub get_preview_html{
 			return $errors;
 		}
 	}else{
-		&log_printf("Datapack was not downloaded. Please download it");
+		log_printf("Datapack was not downloaded. Please download it");
 		return '';			
 	}
 	use CSVParser;
-	&process_atom_ilib('feed_config_preview');	
-	$atoms=&process_atom_lib('feed_config_preview');
+	process_atom_ilib('feed_config_preview');	
+	$atoms=process_atom_lib('feed_config_preview');
 	#print Dumper($atoms);
-			&log_printf('------>>>>>>>>>>>>>>>>>>>>>>>>>'.get_feed_type('auto',$csv_file));
+			log_printf('------>>>>>>>>>>>>>>>>>>>>>>>>>'.get_feed_type('auto',$csv_file));
 	if($user_choiced_file and get_feed_type('auto',$csv_file) eq 'xml'){
 		$csv_file=xml_feed2csv($csv_file);
 		if(!$csv_file){
@@ -394,7 +394,7 @@ sub get_preview_html{
 	}elsif($feed_type eq 'xls'){
 		$csvs=get_xls_rows($csv_file,$row_limit);
 	}else{
-		&log_printf('ERROR( sub get_preview_html): Can\'t find out type of feed');
+		log_printf('ERROR( sub get_preview_html): Can\'t find out type of feed');
 		return '';
 	}
 	
@@ -402,14 +402,14 @@ sub get_preview_html{
 		return '';
 	} 
 	my ($html_rows,$right_cells_cnt);
-	foreach my $csv (@$csvs){
+	for my $csv (@$csvs){
 		
 		if(ref($csv) eq 'ARRAY' and scalar(@$csv)>1 and !$right_cells_cnt){#first row which looks right is a sample
 			$right_cells_cnt=scalar(@$csv);	
 		} 
 		my ($html_cells);
 		my $j=1;
-		foreach my $csv_cell(@$csv){
+		for my $csv_cell(@$csv){
 			my $line_delimiter_warn1='';
 			my $line_delimiter_warn2='';
 			if($j==1 and $csv_cell=~/^\n/){
@@ -417,22 +417,22 @@ sub get_preview_html{
 			}elsif($j==scalar(@$csv) and $csv_cell=~/[\r]$/){
 				$line_delimiter_warn2='<span class="red"> Warning!!! \\r At the end of line please check the Line seprator </span>';				
 			}
-			$csv_cell=$line_delimiter_warn1.&str_htmlize(&shortify_str($csv_cell,30,'..')).$line_delimiter_warn2;
+			$csv_cell=$line_delimiter_warn1.str_htmlize(shortify_str($csv_cell,30,'..')).$line_delimiter_warn2;
 			
-			$html_cells.=&repl_ph($my_atom->{'csv_cell'},{'cell'=>$csv_cell});
+			$html_cells.=repl_ph($my_atom->{'csv_cell'},{'cell'=>$csv_cell});
 			
 			$j++;
 		}
 		if($i==0 and $is_first_header){
-			$html_rows.=&repl_ph($my_atom->{'csv_header_row'},{'csv_cell'=>$html_cells});
+			$html_rows.=repl_ph($my_atom->{'csv_header_row'},{'csv_cell'=>$html_cells});
 		}elsif(scalar(@$csv)!=$right_cells_cnt){
-			$html_rows.=&repl_ph($my_atom->{'csv_err_row'},{'csv_cell'=>$html_cells});
+			$html_rows.=repl_ph($my_atom->{'csv_err_row'},{'csv_cell'=>$html_cells});
 		}else{
-			$html_rows.=&repl_ph($my_atom->{'csv_row'},{'csv_cell'=>$html_cells});			
+			$html_rows.=repl_ph($my_atom->{'csv_row'},{'csv_cell'=>$html_cells});			
 		}
 		$i++;
 	}	
-	my $html_table=&repl_ph($my_atom->{'body'},{'csv_row'=>$html_rows});
+	my $html_table=repl_ph($my_atom->{'body'},{'csv_row'=>$html_rows});
 	return $html_table;
 	
 }
@@ -441,20 +441,20 @@ sub get_csv_rows{
 	my($csv_file,$delimiter,$newline,$escape,$row_limit)=@_;
 	my $file_out=`file -b -i $csv_file`;
 	$file_out=~/charset=(.+)$/;
-	#&assign_autodetected('csv',$csv_file);
+	#assign_autodetected('csv',$csv_file);
 	#if(!$hin{'delimiter'}){
 	#	$delimiter=',';
 	#}	
 	my $csv_obj=CSVParser->new(
 				quote          => '"',
 				escape         => ($escape)?$escape:'\\',
-				delimiter      => &convert_escaped($delimiter), 
-				newline        => &convert_escaped($newline),
+				delimiter      => convert_escaped($delimiter), 
+				newline        => convert_escaped($newline),
 				file		   => $csv_file,
 				encoding	   => ($1 and $1 ne 'binary' and $1!~/unknown/)?($1):'ISO-8859-1' # default is ISO-8859-1
 			  );
 	if(!$csv_obj){
-		&log_printf("CSV parameters conflicts with each other");
+		log_printf("CSV parameters conflicts with each other");
 		return "";				
 	}
 	my @csv_rows;
@@ -480,7 +480,7 @@ sub get_xls_rows{
 	}
 	 
 	if(!$excel or !$excel->{Worksheet}->[0]){
-		&log_printf("ERROR(sub get_xls_rows): This file $xls_file does  not exists or we can't parse it");
+		log_printf("ERROR(sub get_xls_rows): This file $xls_file does  not exists or we can't parse it");
 		return \@xls_rows;
 	}
 	my $firstSheet=$excel->{Worksheet}[0];
@@ -507,7 +507,7 @@ sub convert_xls_csv{
 		$excel=Spreadsheet::ParseExcel->new()->Parse($xls_file);
 	}
 	if(!$excel or !$excel->{Worksheet}[0]){
-		&log_printf("ERROR(sub get_xls_rows): This file $xls_file does  not exists or we can't parse it");
+		log_printf("ERROR(sub get_xls_rows): This file $xls_file does  not exists or we can't parse it");
 		return '';
 	}
 	open CSV,">".$xls_file.'.csv' || return '';
@@ -544,8 +544,8 @@ sub convert_xls_csv{
 
 sub get_feed_config_params{
 	my ($code)=@_;
-	my $params=&do_query("SELECT feed_url,is_first_header,delimiter,newline,escape,quote,user_choiced_file,feed_type 
-						  FROM distributor_pl WHERE code=".&str_sqlize($code));
+	my $params=do_query("SELECT feed_url,is_first_header,delimiter,newline,escape,quote,user_choiced_file,feed_type 
+						  FROM distributor_pl WHERE code=".str_sqlize($code));
 	if(scalar(@$params)<1){
 		return [];
 	}else{
@@ -655,7 +655,7 @@ sub refine_url4path {
 	$file =~ s#.*//([^/]*?)/(.*)$#$1 $2#i;
 	$file =~ s/[\?\:\@]//gs; # remove auth info
 	$file =~ s/\W+/\_/gs; # noncharacters -> to _
-	$file .= &do_query("select unix_timestamp()")->[0][0]; # add the timestamp
+	$file .= do_query("select unix_timestamp()")->[0][0]; # add the timestamp
 	
 	return $file;
 } # sub refine_url4path
@@ -681,18 +681,18 @@ sub parse_price_list {
 	my $s;
 
 	if ($distri_code) {
-		&log_printf("Loading pricelist settings");
-		$s = &load_pricelist_settings($distri_code);
+		log_printf("Loading pricelist settings");
+		$s = load_pricelist_settings($distri_code);
 	}
 
-#	&log_printf("and our settings: ".Dumper($s));
+#	log_printf("and our settings: ".Dumper($s));
 
 	if ($s) {
 		$type = $s->{'pl_format'};
 		unless ($file) {
 			log_printf("loading file according settings");
 			$hin{'pl_url'} = $s->{'pl_url'};
-			$file = &refine_url4path($hin{'pl_url'});
+			$file = refine_url4path($hin{'pl_url'});
 			log_printf('and our file is : '.$file);
 		}
 		$hin{'first_row_as_header'} = $settings->{'first_row_as_header'} = $s->{'first_row_as_header'} if !$hin{'first_row_as_header'};
@@ -743,7 +743,7 @@ sub parse_price_list {
 	log_printf("Downloading: ".$hin{'pl_url'}." to ".$file);
 
 	$settings->{'distri_code'} = $distri_code;
-	&download_pricelist($hin{'pl_url'}, $file, $settings); # if(!$hin{'file_name'} && !($hin{'is_analyzis'} && $distri_code));
+	download_pricelist($hin{'pl_url'}, $file, $settings); # if(!$hin{'file_name'} && !($hin{'is_analyzis'} && $distri_code));
 	
 	if ($hin{'file_name'} && !$hin{'is_analyzis'}) {
 		$file = $atomcfg{'session_path'}.$hin{'file_name'};
@@ -753,7 +753,7 @@ sub parse_price_list {
 			my $buffer_file = $file.'_buffer';
 			my $pattern = '\\\n';
 			`cat $file | sed s/\\\r/$pattern/g  > $buffer_file && mv -f $buffer_file $file`;
-			&remove_empty_strings($file);
+			remove_empty_strings($file);
 		}
 		log_printf($cmd);
 	}
@@ -807,7 +807,7 @@ sub parse_price_list {
 
 	my @header_nice;
 
-	foreach (@header) {
+	for (@header) {
 		my $prev_line = $preview->{$_};
 		my $prev_name = $_;
 
@@ -840,15 +840,15 @@ sub parse_price_list {
 	# And here we build the dropdowns itself
 	# Really strange approach. Will change that when time permit
 	
-	foreach my $val (keys %$settings) {
+	for my $val (keys %$settings) {
     if ($val ne 'delimeter1' && $val ne 'delimeter2' && $val ne 'rdelimeter1' && $val ne 'delimeter' && $val ne 'rdelimeter2' && $val ne 'CSV' && $val ne 'rdelimeter' && $val ne 'row_delimeter' && $val ne 'xml_path' && $val ne 'pl_format' && $val ne 'first_row_as_header' && $val ne 'pl_login' && $val ne 'pl_pass' && $val ne 'esc_c') {
       # We do not to include delimeters and other non product stuff here
 #      $settings->{$val} = ;
 #      $settings->{$val} = '<option value="'.$settings->{$val}.'">'.$settings->{$val};
 			my $selected_value = $settings->{$val} || '';
 			
-      foreach my $cval (@header) {
-#				&log_printf("DV: '".$cval."' === '".$selected_value."'");
+      for my $cval (@header) {
+#				log_printf("DV: '".$cval."' === '".$selected_value."'");
 
 				# Till this moment we already have one option
 				# Lets add all other options, except the one we already have (it was added in the previous step)
@@ -860,7 +860,7 @@ sub parse_price_list {
 				$settings->{$val}.='<option value="'.$cval.'"'.$selected.'>'.$cval."</option>\n";
       }
 			#$settings->{$val}.='<option value="">[none]';
-#			&log_printf("DV: --- none ---");
+#			log_printf("DV: --- none ---");
     }
 	}
 	
@@ -868,7 +868,7 @@ sub parse_price_list {
 	# It is used if no pricelist settings was found in the database
 	
 	$settings->{'all'}.="<option>\n";
-	foreach (@header) {
+	for (@header) {
 		$settings->{'all'}.='<option value="'.$_.'">'.$_;
 	}
 	
@@ -913,7 +913,7 @@ sub get_default_options {
 		);
 	
 	$settings->{'all'}.="<option>\n";
-	foreach(@header){
+	for(@header){
 		$settings->{'all'}.='<option value="'.$_.'">'.$_;
 	}
 	
@@ -996,12 +996,12 @@ sub download_pricelist {
 	log_printf("path, path2: ".$path.", ".$path_compressed);
 
   if ($url =~ /^http/) {
-	  &log_printf("Downloading file HTTP: $url");
-    $download = &download_file_http($url,$path_compressed,$sett);
+	  log_printf("Downloading file HTTP: $url");
+    $download = download_file_http($url,$path_compressed,$sett);
   }
 	elsif ($url =~ /^ftp/) {
-	  &log_printf("Downloading file FTP: $url");
-    $download = &download_file_ftp($url,$path_compressed,$sett);
+	  log_printf("Downloading file FTP: $url");
+    $download = download_file_ftp($url,$path_compressed,$sett);
   }
 	else {
   	`/usr/bin/cp $url $path_compressed`;
@@ -1036,7 +1036,7 @@ sub download_pricelist {
 	}elsif($url =~ /\.zip$/ and !$sett->{'user_choiced_file'}){
 		my $unarh_dir=$atomcfg{'session_path'}.'tmp_unarh/';
 		`mkdir $unarh_dir` if !(-d $unarh_dir);		
-		my $cmd=&repl_ph($arh_cmd_dir->{'zip'},{'src'=>$path_compressed,'dst'=>$unarh_dir});
+		my $cmd=repl_ph($arh_cmd_dir->{'zip'},{'src'=>$path_compressed,'dst'=>$unarh_dir});
 		`$cmd`;
 		my $extracted_file=`find $unarh_dir*`;
 		$extracted_file=~s/[\n\s]+//gs;
@@ -1053,7 +1053,7 @@ sub download_pricelist {
 	if($arh_cmd_dir->{$feed_type} and  $sett->{'user_choiced_file'}){
 		my $unarh_dir=$atomcfg{'session_path'}.'tmp_unarh/';
 		`mkdir $unarh_dir` if !(-d $unarh_dir);		
-		my $cmd=&repl_ph($arh_cmd_dir->{$feed_type},{'src'=>$path_compressed,'dst'=>$unarh_dir});
+		my $cmd=repl_ph($arh_cmd_dir->{$feed_type},{'src'=>$path_compressed,'dst'=>$unarh_dir});
 		`$cmd`;
 		`cp -f $unarh_dir$sett->{'user_choiced_file'} $path`;
 		`rm -R $unarh_dir`;
@@ -1103,11 +1103,11 @@ sub download_file_http {
 
 	# get and update the modification time
 	my $mtime = $res->header('last-modified');
-	$mtime =~ s/^\w+,\s+(\d+)\s+(\w+)\s+(\d+)\s+(\d+):(\d+):(\d+)\s+\w+$/$3."-" . &months2numbers($2) . "-".$1." ".$4.":".$5.":".$6/e;
+	$mtime =~ s/^\w+,\s+(\d+)\s+(\w+)\s+(\d+)\s+(\d+):(\d+):(\d+)\s+\w+$/$3."-" . months2numbers($2) . "-".$1." ".$4.":".$5.":".$6/e;
 
 	# prepare MySQL-like distri code
 	my $distri_code = $set->{'distri_code'};
-	my $country_postfix = &do_query("select country_col from distributor_pl where code=".&str_sqlize($set->{'distri_code'}))->[0][0];
+	my $country_postfix = do_query("select country_col from distributor_pl where code=".str_sqlize($set->{'distri_code'}))->[0][0];
 	$country_postfix=$country_postfix*1;# convert '0' to 0
 
 	if ($country_postfix) {
@@ -1116,23 +1116,23 @@ sub download_file_http {
 	}
 
 	if (($mtime =~ /^\d{4}-\d{1,2}-\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}$/) && ($set->{'distri_code'} ne '') && ($set->{'distri_code'})) {
-		&log_printf("Update distributor ".$set->{'distri_code'}." with the new modification time: ".$mtime);
-		&do_statement("update distributor
-set file_creation_date=unix_timestamp(".&str_sqlize($mtime).")
-where code". ( $country_postfix ? " like ".&str_sqlize($distri_code."%") : "=".&str_sqlize($set->{'distri_code'}) ). "
-and file_creation_date!=unix_timestamp(".&str_sqlize($mtime).")");
+		log_printf("Update distributor ".$set->{'distri_code'}." with the new modification time: ".$mtime);
+		do_statement("update distributor
+set file_creation_date=unix_timestamp(".str_sqlize($mtime).")
+where code". ( $country_postfix ? " like ".str_sqlize($distri_code."%") : "=".str_sqlize($set->{'distri_code'}) ). "
+and file_creation_date!=unix_timestamp(".str_sqlize($mtime).")");
 	}
 
 	if (!$res->is_success) {
 		if ($un && $pw) {
 			log_printf("AUTH wget -q -O$path '".$url."'");
-			`wget -q -O$path --http-user="'.$un.'" --http-password="'.$pw.'" http://"$url"' > /dev/null` || &log_printf("Can't download $url!\n") && return "http://$un:$pw\@$url";
+			`wget -q -O$path --http-user="'.$un.'" --http-password="'.$pw.'" http://"$url"' > /dev/null` || log_printf("Can't download $url!\n") && return "http://$un:$pw\@$url";
 		}
 		else {
 			log_printf("wget -q -O$path '".$url."'");
-			`wget -q -O$path "$url" > /dev/null` || &log_printf("Can't download $url!\n") && return "$url";
+			`wget -q -O$path "$url" > /dev/null` || log_printf("Can't download $url!\n") && return "$url";
 		}
-		&log_printf("Can't download $url!\n");
+		log_printf("Can't download $url!\n");
 		# return undef;
 	}
 
@@ -1184,7 +1184,7 @@ sub download_file_ftp {
 
 	# prepare MySQL-like distri code
 	my $distri_code = $set->{'distri_code'};
-	my $country_postfix = &do_query("select country_col from distributor_pl where code=".&str_sqlize($set->{'distri_code'}))->[0][0];
+	my $country_postfix = do_query("select country_col from distributor_pl where code=".str_sqlize($set->{'distri_code'}))->[0][0];
 	$country_postfix=$country_postfix*1; # convert '0' to 0
 	
 	if ($country_postfix) {
@@ -1193,11 +1193,11 @@ sub download_file_ftp {
 	}
 
 	if (($mtime =~ /^\d+$/) && ($set->{'distri_code'} ne '') && ($set->{'distri_code'})) {
-		&log_printf("Update distributor ".$set->{'distri_code'}." with the new modification time: ".$mtime);
-		&do_statement("update distributor
-set file_creation_date=".&str_sqlize($mtime)."
-where code". ( $country_postfix ? " like ".&str_sqlize($distri_code."%") : "=".&str_sqlize($set->{'distri_code'}) ). "
-and file_creation_date!=".&str_sqlize($mtime));
+		log_printf("Update distributor ".$set->{'distri_code'}." with the new modification time: ".$mtime);
+		do_statement("update distributor
+set file_creation_date=".str_sqlize($mtime)."
+where code". ( $country_postfix ? " like ".str_sqlize($distri_code."%") : "=".str_sqlize($set->{'distri_code'}) ). "
+and file_creation_date!=".str_sqlize($mtime));
 	}
 
  once_again:
@@ -1227,7 +1227,7 @@ sub load_pricelist_settings {
 	my @settings;
 	my (%result, $set);
 
-	my $extra=' where code='.&str_sqlize($id); #if !$id || $id eq 'all';
+	my $extra=' where code='.str_sqlize($id); #if !$id || $id eq 'all';
 		
 	$set = do_query('select name, code, feed_url, feed_type, 
 							 is_first_header,feed_login,feed_pwd,delimiter,newline,escape,user_choiced_file,
@@ -1315,7 +1315,7 @@ sub parse_csv_header {
 	# check how many symbols does delimiter has, because Text::CSV uses only 1 char as delimiter
 	# http://search.cpan.org/~makamaka/Text-CSV-1.13/lib/Text/CSV.pm#sep_char
 
-	&log_printf("the size of delimiter is ".length($s->{'delimeter'}));
+	log_printf("the size of delimiter is ".length($s->{'delimeter'}));
 
 	my $replace_with_x01 = undef;
 	if (length($s->{'delimeter'}) > 1) {
@@ -1369,12 +1369,12 @@ sub parse_csv_header {
 	
 	$settings->{'delimeter'} = $s->{'delimeter'} ? $s->{'delimeter'} : $settings->{'delimeter'};
 
-#	&log_printf("delimeter ".$settings->{'delimeter'}."\nEscape character:".$settings->{'esc_c'});	
+#	log_printf("delimeter ".$settings->{'delimeter'}."\nEscape character:".$settings->{'esc_c'});	
 	
 	$settings->{'delimeter'} = unprintable($settings->{'delimeter'});
 	$settings->{'row_delimeter'} = unprintable($settings->{'row_delimeter'});
 
-	&log_printf("delimeter ".$settings->{'delimeter'}."\nEscape character:".$settings->{'esc_c'});
+	log_printf("delimeter ".$settings->{'delimeter'}."\nEscape character:".$settings->{'esc_c'});
 	
 	shift @preview_buffer unless $hin{'first_row_as_header'};
 
@@ -1399,20 +1399,20 @@ sub parse_csv_header {
 	$settings->{'delimeter'} = $replace_with_x01; # back previous delimiter (dima)
 	$s->{'delimeter'} = $replace_with_x01; # back previous delimiter (dima)
 
-	&Encode::_utf8_on($price[0]);
+	Encode::_utf8_on($price[0]);
 	
-#	&log_printf("delimeter ".$settings->{'delimeter'}."\nEscape character:".$settings->{'esc_c'}."\n1st string is:".Dumper($price[0]));
+#	log_printf("delimeter ".$settings->{'delimeter'}."\nEscape character:".$settings->{'esc_c'}."\n1st string is:".Dumper($price[0]));
 
 	$status  = $csv->parse($price[0]);
 	my ($cde, $str, $pos) = $csv->error_diag();
 	log_printf('error diag:'.$str.' code:'.$cde.' at :'.$pos);
 	@header = $csv->fields;
-	foreach my $i (0 .. $#header) {
+	for my $i (0 .. $#header) {
 		$header[$i] =~ s/^\s*(.*)\s*$/$1/s;
 	}
-#	&log_printf("header: ".Dumper(\@header));
+#	log_printf("header: ".Dumper(\@header));
 	
-	foreach my $row (@preview_buffer) {
+	for my $row (@preview_buffer) {
 		chomp $row;
 		$iteration++;
 #		log_printf('row: '.Dumper($row));
@@ -1424,7 +1424,7 @@ sub parse_csv_header {
 		my $iter = 0;
 		my $t_hash;
 #		log_printf('list:'.Dumper(\@list));
-		foreach (@list) {
+		for (@list) {
 			$t_hash->{$iter} = $_; # if($_ ne "\n"); must work properly with Text::CSV
 			$iter++;
 		}
@@ -1437,7 +1437,7 @@ sub parse_csv_header {
 			else {
 				$fl = 1;
 				my $sub_iteration = 0;
-				foreach my $k (keys %$t_hash) {
+				for my $k (keys %$t_hash) {
 					$tmp_hash->{$sub_iteration} = ($sub_iteration+1)." column";
 					$sub_iteration++;
 				}
@@ -1445,7 +1445,7 @@ sub parse_csv_header {
 		}
 		if ($iteration!=1 || $fl) {
 			$fl = 0;
-			foreach my $key (keys %$t_hash){
+			for my $key (keys %$t_hash){
 				push @{$preview->{$tmp_hash->{$key}}},$t_hash->{$key};
 			}
 		}
@@ -1457,7 +1457,7 @@ sub parse_csv_header {
   $skip_header = 0 if $hin{'first_row_as_header'}; #$hin{'header'};
 
   unless ($skip_header) {
-    foreach (@header) {
+    for (@header) {
 			$settings->{'prodlevid'}              = $s->{'prodlevid'}        if $_ eq $s->{'prodlevid'};
 			$settings->{'ean'}                    = $s->{'ean'}              if $_ eq $s->{'ean'};
       $settings->{'prod_id'}                = $s->{'prod_id'}          if $_ eq $s->{'prod_id'};
@@ -1489,7 +1489,7 @@ sub parse_csv_header {
 
 		$settings->{'country_postfix'}         = ($i+11)." column" if !$settings->{'country_postfix'};
 
-		foreach (@header) {
+		for (@header) {
 			$_ = "$i column";
 			$i++;
 		}
@@ -1524,10 +1524,10 @@ sub parse_xml_header {
 	unless (eval {$parsed =  XMLin($file, forcearray => 1) }){
 		log_printf('USER INTERFACE : parse pricelist :: xml url to parse or invalid xml content');
 	}
-#	&log_printf(Dumper($parsed));
+#	log_printf(Dumper($parsed));
 	# Debug info
 	if($local_debug){
-		#&log_printf(Dumper($parsed));
+		#log_printf(Dumper($parsed));
 	}
 	
 	# Lets try to guess the structure of XML
@@ -1544,10 +1544,10 @@ sub parse_xml_header {
 		#  </ProductsList>
 		#  </xml>
 		# Lets take the first entry of the refernce to the array and use that as a header
-		#&log_printf("Rows: $rows at $filename. That is great. We have more or less understandable XML structure");
+		#log_printf("Rows: $rows at $filename. That is great. We have more or less understandable XML structure");
 		my $header; # store the array reference item here
 		my $last_flag = 0;		
-		foreach(keys %$parsed){
+		for(keys %$parsed){
 			if(ref($parsed->{$_}) ne 'ARRAY' || ref($parsed->{$_}->[0]) ne 'HASH' ){
 				next;
 			}else{
@@ -1561,16 +1561,16 @@ sub parse_xml_header {
 			last if $last_flag;
 		}
 		
-#		&log_printf("Preview buffer: ".Dumper($preview_buffer));
+#		log_printf("Preview buffer: ".Dumper($preview_buffer));
 		# Debug info
 		if($local_debug){
-			#&log_printf(Dumper($header));
+			#log_printf(Dumper($header));
 		}
 		# So let feed @header array using XML attributes of the current element
 		# If nested elements are present it may fail
 		# So let feed @header array using XML attributes of the current element
 		# If nested elements are present it may fail
-		foreach(keys %$header){
+		for(keys %$header){
 			push @header, $_;
 			for( my $cursor = 0; $cursor < $preview_count;$cursor++){
 				if(ref($preview_buffer->[$cursor]->{$_}) eq 'ARRAY'){
@@ -1592,7 +1592,7 @@ sub parse_xml_header {
 		}
 		# Debug info
 		if($local_debug){
-			#&log_printf(Dumper(\@header));
+			#log_printf(Dumper(\@header));
 		}
 		return { 'header' => \@header, 'preview' => $preview};
 		
@@ -1605,14 +1605,14 @@ sub parse_xml_header {
 			log_printf("xml path: ".$xml_path);
 			my @path_arr = split(/\>\</,$xml_path);
 			my $parsed2 = $parsed;
-			foreach my $step (@path_arr){
+			for my $step (@path_arr){
 				$parsed2 = $parsed2->{$step}[0] if ref($parsed2) eq 'HASH' && $parsed2->{$step} && ref($parsed2->{$step}) eq 'ARRAY';
 			}
 #			log_printf("parsed2: ".Dumper($parsed2));
 			my $rows = ref($parsed2) eq 'HASH' ? scalar(keys %$parsed2) : 0;
 			if($rows == 1){
 				my $header;
-				foreach(keys %$parsed2){
+				for(keys %$parsed2){
 					if(scalar($parsed2->{$_})=~/ARRAY/){
 						$header = $parsed2->{$_}->[0];
 						for( my $cursor = 0; $cursor < $preview_count;$cursor++){
@@ -1621,7 +1621,7 @@ sub parse_xml_header {
 #			log_printf("Preview_buffer: ".Dumper($preview_buffer));
 					}
 				}
-				foreach(keys %$header){
+				for(keys %$header){
 					push @header, $_;
       		for( my $cursor = 0; $cursor < $preview_count;$cursor++){
 						if(ref($preview_buffer->[$cursor]->{$_}) eq 'ARRAY'){
@@ -1633,13 +1633,13 @@ sub parse_xml_header {
 				}
 				return {'header' => \@header, 'preview' => $preview};
 			}else{
-				&log_printf("Rows: $rows at $filename. Seems that functionality should be developed");
+				log_printf("Rows: $rows at $filename. Seems that functionality should be developed");
 				return {'header' => ['wrong structure of file'], 'preview' => {'wrong structure of file'}};
 			}
 		}else{
 			# That is not good.
 			# Seems that functionality should be developed
-			&log_printf("Rows: $rows at $filename. Seems that functionality should be developed");     
+			log_printf("Rows: $rows at $filename. Seems that functionality should be developed");     
 			return {'header' => ['wrong structure of file'], 'preview' => {'wrong structure of file'} };
 			# exit(0);
 		}
@@ -1718,11 +1718,11 @@ sub parse_excel_header
 sub test_tables{
 	sub create_aaa_test{
 		my $table=shift;
-		&do_statement("DROP TABLE IF EXISTS aaa_$table");
-		&do_statement("CREATE TABLE aaa_$table LIKE $table");
-		&do_statement("INSERT INTO aaa_$table SELECT * FROM $table");
+		do_statement("DROP TABLE IF EXISTS aaa_$table");
+		do_statement("CREATE TABLE aaa_$table LIKE $table");
+		do_statement("INSERT INTO aaa_$table SELECT * FROM $table");
 	}
-	&create_aaa_test('tmp_shops_imported_product_data');
+	create_aaa_test('tmp_shops_imported_product_data');
 }
 
 ##########################################################################################

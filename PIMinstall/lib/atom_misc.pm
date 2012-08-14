@@ -140,7 +140,7 @@ sub get_exponent {
 	}
 
 	return $exponent;
-} # sub get_exponent
+} 
 
 sub format_date {
 	my ($time) = @_;
@@ -152,7 +152,7 @@ sub form_presentation_value {
 	my ($value, $unit) = @_;
 
 	return (($value =~ /([^a-zA-Z]|^)[0-9]+\s*$/) && ($unit ne '')) ? $value.(($unit ne '')?" ":"").$unit : $value;
-} # sub form_presentation_value
+} 
 
 sub get_prod_ids_list {
 	my ($list, $save_only_1st) = @_;
@@ -171,7 +171,7 @@ sub get_prod_ids_list {
 	}
 
 	return $prod_ids;
-} # sub get_prod_ids_list
+} 
 
 sub get_products_related_by_product_id { # was updated - via MySQL stored procedures
 	my ($product_id) = @_;
@@ -188,7 +188,7 @@ sub get_products_related_by_product_id { # was updated - via MySQL stored proced
 	}
 
 	return $result_pids;
-} # get_products_related_by_product_id
+} 
 
 sub get_product_relations_amount { # to update, obsolete
 	my ($supplier_id, $supplier_family_id, $catid, $feature_id, $feature_value, $exact_value, $prod_id, $start_date, $end_date) = @_;
@@ -198,7 +198,7 @@ sub get_product_relations_amount { # to update, obsolete
 	my $result = atomsql::do_query("select count(distinct local_p.product_id) from product local_p ".$jc->{'join'}." where ".$jc->{'condition'})->[0][0];
 
 	return $result;
-} # sub get_product_relations_amount
+} 
 
 #
 # get_product_relations_set_amount - to count number of products per specified part (left or right) of relation (x-sell) rule
@@ -443,15 +443,13 @@ sub in_selected_sponsors {
 	return ' in ('.join(',',@sponsors).')';
 }
 
-sub makedir
-{
+sub makedir {
 	my ($path) = @_;
 	my $cmd;
 	if (!-e $path){ $cmd = "mkdir $path";`$cmd`; }
 }
 
-sub make_authmysql_htaccess
-{
+sub make_authmysql_htaccess {
 	my ($path,$auth_params) = @_;
 	return if (!-e $path);
 	open(FH,">$path/.htaccess");
@@ -473,106 +471,106 @@ sub make_authmysql_htaccess
 	close(FH);
 }
 
-sub get_quality_measure
-{
-my ($ug) = @_;
-my $q_rate = '';
+sub get_quality_measure {
+    my ($ug) = @_;
+    my $q_rate = '';
 
-	 if ($ug eq 'editor' || $ug eq 'supereditor' || $ug eq 'category_manager' || $ug eq 'exeditor' || $ug eq 'superuser'){
-	  $q_rate = 'ICECAT'
-	 } elsif($ug eq 'supplier'){
-    $q_rate = 'SUPPLIER';	 
-	 } else {
-	  $q_rate = 'NOEDITOR'
-	 }
+	if ($ug eq 'editor' || $ug eq 'supereditor' || $ug eq 'category_manager' || $ug eq 'exeditor' || $ug eq 'superuser'){
+	    $q_rate = 'ICECAT'
+	} 
+	elsif($ug eq 'supplier'){
+        $q_rate = 'SUPPLIER';	 
+	} 
+	else {
+	    $q_rate = 'NOEDITOR'
+	}
 
-return $q_rate;
+    return $q_rate;
 }
 
-sub get_quality_index
-{
-my ($q_rate) = @_;
+sub get_quality_index {
+    my ($q_rate) = @_;
 
-my $map = 
-		{
+    my $map = {
 		 'NOEDITOR' => 0,
 		 'ICECAT'		=> 1,
 		 'SUPPLIER' => 2
 		};
 
-return $map->{$q_rate};
+    return $map->{$q_rate};
 
 }
 
 
-sub get_ip_addr
-{
- use Socket;
+sub get_ip_addr {
+    use Socket;
  
- my ($name) = @_;
+    my ($name) = @_;
 
- my $host = inet_ntoa(inet_aton($name));
+    my $host = inet_ntoa(inet_aton($name));
  
- return $host;
+    return $host;
 }
 
-sub login_user
-{
-my ($login, $pass) = @_;
+sub login_user {
+    my ($login, $pass) = @_;
 
-if($pass){
- my $user_id = atomsql::do_query("select user_id, access_restriction, access_restriction_ip, login_expiration_date, subscription_level from users where login = ".atomsql::str_sqlize($login)." and password = ".atomsql::str_sqlize($pass))->[0];
+    if($pass){
+        my $user_id 
+            = atomsql::do_query("select user_id, access_restriction, access_restriction_ip, login_expiration_date, subscription_level from users where login = ".atomsql::str_sqlize($login)." and password = ".atomsql::str_sqlize($pass))->[0];
 
- if(defined $user_id){
-	return 0 if(($user_id->[4]==5)||($user_id->[4]==6));
-  if(verify_address($user_id->[1], $user_id->[2], $ENV{'REMOTE_ADDR'} )){
-		if($user_id->[3]){
-		    $user_id->[3] =~ /^\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*:\s*(\d+)\s*/;
-		    if(!$1){
-			return 0;
-		    }
-		    log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time".time);
-		    eval{timelocal($6, $5, $4, $3, $2 - 1, $1)};
-		    if($@){
-			log_printf("login expiration date is wrong: $@");
-			return 0;
-		    }
-		    if(timelocal($6, $5, $4, $3, $2 - 1, $1) < time){
-			return 0;
-		    }
+        if(defined $user_id){
+	        return 0 if (($user_id->[4]==5)||($user_id->[4]==6));
+	        
+            if (verify_address($user_id->[1], $user_id->[2], $ENV{'REMOTE_ADDR'} )) {
+		        if($user_id->[3]){
+		            $user_id->[3] =~ /^\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*:\s*(\d+)\s*/;
+		            if (!$1) {
+			            return 0;
+		            }
+		            log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time".time);
+		            eval { timelocal($6, $5, $4, $3, $2 - 1, $1) };
+		            if ($@) {
+			            log_printf("login expiration date is wrong: $@");
+			            return 0;
+		            }
+		            if (timelocal($6, $5, $4, $3, $2 - 1, $1) < time) {
+			            return 0;
+		            }
 
-		}
- 		$atom_html::hl{'user_id'} = $user_id->[0];		
+		       }
+ 		       $atom_html::hl{'user_id'} = $user_id->[0];		
 
- 		$atom_util::USER = get_rows('users',"user_id = $atom_html::hl{'user_id'}")->[0];
+ 		       $atom_util::USER = get_rows('users',"user_id = $atom_html::hl{'user_id'}")->[0];
 		
-		return 1;
-	} else {
-	 return 0;
-	}
- }
-  return 0;
-} elsif($login){
+		       return 1;
+	       } 
+	       else {
+	           return 0;
+	       }
+        }
+        return 0;
+    } 
+    elsif($login){
  
 	my $row = atomsql::do_query('select password, email, login from users,contact where contact_id=pers_cid and login='.atomsql::str_sqlize($login));
 
-	if(!$row->[0][1]){ return 0 }
+	if (!$row->[0][1]) { return 0 }
 
 	my $msg = atom_util::load_template('passwd.al', $atom_html::hl{'langid'});
 
 	$msg = repl_ph($msg,	{
-												 "password" => $row->[0][0],
-												 "login" 		=> $row->[0][2]
-												});
+        "password" => $row->[0][0],
+        "login" 		=> $row->[0][2]
+    });
 
 	sendmail($msg,$row->[0][1],$atomcfg{'mail_from'});
 
- return 0;
-}
+    return 0;
+    }
 }
 
-sub make_code 
-{
+sub make_code {
 	my $n = shift;
 	my ($i,$s,$c);
 	$s = '';
@@ -610,29 +608,31 @@ sub escape {
 
 sub s_repl_ph {
 	my ($text, $hash) = @_;
-		if($text=~/<DictItem[\s]*[^><]*>.+?<\/DictItem>/){
-			my @items=($text=~/(<DictItem[\s]*[^><]*>.+?<\/DictItem>)/gs);
+		if($text =~ /<DictItem[\s]*[^><]*>.+?<\/DictItem>/){
+			my @items = ($text =~ /(<DictItem[\s]*[^><]*>.+?<\/DictItem>)/gs);
 			for my $item (@items){
-				if($item=~/<DictItem[\s]*[^><]*>(.+)<\/DictItem>/){
+				if($item =~ /<DictItem[\s]*[^><]*>(.+)<\/DictItem>/){
 					my $token=$1;
 					my $lang;
-					if($item=~/<DictItem[\s]+lang="([\w]+)"/){
+					if($item =~ /<DictItem[\s]+lang="([\w]+)"/){
 						$lang=$1;
 					}
 					my $replacement=atomsql::do_query('
 										SELECT dt.html FROM dictionary_text dt 
 										JOIN dictionary d USING(dictionary_id)
 										JOIN language l USING(langid) '.
-										'WHERE d.code='.atomsql::str_sqlize($token).' AND (l.langid=1 '.
+										'WHERE d.code=' . atomsql::str_sqlize($token) . ' AND (l.langid=1 '.
 										(($lang)?' or l.short_code='.atomsql::str_sqlize($lang):'').') 
 										ORDER BY l.langid DESC');
-					if($replacement->[0][0]){# we have local translation										
-						$text=~s/\Q$item\E/$replacement->[0][0]/g;
-					}else{# use english transaltion
-						$text=~s/\Q$item\E/$replacement->[1][0]/g;
+					if ($replacement->[0][0]) { # we have local translation										
+						$text =~ s/\Q$item\E/$replacement->[0][0]/g;
 					}
-				}else{
-					$text=~s/<DictItem><\/DictItem>//gs;
+					else{ # use english transaltion
+						$text =~ s/\Q$item\E/$replacement->[1][0]/g;
+					}
+				}
+				else{
+					$text =~ s/<DictItem><\/DictItem>//gs;
 				}
 			}		
 		}
@@ -645,63 +645,66 @@ sub s_repl_ph {
 
 sub repl_ph {
 	my ($text, $hash) = @_;
-	return s_repl_ph($text, $hash);
-#	my $curr =m/[^\\]*%%(.+?)%%[^\\]*/g;
+	
+	return s_repl_ph( $text, $hash );
+	
+#	my $curr = m/[^\\]*%%(.+?)%%[^\\]*/g;
+
 	my $curr;
 	$curr=~m/%%.+?%%/gs;
-  my $prev = -1;
+    my $prev = -1;
 		
 	while( $curr != $prev ){
 	  $prev = $curr;
 #		log_printf("\$prev = $prev");
 		$text = s_repl_ph($text,$hash);
-   	 $curr =~m/%%.+?%%/gs;
+   	 $curr =~ m/%%.+?%%/gs;
 #		log_printf("\$curr = $curr");
 	}
 
-return $text;
+    return $text;
 }
 
 
-sub verify_address
-{
- use Socket;
- my ( $access_restriction, $access_restriction_ip, $ip ) = @_;
- log_printf(" input $access_restriction, $access_restriction_ip, $ip )");
- my $result = 1; # ok
+sub verify_address {
+    use Socket;
+    my ( $access_restriction, $access_restriction_ip, $ip ) = @_;
+    log_printf(" input $access_restriction, $access_restriction_ip, $ip )");
+    my $result = 1; # ok
 
     #$ip = eval { inet_ntoa(inet_aton($ip)) };
- my @ip = split(/\./, $ip);
+    my @ip = split(/\./, $ip);
 
- if($access_restriction){ # enabled
-  $result = 0;
+    if($access_restriction){ # enabled
+        $result = 0;
 	
-	my @allowed_hosts = split(' ', $access_restriction_ip);
- 	 for my $allowed_host(@allowed_hosts){
-	  last if $result;
-#		 log_printf(" chk $allowed_host");		
- 		if($allowed_host =~m/[\d\/]+\.[\d\/]+\.[\d\/]+\.[\d\/]+/){
-		 # ip mask given
-#		 log_printf(" pattern $allowed_host");
-		 my @ip_pattern = split(/\./, $allowed_host);
+	    my @allowed_hosts = split(' ', $access_restriction_ip);
+ 	    for my $allowed_host(@allowed_hosts){
+	        last if $result;
+#		    log_printf(" chk $allowed_host");		
+ 		    if ($allowed_host =~m/[\d\/]+\.[\d\/]+\.[\d\/]+\.[\d\/]+/) {
+		    # ip mask given
+#		    log_printf(" pattern $allowed_host");
+		    my @ip_pattern = split(/\./, $allowed_host);
 
-		 $result = 1; # assuming
+		    $result = 1; # assuming
 
-		 for(my $i = 0; $i < 4; $i++){
-			 my ($low, $hi ) = split('/', $ip_pattern[$i]);
-			 # checking consitently
-			 if($low > $hi ){ my $tmp = $hi; $hi = $low; $low = $tmp; }
+		    for (my $i = 0; $i < 4; $i++) {
+			    my ($low, $hi ) = split('/', $ip_pattern[$i]);
+			    # checking consitently
+			    if ($low > $hi ) { my $tmp = $hi; $hi = $low; $low = $tmp; }
 
-			 if(!defined $hi){ $hi = $low } # when no pattern given
-			 if(!defined $low){ $low = $hi } # when no pattern given
+			    if (!defined $hi) { $hi = $low } # when no pattern given
+			    if (!defined $low) { $low = $hi } # when no pattern given
 # log_printf( " $low vs $hi are given from $ip_pattern[$i]" );
-			 # verification
+			    # verification
 # log_printf( " $ip[$i] < $low || $ip[$i] > $hi ");
-			 if( $ip[$i] < $low || $ip[$i] > $hi ){
-			  $result = 0; # verification failed
-			 }
-		 }
-		} else {
+			    if( $ip[$i] < $low || $ip[$i] > $hi ){
+			        $result = 0; # verification failed
+			     }
+		    }
+		} 
+		else {
 			# some name is given
 			my $between_ip = inet_aton($allowed_host);
 			if ($between_ip) {
@@ -722,7 +725,7 @@ sub maintain_category_feature_group {
 	
 	my $category_feature_group_id;
 	
-  my $category_feature_group_id = atomsql::do_query('select category_feature_group_id from category_feature_group where catid = '.atomsql::str_sqlize($catid).' and feature_group_id = '.atomsql::str_sqlize($feature_group_id))->[0][0];
+    my $category_feature_group_id = atomsql::do_query('select category_feature_group_id from category_feature_group where catid = '.atomsql::str_sqlize($catid).' and feature_group_id = '.atomsql::str_sqlize($feature_group_id))->[0][0];
 
 	unless ($category_feature_group_id) {
 		insert_rows('category_feature_group', 
@@ -822,7 +825,7 @@ sub get_obj_url {
 	`rm -f $tmp_file`;
 
 	return $target;
-} # sub get_obj_url
+} 
 
 sub get_family_children_list {
 	my ($id) = @_;
@@ -843,7 +846,7 @@ sub get_family_children_list {
 	}
 
 	return $arr;
-} # sub get_family_chilren_list
+} 
 
 sub family_count {
     my $id = shift;
@@ -915,23 +918,22 @@ sub my_mirror {
 	}
 }
 
-sub verify_login_expiration_date
-{
- my($uid) = @_[0];
- if(!$uid){ return 0;}
- my $date = atomsql::do_query("select login_expiration_date from users where user_id = $uid");
- if($date->[0][0]){
-  $date->[0][0] =~ /^\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*:\s*(\d+)\s*/;
-  if(!$1){ return 0;}
-  log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time: ".time);
-  eval{timelocal($6, $5, $4, $3, $2 - 1, $1)};
-  if($@){
-    log_printf("login expiration date is wrong: $@");
-    return 0;
-  }
-  if(timelocal($6, $5, $4, $3, $2 - 1, $1) < time){ return 0;  }
- }
- return 1;
+sub verify_login_expiration_date {
+    my($uid) = @_[0];
+    if(!$uid){ return 0;}
+    my $date = atomsql::do_query("select login_expiration_date from users where user_id = $uid");
+    if($date->[0][0]){
+        $date->[0][0] =~ /^\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*:\s*(\d+)\s*/;
+        if (!$1) { return 0;}
+        log_printf("timelocal: ".timelocal($6, $5, $4, $3, $2 - 1, $1)." time: ".time);
+        eval{timelocal($6, $5, $4, $3, $2 - 1, $1)};
+        if($@){
+            log_printf("login expiration date is wrong: $@");
+            return 0;
+        }
+        if(timelocal($6, $5, $4, $3, $2 - 1, $1) < time){ return 0;  }
+    }
+    return 1;
 }
 
 sub get_language_flag {
@@ -954,8 +956,7 @@ sub get_language_flag {
 	return $language_flag;
 }
 
-sub get_complaint_email_body
-{
+sub get_complaint_email_body {
  my ($atoms, $complaint_id, $langid, $nohistory) = @_;
  
  #get complaints details
@@ -1012,7 +1013,8 @@ where pc.id = $complaint_id and  pc.complaint_status_id = pcs.code and  pcs.sid 
 	$replases->{'history_header'} = $atoms->{'default'}->{'email_complaint'}->{'history_header'};
 	$replases->{'history_begin'} = $atoms->{'default'}->{'email_complaint'}->{'history_begin'};
 	$replases->{'history_end'} = $atoms->{'default'}->{'email_complaint'}->{'history_end'};
- }else{
+ }
+ else{
 	$replases->{'history_rows'} = '';
 	$replases->{'history_header'} = '';
 	$replases->{'history_begin'} = '';
@@ -1020,8 +1022,7 @@ where pc.id = $complaint_id and  pc.complaint_status_id = pcs.code and  pcs.sid 
  }
  my $body = repl_ph($atoms->{'default'}->{'email_complaint'}->{'body'}, $replases);
  
- sub get_subject
- {
+ sub get_subject {
   my $req2 = atomsql::do_query("select count(id) from product_complaint_history where id <= $_[0] and complaint_id = $_[1]");
   if(!$req2->[0][0] || $req2->[0][0] == 1){ return "Re:".$_[2]; }
 	else{ return "Re[".($req2->[0][0])."]:".$_[2]; }
@@ -1143,7 +1144,7 @@ sub nonEn_value {
 		push @$result, $match if ($match);
 	}
 	return $result;
-} # nonEn_value
+} 
 
 sub approx {
   my ($pattern,$victim) = @_;
@@ -1152,7 +1153,7 @@ sub approx {
     push @$output, fastdistance(lc($pattern),lc($_));
   }
   return $output;
-} # approx
+} 
 
 sub xsd_header {
 	my ($schema) = @_;
@@ -1166,7 +1167,7 @@ sub xsd_header {
 
 sub xml_utf8_tag {
 	return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-} # sub xml_utf8_tag
+} 
 
 sub remove_index_xml_item_by_supplier_id {
 	my ($rxml, $supplier_id, $prod_id_set) = @_;
@@ -1183,7 +1184,7 @@ sub remove_index_xml_item_by_supplier_id {
 		$$rxml =~ s/<file\s[^\>]+?Supplier_id="$supplier_id"[^\>]+?Prod_ID="(?:$prod_id_set)"[^\>]+?>.*?<\/file>\s*//sg;
 	}
 
-} # sub remove_index_xml_item_by_supplier_id
+}
 
 sub remove_index_csv_item_by_supplier_id {
 	my ($rcsv, $supplier_id, $prod_id_set) = @_;
@@ -1205,7 +1206,7 @@ sub remove_index_csv_item_by_supplier_id {
   }
 
   $$rcsv = $line;
-} # sub remove_index_csv_item_by_supplier_id
+}
 
 sub _prod_id_set2perlre {
 	my ($prod_id_set) = @_;
@@ -1222,7 +1223,7 @@ sub _prod_id_set2perlre {
 	}
 
 	return $prod_id_set;
-} # sub _prod_id_set2perlre
+}
 
 sub remove_Philips_DE_content {
   my ($c, $id) = @_;
@@ -1278,6 +1279,6 @@ sub remove_Philips_DE_content {
   }
   $c->{'nobody_csv'} = $line;
   print "] ";
-} # sub remove_Philips_DE_content
+}
 
 1;

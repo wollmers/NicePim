@@ -37,7 +37,7 @@ BEGIN{
 #################### main sub to generate report ############################################################
 
 sub generate_price_report {
-	my $base_data = &get_base_data();
+	my $base_data = get_base_data();
 
 #	log_printf('base data: '.Dumper($base_data));
 	log_printf('file for parsing: '.$hin{'fn'});
@@ -45,17 +45,17 @@ sub generate_price_report {
 	my $distri = $hin{'d_code'} if($hin{'d_code'});
 	$distri = $hin{'distri_code'} if($hin{'distri_code'});
 	my $fn = $hin{'fn'};
-	my $done = &make_efile($fn,$base_data);
+	my $done = make_efile($fn,$base_data);
 #	`/bin/rm -f $fn`;
 
-	return &report_products($fn.'_parsed_pricelist.csv', $distri);
+	return report_products($fn.'_parsed_pricelist.csv', $distri);
 }
 
 ############################### saving settings for current distri ########################################
 
 sub generate_price_save {
 	if ($hin{'distri_code'}) { # choose distributor & d_code using distri_code value - Sergey Karmalita's BIG bug was here - fixed by DV (10.09.2009)
-		my $restore_distri_datas = &do_query("select code, name from distributor_pl where code = ".&str_sqlize($hin{'distri_code'}))->[0];
+		my $restore_distri_datas = do_query("select code, name from distributor_pl where code = ".str_sqlize($hin{'distri_code'}))->[0];
 		$hin{'distributor'} = $restore_distri_datas->[1];
 		$hin{'d_code'} = $restore_distri_datas->[0];
 	}
@@ -63,7 +63,7 @@ sub generate_price_save {
 	return "<h3 color='red'>Error! Please type distributor to appropriate fields!</h3>" unless($hin{'distributor'} && $hin{'d_code'});
 	return "<h3 color='red'>Error! At least Part number must be selected!</h2>" unless($hin{'prod_id'} || $hin{'ean'});
 	
-	my $base_data = &get_base_data();
+	my $base_data = get_base_data();
 
 	#log_printf('base data: '.Dumper(\%base_data));
 #	$base_data->{'delimeter'} = quotemeta($base_data->{'delimeter'});
@@ -93,9 +93,9 @@ sub generate_price_save {
 
 	my $act = ($base_data->{'active'} eq '1') ? 1 : 0;
 
-	&do_statement("replace into distributor_pl set code=".&str_sqlize($base_data->{'d_code'}).", name=".&str_sqlize($base_data->{'distributor'}).", pl_format=".&str_sqlize($base_data->{'pl_format'}).", pl_settings=".&str_sqlize($settings).", pl_url=".&str_sqlize($base_data->{'pl_url'}).", langid=".$base_data->{'langid'}.", active=".$act);
+	do_statement("replace into distributor_pl set code=".str_sqlize($base_data->{'d_code'}).", name=".str_sqlize($base_data->{'distributor'}).", pl_format=".str_sqlize($base_data->{'pl_format'}).", pl_settings=".str_sqlize($settings).", pl_url=".str_sqlize($base_data->{'pl_url'}).", langid=".$base_data->{'langid'}.", active=".$act);
 
-	my $ret = &do_query("select name, code, pl_url, pl_format, pl_settings, active from distributor_pl where code=".&str_sqlize($base_data->{'d_code'})." limit 1")->[0];
+	my $ret = do_query("select name, code, pl_url, pl_format, pl_settings, active from distributor_pl where code=".str_sqlize($base_data->{'d_code'})." limit 1")->[0];
 	my $tbl = '<b>Such settings has been saved:</b><br>
 			<table class="tbl-block" border="0" cellpadding="3">
 			<th class="th-dark">Distributor</th><th class="th-norm">Code</th><th class="th-dark">Pricelist url</th><th class="th-norm">Format</th><th class="th-dark">Pricelist settings</th><th class="th-norm">Is active</th>';
@@ -175,8 +175,8 @@ sub generate_price_prew {
 #		$fn = $hin{'pl_url'};
 #		$fn =~ s#.*//([^/]*?)/.*#$1#i unless($fn =~ s#.*//[^\.]*?\.([^/]*?)/.*#$1#i || s/.*/$hin{'pl_url'}/i);
 #		$fn =~ s/[\?\:\@]//gs;
-#	&download_pricelist($hin{'pl_url'}, '../tmp/'.$fn);
-		$price = &parse_price_list(&refine_url4path($hin{'pl_url'}),$hin{'d_code'});
+#	download_pricelist($hin{'pl_url'}, '../tmp/'.$fn);
+		$price = parse_price_list(refine_url4path($hin{'pl_url'}),$hin{'d_code'});
 
 		return "<h4>1 Error! File not found!</h4>" if($price eq "not found!");
 
@@ -185,14 +185,14 @@ sub generate_price_prew {
 		$options = $price->{'settings'};
 		$fn = $price->{'file'};
 		$hin{'file'} = $fn;
-		$adt = &display_xml($options) if($options->{'pl_format'} eq 'xml');
-		$adt = &display_csv($options) if($options->{'pl_format'} eq 'csv');
-		$adt = &display_xls($options) if($options->{'pl_format'} eq 'xls');
+		$adt = display_xml($options) if($options->{'pl_format'} eq 'xml');
+		$adt = display_csv($options) if($options->{'pl_format'} eq 'csv');
+		$adt = display_xls($options) if($options->{'pl_format'} eq 'xls');
   }
 	elsif ($hin{'distri_code'}) {
 		my $d_id = $hin{'distri_code'};
 		log_printf("getting pricelist with saved settings code=".$d_id);
-		$price = &parse_price_list(undef, $d_id);
+		$price = parse_price_list(undef, $d_id);
 
 		return "<h4>2 Error! File not found!</h4>" if($price eq "not found!");
 
@@ -204,21 +204,21 @@ sub generate_price_prew {
 #	log_printf("options:".Dumper($options));
 		$fn = $price->{'file'};
 		$hin{'file'} = $fn;
-		$adt = &display_xml($options) if($options->{'pl_format'} eq 'xml');
-		$adt = &display_csv($options) if($options->{'pl_format'} eq 'csv');
-		$adt = &display_xls($options) if($options->{'pl_format'} eq 'xls');
+		$adt = display_xml($options) if($options->{'pl_format'} eq 'xml');
+		$adt = display_csv($options) if($options->{'pl_format'} eq 'csv');
+		$adt = display_xls($options) if($options->{'pl_format'} eq 'xls');
   }
 	else {
 		log_printf("else");
-  	$options = &get_default_options();
-		$adt = &display_csv();
+  	$options = get_default_options();
+		$adt = display_csv();
   }
 	
 #log_printf("options:".Dumper($options));
 #log_printf("addition:".$adt);
   my $cnt = 0;
   $preview = $adt."\n".'<table class="tbl-block" cellpadding="3">';
-  foreach my $row (keys %$fields) {
+  for my $row (keys %$fields) {
 
 		# Dirty fix by DV (10.02.2009)!..
 		$options->{$row} =~ s/^.*?(<.*$)/$1/s;
@@ -233,18 +233,18 @@ sub generate_price_prew {
   }
 	$preview .= '</table>';
 	
-#&log_printf("prew:".Dumper($prew));
+#log_printf("prew:".Dumper($prew));
   if ($prew && !$hin{'is_analyzis'}) {
 		my $i=0;
 		my @hels = keys %$prew;
-#&log_printf(Dumper( \@hels ));
+#log_printf(Dumper( \@hels ));
 		my $tmp_arr = $prew->{$hels[2]};
-#&log_printf(Dumper($tmp_arr));
+#log_printf(Dumper($tmp_arr));
 		$preview .= '<div style="width:100%;height:150px;overflow:auto;align:center;">
                                     <table class="tbl-block" border="0" celpadding="3"><tr>';
 		my $chet = 2;
 		my $class;
-		foreach my $hdr (@hels) {
+		for my $hdr (@hels) {
 			unless ($chet % 2) {
 				$class = 'class="th-dark"';
 			}
@@ -255,10 +255,10 @@ sub generate_price_prew {
 			$chet++;
 		}
 		$preview .= '</tr>';
-		foreach (@$tmp_arr) {
+		for (@$tmp_arr) {
 			$preview .= '<tr>';
 			$chet = 2;
-			foreach my $pcol (@hels) {
+			for my $pcol (@hels) {
 				unless ($chet % 2) {
 					$class = 'class="td-dark"';
 				}
@@ -274,10 +274,10 @@ sub generate_price_prew {
 		$preview .= '</table></div>';
   }
 	elsif ($hin{'is_analyzis'}) {
-  	$preview .= '<div style="width:100%;height:300px;overflow:auto;align:center;">'.&generate_price_report().'</div>';
+  	$preview .= '<div style="width:100%;height:300px;overflow:auto;align:center;">'.generate_price_report().'</div>';
 		if ($hin{'mail_rep'}) {
-			&do_statement("drop temporary table if exists tmp_mail_rep");
-			&do_statement("create temporary table tmp_mail_rep(
+			do_statement("drop temporary table if exists tmp_mail_rep");
+			do_statement("create temporary table tmp_mail_rep(
 				product_id int(13) not null default '0',
 				prod_id varchar(36) not null default '',
 				supplier varchar(255) not null,
@@ -285,14 +285,14 @@ sub generate_price_prew {
 				user char(40) not null default '',
 				name varchar(255) not null default '')");
 			
-			&do_statement("insert into tmp_mail_rep (product_id, prod_id, supplier, quality, user, name) select tp.product_id,tp.prod_id,if(s.name,s.name,tp.supplier),ugmm.measure,u.login,if(p.name,p.name,tp.name) 
+			do_statement("insert into tmp_mail_rep (product_id, prod_id, supplier, quality, user, name) select tp.product_id,tp.prod_id,if(s.name,s.name,tp.supplier),ugmm.measure,u.login,if(p.name,p.name,tp.name) 
 				from tmp_pl_products tp
 				left join product p using (product_id)
 				left join users u on p.user_id = u.user_id
 				left join user_group_measure_map ugmm on u.user_group=ugmm.user_group
 				left join supplier s on s.supplier_id = p.supplier_id order by tp.product_id desc");
 			
-			my $mail_rep = &do_query("select product_id, prod_id, supplier, quality, user, name from tmp_mail_rep");
+			my $mail_rep = do_query("select product_id, prod_id, supplier, quality, user, name from tmp_mail_rep");
 			
 			my $file  = 'pricelist_products_detailed_report.xls';
 			my $workbook  = Spreadsheet::WriteExcel::Big->new("/tmp/".$file) or die("cannot create xls file\n");
@@ -313,7 +313,7 @@ sub generate_price_prew {
 			$worksheet->write(0, 4, 'User', $format);
 			$worksheet->write(0, 5, 'Model name', $format);
 			my $row = 1;
-			foreach my $data (@$mail_rep) {
+			for my $data (@$mail_rep) {
 				my $col;
 				for ($col=0; $col<6;$col++) {
 					$worksheet->write($row, $col, $data->[$col]);
@@ -345,16 +345,16 @@ sub generate_price_prew {
 				'attachment_body' => $zip
 			};
 			
-			&complex_sendmail($mail);
+			complex_sendmail($mail);
 		}
   }
 	
-#			&log_printf(Dumper($preview));
+#			log_printf(Dumper($preview));
 	$preview .= '<input type=hidden id="fn" name="fn" value="'.$fn.'">
 		</form>
 		<script type="text/javascript">sel_distributor(); is_auth(); chose_url_format(); hide_settings();document.getElementById("is_analyzis").value = "";
 		</script>';
-#	&generate_price_report($fn) if($hin{'submit'} eq 'Analize');
+#	generate_price_report($fn) if($hin{'submit'} eq 'Analize');
 
 	return $preview;
 }
@@ -476,17 +476,17 @@ sub make_efile {
 	my $parsed;	
 	
 	if ($set->{'pl_format'} eq 'csv') {
-		#$parsed = &load_csv($set, $file);
+		#$parsed = load_csv($set, $file);
 		my $tmp=$file.'_parsed_pricelist.csv';
 		`cp $file $tmp`;
 		return $file;
 		
 	}
 	elsif ($set->{'pl_format'} eq 'xls') {
-		$parsed = &load_xls($set, $file);
+		$parsed = load_xls($set, $file);
 	}
 	elsif ($set->{'pl_format'} eq 'xml') {
-		$parsed = &load_xml($set, $file);
+		$parsed = load_xml($set, $file);
 	}
 
 	log_printf(Dumper("Parsed: ".$parsed));
@@ -498,7 +498,7 @@ sub make_efile {
 sub load_xml {
   my ($options,$path) = @_;
   use icecat_util;
-  my $result=&xml2csv($path,($path.'_parsed_pricelist.csv'),30);
+  my $result=xml2csv($path,($path.'_parsed_pricelist.csv'),30);
   if($result){
 	`rm -r $path`;
 	$path.='.csv';
@@ -524,7 +524,7 @@ sub load_xls {
 	
 	if (!($options->{'prod_id'} =~/Column/)) {
 		my $sh = $oBook->{Worksheet}[0];
-		foreach my $opt (keys %$options) {
+		for my $opt (keys %$options) {
 			for (my $c = $sh->{MinCol}; defined $sh->{MaxCol} && $c <= $sh->{MaxCol}; $c++) {
 				my $shv = $sh->{Cells}[0][$c];
 				next if !$shv;
@@ -722,7 +722,7 @@ sub load_csv {
 		
 		my $par = qr(\"[\"]+\");
 
-		foreach (@data) {
+		for (@data) {
 			$_=~s/^\"//gs;
 			$_=~s/\"$//gs;
 			$_=~s/^'//gs;
@@ -733,7 +733,7 @@ sub load_csv {
 		
 		if ($line == 0 && $header ne '0') {
 			my $j=0;
-			foreach (@data) {
+			for (@data) {
 				$map->{$_}=$j;
 				$j++;
 			} 
@@ -966,7 +966,7 @@ sub valid_import_price {
 sub validate_map_hash {
 
 	my ($hash, $res_hash) = @_;
-	foreach my $key (keys %$hash) {
+	for my $key (keys %$hash) {
 		my $val = $hash->{$key};
 		$key =~s/^[\s\t]+//gs;
 		$val =~s/^[\s\t]+//gs;
@@ -982,7 +982,7 @@ sub read_configs {
 	my ($config)=@_;
 	my @configs=split("\n",$config);
 	my $set={};
-	foreach(@configs){
+	for(@configs){
 		my @c=split(':',$_);
 		my @conf=split(':',$_);
 		$set->{$conf[0]}=$conf[1];

@@ -58,18 +58,18 @@ sub remove_ancient_request_repository_statistics {
 
 	return undef unless $last_date;
 
-	my $ts = &do_query("select unix_timestamp(".&str_sqlize($last_date).")")->[0][0];
-	my $cts = &do_query("select unix_timestamp()")->[0][0];
+	my $ts = do_query("select unix_timestamp(".str_sqlize($last_date).")")->[0][0];
+	my $cts = do_query("select unix_timestamp()")->[0][0];
 
 	return undef unless $ts;
 
 	if ($ts < $cts) {
-		&do_statement("delete from request_repository where date < ( ".$ts." - 60*60*24*30 )"); # a month safer
+		do_statement("delete from request_repository where date < ( ".$ts." - 60*60*24*30 )"); # a month safer
 	}
 }
 
 sub get_aggregated_request_stat_table_name {
-	return &do_query("show tables like 'aggregated_request_stat\\_______'")->[0][0] || 'aggregated_request_stat';
+	return do_query("show tables like 'aggregated_request_stat\\_______'")->[0][0] || 'aggregated_request_stat';
 } # sub get_aggregated_request_stat_table_name
 
 sub preparing_bg_table {
@@ -81,15 +81,15 @@ sub preparing_bg_table {
 	my $mandatory_set = { 'reload' => 1, 'mail_class_format' => 1, 'period' => 1, 'email' => 1, 'email_attachment_compression' => 1, 'code' => 1 };
 
 	# fill existed
-	my $cols = &do_query("desc ".$table_name,$main_slave);
-	foreach (@$cols) {
+	my $cols = do_query("desc ".$table_name,$main_slave);
+	for (@$cols) {
 		next if ($_->[0] eq $table_name."_id"); # ignore id column
 		next if ($_->[0] =~ /^bg\_/); # ignore static columns
 		$existed->{$_->[0]} = 1;
 	}
 
 	# collect current ones
-	foreach (sort {$a cmp $b} keys %hin) {
+	for (sort {$a cmp $b} keys %hin) {
 		if (($mandatory_set->{$_}) ||
 				($_ =~ /^subtotal\_/) ||
 				($_ =~ /^from\_/) ||
@@ -99,17 +99,17 @@ sub preparing_bg_table {
 				($_ =~ /^include\_/)) {
 			$out->{$_} = 1;
 			next if ($existed->{$_}); # next if column already exists
-			&do_statement("alter table ".$table_name." add column ".$_." varchar(255) NULL",$main_slave);
+			do_statement("alter table ".$table_name." add column ".$_." varchar(255) NULL",$main_slave);
 		}
 	}
 
 	$out->{'name'} = 1;
 	unless ($existed->{'name'}) {
-		&do_statement("alter table ".$table_name." add column name varchar(60) NULL",$main_slave);
+		do_statement("alter table ".$table_name." add column name varchar(60) NULL",$main_slave);
 	}
 	$out->{'class'} = 1;
 	unless ($existed->{'class'}) {
-		&do_statement("alter table ".$table_name." add column class varchar(60) NULL",$main_slave);
+		do_statement("alter table ".$table_name." add column class varchar(60) NULL",$main_slave);
 	}
 	return $out;
 } # sub preparing_bg_table
@@ -118,25 +118,25 @@ sub generate_graph_report{
 	my ($atom, $call) = @_;
 	my $report;
 	my $graph_path;
-	&log_printf("generate_graph_report");
+	log_printf("generate_graph_report");
 	my $unshown_limit=32;
 	my $graph_top_limit=50;
 	my $graph_top_html_limit=100;
 	$hin{'subtotal_2'}=''; $hin{'subtotal_3'}=''; # we dont pay an  attetion to 2st and 3rd level of grouping
-	my $shops_count=&do_query("SELECT COUNT(*) FROM users WHERE user_group='shop'")->[0][0];
+	my $shops_count=do_query("SELECT COUNT(*) FROM users WHERE user_group='shop'")->[0][0];
 	if ($hin{'reload'}) {
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating monthly graph)', bg_max_value=7, bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating monthly graph)', bg_max_value=7, bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
 		my $from=eval('Time::Piece->strptime(\''.$hin{'from_year'}.'-'.$hin{'from_month'}.'-'.$hin{'from_day'}.'\',\'%Y-%m-%d\')');
 		my $to=eval('Time::Piece->strptime(\''.$hin{'to_year'}.'-'.$hin{'to_month'}.'-'.$hin{'to_day'}.'\',\'%Y-%m-%d\')');
 	    if(!$from or !$to){
 	    	use Time::Piece;
 	    	$hin{'period'}=3 if (!$hin{'period'} or $hin{'period'} eq '1');
-	    	$to=&return_currentTimePiece();
+	    	$to=return_currentTimePiece();
 	    	$from=$to->add_months(-1);
 	    };
-		my $by_period=&get_interval_by_period($hin{'period'});
+		my $by_period=get_interval_by_period($hin{'period'});
 		if($by_period){
 			($hin{'from_year'},$hin{'from_month'},$hin{'from_day'})=@{$by_period->{'from'}};	
 			($hin{'to_year'},$hin{'to_month'},$hin{'to_day'})=@{$by_period->{'to'}};
@@ -151,21 +151,21 @@ sub generate_graph_report{
 		
 		if($hin{'include_top_supplier'}){
 			$hin{'subtotal_1'}='1';
-			$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-			&log_printf("--------------->>>>>>>>>Top 20 Suppliers",1);
-			&get_data ($query_env);
-			my $html_data=&get_tops_html_data($query_env,$graph_top_html_limit,'Y','');
+			$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+			log_printf("--------------->>>>>>>>>Top 20 Suppliers",1);
+			get_data ($query_env);
+			my $html_data=get_tops_html_data($query_env,$graph_top_html_limit,'Y','');
 			#if(scalar(@$html_data)<$graph_top_html_limit){
-				push(@tops_html,&create_top_html($html_data,"Top $graph_top_html_limit brands",['Name','Data-sheet Downloads'],'brand'));
+				push(@tops_html,create_top_html($html_data,"Top $graph_top_html_limit brands",['Name','Data-sheet Downloads'],'brand'));
 			#}else{
-			#	push(@tops_html,&create_top_html([],"List is too big to be displayed. Please see in attachement",['top_suppliers.xls']));
-			#	$html_data=&get_tops_html_data($query_env,'','Y','Y','avoid html');
+			#	push(@tops_html,create_top_html([],"List is too big to be displayed. Please see in attachement",['top_suppliers.xls']));
+			#	$html_data=get_tops_html_data($query_env,'','Y','Y','avoid html');
 			#	my $xls=write_to_xls($html_data,'Supplier',['Supplier','Is sponsor','Download count']);
 			#	push(@$xls_attachments,{'mime'=>$xls,'name'=>'top_suppliers.xls'});
 			#}
 			
-			my $gisto_data=&get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','1','add summary bar');
-			$graph_path=&create_gisto($gisto_data->{'axis'},'Brand',10,"Top $graph_top_limit Brands",$gisto_data->{'x_axis_style'},1);			
+			my $gisto_data=get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','1','add summary bar');
+			$graph_path=create_gisto($gisto_data->{'axis'},'Brand',10,"Top $graph_top_limit Brands",$gisto_data->{'x_axis_style'},1);			
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Top $graph_top_limit Brands",$graph_path,$shops_count);				
 			$graphs_html.='<div style="font-size: 8pt">
@@ -180,115 +180,115 @@ sub generate_graph_report{
 									 <li>Activation of brand-specific channel partners</li>
 									</ul>
 									</div>';		
-			&clean_temporary_tables();
+			clean_temporary_tables();
 		}
 		
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating weekly graph)', bg_max_value=7, bg_current_value=1 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating weekly graph)', bg_max_value=7, bg_current_value=1 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
 		
 		if($hin{'include_top_product'}){
 			$hin{'subtotal_1'}='5';
-			$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-			&log_printf("--------------->>>>>>>>>Top 20 products");
-			&get_data ($query_env);
-			my $html_data=&get_tops_html_data($query_env,'','Y','Y');
+			$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+			log_printf("--------------->>>>>>>>>Top 20 products");
+			get_data ($query_env);
+			my $html_data=get_tops_html_data($query_env,'','Y','Y');
 			
 			if(scalar(@$html_data)<$graph_top_html_limit){
-				push(@tops_html,&create_top_html($html_data,"Top $graph_top_html_limit Products",['Part code','Name','Supplier','Data-sheet Downloads'],'product'));
+				push(@tops_html,create_top_html($html_data,"Top $graph_top_html_limit Products",['Part code','Name','Supplier','Data-sheet Downloads'],'product'));
 			}else{
 				my @tmp_arr=@$html_data[0..$graph_top_html_limit];
-				push(@tops_html,&create_top_html(\@tmp_arr,"Only top $graph_top_html_limit are shown.<br/>See the attachment top_products.xls",['Part code','Name','Supplier','Data-sheet Downloads'],'product'));
-				$html_data=&get_tops_html_data($query_env,'','Y','Y','avoid html');
+				push(@tops_html,create_top_html(\@tmp_arr,"Only top $graph_top_html_limit are shown.<br/>See the attachment top_products.xls",['Part code','Name','Supplier','Data-sheet Downloads'],'product'));
+				$html_data=get_tops_html_data($query_env,'','Y','Y','avoid html');
 				my $xls=write_to_xls($html_data,'Products',['Partcode','Name','Supplier','Is sposor','Download count']);
 				push(@$xls_attachments,{'mime'=>$xls,'name'=>'top_product.xls'});
 			}
 			
-			my $gisto_data=&get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','1','');
-			$graph_path=&create_gisto($gisto_data->{'axis'},'Product',10,"Top $graph_top_limit products",$gisto_data->{'x_axis_style'},1);			
+			my $gisto_data=get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','1','');
+			$graph_path=create_gisto($gisto_data->{'axis'},'Product',10,"Top $graph_top_limit products",$gisto_data->{'x_axis_style'},1);			
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Top $graph_top_limit products",$graph_path,$shops_count);				
 			
-			&clean_temporary_tables();
+			clean_temporary_tables();
 		}
 		
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating weekly graph)', bg_max_value=7, bg_current_value=2 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating weekly graph)', bg_max_value=7, bg_current_value=2 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
 		
 		if($hin{'include_top_cats'}){
 			$hin{'subtotal_1'}='2';
-			$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-			&log_printf("--------------->>>>>>>>>Top 20 Categories");
-			&get_data ($query_env);
-			my $html_data=&get_tops_html_data($query_env,$graph_top_html_limit,'Y','');
+			$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+			log_printf("--------------->>>>>>>>>Top 20 Categories");
+			get_data ($query_env);
+			my $html_data=get_tops_html_data($query_env,$graph_top_html_limit,'Y','');
 			 
 			#if(scalar(@$html_data)<$graph_top_html_limit){			
-				push(@tops_html,&create_top_html($html_data,"Top $graph_top_html_limit categories",['Name','Data-sheet Downloads'],'category'));
+				push(@tops_html,create_top_html($html_data,"Top $graph_top_html_limit categories",['Name','Data-sheet Downloads'],'category'));
 			#}else{
-			#	push(@tops_html,&create_top_html([],"List is too big to be displayed. Please see in attachement",['top_categories.xls']));
-			#	$html_data=&get_tops_html_data($query_env,'','Y','','');
+			#	push(@tops_html,create_top_html([],"List is too big to be displayed. Please see in attachement",['top_categories.xls']));
+			#	$html_data=get_tops_html_data($query_env,'','Y','','');
 			#	my $xls=write_to_xls($html_data,'Categories',['Category','Download count']);
 			#	push(@$xls_attachments,{'mime'=>$xls,'name'=>'top_categories.xls'});
 			#}
 			
-			my $gisto_data=&get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','','add summary bar');
-			$graph_path=&create_gisto($gisto_data->{'axis'},'Category',10,"Top $graph_top_limit categories",'',1);			
+			my $gisto_data=get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','','add summary bar');
+			$graph_path=create_gisto($gisto_data->{'axis'},'Category',10,"Top $graph_top_limit categories",'',1);			
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Top $graph_top_limit categories",$graph_path,$shops_count);				
 			
 					
-			&clean_temporary_tables();
+			clean_temporary_tables();
 		}
 		
 		if($hin{'include_top_owner'}){
 			$hin{'subtotal_1'}='3';
-			$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-			&log_printf("--------------->>>>>>>>>Top 20 Product's editors");
-			&get_data ($query_env);
-			my $html_data=&get_tops_html_data($query_env,'','Y','');
+			$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+			log_printf("--------------->>>>>>>>>Top 20 Product's editors");
+			get_data ($query_env);
+			my $html_data=get_tops_html_data($query_env,'','Y','');
 			if(scalar(@$html_data)<$graph_top_html_limit){
-				push(@tops_html,&create_top_html($html_data,"Top $graph_top_html_limit Product\'s owners",['Name','Data-sheet Downloads']));
+				push(@tops_html,create_top_html($html_data,"Top $graph_top_html_limit Product\'s owners",['Name','Data-sheet Downloads']));
 			}else{
-				push(@tops_html,&create_top_html([],"Top editors list is too big to be displayed. Please see the attachement",['top_editors.xls']));
-				$html_data=&get_tops_html_data($query_env,'','Y','','');
+				push(@tops_html,create_top_html([],"Top editors list is too big to be displayed. Please see the attachement",['top_editors.xls']));
+				$html_data=get_tops_html_data($query_env,'','Y','','');
 				my $xls=write_to_xls($html_data,'Editors',['Editors','Download count']);
 				push(@$xls_attachments,{'mime'=>$xls,'name'=>'top_editors.xls'});
 			}
 			
-			my $gisto_data=&get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','','add summary bar');
-			$graph_path=&create_gisto($gisto_data->{'axis'},'Product\'s owner',10,"Top $graph_top_limit Product\'s owners",$gisto_data->{'x_axis_style'},1);			
+			my $gisto_data=get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','','add summary bar');
+			$graph_path=create_gisto($gisto_data->{'axis'},'Product\'s owner',10,"Top $graph_top_limit Product\'s owners",$gisto_data->{'x_axis_style'},1);			
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Top $graph_top_limit Product\'s owners",$graph_path,$shops_count);				
 					
-			&clean_temporary_tables();
+			clean_temporary_tables();
 		}
 		
 		if($hin{'include_top_request_country'}){
 			$hin{'subtotal_1'}='10';
-			$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-			&log_printf("--------------->>>>>>>>>Top 20 Request owner countries");
-			&get_data ($query_env);
-			my $html_data=&get_tops_html_data($query_env,$graph_top_html_limit,'Y','');
+			$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+			log_printf("--------------->>>>>>>>>Top 20 Request owner countries");
+			get_data ($query_env);
+			my $html_data=get_tops_html_data($query_env,$graph_top_html_limit,'Y','');
 			#if(scalar(@$html_data)<$graph_top_html_limit){
-				push(@tops_html,&create_top_html($html_data,"Top $graph_top_html_limit Download countries",['Country','Data-sheet Downloads']));
+				push(@tops_html,create_top_html($html_data,"Top $graph_top_html_limit Download countries",['Country','Data-sheet Downloads']));
 			#}else{
-			#	push(@tops_html,&create_top_html([],"List is too big to be displayed. Please see in attachement",['top_editors.xls']));
-			#	$html_data=&get_tops_html_data($query_env,'','Y','','');
+			#	push(@tops_html,create_top_html([],"List is too big to be displayed. Please see in attachement",['top_editors.xls']));
+			#	$html_data=get_tops_html_data($query_env,'','Y','','');
 			#	my $xls=write_to_xls($html_data,'Countries',['Editors','Download count']);
 			#	push(@$xls_attachments,{'mime'=>$xls,'name'=>'top_countries.xls'});
 			#}
 			
-			my $gisto_data=&get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','','add summary bar');
-			$graph_path=&create_gisto($gisto_data->{'axis'},'Download country',10,"Top $graph_top_limit Download countries",$gisto_data->{'x_axis_style'},1);			
+			my $gisto_data=get_tops_gisto_data($query_env,$graph_top_limit,'order by cnt','','add summary bar');
+			$graph_path=create_gisto($gisto_data->{'axis'},'Download country',10,"Top $graph_top_limit Download countries",$gisto_data->{'x_axis_style'},1);			
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Top $graph_top_limit  Download countries",$graph_path,$shops_count);				
 					
-			&clean_temporary_tables();
+			clean_temporary_tables();
 		}
 				
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top products)', bg_max_value=7, bg_current_value=3 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top products)', bg_max_value=7, bg_current_value=3 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
 		
 		#month		
@@ -296,25 +296,25 @@ sub generate_graph_report{
 			
 		}elsif((($to-$from)/(30*24*3600))<=$unshown_limit){
 			$hin{'subtotal_1'}='7';			
-			$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-			&get_data ($query_env);
+			$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+			get_data ($query_env);
 			$data=get_gisto_data($query_env,55,$unshown_limit,'','%m');
 			$avgs_html.=get_average_html('month','Monthly Data-sheet Downloads ');
-			$data=&normalizeDataInterval($hin{'from_year'},$hin{'from_month'},$hin{'from_day'},$hin{'to_year'},$hin{'to_month'},$hin{'to_day'},$data,'%m','month');
-			$graph_path=&create_gisto($data,'month',10,'','');
+			$data=normalizeDataInterval($hin{'from_year'},$hin{'from_month'},$hin{'from_day'},$hin{'to_year'},$hin{'to_month'},$hin{'to_day'},$data,'%m','month');
+			$graph_path=create_gisto($data,'month',10,'','');
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Monthly Data-sheet Downloads ".$interval_txt,$graph_path,$shops_count);				
-			&log_printf("--------------->>>>>>>>>Month graph ".$graph_path);
-			&clean_temporary_tables();
+			log_printf("--------------->>>>>>>>>Month graph ".$graph_path);
+			clean_temporary_tables();
 		}else{
-			&log_printf("Monthly graph will not be displayed: to much bars");
-			$graph_path=&create_gisto([[0],[0]],'month',10,'','');
+			log_printf("Monthly graph will not be displayed: to much bars");
+			$graph_path=create_gisto([[0],[0]],'month',10,'','');
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Monthly Data-sheet Downloads graph. Gistogram is too big. Please, reduce the range. ".$interval_txt,$graph_path,$shops_count);						
 		}
 		
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top categories)', bg_max_value=7, bg_current_value=4 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top categories)', bg_max_value=7, bg_current_value=4 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}				
 		
 		# weeks
@@ -322,58 +322,58 @@ sub generate_graph_report{
 			
 		}elsif((($to-$from)/(7*24*3600))<=$unshown_limit){
 			$hin{'subtotal_1'}='6';
-			$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-			&get_data ($query_env,);			
+			$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+			get_data ($query_env,);			
 			$data=get_gisto_data($query_env,55,$unshown_limit,'','%U');
 			$avgs_html.=get_average_html('week','Average Number of Data-sheet Downloads per Week');
-			$data=&normalizeDataInterval($hin{'from_year'},$hin{'from_month'},$hin{'from_day'},$hin{'to_year'},$hin{'to_month'},$hin{'to_day'},$data,'%U','week');
-			$graph_path=&create_gisto($data,'week',10,'','');
+			$data=normalizeDataInterval($hin{'from_year'},$hin{'from_month'},$hin{'from_day'},$hin{'to_year'},$hin{'to_month'},$hin{'to_day'},$data,'%U','week');
+			$graph_path=create_gisto($data,'week',10,'','');
 			push(@$attachments,$graph_path);		
 			$graphs_html.=get_gisto_html_image("Weekly Data-sheet Downloads graph ".$interval_txt,$graph_path,$shops_count);				
-			&log_printf("--------------->>>>>>>>>week graph ".$graph_path);
-			&clean_temporary_tables();		
+			log_printf("--------------->>>>>>>>>week graph ".$graph_path);
+			clean_temporary_tables();		
 		}else{
-			&log_printf("Weekly graph will not be displayed: to much bars");
-			$graph_path=&create_gisto([[0],[0]],'week',10,'','');
+			log_printf("Weekly graph will not be displayed: to much bars");
+			$graph_path=create_gisto([[0],[0]],'week',10,'','');
 			push(@$attachments,$graph_path); 		
 			$graphs_html.=get_gisto_html_image("Weekly Data-sheet Downloads graph. Gistogram is too big. Please, reduce the range. ".$interval_txt,$graph_path,$shops_count);			
 		}
 		
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top brands)', bg_max_value=7, bg_current_value=5 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top brands)', bg_max_value=7, bg_current_value=5 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}				
 		
 		#days		
 		#if((($to-$from)/(24*3600))<=$unshown_limit){	
 		#	$hin{'subtotal_1'}='111';
-		#	$query_env = &get_query_env('omit changing into table generate_report_bg_processes');
-		#	&get_data ($query_env);
+		#	$query_env = get_query_env('omit changing into table generate_report_bg_processes');
+		#	get_data ($query_env);
 		#	$data=get_gisto_data($query_env,55,$unshown_limit,'','%d');
 		#	$avgs_html.=get_average_html('day','Data-sheet Downloads by day ');
-		#	$data=&normalizeDataInterval($hin{'from_year'},$hin{'from_month'},$hin{'from_day'},$hin{'to_year'},$hin{'to_month'},$hin{'to_day'},$data,'%d','day');
-		#	$graph_path=&create_gisto($data,'day',10,'','');
+		#	$data=normalizeDataInterval($hin{'from_year'},$hin{'from_month'},$hin{'from_day'},$hin{'to_year'},$hin{'to_month'},$hin{'to_day'},$data,'%d','day');
+		#	$graph_path=create_gisto($data,'day',10,'','');
 		#	push(@$attachments,$graph_path);		
 		#	$graphs_html.=get_gisto_html_image("Daily Data-sheet Downloads graph ".$interval_txt,$graph_path,$shops_count);				
-		#	&log_printf("--------------->>>>>>>>>Daily graph ".$graph_path);
-		#	&clean_temporary_tables();		
+		#	log_printf("--------------->>>>>>>>>Daily graph ".$graph_path);
+		#	clean_temporary_tables();		
 		#}else{
-			#&log_printf("Daily graph will not be displayed: to much bars");
-			#$graph_path=&create_gisto([[0],[0]],'day',10,'','');
+			#log_printf("Daily graph will not be displayed: to much bars");
+			#$graph_path=create_gisto([[0],[0]],'day',10,'','');
 			#push(@$attachments,$graph_path);		
 			#$graphs_html.=get_gisto_html_image("Daily Data-sheet Downloads graph. Gistogram is too big. Please, reduce the range. ".$interval_txt,$graph_path,$shops_count);			
 		#}
 		
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top editors)', bg_max_value=7, bg_current_value=6 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating top editors)', bg_max_value=7, bg_current_value=6 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}					
 
 
-		my $report_text=&get_full_report($avgs_html,$graphs_html,\@tops_html,"Report on ".$hin{'code'});
+		my $report_text=get_full_report($avgs_html,$graphs_html,\@tops_html,"Report on ".$hin{'code'});
 		open(TMP,'>/tmp/test.html');
 		print TMP $report_text;
 		close(TMP);
 		
-		&log_printf('get_report end');
+		log_printf('get_report end');
 		push(@$attachments,$atomcfg{'www_path'}.'img/'.'trans_logo.gif');
 		my $hash;
 		$hash->{'images'}=$attachments;
@@ -381,7 +381,7 @@ sub generate_graph_report{
 		return [$report_text,"Report on ".$hin{'code'}.' from '.$from->ymd().' to '.$to->ymd(),$hash];
 	} 
 	
-	&log_printf("generate_graph_report end");
+	log_printf("generate_graph_report end");
 	return 1;
 }
  
@@ -391,39 +391,39 @@ sub generate_stat_report {
 	my $report;
 	my $start = time;
 	my $graph_path;
-	&log_printf("generate_stat_report");
+	log_printf("generate_stat_report");
 	if ($hin{'reload'}) {
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (preparing temporary tables)', bg_max_value=5, bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (preparing temporary tables)', bg_max_value=5, bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
-		my $query_env = &get_query_env();
-		&log_printf('get_data');
+		my $query_env = get_query_env();
+		log_printf('get_data');
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating the report)', bg_max_value=5, bg_current_value=4 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (generating the report)', bg_max_value=5, bg_current_value=4 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
-		&get_data ($query_env);
-		&log_printf('get_report');
-		$report = &get_report($query_env, $atom);
-		&log_printf('get_report end');		
+		get_data ($query_env);
+		log_printf('get_report');
+		$report = get_report($query_env, $atom);
+		log_printf('get_report end');		
 		$tmp = $report->[0];		
 	}
-	&clean_temporary_tables();
-	&log_printf("generate_stat_report end");
+	clean_temporary_tables();
+	log_printf("generate_stat_report end");
 	return [ $tmp, $report->[1], $graph_path];
 } # sub generate_stat_report
 
 sub clean_temporary_tables {
-	&do_statement("drop temporary table if exists itmp_aggregated_request_stat_select");
-	&do_statement("drop temporary table if exists itmp_aggr_products");
-	&do_statement("drop temporary table if exists itmp_aggr_temp");
-	&do_statement("drop temporary table if exists itmp_users_selection");
-	&do_statement("drop temporary table if exists itmp_aggregated_request_stat");
+	do_statement("drop temporary table if exists itmp_aggregated_request_stat_select");
+	do_statement("drop temporary table if exists itmp_aggr_products");
+	do_statement("drop temporary table if exists itmp_aggr_temp");
+	do_statement("drop temporary table if exists itmp_users_selection");
+	do_statement("drop temporary table if exists itmp_aggregated_request_stat");
 
 }
 
 sub get_query_env {
 	my ($dont_change_bg)=@_;
-	&log_printf("get_query_env");
+	log_printf("get_query_env");
 
 #	log_printf(Dumper(\@_));
 
@@ -440,19 +440,19 @@ sub get_query_env {
 		$hin{'subtotal_5'} = '11'; # URL_XML
 	}
 
-	foreach my $step (1..5) {
+	for my $step (1..5) {
 		if ($hin{'subtotal_'.$step}) {
 			push @array_of_subtotal, $hin{'subtotal_'.$step};
 		}
 	} 
 	
 	my $number_of_subtotal = 1;
-	foreach my $subtotal_value (@array_of_subtotal) {
+	for my $subtotal_value (@array_of_subtotal) {
 		$subtotal->{$number_of_subtotal} = $subtotal_value;
 		$number_of_subtotal ++;
 	}
 
-	foreach my $step (1..5) {
+	for my $step (1..5) {
 		if (exists($subtotal->{$step}) && defined($subtotal->{$step})) {
 			$hin{'subtotal_'.$step} = $subtotal->{$step};
 		}
@@ -466,7 +466,7 @@ sub get_query_env {
 		$hin{'subtotal_1'} = 5;
 	}
 
-	# &log_printf ('Sub'.&Dumper ( $subtotal ) );
+	# log_printf ('Sub'.Dumper ( $subtotal ) );
 	my $from;
 	my $to;
 	my $clause = '';
@@ -505,28 +505,28 @@ sub get_query_env {
 		use POSIX qw (strftime);
 		if ($hin{'period'} == 2 ) {
 			# last week from appointed
-			my $t = &do_query('SELECT unix_timestamp()')->[0][0];			
+			my $t = do_query('SELECT unix_timestamp()')->[0][0];			
 			$t -= 7*24*60*60;
-			my $week_scope=&get_week_scope($t);
+			my $week_scope=get_week_scope($t);
 			$from = strftime("%Y-%m-%d", localtime($week_scope->{'from'}));
 			$to = strftime("%Y-%m-%d", localtime($week_scope->{'to'}));
 			$env->{'period'} = 'Last week';
 		}
 		if ($hin{'period'} == 3 ) {
 			# last month from appointed
-			my $t = &do_query("select date_sub(".&str_sqlize($to).", interval 1 month)")->[0][0];
+			my $t = do_query("select date_sub(".str_sqlize($to).", interval 1 month)")->[0][0];
 			$from = $t;
 			$env->{'period'} = 'Last month';
 		}
 		if ($hin{'period'} == 4 ) {
 			# last quarter from appointed
-			my $t = &do_query("select date_sub(".&str_sqlize($to).", interval 4 month)")->[0][0];
+			my $t = do_query("select date_sub(".str_sqlize($to).", interval 4 month)")->[0][0];
 			$from = $t;
 			$env->{'period'} = 'Last quarter';
 		}
 		if ($hin{'period'} == 5) {
 			# last day appointed
-			my $t = &do_query("select unix_timestamp(".&str_sqlize($to).")")->[0][0];
+			my $t = do_query("select unix_timestamp(".str_sqlize($to).")")->[0][0];
 			$t -= 24*60*60; 
 			$to = strftime("%Y-%m-%d", localtime($t));		
 			$from = strftime("%Y-%m-%d", localtime($t));		
@@ -550,33 +550,33 @@ sub get_query_env {
   my $select_clause_to_MM = 0;
 	
 	if ($hin{'search_supplier_id'}) {
-		$product_clause .= " and p.supplier_id = ".&str_sqlize($hin{'search_supplier_id'});
+		$product_clause .= " and p.supplier_id = ".str_sqlize($hin{'search_supplier_id'});
 	}
 	if ($hin{'search_catid'}&&$hin{'search_catid'} != 1) {
-		$product_clause .= " and p.catid = ".&str_sqlize($hin{'search_catid'});
+		$product_clause .= " and p.catid = ".str_sqlize($hin{'search_catid'});
 	}
 	if ($hin{'search_edit_user_id'}) {
-		$product_clause .= " and p.user_id = ".&str_sqlize($hin{'search_edit_user_id'});
+		$product_clause .= " and p.user_id = ".str_sqlize($hin{'search_edit_user_id'});
 	}
 	if ($hin{'search_prod_id'}) {
 		$single_product_only = 1;
-		$product_clause .= " and p.prod_id = ".&str_sqlize($hin{'search_prod_id'});
-		my $desired_product_id = &do_query("select product_id from product where prod_id=".&str_sqlize($hin{'search_prod_id'}))->[0][0] || 0;
+		$product_clause .= " and p.prod_id = ".str_sqlize($hin{'search_prod_id'});
+		my $desired_product_id = do_query("select product_id from product where prod_id=".str_sqlize($hin{'search_prod_id'}))->[0][0] || 0;
 		$single_product_only_where = ' and ' . ( $desired_product_id ? "ag.product_id = " . $desired_product_id : '0' );
 	}
 	if ($hin{'request_user_id'}) {
 		$clause .= " and arss.user_id = ".$hin{'request_user_id'};
 	}
 	if ($to) {
-		my $delta_time_stamp = &get_delta_time_stamp($to);
-		my $unix_to = &do_query("select unix_timestamp(".&str_sqlize($to).") + $delta_time_stamp - 1")->[0][0];
+		my $delta_time_stamp = get_delta_time_stamp($to);
+		my $unix_to = do_query("select unix_timestamp(".str_sqlize($to).") + $delta_time_stamp - 1")->[0][0];
 		$select_clause_to = " and ag.date < ".$unix_to;
 		$select_clause_to_YYYY = strftime ("%Y", localtime($unix_to));
 		$select_clause_to_MM = strftime ("%m", localtime($unix_to));
 	}
 
 	if ($from) {
-		my $unix_from = &do_query("select unix_timestamp(".&str_sqlize($from).")")->[0][0];
+		my $unix_from = do_query("select unix_timestamp(".str_sqlize($from).")")->[0][0];
 		$select_clause_from = " and ag.date >= ".$unix_from;
 		$select_clause_from_YYYY = strftime ("%Y", localtime($unix_from));
 		$select_clause_from_MM = strftime ("%m", localtime($unix_from));
@@ -593,13 +593,13 @@ sub get_query_env {
 		
 		my $my_request_partner_id;
 		if ($hin{'request_partner_id'}) {
-			$my_request_partner_id = " user_partner_id = ".&str_sqlize($hin{'request_partner_id'});
+			$my_request_partner_id = " user_partner_id = ".str_sqlize($hin{'request_partner_id'});
 		}
 		else {
 			$my_request_partner_id = " user_group = 'shop' ";
 		}
-		&do_statement("create temporary table itmp_users_selection (user_id int(13) not null primary key, user_partner_id int(13) not null, key (user_partner_id, user_id))");
-		&do_statement("insert into itmp_users_selection(user_id,user_partner_id) select user_id, user_partner_id from users where ".$my_request_partner_id);
+		do_statement("create temporary table itmp_users_selection (user_id int(13) not null primary key, user_partner_id int(13) not null, key (user_partner_id, user_id))");
+		do_statement("insert into itmp_users_selection(user_id,user_partner_id) select user_id, user_partner_id from users where ".$my_request_partner_id);
 	}
 
 	# 10. additional tables for request_country_id
@@ -609,14 +609,14 @@ sub get_query_env {
 		
 		my $my_request_country_id;
 		if ($hin{'request_country_id'}) {
-			$my_request_country_id = " user_group = 'shop' and country_id = ".&str_sqlize($hin{'request_country_id'});
+			$my_request_country_id = " user_group = 'shop' and country_id = ".str_sqlize($hin{'request_country_id'});
 		}
 		else {
 			$my_request_country_id = " user_group = 'shop' ";
 		}
-		&do_statement("drop temporary table if exists itmp_users_country_selection");
-		&do_statement("create temporary table itmp_users_country_selection (user_id int(13) not null primary key, user_country_id int(13) not null, key (user_country_id, user_id))");
-		&do_statement("insert into itmp_users_country_selection(user_id,user_country_id) select user_id, country_id from users u inner join contact c on u.pers_cid=c.contact_id where ".$my_request_country_id);
+		do_statement("drop temporary table if exists itmp_users_country_selection");
+		do_statement("create temporary table itmp_users_country_selection (user_id int(13) not null primary key, user_country_id int(13) not null, key (user_country_id, user_id))");
+		do_statement("insert into itmp_users_country_selection(user_id,user_country_id) select user_id, country_id from users u inner join contact c on u.pers_cid=c.contact_id where ".$my_request_country_id);
 	}
 
 	# 11. additional tables for url_xml
@@ -624,10 +624,10 @@ sub get_query_env {
 		$extra_product_select	.= " inner join itmp_users_url_xml on itmp_users_url_xml.user_id = ag.user_id ";
 #		$extra_product_select	.= " left join itmp_users_url_xml on itmp_users_url_xml.user_id = ag.user_id ";
 		
-		&do_statement("drop temporary table if exists itmp_users_url_xml");
-		&do_statement("create temporary table itmp_users_url_xml (user_id int(13) not null primary key, url_xml char(3) not null, key (user_id, url_xml), key (url_xml))");
-		&do_statement("insert into itmp_users_url_xml(user_id,url_xml) select user_id, if(subscription_level in (1,2,6),'url','xml') from users where subscription_level in (1,2,4) and user_group = 'shop'");
-		&do_statement("update itmp_users_url_xml set url_xml='url' where user_id=(select user_id from users where login='_multiprf')");
+		do_statement("drop temporary table if exists itmp_users_url_xml");
+		do_statement("create temporary table itmp_users_url_xml (user_id int(13) not null primary key, url_xml char(3) not null, key (user_id, url_xml), key (url_xml))");
+		do_statement("insert into itmp_users_url_xml(user_id,url_xml) select user_id, if(subscription_level in (1,2,6),'url','xml') from users where subscription_level in (1,2,4) and user_group = 'shop'");
+		do_statement("update itmp_users_url_xml set url_xml='url' where user_id=(select user_id from users where login='_multiprf')");
 	}
 
 	# additional tables for product_country_id
@@ -636,11 +636,11 @@ sub get_query_env {
 		$IJ_product_country = 1;
 		$extra_product_select	.= " inner join itmp_country_selection on itmp_country_selection.product_id = ag.product_id";
 		
-		&do_statement("drop temporary table if exists itmp_country_selection");
-		&do_statement("create temporary table itmp_country_selection(product_id int(13) not null default 0, p_country_id int(13) not null default 0, key (product_id, p_country_id), key (p_country_id))");
-		&do_statement("alter table itmp_country_selection disable keys");
-		&do_statement("insert into itmp_country_selection(product_id, p_country_id) select product_id, country_id from country_product where 1 " . ( $hin{'search_product_country_id'} ? "and country_id = ".$hin{'search_product_country_id'} : "" ) );
-		&do_statement("alter table itmp_country_selection enable keys");
+		do_statement("drop temporary table if exists itmp_country_selection");
+		do_statement("create temporary table itmp_country_selection(product_id int(13) not null default 0, p_country_id int(13) not null default 0, key (product_id, p_country_id), key (p_country_id))");
+		do_statement("alter table itmp_country_selection disable keys");
+		do_statement("insert into itmp_country_selection(product_id, p_country_id) select product_id, country_id from country_product where 1 " . ( $hin{'search_product_country_id'} ? "and country_id = ".$hin{'search_product_country_id'} : "" ) );
+		do_statement("alter table itmp_country_selection enable keys");
 	}
 
 	# additional tables for product_distributor_id
@@ -648,32 +648,32 @@ sub get_query_env {
 		$extra_product_select	.= " inner join itmp_distributor_selection on itmp_distributor_selection.product_id = ag.product_id"
 			. ( $IJ_product_country ? " and itmp_distributor_selection.p2_country_id=itmp_country_selection.p_country_id" : '');
 		
-		&do_statement("drop temporary table if exists itmp_distributor_selection");
-		&do_statement("create temporary table itmp_distributor_selection(
+		do_statement("drop temporary table if exists itmp_distributor_selection");
+		do_statement("create temporary table itmp_distributor_selection(
 product_id int(13) not null default 0,
 p2_country_id int(13) not null default 0,
 p_distributor_id int(13) not null default 0,
 key (product_id, p_distributor_id),
 key (p_distributor_id),
 key (p2_country_id, p_distributor_id))");
-		&do_statement("alter table itmp_distributor_selection disable keys");
-		&do_statement("insert into itmp_distributor_selection(product_id, p2_country_id, p_distributor_id)
+		do_statement("alter table itmp_distributor_selection disable keys");
+		do_statement("insert into itmp_distributor_selection(product_id, p2_country_id, p_distributor_id)
 select dp.product_id, d.country_id, distributor_id
 from distributor_product dp
 inner join distributor d using (distributor_id)
 where 1 " . ( $hin{'search_product_distributor_id'} ? "and dp.distributor_id = ".$hin{'search_product_distributor_id'} . ( $hin{'search_product_country_id'} ? " and d.country_id = ".$hin{'search_product_country_id'} : "" ) : "" ) );
-		&do_statement("alter table itmp_distributor_selection enable keys");
+		do_statement("alter table itmp_distributor_selection enable keys");
 	}	
 
 	# additional tables for product_onstock
 	if ($hin{'search_product_onstock'}) {
 		$extra_product_select	.= " inner join itmp_onstock_selection on itmp_onstock_selection.product_id=ag.product_id";
 		
-		&do_statement("drop temporary table if exists itmp_onstock_selection");
-		&do_statement("create temporary table itmp_onstock_selection(product_id int(13) not null default 0, key (product_id))");
-		&do_statement("alter table itmp_onstock_selection disable keys");
-		&do_statement("insert into itmp_onstock_selection(product_id) select distinct product_id from product_active where active = 1 and stock > 0");
-		&do_statement("alter table itmp_onstock_selection enable keys");
+		do_statement("drop temporary table if exists itmp_onstock_selection");
+		do_statement("create temporary table itmp_onstock_selection(product_id int(13) not null default 0, key (product_id))");
+		do_statement("alter table itmp_onstock_selection disable keys");
+		do_statement("insert into itmp_onstock_selection(product_id) select distinct product_id from product_active where active = 1 and stock > 0");
+		do_statement("alter table itmp_onstock_selection enable keys");
 	}
 
 	# additional tables for product_onstock
@@ -706,7 +706,7 @@ where 1 " . ( $hin{'search_product_distributor_id'} ? "and dp.distributor_id = "
 	my $extra_fs = '';
 	my $extra_fs_select = '';
 
-	foreach my $sbtl ('1','2','3','4','5') {
+	for my $sbtl ('1','2','3','4','5') {
 		if ($subtotal->{$sbtl} == 1) {
 			#	Subtotal = supplier
 			$fields->{'arss.p_supplier_id'} = 'supplier_id';
@@ -795,7 +795,7 @@ where 1 " . ( $hin{'search_product_distributor_id'} ? "and dp.distributor_id = "
 	my %field_number = map { $fields_arr[$_] => $_ } (0..$#fields_arr);
 
 	# create and fill statistics selection
-	&do_statement("create temporary table itmp_aggregated_request_stat_select (
+	do_statement("create temporary table itmp_aggregated_request_stat_select (
 product_id int(13) not null,
 datew      int(19) not null,
 datem      int(19) not null,
@@ -818,15 +818,15 @@ key (p_catid),
 key (user_id))");
 	
 	if ($hin{'ajax_bg_process'} and !$dont_change_bg) { # AJAX
-		&do_statement("update generate_report_bg_processes
+		do_statement("update generate_report_bg_processes
 set bg_current_value=1
 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 	}
 
 	# itmp_product
-	&do_statement("drop temporary table if exists itmp_product");
+	do_statement("drop temporary table if exists itmp_product");
 
-	&do_statement("create temporary table itmp_product (
+	do_statement("create temporary table itmp_product (
 `product_id`  int(13)      NOT NULL primary key,
 `supplier_id` int(13)      NOT NULL default '0',
 `prod_id`     varchar(235) NOT NULL default '',
@@ -840,33 +840,33 @@ key (user_id,catid,supplier_id),
 key (prod_id))");
 
 	# collect all products
-	&do_statement("alter table itmp_product disable keys");
-  my @arr = &get_primary_key_set_of_ranges('p','product',100000,'product_id');
+	do_statement("alter table itmp_product disable keys");
+  my @arr = get_primary_key_set_of_ranges('p','product',100000,'product_id');
 	@arr = ('1') if $product_clause;
 	my $collect_request_products;
-	foreach my $b_cond (@arr) {
+	for my $b_cond (@arr) {
 		$collect_request_products = "select p.product_id,p.supplier_id,p.prod_id,p.catid,p.user_id,p.name
 from product p ".$product_join_clause." where 1 ".$product_clause." and ".$b_cond;
-		&log_printf(&do_query_dump("explain ".$collect_request_products));
+		log_printf(do_query_dump("explain ".$collect_request_products));
 
-		&do_statement("insert into itmp_product(product_id,supplier_id,prod_id,catid,user_id,name) ".$collect_request_products);
+		do_statement("insert into itmp_product(product_id,supplier_id,prod_id,catid,user_id,name) ".$collect_request_products);
 	}
-	&do_statement("alter table itmp_product enable keys");
+	do_statement("alter table itmp_product enable keys");
 
 	# fullfill statistics selection
 	#my $aggregation_table_name = 'aggregated_request_stat';
 #	if (($select_clause_from) || ($select_clause_to)) {
 
-	&do_statement("drop temporary table if exists itmp_aggregated_request_stat_timeslice");
-	&do_statement("create temporary table itmp_aggregated_request_stat_timeslice like " . &get_aggregated_request_stat_table_name);
-	&do_statement("alter table itmp_aggregated_request_stat_timeslice modify column id int(13) not null default 0, drop primary key");
+	do_statement("drop temporary table if exists itmp_aggregated_request_stat_timeslice");
+	do_statement("create temporary table itmp_aggregated_request_stat_timeslice like " . get_aggregated_request_stat_table_name);
+	do_statement("alter table itmp_aggregated_request_stat_timeslice modify column id int(13) not null default 0, drop primary key");
 
-	&do_statement("alter table itmp_aggregated_request_stat_timeslice disable keys");
+	do_statement("alter table itmp_aggregated_request_stat_timeslice disable keys");
 	
-	my $range = &YYYYMM_range($select_clause_from_YYYY, $select_clause_from_MM, $select_clause_to_YYYY, $select_clause_to_MM);
+	my $range = YYYYMM_range($select_clause_from_YYYY, $select_clause_from_MM, $select_clause_to_YYYY, $select_clause_to_MM);
 	my ($collect_force_index, $collect_join, $collect_request);
-	foreach my $yyyymm (@$range) {
-		if (&do_query("show tables like 'aggregated\\_request\\_stat\\_".$yyyymm->[0].$yyyymm->[1]."'")->[0][0]) {
+	for my $yyyymm (@$range) {
+		if (do_query("show tables like 'aggregated\\_request\\_stat\\_".$yyyymm->[0].$yyyymm->[1]."'")->[0][0]) {
 
 			# complete join
 			$collect_join = (!$single_product_only && ($product_clause || $product_join_clause)) ? ' inner join itmp_product p using (product_id) ' : '';
@@ -878,38 +878,38 @@ from product p ".$product_join_clause." where 1 ".$product_clause." and ".$b_con
 			$collect_request = "select ag.* from aggregated_request_stat_" . $yyyymm->[0] . $yyyymm->[1] . " ag " . $collect_force_index . $collect_join . $extra_product_select . "
 where 1 " . ( $yyyymm->[4] ? $select_clause_from : '' ) . " " . ( $yyyymm->[5] ? $select_clause_to : '' ) . " " . $single_product_only_where;
 
-#			&log_printf("explain ".$collect_request);
-			&log_printf(&do_query_dump("explain ".$collect_request));
-			&do_statement("insert into itmp_aggregated_request_stat_timeslice ".$collect_request);
+#			log_printf("explain ".$collect_request);
+			log_printf(do_query_dump("explain ".$collect_request));
+			do_statement("insert into itmp_aggregated_request_stat_timeslice ".$collect_request);
 		}
 	}		
 
-	&do_statement("alter table itmp_aggregated_request_stat_timeslice enable keys");
+	do_statement("alter table itmp_aggregated_request_stat_timeslice enable keys");
 	
 	my $aggregation_table_name = 'itmp_aggregated_request_stat_timeslice';
 #	}
 #	else {
 #		# a nonsense!.. we can block it in BO & logics. from & to would be always!!! even if they are empty. please, check it, unless we will loose the statistics
-#		&log_printf("Doing statistics without time frames... it is dangerous!..");
+#		log_printf("Doing statistics without time frames... it is dangerous!..");
 #	}
 
-#	&do_statement("alter table itmp_aggregated_request_stat_select disable keys");
-	&do_statement("insert into itmp_aggregated_request_stat_select
+#	do_statement("alter table itmp_aggregated_request_stat_select disable keys");
+	do_statement("insert into itmp_aggregated_request_stat_select
 select ag.product_id, ag.date, ag.date, ag.date,ag.date, ag.count, ag.user_id ".$extra_fs_select.", p.catid, p.supplier_id, p.user_id, p.prod_id, p.name
 from ".$aggregation_table_name." ag ".$extra_product_select."
 inner join itmp_product p on p.product_id = ag.product_id");
-#	&do_statement("alter table itmp_aggregated_request_stat_select enable keys");
-	&do_statement("drop temporary table if exists itmp_aggregated_request_stat_timeslice");
-	&do_statement("drop temporary table if exists itmp_product");
+#	do_statement("alter table itmp_aggregated_request_stat_select enable keys");
+	do_statement("drop temporary table if exists itmp_aggregated_request_stat_timeslice");
+	do_statement("drop temporary table if exists itmp_product");
 
 	if ($hin{'ajax_bg_process'} and !$dont_change_bg) { # AJAX
-		&do_statement("update generate_report_bg_processes set bg_current_value=2 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+		do_statement("update generate_report_bg_processes set bg_current_value=2 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 	}
 
-	&do_statement("create temporary table itmp_aggr_products (product_id int(13) primary key)");
-	&do_statement("insert into itmp_aggr_products(product_id) select distinct product_id from itmp_aggregated_request_stat_select");
+	do_statement("create temporary table itmp_aggr_products (product_id int(13) primary key)");
+	do_statement("insert into itmp_aggr_products(product_id) select distinct product_id from itmp_aggregated_request_stat_select");
 
-	&do_statement("create temporary table itmp_aggr_temp (
+	do_statement("create temporary table itmp_aggr_temp (
 product_id  int(13),
 catid       int(13),
 supplier_id int(13),
@@ -920,17 +920,17 @@ primary key (product_id),
 key (supplier_id),
 key (catid))");
 
-	&do_statement("alter table itmp_aggr_temp disable keys");
+	do_statement("alter table itmp_aggr_temp disable keys");
 
-	&do_statement("insert into itmp_aggr_temp(product_id,catid,supplier_id,user_id,prod_id,name)
+	do_statement("insert into itmp_aggr_temp(product_id,catid,supplier_id,user_id,prod_id,name)
 select p.product_id, p.catid, p.supplier_id, p.user_id, p.prod_id, p.name
 from itmp_aggr_products ap inner join product p using (product_id) ".$product_join_clause."
 where 1 ".$product_clause);
 
-	&do_statement("alter table itmp_aggr_temp enable keys");
+	do_statement("alter table itmp_aggr_temp enable keys");
 
 	if ($hin{'ajax_bg_process'} and !$dont_change_bg) { # AJAX
-		&do_statement("update generate_report_bg_processes
+		do_statement("update generate_report_bg_processes
 set bg_current_value=3
 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 	}
@@ -948,7 +948,7 @@ where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 
 	$env->{'date_from'} = $from;
 	$env->{'date_to'} = $to;
-#	&log_printf ( 'Env-demo'.&Dumper ( $env ) );
+#	log_printf ( 'Env-demo'.Dumper ( $env ) );
 	
 	return $env;
 } 
@@ -964,7 +964,7 @@ sub get_data {
 	@fields_arr = @{$query_env->{'fields_arr'}};
 	%field_number = %{ $query_env->{'field_number'}};
 
-	foreach (sort keys %$levels) { # sorted as in report
+	for (sort keys %$levels) { # sorted as in report
 		$field = $levels->{$_};
 		$table_rows .= $base_map->{$subtotal->{$_}}.(($subtotal->{$_}==6||$subtotal->{$_}==7||$subtotal->{$_}==9||$subtotal->{$_}==111||$subtotal->{$_}==11)?" varchar(255)":" int(13)")." null,\n";
 		$table_rows_keys .= "key (".$base_map->{$subtotal->{$_}}."),\n";
@@ -997,14 +997,14 @@ sub get_data {
 	chop($table_rows_keys);
 
 	## create tmp table
-	&do_statement("create temporary table itmp_aggregated_request_stat (".$table_rows."tmp_count int(13) not null default '0',raw_value bigint(25) not null default 0,\n".$table_rows_keys.")");
+	do_statement("create temporary table itmp_aggregated_request_stat (".$table_rows."tmp_count int(13) not null default '0',raw_value bigint(25) not null default 0,\n".$table_rows_keys.")");
 
 	##inserting (aggregate)
 	$query_env->{'query'} =~ s/^select\s([a-zA-Z_\.]+?)\s(.*)$/select sum($1) $2/s;
 	push(@insert_rows,'raw_value');
 	my $with_rollup;
-	&do_statement("insert into itmp_aggregated_request_stat(tmp_count,".join(",",@insert_rows).")".$query_env->{'query'}." group by ".$group_rows." with rollup");
-	#&log_printf("insert into itmp_aggregated_request_stat(tmp_count,".join(",",@insert_rows).")".$query_env->{'query'}." group by ".$group_rows." with rollup");
+	do_statement("insert into itmp_aggregated_request_stat(tmp_count,".join(",",@insert_rows).")".$query_env->{'query'}." group by ".$group_rows." with rollup");
+	#log_printf("insert into itmp_aggregated_request_stat(tmp_count,".join(",",@insert_rows).")".$query_env->{'query'}." group by ".$group_rows." with rollup");
 	$query_env->{'group_rows'} = $group_rows;
 	$query_env->{'table_rows'} = $table_rows;
 	$query_env->{'table_rows_keys'} = $table_rows_keys;
@@ -1029,27 +1029,27 @@ sub recurse_report {
 	$order_by = ($current eq "month")||($current eq "week")||($current eq "year")?$current." asc":"tmp_count desc";
 	$query = "select t.".$current.",t.tmp_count".$dictionary_field." from itmp_aggregated_request_stat t ".$dictionary_join.$where.$next.$and.join(" and ",@$clauses)." order by t.".$order_by;
 	
-#	&log_printf(("\t" x $level) . "level = " . $level);
-	&log_printf("SQL QUERY DIRECTLY: ".$query.";");
+#	log_printf(("\t" x $level) . "level = " . $level);
+	log_printf("SQL QUERY DIRECTLY: ".$query.";");
 	$sth = $atomsql::dbh->prepare($query);
 	$sth->execute;
 	
 	if (($level eq 1) && ($hin{'ajax_bg_process'})) {
-		&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (forming statistics)', bg_max_value=".$sth->rows.", bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+		do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (forming statistics)', bg_max_value=".$sth->rows.", bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 	}	
 	$i=0;
 
 	while ($rows = $sth->fetchrow_arrayref) {
-#		&log_printf(("\t" x $level) . "value = " . $rows->[0]);
+#		log_printf(("\t" x $level) . "value = " . $rows->[0]);
 		if (($level eq 1) && ($hin{'ajax_bg_process'}) && !($i % 100)) {
 			$i++;
-			&do_statement("update LOW_PRIORITY generate_report_bg_processes set bg_current_value=".$i." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update LOW_PRIORITY generate_report_bg_processes set bg_current_value=".$i." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
 		if ($rows->[0]) {
 			if ($hin{'mail_class_format'} eq 'PIV' || $hin{'mail_class_format'} eq 'PSV') { # new Philips XLS format
 				if ($current eq 'product_id') { # get all info about request user
 					unless ($G_product_id->{$rows->[0]}) {
-						$G_product_id_info = &do_query("select middle_price from product_prf_prices where product_id=".$rows->[0])->[0][0] || '-';
+						$G_product_id_info = do_query("select middle_price from product_prf_prices where product_id=".$rows->[0])->[0][0] || '-';
 
 #"select
 #if(v.value!=''    and v.value   IS NOT NULL, v.value,'-'),
@@ -1063,10 +1063,10 @@ sub recurse_report {
 #left join sector_name s on s.sector_id=c.sector_id and s.langid=1
 
 #where u.user_id=".$rows->[0]);
-#						&log_printf("G = ".$G_product_id_info);
+#						log_printf("G = ".$G_product_id_info);
 						$G_product_id->{$rows->[0]} = ($dictionary_field ? $rows->[2] : $rows->[0]) . "\t".$G_product_id_info;
 					}
-#					&log_printf("G2 = ".$G_product_id->{$rows->[0]});
+#					log_printf("G2 = ".$G_product_id->{$rows->[0]});
 					$value = $G_product_id->{$rows->[0]};
 				}
 				elsif ($current eq 'year') {
@@ -1104,7 +1104,7 @@ sub recurse_report {
 			if ($next) {
 				push @$clauses, "t.".$current."='".$rows->[0]."'";
 				push @$values, $value;
-				&recurse_report($out,$level+1,$clauses,$values,$query_env,$atom);
+				recurse_report($out,$level+1,$clauses,$values,$query_env,$atom);
 				pop @$values;
 				pop @$clauses;
 			}
@@ -1132,7 +1132,7 @@ sub format_out {
 }
 
 sub get_report {
-	&log_printf("get_report");
+	log_printf("get_report");
 	my ( $query_env, $atom ) = @_;
 
 	my ($report, $query, $cols, $row, $wrow, $count, $olds, $new, $out, $example, $clauses, $subject);
@@ -1140,20 +1140,20 @@ sub get_report {
 	## how many columns?
 	$cols = $#{$query_env->{'fields_arr'}};
 
-	&do_statement("delete from itmp_aggregated_request_stat where ".$query_env->{'table_rows_hash'}->{1}." is null");
+	do_statement("delete from itmp_aggregated_request_stat where ".$query_env->{'table_rows_hash'}->{1}." is null");
 
 	$G_product_id = undef;
 
-	&recurse_report(\$out,1,[],[],$query_env,$atom);
+	recurse_report(\$out,1,[],[],$query_env,$atom);
 	
-	$report = &repl_ph($atom->{'body'}, {
+	$report = repl_ph($atom->{'body'}, {
 		'report_rows' => $out,
 		'code'        => $hin{'code'},
 		'date'        => 'from '.$query_env->{'date_from'}.' to '.$query_env->{'date_to'},
 		'period_text' => ' '.$query_env->{'period'}
 										 });
 
-	$subject = &repl_ph($atom->{'subject'}, {
+	$subject = repl_ph($atom->{'subject'}, {
 		'code' => $hin{'code'},
 		'date' => 'from '.$query_env->{'date_from'}.' to '.$query_env->{'date_to'}
 											} ) || "report";
@@ -1169,18 +1169,18 @@ sub start_aggregate () {
 
 #	$Date - is string in format %Y-%m-%d
 	my ($Date) = @_;
-	my $TimeStamp = &do_query("select unix_timestamp(".&str_sqlize($Date).")")->[0][0]; 
+	my $TimeStamp = do_query("select unix_timestamp(".str_sqlize($Date).")")->[0][0]; 
 	my $From =  $TimeStamp;
-	my $delta_time_stamp = &get_delta_time_stamp( $Date );
+	my $delta_time_stamp = get_delta_time_stamp( $Date );
 	my $To =  $TimeStamp + $delta_time_stamp - 1;
 	my $C_year = strftime ("%Y", localtime($TimeStamp));
 	my $C_month = strftime ("%m", localtime($TimeStamp));
 
-#	&log_printf (  "From: $From - ".strftime("%Y-%m-%d", localtime($From) ) );
-#	&log_printf ( "To: $To - ".strftime("%Y-%m-%d", localtime($To) ) );
+#	log_printf (  "From: $From - ".strftime("%Y-%m-%d", localtime($From) ) );
+#	log_printf ( "To: $To - ".strftime("%Y-%m-%d", localtime($To) ) );
 
 	# create the source for aggregated_request_stat
-	&do_statement("create temporary table `tmp_aggregate` (
+	do_statement("create temporary table `tmp_aggregate` (
 `user_id`    int(13) not null default '0',
 `product_id` int(13) not null default '0',
 `count`      int(13) not null default '0',
@@ -1193,43 +1193,43 @@ from request_repository
 where date >= ".$From." and date <= ".$To."
 group by user_id, product_id
 order by product_id, user_id";
-	&do_statement($Query);
+	do_statement($Query);
 
 	# prepare the aggregated_request_stat & aggregated_request_stat_YYYYMM
-#	&do_statement("delete from aggregated_request_stat where date='".$TimeStamp."'");
+#	do_statement("delete from aggregated_request_stat where date='".$TimeStamp."'");
 
 	# complete the aggregated_request_stat with the new datas
-#	&do_statement("insert into aggregated_request_stat(user_id,product_id,date,count) select user_id,product_id,'".$TimeStamp."' as date,count from tmp_aggregate");
-#	my $result_old = &do_query("select ROW_COUNT()")->[0][0];
+#	do_statement("insert into aggregated_request_stat(user_id,product_id,date,count) select user_id,product_id,'".$TimeStamp."' as date,count from tmp_aggregate");
+#	my $result_old = do_query("select ROW_COUNT()")->[0][0];
 
 	# complete the aggregated_request_stat_YYYYMM with the new datas
-	if (&do_query("show tables like 'aggregated\\_request\\_stat\\_".$C_year.$C_month."'")->[0][0]) { # if the next table not exists
-		&do_statement("delete from aggregated_request_stat_".$C_year.$C_month." where date='".$TimeStamp."'");
+	if (do_query("show tables like 'aggregated\\_request\\_stat\\_".$C_year.$C_month."'")->[0][0]) { # if the next table not exists
+		do_statement("delete from aggregated_request_stat_".$C_year.$C_month." where date='".$TimeStamp."'");
 	}
 	else {
-		&do_statement("create table aggregated_request_stat_".$C_year.$C_month." like " . &get_aggregated_request_stat_table_name);
-		&log_printf("The new aggregated_requests_stat_".$C_year.$C_month." table...");
+		do_statement("create table aggregated_request_stat_".$C_year.$C_month." like " . get_aggregated_request_stat_table_name);
+		log_printf("The new aggregated_requests_stat_".$C_year.$C_month." table...");
 	}
-	&do_statement("insert into aggregated_request_stat_".$C_year.$C_month."(user_id,product_id,date,count)
+	do_statement("insert into aggregated_request_stat_".$C_year.$C_month."(user_id,product_id,date,count)
 select user_id, product_id, '".$TimeStamp."' as date, count from tmp_aggregate");
-	my $result = &do_query("select ROW_COUNT()")->[0][0];
+	my $result = do_query("select ROW_COUNT()")->[0][0];
 
 	# prepare the new product count data
-	&do_statement("drop temporary table if exists tmp_count");
-	&do_statement("create temporary table `tmp_count`(
+	do_statement("drop temporary table if exists tmp_count");
+	do_statement("create temporary table `tmp_count`(
 `product_id` int(13) not null default '0',
 `count`      int(13) not null default '0',
 PRIMARY KEY (`product_id`))");
-	&do_statement("insert into tmp_count select product_id,sum(count) from tmp_aggregate group by product_id");
-	&do_statement("update tmp_count tc left join aggregated_product_count apc on tc.product_id=apc.product_id SET tc.count=tc.count+if(apc.count is null,0,apc.count)");
+	do_statement("insert into tmp_count select product_id,sum(count) from tmp_aggregate group by product_id");
+	do_statement("update tmp_count tc left join aggregated_product_count apc on tc.product_id=apc.product_id SET tc.count=tc.count+if(apc.count is null,0,apc.count)");
 
 	# replace the new product count data
 
 	# TODO: Replace `replace` command with update + insert. We can replace eixted the same values
 
-	&do_statement("replace into aggregated_product_count (product_id,count) select product_id,count from tmp_count");
-	&do_statement("drop temporary table tmp_count");
-	&do_statement("drop temporary table tmp_aggregate");
+	do_statement("replace into aggregated_product_count (product_id,count) select product_id,count from tmp_count");
+	do_statement("drop temporary table tmp_count");
+	do_statement("drop temporary table tmp_aggregate");
 
 	return $result;
 }
@@ -1238,9 +1238,9 @@ PRIMARY KEY (`product_id`))");
 
 sub get_delta_time_stamp {
 	my ($date) = @_;
-	my $current_time_stamp = &do_query("select unix_timestamp(".&str_sqlize($date).")")->[0][0];
+	my $current_time_stamp = do_query("select unix_timestamp(".str_sqlize($date).")")->[0][0];
 	my $next_date = strftime ("%Y-%m-%d", localtime ($current_time_stamp + 90001 ) ); 
-	my $next_time_stamp = &do_query("select unix_timestamp(".&str_sqlize($next_date).")")->[0][0];
+	my $next_time_stamp = do_query("select unix_timestamp(".str_sqlize($next_date).")")->[0][0];
 	my $delta = $next_time_stamp - $current_time_stamp;
 	return $delta;
 }
@@ -1250,15 +1250,15 @@ sub get_delta_time_stamp {
 
 sub statistic_in_base {
 	my ( $ShopId, $QueryId, $Statistic, $date, $period ) = @_;
-	my $Query = "SELECT statistic_id FROM statistic_cache WHERE shop_id=".&str_sqlize($ShopId)." and stat_query_id=".&str_sqlize($QueryId)." and date=".&str_sqlize($date); 
-	my $StatisticId = &do_query ( $Query )->[0][0];
+	my $Query = "SELECT statistic_id FROM statistic_cache WHERE shop_id=".str_sqlize($ShopId)." and stat_query_id=".str_sqlize($QueryId)." and date=".str_sqlize($date); 
+	my $StatisticId = do_query ( $Query )->[0][0];
 	my $sr  = freeze $Statistic;
 	if ($StatisticId) {
-		$Query = "UPDATE statistic_cache SET statistic=".&str_sqlize($sr)."WHERE statistic_id=".&str_sqlize($StatisticId);
-		&do_statement($Query);
+		$Query = "UPDATE statistic_cache SET statistic=".str_sqlize($sr)."WHERE statistic_id=".str_sqlize($StatisticId);
+		do_statement($Query);
 	}else{
-		$Query = "INSERT INTO statistic_cache (stat_query_id, shop_id, statistic, date, period ) VALUES (".&str_sqlize($QueryId).",".&str_sqlize($ShopId).",".&str_sqlize($sr).",".&str_sqlize($date).",".&str_sqlize($period).")";
-		&do_statement($Query);
+		$Query = "INSERT INTO statistic_cache (stat_query_id, shop_id, statistic, date, period ) VALUES (".str_sqlize($QueryId).",".str_sqlize($ShopId).",".str_sqlize($sr).",".str_sqlize($date).",".str_sqlize($period).")";
+		do_statement($Query);
 	}
 	return length($sr);
 }
@@ -1266,8 +1266,8 @@ sub statistic_in_base {
 sub statistic_from_base {
 	my $StartTime = time;
 	my ( $StatisticId ) = @_;
-	my $Query = "SELECT statistic FROM statistic_cache WHERE statistic_id=".&str_sqlize( $StatisticId );
-	my $Result = &do_query ( $Query );
+	my $Query = "SELECT statistic FROM statistic_cache WHERE statistic_id=".str_sqlize( $StatisticId );
+	my $Result = do_query ( $Query );
 	$Result = $Result->[0]->[0];
 	my $dsr = thaw($Result);
 	my $Ret={};
@@ -1293,7 +1293,7 @@ sub csv2html {
 
 	$tail = '';
 
-	foreach (@lines) {
+	for (@lines) {
 		/^(.*)\t(.*?)$/;
 		$tail .= '<tr><td>'.$1.'</td><td>'.$2.'</td></tr>';
 	}
@@ -1312,7 +1312,7 @@ sub csv2xls {
 
   my @lines = split(/\n/,$text);
 
-	#&log_printf("text = ".Dumper($$text));
+	#log_printf("text = ".Dumper($$text));
 
   shift @lines while (@lines && ($lines[0] !~ /\s*Items\s+Requests/));
   shift @lines;
@@ -1334,7 +1334,7 @@ sub csv2xls {
    my @cells = split(/\t/,$lines[0]);
    $lastcol = $lastcol?$lastcol:$#cells;
 
-   foreach my $i (0..$lastcol) {
+   for my $i (0..$lastcol) {
      $cells[$i] =~ s/^\s+//;
      my $len = (length($cells[$i])>>1)+5;
      if ($maxwidth[$i] < $len) { $maxwidth[$i] = $len; }
@@ -1346,7 +1346,7 @@ sub csv2xls {
   }
 
 	if (($hin{'ajax_bg_process'})) {
-		&do_statement("update generate_report_bg_processes set bg_max_value=".($#data+1)." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+		do_statement("update generate_report_bg_processes set bg_max_value=".($#data+1)." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 	}
 
   open my $fh, '>', \my $xls; ## streams file directly to scalar (perl 5.8 hack)
@@ -1364,7 +1364,7 @@ sub csv2xls {
   for (my $i=0; $i<$shcount; $i++) {
     my $pagenum=$i+1;
     push @sheets, $workbook->addworksheet($shcount==1?"Requests":"Requests ".$pagenum);
-    foreach my $col (0..$lastcol) { $sheets[$i]->set_column($col, $col, $maxwidth[$col]); }
+    for my $col (0..$lastcol) { $sheets[$i]->set_column($col, $col, $maxwidth[$col]); }
   }
 
   my $rowcount = 0;
@@ -1374,11 +1374,11 @@ sub csv2xls {
 
 	my $i = 0;
 
-  foreach my $cells (@data) {
+  for my $cells (@data) {
 		$i++;
 		# for ajax_bg_process
 		if (($hin{'ajax_bg_process'}) && !($i % 100)) {
-			&do_statement("update LOW_PRIORITY generate_report_bg_processes set bg_current_value=".$i." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update LOW_PRIORITY generate_report_bg_processes set bg_current_value=".$i." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
 
     if ($sht < int($rowcount/10000)) {
@@ -1387,7 +1387,7 @@ sub csv2xls {
       $row=0;
     }
     my $col=0;
-    foreach my $field (@$cells) {
+    for my $field (@$cells) {
       if ($field eq '') { $sheets[$sht]->write_string($row,$col,''); }
       else {
         my $fld = $field;
@@ -1423,14 +1423,14 @@ sub send_preformatted_reports_via_mail {
 	# ungzip files with open-source application
 	my $type = $report->{'email_attachment_compression'};
 	$type = 'gz' if (($report->{'mail_class_format'} ne 'DSV') && (!$type));
-	my $open_source_uncompressor = &do_query("select email_postscriptum from compression_types where type=".&str_sqlize($type))->[0][0];
+	my $open_source_uncompressor = do_query("select email_postscriptum from compression_types where type=".str_sqlize($type))->[0][0];
 
 	if ($hin{'ajax_bg_process'}) {
-		&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (converting to ".$report->{'mail_class_format'}." format)', bg_max_value=1, bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+		do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (converting to ".$report->{'mail_class_format'}." format)', bg_max_value=1, bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 	}
 
 	# forming mail hash
-	my $report_filename = &string2fat_name($lreport->[1]);
+	my $report_filename = string2fat_name($lreport->[1]);
 	if (length($report_filename) > 40) {
 		$report_filename = substr($report_filename,0,40);
 	}
@@ -1451,22 +1451,22 @@ sub send_preformatted_reports_via_mail {
 	
 	if ($report->{'mail_class_format'} eq 'XLS') {
 		$type = 'gz' unless $type;
-		$mail->{'attachment_body'} = &compress_data_by_ref(&csv2xls($lreport->[0]),$report_filename_xls,"bytes",$type);
+		$mail->{'attachment_body'} = compress_data_by_ref(csv2xls($lreport->[0]),$report_filename_xls,"bytes",$type);
 		$mail->{'attachment_name'} = $report_filename_xls.'.'.$type,
 	}
 	elsif ($report->{'mail_class_format'} eq 'PIV') {
 		$type = 'gz' unless $type;
-		$mail->{'attachment_body'} = &compress_data_by_ref(&csv2xls($lreport->[0],1),$report_filename_xls,"bytes",$type); # NEW!!! Philips pivot XLS format
+		$mail->{'attachment_body'} = compress_data_by_ref(csv2xls($lreport->[0],1),$report_filename_xls,"bytes",$type); # NEW!!! Philips pivot XLS format
 		$mail->{'attachment_name'} = $report_filename_xls.'.'.$type,
 	}
 	elsif ($report->{'mail_class_format'} eq 'PSV') {
                 $type = 'gz' unless $type;
-                $mail->{'attachment_body'} = &compress_data_by_ref(&PSV_format($lreport->[0]),$report_filename_txt,"",$type); # NEW!!! Philips pivot CSV format
+                $mail->{'attachment_body'} = compress_data_by_ref(PSV_format($lreport->[0]),$report_filename_txt,"",$type); # NEW!!! Philips pivot CSV format
                 $mail->{'attachment_name'} = $report_filename_txt.'.'.$type,
         }
 	else {
 		if ($report->{'mail_class_format'} eq 'CSV') {
-			$mail->{'attachment_body'} = &compress_data_by_ref(\$lreport->[0],$report_filename_txt,'',$type);
+			$mail->{'attachment_body'} = compress_data_by_ref(\$lreport->[0],$report_filename_txt,'',$type);
 			$mail->{'attachment_name'} = $report_filename_txt.'.'.$type,
 		}
 		else {
@@ -1483,9 +1483,9 @@ sub send_preformatted_reports_via_mail {
 	if($report->{'mail_class_format'} eq 'GDR' and ref($lreport->[2]) eq 'HASH'){# it seems we have graphical report
 	 my $indx=2;
 	 if(ref($lreport->[2]->{'images'}) eq 'ARRAY'){
-		 foreach my $gisto_img (@{$lreport->[2]->{'images'}}){
+		 for my $gisto_img (@{$lreport->[2]->{'images'}}){
 			unless(open(IMG, "<$gisto_img")){ 
-	  			  &log_printf("can't open gistogram image $gisto_img while sending email");
+	  			  log_printf("can't open gistogram image $gisto_img while sending email");
 		 	}  		
 	  		binmode IMG;
 	  		$/ = \1024;
@@ -1508,11 +1508,11 @@ sub send_preformatted_reports_via_mail {
 		}
 		
 	if(ref($lreport->[2]->{'xls'}) eq 'ARRAY'){
-		foreach my $xls (@{$lreport->[2]->{'xls'}}){
+		for my $xls (@{$lreport->[2]->{'xls'}}){
 			use IO::Compress::Gzip qw(gzip $GzipError) ;
 			my $gziped;
 			my $ref=\$xls->{'mime'};
-			gzip $ref=>\$gziped or &log_printf("gzip failed: $GzipError\n");
+			gzip $ref=>\$gziped or log_printf("gzip failed: $GzipError\n");
 			$mail->{'attachment'.$indx.'_name'} = $xls->{'name'}.'.gz';
 			$mail->{'attachment'.$indx.'_body'} = $gziped;
 			$mail->{'attachment'.$indx.'_content_type'}="application/x-gzip";
@@ -1532,16 +1532,16 @@ sub send_preformatted_reports_via_mail {
 	my $i=0;
 	
 	if ($hin{'ajax_bg_process'}) {
-		&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (sending...)', bg_max_value=" . ($#emails+1) . ", bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+		do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (sending...)', bg_max_value=" . ($#emails+1) . ", bg_current_value=0 where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 	}
 
-	foreach my $email (@emails) {
+	for my $email (@emails) {
 		$i++;
 		if ($hin{'ajax_bg_process'}) {
-			&do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (sending to ".$email.")', bg_current_value=".$i." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
+			do_statement("update generate_report_bg_processes set bg_stage='".$hin{'code'}." (sending to ".$email.")', bg_current_value=".$i." where generate_report_bg_processes_id=".$hin{'ajax_bg_process_id'},$main_slave);
 		}
 		$mail->{'to'} = $email;
-		&complex_sendmail($mail);
+		complex_sendmail($mail);
 	}
 } # sub send_preformatted_reports_via_mail
 
@@ -1565,7 +1565,7 @@ sub PSV_format {
 sub YYYYMM_range {
 	my ($y1, $m1, $y2, $m2) = @_;
 
-#	&log_printf("DV: ".Dumper(\@_));
+#	log_printf("DV: ".Dumper(\@_));
 
 	my ($range, $nextmonth, $nextyear);
 
@@ -1577,13 +1577,13 @@ sub YYYYMM_range {
 
 	# max
 	if (!$y2 || !$m2) {
-		my $ltime = &do_query("select unix_timestamp()")->[0][0];
+		my $ltime = do_query("select unix_timestamp()")->[0][0];
 		$y2 = strftime ("%Y", localtime($ltime));
 		$m2 = strftime ("%m", localtime($ltime));
 	}
 
-	foreach my $cyear ($y1 .. $y2) {
-		foreach my $cmonth (1 .. 12) {
+	for my $cyear ($y1 .. $y2) {
+		for my $cmonth (1 .. 12) {
 			next if (($y1 == $cyear) && ($cmonth < $m1)); # if year is current and month is less than initial - next, please ;)
 
 			# get next month & year
@@ -1605,7 +1605,7 @@ sub YYYYMM_range {
 		last if ($cyear >= $y2); # just in case
 	}
 	
-#	&log_printf("DV: ".Dumper($range));
+#	log_printf("DV: ".Dumper($range));
 	
 	return $range;
 } # sub YYYYMM_range
@@ -1652,7 +1652,7 @@ sub get_gisto_data{
     
 	while (my $rows = $sth->fetchrow_hashref()) {
 		if($rows->{$x_name}){
-			push(@x_axis,&shortfy_x_name($rows->{$x_name}));
+			push(@x_axis,shortfy_x_name($rows->{$x_name}));
 			push(@y_axis,$rows->{"tmp_count"});
 			$rows_cnt++;
 		}
@@ -1688,7 +1688,7 @@ sub get_tops_gisto_data {
     my ($total_count,$limit_count);
 	while (my $rows = $sth->fetchrow_hashref()) {
 		if($rows->{$x_name}){
-			push(@x_axis,&shortify_str($rows->{$x_name},15,'..'));
+			push(@x_axis,shortify_str($rows->{$x_name},15,'..'));
 			push(@y_axis,$rows->{"tmp_count"});
 			$rows_cnt++;
 		}
@@ -1738,7 +1738,7 @@ sub create_gisto{
   }
 	my $max_x_length=5;
 	if(ref($data->[0]) eq 'ARRAY'){
-		foreach my $x_value( @$data->[0]->[0]){
+		for my $x_value( @$data->[0]->[0]){
 			$max_x_length=length($x_value) if $max_x_length<length($x_value);
 		}	
 	}
@@ -1809,14 +1809,14 @@ $graph->set(
       'bar_depth'=>$bar_depth,      
 	  'legend_placement'=>'BL',
 	  #'b_margin'=>($max_x_length*$x_font_height),
-  ) or &log_printf($graph->error);
+  ) or log_printf($graph->error);
   my $gd = $graph->plot($data);
   return 0 unless($gd);
   use POSIX qw(floor);
-  #my $img_path='/home/alex/tmp/'.&floor(rand(200)).'_gisto.gif';
-  my $img_path=$atomcfg{'session_path'}.&floor(rand(200000)).'_gisto.gif';
+  #my $img_path='/home/alex/tmp/'.floor(rand(200)).'_gisto.gif';
+  my $img_path=$atomcfg{'session_path'}.floor(rand(200000)).'_gisto.gif';
   unless(open(IMG, ">$img_path")){ 
-  	&log_printf('can\'t open gistogram image');
+  	log_printf('can\'t open gistogram image');
   	return undef;
   }
   
@@ -1943,10 +1943,10 @@ sub get_tops_data {
 	           $order_by DESC
 	           $limit_clause";
 	#print $sql;
-	my $sql_limit_count=&do_query("SELECT SUM(tmp_count) FROM ($sql) as subq")->[0][0];
-	my $sql_total_count=&do_query("SELECT tmp_count FROM itmp_aggregated_request_stat 
+	my $sql_limit_count=do_query("SELECT SUM(tmp_count) FROM ($sql) as subq")->[0][0];
+	my $sql_total_count=do_query("SELECT tmp_count FROM itmp_aggregated_request_stat 
 	           					   WHERE $query_env->{'table_rows_hash'}->{'1'} IS NULL ")->[0][0];
-	$sql=&repl_ph($sql,{'total_count'=>$sql_total_count,'limit_count'=>$sql_limit_count});
+	$sql=repl_ph($sql,{'total_count'=>$sql_total_count,'limit_count'=>$sql_limit_count});
 	#test_tables();
 	my $sth = $atomsql::dbh->prepare($sql);
 	$sth->execute;
@@ -1966,7 +1966,7 @@ sub get_tops_html_data {
 	}   
 	while (my $rows = $sth->fetchrow_hashref()) {
 		my @to_push;
-		foreach my $info_field(@info_fields){
+		for my $info_field(@info_fields){
 				push(@to_push,$rows->{$info_field});
 		};		
 		if($indicate_sponsor and $for_xls){			
@@ -1988,47 +1988,47 @@ sub get_tops_html_data {
 sub create_top_html{
 	my($data,$caption,$headers,$type)=@_;	
 	use HTML::Entities;
-	&process_atom_ilib('graphical_query_report_top');
-	my $atoms = &process_atom_lib('graphical_query_report_top');
+	process_atom_ilib('graphical_query_report_top');
+	my $atoms = process_atom_lib('graphical_query_report_top');
 	my ($headers_html,$rows_html);
-	foreach my $header(@$headers){
+	for my $header(@$headers){
 		unless($type eq 'product' and $header eq 'Supplier'){
-			$headers_html.=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'header_row'},{'header'=>$header})
+			$headers_html.=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'header_row'},{'header'=>$header})
 		}
 	}
 	my $row_size=scalar(@$headers);
 	my ($info_link,$tmp_prod_id);	
-	foreach my $row(@$data){
+	for my $row(@$data){
 		my $info_cell='';
 		for(my $i=0;$i<$row_size;$i++){
 			if($i==1 and $type eq 'product'){
 				$tmp_prod_id=$row->[0];
 				$tmp_prod_id=~s/&nbsp;.+$//;	
-				$info_link=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'product_link'},
-									 {'cell'=>&decode_entities($row->[$i]),'supplier'=>&decode_entities($row->[2]),'prod_id'=>&decode_entities($tmp_prod_id)});
-				$info_cell.=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'first_info_cell'},
+				$info_link=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'product_link'},
+									 {'cell'=>decode_entities($row->[$i]),'supplier'=>decode_entities($row->[2]),'prod_id'=>decode_entities($tmp_prod_id)});
+				$info_cell.=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'first_info_cell'},
 									 {'cell'=>$info_link});
 			}elsif($i==0 and $type and $type ne 'product'){
-				$info_link=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'lookup_link'},
-										 {'cell'=>&decode_entities($row->[$i]),'type'=>$type,'key'=>&str_htmlize(&decode_entities($row->[0]))});
-				$info_cell.=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'first_info_cell'},
+				$info_link=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'lookup_link'},
+										 {'cell'=>decode_entities($row->[$i]),'type'=>$type,'key'=>str_htmlize(decode_entities($row->[0]))});
+				$info_cell.=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'first_info_cell'},
 									 {'cell'=>$info_link});										 																		 				
 			}elsif($i==0){
-				$info_cell.=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'first_info_cell'},
-									 {'cell'=>&decode_entities($row->[$i]),30})
+				$info_cell.=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'first_info_cell'},
+									 {'cell'=>decode_entities($row->[$i]),30})
 			}else{
-				#&log_printf(&encode_entities($row->[$i]));
+				#log_printf(encode_entities($row->[$i]));
 				unless($type eq 'product' and $headers->[$i] eq 'Supplier'){
 					utf8::decode($row->[$i]);
-					$info_cell.=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'info_cell'},
-										 {'cell'=>&decode_entities(&shortify_name($row->[$i],30))})
+					$info_cell.=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'info_cell'},
+										 {'cell'=>decode_entities(shortify_name($row->[$i],30))})
 				}
 			}
 		}
-		$rows_html.=&repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'info_row'},{'info_cell'=>$info_cell})
+		$rows_html.=repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'info_row'},{'info_cell'=>$info_cell})
 	}
 	
-	return &repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'body'},
+	return repl_ph($atoms->{'default'}->{'graphical_query_report_top'}->{'body'},
 					{'header_row'=>$headers_html,'info_row'=>$rows_html,'caption'=>$caption}
 					);
 }
@@ -2040,55 +2040,55 @@ sub create_see_attach_html{
 
 sub get_average_html{
 	my($field_name,$caption)=@_;
-	my $count=&do_query("SELECT count(*) FROM itmp_aggregated_request_stat WHERE $field_name IS not null")->[0][0];
-	my $total_count=&do_query("SELECT tmp_count FROM itmp_aggregated_request_stat 
+	my $count=do_query("SELECT count(*) FROM itmp_aggregated_request_stat WHERE $field_name IS not null")->[0][0];
+	my $total_count=do_query("SELECT tmp_count FROM itmp_aggregated_request_stat 
 							   WHERE $field_name IS null AND tmp_count IS not NULL ")->[0][0];
 	my $avg;
 	if($count){
 		use POSIX qw(floor);		
-		$avg=&floor($total_count/$count);
+		$avg=floor($total_count/$count);
 	}else{
 		$avg='0'; 
 	} 
-	&process_atom_ilib('graphical_query_report_avg');
-	my $atoms = &process_atom_lib('graphical_query_report_avg');
-	return &repl_ph($atoms->{'default'}->{'graphical_query_report_avg'}->{'body'},
+	process_atom_ilib('graphical_query_report_avg');
+	my $atoms = process_atom_lib('graphical_query_report_avg');
+	return repl_ph($atoms->{'default'}->{'graphical_query_report_avg'}->{'body'},
 					{'caption'=>$caption,'cell'=>$avg});
 	
 }
 
 sub get_gisto_html_image{
 	my($caption,$img_file,$shops_count)=@_;
-	&process_atom_ilib('graphical_query_report_graph');
-	my $atoms = &process_atom_lib('graphical_query_report_graph');
+	process_atom_ilib('graphical_query_report_graph');
+	my $atoms = process_atom_lib('graphical_query_report_graph');
 	$img_file=~/([^\/]+)$/gs;
 	my $qqq=$1;
-	return &repl_ph($atoms->{'default'}->{'graphical_query_report_graph'}->{'body'},
+	return repl_ph($atoms->{'default'}->{'graphical_query_report_graph'}->{'body'},
 					{'caption'=>$caption,'image_file'=>$1,'shops_count'=>$shops_count});	
 }
 
 sub get_full_report{
 	my($avgs,$graphs,$tops,$name)=@_;
 	my $tops_html;
-	&process_atom_ilib('graphical_query_report');
-	my $atoms = &process_atom_lib('graphical_query_report');
+	process_atom_ilib('graphical_query_report');
+	my $atoms = process_atom_lib('graphical_query_report');
 	open(CSS,$atomcfg{'www_path'}.'graphic_report.css');
 	my $css=join("\n",<CSS>);
 	close CSS;
 	my ($top_td);
 	for(my $i=1;$i<scalar(@$tops)+1;$i++){
-		$top_td.=&repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'top_td'},{'top'=>$tops->[$i-1]});
+		$top_td.=repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'top_td'},{'top'=>$tops->[$i-1]});
 		if($i % 2==0){
-			$tops_html.=&repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'top_row'},
+			$tops_html.=repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'top_row'},
 								 {'top_td'=>$top_td});		
 			$top_td='';
 		}
 	}
 	if($top_td){
-		$tops_html.=&repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'top_row'},{'top_td'=>$top_td});
+		$tops_html.=repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'top_row'},{'top_td'=>$top_td});
 	}		
 		
-	return &repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'body'},
+	return repl_ph($atoms->{'default'}->{'graphical_query_report'}->{'body'},
 					{'avg'=>$avgs,'graphs'=>$graphs,'top_row'=>$tops_html,'css'=>$css,'report_name'=>$name});
 }
 
@@ -2106,12 +2106,12 @@ sub shortify_name{
 #sub test_tables{
 #	sub create_aaa_test{
 #		my $table=shift;
-#		&do_statement("DROP TABLE IF EXISTS aaa_$table");
-#		&do_statement("CREATE TABLE aaa_$table LIKE $table");
-#		&do_statement("INSERT INTO aaa_$table SELECT * FROM $table");
+#		do_statement("DROP TABLE IF EXISTS aaa_$table");
+#		do_statement("CREATE TABLE aaa_$table LIKE $table");
+#		do_statement("INSERT INTO aaa_$table SELECT * FROM $table");
 #	}
-#	&create_aaa_test('itmp_aggregated_request_stat');
-	#&create_aaa_test('itmp_aggr_temp');	
+#	create_aaa_test('itmp_aggregated_request_stat');
+	#create_aaa_test('itmp_aggr_temp');	
 #}
 
 sub get_interval_by_period{
@@ -2120,7 +2120,7 @@ sub get_interval_by_period{
 		my $period=shift;
 		return '' if(!$period or $period eq '1');
 		my $from;
-		my $to=&return_currentTimePiece();
+		my $to=return_currentTimePiece();
 		if($period == 5){#last day
 			$from=$to-24*3600;			
 		}elsif($period == 2){# last week
@@ -2166,7 +2166,7 @@ sub get_week_scope{
 
 sub return_currentTimePiece{
 	use Time::Piece; 
-	my $to_unixtime=&do_query("SELECT unix_timestamp()")->[0][0];
+	my $to_unixtime=do_query("SELECT unix_timestamp()")->[0][0];
 	my($sec_,$min_,$hour_,$mday_,$mon_,$year_)=localtime($to_unixtime);
 	$year_+=1900;$mon_++;
 	my $to=eval('Time::Piece->strptime(\''.$year_.'-'.$mon_.'-'.$mday_.'\',\'%Y-%m-%d\')');
@@ -2188,7 +2188,7 @@ sub write_to_xls{
 	
 	$worksheet->set_row(0, 15, $header_format);
 	$worksheet->write_row('A1',$header);
-	foreach my $row(@$rows){
+	for my $row(@$rows){
 			if($i==$limit){
 				$sheet_count++;
 				$worksheet=$workbook->add_worksheet("$title$sheet_count");
@@ -2197,7 +2197,7 @@ sub write_to_xls{
 			
 			if(ref($row) eq 'ARRAY'){
 				my $j=0;
-				foreach my $cell(@$row){
+				for my $cell(@$row){
 					$worksheet->write_string($i,$j,$row->[$i,$j]);
 					$j++;		
 				}
