@@ -7,5 +7,5 @@ NicePim is a successor of IcePIM Product Information Management (PIM)
     
 The code starts at PIMinstall-2.0.3.tar.gz
 
-License: GPL3
+License: GPLv3
   
