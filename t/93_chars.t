@@ -12,7 +12,7 @@ my %LIST;
 find(
     sub {
         if ( $File::Find::name =~
-            m{ (lib [/] Hyper [/] [A-Za-z0-9_/-]+ [.]pm) $ }xms
+            m{ (lib [/] NicePim [/] [A-Za-z0-9_/-]+ [.]pm) $ }xms
         ) {
                 $LIST{"../$1"} = 1;
             }

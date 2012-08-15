@@ -4,9 +4,9 @@ WriteMakefile
 (
           'PL_FILES' => {},
           'INSTALLDIRS' => 'site',
-          'NAME' => 'Hyper',
+          'NAME' => 'NicePim',
           'EXE_FILES' => [],
-          'VERSION_FROM' => 'lib/Hyper.pm',
+          'VERSION_FROM' => 'lib/NicePim.pm',
           'PREREQ_PM' => {
                            'Storable' => 0,
                            'JSON::XS' => '2.01',
