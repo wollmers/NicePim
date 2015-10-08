@@ -47,8 +47,8 @@ sub new {
 		thread_count => 15,
 
 		#PIM mail options
-		mail_to      => "shestakdima\@gmail.com",
-		mail_from    => "support\@Selexion Euronics",
+		mail_to      => "email_to\@domain",
+		mail_from    => "email_from\@domain",
 		mail_subject => "Icecat to PIM import"
 	};
 	bless( $self, $class );
